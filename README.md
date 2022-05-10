@@ -1,6 +1,6 @@
 # Ecommerce System (Admin Side)
 
-Goal: All ecommerce websites will have a corresponding dynamic backend where business owners can manage the various products / other aspects of the client-facing website.
+Goal: All ecommerce websites will have a corresponding backend where business owners can manage the various products / other aspects of the client-facing website. This is meant to be simply duplicated and transffered to the business owner with its respective credentials.
 
 ## Tech Stack
 
