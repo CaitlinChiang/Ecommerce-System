@@ -5,4 +5,5 @@ Goal: All ecommerce websites will have a corresponding backend where business ow
 ## Tech Stack
 
 - MERNG: MongoDB, Express.JS, React.JS + Typescript, Node.JS, and GraphQL
+- Styled: Material-UI
 - Deployed: Heroku & Netlify
