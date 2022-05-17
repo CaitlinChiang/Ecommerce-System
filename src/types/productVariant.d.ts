@@ -2,6 +2,7 @@ import { ObjectId } from 'mongodb'
 
 export interface ProductVariant {
   _id?: ObjectId
+  _productId?: ObjectId
   image?: File
   imageUrl?: string
   name?: string
@@ -13,6 +14,7 @@ export interface ProductVariant {
 
 export interface CreateProductVariantArgs {
   _id?: ObjectId
+  _productId: ObjectId
   image: File
   name: string
   price: number

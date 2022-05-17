@@ -1,4 +1,5 @@
 import { ObjectId } from 'mongodb'
+import { ProductVariant } from './productVariant'
 
 export interface Product {
   _id?: ObjectId
@@ -6,6 +7,7 @@ export interface Product {
   imageUrl?: string
   name?: string
   price?: number
+  productVariants?: ProductVariant[]
   type?: string
   createdAt?: Date
   updatedAt?: Date
