@@ -1,4 +1,5 @@
 import { ObjectId } from 'mongodb'
+import { AuditLog } from './auditLog'
 import { Payment } from './payment'
 import { Product } from './product'
 import { ProductVariant } from './productVariant'
@@ -6,6 +7,7 @@ import { User } from './user'
 
 export interface Order {
   _id?: ObjectId
+  auditLogs?: AuditLog[]
   collectionMethod?: string
   deliveryAddress?: string
   payment?: Payment
