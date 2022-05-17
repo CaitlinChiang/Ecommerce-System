@@ -8,6 +8,8 @@ export interface Product {
   price?: number
   type?: string
   createdAt?: Date
+  updatedAt?: Date
+  deletedAt?: Date
 }
 
 export interface CreateProductArgs {

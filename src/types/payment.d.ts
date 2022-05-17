@@ -6,6 +6,7 @@ export interface Payment {
   method?: string
   status?: string
   createdAt?: Date
+  updatedAt?: Date
 }
 
 export interface CreatePaymentArgs {

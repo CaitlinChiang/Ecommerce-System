@@ -7,6 +7,8 @@ export interface ProductVariant {
   name?: string
   price?: number
   createdAt?: Date
+  updatedAt?: Date
+  deletedAt?: Date
 }
 
 export interface CreateProductVariantArgs {
