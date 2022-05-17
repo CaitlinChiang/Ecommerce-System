@@ -12,10 +12,10 @@ export interface Order {
   deliveryAddress?: string
   payment?: Payment
   paymentId?: ObjectId
-  product?: Product
-  productId?: ObjectId
-  productVariant?: ProductVariant
-  productVariantId?: ObjectId
+  products?: Product[]
+  productIds?: ObjectId[]
+  productVariants?: ProductVariant[]
+  productVariantIds?: ObjectId[]
   status?: string
   user?: User
   userId?: ObjectId
@@ -29,8 +29,8 @@ export interface CreateOrderArgs {
   collectionMethod?: string
   deliveryAddress?: string
   paymentId?: ObjectId
-  productId: ObjectId
-  productVariantId?: ObjectId
+  productIds: ObjectId[]
+  productVariantIds?: ObjectId[]
   status?: string
   user?: User
   userId?: ObjectId
