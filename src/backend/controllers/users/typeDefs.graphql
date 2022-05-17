@@ -1,0 +1,13 @@
+type User {
+  _id: ID
+  address: String
+  email: String
+  firstName: String
+  lastName: String
+  password: String
+  phoneNumber: String
+  type: String
+  createdAt: Date
+  updatedAt: Date
+  deletedAt: Date
+}

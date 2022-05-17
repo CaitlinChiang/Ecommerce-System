@@ -1,0 +1,11 @@
+type ProductVariant {
+  _id: ID
+  _productId: ID
+  image: File
+  imageUrl: String
+  name: String
+  price: Float
+  createdAt: Date
+  updatedAt: Date
+  deletedAt: Date
+}

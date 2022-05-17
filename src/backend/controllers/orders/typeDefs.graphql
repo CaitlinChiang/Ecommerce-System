@@ -1,0 +1,18 @@
+type Order {
+  _id: ID
+  auditLogs: [AuditLog]
+  collectionMethod: String
+  deliveryAddress: String
+  payment: Payment
+  paymentId: ID
+  products: [Product]
+  productIds: [ID]
+  productVariants: [ProductVariant]
+  productVariantIds: [ID]
+  status: String
+  user: User
+  userId: ID
+  createdAt: Date
+  updatedAt: Date
+  deletedAt: Date
+}

@@ -1,0 +1,12 @@
+type Product {
+  _id: ID
+  image: File
+  imageUrl: String
+  name: String
+  price: Float
+  productVariants: [ProductVariant]
+  type: String
+  createdAt: Date
+  updatedAt: Date
+  deletedAt: Date
+}

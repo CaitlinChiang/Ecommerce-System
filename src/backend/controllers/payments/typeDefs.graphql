@@ -1,0 +1,10 @@
+type Payment {
+  _id: ID
+  amount: Float
+  method: String
+  proofImage: File
+  proofImageUrl: String
+  status: String
+  createdAt: Date
+  updatedAt: Date
+}
