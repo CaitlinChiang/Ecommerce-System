@@ -1,4 +1,4 @@
-import { ObjectId } from "mongodb";
+import { ObjectId } from 'mongodb'
 import { Payment } from './payment'
 import { Product } from './product'
 import { ProductVariant } from './productVariant'
@@ -7,6 +7,7 @@ import { User } from './user'
 export interface Order {
   _id?: ObjectId
   collectionMethod?: string
+  deliveryAddress?: string
   payment?: Payment
   paymentId?: ObjectId
   product?: Product
@@ -24,7 +25,8 @@ export interface Order {
 export interface CreateOrderArgs {
   _id?: ObjectId
   collectionMethod?: string
-  paymentId: ObjectId
+  deliveryAddress?: string
+  paymentId?: ObjectId
   productId: ObjectId
   productVariantId?: ObjectId
   status?: string
