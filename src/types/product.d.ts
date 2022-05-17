@@ -2,21 +2,33 @@ import { ObjectId } from "mongodb";
 
 export interface Product {
   _id?: ObjectId
+  image?: File
+  imageUrl?: string
+  name?: string
   price?: number
-  
+  type?: string
   createdAt?: Date
 }
 
 export interface CreateProductArgs {
   _id?: ObjectId
+  image: File
+  name: string
+  price: number
+  type?: string
   createdAt?: Date
 }
 
 export interface UpdateProductArgs {
-  _id?: ObjectId
+  _id: ObjectId
+  image?: File
+  name?: string
+  price?: number
+  type?: string
   updatedAt?: Date
 }
 
 export interface DeleteProductArgs {
-
+  _id: ObjectId
+  deletedAt?: Date
 }
