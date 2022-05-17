@@ -6,6 +6,7 @@ import { User } from './user'
 
 export interface Order {
   _id?: ObjectId
+  collectionMethod?: string
   payment?: Payment
   paymentId?: ObjectId
   product?: Product
@@ -16,10 +17,13 @@ export interface Order {
   user?: User
   userId?: ObjectId
   createdAt?: Date
+  updatedAt?: Date
+  deletedAt?: Date
 }
 
 export interface CreateOrderArgs {
   _id?: ObjectId
+  collectionMethod?: string
   paymentId: ObjectId
   productId: ObjectId
   productVariantId?: ObjectId
@@ -31,9 +35,12 @@ export interface CreateOrderArgs {
 
 export interface UpdateOrderArgs {
   _id: ObjectId
-  status: string
+  collectionMethod?: string
+  status?: string
+  updatedAt?: Date
 }
 
 export interface DeleteOrderArgs {
   _id: ObjectId
+  deletedAt?: Date
 }
