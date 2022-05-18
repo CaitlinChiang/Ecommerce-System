@@ -12,5 +12,5 @@ export const resolvers = [
 ] // [sample.resolvers]
 
 export const typeDefs = [
-
+  
 ] //[emptyDefs, sample.typeDefs]

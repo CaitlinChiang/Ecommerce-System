@@ -34,28 +34,28 @@ nextJSApp.prepare().then(async () => {
   const db: mongoDB.Db = client.db(process.env.DB_NAME)
   const database: Database = dbSetup(db)
 
-  const server = new ApolloServer({
-    typeDefs,
-    resolvers,
-    context: async (context: ExpressContext): Promise<Context> => {
-      const ip = context.req.headers['CF-Connecting-IP'] || context.req.headers['X-Forwarded-For'] || context.req.ip
-      return { database, ip }
-    },
-    formatError: (error: GraphQLError): GraphQLFormattedError => {
-      if (
-        !(
-          error.originalError instanceof AuthenticationError ||
-          error.originalError instanceof ForbiddenError ||
-          error.originalError instanceof UserInputError
-        )
-      ) {
-        console.error(error)
-      }
-      return error
-    }
-  })
-
-  server.applyMiddleware({ app, path: '/graphql' })
+  // const server = new ApolloServer({
+  //   typeDefs,
+  //   resolvers,
+  //   context: async (context: ExpressContext): Promise<Context> => {
+  //     const ip = context.req.headers['CF-Connecting-IP'] || context.req.headers['X-Forwarded-For'] || context.req.ip
+  //     return { database, ip }
+  //   },
+  //   formatError: (error: GraphQLError): GraphQLFormattedError => {
+  //     if (
+  //       !(
+  //         error.originalError instanceof AuthenticationError ||
+  //         error.originalError instanceof ForbiddenError ||
+  //         error.originalError instanceof UserInputError
+  //       )
+  //     ) {
+  //       console.error(error)
+  //     }
+  //     return error
+  //   }
+  // })
+  
+  // server.applyMiddleware({ app, path: '/graphql' })
 
   app.use((req, res) => {
     const parsedUrl = parse(req.url, true)
