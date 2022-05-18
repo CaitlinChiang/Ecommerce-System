@@ -4,7 +4,6 @@ type Product {
   imageUrl: String
   name: String
   price: Float
-  productVariants: [ProductVariant]
   type: String
   createdAt: Date
   updatedAt: Date

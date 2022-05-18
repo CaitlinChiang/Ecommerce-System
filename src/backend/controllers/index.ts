@@ -1,6 +1,5 @@
 import { gql } from 'apollo-server-express'
-
-
+import products from './products'
 
 const emptyDefs = gql`
   type Query
@@ -9,8 +8,9 @@ const emptyDefs = gql`
 
 export const resolvers = [
 
-] // [sample.resolvers]
+]
 
 export const typeDefs = [
-  
-] //[emptyDefs, sample.typeDefs]
+  emptyDefs,
+  products.typeDefs
+]
