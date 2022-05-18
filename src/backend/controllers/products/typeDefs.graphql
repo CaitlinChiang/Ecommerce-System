@@ -1,5 +1,6 @@
 type Product {
   _id: ID
+  image: Upload
   imageUrl: String
   name: String
   price: Float
@@ -11,21 +12,24 @@ type Product {
 
 extend type Query {
   get_product(_id: ID!): Product
-  get_products: [Products]
+  get_products: [Product]
+  get_products_count: Int
 }
 
 extend type Mutation {
   create_product(
-    image: Upload!!
+    image: Upload
+    name: String!
     price: Float!
-    type: String
+    type: String!
   ): Product
 
   update_product(
     _id: ID!
-    image: Upload!
-    price: Float
-    type: String
+    image: Upload
+    name: String!
+    price: Float!
+    type: String!
   ): Product
 
   delete_product(_id: ID!): Product
