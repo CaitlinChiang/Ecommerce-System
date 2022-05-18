@@ -1,13 +1,12 @@
 import { Db } from 'mongodb'
-import { Database } from '../../types/database'
+import { Database } from 'types/database'
 
-import { AuditLog } from '../../types/auditLog'
-import { Order } from '../../types/order'
-import { Payment } from '../../types/payment'
-import { Product } from '../../types/product'
-import { ProductVariant } from '../../types/productVariant'
-import { User } from '../../types/user'
-
+import { AuditLog } from 'types/auditLog'
+import { Order } from 'types/order'
+import { Payment } from 'types/payment'
+import { Product } from 'types/product'
+import { ProductVariant } from 'types/productVariant'
+import { User } from 'types/user'
 
 export default (db: Db): Database => {
   return {
