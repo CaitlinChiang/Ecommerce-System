@@ -13,6 +13,10 @@ export interface Product {
   updatedAt?: Date
 }
 
+export interface GetProductArgs {
+  _id: ObjectId
+}
+
 export interface CreateProductArgs {
   image?: File
   name: string
