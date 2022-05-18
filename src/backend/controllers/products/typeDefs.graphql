@@ -1,6 +1,5 @@
 type Product {
   _id: ID
-  image: File
   imageUrl: String
   name: String
   price: Float
@@ -9,4 +8,27 @@ type Product {
   createdAt: Date
   updatedAt: Date
   deletedAt: Date
+}
+
+extend type Query {
+  get_product(_id: ID!): Product
+  get_products: [Products]
+}
+
+extend type Mutation {
+  create_product(
+    _id: ID
+    image: Upload!!
+    price: Int!
+    type: String
+  ): Product
+
+  update_product(
+    _id: ID!
+    image: Upload!
+    price: Int
+    type: String
+  ): Product
+
+  delete_product(_id: ID!): Product
 }
