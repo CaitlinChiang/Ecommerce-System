@@ -1,14 +1,13 @@
 type Order {
   _id: ID
-  auditLogs: [AuditLog]
   collectionMethod: String
   deliveryAddress: String
   payment: Payment
   paymentId: ID
   products: [Product]
-  productIds: [ID]
+  productIds: [string]
   productVariants: [ProductVariant]
-  productVariantIds: [ID]
+  productVariantIds: [string]
   status: String
   user: User
   userId: ID
@@ -38,8 +37,8 @@ extend type Mutation {
     collectionMethod: String
     deliveryAddress: String
     payment: Payment
-    productIds: [ID]
-    productVariantIds: [ID]
+    productIds: [string]
+    productVariantIds: [string]
     userId: ID
   ): Order
 

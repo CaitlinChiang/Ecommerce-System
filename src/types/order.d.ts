@@ -1,5 +1,4 @@
 import { ObjectId } from 'mongodb'
-import { AuditLog } from './auditLog'
 import { Payment } from './payment'
 import { Product } from './product'
 import { ProductVariant } from './productVariant'
@@ -7,7 +6,6 @@ import { User } from './user'
 
 export interface Order {
   _id?: ObjectId
-  auditLogs?: AuditLog[]
   collectionMethod?: string
   deliveryAddress?: string
   payment?: Payment
@@ -25,14 +23,16 @@ export interface Order {
 
 export interface GetOrderArgs {
   _id: ObjectId
+  productIds?: ObjectId[]
+  productVariantIds?: ObjectId[]
 }
 
 export interface CreateOrderArgs {
   collectionMethod?: string
   deliveryAddress?: string
   payment?: Payment
-  productIds?: ObjectId[]
-  productVariantIds?: ObjectId[]
+  productIds?: string[]
+  productVariantIds?: string[]
   status?: string
   userId?: ObjectId
   createdAt?: Date
