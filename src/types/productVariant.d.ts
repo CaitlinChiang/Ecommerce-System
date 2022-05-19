@@ -9,7 +9,6 @@ export interface ProductVariant {
   price?: number
   createdAt?: Date
   updatedAt?: Date
-  deletedAt?: Date
 }
 
 export interface GetProductVariantArgs {

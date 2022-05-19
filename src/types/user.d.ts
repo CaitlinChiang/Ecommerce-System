@@ -11,16 +11,18 @@ export interface User {
   type?: string
   createdAt?: Date
   updatedAt?: Date
-  deletedAt?: Date
 }
 
-export interface SignInArgs {
+export interface UserSignInArgs {
   email: string
   password: string
 }
 
+export interface GetUserArgs {
+  _id: ObjectId
+}
+
 export interface CreateUserArgs {
-  _id?: ObjectId
   address?: string
   email: string
   firstName: string
@@ -32,15 +34,14 @@ export interface CreateUserArgs {
 }
 
 export interface UpdateUserArgs {
-  _id?: ObjectId
+  _id: ObjectId
   address?: string
-  email?: string
-  password?: string
-  phoneNumber?: string
+  email: string
+  password: string
+  phoneNumber: string
   updatedAt?: Date
 }
 
 export interface DeleteUserArgs {
   _id: ObjectId
-  deletedAt?: Date
 }
