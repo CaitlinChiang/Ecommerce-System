@@ -49,11 +49,11 @@ extend type Mutation {
     status: String!
   ): Order
 
-  delete_order(_id: ID!): Order
-
   update_payment(
     _orderId: ID!
     proofImage: Upload
     status: String!
   ): Payment
+
+  delete_order(_id: ID!): Order
 }
