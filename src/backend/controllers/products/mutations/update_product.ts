@@ -8,9 +8,9 @@ export default async (
   context: Context
 ): Promise<Product> => {
   const updateProduct: Partial<UpdateProductArgs> = {
-    name: args?.name,
-    price: args?.price,
-    type: args?.type,
+    name: args.name,
+    price: args.price,
+    type: args.type,
     updatedAt: new Date()
   }
 
