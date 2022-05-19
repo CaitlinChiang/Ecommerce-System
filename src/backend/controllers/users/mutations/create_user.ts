@@ -23,8 +23,8 @@ export default async (
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.CREATE_USER,
     productId: user._id,
-    createdBy: context.currentUserId,
-    createdAt: new Date()
+    createdAt: new Date(),
+    createdBy: context.currentUserId
   })
 
   return user

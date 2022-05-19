@@ -10,8 +10,8 @@ export default async (
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.DELETE_PRODUCT,
     productId: args._id,
-    createdBy: context.currentUserId,
-    createdAt: new Date()
+    createdAt: new Date(),
+    createdBy: context.currentUserId
   })
 
   const product: any = await context.database.products.findOneAndDelete({ _id: args._id })
