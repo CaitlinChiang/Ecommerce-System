@@ -18,7 +18,7 @@ export default async (
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.CREATE_PRODUCT_VARIANT,
-    productId: productVariant._id,
+    productVariantId: productVariant._id,
     createdAt: new Date(),
     createdBy: context.currentUserId
   })

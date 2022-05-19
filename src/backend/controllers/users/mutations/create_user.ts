@@ -22,7 +22,7 @@ export default async (
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.CREATE_USER,
-    productId: user._id,
+    userId: user._id,
     createdAt: new Date(),
     createdBy: context.currentUserId
   })
