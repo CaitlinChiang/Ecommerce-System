@@ -8,18 +8,14 @@ export interface AuditLog {
   productId?: ObjectId
   productVariantId?: ObjectId
   userId?: ObjectId
-  createdBy?: ObjectId
   createdAt?: Date
+  createdBy?: ObjectId
 }
 
-export interface CreateAuditLogArgs {
-  _id: ObjectId
-  action: string
+export interface GetAuditLogArgs {
+  action?: string
   orderId?: ObjectId
   paymentId?: ObjectId
   productId?: ObjectId
   productVariantId?: ObjectId
-  userId?: ObjectId
-  createdBy: ObjectId
-  createdAt: Date
 }
