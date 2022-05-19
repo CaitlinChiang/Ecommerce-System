@@ -7,5 +7,28 @@ type ProductVariant {
   price: Float
   createdAt: Date
   updatedAt: Date
-  deletedAt: Date
+}
+
+extend type Query {
+  get_product_variant(_id: ID!): ProductVariant
+  get_product_variants: [ProductVariant]
+  get_product_variants_count: Int
+}
+
+extend type Mutation {
+  create_product_variant(
+    _productId: ID!
+    image: Upload
+    name: String!
+    price: Float!
+  ): ProductVariant
+
+  update_product_variant(
+    _id: ID!
+    image: Upload
+    name: String!
+    price: Float!
+  ): ProductVariant
+
+  delete_product_variant(_id: ID!): ProductVariant
 }
