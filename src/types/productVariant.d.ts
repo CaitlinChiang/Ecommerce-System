@@ -13,6 +13,7 @@ export interface ProductVariant {
 
 export interface GetProductVariantArgs {
   _id: ObjectId
+  _productId?: ObjectId
 }
 
 export interface CreateProductVariantArgs {

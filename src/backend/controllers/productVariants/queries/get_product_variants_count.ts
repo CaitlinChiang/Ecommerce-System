@@ -1,10 +1,11 @@
 import { Context } from 'types/context'
+import { GetProductVariantArgs } from 'types/productVariant'
 
 export default async (
   _root: undefined,
-  args: undefined,
+  args: GetProductVariantArgs,
   context: Context
 ): Promise<number> => {
-  const productVariantsCount: number = await context.database.productVariants.countDocuments()
+  const productVariantsCount: number = await context.database.productVariants.countDocuments({ _productId: args._productId })
   return productVariantsCount
 }
