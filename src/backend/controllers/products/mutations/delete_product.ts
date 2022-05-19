@@ -15,6 +15,5 @@ export default async (
   })
 
   const product: any = await context.database.products.findOneAndDelete({ _id: args._id })
-
   return product
 }

@@ -15,6 +15,5 @@ export default async (
   })
 
   const productVariant: any = await context.database.productVariants.findOneAndDelete({ _id: args._id })
-
   return productVariant
 }
