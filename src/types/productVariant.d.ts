@@ -12,10 +12,13 @@ export interface ProductVariant {
   deletedAt?: Date
 }
 
+export interface GetProductVariantArgs {
+  _id: ObjectId
+}
+
 export interface CreateProductVariantArgs {
-  _id?: ObjectId
   _productId: ObjectId
-  image: File
+  image?: File
   name: string
   price: number
   createdAt?: Date
@@ -24,12 +27,11 @@ export interface CreateProductVariantArgs {
 export interface UpdateProductVariantArgs {
   _id: ObjectId
   image?: File
-  name?: string
-  price?: number
+  name: string
+  price: number
   updatedAt?: Date
 }
 
 export interface DeleteProductVariantArgs {
   _id: ObjectId
-  deletedAt?: Date
 }
