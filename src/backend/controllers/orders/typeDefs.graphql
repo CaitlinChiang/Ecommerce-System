@@ -14,5 +14,29 @@ type Order {
   userId: ID
   createdAt: Date
   updatedAt: Date
-  deletedAt: Date
+}
+
+extend type Query {
+  get_order(_id: ID!): Order
+  get_orders: [Order]
+  get_orders_count: Int
+}
+
+extend type Mutation {
+  create_order(
+    collectionMethod: String
+    deliveryAddress: String
+    productIds: [ID]
+    productVariantIds: [ID]
+    status: String
+    userId: ID
+  ): Order
+
+  update_order(
+    _id: ID!
+    collectionMethod: String!
+    status: String!
+  ): Order
+
+  delete_order(_id: ID!): Order
 }

@@ -21,30 +21,29 @@ export interface Order {
   userId?: ObjectId
   createdAt?: Date
   updatedAt?: Date
-  deletedAt?: Date
+}
+
+export interface GetOrderArgs {
+  _id: ObjectId
 }
 
 export interface CreateOrderArgs {
-  _id?: ObjectId
   collectionMethod?: string
   deliveryAddress?: string
-  paymentId?: ObjectId
-  productIds: ObjectId[]
+  productIds?: ObjectId[]
   productVariantIds?: ObjectId[]
   status?: string
-  user?: User
   userId?: ObjectId
   createdAt?: Date
 }
 
 export interface UpdateOrderArgs {
   _id: ObjectId
-  collectionMethod?: string
-  status?: string
+  collectionMethod: string
+  status: string
   updatedAt?: Date
 }
 
 export interface DeleteOrderArgs {
   _id: ObjectId
-  deletedAt?: Date
 }
