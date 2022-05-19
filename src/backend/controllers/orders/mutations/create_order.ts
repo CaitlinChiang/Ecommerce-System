@@ -1,6 +1,8 @@
 import { Context } from 'types/context'
 import { Order, CreateOrderArgs } from 'types/order'
 import { OrderStatus } from 'types/_enums/orderStatus'
+import { CreatePaymentArgs } from 'types/payment'
+import { PaymentStatus } from 'types/_enums/paymentStatus'
 import { AuditLogAction } from 'types/_enums/auditLogAction'
 
 export default async (
@@ -23,6 +25,23 @@ export default async (
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.CREATE_ORDER,
     orderId: order._id,
+    createdAt: new Date(),
+    createdBy: context.currentUserId
+  })
+
+  const createPayment: Partial<CreatePaymentArgs> = {
+    _orderId: order._id,
+    amountDue: args?.payment.amountDue,
+    method: args?.payment.method,
+    status: PaymentStatus.COMPLETE,
+    createdAt: new Date()
+  }
+
+  await context.database.payments.insertOne(createPayment)
+
+  await context.database.auditLogs.insertOne({
+    action: AuditLogAction.CREATE_ORDER_PAYMENT,
+    paymentId: order._id,
     createdAt: new Date(),
     createdBy: context.currentUserId
   })

@@ -37,6 +37,7 @@ extend type Mutation {
   create_order(
     collectionMethod: String
     deliveryAddress: String
+    payment: Payment
     productIds: [ID]
     productVariantIds: [ID]
     userId: ID
@@ -49,12 +50,6 @@ extend type Mutation {
   ): Order
 
   delete_order(_id: ID!): Order
-
-  create_payment(
-    amountDue: Float!
-    method: String!
-    proofImage: Upload
-  ): Payment
 
   update_payment(
     _orderId: ID!

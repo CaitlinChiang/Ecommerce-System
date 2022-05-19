@@ -30,6 +30,7 @@ export interface GetOrderArgs {
 export interface CreateOrderArgs {
   collectionMethod?: string
   deliveryAddress?: string
+  payment?: Payment
   productIds?: ObjectId[]
   productVariantIds?: ObjectId[]
   status?: string
