@@ -2,7 +2,7 @@ import { ObjectId } from 'mongodb'
 
 export interface Payment {
   _id?: ObjectId
-  amount?: number
+  amountDue?: number
   method?: string
   proofImage?: File
   proofImageUrl?: string
@@ -12,8 +12,8 @@ export interface Payment {
 }
 
 export interface CreatePaymentArgs {
-  _id?: ObjectId
-  amount: number
+  _orderId?: ObjectId
+  amountDue: number
   method: string
   proofImage?: File
   status?: string
@@ -21,8 +21,8 @@ export interface CreatePaymentArgs {
 }
 
 export interface UpdatePaymentArgs {
-  _id?: ObjectId
+  _orderId: ObjectId
   proofImage?: File
-  status?: string
+  status: string
   updatedAt?: Date
 }

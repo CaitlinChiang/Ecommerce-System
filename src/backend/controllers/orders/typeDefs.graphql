@@ -16,6 +16,17 @@ type Order {
   updatedAt: Date
 }
 
+type Payment {
+  _id: ID
+  amountDue: Float
+  method: String
+  proofImage: File
+  proofImageUrl: String
+  status: String
+  createdAt: Date
+  updatedAt: Date
+}
+
 extend type Query {
   get_order(_id: ID!): Order
   get_orders: [Order]
@@ -28,7 +39,6 @@ extend type Mutation {
     deliveryAddress: String
     productIds: [ID]
     productVariantIds: [ID]
-    status: String
     userId: ID
   ): Order
 
@@ -39,4 +49,16 @@ extend type Mutation {
   ): Order
 
   delete_order(_id: ID!): Order
+
+  create_payment(
+    amountDue: Float!
+    method: String!
+    proofImage: Upload
+  ): Payment
+
+  update_payment(
+    _orderId: ID!
+    proofImage: Upload
+    status: String!
+  ): Payment
 }
