@@ -4,30 +4,31 @@ type Cart {
   products: [CartProduct]
   productVariants: [CartProductVariant]
   quantity: Int
+  totalPrice: Float
 }
 
 type CartProduct {
   product: Product
   quantity: Int
+  totalPrice: Float
 }
 type CartProductVariant {
   productVariant: ProductVariant
   quantity: Int
+  totalPrice: Float
 }
 
 extend type Query {
-  get_cart(_userId: ID!): Cart
+  get_cart: Cart
 }
 
 extend type Mutation {
   add_to_cart(
-    _userId: ID!
     product: CartProduct
     productVariant: CartProductVariant
   ): Cart
 
   remove_from_cart(
-    _userId: ID!
     productId: ID
     productVariantId: ID
   ): Cart

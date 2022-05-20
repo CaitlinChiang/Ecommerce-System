@@ -24,18 +24,12 @@ export interface CartProductVariant {
   totalPrice?: number
 }
 
-export interface GetCartArgs {
-  _userId: ObjectId
-}
-
 export interface AddToCartArgs {
-  _userId: ObjectId
   product?: CartProduct
   productVariant?: CartProductVariant
 }
 
 export interface RemoveFromCartArgs {
-  _userId: ObjectId
   productId?: ObjectId
   productVariantId?: ObjectId
 }
