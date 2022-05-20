@@ -10,15 +10,18 @@ export interface Cart {
   products?: CartProduct[]
   productVariants?: CartProductVariant[]
   quantity?: number
+  totalPrice?: number
 }
 
 export interface CartProduct {
   product?: Product
   quantity?: number
+  totalPrice?: number
 }
 export interface CartProductVariant {
   productVariant?: ProductVariant
   quantity?: number
+  totalPrice?: number
 }
 
 export interface GetCartArgs {
