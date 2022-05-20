@@ -17,6 +17,7 @@ type Order {
 
 type Payment {
   _id: ID
+  _orderId: ID
   amountDue: Float
   method: String
   proofImage: File

@@ -2,6 +2,7 @@ import { ObjectId } from 'mongodb'
 
 export interface Payment {
   _id?: ObjectId
+  _orderId?: ObjectId
   amountDue?: number
   method?: string
   proofImage?: File
