@@ -1,0 +1,34 @@
+type Cart {
+  _id: ID
+  _userId: ID
+  products: [CartProduct]
+  productVariants: [CartProductVariant]
+  quantity: Int
+}
+
+type CartProduct {
+  product: Product
+  quantity: Int
+}
+type CartProductVariant {
+  productVariant: ProductVariant
+  quantity: Int
+}
+
+extend type Query {
+  get_cart(_userId: ID!): Cart
+}
+
+extend type Mutation {
+  add_to_cart(
+    _userId: ID!
+    product: CartProduct
+    productVariant: CartProductVariant
+  ): Cart
+
+  remove_from_cart(
+    _userId: ID!
+    productId: ID
+    productVariantId: ID
+  ): Cart
+}

@@ -7,15 +7,16 @@ import { User } from './user'
 export interface Cart {
   _id?: ObjectId
   _userId?: ObjectId
-  products?: CartProductArgs[]
-  productVariants?: CartProductVariantArgs[]
+  products?: CartProduct[]
+  productVariants?: CartProductVariant[]
+  quantity?: number
 }
 
-export interface CartProductArgs {
+export interface CartProduct {
   product?: Product
   quantity?: number
 }
-export interface CartProductVariantArgs {
+export interface CartProductVariant {
   productVariant?: ProductVariant
   quantity?: number
 }
@@ -25,11 +26,13 @@ export interface GetCartArgs {
 }
 
 export interface AddToCartArgs {
-  products?: CartProductArgs[]
-  productVariants?: CartProductVariantArgs[]
+  _userId: ObjectId
+  product?: CartProduct
+  productVariant?: CartProductVariant
 }
 
 export interface RemoveFromCartArgs {
+  _userId: ObjectId
   productId?: ObjectId
   productVariantId?: ObjectId
 }
