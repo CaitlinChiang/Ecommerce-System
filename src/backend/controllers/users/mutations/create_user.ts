@@ -20,6 +20,8 @@ export default async (
 
   const user: any = await context.database.users.insertOne(createUser)
 
+  await context.database.carts.insertOne({ _userId: user._id })
+
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.CREATE_USER,
     userId: user._id,
