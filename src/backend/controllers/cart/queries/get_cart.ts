@@ -1,11 +1,11 @@
 import { Context } from 'types/context'
-import { Cart, GetCartArgs } from 'types/cart'
+import { Cart } from 'types/cart'
 
 export default async (
   _root: undefined,
-  args: GetCartArgs,
+  args: undefined,
   context: Context
 ): Promise<Cart> => {
-  const cart: Cart = await context.database.carts.findOne({ _userId: args._userId })
+  const cart: Cart = await context.database.carts.findOne({ _userId: context.currentUserId })
   return cart
 }

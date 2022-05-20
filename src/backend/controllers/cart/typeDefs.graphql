@@ -8,11 +8,13 @@ type Cart {
 }
 
 type CartProduct {
+  productId: ID
   product: Product
   quantity: Int
   totalPrice: Float
 }
 type CartProductVariant {
+  productVariantId: ID
   productVariant: ProductVariant
   quantity: Int
   totalPrice: Float

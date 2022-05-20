@@ -14,11 +14,13 @@ export interface Cart {
 }
 
 export interface CartProduct {
+  productId?: ObjectId
   product?: Product
   quantity?: number
   totalPrice?: number
 }
 export interface CartProductVariant {
+  productVariantId?: ObjectId
   productVariant?: ProductVariant
   quantity?: number
   totalPrice?: number
