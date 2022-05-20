@@ -1,6 +1,5 @@
 type Cart {
   _id: ID
-  _userId: ID
   products: [CartProduct]
   productVariants: [CartProductVariant]
   quantity: Int
