@@ -11,9 +11,9 @@ export interface Order {
   payment?: Payment
   paymentId?: ObjectId
   products?: Product[]
-  productIds?: ObjectId[]
+  productIds?: string[]
   productVariants?: ProductVariant[]
-  productVariantIds?: ObjectId[]
+  productVariantIds?: string[]
   status?: string
   user?: User
   userId?: ObjectId
@@ -23,8 +23,8 @@ export interface Order {
 
 export interface GetOrderArgs {
   _id: ObjectId
-  productIds?: ObjectId[]
-  productVariantIds?: ObjectId[]
+  productIds?: string[]
+  productVariantIds?: string[]
 }
 
 export interface CreateOrderArgs {
