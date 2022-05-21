@@ -5,9 +5,9 @@ type Order {
   payment: Payment
   paymentId: ID
   products: [Product]
-  productIds: [string]
+  productIds: [String]
   productVariants: [ProductVariant]
-  productVariantIds: [string]
+  productVariantIds: [String]
   status: String
   user: User
   userId: ID
@@ -38,8 +38,8 @@ extend type Mutation {
     collectionMethod: String
     deliveryAddress: String
     payment: Payment
-    productIds: [string]
-    productVariantIds: [string]
+    productIds: [String]
+    productVariantIds: [String]
     userId: ID
   ): Order
 

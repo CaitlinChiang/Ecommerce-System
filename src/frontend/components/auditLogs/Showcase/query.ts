@@ -2,11 +2,11 @@ import { gql } from '@apollo/client'
 
 export default gql`
   query(
-    action: String
-    orderId: ID
-    paymentId: ID
-    productId: ID
-    productVariantId: ID
+    $action: String
+    $orderId: ID
+    $paymentId: ID
+    $productId: ID
+    $productVariantId: ID
   ) {
     get_audit_logs(
       action: $action
