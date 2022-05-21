@@ -25,6 +25,11 @@ export interface CartProductVariant {
   totalPrice?: number
 }
 
+export interface GetCartArgs {
+  products?: CartProduct[]
+  productVariants?: CartProductVariant[]
+}
+
 export interface AddToCartArgs {
   product?: CartProduct
   productVariant?: CartProductVariant
