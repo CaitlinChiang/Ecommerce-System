@@ -7,13 +7,15 @@ export default async (
   args: UpdateOrderArgs,
   context: Context
 ): Promise<Order> => {
+  const { _id, collectionMethod, status } = args
+
   const updateOrder: Partial<UpdateOrderArgs> = {
-    collectionMethod: args.collectionMethod,
-    status: args.status,
+    collectionMethod: collectionMethod,
+    status: status,
     updatedAt: new Date()
   }
 
-  const order: any = await context.database.orders.findOneAndUpdate({ _id: args._id }, updateOrder)
+  const order: any = await context.database.orders.findOneAndUpdate({ _id: _id }, updateOrder)
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.UPDATE_ORDER,

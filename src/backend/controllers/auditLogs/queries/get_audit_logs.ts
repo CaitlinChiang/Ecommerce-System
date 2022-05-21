@@ -6,12 +6,15 @@ export default async (
   args: GetAuditLogArgs,
   context: Context
 ): Promise<AuditLog[]> => {
-  const users: any = await context.database.auditLogs.find({
-    action: args?.action,
-    orderId: args?.orderId,
-    paymentId: args?.paymentId,
-    productId: args?.productId,
-    productVariantId: args?.productVariantId
+  const { action, orderId, paymentId, productId, productVariantId } = args
+
+  const auditLogs: any = await context.database.auditLogs.find({
+    action: action,
+    orderId: orderId,
+    paymentId: paymentId,
+    productId: productId,
+    productVariantId: productVariantId
   })
-  return users
+
+  return auditLogs
 }

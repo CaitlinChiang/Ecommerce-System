@@ -6,5 +6,6 @@ export default async (
   context: Context
 ): Promise<number> => {
   const usersCount: number = await context.database.users.countDocuments()
+  
   return usersCount
 }

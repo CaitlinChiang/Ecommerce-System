@@ -7,5 +7,6 @@ export default async (
   context: Context
 ): Promise<Cart> => {
   const cart: Cart = await context.database.carts.findOne({ _userId: context.currentUserId })
+  
   return cart
 }

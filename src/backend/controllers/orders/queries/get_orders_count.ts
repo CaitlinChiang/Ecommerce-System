@@ -7,5 +7,6 @@ export default async (
   context: Context
 ): Promise<number> => {
   const ordersCount: number = await context.database.orders.countDocuments()
+  
   return ordersCount
 }

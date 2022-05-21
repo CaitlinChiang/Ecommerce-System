@@ -7,5 +7,6 @@ export default async (
   context: Context
 ): Promise<Product[]> => {
   const products: any = await context.database.products.find({})
+  
   return products
 }

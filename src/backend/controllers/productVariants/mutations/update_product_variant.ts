@@ -7,13 +7,15 @@ export default async (
   args: UpdateProductVariantArgs,
   context: Context
 ): Promise<ProductVariant> => {
+  const { _id, name, price } = args
+
   const updateProductVariant: Partial<UpdateProductVariantArgs> = {
-    name: args.name,
-    price: args.price,
+    name: name,
+    price: price,
     updatedAt: new Date()
   }
 
-  const productVariant: any = await context.database.productVariants.findOneAndUpdate({ _id: args._id }, updateProductVariant)
+  const productVariant: any = await context.database.productVariants.findOneAndUpdate({ _id: _id }, updateProductVariant)
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.UPDATE_PRODUCT_VARIANT,

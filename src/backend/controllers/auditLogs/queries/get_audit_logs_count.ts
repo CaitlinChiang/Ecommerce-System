@@ -6,12 +6,15 @@ export default async (
   args: GetAuditLogArgs,
   context: Context
 ): Promise<number> => {
-  const usersCount: number = await context.database.users.countDocuments({
-    action: args?.action,
-    orderId: args?.orderId,
-    paymentId: args?.paymentId,
-    productId: args?.productId,
-    productVariantId: args?.productVariantId
+  const { action, orderId, paymentId, productId, productVariantId } = args
+  
+  const auditLogsCount: number = await context.database.auditLogs.countDocuments({
+    action: action,
+    orderId: orderId,
+    paymentId: paymentId,
+    productId: productId,
+    productVariantId: productVariantId
   })
-  return usersCount
+  
+  return auditLogsCount
 }

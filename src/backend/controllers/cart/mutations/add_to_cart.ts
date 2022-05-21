@@ -6,12 +6,15 @@ export default async (
   args: AddToCartArgs,
   context: Context
 ): Promise<Cart> => {
+  const { product, productVariant } = args
+
   const cart: any = await context.database.carts.findOneAndUpdate(
     { _userId: context.currentUserId }, 
     {
-      products: { $push: args?.product },
-      productVariants: { $push: args?.productVariant }
+      products: { $push: product },
+      productVariants: { $push: productVariant }
     }
   )
+  
   return cart
 }

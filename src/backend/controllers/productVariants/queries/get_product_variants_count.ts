@@ -6,6 +6,9 @@ export default async (
   args: GetProductVariantArgs,
   context: Context
 ): Promise<number> => {
-  const productVariantsCount: number = await context.database.productVariants.countDocuments({ _productId: args._productId })
+  const { _productId } = args
+
+  const productVariantsCount: number = await context.database.productVariants.countDocuments({ _productId: _productId })
+
   return productVariantsCount
 }

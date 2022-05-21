@@ -6,6 +6,9 @@ export default async (
   args: GetProductVariantArgs,
   context: Context
 ): Promise<ProductVariant[]> => {
-  const productVariants: any = await context.database.productVariants.find({ _productId: args._productId })
+  const { _productId } = args
+
+  const productVariants: any = await context.database.productVariants.find({ _productId: _productId })
+  
   return productVariants
 }

@@ -6,6 +6,9 @@ export default async (
   args: GetUserArgs,
   context: Context
 ): Promise<User> => {
-  const user: User = await context.database.users.findOne({ _id: args._id })
+  const { _id } = args
+
+  const user: User = await context.database.users.findOne({ _id: _id })
+
   return user
 }

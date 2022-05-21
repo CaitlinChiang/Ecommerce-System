@@ -10,11 +10,13 @@ export default async (
   args: CreateOrderArgs,
   context: Context
 ): Promise<Order> => {
+  const { collectionMethod, deliveryAddress, payment: { amountDue, method }, productIds, productVariantIds } = args
+
   const createOrder: CreateOrderArgs = {
-    collectionMethod: args?.collectionMethod,
-    deliveryAddress: args?.deliveryAddress,
-    productIds: args?.productIds,
-    productVariantIds: args?.productVariantIds,
+    collectionMethod: collectionMethod,
+    deliveryAddress: deliveryAddress,
+    productIds: productIds,
+    productVariantIds: productVariantIds,
     status: OrderStatus.PENDING,
     userId: context.currentUserId,
     createdAt: new Date()
@@ -31,8 +33,8 @@ export default async (
 
   const createPayment: Partial<CreatePaymentArgs> = {
     _orderId: order._id,
-    amountDue: args?.payment.amountDue,
-    method: args?.payment.method,
+    amountDue: amountDue,
+    method: method,
     status: PaymentStatus.COMPLETE,
     createdAt: new Date()
   }

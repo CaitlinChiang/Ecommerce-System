@@ -7,5 +7,6 @@ export default async (
   context: Context
 ): Promise<User[]> => {
   const users: any = await context.database.users.find({})
+  
   return users
 }

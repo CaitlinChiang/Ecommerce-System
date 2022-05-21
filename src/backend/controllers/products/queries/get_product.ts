@@ -6,6 +6,9 @@ export default async (
   args: GetProductArgs,
   context: Context
 ): Promise<Product> => {
-  const product: Product = await context.database.products.findOne({ _id: args._id })
+  const { _id } = args
+
+  const product: Product = await context.database.products.findOne({ _id: _id })
+  
   return product
 }

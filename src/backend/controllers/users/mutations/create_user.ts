@@ -7,14 +7,16 @@ export default async (
   args: CreateUserArgs,
   context: Context
 ): Promise<User> => {
+  const { address, email, firstName, lastName, password, phoneNumber, type } = args
+
   const createUser: CreateUserArgs = {
-    address: args?.address,
-    email: args.email,
-    firstName: args.firstName,
-    lastName: args.lastName,
-    password: args.password,
-    phoneNumber: args.phoneNumber,
-    type: args.type,
+    address: address,
+    email: email,
+    firstName: firstName,
+    lastName: lastName,
+    password: password,
+    phoneNumber: phoneNumber,
+    type: type,
     createdAt: new Date()
   }
 

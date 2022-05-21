@@ -7,10 +7,12 @@ export default async (
   args: CreateProductVariantArgs,
   context: Context
 ): Promise<ProductVariant> => {
+  const { _productId, name, price } = args
+
   const createProductVariant: CreateProductVariantArgs = {
-    _productId: args._productId,
-    name: args.name,
-    price: args.price,
+    _productId: _productId,
+    name: name,
+    price: price,
     createdAt: new Date()
   }
 

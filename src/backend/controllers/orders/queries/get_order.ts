@@ -6,6 +6,9 @@ export default async (
   args: GetOrderArgs,
   context: Context
 ): Promise<Order> => {
-  const order: Order = await context.database.orders.findOne({ _id: args._id })
+  const { _id } = args
+
+  const order: Order = await context.database.orders.findOne({ _id: _id })
+
   return order
 }

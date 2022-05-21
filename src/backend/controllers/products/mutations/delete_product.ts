@@ -7,13 +7,16 @@ export default async (
   args: DeleteProductArgs,
   context: Context
 ): Promise<Product> => {
+  const { _id } = args
+
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.DELETE_PRODUCT,
-    productId: args._id,
+    productId: _id,
     createdAt: new Date(),
     createdBy: context.currentUserId
   })
 
-  const product: any = await context.database.products.findOneAndDelete({ _id: args._id })
+  const product: any = await context.database.products.findOneAndDelete({ _id: _id })
+
   return product
 }

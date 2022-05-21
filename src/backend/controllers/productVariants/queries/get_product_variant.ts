@@ -6,6 +6,9 @@ export default async (
   args: GetProductVariantArgs,
   context: Context
 ): Promise<ProductVariant> => {
-  const productVariant: ProductVariant = await context.database.productVariants.findOne({ _id: args._id })
+  const { _id } = args
+
+  const productVariant: ProductVariant = await context.database.productVariants.findOne({ _id: _id })
+
   return productVariant
 }

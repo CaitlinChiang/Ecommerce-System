@@ -6,6 +6,7 @@ import { User } from './user'
 
 export interface Cart {
   _id?: ObjectId
+  _userId?: ObjectId
   products?: CartProduct[]
   productVariants?: CartProductVariant[]
   quantity?: number

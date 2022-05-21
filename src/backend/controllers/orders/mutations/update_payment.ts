@@ -7,12 +7,14 @@ export default async (
   args: UpdatePaymentArgs,
   context: Context
 ): Promise<Payment> => {
+  const { _orderId, status } = args
+
   const updatePayment: Partial<UpdatePaymentArgs> = {
-    status: args.status,
+    status: status,
     updatedAt: new Date()
   }
 
-  const payment: any = await context.database.payments.findOneAndUpdate({ _orderId: args._orderId }, updatePayment)
+  const payment: any = await context.database.payments.findOneAndUpdate({ _orderId: _orderId }, updatePayment)
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.UPDATE_ORDER_PAYMENT,
