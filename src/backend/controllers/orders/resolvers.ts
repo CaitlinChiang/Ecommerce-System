@@ -22,7 +22,7 @@ export default {
       context: Context
     ): Promise<Product[]> => {
       const products: any = await context.database.products.find({ 
-        _id: { $in: args.productIds.map((productId) => new ObjectId(productId)) }
+        _id: { $in: args?.productIds?.map((productId: string): ObjectId => new ObjectId(productId)) }
       })
       return products
     },
@@ -33,7 +33,7 @@ export default {
       context: Context
     ): Promise<ProductVariant[]> => {
       const productVariants: any = await context.database.productVariants.find({ 
-        _id: { $in: args.productVariantIds.map((productVariantId) => new ObjectId(productVariantId)) }
+        _id: { $in: args?.productVariantIds?.map((productVariantId: string): ObjectId => new ObjectId(productVariantId)) }
       })
       return productVariants
     }
