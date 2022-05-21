@@ -5,42 +5,62 @@ import { Payment } from 'types/payment'
 import { Product } from 'types/product'
 import { ProductVariant } from 'types/productVariant'
 
+import { Cart, CartProduct, CartProductVariant, GetCartArgs } from 'types/cart'
+
 export default {
   Cart: {
     products: async(
-      order: Order,
-      args: GetOrderArgs,
+      cart: Cart,
+      args: GetCartArgs,
       context: Context
-    ): Promise<Payment> => {
-      const payment: Payment = await context.database.payments.findOne({ _orderId: args._id })
-      return payment
+    ): Promise<Product[]> => {
+      const products: any = await context.database.products.find({
+        _id: {
+          $in: args?.products?.map((product: CartProduct): ObjectId => new ObjectId(product?.productId))
+        }
+      })
+      return products
     },
 
     productVariants: async(
-      order: Order,
-      args: GetOrderArgs,
+      cart: Cart,
+      args: GetCartArgs,
       context: Context
-    ): Promise<Payment> => {
-      const payment: Payment = await context.database.payments.findOne({ _orderId: args._id })
-      return payment
+    ): Promise<ProductVariant[]> => {
+      const productVariants: any = await context.database.productVariants.find({
+        _id: {
+          $in: args?.productVariants?.map((productVariant: CartProductVariant): ObjectId => new ObjectId(productVariant?.productVariantId))
+        }
+      })
+      return productVariants
     },
 
     quantity: async(
-      order: Order,
-      args: GetOrderArgs,
+      cart: Cart,
+      args: GetCartArgs,
       context: Context
-    ): Promise<Payment> => {
-      const payment: Payment = await context.database.payments.findOne({ _orderId: args._id })
-      return payment
+    ): Promise<number> => {
+      const productsQuantity: number = args?.products?.length
+      
+      const productVariantsQuantity: number = args?.productVariants?.length
+      
+      return productsQuantity + productVariantsQuantity
     },
 
     totalPrice: async(
       order: Order,
-      args: GetOrderArgs,
+      args: GetCartArgs,
       context: Context
-    ): Promise<Payment> => {
-      const payment: Payment = await context.database.payments.findOne({ _orderId: args._id })
-      return payment
+    ): Promise<number> => {
+      const productsPrice: number = args?.products?.reduce((totalPrice: number, currentProduct: CartProduct): number => {
+        return totalPrice + currentProduct?.totalPrice
+      }, 0)
+
+      const productVariantsPrice: number = args?.productVariants?.reduce((totalPrice: number, currentProductVariant: CartProductVariant): number => {
+        return totalPrice + currentProductVariant?.totalPrice
+      }, 0)
+
+      return productsPrice + productVariantsPrice
     }
   }
 }
