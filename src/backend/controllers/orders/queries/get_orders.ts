@@ -6,7 +6,9 @@ export default async (
   args: undefined,
   context: Context
 ): Promise<Order[]> => {
-  const orders: any = await context.database.orders.find({})
+  const orders: any = await context.database.orders.find({
+    userId: context.currentUserId
+  })
   
   return orders
 }
