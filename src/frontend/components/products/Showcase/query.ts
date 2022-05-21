@@ -4,16 +4,16 @@ export default gql`
   query(
     $_id: ID!
   ) {
-    get_user(
+    get_product(
       _id: $_id
     ) {
       _id
     }
 
-    get_users {
+    get_products {
       _id
     }
 
-    get_users_count
+    get_products_count
   }
 `
