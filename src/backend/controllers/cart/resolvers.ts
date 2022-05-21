@@ -1,11 +1,8 @@
 import { ObjectId } from 'mongodb'
 import { Context } from 'types/context'
-import { Order, GetOrderArgs } from 'types/order'
-import { Payment } from 'types/payment'
+import { Cart, CartProduct, CartProductVariant, GetCartArgs } from 'types/cart'
 import { Product } from 'types/product'
 import { ProductVariant } from 'types/productVariant'
-
-import { Cart, CartProduct, CartProductVariant, GetCartArgs } from 'types/cart'
 
 export default {
   Cart: {
@@ -41,14 +38,14 @@ export default {
       context: Context
     ): Promise<number> => {
       const productsQuantity: number = args?.products?.length
-      
+
       const productVariantsQuantity: number = args?.productVariants?.length
       
       return productsQuantity + productVariantsQuantity
     },
 
     totalPrice: async(
-      order: Order,
+      cart: Cart,
       args: GetCartArgs,
       context: Context
     ): Promise<number> => {
