@@ -1,13 +1,16 @@
 import { Context } from 'types/context'
 import { Product, DeleteProductArgs } from 'types/product'
 import { AuditLogAction } from 'types/_enums/auditLogAction'
+import { handleDeleteImage } from 'backend/_utils/handleImages/deleteImage'
 
 export default async (
   _root: undefined,
   args: DeleteProductArgs,
   context: Context
 ): Promise<Product> => {
-  const { _id } = args
+  const { _id, imageUrl } = args
+
+  await handleDeleteImage(imageUrl)
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.DELETE_PRODUCT,
