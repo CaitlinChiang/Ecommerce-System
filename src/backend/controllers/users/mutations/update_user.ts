@@ -14,7 +14,6 @@ export default async (
     phoneNumber: args.phoneNumber,
     updatedAt: new Date()
   }
-
   const user: any = await context.database.users.findOneAndUpdate({ _id: args._id }, updateUser)
 
   await context.database.auditLogs.insertOne({

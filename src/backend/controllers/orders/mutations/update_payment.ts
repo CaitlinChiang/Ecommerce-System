@@ -13,7 +13,6 @@ export default async (
     status: status,
     updatedAt: new Date()
   }
-
   const payment: any = await context.database.payments.findOneAndUpdate({ _orderId: _orderId }, updatePayment)
 
   await context.database.auditLogs.insertOne({

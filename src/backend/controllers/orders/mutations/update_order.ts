@@ -14,7 +14,6 @@ export default async (
     status: status,
     updatedAt: new Date()
   }
-
   const order: any = await context.database.orders.findOneAndUpdate({ _id: _id }, updateOrder)
 
   await context.database.auditLogs.insertOne({

@@ -21,9 +21,8 @@ export default async (
     userId: context.currentUserId,
     createdAt: new Date()
   }
-
   const order: any = await context.database.orders.insertOne(createOrder)
-
+  
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.CREATE_ORDER,
     orderId: order._id,
@@ -38,7 +37,6 @@ export default async (
     status: PaymentStatus.COMPLETE,
     createdAt: new Date()
   }
-
   await context.database.payments.insertOne(createPayment)
 
   await context.database.auditLogs.insertOne({

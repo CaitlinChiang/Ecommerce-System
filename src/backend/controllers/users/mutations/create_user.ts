@@ -19,7 +19,6 @@ export default async (
     type: type,
     createdAt: new Date()
   }
-
   const user: any = await context.database.users.insertOne(createUser)
 
   await context.database.carts.insertOne({ _userId: user._id })
