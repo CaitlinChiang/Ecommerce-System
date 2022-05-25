@@ -26,9 +26,13 @@ extend type Mutation {
   update_product_variant(
     _id: ID!
     image: Upload
+    imageUrl: String
     name: String!
     price: Float!
   ): ProductVariant
 
-  delete_product_variant(_id: ID!): ProductVariant
+  delete_product_variant(
+    _id: ID!
+    imageUrl: String
+  ): ProductVariant
 }

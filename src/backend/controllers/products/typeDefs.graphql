@@ -26,10 +26,14 @@ extend type Mutation {
   update_product(
     _id: ID!
     image: Upload
+    imageUrl: String
     name: String!
     price: Float!
     type: String!
   ): Product
 
-  delete_product(_id: ID!): Product
+  delete_product(
+    _id: ID!
+    imageUrl: String
+  ): Product
 }
