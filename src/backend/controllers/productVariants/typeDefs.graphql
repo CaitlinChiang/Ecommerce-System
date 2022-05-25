@@ -25,6 +25,7 @@ extend type Mutation {
 
   update_product_variant(
     _id: ID!
+    _productId: ID!
     image: Upload
     imageUrl: String
     name: String!
