@@ -10,9 +10,8 @@ type ImageUploadArgs = {
 
 export const uploadImage = async (args: ImageUploadArgs) => {
   const fileName = assignFileName(args)
-  const uploadResponse = await cloudinary.uploader.upload(args.image, {
-    public_id: fileName
-  })
+  
+  await cloudinary.uploader.upload(args.image, { public_id: fileName })
 
   return fileName
 }
