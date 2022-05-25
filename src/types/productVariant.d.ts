@@ -27,6 +27,7 @@ export interface CreateProductVariantArgs {
 
 export interface UpdateProductVariantArgs {
   _id: ObjectId
+  _productId: ObjectId
   image?: File
   imageUrl?: string
   name: string
