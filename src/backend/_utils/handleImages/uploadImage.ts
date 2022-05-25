@@ -1,22 +1,15 @@
+import { UploadImageArgs } from 'types/image'
+
 const cloudinary = require('./cloudinarySetup')
 
-type ImageUploadArgs = {
-  imageType?: string
-  image?: File
-  productName?: string
-  productId?: string
-  productVariantName?: string
-}
-
-export const uploadImage = async (args: ImageUploadArgs) => {
+export const handleUploadImage = async (args: UploadImageArgs) => {
   const fileName = assignFileName(args)
-  
   await cloudinary.uploader.upload(args.image, { public_id: fileName })
 
   return fileName
 }
 
-const assignFileName = (args: ImageUploadArgs) => {
+const assignFileName = (args: UploadImageArgs) => {
   switch (args.imageType) {
     case 'PRODUCT':
       return generateProductImageFileName(args.productName)
