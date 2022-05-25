@@ -18,6 +18,7 @@ export interface GetProductArgs {
 
 export interface CreateProductArgs {
   image?: File
+  imageUrl?: string
   name: string
   price: number
   type: string
@@ -27,6 +28,7 @@ export interface CreateProductArgs {
 export interface UpdateProductArgs {
   _id: ObjectId
   image?: File
+  imageUrl?: string
   name: string
   price: number
   type: string
@@ -35,4 +37,5 @@ export interface UpdateProductArgs {
 
 export interface DeleteProductArgs {
   _id: ObjectId
+  imageUrl?: string
 }
