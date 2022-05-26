@@ -1,4 +1,0 @@
-export enum PaymentMethod {
-  BDO_BANK_TRANSFER = 'BDO_BANK_TRANSFER',
-  BPI_BANK_TRANSFER = 'BPI_BANK_TRANSFER'
-}
