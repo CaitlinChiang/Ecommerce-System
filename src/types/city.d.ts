@@ -19,6 +19,7 @@ export interface CreateCityArgs {
 }
 
 export interface UpdateCityArgs {
+  _id: ObjectId
   name: string
   shippingFee: number
   updatedAt?: Date
