@@ -1,6 +1,7 @@
 import { Collection } from 'mongodb'
 import { AuditLog } from './auditLog'
 import { Cart } from './cart'
+import { City } from './city'
 import { FAQ } from './faq'
 import { Order } from './order'
 import { Payment } from './payment'
@@ -12,6 +13,7 @@ import { User } from './user'
 export interface Database {
   auditLogs: Collection<AuditLog>
   carts: Collection<Cart>
+  cities: Collection<City>
   faqs: Collection<FAQ>
   orders: Collection<Order>
   payments: Collection<Payment>

@@ -3,6 +3,7 @@ import { Database } from 'types/database'
 
 import { AuditLog } from 'types/auditLog'
 import { Cart } from 'types/cart'
+import { City } from 'types/city'
 import { FAQ } from 'types/faq'
 import { Order } from 'types/order'
 import { Payment } from 'types/payment'
@@ -15,6 +16,7 @@ export default (db: Db): Database => {
   return {
     auditLogs: db.collection<AuditLog>('auditLogs'),
     carts: db.collection<Cart>('carts'),
+    cities: db.collection<City>('cities'),
     faqs: db.collection<FAQ>('faqs'),
     orders: db.collection<Order>('orders'),
     payments: db.collection<Payment>('payments'),
