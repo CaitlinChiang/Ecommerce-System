@@ -7,6 +7,7 @@ import { Order } from 'types/order'
 import { Payment } from 'types/payment'
 import { Product } from 'types/product'
 import { ProductVariant } from 'types/productVariant'
+import { Review } from 'types/review'
 import { User } from 'types/user'
 
 export default (db: Db): Database => {
@@ -17,6 +18,7 @@ export default (db: Db): Database => {
     payments: db.collection<Payment>('payments'),
     products: db.collection<Product>('products'),
     productVariants: db.collection<ProductVariant>('productVariants'),
+    reviews: db.collection<Review>('reviews'),
     users: db.collection<User>('users')
   }
 }

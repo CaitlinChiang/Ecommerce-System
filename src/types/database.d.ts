@@ -5,6 +5,7 @@ import { Order } from './order'
 import { Payment } from './payment'
 import { Product } from './product'
 import { ProductVariant } from './productVariant'
+import { Review } from './review'
 import { User } from './user'
 
 export interface Database {
@@ -14,5 +15,6 @@ export interface Database {
   payments: Collection<Payment>
   products: Collection<Product>
   productVariants: Collection<ProductVariant>
+  reviews: Collection<Review>
   users: Collection<User>
 }
