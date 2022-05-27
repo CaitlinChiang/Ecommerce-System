@@ -1,5 +1,5 @@
 import { Context } from 'types/context'
-import { ProductCategory, UpdateProductCategoryArgs } from 'types/ProductCategory'
+import { ProductCategory, UpdateProductCategoryArgs } from 'types/productCategory'
 import { AuditLogAction } from 'types/_enums/auditLogAction'
 
 export default async (
