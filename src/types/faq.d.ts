@@ -8,6 +8,10 @@ export interface FAQ {
   updatedAt?: Date
 }
 
+export interface GetFAQArgs {
+  _id: ObjectId
+}
+
 export interface CreateFAQArgs {
   question: string
   answer: string
