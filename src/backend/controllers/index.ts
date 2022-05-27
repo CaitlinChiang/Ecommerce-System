@@ -1,9 +1,13 @@
 import { gql } from 'apollo-server-express'
 import auditLogs from './auditLogs'
 import cart from './cart'
+import cities from './cities'
+import faqs from './faqs'
 import orders from './orders'
-import products from './products'
+import paymentMethods from './paymentMethods'
+import productCategories from './productCategories'
 import productVariants from './productVariants'
+import products from './products'
 import reviews from './reviews'
 import users from './users'
 
@@ -21,9 +25,13 @@ export const typeDefs = [
   emptyDefs,
   auditLogs.typeDefs,
   cart.typeDefs,
+  cities.typeDefs,
+  faqs.typeDefs,
   orders.typeDefs,
-  products.typeDefs,
+  paymentMethods.typeDefs,
+  productCategories.typeDefs,
   productVariants.typeDefs,
+  products.typeDefs,
   reviews.typeDefs,
   users.typeDefs
 ]
