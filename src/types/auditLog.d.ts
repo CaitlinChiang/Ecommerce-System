@@ -3,6 +3,7 @@ import { ObjectId } from 'mongodb'
 export interface AuditLog {
   _id?: ObjectId
   action?: string
+  faqId?: ObjectId
   orderId?: ObjectId
   paymentId?: ObjectId
   productId?: ObjectId
