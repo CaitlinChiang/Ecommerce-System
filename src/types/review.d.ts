@@ -6,6 +6,7 @@ export interface Review {
   featured?: boolean
   username?: string
   createdAt?: Date
+  updatedAt?: Date
 }
 
 export interface CreateReviewArgs {
@@ -13,6 +14,12 @@ export interface CreateReviewArgs {
   featured?: boolean
   username: string
   createdAt?: Date
+}
+
+export interface UpdateReviewArgs {
+  _id: ObjectId
+  featured: boolean
+  updatedAt?: Date
 }
 
 export interface DeleteReviewArgs {

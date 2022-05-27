@@ -4,6 +4,7 @@ type Review {
   featured: Boolean
   username: String
   createdAt: Date
+  updatedAt: Date
 }
 
 extend type Query {
@@ -15,6 +16,11 @@ extend type Mutation {
   create_review(
     content: String!
     username: String!
+  ): Review
+
+  update_review(
+    _id: ID!
+    featured: Boolean!
   ): Review
 
   delete_review(_id: ID!): Review
