@@ -7,6 +7,7 @@ export interface AuditLog {
   paymentId?: ObjectId
   productId?: ObjectId
   productVariantId?: ObjectId
+  reviewId?: ObjectId
   userId?: ObjectId
   createdAt?: Date
   createdBy?: ObjectId

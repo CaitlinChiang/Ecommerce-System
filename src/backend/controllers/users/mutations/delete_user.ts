@@ -7,14 +7,16 @@ export default async (
   args: DeleteUserArgs,
   context: Context
 ): Promise<User> => {
+  const { _id } = args
+
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.DELETE_USER,
-    userId: args._id,
+    userId: _id,
     createdAt: new Date(),
     createdBy: context.currentUserId
   })
 
-  const user: any = await context.database.users.findOneAndDelete({ _id: args._id })
+  const user: any = await context.database.users.findOneAndDelete({ _id: _id })
   
   return user
 }
