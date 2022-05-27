@@ -4,7 +4,7 @@ import cart from './cart'
 import orders from './orders'
 import products from './products'
 import productVariants from './productVariants'
-
+import reviews from './reviews'
 import users from './users'
 
 const emptyDefs = gql`
@@ -24,6 +24,6 @@ export const typeDefs = [
   orders.typeDefs,
   products.typeDefs,
   productVariants.typeDefs,
-
+  reviews.typeDefs,
   users.typeDefs
 ]
