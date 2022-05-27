@@ -7,8 +7,9 @@ import { City } from 'types/city'
 import { FAQ } from 'types/faq'
 import { Order } from 'types/order'
 import { Payment } from 'types/payment'
-import { Product } from 'types/product'
+import { ProductCategory } from 'types/productCategory'
 import { ProductVariant } from 'types/productVariant'
+import { Product } from 'types/product'
 import { Review } from 'types/review'
 import { User } from 'types/user'
 
@@ -20,8 +21,9 @@ export default (db: Db): Database => {
     faqs: db.collection<FAQ>('faqs'),
     orders: db.collection<Order>('orders'),
     payments: db.collection<Payment>('payments'),
-    products: db.collection<Product>('products'),
+    productCategories: db.collection<ProductCategory>('productCategories'),
     productVariants: db.collection<ProductVariant>('productVariants'),
+    products: db.collection<Product>('products'),
     reviews: db.collection<Review>('reviews'),
     users: db.collection<User>('users')
   }

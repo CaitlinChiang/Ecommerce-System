@@ -5,8 +5,9 @@ import { City } from './city'
 import { FAQ } from './faq'
 import { Order } from './order'
 import { Payment } from './payment'
-import { Product } from './product'
+import { ProductCategory } from './productCategory'
 import { ProductVariant } from './productVariant'
+import { Product } from './product'
 import { Review } from './review'
 import { User } from './user'
 
@@ -17,8 +18,9 @@ export interface Database {
   faqs: Collection<FAQ>
   orders: Collection<Order>
   payments: Collection<Payment>
-  products: Collection<Product>
+  productCategories: Collection<ProductCategory>
   productVariants: Collection<ProductVariant>
+  products: Collection<Product>
   reviews: Collection<Review>
   users: Collection<User>
 }
