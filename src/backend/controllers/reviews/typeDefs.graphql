@@ -1,0 +1,21 @@
+type Review {
+  _id: ID
+  content: String
+  featured: Boolean
+  username: String
+  createdAt: Date
+}
+
+extend type Query {
+  get_reviews: [Review]
+  get_reviews_count: Int
+}
+
+extend type Mutation {
+  create_review(
+    content: String!
+    username: String!
+  ): Review
+
+  delete_review(_id: ID!): Review
+}
