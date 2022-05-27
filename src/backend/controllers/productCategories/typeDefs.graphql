@@ -1,28 +1,25 @@
-type FAQ {
+type ProductCategory {
   _id: ID
-  answer: String
-  question: String
+  name: String
   createdAt: Date
   updatedAt: Date
 }
 
 extend type Query {
-  get_faq(_id: ID!): FAQ
-  get_faqs: [FAQ]
-  get_faqs_count: Int
+  get_product_category(_id: ID!): ProductCategory
+  get_product_categories: [ProductCategory]
+  get_product_categories_count: Int
 }
 
 extend type Mutation {
-  create_faq(
-    answer: String!
-    question: String!
-  ): FAQ
+  create_product_category(
+    name: String!
+  ): ProductCategory
 
-  update_faq(
+  update_product_category(
     _id: ID!
-    answer: String!
-    question: String!
-  ): FAQ
+    name: String!
+  ): ProductCategory
 
-  delete_faq(_id: ID!): FAQ
+  delete_product_category(_id: ID!): ProductCategory
 }
