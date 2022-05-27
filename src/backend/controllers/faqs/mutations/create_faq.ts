@@ -10,8 +10,8 @@ export default async (
   const { question, answer } = args
 
   const createFAQ: CreateFAQArgs = {
-    question: question,
     answer: answer,
+    question: question,
     createdAt: new Date()
   }
   const faq: any = await context.database.faqs.insertOne(createFAQ)

@@ -2,8 +2,8 @@ import { ObjectId } from 'mongodb'
 
 export interface FAQ {
   _id?: ObjectId
-  question?: string
   answer?: string
+  question?: string
   createdAt?: Date
   updatedAt?: Date
 }
@@ -13,15 +13,15 @@ export interface GetFAQArgs {
 }
 
 export interface CreateFAQArgs {
-  question: string
   answer: string
+  question: string
   createdAt?: Date
 }
 
 export interface UpdateFAQArgs {
   _id: ObjectId
-  question: string
   answer: string
+  question: string
   updatedAt?: Date
 }
 

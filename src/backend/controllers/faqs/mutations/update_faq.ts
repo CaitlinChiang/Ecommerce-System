@@ -10,8 +10,8 @@ export default async (
   const { _id, question, answer } = args
 
   const updateFAQ: Partial<UpdateFAQArgs> = {
-    question: question,
     answer: answer,
+    question: question,
     updatedAt: new Date()
   }
   const faq: any = await context.database.faqs.findOneAndUpdate({ _id: _id }, updateFAQ)
