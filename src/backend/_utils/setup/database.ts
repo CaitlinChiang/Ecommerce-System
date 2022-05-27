@@ -6,6 +6,7 @@ import { Cart } from 'types/cart'
 import { City } from 'types/city'
 import { FAQ } from 'types/faq'
 import { Order } from 'types/order'
+import { PaymentMethod } from 'types/paymentMethod'
 import { Payment } from 'types/payment'
 import { ProductCategory } from 'types/productCategory'
 import { ProductVariant } from 'types/productVariant'
@@ -20,6 +21,7 @@ export default (db: Db): Database => {
     cities: db.collection<City>('cities'),
     faqs: db.collection<FAQ>('faqs'),
     orders: db.collection<Order>('orders'),
+    paymentMethods: db.collection<PaymentMethod>('paymentMethods'),
     payments: db.collection<Payment>('payments'),
     productCategories: db.collection<ProductCategory>('productCategories'),
     productVariants: db.collection<ProductVariant>('productVariants'),
