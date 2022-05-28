@@ -3,11 +3,11 @@ import { ProductVariant } from './productVariant'
 
 export interface Product {
   _id?: ObjectId
+  category?: string
   image?: File
   imageUrl?: string
   name?: string
   price?: number
-  type?: string
   createdAt?: Date
   updatedAt?: Date
 }
@@ -17,21 +17,21 @@ export interface GetProductArgs {
 }
 
 export interface CreateProductArgs {
+  category: string
   image?: File
   imageUrl?: string
   name: string
   price: number
-  type: string
   createdAt?: Date
 }
 
 export interface UpdateProductArgs {
   _id: ObjectId
+  category: string
   image?: File
   imageUrl?: string
   name: string
   price: number
-  type: string
   updatedAt?: Date
 }
 
