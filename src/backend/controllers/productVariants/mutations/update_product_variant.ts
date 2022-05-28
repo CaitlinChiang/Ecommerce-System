@@ -11,7 +11,7 @@ export default async (
   args: UpdateProductVariantArgs,
   context: Context
 ): Promise<ProductVariant> => {
-  const { _id, _productId, image, imageUrl, name, price } = args
+  const { _id, _productId, image, imageUrl, name, price, showPublic } = args
 
   await handleDeleteImage(imageUrl)
   const uploadImage: UploadImageArgs = {
@@ -26,6 +26,7 @@ export default async (
     imageUrl: modifiedImageUrl,
     name: name,
     price: price,
+    showPublic: showPublic,
     updatedAt: new Date()
   }
   const productVariant: any = await context.database.productVariants.findOneAndUpdate({ _id: _id }, updateProductVariant)

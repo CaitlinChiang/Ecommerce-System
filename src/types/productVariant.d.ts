@@ -7,6 +7,7 @@ export interface ProductVariant {
   imageUrl?: string
   name?: string
   price?: number
+  showPublic?: boolean
   createdAt?: Date
   updatedAt?: Date
 }
@@ -22,6 +23,7 @@ export interface CreateProductVariantArgs {
   imageUrl?: string
   name: string
   price: number
+  showPublic: boolean
   createdAt?: Date
 }
 
@@ -32,6 +34,7 @@ export interface UpdateProductVariantArgs {
   imageUrl?: string
   name: string
   price: number
+  showPublic: boolean
   updatedAt?: Date
 }
 

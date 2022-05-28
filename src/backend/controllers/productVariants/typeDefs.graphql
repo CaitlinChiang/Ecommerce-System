@@ -5,6 +5,7 @@ type ProductVariant {
   imageUrl: String
   name: String
   price: Float
+  showPublic: Boolean
   createdAt: Date
   updatedAt: Date
 }
@@ -21,6 +22,7 @@ extend type Mutation {
     image: Upload
     name: String!
     price: Float!
+    showPublic: Boolean!
   ): ProductVariant
 
   update_product_variant(
@@ -30,6 +32,7 @@ extend type Mutation {
     imageUrl: String
     name: String!
     price: Float!
+    showPublic: Boolean!
   ): ProductVariant
 
   delete_product_variant(

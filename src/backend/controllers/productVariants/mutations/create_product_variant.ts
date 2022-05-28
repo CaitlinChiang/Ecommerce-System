@@ -10,7 +10,7 @@ export default async (
   args: CreateProductVariantArgs,
   context: Context
 ): Promise<ProductVariant> => {
-  const { _productId, image, name, price } = args
+  const { _productId, image, name, price, showPublic } = args
 
   const uploadImage: UploadImageArgs = {
     imageType: UploadImageType.PRODUCT_VARIANT,
@@ -25,6 +25,7 @@ export default async (
     imageUrl: imageUrl,
     name: name,
     price: price,
+    showPublic: showPublic,
     createdAt: new Date()
   }
   const productVariant: any = await context.database.productVariants.insertOne(createProductVariant)

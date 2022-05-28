@@ -7,6 +7,7 @@ export default gql`
     $imageUrl: String
     $name: String!
     $price: Float!
+    $showPublic: Boolean!
   ) {
     update_product_variant(
       _id: $_id
@@ -14,6 +15,7 @@ export default gql`
       imageUrl: $imageUrl
       name: $name
       price: $price
+      showPublic: $showPublic
     ) {
       _id
     }
