@@ -11,7 +11,7 @@ export default async (
   args: UpdateProductArgs,
   context: Context
 ): Promise<Product> => {
-  const { _id, category, image, imageUrl, name, price } = args
+  const { _id, category, description, featured, image, imageUrl, name, price, showPublic } = args
 
   await handleDeleteImage(imageUrl)
   const uploadImage: UploadImageArgs = {
@@ -23,9 +23,12 @@ export default async (
   
   const updateProduct: Partial<UpdateProductArgs> = {
     category: category,
+    description: description,
+    featured: featured,
     imageUrl: modifiedImageUrl,
     name: name,
     price: price,
+    showPublic: showPublic,
     updatedAt: new Date()
   }
   const product: any = await context.database.products.findOneAndUpdate({ _id: _id }, updateProduct)

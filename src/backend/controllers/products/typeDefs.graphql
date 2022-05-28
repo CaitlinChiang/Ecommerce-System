@@ -1,10 +1,13 @@
 type Product {
   _id: ID
   category: String
+  description: String
+  featured: Boolean
   image: Upload
   imageUrl: String
   name: String
   price: Float
+  showPublic: Boolean
   createdAt: Date
   updatedAt: Date
 }
@@ -18,18 +21,24 @@ extend type Query {
 extend type Mutation {
   create_product(
     category: String!
+    description: String
+    featured: Boolean!
     image: Upload
     name: String!
     price: Float!
+    showPublic: Boolean!
   ): Product
 
   update_product(
     _id: ID!
     category: String!
+    description: String
+    featured: Boolean!
     image: Upload
     imageUrl: String
     name: String!
     price: Float!
+    showPublic: Boolean!
   ): Product
 
   delete_product(

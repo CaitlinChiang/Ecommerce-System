@@ -10,7 +10,7 @@ export default async (
   args: CreateProductArgs,
   context: Context
 ): Promise<Product> => {
-  const { category, image, name, price } = args
+  const { category, description, featured, image, name, price, showPublic } = args
 
   const uploadImage: UploadImageArgs = {
     imageType: UploadImageType.PRODUCT,
@@ -21,9 +21,12 @@ export default async (
 
   const createProduct: CreateProductArgs = {
     category: category,
+    description: description,
+    featured: featured,
     imageUrl: imageUrl,
     name: name,
     price: price,
+    showPublic: showPublic,
     createdAt: new Date()
   }
   const product: any = await context.database.products.insertOne(createProduct)
