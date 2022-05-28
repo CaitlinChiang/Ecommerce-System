@@ -1,8 +1,9 @@
 import { ObjectId } from 'mongodb'
+import { DeliveryAddress } from './deliveryAddress'
 
 export interface User {
   _id?: ObjectId
-  address?: string
+  address?: DeliveryAddress
   email?: string
   firstName?: string
   lastName?: string
@@ -23,7 +24,7 @@ export interface GetUserArgs {
 }
 
 export interface CreateUserArgs {
-  address?: string
+  address?: DeliveryAddress
   email: string
   firstName: string
   lastName: string
@@ -35,7 +36,7 @@ export interface CreateUserArgs {
 
 export interface UpdateUserArgs {
   _id: ObjectId
-  address?: string
+  address?: DeliveryAddress
   email: string
   password: string
   phoneNumber: string

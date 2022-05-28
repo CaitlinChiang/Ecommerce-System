@@ -1,7 +1,7 @@
 type Order {
   _id: ID
   collectionMethod: String
-  deliveryAddress: String
+  deliveryAddress: DeliveryAddress
   payment: Payment
   paymentId: ID
   products: [Product]
@@ -13,6 +13,11 @@ type Order {
   userId: ID
   createdAt: Date
   updatedAt: Date
+}
+
+type DeliveryAddress {
+  address: String
+  cityId: ID
 }
 
 type Payment {
@@ -36,7 +41,7 @@ extend type Query {
 extend type Mutation {
   create_order(
     collectionMethod: String
-    deliveryAddress: String
+    deliveryAddress: DeliveryAddress
     payment: Payment
     productIds: [String]
     productVariantIds: [String]

@@ -3,7 +3,7 @@ import { gql } from '@apollo/client'
 export default gql`
   mutation(
     $collectionMethod: String
-    $deliveryAddress: String
+    $deliveryAddress: DeliveryAddress
     $payment: Payment
     $productIds: [String]
     $productVariantIds: [String]

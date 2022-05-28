@@ -1,6 +1,6 @@
 type User {
   _id: ID
-  address: String
+  address: DeliveryAddress
   email: String
   firstName: String
   lastName: String
@@ -9,6 +9,11 @@ type User {
   type: String
   createdAt: Date
   updatedAt: Date
+}
+
+type DeliveryAddress {
+  address: String
+  cityId: ID
 }
 
 extend type Query {
@@ -24,7 +29,7 @@ extend type Mutation {
   ): User
   
   create_user(
-    address: String
+    address: DeliveryAddress
     email: String!
     firstName: String!
     lastName: String!
@@ -34,7 +39,7 @@ extend type Mutation {
   ): User
 
   update_user(
-    address: String
+    address: DeliveryAddress
     email: String!
     password: String!
     phoneNumber: String!
