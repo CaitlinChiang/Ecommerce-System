@@ -7,11 +7,13 @@ export default async (
   args: UpdateUserArgs,
   context: Context
 ): Promise<User> => {
+  const { address, email, password, phoneNumber } = args
+
   const updateUser: Partial<UpdateUserArgs> = {
-    address: args?.address,
-    email: args.email,
-    password: args.password,
-    phoneNumber: args.phoneNumber,
+    address: address,
+    email: email,
+    password: password,
+    phoneNumber: phoneNumber,
     updatedAt: new Date()
   }
   const user: any = await context.database.users.findOneAndUpdate({ _id: args._id }, updateUser)

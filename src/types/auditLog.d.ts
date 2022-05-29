@@ -13,6 +13,7 @@ export interface AuditLog {
   productVariantId?: ObjectId
   reviewId?: ObjectId
   userId?: ObjectId
+  websiteTextId?: ObjectId
   createdAt?: Date
   createdBy?: ObjectId
 }
