@@ -3,8 +3,8 @@ import { DeliveryAddress } from './deliveryAddress'
 
 export interface WebsiteText {
   _id?: ObjectId
-  type?: string
   content?: string
+  type?: string
 }
 
 export interface GetWebsiteTextArgs {
@@ -12,7 +12,7 @@ export interface GetWebsiteTextArgs {
 }
 
 export interface UpdateWebsiteTextArgs {
+  _id: ObjectId
   content: string
-  type: string
   updatedAt?: Date
 }

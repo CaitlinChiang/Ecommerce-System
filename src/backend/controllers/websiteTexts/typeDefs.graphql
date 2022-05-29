@@ -1,0 +1,17 @@
+type WebsiteText {
+  _id: ID
+  content: String
+  type: String
+  updatedAt: Date
+}
+
+extend type Query {
+  get_website_text(_id: ID!): WebsiteText
+}
+
+extend type Mutation {
+  update_website_text(
+    _id: ID!
+    content: String!
+  ): WebsiteText
+}
