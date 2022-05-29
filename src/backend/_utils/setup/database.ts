@@ -13,6 +13,7 @@ import { ProductVariant } from 'types/productVariant'
 import { Product } from 'types/product'
 import { Review } from 'types/review'
 import { User } from 'types/user'
+import { WebsiteText } from 'types/websiteText'
 
 export default (db: Db): Database => {
   return {
@@ -27,6 +28,7 @@ export default (db: Db): Database => {
     productVariants: db.collection<ProductVariant>('productVariants'),
     products: db.collection<Product>('products'),
     reviews: db.collection<Review>('reviews'),
-    users: db.collection<User>('users')
+    users: db.collection<User>('users'),
+    websiteTexts: db.collection<WebsiteText>('websiteTexts')
   }
 }

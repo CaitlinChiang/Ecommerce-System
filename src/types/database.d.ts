@@ -11,6 +11,7 @@ import { ProductVariant } from './productVariant'
 import { Product } from './product'
 import { Review } from './review'
 import { User } from './user'
+import { WebsiteText } from './websiteText'
 
 export interface Database {
   auditLogs: Collection<AuditLog>
@@ -25,4 +26,5 @@ export interface Database {
   products: Collection<Product>
   reviews: Collection<Review>
   users: Collection<User>
+  websiteTexts: Collection<WebsiteText>
 }
