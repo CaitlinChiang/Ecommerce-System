@@ -1,19 +1,19 @@
 import { Context } from 'types/context'
 import { WebsiteText, UpdateWebsiteTextArgs } from 'types/websiteText'
 import { AuditLogAction } from 'types/_enums/auditLogAction'
+import { authenticateUser } from 'backend/_utils/authenticateUser'
 
 export default async (
   _root: undefined,
   args: UpdateWebsiteTextArgs,
   context: Context
 ): Promise<WebsiteText> => {
-  const { _id, content } = args
+  authenticateUser({ admin: true }, context)
 
-  const updateWebsiteText: Partial<UpdateWebsiteTextArgs> = {
-    content: content,
-    updatedAt: new Date()
-  }
-  const websiteText: any = await context.database.websiteTexts.findOneAndUpdate({ _id: _id }, updateWebsiteText)
+  const websiteText: any = await context.database.websiteTexts.findOneAndUpdate(
+    { _id: args._id }, 
+    { ...args, updatedAt: new Date() }
+  )
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.UPDATE_WEBSITE_TEXT,
