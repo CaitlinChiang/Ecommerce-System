@@ -15,6 +15,5 @@ export default async (
       productVariants: { $push: productVariant }
     }
   )
-  
   return cart
 }
