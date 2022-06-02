@@ -6,6 +6,7 @@ type User {
   lastName: String
   password: String
   phoneNumber: String
+  token: String
   type: String
   createdAt: Date
   updatedAt: Date
@@ -23,7 +24,7 @@ extend type Query {
 }
 
 extend type Mutation {
-  user_sign_in(
+  sign_in_user(
     email: String!
     password: String!
   ): User

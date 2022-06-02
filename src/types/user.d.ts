@@ -9,12 +9,13 @@ export interface User {
   lastName?: string
   password?: string
   phoneNumber?: string
+  token?: string
   type?: string
   createdAt?: Date
   updatedAt?: Date
 }
 
-export interface UserSignInArgs {
+export interface SignInUserArgs {
   email: string
   password: string
 }

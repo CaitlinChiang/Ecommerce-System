@@ -5,7 +5,7 @@ export default gql`
     $email: String!
     $password: String!
   ) {
-    user_sign_in(
+    sign_in_user(
       email: $id
       password: $password
     ) {
