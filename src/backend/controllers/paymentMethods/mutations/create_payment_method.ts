@@ -1,20 +1,16 @@
 import { Context } from 'types/context'
 import { PaymentMethod, CreatePaymentMethodArgs } from 'types/paymentMethod'
 import { AuditLogAction } from 'types/_enums/auditLogAction'
+import { authenticateUser } from 'backend/_utils/authenticateUser'
 
 export default async (
   _root: undefined,
   args: CreatePaymentMethodArgs,
   context: Context
 ): Promise<PaymentMethod> => {
-  const { name, details } = args
+  authenticateUser({ admin: true }, context)
 
-  const createPaymentMethod: CreatePaymentMethodArgs = {
-    name: name,
-    details: details,
-    createdAt: new Date()
-  }
-  const paymentMethod: any = await context.database.paymentMethods.insertOne(createPaymentMethod)
+  const paymentMethod: any = await context.database.paymentMethods.insertOne({ ... args, createdAt: new Date() })
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.CREATE_PAYMENT_METHOD,
