@@ -17,7 +17,6 @@ export interface User {
 
 export interface UserPermissionArgs {
   admin: boolean
-  consumer: boolean
 }
 
 export interface SignInUserArgs {
