@@ -8,10 +8,6 @@ import { authenticateUser } from 'backend/_utils/authenticateUser'
 export default async (_root: undefined, args: CreateOrderArgs, context: Context): Promise<Order> => {
   authenticateUser({ admin: false }, context)
 
-  const {
-    payment: { amountDue, method }
-  } = args
-
   const order: any = await context.database.orders.insertOne({
     ...args,
     status: OrderStatus.PENDING,
@@ -28,8 +24,8 @@ export default async (_root: undefined, args: CreateOrderArgs, context: Context)
 
   await context.database.payments.insertOne({
     _orderId: order._id,
-    amountDue: amountDue,
-    method: method,
+    amountDue: args?.payment?.amountDue,
+    method: args?.payment?.method,
     status: PaymentStatus.COMPLETE,
     createdAt: new Date()
   })

@@ -5,22 +5,20 @@ import { authenticateUser } from 'backend/_utils/authenticateUser'
 export default async (_root: undefined, args: AddToCartArgs, context: Context): Promise<Cart> => {
   authenticateUser({ admin: false }, context)
 
-  const { product, productVariant } = args
-
   const cart: any = await context.database.carts.findOneAndUpdate(
     {
       _userId: context.currentUserId,
       products: {
-        $elemMatch: { _id: product.productId }
+        $elemMatch: { _id: args?.product.productId }
       },
       productVariants: {
-        $elemMatch: { _id: productVariant.productVariantId }
+        $elemMatch: { _id: args?.productVariant.productVariantId }
       }
     },
     {
       $set: {
-        'products.$.quantity': product.quantity,
-        'productVariants.$.quantity': productVariant.quantity
+        'products.$.quantity': args?.product.quantity,
+        'productVariants.$.quantity': args?.productVariant.quantity
       }
     }
   )

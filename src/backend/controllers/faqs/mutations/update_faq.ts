@@ -6,7 +6,10 @@ import { authenticateUser } from 'backend/_utils/authenticateUser'
 export default async (_root: undefined, args: UpdateFAQArgs, context: Context): Promise<FAQ> => {
   authenticateUser({ admin: true }, context)
 
-  const faq: any = await context.database.faqs.findOneAndUpdate({ _id: args._id }, { ...args, updatedAt: new Date() })
+  const faq: any = await context.database.faqs.findOneAndUpdate(
+    { _id: args._id },
+    { ...args, updatedAt: new Date()
+  })
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.UPDATE_FAQ,

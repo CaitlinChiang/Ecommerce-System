@@ -44,10 +44,10 @@ nextJSApp.prepare().then(async () => {
       const user = verifyJWT(headers.accesstoken)
 
       return {
-        ip,
         currentUserId: user._id,
         currentUserType: user.type,
-        database
+        database,
+        ip
       }
     },
     formatError: (error: GraphQLError): GraphQLFormattedError => {

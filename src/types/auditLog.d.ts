@@ -8,8 +8,8 @@ export interface AuditLog {
   orderId?: ObjectId
   paymentId?: ObjectId
   paymentMethodId?: ObjectId
-  productId?: ObjectId
   productCategoryId?: ObjectId
+  productId?: ObjectId
   productVariantId?: ObjectId
   reviewId?: ObjectId
   userId?: ObjectId

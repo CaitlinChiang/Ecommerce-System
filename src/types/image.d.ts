@@ -1,7 +1,7 @@
 export interface UploadImageArgs {
-  imageType?: string
   image?: File
-  productName?: string
+  imageType?: string
   productId?: string
+  productName?: string
   productVariantName?: string
 }

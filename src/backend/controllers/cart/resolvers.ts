@@ -28,7 +28,7 @@ export default {
 
     quantity: async (args: GetCartArgs): Promise<number> => {
       const productsQuantity: number = args?.products?.length
-
+      
       const productVariantsQuantity: number = args?.productVariants?.length
 
       return productsQuantity + productVariantsQuantity

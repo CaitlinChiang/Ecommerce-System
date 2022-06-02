@@ -15,6 +15,13 @@ export interface User {
   updatedAt?: Date
 }
 
+export interface JWTReturnUserArgs {
+  _id: ObjectId
+  type: string
+  iat: number
+  exp: number
+}
+
 export interface UserPermissionArgs {
   admin: boolean
 }
