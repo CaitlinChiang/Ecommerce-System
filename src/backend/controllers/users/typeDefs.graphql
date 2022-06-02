@@ -19,24 +19,18 @@ type DeliveryAddress {
 
 extend type Query {
   get_user(_id: ID!): User
+
   get_users: [User]
+
   get_users_count: Int
 }
 
 extend type Mutation {
   sign_in_user(email: String!, password: String!): User
 
-  create_user(
-    address: DeliveryAddress
-    email: String!
-    firstName: String!
-    lastName: String!
-    password: String!
-    phoneNumber: String!
-    type: String!
-  ): User
+  create_user(address: DeliveryAddress, email: String!, firstName: String!, lastName: String!, password: String!, phoneNumber: String!, type: String!): User
 
   update_user(address: DeliveryAddress, email: String!, password: String!, phoneNumber: String!): User
-
+  
   delete_user(_id: ID!): User
 }

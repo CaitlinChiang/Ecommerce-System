@@ -9,22 +9,19 @@ import { handleUploadImage } from 'backend/_utils/handleImages/uploadImage'
 export default async (_root: undefined, args: CreateProductVariantArgs, context: Context): Promise<ProductVariant> => {
   authenticateUser({ admin: true }, context)
 
-  const { _productId, image, name, price, showPublic } = args
+  const { image, ...modifiedArgs } = args
 
   const uploadImage: UploadImageArgs = {
     imageType: UploadImageType.PRODUCT_VARIANT,
     image,
-    productId: String(_productId),
-    productVariantName: name
+    productId: String(args._productId),
+    productVariantName: args.name
   }
   const imageUrl = await handleUploadImage(uploadImage)
 
   const productVariant: any = await context.database.productVariants.insertOne({
-    _productId,
+    ...modifiedArgs,
     imageUrl,
-    name,
-    price,
-    showPublic,
     createdAt: new Date()
   })
 

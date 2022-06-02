@@ -10,24 +10,22 @@ import { handleDeleteImage } from 'backend/_utils/handleImages/deleteImage'
 export default async (_root: undefined, args: UpdateProductVariantArgs, context: Context): Promise<ProductVariant> => {
   authenticateUser({ admin: true }, context)
 
-  const { _id, _productId, image, imageUrl, name, price, showPublic } = args
+  const { image, ...modifiedArgs } = args
 
-  await handleDeleteImage(imageUrl)
+  await handleDeleteImage(args.imageUrl)
   const uploadImage: UploadImageArgs = {
     imageType: UploadImageType.PRODUCT_VARIANT,
-    image: image,
-    productId: String(_productId),
-    productVariantName: name
+    image,
+    productId: String(args._productId),
+    productVariantName: args.name
   }
   const modifiedImageUrl = await handleUploadImage(uploadImage)
 
   const productVariant: any = await context.database.productVariants.findOneAndUpdate(
-    { _id: _id },
+    { _id: args._id },
     {
+      ...modifiedArgs,
       imageUrl: modifiedImageUrl,
-      name,
-      price,
-      showPublic,
       updatedAt: new Date()
     }
   )

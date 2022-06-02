@@ -9,23 +9,18 @@ import { handleUploadImage } from 'backend/_utils/handleImages/uploadImage'
 export default async (_root: undefined, args: CreateProductArgs, context: Context): Promise<Product> => {
   authenticateUser({ admin: true }, context)
 
-  const { category, description, featured, image, name, price, showPublic } = args
+  const { image, ...modifiedArgs } = args
 
   const uploadImage: UploadImageArgs = {
     imageType: UploadImageType.PRODUCT,
     image,
-    productName: name
+    productName: args.name
   }
   const imageUrl = await handleUploadImage(uploadImage)
 
   const product: any = await context.database.products.insertOne({
-    category,
-    description,
-    featured,
+    ...modifiedArgs,
     imageUrl,
-    name,
-    price,
-    showPublic,
     createdAt: new Date()
   })
 

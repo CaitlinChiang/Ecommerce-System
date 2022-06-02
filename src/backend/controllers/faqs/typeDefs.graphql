@@ -8,12 +8,16 @@ type FAQ {
 
 extend type Query {
   get_faq(_id: ID!): FAQ
+  
   get_faqs: [FAQ]
+
   get_faqs_count: Int
 }
 
 extend type Mutation {
   create_faq(answer: String!, question: String!): FAQ
+
   update_faq(_id: ID!, answer: String!, question: String!): FAQ
+
   delete_faq(_id: ID!): FAQ
 }

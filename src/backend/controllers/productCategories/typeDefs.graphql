@@ -7,7 +7,9 @@ type ProductCategory {
 
 extend type Query {
   get_product_category(_id: ID!): ProductCategory
+
   get_product_categories: [ProductCategory]
+
   get_product_categories_count: Int
 }
 
@@ -15,6 +17,6 @@ extend type Mutation {
   create_product_category(name: String!): ProductCategory
 
   update_product_category(_id: ID!, name: String!): ProductCategory
-
+  
   delete_product_category(_id: ID!): ProductCategory
 }

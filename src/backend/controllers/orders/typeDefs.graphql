@@ -4,10 +4,10 @@ type Order {
   deliveryAddress: DeliveryAddress
   payment: Payment
   paymentId: ID
-  products: [Product]
   productIds: [String]
-  productVariants: [ProductVariant]
+  products: [Product]
   productVariantIds: [String]
+  productVariants: [ProductVariant]
   status: String
   user: User
   userId: ID
@@ -34,13 +34,18 @@ type Payment {
 
 extend type Query {
   get_order(_id: ID!): Order
+
   get_orders: [Order]
+
   get_orders_count: Int
 }
 
 extend type Mutation {
   create_order(collectionMethod: String, deliveryAddress: DeliveryAddress, productIds: [String], productVariantIds: [String], userId: ID): Order
+
   update_order(_id: ID!, collectionMethod: String!, status: String!): Order
+
   update_payment(_orderId: ID!, proofImage: Upload, status: String!): Payment
+  
   delete_order(_id: ID!): Order
 }

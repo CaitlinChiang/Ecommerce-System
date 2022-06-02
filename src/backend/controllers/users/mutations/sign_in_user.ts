@@ -8,14 +8,12 @@ import { authenticateUser } from 'backend/_utils/authenticateUser'
 export default async (_root: undefined, args: SignInUserArgs, context: Context): Promise<User> => {
   authenticateUser({ admin: false }, context)
 
-  const { email, password } = args
-
-  const existingUser = await context.database.users.findOne({ email })
+  const existingUser = await context.database.users.findOne({ email: args.email })
   if (!existingUser) {
     throw new AuthenticationError('Invalid email, please try again.')
   }
 
-  const validatePassword = await bcrypt.compare(password, existingUser.password)
+  const validatePassword = await bcrypt.compare(args.password, existingUser.password)
   if (!validatePassword) {
     throw new AuthenticationError('Incorrect password, please try again.')
   }

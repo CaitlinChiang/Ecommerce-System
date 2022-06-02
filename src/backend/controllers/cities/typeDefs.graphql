@@ -8,12 +8,16 @@ type City {
 
 extend type Query {
   get_city(_id: ID!): City
+  
   get_cities: [City]
+
   get_cities_count: Int
 }
 
 extend type Mutation {
   create_city(name: String!, shippingFee: Float!): City
+
   update_city(_id: ID!, name: String!, shippingFee: Float!): City
+
   delete_city(_id: ID!): City
 }

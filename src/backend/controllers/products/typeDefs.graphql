@@ -14,7 +14,9 @@ type Product {
 
 extend type Query {
   get_product(_id: ID!): Product
+
   get_products: [Product]
+  
   get_products_count: Int
 }
 

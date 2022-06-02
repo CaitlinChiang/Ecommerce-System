@@ -11,10 +11,10 @@ export interface Order {
   deliveryAddress?: DeliveryAddress
   payment?: Payment
   paymentId?: ObjectId
-  products?: Product[]
   productIds?: string[]
-  productVariants?: ProductVariant[]
+  products?: Product[]
   productVariantIds?: string[]
+  productVariants?: ProductVariant[]
   status?: string
   user?: User
   userId?: ObjectId

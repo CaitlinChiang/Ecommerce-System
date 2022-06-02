@@ -9,14 +9,12 @@ import { authenticateUser } from 'backend/_utils/authenticateUser'
 export default async (_root: undefined, args: CreateUserArgs, context: Context): Promise<User> => {
   authenticateUser({ admin: false }, context)
 
-  const { email, password } = args
-
-  const existingUser = await context.database.users.findOne({ email })
+  const existingUser = await context.database.users.findOne({ email: args.email })
   if (existingUser) {
     throw new UserInputError('User with email already exists.')
   }
 
-  const hashedPassword = await bcrypt.hash(password, 12)
+  const hashedPassword = await bcrypt.hash(args.password, 12)
 
   const user: any = await context.database.users.insertOne({
     ...args,
