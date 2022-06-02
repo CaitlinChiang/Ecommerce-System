@@ -13,7 +13,7 @@ module.exports = {
     '@typescript-eslint/no-namespace': ['off'],
     '@typescript-eslint/no-var-requires': ['off'],
     '@typescript-eslint/quotes': ['error', 'single', { avoidEscape: true }],
-    'camelcase': 'off',
+    camelcase: 'off',
     'comma-dangle': 2,
     'no-extra-semi': 2,
     'no-irregular-whitespace': 2,
@@ -25,7 +25,7 @@ module.exports = {
     'no-unexpected-multiline': 2,
     'no-unreachable': 'error',
     'object-curly-spacing': ['error', 'always'],
-    'quotes': 'off',
-    'semi': ['error', 'never']
+    quotes: 'off',
+    semi: ['error', 'never']
   }
 }
