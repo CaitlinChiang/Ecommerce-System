@@ -5,6 +5,8 @@ import { authenticateUser } from 'backend/_utils/authenticateUser'
 export default async (_root: undefined, args: GetProductVariantArgs, context: Context): Promise<number> => {
   authenticateUser({ admin: false }, context)
 
-  const productVariantsCount: number = await context.database.productVariants.countDocuments({ _productId: args._productId })
+  const productVariantsCount: number = await context.database.productVariants.countDocuments({
+    _productId: args._productId
+  })
   return productVariantsCount
 }

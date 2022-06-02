@@ -4,7 +4,7 @@ const cloudinary = require('../setup/cloudinary')
 export const handleUploadImage = async (args: UploadImageArgs) => {
   const fileName = assignFileName(args)
   await cloudinary.uploader.upload(args.image, { public_id: fileName })
-  
+
   return fileName
 }
 
