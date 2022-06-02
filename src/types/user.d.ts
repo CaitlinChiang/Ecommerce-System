@@ -15,6 +15,11 @@ export interface User {
   updatedAt?: Date
 }
 
+export interface UserPermissionArgs {
+  admin: boolean
+  consumer: boolean
+}
+
 export interface SignInUserArgs {
   email: string
   password: string
