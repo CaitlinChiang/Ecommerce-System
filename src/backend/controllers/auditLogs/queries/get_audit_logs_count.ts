@@ -1,20 +1,14 @@
 import { Context } from 'types/context'
 import { GetAuditLogArgs } from 'types/auditLog'
+import { authenticateUser } from 'backend/_utils/authenticateUser'
 
 export default async (
   _root: undefined,
   args: GetAuditLogArgs,
   context: Context
 ): Promise<number> => {
-  const { action, orderId, paymentId, productId, productVariantId } = args
+  authenticateUser({ admin: true }, context)
   
-  const auditLogsCount: number = await context.database.auditLogs.countDocuments({
-    action: action,
-    orderId: orderId,
-    paymentId: paymentId,
-    productId: productId,
-    productVariantId: productVariantId
-  })
-  
+  const auditLogsCount: number = await context.database.auditLogs.countDocuments(args)
   return auditLogsCount
 }

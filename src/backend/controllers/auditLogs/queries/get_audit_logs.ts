@@ -1,20 +1,14 @@
 import { Context } from 'types/context'
 import { AuditLog, GetAuditLogArgs } from 'types/auditLog'
+import { authenticateUser } from 'backend/_utils/authenticateUser'
 
 export default async (
   _root: undefined,
   args: GetAuditLogArgs,
   context: Context
 ): Promise<AuditLog[]> => {
-  const { action, orderId, paymentId, productId, productVariantId } = args
+  authenticateUser({ admin: true }, context)
 
-  const auditLogs: any = await context.database.auditLogs.find({
-    action: action,
-    orderId: orderId,
-    paymentId: paymentId,
-    productId: productId,
-    productVariantId: productVariantId
-  })
-
+  const auditLogs: any = await context.database.auditLogs.find(args)
   return auditLogs
 }
