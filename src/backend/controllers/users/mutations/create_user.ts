@@ -1,6 +1,8 @@
 import { Context } from 'types/context'
 import { User, CreateUserArgs } from 'types/user'
 import { AuditLogAction } from 'types/_enums/auditLogAction'
+import { UserInputError } from 'apollo-server-express'
+import bcrypt from 'bcrypt'
 
 export default async (
   _root: undefined,
@@ -9,12 +11,19 @@ export default async (
 ): Promise<User> => {
   const { address, email, firstName, lastName, password, phoneNumber, type } = args
 
+  const checkExistingUser = await context.database.users.findOne({ email: email })
+  if (checkExistingUser) {
+    throw new UserInputError('User with email already exists.')
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 12)
+
   const createUser: CreateUserArgs = {
     address: address,
     email: email,
     firstName: firstName,
     lastName: lastName,
-    password: password,
+    password: hashedPassword,
     phoneNumber: phoneNumber,
     type: type,
     createdAt: new Date()
