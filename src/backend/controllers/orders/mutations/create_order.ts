@@ -1,27 +1,25 @@
 import { Context } from 'types/context'
 import { Order, CreateOrderArgs } from 'types/order'
 import { OrderStatus } from 'types/_enums/orderStatus'
-import { CreatePaymentArgs } from 'types/payment'
 import { PaymentStatus } from 'types/_enums/paymentStatus'
 import { AuditLogAction } from 'types/_enums/auditLogAction'
+import { authenticateUser } from 'backend/_utils/authenticateUser'
 
 export default async (
   _root: undefined,
   args: CreateOrderArgs,
   context: Context
 ): Promise<Order> => {
-  const { collectionMethod, deliveryAddress, payment: { amountDue, method }, productIds, productVariantIds } = args
+  authenticateUser({ admin: false }, context)
 
-  const createOrder: CreateOrderArgs = {
-    collectionMethod: collectionMethod,
-    deliveryAddress: deliveryAddress,
-    productIds: productIds,
-    productVariantIds: productVariantIds,
+  const { payment: { amountDue, method } } = args
+
+  const order: any = await context.database.orders.insertOne({ 
+    ...args,
     status: OrderStatus.PENDING,
     userId: context.currentUserId,
     createdAt: new Date()
-  }
-  const order: any = await context.database.orders.insertOne(createOrder)
+  })
   
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.CREATE_ORDER,
@@ -30,14 +28,13 @@ export default async (
     createdBy: context.currentUserId
   })
 
-  const createPayment: Partial<CreatePaymentArgs> = {
+  await context.database.payments.insertOne({
     _orderId: order._id,
     amountDue: amountDue,
     method: method,
     status: PaymentStatus.COMPLETE,
     createdAt: new Date()
-  }
-  await context.database.payments.insertOne(createPayment)
+  })
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.CREATE_ORDER_PAYMENT,

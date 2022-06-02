@@ -1,20 +1,19 @@
 import { Context } from 'types/context'
 import { Order, UpdateOrderArgs } from 'types/order'
 import { AuditLogAction } from 'types/_enums/auditLogAction'
+import { authenticateUser } from 'backend/_utils/authenticateUser'
 
 export default async (
   _root: undefined,
   args: UpdateOrderArgs,
   context: Context
 ): Promise<Order> => {
-  const { _id, collectionMethod, status } = args
+  authenticateUser({ admin: true }, context)
 
-  const updateOrder: Partial<UpdateOrderArgs> = {
-    collectionMethod: collectionMethod,
-    status: status,
-    updatedAt: new Date()
-  }
-  const order: any = await context.database.orders.findOneAndUpdate({ _id: _id }, updateOrder)
+  const order: any = await context.database.orders.findOneAndUpdate(
+    { _id: args._id },
+    { ...args, updatedAt: new Date() }
+  )
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.UPDATE_ORDER,
