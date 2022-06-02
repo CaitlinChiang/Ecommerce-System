@@ -1,5 +1,4 @@
 import { ObjectId } from 'mongodb'
-import { ProductVariant } from './productVariant'
 
 export interface Product {
   _id?: ObjectId

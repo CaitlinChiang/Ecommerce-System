@@ -1,5 +1,4 @@
 import { ObjectId } from 'mongodb'
-import { DeliveryAddress } from './deliveryAddress'
 
 export interface WebsiteText {
   _id?: ObjectId

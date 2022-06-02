@@ -19,7 +19,7 @@ export interface Database {
   cities: Collection<City>
   faqs: Collection<FAQ>
   orders: Collection<Order>
-  paymentMethods: Collection<Payment>
+  paymentMethods: Collection<PaymentMethod>
   payments: Collection<Payment>
   productCategories: Collection<ProductCategory>
   productVariants: Collection<ProductVariant>
