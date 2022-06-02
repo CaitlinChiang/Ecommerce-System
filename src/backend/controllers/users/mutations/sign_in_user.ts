@@ -12,19 +12,12 @@ export default async (
   const { email, password } = args
 
   const existingUser = await context.database.users.findOne({ email: email })
-  if (!existingUser) {
-    throw new AuthenticationError('Invalid email, please try again.')
-  }
+  if (!existingUser) throw new AuthenticationError('Invalid email, please try again.')
 
   const validatePassword = await bcrypt.compare(password, existingUser.password)
-  if (!validatePassword) {
-    throw new AuthenticationError('Incorrect password, please try again.')
-  }
+  if (!validatePassword) throw new AuthenticationError('Incorrect password, please try again.')
 
   const token = await generateJWT(existingUser._id)
   
-  return {
-    ...existingUser,
-    token
-  }
+  return { ...existingUser, token }
 }

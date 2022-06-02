@@ -13,9 +13,7 @@ export default async (
   const { address, email, firstName, lastName, password, phoneNumber, type } = args
 
   const existingUser = await context.database.users.findOne({ email: email })
-  if (existingUser) {
-    throw new UserInputError('User with email already exists.')
-  }
+  if (existingUser) throw new UserInputError('User with email already exists.')
 
   const hashedPassword = await bcrypt.hash(password, 12)
 
@@ -42,8 +40,5 @@ export default async (
 
   const token = await generateJWT(existingUser._id)
   
-  return {
-    ...user,
-    token
-  }
+  return { ...user, token }
 }
