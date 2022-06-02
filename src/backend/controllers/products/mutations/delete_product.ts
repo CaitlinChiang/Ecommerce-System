@@ -1,8 +1,8 @@
 import { Context } from 'types/context'
 import { Product, DeleteProductArgs } from 'types/product'
 import { AuditLogAction } from 'types/_enums/auditLogAction'
-import { handleDeleteImage } from 'backend/_utils/handleImages/deleteImage'
 import { authenticateUser } from 'backend/_utils/authenticateUser'
+import { handleDeleteImage } from 'backend/_utils/handleImages/deleteImage'
 
 export default async (
   _root: undefined,

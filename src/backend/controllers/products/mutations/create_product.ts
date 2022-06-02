@@ -3,8 +3,8 @@ import { Product, CreateProductArgs } from 'types/product'
 import { UploadImageArgs } from 'types/image'
 import { UploadImageType } from 'types/_enums/uploadImageType'
 import { AuditLogAction } from 'types/_enums/auditLogAction'
-import { handleUploadImage } from 'backend/_utils/handleImages/uploadImage'
 import { authenticateUser } from 'backend/_utils/authenticateUser'
+import { handleUploadImage } from 'backend/_utils/handleImages/uploadImage'
 
 export default async (
   _root: undefined,

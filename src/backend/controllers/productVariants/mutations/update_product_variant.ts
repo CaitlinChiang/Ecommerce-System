@@ -3,6 +3,7 @@ import { ProductVariant, UpdateProductVariantArgs } from 'types/productVariant'
 import { UploadImageArgs } from 'types/image'
 import { UploadImageType } from 'types/_enums/uploadImageType'
 import { AuditLogAction } from 'types/_enums/auditLogAction'
+import { authenticateUser } from 'backend/_utils/authenticateUser'
 import { handleUploadImage } from 'backend/_utils/handleImages/uploadImage'
 import { handleDeleteImage } from 'backend/_utils/handleImages/deleteImage'
 
@@ -11,6 +12,8 @@ export default async (
   args: UpdateProductVariantArgs,
   context: Context
 ): Promise<ProductVariant> => {
+  authenticateUser({ admin: true }, context)
+
   const { _id, _productId, image, imageUrl, name, price, showPublic } = args
 
   await handleDeleteImage(imageUrl)
@@ -22,14 +25,16 @@ export default async (
   }
   const modifiedImageUrl = await handleUploadImage(uploadImage)
 
-  const updateProductVariant: Partial<UpdateProductVariantArgs> = {
-    imageUrl: modifiedImageUrl,
-    name: name,
-    price: price,
-    showPublic: showPublic,
-    updatedAt: new Date()
-  }
-  const productVariant: any = await context.database.productVariants.findOneAndUpdate({ _id: _id }, updateProductVariant)
+  const productVariant: any = await context.database.productVariants.findOneAndUpdate(
+    { _id: _id },
+    {
+      imageUrl: modifiedImageUrl,
+      name,
+      price,
+      showPublic,
+      updatedAt: new Date()
+    }
+  )
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.UPDATE_PRODUCT_VARIANT,

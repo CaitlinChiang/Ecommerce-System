@@ -1,6 +1,7 @@
 import { Context } from 'types/context'
 import { ProductVariant, DeleteProductVariantArgs } from 'types/productVariant'
 import { AuditLogAction } from 'types/_enums/auditLogAction'
+import { authenticateUser } from 'backend/_utils/authenticateUser'
 import { handleDeleteImage } from 'backend/_utils/handleImages/deleteImage'
 
 export default async (
@@ -8,18 +9,17 @@ export default async (
   args: DeleteProductVariantArgs,
   context: Context
 ): Promise<ProductVariant> => {
-  const { _id, imageUrl } = args
+  authenticateUser({ admin: true }, context)
 
-  await handleDeleteImage(imageUrl)
+  await handleDeleteImage(args.imageUrl)
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.DELETE_PRODUCT_VARIANT,
-    productVariantId: _id,
+    productVariantId: args._id,
     createdAt: new Date(),
     createdBy: context.currentUserId
   })
 
-  const productVariant: any = await context.database.productVariants.findOneAndDelete({ _id: _id })
-  
+  const productVariant: any = await context.database.productVariants.findOneAndDelete({ _id: args._id })
   return productVariant
 }
