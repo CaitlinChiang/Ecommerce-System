@@ -1,22 +1,19 @@
 import { Context } from 'types/context'
 import { User, UpdateUserArgs } from 'types/user'
 import { AuditLogAction } from 'types/_enums/auditLogAction'
+import { authenticateUser } from 'backend/_utils/authenticateUser'
 
 export default async (
   _root: undefined,
   args: UpdateUserArgs,
   context: Context
 ): Promise<User> => {
-  const { address, email, password, phoneNumber } = args
+  authenticateUser({ admin: false }, context)
 
-  const updateUser: Partial<UpdateUserArgs> = {
-    address: address,
-    email: email,
-    password: password,
-    phoneNumber: phoneNumber,
-    updatedAt: new Date()
-  }
-  const user: any = await context.database.users.findOneAndUpdate({ _id: args._id }, updateUser)
+  const user: any = await context.database.users.findOneAndUpdate(
+    { _id: args._id },
+    { ...args, updatedAt: new Date() }  
+  )
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.UPDATE_USER,
