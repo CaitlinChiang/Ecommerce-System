@@ -3,11 +3,7 @@ import { UserPermissionArgs } from 'types/user'
 import { UserType } from 'types/_enums/userType'
 import { AuthenticationError } from 'apollo-server-express'
 
-export default async (
-  _root: undefined,
-  args: UserPermissionArgs,
-  context: Context
-): Promise<void> => {
+export const authenticateUser = async (args: UserPermissionArgs, context: Context): Promise<void> => {
   const { admin } = args
   const userType = context.currentUserType
 
