@@ -3,6 +3,7 @@ import { User, CreateUserArgs } from 'types/user'
 import { AuditLogAction } from 'types/_enums/auditLogAction'
 import { UserInputError } from 'apollo-server-express'
 import bcrypt from 'bcrypt'
+import { generateJWT } from 'backend/_utils/jwt'
 
 export default async (
   _root: undefined,
@@ -11,8 +12,8 @@ export default async (
 ): Promise<User> => {
   const { address, email, firstName, lastName, password, phoneNumber, type } = args
 
-  const checkExistingUser = await context.database.users.findOne({ email: email })
-  if (checkExistingUser) {
+  const existingUser = await context.database.users.findOne({ email: email })
+  if (existingUser) {
     throw new UserInputError('User with email already exists.')
   }
 
@@ -39,5 +40,10 @@ export default async (
     createdBy: context.currentUserId
   })
 
-  return user
+  const token = await generateJWT(existingUser._id)
+  
+  return {
+    ...user,
+    token
+  }
 }
