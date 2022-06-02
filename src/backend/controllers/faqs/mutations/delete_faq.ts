@@ -3,11 +3,7 @@ import { FAQ, DeleteFAQArgs } from 'types/faq'
 import { AuditLogAction } from 'types/_enums/auditLogAction'
 import { authenticateUser } from 'backend/_utils/authenticateUser'
 
-export default async (
-  _root: undefined,
-  args: DeleteFAQArgs,
-  context: Context
-): Promise<FAQ> => {
+export default async (_root: undefined, args: DeleteFAQArgs, context: Context): Promise<FAQ> => {
   authenticateUser({ admin: true }, context)
 
   await context.database.auditLogs.insertOne({

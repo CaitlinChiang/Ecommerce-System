@@ -5,22 +5,20 @@ import { PaymentStatus } from 'types/_enums/paymentStatus'
 import { AuditLogAction } from 'types/_enums/auditLogAction'
 import { authenticateUser } from 'backend/_utils/authenticateUser'
 
-export default async (
-  _root: undefined,
-  args: CreateOrderArgs,
-  context: Context
-): Promise<Order> => {
+export default async (_root: undefined, args: CreateOrderArgs, context: Context): Promise<Order> => {
   authenticateUser({ admin: false }, context)
 
-  const { payment: { amountDue, method } } = args
+  const {
+    payment: { amountDue, method }
+  } = args
 
-  const order: any = await context.database.orders.insertOne({ 
+  const order: any = await context.database.orders.insertOne({
     ...args,
     status: OrderStatus.PENDING,
     userId: context.currentUserId,
     createdAt: new Date()
   })
-  
+
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.CREATE_ORDER,
     orderId: order._id,

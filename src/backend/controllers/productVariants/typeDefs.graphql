@@ -35,8 +35,5 @@ extend type Mutation {
     showPublic: Boolean!
   ): ProductVariant
 
-  delete_product_variant(
-    _id: ID!
-    imageUrl: String
-  ): ProductVariant
+  delete_product_variant(_id: ID!, imageUrl: String): ProductVariant
 }

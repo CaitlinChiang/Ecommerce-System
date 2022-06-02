@@ -7,11 +7,7 @@ import { authenticateUser } from 'backend/_utils/authenticateUser'
 import { handleUploadImage } from 'backend/_utils/handleImages/uploadImage'
 import { handleDeleteImage } from 'backend/_utils/handleImages/deleteImage'
 
-export default async (
-  _root: undefined,
-  args: UpdateProductArgs,
-  context: Context
-): Promise<Product> => {
+export default async (_root: undefined, args: UpdateProductArgs, context: Context): Promise<Product> => {
   authenticateUser({ admin: true }, context)
 
   const { _id, category, description, featured, image, imageUrl, name, price, showPublic } = args
@@ -35,7 +31,7 @@ export default async (
       price,
       showPublic,
       updatedAt: new Date()
-    }  
+    }
   )
 
   await context.database.auditLogs.insertOne({

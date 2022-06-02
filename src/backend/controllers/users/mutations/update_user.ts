@@ -3,17 +3,10 @@ import { User, UpdateUserArgs } from 'types/user'
 import { AuditLogAction } from 'types/_enums/auditLogAction'
 import { authenticateUser } from 'backend/_utils/authenticateUser'
 
-export default async (
-  _root: undefined,
-  args: UpdateUserArgs,
-  context: Context
-): Promise<User> => {
+export default async (_root: undefined, args: UpdateUserArgs, context: Context): Promise<User> => {
   authenticateUser({ admin: false }, context)
 
-  const user: any = await context.database.users.findOneAndUpdate(
-    { _id: args._id },
-    { ...args, updatedAt: new Date() }  
-  )
+  const user: any = await context.database.users.findOneAndUpdate({ _id: args._id }, { ...args, updatedAt: new Date() })
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.UPDATE_USER,

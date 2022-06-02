@@ -3,11 +3,7 @@ import { City, UpdateCityArgs } from 'types/City'
 import { AuditLogAction } from 'types/_enums/auditLogAction'
 import { authenticateUser } from 'backend/_utils/authenticateUser'
 
-export default async (
-  _root: undefined,
-  args: UpdateCityArgs,
-  context: Context
-): Promise<City> => {
+export default async (_root: undefined, args: UpdateCityArgs, context: Context): Promise<City> => {
   authenticateUser({ admin: true }, context)
 
   const city: any = await context.database.cities.findOneAndUpdate(

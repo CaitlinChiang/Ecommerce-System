@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
 export default gql`
-  mutation(
+  mutation (
     $address: DeliveryAddress
     $email: String!
     $firstName: String!

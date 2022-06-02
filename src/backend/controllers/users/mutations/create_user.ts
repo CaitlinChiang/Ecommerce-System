@@ -6,17 +6,15 @@ import bcrypt from 'bcrypt'
 import { generateJWT } from 'backend/_utils/jwt'
 import { authenticateUser } from 'backend/_utils/authenticateUser'
 
-export default async (
-  _root: undefined,
-  args: CreateUserArgs,
-  context: Context
-): Promise<User> => {
+export default async (_root: undefined, args: CreateUserArgs, context: Context): Promise<User> => {
   authenticateUser({ admin: false }, context)
 
   const { email, password } = args
 
   const existingUser = await context.database.users.findOne({ email })
-  if (existingUser) throw new UserInputError('User with email already exists.')
+  if (existingUser) {
+    throw new UserInputError('User with email already exists.')
+  }
 
   const hashedPassword = await bcrypt.hash(password, 12)
 

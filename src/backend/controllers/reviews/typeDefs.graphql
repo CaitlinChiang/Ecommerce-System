@@ -13,15 +13,9 @@ extend type Query {
 }
 
 extend type Mutation {
-  create_review(
-    content: String!
-    username: String!
-  ): Review
+  create_review(content: String!, username: String!): Review
 
-  update_review(
-    _id: ID!
-    featured: Boolean!
-  ): Review
+  update_review(_id: ID!, featured: Boolean!): Review
 
   delete_review(_id: ID!): Review
 }

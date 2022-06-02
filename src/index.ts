@@ -20,8 +20,8 @@ import { resolvers, typeDefs } from 'backend/controllers'
 import { verifyJWT } from 'backend/_utils/jwt'
 
 const app = express()
-      app.set('trust proxy', true)
-      app.use(cors())
+app.set('trust proxy', true)
+app.use(cors())
 
 const dev = process.env.NODE_ENV !== 'production'
 const nextJSApp = next({ dir: './src/frontend', dev })
@@ -29,7 +29,7 @@ const handle = nextJSApp.getRequestHandler()
 
 nextJSApp.prepare().then(async () => {
   dotenv.config()
-  
+
   const client: mongoDB.MongoClient = new mongoDB.MongoClient(process.env.DB_CONNECTION_STRING)
   await client.connect()
   const db: mongoDB.Db = client.db(process.env.DB_NAME)
@@ -42,8 +42,8 @@ nextJSApp.prepare().then(async () => {
       const headers = context.req.headers
       const ip = headers['CF-Connecting-IP'] || headers['X-Forwarded-For'] || context.req.ip
       const user = verifyJWT(headers.accesstoken)
-      
-      return { 
+
+      return {
         ip,
         currentUserId: user._id,
         currentUserType: user.type,
@@ -63,7 +63,7 @@ nextJSApp.prepare().then(async () => {
       return error
     }
   })
-  
+
   server.applyMiddleware({ app, path: '/graphql' })
 
   app.use((req, res) => {

@@ -19,16 +19,16 @@ const assignFileName = (args: UploadImageArgs) => {
 }
 
 const generateProductImageFileName = (productName) => {
-  let folderName = 'products/'
-  let modifiedProductName = productName.replaceAll(' ', '_').toLowerCase()
+  const folderName = 'products/'
+  const modifiedProductName = productName.replaceAll(' ', '_').toLowerCase()
 
   return folderName.concat(modifiedProductName)
 }
 
 const generateProductVariantImageFileName = (productId, productVariantName) => {
-  let folderName = 'product-variants/'
-  let modifiedProductId = productId.substr(productId.length - 5)
-  let modifiedProductVariantName = productVariantName.replaceAll(' ', '_').toLowerCase()
+  const folderName = 'product-variants/'
+  const modifiedProductId = productId.substr(productId.length - 5)
+  const modifiedProductVariantName = productVariantName.replaceAll(' ', '_').toLowerCase()
 
   return folderName.concat(modifiedProductId, '_', modifiedProductVariantName)
 }

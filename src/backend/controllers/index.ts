@@ -16,10 +16,7 @@ const emptyDefs = gql`
   type Mutation
 `
 
-export const resolvers = [
-  cart.resolvers,
-  orders.resolvers
-]
+export const resolvers = [cart.resolvers, orders.resolvers]
 
 export const typeDefs = [
   emptyDefs,

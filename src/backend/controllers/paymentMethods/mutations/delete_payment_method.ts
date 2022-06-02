@@ -3,11 +3,7 @@ import { PaymentMethod, DeletePaymentMethodArgs } from 'types/paymentMethod'
 import { AuditLogAction } from 'types/_enums/auditLogAction'
 import { authenticateUser } from 'backend/_utils/authenticateUser'
 
-export default async (
-  _root: undefined,
-  args: DeletePaymentMethodArgs,
-  context: Context
-): Promise<PaymentMethod> => {
+export default async (_root: undefined, args: DeletePaymentMethodArgs, context: Context): Promise<PaymentMethod> => {
   authenticateUser({ admin: true }, context)
 
   await context.database.auditLogs.insertOne({

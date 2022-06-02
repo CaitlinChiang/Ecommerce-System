@@ -48,17 +48,9 @@ extend type Mutation {
     userId: ID
   ): Order
 
-  update_order(
-    _id: ID!
-    collectionMethod: String!
-    status: String!
-  ): Order
+  update_order(_id: ID!, collectionMethod: String!, status: String!): Order
 
-  update_payment(
-    _orderId: ID!
-    proofImage: Upload
-    status: String!
-  ): Payment
+  update_payment(_orderId: ID!, proofImage: Upload, status: String!): Payment
 
   delete_order(_id: ID!): Order
 }

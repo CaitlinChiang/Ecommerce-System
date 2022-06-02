@@ -7,11 +7,7 @@ import { authenticateUser } from 'backend/_utils/authenticateUser'
 import { handleUploadImage } from 'backend/_utils/handleImages/uploadImage'
 import { handleDeleteImage } from 'backend/_utils/handleImages/deleteImage'
 
-export default async (
-  _root: undefined,
-  args: UpdateProductVariantArgs,
-  context: Context
-): Promise<ProductVariant> => {
+export default async (_root: undefined, args: UpdateProductVariantArgs, context: Context): Promise<ProductVariant> => {
   authenticateUser({ admin: true }, context)
 
   const { _id, _productId, image, imageUrl, name, price, showPublic } = args

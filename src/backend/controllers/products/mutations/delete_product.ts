@@ -4,11 +4,7 @@ import { AuditLogAction } from 'types/_enums/auditLogAction'
 import { authenticateUser } from 'backend/_utils/authenticateUser'
 import { handleDeleteImage } from 'backend/_utils/handleImages/deleteImage'
 
-export default async (
-  _root: undefined,
-  args: DeleteProductArgs,
-  context: Context
-): Promise<Product> => {
+export default async (_root: undefined, args: DeleteProductArgs, context: Context): Promise<Product> => {
   authenticateUser({ admin: true }, context)
 
   await handleDeleteImage(args.imageUrl)

@@ -12,14 +12,9 @@ extend type Query {
 }
 
 extend type Mutation {
-  create_product_category(
-    name: String!
-  ): ProductCategory
+  create_product_category(name: String!): ProductCategory
 
-  update_product_category(
-    _id: ID!
-    name: String!
-  ): ProductCategory
+  update_product_category(_id: ID!, name: String!): ProductCategory
 
   delete_product_category(_id: ID!): ProductCategory
 }

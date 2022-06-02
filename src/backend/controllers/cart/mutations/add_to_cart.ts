@@ -2,17 +2,13 @@ import { Context } from 'types/context'
 import { Cart, AddToCartArgs } from 'types/cart'
 import { authenticateUser } from 'backend/_utils/authenticateUser'
 
-export default async (
-  _root: undefined,
-  args: AddToCartArgs,
-  context: Context
-): Promise<Cart> => {
+export default async (_root: undefined, args: AddToCartArgs, context: Context): Promise<Cart> => {
   authenticateUser({ admin: false }, context)
 
   const { product, productVariant } = args
 
   const cart: any = await context.database.carts.findOneAndUpdate(
-    { _userId: context.currentUserId }, 
+    { _userId: context.currentUserId },
     {
       products: { $push: product },
       productVariants: { $push: productVariant }

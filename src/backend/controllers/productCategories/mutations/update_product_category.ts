@@ -11,7 +11,7 @@ export default async (
   authenticateUser({ admin: true }, context)
 
   const productCategory: any = await context.database.productCategories.findOneAndUpdate(
-    { _id: args._id }, 
+    { _id: args._id },
     { ...args, updatedAt: new Date() }
   )
 

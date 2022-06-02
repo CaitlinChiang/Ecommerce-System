@@ -5,20 +5,20 @@ import bcrypt from 'bcrypt'
 import { generateJWT } from 'backend/_utils/jwt'
 import { authenticateUser } from 'backend/_utils/authenticateUser'
 
-export default async (
-  _root: undefined,
-  args: SignInUserArgs,
-  context: Context
-): Promise<User> => {
+export default async (_root: undefined, args: SignInUserArgs, context: Context): Promise<User> => {
   authenticateUser({ admin: false }, context)
 
   const { email, password } = args
 
   const existingUser = await context.database.users.findOne({ email })
-  if (!existingUser) throw new AuthenticationError('Invalid email, please try again.')
+  if (!existingUser) {
+    throw new AuthenticationError('Invalid email, please try again.')
+  }
 
   const validatePassword = await bcrypt.compare(password, existingUser.password)
-  if (!validatePassword) throw new AuthenticationError('Incorrect password, please try again.')
+  if (!validatePassword) {
+    throw new AuthenticationError('Incorrect password, please try again.')
+  }
 
   const token = await generateJWT(existingUser._id)
   return { ...existingUser, token }

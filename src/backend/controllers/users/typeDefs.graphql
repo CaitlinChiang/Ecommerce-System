@@ -24,11 +24,8 @@ extend type Query {
 }
 
 extend type Mutation {
-  sign_in_user(
-    email: String!
-    password: String!
-  ): User
-  
+  sign_in_user(email: String!, password: String!): User
+
   create_user(
     address: DeliveryAddress
     email: String!
@@ -39,12 +36,7 @@ extend type Mutation {
     type: String!
   ): User
 
-  update_user(
-    address: DeliveryAddress
-    email: String!
-    password: String!
-    phoneNumber: String!
-  ): User
+  update_user(address: DeliveryAddress, email: String!, password: String!, phoneNumber: String!): User
 
   delete_user(_id: ID!): User
 }

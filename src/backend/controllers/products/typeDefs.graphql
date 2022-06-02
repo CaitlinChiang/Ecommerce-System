@@ -41,8 +41,5 @@ extend type Mutation {
     showPublic: Boolean!
   ): Product
 
-  delete_product(
-    _id: ID!
-    imageUrl: String
-  ): Product
+  delete_product(_id: ID!, imageUrl: String): Product
 }

@@ -2,11 +2,7 @@ import { Context } from 'types/context'
 import { ProductVariant, GetProductVariantArgs } from 'types/productVariant'
 import { authenticateUser } from 'backend/_utils/authenticateUser'
 
-export default async (
-  _root: undefined,
-  args: GetProductVariantArgs,
-  context: Context
-): Promise<ProductVariant> => {
+export default async (_root: undefined, args: GetProductVariantArgs, context: Context): Promise<ProductVariant> => {
   authenticateUser({ admin: false }, context)
 
   const productVariant: ProductVariant = await context.database.productVariants.findOne({ _id: args._id })

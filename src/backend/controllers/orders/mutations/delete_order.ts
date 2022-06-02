@@ -3,11 +3,7 @@ import { Order, DeleteOrderArgs } from 'types/order'
 import { AuditLogAction } from 'types/_enums/auditLogAction'
 import { authenticateUser } from 'backend/_utils/authenticateUser'
 
-export default async (
-  _root: undefined,
-  args: DeleteOrderArgs,
-  context: Context
-): Promise<Order> => {
+export default async (_root: undefined, args: DeleteOrderArgs, context: Context): Promise<Order> => {
   authenticateUser({ admin: true }, context)
 
   await context.database.auditLogs.insertOne({

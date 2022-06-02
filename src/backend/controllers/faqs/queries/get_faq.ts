@@ -2,11 +2,7 @@ import { Context } from 'types/context'
 import { FAQ, GetFAQArgs } from 'types/faq'
 import { authenticateUser } from 'backend/_utils/authenticateUser'
 
-export default async (
-  _root: undefined,
-  args: GetFAQArgs,
-  context: Context
-): Promise<FAQ> => {
+export default async (_root: undefined, args: GetFAQArgs, context: Context): Promise<FAQ> => {
   authenticateUser({ admin: true }, context)
 
   const faq: FAQ = await context.database.faqs.findOne({ _id: args._id })

@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
 export default gql`
-  mutation(
+  mutation (
     $category: String!
     $description: String
     $featured: Boolean!
