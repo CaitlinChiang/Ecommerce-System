@@ -1,21 +1,20 @@
 import { Context } from 'types/context'
 import { Review, CreateReviewArgs } from 'types/review'
 import { AuditLogAction } from 'types/_enums/auditLogAction'
+import { authenticateUser } from 'backend/_utils/authenticateUser'
 
 export default async (
   _root: undefined,
   args: CreateReviewArgs,
   context: Context
 ): Promise<Review> => {
-  const { content, username } = args
+  authenticateUser({ admin: false }, context)
 
-  const createReview: CreateReviewArgs = {
-    content: content,
+  const review: any = await context.database.reviews.insertOne({ 
+    ...args,
     featured: false,
-    username: username,
     createdAt: new Date()
-  }
-  const review: any = await context.database.reviews.insertOne(createReview)
+  })
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.CREATE_REVIEW,
