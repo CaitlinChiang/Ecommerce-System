@@ -12,15 +12,17 @@ export const generateJWT = (_id: ObjectId): string => {
 }
 
 export const verifyJWT = (
-  token: string
+  token: string | string[]
 ): {
   _id: ObjectId
+  type: string
   iat: number
   exp: number
 } => {
   try {
     return jwt.verify(token, SECRET_KEY) as {
       _id: ObjectId
+      type: string
       iat: number
       exp: number
     }

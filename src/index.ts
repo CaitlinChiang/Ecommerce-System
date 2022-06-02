@@ -17,6 +17,7 @@ import dbSetup from 'backend/_utils/setup/database'
 import { Context } from 'types/context'
 import { Database } from 'types/database'
 import { resolvers, typeDefs } from 'backend/controllers'
+import { verifyJWT } from 'backend/_utils/jwt'
 
 const app = express()
       app.set('trust proxy', true)
@@ -38,8 +39,16 @@ nextJSApp.prepare().then(async () => {
     typeDefs,
     resolvers,
     context: async (context: ExpressContext): Promise<Context> => {
-      const ip = context.req.headers['CF-Connecting-IP'] || context.req.headers['X-Forwarded-For'] || context.req.ip
-      return { database, ip }
+      const headers = context.req.headers
+      const ip = headers['CF-Connecting-IP'] || headers['X-Forwarded-For'] || context.req.ip
+      const user = verifyJWT(headers.accesstoken)
+      
+      return { 
+        ip,
+        currentUserId: user._id,
+        currentUserType: user.type,
+        database
+      }
     },
     formatError: (error: GraphQLError): GraphQLFormattedError => {
       if (
