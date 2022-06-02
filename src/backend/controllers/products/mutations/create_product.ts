@@ -4,32 +4,34 @@ import { UploadImageArgs } from 'types/image'
 import { UploadImageType } from 'types/_enums/uploadImageType'
 import { AuditLogAction } from 'types/_enums/auditLogAction'
 import { handleUploadImage } from 'backend/_utils/handleImages/uploadImage'
+import { authenticateUser } from 'backend/_utils/authenticateUser'
 
 export default async (
   _root: undefined,
   args: CreateProductArgs,
   context: Context
 ): Promise<Product> => {
+  authenticateUser({ admin: true }, context)
+
   const { category, description, featured, image, name, price, showPublic } = args
 
   const uploadImage: UploadImageArgs = {
     imageType: UploadImageType.PRODUCT,
-    image: image,
+    image,
     productName: name
   }
   const imageUrl = await handleUploadImage(uploadImage)
 
-  const createProduct: CreateProductArgs = {
-    category: category,
-    description: description,
-    featured: featured,
-    imageUrl: imageUrl,
-    name: name,
-    price: price,
-    showPublic: showPublic,
+  const product: any = await context.database.products.insertOne({
+    category,
+    description,
+    featured,
+    imageUrl,
+    name,
+    price,
+    showPublic,
     createdAt: new Date()
-  }
-  const product: any = await context.database.products.insertOne(createProduct)
+  })
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.CREATE_PRODUCT,

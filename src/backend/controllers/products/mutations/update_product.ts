@@ -5,33 +5,38 @@ import { UploadImageType } from 'types/_enums/uploadImageType'
 import { AuditLogAction } from 'types/_enums/auditLogAction'
 import { handleUploadImage } from 'backend/_utils/handleImages/uploadImage'
 import { handleDeleteImage } from 'backend/_utils/handleImages/deleteImage'
+import { authenticateUser } from 'backend/_utils/authenticateUser'
 
 export default async (
   _root: undefined,
   args: UpdateProductArgs,
   context: Context
 ): Promise<Product> => {
+  authenticateUser({ admin: true }, context)
+
   const { _id, category, description, featured, image, imageUrl, name, price, showPublic } = args
 
   await handleDeleteImage(imageUrl)
   const uploadImage: UploadImageArgs = {
     imageType: UploadImageType.PRODUCT,
-    image: image,
+    image,
     productName: name
   }
   const modifiedImageUrl = await handleUploadImage(uploadImage)
-  
-  const updateProduct: Partial<UpdateProductArgs> = {
-    category: category,
-    description: description,
-    featured: featured,
-    imageUrl: modifiedImageUrl,
-    name: name,
-    price: price,
-    showPublic: showPublic,
-    updatedAt: new Date()
-  }
-  const product: any = await context.database.products.findOneAndUpdate({ _id: _id }, updateProduct)
+
+  const product: any = await context.database.products.findOneAndUpdate(
+    { _id: _id },
+    {
+      category,
+      description,
+      featured,
+      imageUrl: modifiedImageUrl,
+      name,
+      price,
+      showPublic,
+      updatedAt: new Date()
+    }  
+  )
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.UPDATE_PRODUCT,

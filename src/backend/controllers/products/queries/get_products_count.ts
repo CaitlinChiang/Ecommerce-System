@@ -1,3 +1,4 @@
+import { authenticateUser } from 'backend/_utils/authenticateUser'
 import { Context } from 'types/context'
 
 export default async (
@@ -5,7 +6,8 @@ export default async (
   args: undefined,
   context: Context
 ): Promise<number> => {
+  authenticateUser({ admin: false }, context)
+
   const productsCount: number = await context.database.products.countDocuments()
-  
   return productsCount
 }
