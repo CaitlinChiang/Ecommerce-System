@@ -3,7 +3,11 @@ import { FAQ, DeleteFAQArgs } from 'types/faq'
 import { AuditLogAction } from 'types/_enums/auditLogAction'
 import { authenticateUser } from 'backend/_utils/authenticateUser'
 
-export default async (_root: undefined, args: DeleteFAQArgs, context: Context): Promise<FAQ> => {
+export default async (
+  _root: undefined,
+  args: DeleteFAQArgs,
+  context: Context
+): Promise<FAQ> => {
   authenticateUser({ admin: true }, context)
 
   await context.database.auditLogs.insertOne({
@@ -13,6 +17,8 @@ export default async (_root: undefined, args: DeleteFAQArgs, context: Context): 
     createdBy: context.currentUserId
   })
 
-  const faq: any = await context.database.faqs.findOneAndDelete({ _id: args._id })
+  const faq: any = await context.database.faqs.findOneAndDelete({
+    _id: args._id
+  })
   return faq
 }

@@ -3,7 +3,11 @@ import { Order, UpdateOrderArgs } from 'types/order'
 import { AuditLogAction } from 'types/_enums/auditLogAction'
 import { authenticateUser } from 'backend/_utils/authenticateUser'
 
-export default async (_root: undefined, args: UpdateOrderArgs, context: Context): Promise<Order> => {
+export default async (
+  _root: undefined,
+  args: UpdateOrderArgs,
+  context: Context
+): Promise<Order> => {
   authenticateUser({ admin: true }, context)
 
   const order: any = await context.database.orders.findOneAndUpdate(

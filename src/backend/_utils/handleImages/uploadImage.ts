@@ -13,7 +13,10 @@ const assignFileName = (args: UploadImageArgs) => {
     case 'PRODUCT':
       return generateProductImageFileName(args.productName)
     case 'PRODUCT_VARIANT':
-      return generateProductVariantImageFileName(args.productId, args.productVariantName)
+      return generateProductVariantImageFileName(
+        args.productId,
+        args.productVariantName
+      )
   }
 }
 
@@ -27,7 +30,9 @@ const generateProductImageFileName = (productName) => {
 const generateProductVariantImageFileName = (productId, productVariantName) => {
   const folderName = 'product-variants/'
   const modifiedProductId = productId.substr(productId.length - 5)
-  const modifiedProductVariantName = productVariantName.replaceAll(' ', '_').toLowerCase()
+  const modifiedProductVariantName = productVariantName
+    .replaceAll(' ', '_')
+    .toLowerCase()
 
   return folderName.concat(modifiedProductId, '_', modifiedProductVariantName)
 }

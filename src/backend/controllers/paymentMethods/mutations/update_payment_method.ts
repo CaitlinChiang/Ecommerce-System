@@ -3,7 +3,11 @@ import { PaymentMethod, UpdatePaymentMethodArgs } from 'types/paymentMethod'
 import { AuditLogAction } from 'types/_enums/auditLogAction'
 import { authenticateUser } from 'backend/_utils/authenticateUser'
 
-export default async (_root: undefined, args: UpdatePaymentMethodArgs, context: Context): Promise<PaymentMethod> => {
+export default async (
+  _root: undefined,
+  args: UpdatePaymentMethodArgs,
+  context: Context
+): Promise<PaymentMethod> => {
   authenticateUser({ admin: true }, context)
 
   const paymentMethod: any = await context.database.paymentMethods.findOneAndUpdate(

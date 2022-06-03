@@ -3,10 +3,17 @@ import { FAQ, CreateFAQArgs } from 'types/faq'
 import { AuditLogAction } from 'types/_enums/auditLogAction'
 import { authenticateUser } from 'backend/_utils/authenticateUser'
 
-export default async (_root: undefined, args: CreateFAQArgs, context: Context): Promise<FAQ> => {
+export default async (
+  _root: undefined,
+  args: CreateFAQArgs,
+  context: Context
+): Promise<FAQ> => {
   authenticateUser({ admin: true }, context)
 
-  const faq: any = await context.database.faqs.insertOne({ ...args, createdAt: new Date() })
+  const faq: any = await context.database.faqs.insertOne({
+    ...args,
+    createdAt: new Date()
+  })
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.CREATE_FAQ,

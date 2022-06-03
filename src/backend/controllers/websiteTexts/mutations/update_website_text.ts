@@ -3,7 +3,11 @@ import { WebsiteText, UpdateWebsiteTextArgs } from 'types/websiteText'
 import { AuditLogAction } from 'types/_enums/auditLogAction'
 import { authenticateUser } from 'backend/_utils/authenticateUser'
 
-export default async (_root: undefined, args: UpdateWebsiteTextArgs, context: Context): Promise<WebsiteText> => {
+export default async (
+  _root: undefined,
+  args: UpdateWebsiteTextArgs,
+  context: Context
+): Promise<WebsiteText> => {
   authenticateUser({ admin: true }, context)
 
   const websiteText: any = await context.database.websiteTexts.findOneAndUpdate(

@@ -9,17 +9,23 @@ export default {
     products: async (args: GetCartArgs, context: Context): Promise<Product[]> => {
       const products: any = await context.database.products.find({
         _id: {
-          $in: args?.products?.map((product: CartProduct): ObjectId => new ObjectId(product?.productId))
+          $in: args?.products?.map(
+            (product: CartProduct): ObjectId => new ObjectId(product?.productId)
+          )
         }
       })
       return products
     },
 
-    productVariants: async (args: GetCartArgs, context: Context): Promise<ProductVariant[]> => {
+    productVariants: async (
+      args: GetCartArgs,
+      context: Context
+    ): Promise<ProductVariant[]> => {
       const productVariants: any = await context.database.productVariants.find({
         _id: {
           $in: args?.productVariants?.map(
-            (productVariant: CartProductVariant): ObjectId => new ObjectId(productVariant?.productVariantId)
+            (productVariant: CartProductVariant): ObjectId =>
+              new ObjectId(productVariant?.productVariantId)
           )
         }
       })

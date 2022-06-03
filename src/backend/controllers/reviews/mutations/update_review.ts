@@ -3,7 +3,11 @@ import { Review, UpdateReviewArgs } from 'types/review'
 import { AuditLogAction } from 'types/_enums/auditLogAction'
 import { authenticateUser } from 'backend/_utils/authenticateUser'
 
-export default async (_root: undefined, args: UpdateReviewArgs, context: Context): Promise<Review> => {
+export default async (
+  _root: undefined,
+  args: UpdateReviewArgs,
+  context: Context
+): Promise<Review> => {
   authenticateUser({ admin: true }, context)
 
   const review: any = await context.database.reviews.findOneAndUpdate(

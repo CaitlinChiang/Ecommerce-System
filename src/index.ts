@@ -30,7 +30,9 @@ const handle = nextJSApp.getRequestHandler()
 nextJSApp.prepare().then(async () => {
   dotenv.config()
 
-  const client: mongoDB.MongoClient = new mongoDB.MongoClient(process.env.DB_CONNECTION_STRING)
+  const client: mongoDB.MongoClient = new mongoDB.MongoClient(
+    process.env.DB_CONNECTION_STRING
+  )
   await client.connect()
   const db: mongoDB.Db = client.db(process.env.DB_NAME)
   const database: Database = dbSetup(db)
@@ -40,7 +42,8 @@ nextJSApp.prepare().then(async () => {
     resolvers,
     context: async (context: ExpressContext): Promise<Context> => {
       const headers = context.req.headers
-      const ip = headers['CF-Connecting-IP'] || headers['X-Forwarded-For'] || context.req.ip
+      const ip =
+        headers['CF-Connecting-IP'] || headers['X-Forwarded-For'] || context.req.ip
       const user = verifyJWT(headers.accesstoken)
 
       return {

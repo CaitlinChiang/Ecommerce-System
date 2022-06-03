@@ -6,7 +6,11 @@ import { AuditLogAction } from 'types/_enums/auditLogAction'
 import { authenticateUser } from 'backend/_utils/authenticateUser'
 import { handleUploadImage } from 'backend/_utils/handleImages/uploadImage'
 
-export default async (_root: undefined, args: CreateProductArgs, context: Context): Promise<Product> => {
+export default async (
+  _root: undefined,
+  args: CreateProductArgs,
+  context: Context
+): Promise<Product> => {
   authenticateUser({ admin: true }, context)
 
   const { image, ...modifiedArgs } = args

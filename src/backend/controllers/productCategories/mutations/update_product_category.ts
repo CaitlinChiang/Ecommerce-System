@@ -10,10 +10,11 @@ export default async (
 ): Promise<ProductCategory> => {
   authenticateUser({ admin: true }, context)
 
-  const productCategory: any = await context.database.productCategories.findOneAndUpdate(
-    { _id: args._id },
-    { ...args, updatedAt: new Date() }
-  )
+  const productCategory: any =
+    await context.database.productCategories.findOneAndUpdate(
+      { _id: args._id },
+      { ...args, updatedAt: new Date() }
+    )
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.UPDATE_PRODUCT_CATEGORY,

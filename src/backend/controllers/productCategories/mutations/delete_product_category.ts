@@ -17,6 +17,9 @@ export default async (
     createdBy: context.currentUserId
   })
 
-  const productCategory: any = await context.database.productCategories.findOneAndDelete({ _id: args._id })
+  const productCategory: any =
+    await context.database.productCategories.findOneAndDelete({
+      _id: args._id
+    })
   return productCategory
 }

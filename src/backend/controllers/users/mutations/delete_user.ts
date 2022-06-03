@@ -3,7 +3,11 @@ import { User, DeleteUserArgs } from 'types/user'
 import { AuditLogAction } from 'types/_enums/auditLogAction'
 import { authenticateUser } from 'backend/_utils/authenticateUser'
 
-export default async (_root: undefined, args: DeleteUserArgs, context: Context): Promise<User> => {
+export default async (
+  _root: undefined,
+  args: DeleteUserArgs,
+  context: Context
+): Promise<User> => {
   authenticateUser({ admin: true }, context)
 
   await context.database.auditLogs.insertOne({
@@ -13,6 +17,8 @@ export default async (_root: undefined, args: DeleteUserArgs, context: Context):
     createdBy: context.currentUserId
   })
 
-  const user: any = await context.database.users.findOneAndDelete({ _id: args._id })
+  const user: any = await context.database.users.findOneAndDelete({
+    _id: args._id
+  })
   return user
 }

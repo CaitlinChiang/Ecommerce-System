@@ -11,7 +11,19 @@ type AuditLog {
 }
 
 extend type Query {
-  get_audit_logs(action: String, orderId: ID, paymentId: ID, productId: ID, productVariantId: ID): AuditLog
+  get_audit_logs(
+    action: String
+    orderId: ID
+    paymentId: ID
+    productId: ID
+    productVariantId: ID
+  ): AuditLog
 
-  get_audit_logs_count(action: String, orderId: ID, paymentId: ID, productId: ID, productVariantId: ID): Int
+  get_audit_logs_count(
+    action: String
+    orderId: ID
+    paymentId: ID
+    productId: ID
+    productVariantId: ID
+  ): Int
 }

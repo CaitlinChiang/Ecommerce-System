@@ -10,7 +10,10 @@ export default async (
 ): Promise<ProductCategory> => {
   authenticateUser({ admin: true }, context)
 
-  const productCategory: any = await context.database.productCategories.insertOne({ ...args, createdAt: new Date() })
+  const productCategory: any = await context.database.productCategories.insertOne({
+    ...args,
+    createdAt: new Date()
+  })
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.CREATE_PRODUCT_CATEGORY,

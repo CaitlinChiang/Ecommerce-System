@@ -5,10 +5,16 @@ import bcrypt from 'bcrypt'
 import { generateJWT } from 'backend/_utils/jwt'
 import { authenticateUser } from 'backend/_utils/authenticateUser'
 
-export default async (_root: undefined, args: SignInUserArgs, context: Context): Promise<User> => {
+export default async (
+  _root: undefined,
+  args: SignInUserArgs,
+  context: Context
+): Promise<User> => {
   authenticateUser({ admin: false }, context)
 
-  const existingUser = await context.database.users.findOne({ email: args.email })
+  const existingUser = await context.database.users.findOne({
+    email: args.email
+  })
   if (!existingUser) {
     throw new AuthenticationError('Invalid email, please try again.')
   }

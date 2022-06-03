@@ -3,7 +3,11 @@ import { Review, DeleteReviewArgs } from 'types/review'
 import { AuditLogAction } from 'types/_enums/auditLogAction'
 import { authenticateUser } from 'backend/_utils/authenticateUser'
 
-export default async (_root: undefined, args: DeleteReviewArgs, context: Context): Promise<Review> => {
+export default async (
+  _root: undefined,
+  args: DeleteReviewArgs,
+  context: Context
+): Promise<Review> => {
   authenticateUser({ admin: true }, context)
 
   await context.database.auditLogs.insertOne({
@@ -13,6 +17,8 @@ export default async (_root: undefined, args: DeleteReviewArgs, context: Context
     createdBy: context.currentUserId
   })
 
-  const review: any = await context.database.reviews.findOneAndDelete({ _id: args._id })
+  const review: any = await context.database.reviews.findOneAndDelete({
+    _id: args._id
+  })
   return review
 }

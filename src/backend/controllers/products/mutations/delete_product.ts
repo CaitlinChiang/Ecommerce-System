@@ -4,7 +4,11 @@ import { AuditLogAction } from 'types/_enums/auditLogAction'
 import { authenticateUser } from 'backend/_utils/authenticateUser'
 import { handleDeleteImage } from 'backend/_utils/handleImages/deleteImage'
 
-export default async (_root: undefined, args: DeleteProductArgs, context: Context): Promise<Product> => {
+export default async (
+  _root: undefined,
+  args: DeleteProductArgs,
+  context: Context
+): Promise<Product> => {
   authenticateUser({ admin: true }, context)
 
   await handleDeleteImage(args.imageUrl)
@@ -16,6 +20,8 @@ export default async (_root: undefined, args: DeleteProductArgs, context: Contex
     createdBy: context.currentUserId
   })
 
-  const product: any = await context.database.products.findOneAndDelete({ _id: args._id })
+  const product: any = await context.database.products.findOneAndDelete({
+    _id: args._id
+  })
   return product
 }

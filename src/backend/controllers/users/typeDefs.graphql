@@ -38,7 +38,12 @@ extend type Mutation {
     type: String!
   ): User
 
-  update_user(address: DeliveryAddress, email: String!, password: String!, phoneNumber: String!): User
+  update_user(
+    address: DeliveryAddress
+    email: String!
+    password: String!
+    phoneNumber: String!
+  ): User
 
   delete_user(_id: ID!): User
 }
