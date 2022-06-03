@@ -15,6 +15,7 @@ module.exports = {
     '@typescript-eslint/no-namespace': ['off'],
     '@typescript-eslint/no-var-requires': ['off'],
     '@typescript-eslint/quotes': ['error', 'single', { avoidEscape: true }],
+    '@typescript-eslint/no-explicit-any': ['off'],
     camelcase: 'off',
     'comma-dangle': 2,
     'no-extra-semi': 2,
