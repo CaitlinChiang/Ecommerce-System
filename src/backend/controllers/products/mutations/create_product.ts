@@ -1,6 +1,5 @@
 import { Context } from 'types/context'
 import { Product, CreateProductArgs } from 'types/product'
-import { UploadImageArgs } from 'types/image'
 import { UploadImageType } from 'types/_enums/uploadImageType'
 import { AuditLogAction } from 'types/_enums/auditLogAction'
 import { authenticateUser } from 'backend/_utils/authenticateUser'
@@ -15,12 +14,11 @@ export default async (
 
   const { image, ...modifiedArgs } = args
 
-  const uploadImage: UploadImageArgs = {
+  const imageUrl = await handleUploadImage({
     imageType: UploadImageType.PRODUCT,
     image,
     productName: args.name
-  }
-  const imageUrl = await handleUploadImage(uploadImage)
+  })
 
   const product: any = await context.database.products.insertOne({
     ...modifiedArgs,

@@ -1,6 +1,5 @@
 import { Context } from 'types/context'
 import { Product, UpdateProductArgs } from 'types/product'
-import { UploadImageArgs } from 'types/image'
 import { UploadImageType } from 'types/_enums/uploadImageType'
 import { AuditLogAction } from 'types/_enums/auditLogAction'
 import { authenticateUser } from 'backend/_utils/authenticateUser'
@@ -17,12 +16,11 @@ export default async (
   const { image, ...modifiedArgs } = args
 
   await handleDeleteImage(args.imageUrl)
-  const uploadImage: UploadImageArgs = {
+  const modifiedImageUrl = await handleUploadImage({
     imageType: UploadImageType.PRODUCT,
     image,
     productName: args.name
-  }
-  const modifiedImageUrl = await handleUploadImage(uploadImage)
+  })
 
   const product: any = await context.database.products.findOneAndUpdate(
     { _id: args._id },
