@@ -15,9 +15,9 @@ type User {
 extend type Query {
   get_user(_id: ID!): User
 
-  get_users: [User]
+  get_users(type: String!): [User]
 
-  get_users_count: Int
+  get_users_count(type: String!): Int
 }
 
 extend type Mutation {

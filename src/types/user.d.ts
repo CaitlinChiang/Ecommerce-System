@@ -32,7 +32,8 @@ export interface SignInUserArgs {
 }
 
 export interface GetUserArgs {
-  _id: ObjectId
+  _id?: ObjectId
+  type?: string
 }
 
 export interface CreateUserArgs {
