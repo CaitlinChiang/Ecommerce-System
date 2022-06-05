@@ -7,7 +7,8 @@ export interface WebsiteText {
 }
 
 export interface GetWebsiteTextArgs {
-  type: string
+  _id?: ObjectId
+  type?: string
 }
 
 export interface UpdateWebsiteTextArgs {
