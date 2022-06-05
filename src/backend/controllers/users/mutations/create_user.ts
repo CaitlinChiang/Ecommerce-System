@@ -4,7 +4,7 @@ import { AuditLogAction } from 'types/_enums/auditLogAction'
 import { UserInputError } from 'apollo-server-express'
 import bcrypt from 'bcrypt'
 import { generateJWT } from 'backend/_utils/jwt'
-import { authenticateUser } from 'backend/_utils/authenticateUser'
+import { authenticateUser } from '../../../_utils/authenticateUser'
 
 export default async (
   _root: undefined,

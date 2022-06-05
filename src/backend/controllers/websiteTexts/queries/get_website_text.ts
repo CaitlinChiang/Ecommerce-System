@@ -1,6 +1,6 @@
 import { Context } from 'types/context'
 import { WebsiteText, GetWebsiteTextArgs } from 'types/websiteText'
-import { authenticateUser } from 'backend/_utils/authenticateUser'
+import { authenticateUser } from '../../../_utils/authenticateUser'
 
 export default async (
   _root: undefined,

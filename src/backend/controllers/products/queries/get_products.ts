@@ -1,4 +1,4 @@
-import { authenticateUser } from 'backend/_utils/authenticateUser'
+import { authenticateUser } from '../../../_utils/authenticateUser'
 import { Context } from 'types/context'
 import { Product } from 'types/product'
 

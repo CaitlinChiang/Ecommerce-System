@@ -3,7 +3,7 @@ import { User, SignInUserArgs } from 'types/user'
 import { AuthenticationError } from 'apollo-server-express'
 import bcrypt from 'bcrypt'
 import { generateJWT } from 'backend/_utils/jwt'
-import { authenticateUser } from 'backend/_utils/authenticateUser'
+import { authenticateUser } from '../../../_utils/authenticateUser'
 
 export default async (
   _root: undefined,

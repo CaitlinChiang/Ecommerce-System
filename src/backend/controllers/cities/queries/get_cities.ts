@@ -1,6 +1,6 @@
 import { Context } from 'types/context'
 import { City } from 'types/City'
-import { authenticateUser } from 'backend/_utils/authenticateUser'
+import { authenticateUser } from '../../../_utils/authenticateUser'
 
 export default async (
   _root: undefined,

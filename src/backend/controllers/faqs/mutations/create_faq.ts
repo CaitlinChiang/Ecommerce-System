@@ -1,7 +1,7 @@
 import { Context } from 'types/context'
 import { FAQ, CreateFAQArgs } from 'types/faq'
 import { AuditLogAction } from 'types/_enums/auditLogAction'
-import { authenticateUser } from 'backend/_utils/authenticateUser'
+import { authenticateUser } from '../../../_utils/authenticateUser'
 
 export default async (
   _root: undefined,

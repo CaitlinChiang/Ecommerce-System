@@ -2,7 +2,7 @@ import { Context } from 'types/context'
 import { Product, CreateProductArgs } from 'types/product'
 import { UploadImageType } from 'types/_enums/uploadImageType'
 import { AuditLogAction } from 'types/_enums/auditLogAction'
-import { authenticateUser } from 'backend/_utils/authenticateUser'
+import { authenticateUser } from '../../../_utils/authenticateUser'
 import { handleUploadImage } from 'backend/_utils/handleImages/uploadImage'
 
 export default async (

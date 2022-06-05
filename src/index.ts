@@ -13,11 +13,11 @@ import cors from 'cors'
 import express from 'express'
 import next from 'next'
 import { parse } from 'url'
-import dbSetup from 'backend/_utils/setup/database'
-import { Context } from 'types/context'
-import { Database } from 'types/database'
-import { resolvers, typeDefs } from 'backend/controllers'
-import { verifyJWT } from 'backend/_utils/jwt'
+import dbSetup from './backend/_utils/setup/database'
+import { Context } from './types/context'
+import { Database } from './types/database'
+import { resolvers, typeDefs } from './backend/controllers'
+import { verifyJWT } from './backend/_utils/jwt'
 
 const app = express()
 app.set('trust proxy', true)

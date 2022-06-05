@@ -1,7 +1,7 @@
 import { Context } from 'types/context'
 import { ProductCategory, UpdateProductCategoryArgs } from 'types/productCategory'
 import { AuditLogAction } from 'types/_enums/auditLogAction'
-import { authenticateUser } from 'backend/_utils/authenticateUser'
+import { authenticateUser } from '../../../_utils/authenticateUser'
 
 export default async (
   _root: undefined,

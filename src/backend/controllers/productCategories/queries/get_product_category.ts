@@ -1,6 +1,6 @@
 import { Context } from 'types/context'
 import { ProductCategory, GetProductCategoryArgs } from 'types/productCategory'
-import { authenticateUser } from 'backend/_utils/authenticateUser'
+import { authenticateUser } from '../../../_utils/authenticateUser'
 
 export default async (
   _root: undefined,

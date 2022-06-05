@@ -2,7 +2,7 @@ import { Context } from 'types/context'
 import { ProductVariant, UpdateProductVariantArgs } from 'types/productVariant'
 import { UploadImageType } from 'types/_enums/uploadImageType'
 import { AuditLogAction } from 'types/_enums/auditLogAction'
-import { authenticateUser } from 'backend/_utils/authenticateUser'
+import { authenticateUser } from '../../../_utils/authenticateUser'
 import { handleUploadImage } from 'backend/_utils/handleImages/uploadImage'
 import { handleDeleteImage } from 'backend/_utils/handleImages/deleteImage'
 
