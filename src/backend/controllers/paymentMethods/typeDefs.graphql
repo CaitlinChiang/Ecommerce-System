@@ -15,9 +15,9 @@ extend type Query {
 }
 
 extend type Mutation {
-  create_payment_method(name: String!, details: String): PaymentMethod
+  create_payment_method(name: String!, details: String!): PaymentMethod
 
-  update_payment_method(_id: ID!, name: String!, details: String): PaymentMethod
+  update_payment_method(_id: ID!, name: String!, details: String!): PaymentMethod
 
   delete_payment_method(_id: ID!): PaymentMethod
 }

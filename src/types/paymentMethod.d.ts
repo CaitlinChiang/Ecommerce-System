@@ -14,14 +14,14 @@ export interface GetPaymentMethodArgs {
 
 export interface CreatePaymentMethodArgs {
   name: string
-  details?: string
+  details: string
   createdAt?: Date
 }
 
 export interface UpdatePaymentMethodArgs {
   _id: ObjectId
   name: string
-  details?: string
+  details: string
   updatedAt?: Date
 }
 
