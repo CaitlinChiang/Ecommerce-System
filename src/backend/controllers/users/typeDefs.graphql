@@ -24,7 +24,7 @@ extend type Mutation {
   sign_in_user(email: String!, password: String!): User
 
   create_user(
-    address: DeliveryAddress
+    address: DeliveryAddressInput
     email: String!
     firstName: String!
     lastName: String!
@@ -34,7 +34,7 @@ extend type Mutation {
   ): User
 
   update_user(
-    address: DeliveryAddress
+    address: DeliveryAddressInput
     email: String!
     password: String!
     phoneNumber: String!
