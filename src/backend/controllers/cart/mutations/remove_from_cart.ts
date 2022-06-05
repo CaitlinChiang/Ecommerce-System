@@ -13,8 +13,10 @@ export default async (
     { _userId: context.currentUserId },
     {
       $pull: {
-        products: { productId: args?.productId },
-        productVariants: { productVariantId: args?.productVariantId }
+        items: {
+          productId: args?.productId,
+          productVariantId: args?.productVariantId
+        }
       }
     }
   )

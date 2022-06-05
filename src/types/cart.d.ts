@@ -5,23 +5,18 @@ import { ProductVariant } from './productVariant'
 export interface Cart {
   _id?: ObjectId
   _userId?: ObjectId
-  products?: CartProduct[]
-  productVariants?: CartProductVariant[]
+  items?: CartItem[]
+  products?: Product[]
+  productVariants?: ProductVariant[]
   quantity?: number
   totalPrice?: number
 }
 
-export interface CartProduct {
+export interface CartItem {
   productId?: ObjectId
-  product?: Product
-  quantity?: number
-  totalPrice?: number
-}
-export interface CartProductVariant {
   productVariantId?: ObjectId
-  productVariant?: ProductVariant
-  quantity?: number
-  totalPrice?: number
+  quantity: number
+  totalPrice: number
 }
 
 export interface GetCartArgs {
@@ -30,8 +25,10 @@ export interface GetCartArgs {
 }
 
 export interface AddToCartArgs {
-  product?: CartProduct
-  productVariant?: CartProductVariant
+  productId?: ObjectId
+  productVariantId?: ObjectId
+  quantity: number
+  totalPrice: number
 }
 
 export interface RemoveFromCartArgs {

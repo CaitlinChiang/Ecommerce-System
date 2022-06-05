@@ -11,10 +11,7 @@ export default async (
 
   const cart: any = await context.database.carts.findOneAndUpdate(
     { _userId: context.currentUserId },
-    {
-      products: { $push: args?.product },
-      productVariants: { $push: args?.productVariant }
-    }
+    { items: { $push: args } }
   )
   return cart
 }

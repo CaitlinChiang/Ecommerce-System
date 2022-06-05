@@ -12,18 +12,17 @@ export default async (
   const cart: any = await context.database.carts.findOneAndUpdate(
     {
       _userId: context.currentUserId,
-      products: {
-        $elemMatch: { _id: args?.product.productId }
-      },
-      productVariants: {
-        $elemMatch: { _id: args?.productVariant.productVariantId }
+      items: {
+        $elemMatch: {
+          $or: [
+            { productId: args?.productId },
+            { productVariantId: args?.productVariantId }
+          ]
+        }
       }
     },
     {
-      $set: {
-        'products.$.quantity': args?.product.quantity,
-        'productVariants.$.quantity': args?.productVariant.quantity
-      }
+      $set: { 'items.$.quantity': args.quantity }
     }
   )
   return cart

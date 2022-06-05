@@ -12,8 +12,10 @@ export default async (
 ): Promise<Order> => {
   authenticateUser({ admin: false }, context)
 
+  const { payment, ...modifiedArgs } = args
+
   const order: any = await context.database.orders.insertOne({
-    ...args,
+    ...modifiedArgs,
     status: OrderStatus.PENDING,
     userId: context.currentUserId,
     createdAt: new Date()
@@ -28,8 +30,8 @@ export default async (
 
   await context.database.payments.insertOne({
     _orderId: order._id,
-    amountDue: args?.payment?.amountDue,
-    method: args?.payment?.method,
+    amountDue: payment?.amountDue,
+    method: payment?.method,
     status: PaymentStatus.COMPLETE,
     createdAt: new Date()
   })

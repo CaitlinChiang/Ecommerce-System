@@ -1,22 +1,18 @@
 type Cart {
   _id: ID
-  products: [CartProduct]
-  productVariants: [CartProductVariant]
+  _userId: ID
+  items: [CartItem]
+  products: [Product]
+  productVariants: [ProductVariant]
   quantity: Int
   totalPrice: Float
 }
 
-input CartProduct {
+type CartItem {
   productId: ID
-  product: Product
-  quantity: Int
-  totalPrice: Float
-}
-input CartProductVariant {
   productVariantId: ID
-  productVariant: ProductVariant
-  quantity: Int
-  totalPrice: Float
+  quantity: Int!
+  totalPrice: Float!
 }
 
 extend type Query {
@@ -24,9 +20,18 @@ extend type Query {
 }
 
 extend type Mutation {
-  add_to_cart(product: CartProduct, productVariant: CartProductVariant): Cart
+  add_to_cart(
+    productId: ID
+    productVariantId: ID
+    quantity: Int!
+    totalPrice: Float!
+  ): Cart
 
-  edit_item_quantity(product: CartProduct, productVariant: CartProductVariant): Cart
+  edit_item_quantity(
+    productId: ID
+    productVariantID: ID
+    quantity: Int!
+  ): Cart
 
   remove_from_cart(productId: ID, productVariantId: ID): Cart
 }
