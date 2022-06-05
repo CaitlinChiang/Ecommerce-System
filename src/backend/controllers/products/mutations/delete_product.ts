@@ -11,14 +11,14 @@ export default async (
 ): Promise<Product> => {
   authenticateUser({ admin: true }, context)
 
-  await handleDeleteImage(args.imageUrl)
-
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.DELETE_PRODUCT,
     productId: args._id,
     createdAt: new Date(),
     createdBy: context.currentUserId
   })
+
+  await handleDeleteImage(args.imageUrl)
 
   const product: any = await context.database.products.findOneAndDelete({
     _id: args._id

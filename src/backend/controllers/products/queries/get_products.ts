@@ -1,14 +1,15 @@
-import { authenticateUser } from '../../../_utils/authenticateUser'
 import { Context } from '../../../../types/context'
 import { Product } from '../../../../types/product'
+import { GetProductArgs } from 'types/product'
+import { authenticateUser } from '../../../_utils/authenticateUser'
 
 export default async (
   _root: undefined,
-  args: undefined,
+  args: GetProductArgs,
   context: Context
 ): Promise<Product[]> => {
   authenticateUser({ admin: false }, context)
 
-  const products: any = await context.database.products.find({})
+  const products: any = await context.database.products.find(args)
   return products
 }

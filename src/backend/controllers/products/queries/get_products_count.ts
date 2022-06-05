@@ -1,13 +1,14 @@
-import { authenticateUser } from '../../../_utils/authenticateUser'
 import { Context } from '../../../../types/context'
+import { GetProductArgs } from 'types/product'
+import { authenticateUser } from '../../../_utils/authenticateUser'
 
 export default async (
   _root: undefined,
-  args: undefined,
+  args: GetProductArgs,
   context: Context
 ): Promise<number> => {
   authenticateUser({ admin: false }, context)
 
-  const productsCount: number = await context.database.products.countDocuments()
+  const productsCount: number = await context.database.products.countDocuments(args)
   return productsCount
 }

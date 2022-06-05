@@ -15,9 +15,17 @@ type Product {
 extend type Query {
   get_product(_id: ID!): Product
 
-  get_products: [Product]
+  get_products(
+    category: String
+    featured: Boolean!
+    showPublic: Boolean!
+  ): [Product]
 
-  get_products_count: Int
+  get_products_count(
+    category: String
+    featured: Boolean!
+    showPublic: Boolean!
+  ): Int
 }
 
 extend type Mutation {

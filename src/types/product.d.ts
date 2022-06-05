@@ -16,6 +16,9 @@ export interface Product {
 
 export interface GetProductArgs {
   _id: ObjectId
+  category?: string
+  featured: boolean
+  showPublic: boolean
 }
 
 export interface CreateProductArgs {
