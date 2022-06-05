@@ -9,9 +9,13 @@ export interface Review {
   updatedAt?: Date
 }
 
+export interface GetReviewArgs {
+  featured: boolean
+}
+
 export interface CreateReviewArgs {
   content: string
-  featured?: boolean
+  featured: boolean
   username: string
   createdAt?: Date
 }

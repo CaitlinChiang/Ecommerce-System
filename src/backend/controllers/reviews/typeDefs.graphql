@@ -8,12 +8,13 @@ type Review {
 }
 
 extend type Query {
-  get_reviews: [Review]
-  get_reviews_count: Int
+  get_reviews(featured: Boolean!): [Review]
+
+  get_reviews_count(featured: Boolean!): Int
 }
 
 extend type Mutation {
-  create_review(content: String!, username: String!): Review
+  create_review(content: String!, featured: Boolean!, username: String!): Review
 
   update_review(_id: ID!, featured: Boolean!): Review
 

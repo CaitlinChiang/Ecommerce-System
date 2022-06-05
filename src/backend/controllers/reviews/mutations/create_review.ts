@@ -12,7 +12,6 @@ export default async (
 
   const review: any = await context.database.reviews.insertOne({
     ...args,
-    featured: false,
     createdAt: new Date()
   })
 
