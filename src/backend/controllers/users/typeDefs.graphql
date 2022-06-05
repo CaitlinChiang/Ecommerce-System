@@ -12,11 +12,6 @@ type User {
   updatedAt: String
 }
 
-type DeliveryAddress {
-  address: String
-  cityId: ID
-}
-
 extend type Query {
   get_user(_id: ID!): User
 

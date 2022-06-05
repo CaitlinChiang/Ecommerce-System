@@ -15,11 +15,6 @@ type Order {
   updatedAt: String
 }
 
-type DeliveryAddress {
-  address: String
-  cityId: ID
-}
-
 type Payment {
   _id: ID
   _orderId: ID

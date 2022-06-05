@@ -1,4 +1,5 @@
 import { gql } from 'apollo-server-express'
+import _common from './_common'
 import auditLogs from './auditLogs'
 import cart from './cart'
 import cities from './cities'
@@ -20,6 +21,7 @@ export const resolvers = [cart.resolvers, orders.resolvers]
 
 export const typeDefs = [
   emptyDefs,
+  _common.typeDefs,
   auditLogs.typeDefs,
   cart.typeDefs,
   cities.typeDefs,

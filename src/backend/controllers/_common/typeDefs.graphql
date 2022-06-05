@@ -1,0 +1,7 @@
+scalar File
+scalar Upload
+
+type DeliveryAddress {
+  address: String
+  cityId: ID
+}
