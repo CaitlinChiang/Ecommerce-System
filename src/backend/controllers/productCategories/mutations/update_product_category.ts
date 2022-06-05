@@ -1,5 +1,8 @@
 import { Context } from '../../../../types/context'
-import { ProductCategory, UpdateProductCategoryArgs } from '../../../../types/productCategory'
+import {
+  ProductCategory,
+  UpdateProductCategoryArgs
+} from '../../../../types/productCategory'
 import { AuditLogAction } from '../../../../types/_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 

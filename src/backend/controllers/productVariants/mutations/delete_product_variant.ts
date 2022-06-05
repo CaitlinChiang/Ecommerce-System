@@ -1,5 +1,8 @@
 import { Context } from '../../../../types/context'
-import { ProductVariant, DeleteProductVariantArgs } from '../../../../types/productVariant'
+import {
+  ProductVariant,
+  DeleteProductVariantArgs
+} from '../../../../types/productVariant'
 import { AuditLogAction } from '../../../../types/_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 import { handleDeleteImage } from '../../../_utils/handleImages/deleteImage'

@@ -1,5 +1,8 @@
 import { Context } from '../../../../types/context'
-import { PaymentMethod, UpdatePaymentMethodArgs } from '../../../../types/paymentMethod'
+import {
+  PaymentMethod,
+  UpdatePaymentMethodArgs
+} from '../../../../types/paymentMethod'
 import { AuditLogAction } from '../../../../types/_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 
