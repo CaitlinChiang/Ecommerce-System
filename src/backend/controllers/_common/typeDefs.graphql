@@ -1,5 +1,10 @@
-scalar File
 scalar Upload
+
+type File {
+  filename: String!
+  mimetype: String!
+  encoding: String!
+}
 
 type DeliveryAddress {
   address: String
