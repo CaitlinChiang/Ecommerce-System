@@ -1,4 +1,6 @@
 import { Context } from '../../../../types/context'
+import { GetOrderArgs } from 'types/order'
+import { UserType } from 'types/_enums/userType'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 
 export default async (
@@ -8,8 +10,13 @@ export default async (
 ): Promise<number> => {
   authenticateUser({ admin: false }, context)
 
-  const ordersCount: number = await context.database.orders.countDocuments({
-    userId: context.currentUserId
-  })
+  const modifiedArgs: GetOrderArgs = {}
+  if (context.currentUserType == UserType.ADMIN) {
+    modifiedArgs.userId = context.currentUserId
+  }
+
+  const ordersCount: number = await context.database.orders.countDocuments(
+    modifiedArgs
+  )
   return ordersCount
 }
