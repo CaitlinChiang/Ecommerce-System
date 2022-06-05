@@ -20,8 +20,7 @@ export interface CartItem {
 }
 
 export interface GetCartArgs {
-  products?: CartProduct[]
-  productVariants?: CartProductVariant[]
+  items: CartItem[]
 }
 
 export interface AddToCartArgs {
