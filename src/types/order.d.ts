@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb'
-import { Cart, CartItem } from './cart'
+import { CartItem } from './cart'
 import { DeliveryAddress } from './deliveryAddress'
 import { Payment } from './payment'
 import { Product } from './product'
