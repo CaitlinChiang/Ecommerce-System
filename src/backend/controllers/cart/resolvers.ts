@@ -1,8 +1,8 @@
 import { ObjectId } from 'mongodb'
-import { Context } from 'types/context'
-import { CartProduct, CartProductVariant, GetCartArgs } from 'types/cart'
-import { Product } from 'types/product'
-import { ProductVariant } from 'types/productVariant'
+import { Context } from '../../../types/context'
+import { CartProduct, CartProductVariant, GetCartArgs } from '../../../types/cart'
+import { Product } from '../../../types/product'
+import { ProductVariant } from '../../../types/productVariant'
 
 export default {
   Cart: {

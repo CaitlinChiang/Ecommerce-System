@@ -1,10 +1,10 @@
-import { Context } from 'types/context'
-import { Product, UpdateProductArgs } from 'types/product'
-import { UploadImageType } from 'types/_enums/uploadImageType'
-import { AuditLogAction } from 'types/_enums/auditLogAction'
+import { Context } from '../../../../types/context'
+import { Product, UpdateProductArgs } from '../../../../types/product'
+import { UploadImageType } from '../../../../types/_enums/uploadImageType'
+import { AuditLogAction } from '../../../../types/_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
-import { handleUploadImage } from 'backend/_utils/handleImages/uploadImage'
-import { handleDeleteImage } from 'backend/_utils/handleImages/deleteImage'
+import { handleUploadImage } from '../../../_utils/handleImages/uploadImage'
+import { handleDeleteImage } from '../../../_utils/handleImages/deleteImage'
 
 export default async (
   _root: undefined,

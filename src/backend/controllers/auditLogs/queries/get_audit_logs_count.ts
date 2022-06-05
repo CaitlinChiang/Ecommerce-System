@@ -1,5 +1,5 @@
-import { Context } from 'types/context'
-import { GetAuditLogArgs } from 'types/auditLog'
+import { Context } from '../../../../types/context'
+import { GetAuditLogArgs } from '../../../../types/auditLog'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 
 export default async (

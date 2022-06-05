@@ -1,5 +1,5 @@
-import { Context } from 'types/context'
-import { City, GetCityArgs } from 'types/city'
+import { Context } from '../../../../types/context'
+import { City, GetCityArgs } from '../../../../types/city'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 
 export default async (

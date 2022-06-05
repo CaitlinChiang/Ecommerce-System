@@ -1,6 +1,6 @@
 import { authenticateUser } from '../../../_utils/authenticateUser'
-import { Context } from 'types/context'
-import { Product, GetProductArgs } from 'types/product'
+import { Context } from '../../../../types/context'
+import { Product, GetProductArgs } from '../../../../types/product'
 
 export default async (
   _root: undefined,

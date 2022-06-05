@@ -1,9 +1,9 @@
 import { ObjectId } from 'mongodb'
-import { Context } from 'types/context'
-import { GetOrderArgs } from 'types/order'
-import { Payment } from 'types/payment'
-import { Product } from 'types/product'
-import { ProductVariant } from 'types/productVariant'
+import { Context } from '../../../types/context'
+import { GetOrderArgs } from '../../../types/order'
+import { Payment } from '../../../types/payment'
+import { Product } from '../../../types/product'
+import { ProductVariant } from '../../../types/productVariant'
 
 export default {
   Order: {

@@ -1,5 +1,5 @@
-import { Context } from 'types/context'
-import { ProductCategory } from 'types/productCategory'
+import { Context } from '../../../../types/context'
+import { ProductCategory } from '../../../../types/productCategory'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 
 export default async (

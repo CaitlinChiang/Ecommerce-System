@@ -1,5 +1,5 @@
-import { Context } from 'types/context'
-import { City } from 'types/City'
+import { Context } from '../../../../types/context'
+import { City } from '../../../../types/City'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 
 export default async (

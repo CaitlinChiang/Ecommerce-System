@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb'
-import { JWTReturnUserArgs } from 'types/user'
+import { JWTReturnUserArgs } from '../../types/user'
 import jwt from 'jsonwebtoken'
 
 const SECRET_KEY = process.env.JWT_SECRET

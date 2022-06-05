@@ -1,8 +1,8 @@
-import { Context } from 'types/context'
-import { User, SignInUserArgs } from 'types/user'
+import { Context } from '../../../../types/context'
+import { User, SignInUserArgs } from '../../../../types/user'
 import { AuthenticationError } from 'apollo-server-express'
 import bcrypt from 'bcrypt'
-import { generateJWT } from 'backend/_utils/jwt'
+import { generateJWT } from '../../../_utils/jwt'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 
 export default async (

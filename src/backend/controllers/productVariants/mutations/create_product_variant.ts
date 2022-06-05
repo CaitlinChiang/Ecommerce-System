@@ -1,9 +1,9 @@
-import { Context } from 'types/context'
-import { ProductVariant, CreateProductVariantArgs } from 'types/productVariant'
-import { UploadImageType } from 'types/_enums/uploadImageType'
-import { AuditLogAction } from 'types/_enums/auditLogAction'
+import { Context } from '../../../../types/context'
+import { ProductVariant, CreateProductVariantArgs } from '../../../../types/productVariant'
+import { UploadImageType } from '../../../../types/_enums/uploadImageType'
+import { AuditLogAction } from '../../../../types/_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
-import { handleUploadImage } from 'backend/_utils/handleImages/uploadImage'
+import { handleUploadImage } from '../../../_utils/handleImages/uploadImage'
 
 export default async (
   _root: undefined,

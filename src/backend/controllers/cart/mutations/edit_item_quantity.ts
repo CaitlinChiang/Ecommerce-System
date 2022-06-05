@@ -1,5 +1,5 @@
-import { Context } from 'types/context'
-import { Cart, AddToCartArgs } from 'types/cart'
+import { Context } from '../../../../types/context'
+import { Cart, AddToCartArgs } from '../../../../types/cart'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 
 export default async (

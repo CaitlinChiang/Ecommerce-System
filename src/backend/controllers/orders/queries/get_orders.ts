@@ -1,5 +1,5 @@
-import { Context } from 'types/context'
-import { Order } from 'types/order'
+import { Context } from '../../../../types/context'
+import { Order } from '../../../../types/order'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 
 export default async (

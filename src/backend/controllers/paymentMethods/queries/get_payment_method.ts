@@ -1,5 +1,5 @@
-import { Context } from 'types/context'
-import { PaymentMethod, GetPaymentMethodArgs } from 'types/paymentMethod'
+import { Context } from '../../../../types/context'
+import { PaymentMethod, GetPaymentMethodArgs } from '../../../../types/paymentMethod'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 
 export default async (

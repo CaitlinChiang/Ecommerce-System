@@ -1,4 +1,4 @@
-import { UploadImageArgs } from 'types/image'
+import { UploadImageArgs } from '../../../types/image'
 const cloudinary = require('../setup/cloudinary')
 
 export const handleUploadImage = async (args: UploadImageArgs): Promise<string> => {

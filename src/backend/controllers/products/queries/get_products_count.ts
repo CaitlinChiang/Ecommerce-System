@@ -1,5 +1,5 @@
 import { authenticateUser } from '../../../_utils/authenticateUser'
-import { Context } from 'types/context'
+import { Context } from '../../../../types/context'
 
 export default async (
   _root: undefined,

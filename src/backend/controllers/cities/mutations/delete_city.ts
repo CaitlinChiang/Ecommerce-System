@@ -1,6 +1,6 @@
-import { Context } from 'types/context'
-import { City, DeleteCityArgs } from 'types/City'
-import { AuditLogAction } from 'types/_enums/auditLogAction'
+import { Context } from '../../../../types/context'
+import { City, DeleteCityArgs } from '../../../../types/City'
+import { AuditLogAction } from '../../../../types/_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 
 export default async (

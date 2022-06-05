@@ -1,5 +1,5 @@
-import { Context } from 'types/context'
-import { WebsiteText, GetWebsiteTextArgs } from 'types/websiteText'
+import { Context } from '../../../../types/context'
+import { WebsiteText, GetWebsiteTextArgs } from '../../../../types/websiteText'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 
 export default async (

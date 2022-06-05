@@ -1,9 +1,9 @@
-import { Context } from 'types/context'
-import { User, CreateUserArgs } from 'types/user'
-import { AuditLogAction } from 'types/_enums/auditLogAction'
+import { Context } from '../../../../types/context'
+import { User, CreateUserArgs } from '../../../../types/user'
+import { AuditLogAction } from '../../../../types/_enums/auditLogAction'
 import { UserInputError } from 'apollo-server-express'
 import bcrypt from 'bcrypt'
-import { generateJWT } from 'backend/_utils/jwt'
+import { generateJWT } from '../../../_utils/jwt'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 
 export default async (
