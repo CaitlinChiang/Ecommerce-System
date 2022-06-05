@@ -15,10 +15,10 @@ export interface Product {
 }
 
 export interface GetProductArgs {
-  _id: ObjectId
+  _id?: ObjectId
   category?: string
-  featured: boolean
-  showPublic: boolean
+  featured?: boolean
+  showPublic?: boolean
 }
 
 export interface CreateProductArgs {

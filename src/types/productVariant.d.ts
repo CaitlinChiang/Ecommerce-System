@@ -13,8 +13,9 @@ export interface ProductVariant {
 }
 
 export interface GetProductVariantArgs {
-  _id: ObjectId
+  _id?: ObjectId
   _productId?: ObjectId
+  showPublic?: boolean
 }
 
 export interface CreateProductVariantArgs {

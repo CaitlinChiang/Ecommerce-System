@@ -14,14 +14,14 @@ export default async (
 ): Promise<ProductVariant> => {
   authenticateUser({ admin: true }, context)
 
-  await handleDeleteImage(args.imageUrl)
-
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.DELETE_PRODUCT_VARIANT,
     productVariantId: args._id,
     createdAt: new Date(),
     createdBy: context.currentUserId
   })
+
+  await handleDeleteImage(args.imageUrl)
 
   const productVariant: any =
     await context.database.productVariants.findOneAndDelete({

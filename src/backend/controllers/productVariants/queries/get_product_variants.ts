@@ -12,8 +12,6 @@ export default async (
 ): Promise<ProductVariant[]> => {
   authenticateUser({ admin: false }, context)
 
-  const productVariants: any = await context.database.productVariants.find({
-    _productId: args._productId
-  })
+  const productVariants: any = await context.database.productVariants.find(args)
   return productVariants
 }

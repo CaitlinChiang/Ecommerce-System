@@ -10,8 +10,6 @@ export default async (
   authenticateUser({ admin: false }, context)
 
   const productVariantsCount: number =
-    await context.database.productVariants.countDocuments({
-      _productId: args._productId
-    })
+    await context.database.productVariants.countDocuments(args)
   return productVariantsCount
 }
