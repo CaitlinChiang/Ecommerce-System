@@ -2,7 +2,7 @@ type WebsiteText {
   _id: ID
   content: String
   type: String
-  updatedAt: Date
+  updatedAt: String
 }
 
 extend type Query {

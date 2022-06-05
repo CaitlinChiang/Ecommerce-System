@@ -3,8 +3,8 @@ type Review {
   content: String
   featured: Boolean
   username: String
-  createdAt: Date
-  updatedAt: Date
+  createdAt: String
+  updatedAt: String
 }
 
 extend type Query {

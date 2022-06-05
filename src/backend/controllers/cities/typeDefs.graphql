@@ -2,8 +2,8 @@ type City {
   _id: ID
   name: String
   shippingFee: Float
-  createdAt: Date
-  updatedAt: Date
+  createdAt: String
+  updatedAt: String
 }
 
 extend type Query {

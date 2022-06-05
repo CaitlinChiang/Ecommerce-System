@@ -11,8 +11,8 @@ type Order {
   status: String
   user: User
   userId: ID
-  createdAt: Date
-  updatedAt: Date
+  createdAt: String
+  updatedAt: String
 }
 
 type DeliveryAddress {
@@ -28,8 +28,8 @@ type Payment {
   proofImage: File
   proofImageUrl: String
   status: String
-  createdAt: Date
-  updatedAt: Date
+  createdAt: String
+  updatedAt: String
 }
 
 extend type Query {

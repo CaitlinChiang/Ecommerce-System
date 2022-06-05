@@ -8,8 +8,8 @@ type Product {
   name: String
   price: Float
   showPublic: Boolean
-  createdAt: Date
-  updatedAt: Date
+  createdAt: String
+  updatedAt: String
 }
 
 extend type Query {

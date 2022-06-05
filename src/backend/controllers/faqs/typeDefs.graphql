@@ -2,8 +2,8 @@ type FAQ {
   _id: ID
   answer: String
   question: String
-  createdAt: Date
-  updatedAt: Date
+  createdAt: String
+  updatedAt: String
 }
 
 extend type Query {

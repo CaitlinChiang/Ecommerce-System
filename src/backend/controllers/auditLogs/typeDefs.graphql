@@ -6,7 +6,7 @@ type AuditLog {
   productId: ID
   productVariantId: ID
   userId: ID
-  createdAt: Date
+  createdAt: String
   createdBy: ID
 }
 
