@@ -44,6 +44,7 @@ extend type Mutation {
   create_order(
     collectionMethod: String
     deliveryAddress: DeliveryAddress
+    payment: Payment
     productIds: [String]
     productVariantIds: [String]
     userId: ID

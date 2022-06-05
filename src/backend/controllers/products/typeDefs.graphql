@@ -3,7 +3,7 @@ type Product {
   category: String
   description: String
   featured: Boolean
-  image: Upload
+  image: File
   imageUrl: String
   name: String
   price: Float
