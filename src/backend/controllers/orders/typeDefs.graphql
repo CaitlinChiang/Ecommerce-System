@@ -2,11 +2,10 @@ type Order {
   _id: ID
   collectionMethod: String
   deliveryAddress: DeliveryAddress
+  items: [CartItem]
   payment: Payment
   paymentId: ID
-  productIds: [String]
   products: [Product]
-  productVariantIds: [String]
   productVariants: [ProductVariant]
   status: String
   user: User
@@ -19,12 +18,17 @@ type Payment {
   _id: ID
   _orderId: ID
   amountDue: Float
+  imageProof: File
+  imageProofUrl: String
   method: String
-  proofImage: File
-  proofImageUrl: String
   status: String
   createdAt: String
   updatedAt: String
+}
+input PaymentInput {
+  amountDue: Float
+  imageProof: File
+  method: String
 }
 
 extend type Query {
@@ -38,16 +42,14 @@ extend type Query {
 extend type Mutation {
   create_order(
     collectionMethod: String
-    deliveryAddress: DeliveryAddress
-    payment: Payment
-    productIds: [String]
-    productVariantIds: [String]
-    userId: ID
+    deliveryAddress: DeliveryAddressInput
+    items: [CartItem]!
+    payment: PaymentInput!
   ): Order
 
   update_order(_id: ID!, collectionMethod: String!, status: String!): Order
 
-  update_payment(_orderId: ID!, proofImage: Upload, status: String!): Payment
+  update_payment(_orderId: ID!, imageProof: Upload, status: String!): Payment
 
-  delete_order(_id: ID!): Order
+  delete_order(_id: ID!, _paymentId: ID!): Order
 }

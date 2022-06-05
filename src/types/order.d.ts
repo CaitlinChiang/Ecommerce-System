@@ -1,4 +1,5 @@
 import { ObjectId } from 'mongodb'
+import { Cart, CartItem } from './cart'
 import { DeliveryAddress } from './deliveryAddress'
 import { Payment } from './payment'
 import { Product } from './product'
@@ -9,11 +10,10 @@ export interface Order {
   _id?: ObjectId
   collectionMethod?: string
   deliveryAddress?: DeliveryAddress
+  items?: CartItem[]
   payment?: Payment
   paymentId?: ObjectId
-  productIds?: string[]
   products?: Product[]
-  productVariantIds?: string[]
   productVariants?: ProductVariant[]
   status?: string
   user?: User
@@ -23,17 +23,16 @@ export interface Order {
 }
 
 export interface GetOrderArgs {
-  _id: ObjectId
-  productIds?: string[]
-  productVariantIds?: string[]
+  _id?: ObjectId
+  items?: CartItem[]
+  userId?: ObjectId
 }
 
 export interface CreateOrderArgs {
   collectionMethod?: string
   deliveryAddress?: DeliveryAddress
-  payment?: Payment
-  productIds?: string[]
-  productVariantIds?: string[]
+  items: CartItem[]
+  payment: Payment
   status?: string
   userId?: ObjectId
   createdAt?: Date
@@ -48,4 +47,5 @@ export interface UpdateOrderArgs {
 
 export interface DeleteOrderArgs {
   _id: ObjectId
+  _paymentId: ObjectId
 }

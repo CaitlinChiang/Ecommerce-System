@@ -30,8 +30,8 @@ export default async (
 
   await context.database.payments.insertOne({
     _orderId: order._id,
-    amountDue: payment?.amountDue,
-    method: payment?.method,
+    amountDue: payment.amountDue,
+    method: payment.method,
     status: PaymentStatus.COMPLETE,
     createdAt: new Date()
   })

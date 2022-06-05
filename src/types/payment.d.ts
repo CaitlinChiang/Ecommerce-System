@@ -5,25 +5,24 @@ export interface Payment {
   _orderId?: ObjectId
   amountDue?: number
   method?: string
-  proofImage?: File
-  proofImageUrl?: string
+  imageProof?: File
+  imageProofUrl?: string
   status?: string
   createdAt?: Date
   updatedAt?: Date
 }
 
 export interface CreatePaymentArgs {
-  _orderId?: ObjectId
   amountDue: number
   method: string
-  proofImage?: File
+  imageProof?: File
   status?: string
   createdAt?: Date
 }
 
 export interface UpdatePaymentArgs {
   _orderId: ObjectId
-  proofImage?: File
+  imageProof?: File
   status: string
   updatedAt?: Date
 }

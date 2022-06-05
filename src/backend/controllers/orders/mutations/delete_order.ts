@@ -17,6 +17,15 @@ export default async (
     createdBy: context.currentUserId
   })
 
+  await context.database.auditLogs.insertOne({
+    action: AuditLogAction.DELETE_ORDER_PAYMENT,
+    paymentId: args._paymentId,
+    createdAt: new Date(),
+    createdBy: context.currentUserId
+  })
+
+  await context.database.payments.findOneAndDelete({ _orderId: args._id })
+
   const order: any = await context.database.orders.findOneAndDelete({
     _id: args._id
   })
