@@ -6,13 +6,13 @@ type Cart {
   totalPrice: Float
 }
 
-type CartProduct {
+input CartProduct {
   productId: ID
   product: Product
   quantity: Int
   totalPrice: Float
 }
-type CartProductVariant {
+input CartProductVariant {
   productVariantId: ID
   productVariant: ProductVariant
   quantity: Int

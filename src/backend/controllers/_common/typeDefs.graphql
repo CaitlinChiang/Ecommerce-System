@@ -1,12 +1,16 @@
 scalar Upload
 
-type File {
+input FileInput {
   filename: String!
   mimetype: String!
   encoding: String!
 }
 
 type DeliveryAddress {
+  address: String
+  cityId: ID
+}
+input DeliveryAddressInput {
   address: String
   cityId: ID
 }
