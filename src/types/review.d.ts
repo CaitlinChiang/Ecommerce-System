@@ -10,7 +10,7 @@ export interface Review {
 }
 
 export interface GetReviewArgs {
-  featured: boolean
+  featured?: boolean
 }
 
 export interface CreateReviewArgs {

@@ -13,9 +13,9 @@ type ProductVariant {
 extend type Query {
   get_product_variant(_id: ID!): ProductVariant
 
-  get_product_variants(_productId: ID!, showPublic: Boolean!): [ProductVariant]
+  get_product_variants(_productId: ID!, showPublic: Boolean): [ProductVariant]
 
-  get_product_variants_count(_productId: ID!, showPublic: Boolean!): Int
+  get_product_variants_count(_productId: ID!, showPublic: Boolean): Int
 }
 
 extend type Mutation {

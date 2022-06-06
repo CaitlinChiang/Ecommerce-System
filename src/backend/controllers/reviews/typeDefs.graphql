@@ -8,9 +8,9 @@ type Review {
 }
 
 extend type Query {
-  get_reviews(featured: Boolean!): [Review]
+  get_reviews(featured: Boolean): [Review]
 
-  get_reviews_count(featured: Boolean!): Int
+  get_reviews_count(featured: Boolean): Int
 }
 
 extend type Mutation {
