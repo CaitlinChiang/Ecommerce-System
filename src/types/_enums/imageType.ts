@@ -1,0 +1,5 @@
+export enum ImageType {
+  PAYMENT = 'PAYMENT',
+  PRODUCT = 'PRODUCT',
+  PRODUCT_VARIANT = 'PRODUCT_VARIANT'
+}
