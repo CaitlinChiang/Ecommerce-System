@@ -21,6 +21,7 @@ type Payment {
   imageProof: File
   imageProofUrl: String
   method: String
+  shippingFee: Float
   status: String
   createdAt: String
   updatedAt: String
@@ -29,6 +30,7 @@ input PaymentInput {
   amountDue: Float
   imageProof: File
   method: String
+  shippingFee: Float
 }
 
 extend type Query {
@@ -44,7 +46,7 @@ extend type Mutation {
     collectionMethod: String
     deliveryAddress: DeliveryAddressInput
     items: [CartItem]!
-    payment: PaymentInput!
+    payment: PaymentInput
   ): Order
 
   update_order(_id: ID!, collectionMethod: String!, status: String!): Order

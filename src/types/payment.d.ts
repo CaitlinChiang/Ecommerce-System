@@ -4,9 +4,10 @@ export interface Payment {
   _id?: ObjectId
   _orderId?: ObjectId
   amountDue?: number
-  method?: string
   imageProof?: File
   imageProofUrl?: string
+  method?: string
+  shippingFee?: number
   status?: string
   createdAt?: Date
   updatedAt?: Date
@@ -14,8 +15,9 @@ export interface Payment {
 
 export interface CreatePaymentArgs {
   amountDue: number
-  method: string
   imageProof?: File
+  method: string
+  shippingFee?: number
   status?: string
   createdAt?: Date
 }
