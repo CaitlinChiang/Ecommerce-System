@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'
 
 export default gql`
-  mutation ($content: String!, $username: String!) {
-    create_review(content: $content, username: $username) {
+  mutation ($content: String!, $featured: Boolean!, $username: String!) {
+    create_review(content: $content, featured: $featured, username: $username) {
       _id
     }
   }

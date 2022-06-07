@@ -1,11 +1,11 @@
 import { gql } from '@apollo/client'
 
 export default gql`
-  query {
-    get_reviews {
+  query (featured: Boolean) {
+    get_reviews(featured: $featured) {
       _id
     }
 
-    get_reviews_count
+    get_reviews_count(featured: $featured)
   }
 `
