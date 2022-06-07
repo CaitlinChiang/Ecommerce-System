@@ -16,6 +16,7 @@ export interface Payment {
 export interface CreatePaymentArgs {
   amountDue: number
   imageProof?: File
+  imageProofUrl?: string
   method: string
   shippingFee?: number
   status?: string
@@ -25,6 +26,7 @@ export interface CreatePaymentArgs {
 export interface UpdatePaymentArgs {
   _orderId: ObjectId
   imageProof?: File
+  imageProofUrl?: string
   status: string
   updatedAt?: Date
 }

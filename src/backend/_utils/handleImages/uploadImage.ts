@@ -1,5 +1,5 @@
 import { UploadImageArgs } from '../../../types/image'
-import { ImageType } from '../../../types/_enums/imageType'
+import { UploadImageType } from '../../../types/_enums/uploadImageType'
 
 const cloudinary = require('../setup/cloudinary')
 
@@ -12,11 +12,11 @@ export const handleUploadImage = async (args: UploadImageArgs): Promise<string> 
 
 const assignFileName = (args: UploadImageArgs) => {
   switch (args.imageType) {
-    case ImageType.PAYMENT:
-      return generatePaymentImageFileName(args.paymentId)
-    case ImageType.PRODUCT:
+    case UploadImageType.PAYMENT:
+      return generatePaymentImageFileName(args.orderId)
+    case UploadImageType.PRODUCT:
       return generateProductImageFileName(args.productName)
-    case ImageType.PRODUCT_VARIANT:
+    case UploadImageType.PRODUCT_VARIANT:
       return generateProductVariantImageFileName(
         args.productId,
         args.productVariantName
@@ -24,9 +24,9 @@ const assignFileName = (args: UploadImageArgs) => {
   }
 }
 
-const generatePaymentImageFileName = (paymentId: string) => {
+const generatePaymentImageFileName = (orderId: string) => {
   const folderName = 'payments/'
-  const modifiedPaymentId = paymentId.substr(paymentId.length - 5)
+  const modifiedPaymentId = orderId.substr(orderId.length - 5)
 
   return folderName.concat(modifiedPaymentId)
 }

@@ -1,4 +1,5 @@
 export enum UploadImageType {
+  PAYMENT = 'PAYMENT',
   PRODUCT = 'PRODUCT',
   PRODUCT_VARIANT = 'PRODUCT_VARIANT'
 }
