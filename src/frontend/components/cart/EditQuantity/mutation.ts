@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'
 
 export default gql`
-  mutation ($product: CartProduct, $productVariant: CartProductVariant) {
-    edit_item_quantity(product: $product, productVariant: $productVariant) {
+  mutation ($productId: ID, $productVariantId: ID, quantity: Int!) {
+    edit_item_quantity(productId: $productId, productVariantId: $productVariantId) {
       _id
     }
   }

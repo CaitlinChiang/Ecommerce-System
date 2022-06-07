@@ -29,7 +29,7 @@ extend type Mutation {
 
   edit_item_quantity(
     productId: ID
-    productVariantID: ID
+    productVariantId: ID
     quantity: Int!
   ): Cart
 
