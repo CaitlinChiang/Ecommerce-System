@@ -2,6 +2,7 @@ import { Context } from '../../../../types/context'
 import { Order, DeleteOrderArgs } from '../../../../types/order'
 import { AuditLogAction } from '../../../../types/_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
+import { handleDeleteImage } from 'backend/_utils/handleImages/deleteImage'
 
 export default async (
   _root: undefined,
@@ -23,6 +24,9 @@ export default async (
     createdAt: new Date(),
     createdBy: context.currentUserId
   })
+
+  const imageProofUrl = String(args._id).substr(String(args._id).length - 5)
+  await handleDeleteImage('payments/' + imageProofUrl)
 
   await context.database.payments.findOneAndDelete({ _orderId: args._id })
 

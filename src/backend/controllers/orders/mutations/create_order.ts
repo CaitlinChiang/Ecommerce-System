@@ -2,8 +2,10 @@ import { Context } from '../../../../types/context'
 import { Order, CreateOrderArgs } from '../../../../types/order'
 import { OrderStatus } from '../../../../types/_enums/orderStatus'
 import { PaymentStatus } from '../../../../types/_enums/paymentStatus'
+import { UploadImageType } from 'types/_enums/uploadImageType'
 import { AuditLogAction } from '../../../../types/_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
+import { handleUploadImage } from '../../../_utils/handleImages/uploadImage'
 
 export default async (
   _root: undefined,
@@ -12,7 +14,10 @@ export default async (
 ): Promise<Order> => {
   authenticateUser({ admin: false }, context)
 
-  const { payment, ...modifiedArgs } = args
+  const {
+    payment: { imageProof, ...modifiedPaymentArgs },
+    ...modifiedArgs
+  } = args
 
   const order: any = await context.database.orders.insertOne({
     ...modifiedArgs,
@@ -28,9 +33,16 @@ export default async (
     createdBy: context.currentUserId
   })
 
+  const imageProofUrl = await handleUploadImage({
+    imageType: UploadImageType.PAYMENT,
+    image: imageProof,
+    orderId: String(order._id)
+  })
+
   await context.database.payments.insertOne({
     _orderId: order._id,
-    ...payment,
+    ...modifiedPaymentArgs,
+    imageProofUrl,
     status: PaymentStatus.COMPLETE,
     createdAt: new Date()
   })

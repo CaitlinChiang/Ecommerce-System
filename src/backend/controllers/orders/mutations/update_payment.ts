@@ -1,7 +1,10 @@
 import { Context } from '../../../../types/context'
 import { Payment, UpdatePaymentArgs } from '../../../../types/payment'
+import { UploadImageType } from 'types/_enums/uploadImageType'
 import { AuditLogAction } from '../../../../types/_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
+import { handleUploadImage } from 'backend/_utils/handleImages/uploadImage'
+import { handleDeleteImage } from '../../../_utils/handleImages/deleteImage'
 
 export default async (
   _root: undefined,
@@ -10,9 +13,22 @@ export default async (
 ): Promise<Payment> => {
   authenticateUser({ admin: true }, context)
 
+  const { imageProof, ...modifiedArgs } = args
+
+  await handleDeleteImage(args.imageProofUrl)
+  const modifiedImageUrl = await handleUploadImage({
+    imageType: UploadImageType.PAYMENT,
+    image: imageProof,
+    orderId: String(args._orderId)
+  })
+
   const payment: any = await context.database.payments.findOneAndUpdate(
     { _orderId: args._orderId },
-    { ...args, updatedAt: new Date() }
+    {
+      ...modifiedArgs,
+      imageProof: modifiedImageUrl,
+      updatedAt: new Date()
+    }
   )
 
   await context.database.auditLogs.insertOne({
