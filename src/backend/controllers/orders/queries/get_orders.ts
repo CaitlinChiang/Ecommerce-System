@@ -2,6 +2,7 @@ import { Context } from '../../../../types/context'
 import { Order, GetOrderArgs } from '../../../../types/order'
 import { UserType } from 'types/_enums/userType'
 import { authenticateUser } from '../../../_utils/authenticateUser'
+import { modifiedArgsWithDateFilter } from '../../../_utils/helpers/filterDateRange'
 
 export default async (
   _root: undefined,
@@ -10,8 +11,10 @@ export default async (
 ): Promise<Order[]> => {
   authenticateUser({ admin: false }, context)
 
-  const modifiedArgs: GetOrderArgs = {}
-  if (context.currentUserType == UserType.ADMIN) {
+  const modifiedArgs: GetOrderArgs = {
+    ...modifiedArgsWithDateFilter(args)
+  }
+  if (context.currentUserType == UserType.CONSUMER) {
     modifiedArgs.userId = context.currentUserId
   }
 
