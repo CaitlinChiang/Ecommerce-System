@@ -1,8 +1,7 @@
 import { Toolbar, IconButton, Typography } from '@mui/material'
 import React, { ReactElement } from 'react'
 import { useRouter } from 'next/router'
-import theme from '../themes'
-import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
 const Header = ({
   pageTitle,
@@ -17,16 +16,13 @@ const Header = ({
     <Toolbar>
       {backRoute && (
         <IconButton
-          sx={{
-            marginRight: theme.spacing(2)
-          }}
           edge={'start'}
           color={'inherit'}
           onClick={(): void => {
             router.push(backRoute)
           }}
         >
-          <ArrowLeftIcon />
+          <ArrowBackIcon fontSize={'large'} />
         </IconButton>
       )}
       <Typography
