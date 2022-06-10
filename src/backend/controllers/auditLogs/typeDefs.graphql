@@ -15,11 +15,15 @@ extend type Query {
     action: String
     orderId: ID
     paymentId: ID
+    startDate: String!
+    endDate: String!
   ): AuditLog
 
   get_audit_logs_count(
     action: String
     orderId: ID
     paymentId: ID
+    startDate: String!
+    endDate: String!
   ): Int
 }

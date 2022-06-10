@@ -36,9 +36,9 @@ input PaymentInput {
 extend type Query {
   get_order(_id: ID!): Order
 
-  get_orders: [Order]
+  get_orders(startDate: String, endDate: String): [Order]
 
-  get_orders_count: Int
+  get_orders_count(startDate: String, endDate: String): Int
 }
 
 extend type Mutation {
