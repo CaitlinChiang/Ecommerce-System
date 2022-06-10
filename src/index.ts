@@ -67,6 +67,7 @@ nextJSApp.prepare().then(async () => {
     }
   })
 
+  await server.start()
   server.applyMiddleware({ app, path: '/graphql' })
 
   app.use((req, res) => {
