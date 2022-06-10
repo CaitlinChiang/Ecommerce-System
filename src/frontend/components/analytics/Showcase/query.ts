@@ -1,11 +1,15 @@
 import { gql } from '@apollo/client'
 
 export default gql`
-  query ($action: String, $orderId: ID, $paymentId: ID) {
-    get_audit_logs(action: $action, orderId: $orderId, paymentId: $paymentId) {
-      _id
+  query ($startDate: String, $endDate: String) {
+    get_analytics_orders_count(startDate: $startDate, endDate: $endDate) {
+      date
+      orders
     }
 
-    get_audit_logs_count(action: $action, orderId: $orderId, paymentId: $paymentId)
+    get_analytics_revenue_count(startDate: $startDate, endDate: $endDate) {
+      date
+      revenue
+    }
   }
 `
