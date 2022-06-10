@@ -1,5 +1,6 @@
 import { gql } from 'apollo-server-express'
 import _common from './_common'
+import analytics from './analytics'
 import auditLogs from './auditLogs'
 import cart from './cart'
 import cities from './cities'
@@ -17,11 +18,17 @@ const emptyDefs = gql`
   type Mutation
 `
 
-export const resolvers = [_common.resolvers, cart.resolvers, orders.resolvers]
+export const resolvers = [
+  _common.resolvers,
+  cart.resolvers,
+  orders.resolvers,
+  products.resolvers
+]
 
 export const typeDefs = [
   emptyDefs,
   _common.typeDefs,
+  analytics.typeDefs,
   auditLogs.typeDefs,
   cart.typeDefs,
   cities.typeDefs,
