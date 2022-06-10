@@ -13,8 +13,8 @@ export default async (
     {
       $match: {
         createdAt: {
-          $gte: args.startDate,
-          $lte: args.endDate
+          $gte: new Date(args.startDate),
+          $lte: new Date(args.endDate)
         }
       }
     },

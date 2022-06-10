@@ -26,6 +26,8 @@ export interface GetOrderArgs {
   _id?: ObjectId
   items?: CartItem[]
   userId?: ObjectId
+  startDate?: Date
+  endDate?: Date
 }
 
 export interface CreateOrderArgs {
