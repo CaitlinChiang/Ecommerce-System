@@ -37,6 +37,7 @@ extend type Mutation {
     name: String!
     price: Float!
     showPublic: Boolean!
+    stockQuantity: Int
   ): Product
 
   update_product(
@@ -49,6 +50,7 @@ extend type Mutation {
     name: String!
     price: Float!
     showPublic: Boolean!
+    stockQuantity: Int
   ): Product
 
   delete_product(_id: ID!, imageUrl: String): Product

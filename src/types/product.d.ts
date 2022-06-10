@@ -10,6 +10,7 @@ export interface Product {
   name?: string
   price?: number
   showPublic?: boolean
+  stockQuantity?: number
   createdAt?: Date
   updatedAt?: Date
 }
@@ -30,6 +31,7 @@ export interface CreateProductArgs {
   name: string
   price: number
   showPublic: boolean
+  stockQuantity?: number
   createdAt?: Date
 }
 
@@ -43,6 +45,7 @@ export interface UpdateProductArgs {
   name: string
   price: number
   showPublic: boolean
+  stockQuantity?: number
   updatedAt?: Date
 }
 

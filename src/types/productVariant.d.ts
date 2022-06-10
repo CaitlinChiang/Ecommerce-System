@@ -8,6 +8,7 @@ export interface ProductVariant {
   name?: string
   price?: number
   showPublic?: boolean
+  stockQuantity?: number
   createdAt?: Date
   updatedAt?: Date
 }
@@ -25,6 +26,7 @@ export interface CreateProductVariantArgs {
   name: string
   price: number
   showPublic: boolean
+  stockQuantity: number
   createdAt?: Date
 }
 
@@ -36,6 +38,7 @@ export interface UpdateProductVariantArgs {
   name: string
   price: number
   showPublic: boolean
+  stockQuantity: number
   updatedAt?: Date
 }
 
