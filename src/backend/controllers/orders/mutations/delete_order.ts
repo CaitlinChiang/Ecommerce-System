@@ -2,7 +2,7 @@ import { Context } from '../../../../types/context'
 import { Order, DeleteOrderArgs } from '../../../../types/order'
 import { AuditLogAction } from '../../../../types/_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
-import { handleDeleteImage } from 'backend/_utils/handleImages/deleteImage'
+import { handleDeleteImage } from '../../../_utils/handleImages/deleteImage'
 
 export default async (
   _root: undefined,
