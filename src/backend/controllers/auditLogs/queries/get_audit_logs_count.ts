@@ -10,8 +10,12 @@ export default async (
 ): Promise<number> => {
   authenticateUser({ admin: true }, context)
 
-  const auditLogsCount: any = await context.database.auditLogs.countDocuments(
-    modifiedArgsWithDateFilter(args)
+  const modifiedArgs: GetAuditLogArgs = {
+    ...modifiedArgsWithDateFilter(args)
+  }
+
+  const auditLogsCount: number = await context.database.auditLogs.countDocuments(
+    modifiedArgs
   )
   return auditLogsCount
 }

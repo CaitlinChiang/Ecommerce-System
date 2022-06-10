@@ -10,8 +10,10 @@ export default async (
 ): Promise<AuditLog[]> => {
   authenticateUser({ admin: true }, context)
 
-  const auditLogs: any = await context.database.auditLogs.find(
-    modifiedArgsWithDateFilter(args)
-  )
+  const modifiedArgs: GetAuditLogArgs = {
+    ...modifiedArgsWithDateFilter(args)
+  }
+
+  const auditLogs: any = await context.database.auditLogs.find(modifiedArgs)
   return auditLogs
 }
