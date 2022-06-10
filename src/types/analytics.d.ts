@@ -3,12 +3,12 @@ export interface GetAnalyticsArgs {
   endDate: Date
 }
 
-export interface AnalyticsOrders {
+export interface AnalyticsOrdersCount {
   date: string
   orders: number
 }
 
-export interface AnalyticsRevenue {
+export interface AnalyticsRevenueCount {
   date: string
   revenue: number
 }

@@ -1,0 +1,21 @@
+type AnalyticsOrdersCount {
+  date: String
+  orders: Int
+}
+
+type AnalyticsRevenueCount {
+  date: String
+  revenue: Float
+}
+
+extend type Query {
+  get_analytics_orders_count(
+    startDate: String
+    endDate: String
+  ): AnalyticsOrdersCount
+
+  get_analytics_revenue_count(
+    startDate: String
+    endDate: String
+  ): AnalyticsRevenueCount
+}
