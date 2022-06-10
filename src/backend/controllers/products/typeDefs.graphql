@@ -8,6 +8,7 @@ type Product {
   name: String
   price: Float
   showPublic: Boolean
+  stockQuantity: Int
   createdAt: String
   updatedAt: String
 }

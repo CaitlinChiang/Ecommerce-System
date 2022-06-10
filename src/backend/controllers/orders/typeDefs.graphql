@@ -28,7 +28,7 @@ type Payment {
 }
 input PaymentInput {
   amountDue: Float
-  imageProof: File
+  imageProof: Upload
   method: String
   shippingFee: Float
 }
@@ -45,7 +45,7 @@ extend type Mutation {
   create_order(
     collectionMethod: String
     deliveryAddress: DeliveryAddressInput
-    items: [CartItem]!
+    items: [CartItemInput]!
     payment: PaymentInput!
   ): Order
 

@@ -14,6 +14,12 @@ type CartItem {
   quantity: Int!
   totalPrice: Float!
 }
+input CartItemInput {
+  productId: ID
+  productVariantId: ID
+  quantity: Int!
+  totalPrice: Float!
+}
 
 extend type Query {
   get_cart: Cart
