@@ -27,11 +27,7 @@ extend type Mutation {
     totalPrice: Float!
   ): Cart
 
-  edit_item_quantity(
-    productId: ID
-    productVariantId: ID
-    quantity: Int!
-  ): Cart
+  edit_item_quantity(productId: ID, productVariantId: ID, quantity: Int!): Cart
 
   remove_from_cart(productId: ID, productVariantId: ID): Cart
 }
