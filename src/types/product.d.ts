@@ -20,6 +20,7 @@ export interface GetProductArgs {
   category?: string
   featured?: boolean
   showPublic?: boolean
+  stockQuantity?: number
 }
 
 export interface CreateProductArgs {
