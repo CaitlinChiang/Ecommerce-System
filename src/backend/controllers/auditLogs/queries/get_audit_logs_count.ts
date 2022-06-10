@@ -1,6 +1,7 @@
 import { Context } from '../../../../types/context'
 import { GetAuditLogArgs } from '../../../../types/auditLog'
 import { authenticateUser } from '../../../_utils/authenticateUser'
+import { modifiedArgsWithDateFilter } from '../../../_utils/helpers/filterDateRange'
 
 export default async (
   _root: undefined,
@@ -9,8 +10,8 @@ export default async (
 ): Promise<number> => {
   authenticateUser({ admin: true }, context)
 
-  const auditLogsCount: number = await context.database.auditLogs.countDocuments(
-    args
+  const auditLogsCount: any = await context.database.auditLogs.countDocuments(
+    modifiedArgsWithDateFilter(args)
   )
   return auditLogsCount
 }
