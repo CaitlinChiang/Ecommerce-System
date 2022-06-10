@@ -1,6 +1,6 @@
 import { Context } from '../../../../types/context'
 import { Payment, UpdatePaymentArgs } from '../../../../types/payment'
-import { UploadImageType } from 'types/_enums/uploadImageType'
+import { UploadImageType } from '../../../../types/_enums/uploadImageType'
 import { AuditLogAction } from '../../../../types/_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 import { handleUploadImage } from 'backend/_utils/handleImages/uploadImage'
