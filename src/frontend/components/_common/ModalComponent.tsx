@@ -11,7 +11,7 @@ import {
   useMediaQuery
 } from '@mui/material'
 
-const ModalContainer = ({
+const ModalComponent = ({
   open,
   onClose,
   title,
@@ -28,7 +28,6 @@ const ModalContainer = ({
 }: {
   open: boolean
   onClose?: VoidFunction
-  permanent?: boolean
   title?: string
   content?: ReactElement
   loading?: boolean
@@ -42,7 +41,7 @@ const ModalContainer = ({
   fullScreen?: boolean
 }): ReactElement => {
   return (
-    <div>
+    <>
       <Dialog
         fullScreen={fullScreen || useMediaQuery(theme.breakpoints.down('sm'))}
         open={Boolean(open)}
@@ -107,8 +106,8 @@ const ModalContainer = ({
           )}
         </DialogActions>
       </Dialog>
-    </div>
+    </>
   )
 }
 
-export default ModalContainer
+export default ModalComponent
