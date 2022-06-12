@@ -14,3 +14,11 @@ input DeliveryAddressInput {
   address: String
   cityId: ID
 }
+
+input SearchTableQuery {
+  page: Int!
+  rowsPerPage: Int!
+  searchText: String
+  sortBy: String!
+  sortDirection: String!
+}
