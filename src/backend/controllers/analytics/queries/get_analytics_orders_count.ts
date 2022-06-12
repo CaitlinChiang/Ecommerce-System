@@ -1,4 +1,4 @@
-import { Context } from '../../../../types/_setup/context'
+import { Context } from '../../../../types/setup/context'
 import { AnalyticsOrdersCount, GetAnalyticsArgs } from '../../../../types/analytics'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 

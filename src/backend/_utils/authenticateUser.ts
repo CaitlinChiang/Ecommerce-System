@@ -1,4 +1,4 @@
-import { Context } from '../../types/_setup/context'
+import { Context } from '../../types/setup/context'
 import { UserPermissionArgs } from '../../types/user'
 import { UserType } from '../../types/_enums/userType'
 import { AuthenticationError } from 'apollo-server-express'

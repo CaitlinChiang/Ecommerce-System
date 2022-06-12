@@ -1,4 +1,4 @@
-import { Context } from '../../../../types/_setup/context'
+import { Context } from '../../../../types/setup/context'
 import { Product, CreateProductArgs } from '../../../../types/product'
 import { UploadImageType } from '../../../../types/_enums/uploadImageType'
 import { AuditLogAction } from '../../../../types/_enums/auditLogAction'

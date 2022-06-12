@@ -1,4 +1,4 @@
-import { Context } from '../../../../types/_setup/context'
+import { Context } from '../../../../types/setup/context'
 import { User, SignInUserArgs } from '../../../../types/user'
 import { AuthenticationError } from 'apollo-server-express'
 import bcrypt from 'bcrypt'

@@ -1,4 +1,4 @@
-import { Context } from '../../../../types/_setup/context'
+import { Context } from '../../../../types/setup/context'
 import { GetAuditLogArgs } from '../../../../types/auditLog'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 import { modifiedArgsWithDateFilter } from '../../../_utils/helpers/filterDateRange'
