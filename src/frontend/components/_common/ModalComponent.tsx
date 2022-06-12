@@ -2,52 +2,53 @@ import { ReactElement } from 'react'
 import theme from '../../themes'
 import {
   Button,
-  Collapse,
   CircularProgress,
+  Collapse,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
   useMediaQuery
 } from '@mui/material'
+import { ReactJSXElement } from '@emotion/react/types/jsx-namespace'
 
 const ModalComponent = ({
-  open,
-  onClose,
-  title,
   content,
+  fullScreen,
   loading,
-  primaryButtonTitle,
-  primaryButtonOnClick,
-  primaryButtonDisabled,
-  secondaryButtonTitle,
-  secondaryButtonOnClick,
-  secondaryButtonDisabled,
   maxWidth,
-  fullScreen
+  onClose,
+  open,
+  primaryButtonDisabled,
+  primaryButtonOnClick,
+  primaryButtonTitle,
+  secondaryButtonDisabled,
+  secondaryButtonOnClick,
+  secondaryButtonTitle,
+  title
 }: {
-  open: boolean
-  onClose?: VoidFunction
-  title?: string
-  content?: ReactElement
-  loading?: boolean
-  primaryButtonTitle?: string
-  primaryButtonOnClick?: VoidFunction
-  primaryButtonDisabled?: boolean
-  secondaryButtonTitle?: string
-  secondaryButtonOnClick?: VoidFunction
-  secondaryButtonDisabled?: boolean
+  content: ReactJSXElement
+  fullScreen: boolean
+  loading: boolean
   maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | false
-  fullScreen?: boolean
+  onClose?: VoidFunction
+  open: boolean
+  primaryButtonDisabled?: boolean
+  primaryButtonOnClick?: VoidFunction
+  primaryButtonTitle?: string
+  secondaryButtonDisabled?: boolean
+  secondaryButtonOnClick?: VoidFunction
+  secondaryButtonTitle?: string
+  title?: string
 }): ReactElement => {
   return (
     <>
       <Dialog
-        fullScreen={fullScreen || useMediaQuery(theme.breakpoints.down('sm'))}
-        open={Boolean(open)}
-        onClose={onClose}
-        maxWidth={maxWidth || 'lg'}
         aria-labelledby='responsive-dialog-title'
+        fullScreen={fullScreen || useMediaQuery(theme.breakpoints.down('sm'))}
+        maxWidth={maxWidth || 'lg'}
+        onClose={onClose}
+        open={Boolean(open)}
       >
         <DialogTitle id='responsive-dialog-title'>{title}</DialogTitle>
         <DialogContent>
@@ -76,30 +77,30 @@ const ModalComponent = ({
         >
           {secondaryButtonTitle && (
             <Button
-              id={'modal-secondary-button'}
               color={'secondary'}
+              disabled={loading || Boolean(secondaryButtonDisabled)}
+              id={'modal-secondary-button'}
+              onClick={secondaryButtonOnClick}
               sx={{
                 [theme.breakpoints.down('sm')]: {
                   marginTop: theme.spacing(1)
                 }
               }}
-              onClick={secondaryButtonOnClick}
-              disabled={loading || Boolean(secondaryButtonDisabled)}
             >
               {secondaryButtonTitle}
             </Button>
           )}
           {primaryButtonTitle && (
             <Button
-              id={'modal-primary-button'}
               color={'primary'}
+              disabled={loading || Boolean(primaryButtonDisabled)}
+              id={'modal-primary-button'}
+              onClick={primaryButtonOnClick}
               sx={{
                 [theme.breakpoints.down('sm')]: {
                   marginTop: theme.spacing(1)
                 }
               }}
-              onClick={primaryButtonOnClick}
-              disabled={loading || Boolean(primaryButtonDisabled)}
             >
               {primaryButtonTitle}
             </Button>

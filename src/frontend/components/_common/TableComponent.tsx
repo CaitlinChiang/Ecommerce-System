@@ -2,44 +2,44 @@ import React, { ReactElement } from 'react'
 import {
   Box,
   LinearProgress,
-  TablePagination,
-  TableContainer,
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
   TableSortLabel
 } from '@mui/material'
-import { SortDirection } from '../../../types/_enums/sortDirection'
 import { SearchTableQueryArgs } from '../../../types/_actions/searchTableQuery'
+import { SortDirection } from '../../../types/_enums/sortDirection'
 import { formatTableHeader } from '../_helpers/formatTableHeaders'
 
 const TableComponent = ({
   count,
-  loading,
-  headersAlign,
   headers,
-  rows,
-  rowsPerPageOptions,
-  rowsPerPage,
-  setRowsPerPage,
+  headersAlign,
+  loading,
   page,
-  setPage,
+  rows,
+  rowsPerPage,
+  rowsPerPageOptions,
   searchTableQuery,
+  setPage,
+  setRowsPerPage,
   setSearchTableQuery
 }: {
   count: number
-  loading?: boolean
-  headersAlign: 'inherit' | 'left' | 'center' | 'right' | 'justify'
   headers: string[]
-  rows: any[]
-  rowsPerPageOptions: number[]
-  rowsPerPage: number
-  setRowsPerPage: React.Dispatch<React.SetStateAction<number>>
+  headersAlign: 'inherit' | 'left' | 'center' | 'right' | 'justify'
+  loading: boolean
   page: number
-  setPage: React.Dispatch<React.SetStateAction<number>>
+  rows: any[]
+  rowsPerPage: number
+  rowsPerPageOptions: number[]
   searchTableQuery: SearchTableQueryArgs
+  setPage: React.Dispatch<React.SetStateAction<number>>
+  setRowsPerPage: React.Dispatch<React.SetStateAction<number>>
   setSearchTableQuery: React.Dispatch<React.SetStateAction<SearchTableQueryArgs>>
 }): ReactElement => {
   return (
@@ -49,18 +49,18 @@ const TableComponent = ({
         <TablePagination
           component={'span'}
           count={count}
-          rowsPerPageOptions={rowsPerPageOptions}
-          rowsPerPage={rowsPerPage}
           onRowsPerPageChange={async (e): Promise<void> => {
             const newRowsPerPage = Number(e.target.value)
             setRowsPerPage(newRowsPerPage)
             setPage(0)
           }}
-          page={page}
           onPageChange={async (_e, newPage: number): Promise<void> => {
             window.scrollTo(0, 0)
             setPage(newPage)
           }}
+          page={page}
+          rowsPerPage={rowsPerPage}
+          rowsPerPageOptions={rowsPerPageOptions}
         />
         <Table size={'small'}>
           <TableHead>

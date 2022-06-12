@@ -3,35 +3,31 @@ import {
   Box,
   Collapse,
   IconButton,
+  Paper,
   Table,
   TableBody,
   TableCell,
   TableContainer,
-  TableRow,
-  Paper
+  TableRow
 } from '@mui/material'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
-
-interface Row {
-  title: string
-  content: ReactElement
-}
+import { DropdownRow } from '../../../types/_components/dropdownRow'
 
 const DropdownsComponent = ({
   open,
-  setOpen,
-  rows
+  rows,
+  setOpen
 }: {
   open: boolean
+  rows: DropdownRow[]
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
-  rows: Row[]
 }): ReactElement => {
   return (
     <TableContainer component={Paper}>
       <Table aria-label='collapsible table'>
         <TableBody>
-          {rows.map((row: Row): ReactElement => {
+          {rows.map((row: DropdownRow): ReactElement => {
             return (
               <>
                 <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
@@ -41,15 +37,15 @@ const DropdownsComponent = ({
                   <TableCell align={'right'}>
                     <IconButton
                       aria-label='expand row'
-                      size='small'
                       onClick={() => setOpen(!open)}
+                      size='small'
                     >
                       {open ? <KeyboardArrowDownIcon /> : <KeyboardArrowRightIcon />}
                     </IconButton>
                   </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+                  <TableCell colSpan={6} style={{ paddingBottom: 0, paddingTop: 0 }}>
                     <Collapse in={open} timeout='auto' unmountOnExit>
                       <Box sx={{ margin: 1 }}>{row.content}</Box>
                     </Collapse>
