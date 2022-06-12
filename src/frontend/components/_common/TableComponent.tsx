@@ -11,7 +11,7 @@ import {
   TableRow,
   TableSortLabel
 } from '@mui/material'
-import { SearchTableQueryArgs } from '../../../types/_actions/searchTableQuery'
+import { SearchTableQueryArgs } from '../../../types/actions/searchTableQuery'
 import { SortDirection } from '../../../types/_enums/sortDirection'
 import { formatTableHeader } from '../_helpers/formatTableHeaders'
 

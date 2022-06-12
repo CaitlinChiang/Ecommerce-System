@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongodb'
 import { CartItem } from './cart'
-import { DeliveryAddress } from './_common/deliveryAddress'
+import { DeliveryAddress } from './common/deliveryAddress'
 import { Payment } from './payment'
 import { Product } from './product'
 import { ProductVariant } from './productVariant'
