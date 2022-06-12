@@ -12,7 +12,7 @@ import {
   TableSortLabel
 } from '@mui/material'
 import { SortDirection } from '../../../types/_enums/sortDirection'
-import { SearchTableQueryArgs } from '../../../types/actions/searchTableQuery'
+import { SearchTableQueryArgs } from '../../../types/_actions/searchTableQuery'
 import { formatTableHeader } from '../_helpers/formatTableHeaders'
 
 const TableComponent = ({
