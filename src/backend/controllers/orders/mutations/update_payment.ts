@@ -1,4 +1,4 @@
-import { Context } from '../../../../types/context'
+import { Context } from '../../../../types/_setup/context'
 import { Payment, UpdatePaymentArgs } from '../../../../types/payment'
 import { UploadImageType } from '../../../../types/_enums/uploadImageType'
 import { AuditLogAction } from '../../../../types/_enums/auditLogAction'

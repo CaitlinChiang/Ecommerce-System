@@ -1,4 +1,4 @@
-import { Context } from '../../../../types/context'
+import { Context } from '../../../../types/_setup/context'
 import { PaymentMethod, GetPaymentMethodArgs } from '../../../../types/paymentMethod'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 

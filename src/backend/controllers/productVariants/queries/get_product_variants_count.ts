@@ -1,4 +1,4 @@
-import { Context } from '../../../../types/context'
+import { Context } from '../../../../types/_setup/context'
 import { GetProductVariantArgs } from '../../../../types/productVariant'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 

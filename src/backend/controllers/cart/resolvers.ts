@@ -1,4 +1,4 @@
-import { Context } from '../../../types/context'
+import { Context } from '../../../types/_setup/context'
 import { CartItem, GetCartArgs } from '../../../types/cart'
 import { Product } from '../../../types/product'
 import { ProductVariant } from '../../../types/productVariant'

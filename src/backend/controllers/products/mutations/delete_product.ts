@@ -1,4 +1,4 @@
-import { Context } from '../../../../types/context'
+import { Context } from '../../../../types/_setup/context'
 import { Product, DeleteProductArgs } from '../../../../types/product'
 import { AuditLogAction } from '../../../../types/_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'

@@ -1,4 +1,4 @@
-import { Context } from '../../../../types/context'
+import { Context } from '../../../../types/_setup/context'
 import { Order, GetOrderArgs } from '../../../../types/order'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 

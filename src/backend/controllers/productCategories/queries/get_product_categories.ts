@@ -1,4 +1,4 @@
-import { Context } from '../../../../types/context'
+import { Context } from '../../../../types/_setup/context'
 import { ProductCategory } from '../../../../types/productCategory'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 

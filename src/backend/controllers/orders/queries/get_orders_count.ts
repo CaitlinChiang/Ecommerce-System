@@ -1,4 +1,4 @@
-import { Context } from '../../../../types/context'
+import { Context } from '../../../../types/_setup/context'
 import { GetOrderArgs } from 'types/order'
 import { UserType } from '../../../../types/_enums/userType'
 import { authenticateUser } from '../../../_utils/authenticateUser'

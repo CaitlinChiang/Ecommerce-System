@@ -1,5 +1,5 @@
 import { Db } from 'mongodb'
-import { Database } from '../../../types/database'
+import { Database } from '../../../types/_setup/database'
 
 import { AuditLog } from '../../../types/auditLog'
 import { Cart } from '../../../types/cart'

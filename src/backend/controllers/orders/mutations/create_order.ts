@@ -1,4 +1,4 @@
-import { Context } from '../../../../types/context'
+import { Context } from '../../../../types/_setup/context'
 import { Order, CreateOrderArgs } from '../../../../types/order'
 import { OrderStatus } from '../../../../types/_enums/orderStatus'
 import { PaymentStatus } from '../../../../types/_enums/paymentStatus'

@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb'
-import { DeliveryAddress } from './deliveryAddress'
+import { DeliveryAddress } from './_common/deliveryAddress'
 
 export interface User {
   _id?: ObjectId

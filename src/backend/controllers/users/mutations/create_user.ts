@@ -1,4 +1,4 @@
-import { Context } from '../../../../types/context'
+import { Context } from '../../../../types/_setup/context'
 import { User, CreateUserArgs } from '../../../../types/user'
 import { AuditLogAction } from '../../../../types/_enums/auditLogAction'
 import { UserInputError } from 'apollo-server-express'
