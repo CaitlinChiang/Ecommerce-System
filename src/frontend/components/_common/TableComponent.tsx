@@ -18,10 +18,10 @@ import FilterListIcon from '@mui/icons-material/FilterList'
 import { ReactJSXElement } from '@emotion/react/types/jsx-namespace'
 import { SearchTableQueryArgs } from '../../../types/actions/searchTableQuery'
 import { SortDirection } from '../../../types/_enums/sortDirection'
-import { searchData } from '../__helpers/searchData'
-import { formatTableHeader } from '../__helpers/formatTableHeaders'
 import ModalComponent from './ModalComponent'
 import SearchField from './SearchField'
+import { searchData } from '../__helpers/searchData'
+import { formatTableHeader } from '../__helpers/formatTableHeaders'
 
 const TableComponent = ({
   count,
