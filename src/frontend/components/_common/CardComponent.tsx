@@ -12,11 +12,11 @@ const CardComponent = ({
   content: ReactJSXElement
   imageAlt?: string
   imageSource?: string
-  includeImage: boolean
-  maxWidth: number
+  includeImage?: boolean
+  maxWidth?: number
 }): ReactElement => {
   return (
-    <Card sx={{ maxWidth: maxWidth }}>
+    <Card sx={{ maxWidth: maxWidth || 350 }}>
       <CardActionArea>
         {includeImage && (
           <CardMedia
