@@ -13,7 +13,7 @@ import {
 } from '@mui/material'
 import { SearchTableQueryArgs } from '../../../types/actions/searchTableQuery'
 import { SortDirection } from '../../../types/_enums/sortDirection'
-import { formatTableHeader } from '../_helpers/formatTableHeaders'
+import { formatTableHeader } from '../__helpers/formatTableHeaders'
 
 const TableComponent = ({
   count,
