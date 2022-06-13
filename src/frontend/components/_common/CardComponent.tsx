@@ -6,19 +6,17 @@ const CardComponent = ({
   content,
   imageAlt,
   imageSource,
-  includeImage,
   maxWidth
 }: {
   content: ReactJSXElement
   imageAlt?: string
   imageSource?: string
-  includeImage?: boolean
   maxWidth?: number
 }): ReactElement => {
   return (
     <Card sx={{ maxWidth: maxWidth || 350 }}>
       <CardActionArea>
-        {includeImage && (
+        {imageSource?.length > 0 && (
           <CardMedia
             alt={imageAlt}
             component={'img'}

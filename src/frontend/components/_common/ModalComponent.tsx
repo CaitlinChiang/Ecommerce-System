@@ -28,8 +28,8 @@ const ModalComponent = ({
   title
 }: {
   content: ReactJSXElement
-  fullScreen: boolean
-  loading: boolean
+  fullScreen?: boolean
+  loading?: boolean
   maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | false
   onClose?: VoidFunction
   open: boolean

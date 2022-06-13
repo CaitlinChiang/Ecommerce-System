@@ -1,6 +1,8 @@
 import React, { ReactElement } from 'react'
+import theme from '../../themes'
 import {
   Box,
+  IconButton,
   LinearProgress,
   Table,
   TableBody,
@@ -9,14 +11,20 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  TableSortLabel
+  TableSortLabel,
+  Tooltip
 } from '@mui/material'
+import FilterListIcon from '@mui/icons-material/FilterList'
+import { ReactJSXElement } from '@emotion/react/types/jsx-namespace'
 import { SearchTableQueryArgs } from '../../../types/actions/searchTableQuery'
 import { SortDirection } from '../../../types/_enums/sortDirection'
 import { formatTableHeader } from '../__helpers/formatTableHeaders'
+import ModalComponent from './ModalComponent'
 
 const TableComponent = ({
   count,
+  filterContent,
+  filterOpen,
   headers,
   headersAlign,
   loading,
@@ -25,11 +33,14 @@ const TableComponent = ({
   rowsPerPage,
   rowsPerPageOptions,
   searchTableQuery,
+  setFilterOpen,
   setPage,
   setRowsPerPage,
   setSearchTableQuery
 }: {
   count: number
+  filterContent?: ReactJSXElement
+  filterOpen?: boolean
   headers: string[]
   headersAlign: 'inherit' | 'left' | 'center' | 'right' | 'justify'
   loading: boolean
@@ -38,30 +49,60 @@ const TableComponent = ({
   rowsPerPage: number
   rowsPerPageOptions: number[]
   searchTableQuery: SearchTableQueryArgs
+  setFilterOpen?: React.Dispatch<React.SetStateAction<boolean>>
   setPage: React.Dispatch<React.SetStateAction<number>>
   setRowsPerPage: React.Dispatch<React.SetStateAction<number>>
   setSearchTableQuery: React.Dispatch<React.SetStateAction<SearchTableQueryArgs>>
 }): ReactElement => {
   return (
     <>
+      <ModalComponent
+        content={filterContent}
+        onClose={(): void => {
+          setFilterOpen(false)
+        }}
+        open={filterOpen}
+      />
       {loading && <LinearProgress />}
       <TableContainer>
-        <TablePagination
-          component={'span'}
-          count={count}
-          onRowsPerPageChange={async (e): Promise<void> => {
-            const newRowsPerPage = Number(e.target.value)
-            setRowsPerPage(newRowsPerPage)
-            setPage(0)
+        <div
+          style={{
+            [theme.breakpoints.up('sm')]: {
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between'
+            }
           }}
-          onPageChange={async (_e, newPage: number): Promise<void> => {
-            window.scrollTo(0, 0)
-            setPage(newPage)
-          }}
-          page={page}
-          rowsPerPage={rowsPerPage}
-          rowsPerPageOptions={rowsPerPageOptions}
-        />
+        >
+          {filterContent && (
+            <Tooltip title={'Filter'}>
+              <IconButton
+                color={'primary'}
+                onClick={(): void => {
+                  setFilterOpen(true)
+                }}
+              >
+                <FilterListIcon />
+              </IconButton>
+            </Tooltip>
+          )}
+          <TablePagination
+            component={'span'}
+            count={count}
+            onRowsPerPageChange={async (e): Promise<void> => {
+              const newRowsPerPage = Number(e.target.value)
+              setRowsPerPage(newRowsPerPage)
+              setPage(0)
+            }}
+            onPageChange={async (_e, newPage: number): Promise<void> => {
+              window.scrollTo(0, 0)
+              setPage(newPage)
+            }}
+            page={page}
+            rowsPerPage={rowsPerPage}
+            rowsPerPageOptions={rowsPerPageOptions}
+          />
+        </div>
         <Table size={'small'}>
           <TableHead>
             <TableRow>
