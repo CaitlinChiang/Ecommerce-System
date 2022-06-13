@@ -11,12 +11,12 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff'
 
 const PasswordField = ({
   defaultValue,
-  setPassword,
-  password
+  password,
+  setPassword
 }: {
   defaultValue?: string
-  setPassword: React.Dispatch<React.SetStateAction<string>>
   password: string
+  setPassword: React.Dispatch<React.SetStateAction<string>>
 }): ReactElement => {
   const [showPassword, setShowPassword] = useState<boolean>(false)
 
