@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb'
 import { CartItem } from './cart'
 import { DeliveryAddress } from './common/deliveryAddress'
-import { Payment } from './payment'
+import { CreatePaymentArgs } from './payment'
 import { Product } from './product'
 import { ProductVariant } from './productVariant'
 import { User } from './user'
@@ -34,7 +34,7 @@ export interface CreateOrderArgs {
   collectionMethod?: string
   deliveryAddress?: DeliveryAddress
   items: CartItem[]
-  payment: Payment
+  payment: CreatePaymentArgs
   status?: string
   userId?: ObjectId
   createdAt?: Date

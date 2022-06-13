@@ -9,9 +9,9 @@ import { handleUploadImage } from '../../../_utils/handleImages/uploadImage'
 export const createPayment = async (
   context: Context,
   orderId: ObjectId,
-  paymentArgs: CreatePaymentArgs
+  payment: CreatePaymentArgs
 ) => {
-  const { imageProof, ...modifiedArgs } = paymentArgs
+  const { imageProof, ...modifiedArgs } = payment
 
   const imageProofUrl = await handleUploadImage({
     imageType: UploadImageType.PAYMENT,
