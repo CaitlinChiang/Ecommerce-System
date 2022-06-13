@@ -20,6 +20,7 @@ import { SearchTableQueryArgs } from '../../../types/actions/searchTableQuery'
 import { SortDirection } from '../../../types/_enums/sortDirection'
 import { formatTableHeader } from '../__helpers/formatTableHeaders'
 import ModalComponent from './ModalComponent'
+import SearchField from './SearchField'
 
 const TableComponent = ({
   count,
@@ -32,6 +33,8 @@ const TableComponent = ({
   rows,
   rowsPerPage,
   rowsPerPageOptions,
+  searchLabel,
+  searchPlaceholder,
   searchTableQuery,
   setFilterOpen,
   setPage,
@@ -48,6 +51,8 @@ const TableComponent = ({
   rows: any[]
   rowsPerPage: number
   rowsPerPageOptions: number[]
+  searchLabel?: string
+  searchPlaceholder?: string
   searchTableQuery: SearchTableQueryArgs
   setFilterOpen?: React.Dispatch<React.SetStateAction<boolean>>
   setPage: React.Dispatch<React.SetStateAction<number>>
@@ -62,6 +67,22 @@ const TableComponent = ({
           setFilterOpen(false)
         }}
         open={filterOpen}
+      />
+      {searchPlaceholder}
+      <SearchField
+        onKeyDown={(e): void => {
+          if (e.key === 'Enter') {
+            search()
+          }
+        }}
+        onSearch={(): void => {
+          search()
+        }}
+        searchButtonDisabled={loading}
+        searchLabel={searchLabel}
+        searchPlaceholder={searchPlaceholder}
+        searchText={searchTableQuery.searchText}
+        setSearchTableQuery={setSearchTableQuery}
       />
       {loading && <LinearProgress />}
       <TableContainer>
