@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import { Typography } from '@mui/material'
+import { IconButton, Typography } from '@mui/material'
 import AddBoxIcon from '@mui/icons-material/AddBox'
 import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox'
 import { QuantityChange } from '../../../types/_enums/quantityChange'
@@ -24,11 +24,16 @@ const NumberIncrementor = ({
 
   return (
     <>
-      <AddBoxIcon onClick={() => changeQuantity(QuantityChange.INCREMENT)} />
+      <IconButton onClick={() => changeQuantity(QuantityChange.INCREMENT)}>
+        <AddBoxIcon />
+      </IconButton>
       <Typography variant={'h4'}>{value}</Typography>
-      <IndeterminateCheckBoxIcon
+      <IconButton
+        disabled={value == 0}
         onClick={() => changeQuantity(QuantityChange.DECREMENT)}
-      />
+      >
+        <IndeterminateCheckBoxIcon />
+      </IconButton>
     </>
   )
 }
