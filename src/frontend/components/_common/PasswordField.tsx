@@ -11,12 +11,12 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff'
 
 const PasswordField = ({
   defaultValue,
-  setValue,
-  value
+  setPassword,
+  password
 }: {
   defaultValue?: string
-  setValue: React.Dispatch<React.SetStateAction<string>>
-  value: string
+  setPassword: React.Dispatch<React.SetStateAction<string>>
+  password: string
 }): ReactElement => {
   const [showPassword, setShowPassword] = useState<boolean>(false)
 
@@ -28,11 +28,11 @@ const PasswordField = ({
         id='outlined-adornment-password'
         label='Password'
         onChange={(e): void => {
-          setValue(e.target.value)
+          setPassword(e.target.value)
         }}
         required
         type={showPassword ? 'PasswordField' : 'password'}
-        value={value}
+        value={password}
         endAdornment={
           <InputAdornment position='end'>
             <IconButton
