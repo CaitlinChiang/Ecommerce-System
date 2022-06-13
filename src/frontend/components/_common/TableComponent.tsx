@@ -18,6 +18,7 @@ import FilterListIcon from '@mui/icons-material/FilterList'
 import { ReactJSXElement } from '@emotion/react/types/jsx-namespace'
 import { SearchTableQueryArgs } from '../../../types/actions/searchTableQuery'
 import { SortDirection } from '../../../types/_enums/sortDirection'
+import { searchData } from '../__helpers/searchData'
 import { formatTableHeader } from '../__helpers/formatTableHeaders'
 import ModalComponent from './ModalComponent'
 import SearchField from './SearchField'
@@ -72,11 +73,11 @@ const TableComponent = ({
       <SearchField
         onKeyDown={(e): void => {
           if (e.key === 'Enter') {
-            search()
+            searchData()
           }
         }}
         onSearch={(): void => {
-          search()
+          searchData()
         }}
         searchButtonDisabled={loading}
         searchLabel={searchLabel}
