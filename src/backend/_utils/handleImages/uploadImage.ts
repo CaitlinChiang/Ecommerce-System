@@ -1,4 +1,4 @@
-import { UploadImageArgs } from '../../../types/_actions/uploadImage'
+import { UploadImageArgs } from '../../../types/actions/uploadImage'
 import { UploadImageType } from '../../../types/_enums/uploadImageType'
 
 const cloudinary = require('../setup/cloudinary')
