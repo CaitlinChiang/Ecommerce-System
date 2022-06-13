@@ -7,6 +7,7 @@ import cities from './cities'
 import faqs from './faqs'
 import orders from './orders'
 import paymentMethods from './paymentMethods'
+import payments from './payments'
 import productCategories from './productCategories'
 import productVariants from './productVariants'
 import products from './products'
@@ -35,6 +36,7 @@ export const typeDefs = [
   faqs.typeDefs,
   orders.typeDefs,
   paymentMethods.typeDefs,
+  payments.typeDefs,
   productCategories.typeDefs,
   productVariants.typeDefs,
   products.typeDefs,
