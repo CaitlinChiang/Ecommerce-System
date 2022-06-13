@@ -6,6 +6,7 @@ const SelectField = ({
   label,
   optionLabel,
   options,
+  required,
   setValue,
   targetProperty,
   value,
@@ -15,6 +16,7 @@ const SelectField = ({
   label: string
   options: any
   optionLabel?: string
+  required?: boolean
   setValue: React.Dispatch<React.SetStateAction<string>>
   targetProperty?: string
   value: string
@@ -31,7 +33,9 @@ const SelectField = ({
         setValue(val)
       }}
       options={options}
-      renderInput={(params): ReactElement => <TextField {...params} label={label} />}
+      renderInput={(params): ReactElement => (
+        <TextField {...params} label={label} required={required} />
+      )}
       sx={{ width: width || 300 }}
       value={value}
     />
