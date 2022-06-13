@@ -6,19 +6,21 @@ import SearchIcon from '@mui/icons-material/Search'
 import { SearchTableQueryArgs } from '../../../types/actions/searchTableQuery'
 
 const SearchField = ({
-  helperText,
   onBlur,
   onKeyDown,
   onSearch,
   searchButtonDisabled,
+  searchLabel,
+  searchPlaceholder,
   searchText,
   setSearchTableQuery
 }: {
-  helperText?: string
   onBlur?: VoidFunction
   onKeyDown?: (e: KeyboardEvent<HTMLDivElement>) => void
   onSearch?: () => void
   searchButtonDisabled?: boolean
+  searchLabel?: string
+  searchPlaceholder?: string
   searchText: string
   setSearchTableQuery: React.Dispatch<React.SetStateAction<SearchTableQueryArgs>>
 }): ReactElement => {
@@ -35,12 +37,12 @@ const SearchField = ({
     >
       <TextField
         fullWidth
-        helperText={helperText}
+        label={searchLabel}
         onChange={(e): void => {
           setSearchTableQuery({ searchText: e.target.value })
         }}
         onKeyDown={onKeyDown}
-        placeholder={'Search'}
+        placeholder={searchPlaceholder}
         size={'small'}
         sx={{ marginRight: theme.spacing() }}
         value={searchText}
