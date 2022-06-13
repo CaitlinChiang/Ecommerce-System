@@ -11,7 +11,7 @@ const Text = ({
   setValue,
   value
 }: {
-  defaultValue?: any
+  defaultValue?: string
   label: string
   maxRows?: number
   multiline?: boolean

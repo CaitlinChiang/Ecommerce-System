@@ -19,7 +19,7 @@ const SelectField = ({
   required?: boolean
   setValue: React.Dispatch<React.SetStateAction<string>>
   targetProperty?: string
-  value: string
+  value: any
   width?: number
 }): ReactElement => {
   return (
