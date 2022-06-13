@@ -3,6 +3,7 @@ import { Order, CreateOrderArgs } from '../../../../types/order'
 import { OrderStatus } from '../../../../types/_enums/orderStatus'
 import { AuditLogAction } from '../../../../types/_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
+import { createPayment } from '../../payments/mutations/create_payment'
 
 export default async (
   _root: undefined,
@@ -26,6 +27,8 @@ export default async (
     createdAt: new Date(),
     createdBy: context.currentUserId
   })
+
+  await createPayment(context, order._id, payment)
 
   return order
 }

@@ -2,6 +2,7 @@ import { Context } from '../../../../types/setup/context'
 import { Order, DeleteOrderArgs } from '../../../../types/order'
 import { AuditLogAction } from '../../../../types/_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
+import { deletePayment } from '../../payments/mutations/delete_payment'
 
 export default async (
   _root: undefined,
@@ -9,6 +10,8 @@ export default async (
   context: Context
 ): Promise<Order> => {
   authenticateUser({ admin: true }, context)
+
+  await deletePayment(context, args._id, args._paymentId)
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.DELETE_ORDER,
