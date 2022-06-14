@@ -1,4 +1,5 @@
 import { ObjectId } from 'mongodb'
+import { PaginateDataArgs } from './actions/paginateData'
 import { DeliveryAddress } from './common/deliveryAddress'
 
 export interface User {
@@ -33,6 +34,7 @@ export interface SignInUserArgs {
 
 export interface GetUserArgs {
   _id?: ObjectId
+  paginateData?: PaginateDataArgs
   type?: string
 }
 

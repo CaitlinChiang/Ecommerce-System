@@ -1,4 +1,5 @@
 import { ObjectId } from 'mongodb'
+import { PaginateDataArgs } from './actions/paginateData'
 
 export interface Review {
   _id?: ObjectId
@@ -11,6 +12,7 @@ export interface Review {
 
 export interface GetReviewArgs {
   featured?: boolean
+  paginateData?: PaginateDataArgs
 }
 
 export interface CreateReviewArgs {

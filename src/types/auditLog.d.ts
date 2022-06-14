@@ -1,4 +1,5 @@
 import { ObjectId } from 'mongodb'
+import { PaginateDataArgs } from './actions/paginateData'
 import { DateRange } from './common/dateRange'
 
 export interface AuditLog {
@@ -22,8 +23,7 @@ export interface AuditLog {
 export interface GetAuditLogArgs {
   action?: string
   orderId?: ObjectId
+  paginateData?: PaginateDataArgs
   paymentId?: ObjectId
-  productId?: ObjectId
-  productVariantId?: ObjectId
   dateRange?: DateRange
 }

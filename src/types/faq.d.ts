@@ -1,4 +1,5 @@
 import { ObjectId } from 'mongodb'
+import { PaginateDataArgs } from './actions/paginateData'
 
 export interface FAQ {
   _id?: ObjectId
@@ -9,7 +10,8 @@ export interface FAQ {
 }
 
 export interface GetFAQArgs {
-  _id: ObjectId
+  _id?: ObjectId
+  paginateData?: PaginateDataArgs
 }
 
 export interface CreateFAQArgs {

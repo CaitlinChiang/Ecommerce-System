@@ -1,4 +1,5 @@
 import { ObjectId } from 'mongodb'
+import { PaginateDataArgs } from './actions/paginateData'
 
 export interface PaymentMethod {
   _id?: ObjectId
@@ -9,7 +10,8 @@ export interface PaymentMethod {
 }
 
 export interface GetPaymentMethodArgs {
-  _id: ObjectId
+  _id?: ObjectId
+  paginateData?: PaginateDataArgs
 }
 
 export interface CreatePaymentMethodArgs {

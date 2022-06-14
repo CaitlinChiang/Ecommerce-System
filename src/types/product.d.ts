@@ -1,4 +1,5 @@
 import { ObjectId } from 'mongodb'
+import { PaginateDataArgs } from './actions/paginateData'
 
 export interface Product {
   _id?: ObjectId
@@ -19,6 +20,7 @@ export interface GetProductArgs {
   _id?: ObjectId
   category?: string
   featured?: boolean
+  paginateData?: PaginateDataArgs
   showPublic?: boolean
   stockQuantity?: number
 }

@@ -1,4 +1,5 @@
 import { ObjectId } from 'mongodb'
+import { PaginateDataArgs } from './actions/paginateData'
 
 export interface ProductVariant {
   _id?: ObjectId
@@ -17,6 +18,7 @@ export interface GetProductVariantArgs {
   _id?: ObjectId
   _productId?: ObjectId
   showPublic?: boolean
+  paginateData?: PaginateDataArgs
 }
 
 export interface CreateProductVariantArgs {

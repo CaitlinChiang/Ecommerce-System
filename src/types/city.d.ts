@@ -9,7 +9,8 @@ export interface City {
 }
 
 export interface GetCityArgs {
-  _id: ObjectId
+  _id?: ObjectId
+  paginateData?: PaginateDataArgs
 }
 
 export interface CreateCityArgs {

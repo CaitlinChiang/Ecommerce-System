@@ -1,4 +1,5 @@
 import { ObjectId } from 'mongodb'
+import { PaginateDataArgs } from './actions/paginateData'
 import { CartItem } from './cart'
 import { DateRange } from './common/dateRange'
 import { DeliveryAddress } from './common/deliveryAddress'
@@ -25,9 +26,9 @@ export interface Order {
 
 export interface GetOrderArgs {
   _id?: ObjectId
-  items?: CartItem[]
-  userId?: ObjectId
   dateRange?: DateRange
+  items?: CartItem[]
+  paginateData?: PaginateDataArgs
 }
 
 export interface CreateOrderArgs {
