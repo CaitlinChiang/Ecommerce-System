@@ -1,6 +1,6 @@
 import { SortDirection } from '../types/_enums/sortDirection'
 
-export interface SearchTableQueryArgs {
+export interface PaginateTableArgs {
   page?: number
   rowsPerPage?: number
   searchText?: string
