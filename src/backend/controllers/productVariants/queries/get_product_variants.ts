@@ -5,6 +5,7 @@ import {
 } from '../../../../types/productVariant'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 import { queryArgs } from '../../../_utils/helpers/returnQueryArgs'
+import { sortArgs } from '../../../_utils/helpers/returnSortArgs'
 
 export default async (
   _root: undefined,
@@ -13,8 +14,10 @@ export default async (
 ): Promise<ProductVariant[]> => {
   authenticateUser({ admin: false }, context)
 
-  const productVariants: any = await context.database.productVariants.find(
-    queryArgs(args)
-  )
+  const productVariants: any = await context.database.productVariants
+    .find(queryArgs(args))
+    .sort(sortArgs(args?.paginateData))
+    .skip(args?.paginateData?.offset)
+    .limit(args?.paginateData?.rowsPerPage)
   return productVariants
 }

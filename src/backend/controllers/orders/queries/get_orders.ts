@@ -3,7 +3,7 @@ import { Order, GetOrderArgs } from '../../../../types/order'
 import { UserType } from '../../../../types/_enums/userType'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 import { queryArgs } from '../../../_utils/helpers/returnQueryArgs'
-import { sortArgs } from 'backend/_utils/helpers/returnSortArgs'
+import { sortArgs } from '../../../_utils/helpers/returnSortArgs'
 
 export default async (
   _root: undefined,

@@ -1,8 +1,8 @@
 import { Context } from '../../../../types/setup/context'
-import { Product } from '../../../../types/product'
-import { GetProductArgs } from 'types/product'
+import { Product, GetProductArgs } from '../../../../types/product'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 import { queryArgs } from '../../../_utils/helpers/returnQueryArgs'
+import { sortArgs } from '../../../_utils/helpers/returnSortArgs'
 
 export default async (
   _root: undefined,
@@ -11,6 +11,10 @@ export default async (
 ): Promise<Product[]> => {
   authenticateUser({ admin: false }, context)
 
-  const products: any = await context.database.products.find(queryArgs(args))
+  const products: any = await context.database.products
+    .find(queryArgs(args))
+    .sort(sortArgs(args?.paginateData))
+    .skip(args?.paginateData?.offset)
+    .limit(args?.paginateData?.rowsPerPage)
   return products
 }
