@@ -2,6 +2,7 @@ import { Context } from '../../../../types/setup/context'
 import { FAQ, DeleteFAQArgs } from '../../../../types/faq'
 import { AuditLogAction } from '../../../../types/_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
+import { auditArgs } from '../../../_utils/helpers/returnAuditArgs'
 
 export default async (
   _root: undefined,
@@ -13,8 +14,7 @@ export default async (
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.DELETE_FAQ,
     faqId: args._id,
-    createdAt: new Date(),
-    createdBy: context.currentUserId
+    ...auditArgs(args)
   })
 
   const faq: any = await context.database.faqs.findOneAndDelete({

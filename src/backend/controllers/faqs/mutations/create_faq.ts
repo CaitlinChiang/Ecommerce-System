@@ -1,7 +1,10 @@
 import { Context } from '../../../../types/setup/context'
 import { FAQ, CreateFAQArgs } from '../../../../types/faq'
+import { MutateAction } from '../../../../types/_enums/mutateAction'
 import { AuditLogAction } from '../../../../types/_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
+import { mutationArgs } from '../../../_utils/helpers/returnMutationArgs'
+import { auditArgs } from '../../../_utils/helpers/returnAuditArgs'
 
 export default async (
   _root: undefined,
@@ -10,16 +13,14 @@ export default async (
 ): Promise<FAQ> => {
   authenticateUser({ admin: true }, context)
 
-  const faq: any = await context.database.faqs.insertOne({
-    ...args,
-    createdAt: new Date()
-  })
+  const faq: any = await context.database.faqs.insertOne(
+    mutationArgs(args, MutateAction.CREATE)
+  )
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.CREATE_FAQ,
     faqId: faq._id,
-    createdAt: new Date(),
-    createdBy: context.currentUserId
+    ...auditArgs(context)
   })
 
   return faq

@@ -1,6 +1,7 @@
 import { Context } from '../../../../types/setup/context'
 import { FAQ } from '../../../../types/faq'
 import { authenticateUser } from '../../../_utils/authenticateUser'
+import { queryArgs } from '../../../_utils/helpers/returnQueryArgs'
 
 export default async (
   _root: undefined,
@@ -9,6 +10,6 @@ export default async (
 ): Promise<FAQ[]> => {
   authenticateUser({ admin: false }, context)
 
-  const faqs: any = await context.database.faqs.find({})
+  const faqs: any = await context.database.faqs.find(queryArgs(args))
   return faqs
 }
