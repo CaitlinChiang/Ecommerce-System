@@ -4,6 +4,7 @@ import {
   GetProductVariantArgs
 } from '../../../../types/productVariant'
 import { authenticateUser } from '../../../_utils/authenticateUser'
+import { queryArgs } from '../../../_utils/helpers/returnQueryArgs'
 
 export default async (
   _root: undefined,
@@ -12,6 +13,8 @@ export default async (
 ): Promise<ProductVariant[]> => {
   authenticateUser({ admin: false }, context)
 
-  const productVariants: any = await context.database.productVariants.find(args)
+  const productVariants: any = await context.database.productVariants.find(
+    queryArgs(args)
+  )
   return productVariants
 }

@@ -4,8 +4,11 @@ import {
   CreateProductVariantArgs
 } from '../../../../types/productVariant'
 import { UploadImageType } from '../../../../types/_enums/uploadImageType'
+import { MutateAction } from '../../../../types/_enums/mutateAction'
 import { AuditLogAction } from '../../../../types/_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
+import { mutationArgs } from '../../../_utils/helpers/returnMutationArgs'
+import { auditArgs } from '../../../_utils/helpers/returnAuditArgs'
 import { uploadImage } from '../../../_utils/handleImages/upload'
 
 export default async (
@@ -25,16 +28,14 @@ export default async (
   })
 
   const productVariant: any = await context.database.productVariants.insertOne({
-    ...modifiedArgs,
-    imageUrl,
-    createdAt: new Date()
+    ...mutationArgs(modifiedArgs, MutateAction.CREATE),
+    imageUrl
   })
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.CREATE_PRODUCT_VARIANT,
     productVariantId: productVariant._id,
-    createdAt: new Date(),
-    createdBy: context.currentUserId
+    ...auditArgs(context)
   })
 
   return productVariant
