@@ -21,7 +21,7 @@ input DateRangeInput {
 }
 
 input PaginateTableInput {
-  page: Int!
+  offset: Int!
   rowsPerPage: Int!
   searchText: String
   sortBy: String!
