@@ -3,10 +3,11 @@ import { Order, GetOrderArgs } from '../../../../types/order'
 import { UserType } from '../../../../types/_enums/userType'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 import { queryArgs } from '../../../_utils/helpers/returnQueryArgs'
+import { sortArgs } from 'backend/_utils/helpers/returnSortArgs'
 
 export default async (
   _root: undefined,
-  args: undefined,
+  args: GetOrderArgs,
   context: Context
 ): Promise<Order[]> => {
   authenticateUser({ admin: false }, context)
@@ -18,6 +19,10 @@ export default async (
     modifiedArgs.userId = context.currentUserId
   }
 
-  const orders: any = await context.database.orders.find(modifiedArgs)
+  const orders: any = await context.database.orders
+    .find(modifiedArgs)
+    .sort(sortArgs(args?.paginateData))
+    .skip(args?.paginateData?.offset)
+    .limit(args?.paginateData?.rowsPerPage)
   return orders
 }

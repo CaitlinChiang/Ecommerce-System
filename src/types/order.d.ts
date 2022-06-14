@@ -29,6 +29,7 @@ export interface GetOrderArgs {
   dateRange?: DateRange
   items?: CartItem[]
   paginateData?: PaginateDataArgs
+  userId?: ObjectId
 }
 
 export interface CreateOrderArgs {

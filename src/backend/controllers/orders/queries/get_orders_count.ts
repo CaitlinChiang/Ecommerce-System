@@ -6,7 +6,7 @@ import { queryArgs } from '../../../_utils/helpers/returnQueryArgs'
 
 export default async (
   _root: undefined,
-  args: undefined,
+  args: GetOrderArgs,
   context: Context
 ): Promise<number> => {
   authenticateUser({ admin: false }, context)
