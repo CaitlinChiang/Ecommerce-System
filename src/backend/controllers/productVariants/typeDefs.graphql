@@ -1,6 +1,7 @@
 type ProductVariant {
   _id: ID
   _productId: ID
+  expirationDate: String
   image: File
   imageUrl: String
   name: String
@@ -22,6 +23,7 @@ extend type Query {
 extend type Mutation {
   create_product_variant(
     _productId: ID!
+    expirationDate: String
     image: Upload
     name: String!
     price: Float!
@@ -32,6 +34,7 @@ extend type Mutation {
   update_product_variant(
     _id: ID!
     _productId: ID!
+    expirationDate: String
     image: Upload
     imageUrl: String
     name: String!

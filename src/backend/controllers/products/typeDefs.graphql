@@ -3,6 +3,7 @@ type Product {
   category: String
   categoryId: ID
   description: String
+  expirationDate: String
   featured: Boolean
   image: File
   imageUrl: String
@@ -26,6 +27,7 @@ extend type Mutation {
   create_product(
     categoryId: ID!
     description: String
+    expirationDate: String
     featured: Boolean!
     image: Upload
     name: String!
@@ -38,6 +40,7 @@ extend type Mutation {
     _id: ID!
     categoryId: ID!
     description: String
+    expirationDate: String
     featured: Boolean!
     image: Upload
     imageUrl: String

@@ -4,6 +4,7 @@ export default gql`
   mutation (
     $_id: ID!
     $_productId: ID!
+    $expirationDate: String
     $image: Upload
     $imageUrl: String
     $name: String!
@@ -13,6 +14,7 @@ export default gql`
     update_product_variant(
       _id: $_id
       _productId: $_productId
+      expirationDate: $expirationDate
       image: $image
       imageUrl: $imageUrl
       name: $name

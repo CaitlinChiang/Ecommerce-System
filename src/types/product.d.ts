@@ -6,6 +6,7 @@ export interface Product {
   category?: string
   categoryId?: ObjectId
   description?: string
+  expirationDate?: Date
   featured?: boolean
   image?: File
   imageUrl?: string
@@ -29,6 +30,7 @@ export interface GetProductArgs {
 export interface CreateProductArgs {
   categoryId: ObjectId
   description?: string
+  expirationDate?: Date
   featured: boolean
   image?: File
   imageUrl?: string
@@ -43,6 +45,7 @@ export interface UpdateProductArgs {
   _id: ObjectId
   categoryId: ObjectId
   description?: string
+  expirationDate?: Date
   featured: boolean
   image?: File
   imageUrl?: string
