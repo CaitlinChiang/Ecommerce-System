@@ -15,6 +15,11 @@ input DeliveryAddressInput {
   cityId: ID
 }
 
+input DateRangeInput {
+  startDate: String!
+  endDate: String!
+}
+
 input PaginateTableInput {
   page: Int!
   rowsPerPage: Int!

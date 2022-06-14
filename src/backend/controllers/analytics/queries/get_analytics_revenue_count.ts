@@ -1,6 +1,7 @@
 import { Context } from '../../../../types/setup/context'
 import { AnalyticsRevenueCount, GetAnalyticsArgs } from '../../../../types/analytics'
 import { authenticateUser } from '../../../_utils/authenticateUser'
+import { modifiedArgs } from '../../../_utils/helpers/returnModifiedArgs'
 
 export default async (
   _root: undefined,
@@ -11,12 +12,7 @@ export default async (
 
   const pipeline = [
     {
-      $match: {
-        createdAt: {
-          $gte: new Date(args.startDate),
-          $lte: new Date(args.endDate)
-        }
-      }
+      $match: modifiedArgs(args)
     },
     {
       $dateToString: {

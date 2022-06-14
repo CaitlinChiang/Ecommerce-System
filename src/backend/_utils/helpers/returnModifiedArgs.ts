@@ -1,8 +1,11 @@
-export const modifiedArgsWithDateFilter = (args: any): any => {
-  const { startDate, endDate, ...remainingArgs } = args
+export const modifiedArgs = (args: any): any => {
+  const {
+    dateRange: { startDate, endDate },
+    ...specificArgs
+  } = args
 
   const searchQuery: any = {
-    remainingArgs
+    specificArgs
   }
 
   if (startDate && endDate) {

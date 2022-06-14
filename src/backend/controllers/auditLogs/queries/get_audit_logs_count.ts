@@ -1,7 +1,7 @@
 import { Context } from '../../../../types/setup/context'
 import { GetAuditLogArgs } from '../../../../types/auditLog'
 import { authenticateUser } from '../../../_utils/authenticateUser'
-import { modifiedArgsWithDateFilter } from '../../../_utils/helpers/filterDateRange'
+import { modifiedArgsWithDateFilter } from '../../../_utils/helpers/returnModifiedArgs'
 
 export default async (
   _root: undefined,

@@ -10,12 +10,10 @@ type AnalyticsRevenueCount {
 
 extend type Query {
   get_analytics_orders_count(
-    startDate: String
-    endDate: String
+    dateRange: DateRangeInput
   ): AnalyticsOrdersCount
 
   get_analytics_revenue_count(
-    startDate: String
-    endDate: String
+    dateRange: DateRangeInput
   ): AnalyticsRevenueCount
 }
