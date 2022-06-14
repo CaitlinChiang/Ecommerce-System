@@ -3,7 +3,7 @@ import theme from '../../themes'
 import { Button, IconButton, InputAdornment, TextField } from '@mui/material'
 import CancelIcon from '@mui/icons-material/Cancel'
 import SearchIcon from '@mui/icons-material/Search'
-import { SearchTableQueryArgs } from '../../../types/actions/searchTableQuery'
+import { PaginateTableArgs } from '../../../types/actions/paginateTable'
 
 const SearchField = ({
   onBlur,
@@ -13,7 +13,7 @@ const SearchField = ({
   searchLabel,
   searchPlaceholder,
   searchText,
-  setSearchTableQuery
+  setPaginateTableArgs
 }: {
   onBlur?: VoidFunction
   onKeyDown?: (e: KeyboardEvent<HTMLDivElement>) => void
@@ -22,7 +22,7 @@ const SearchField = ({
   searchLabel?: string
   searchPlaceholder?: string
   searchText: string
-  setSearchTableQuery: React.Dispatch<React.SetStateAction<SearchTableQueryArgs>>
+  setPaginateTableArgs: React.Dispatch<React.SetStateAction<PaginateTableArgs>>
 }): ReactElement => {
   return (
     <div
@@ -39,7 +39,7 @@ const SearchField = ({
         fullWidth
         label={searchLabel}
         onChange={(e): void => {
-          setSearchTableQuery({ searchText: e.target.value })
+          setPaginateTableArgs({ searchText: e.target.value })
         }}
         onKeyDown={onKeyDown}
         placeholder={searchPlaceholder}
@@ -64,7 +64,7 @@ const SearchField = ({
               <IconButton
                 edge={'end'}
                 onClick={(): void => {
-                  setSearchTableQuery({ searchText: '' })
+                  setPaginateTableArgs({ searchText: '' })
                 }}
               >
                 <CancelIcon />

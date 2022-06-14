@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect } from 'react'
 import theme from '../../themes'
 import {
   Box,
@@ -16,7 +16,7 @@ import {
 } from '@mui/material'
 import FilterListIcon from '@mui/icons-material/FilterList'
 import { ReactJSXElement } from '@emotion/react/types/jsx-namespace'
-import { SearchTableQueryArgs } from '../../../types/actions/searchTableQuery'
+import { PaginateTableArgs } from '../../../types/actions/paginateTable'
 import { SortDirection } from '../../../types/_enums/sortDirection'
 import ModalComponent from './ModalComponent'
 import SearchField from './SearchField'
@@ -25,41 +25,63 @@ import { formatTableHeader } from '../__helpers/formatTableHeaders'
 
 const TableComponent = ({
   count,
+  fetchMore,
   filterContent,
   filterOpen,
   headers,
   headersAlign,
   loading,
   page,
+  paginateTableArgs,
   rows,
   rowsPerPage,
   rowsPerPageOptions,
   searchLabel,
   searchPlaceholder,
-  searchTableQuery,
   setFilterOpen,
   setPage,
   setRowsPerPage,
-  setSearchTableQuery
+  setPaginateTableArgs
 }: {
   count: number
+  fetchMore?: any
   filterContent?: ReactJSXElement
   filterOpen?: boolean
   headers: string[]
   headersAlign: 'inherit' | 'left' | 'center' | 'right' | 'justify'
   loading: boolean
   page: number
+  paginateTableArgs: PaginateTableArgs
   rows: any[]
   rowsPerPage: number
   rowsPerPageOptions: number[]
   searchLabel?: string
   searchPlaceholder?: string
-  searchTableQuery: SearchTableQueryArgs
   setFilterOpen?: React.Dispatch<React.SetStateAction<boolean>>
   setPage: React.Dispatch<React.SetStateAction<number>>
   setRowsPerPage: React.Dispatch<React.SetStateAction<number>>
-  setSearchTableQuery: React.Dispatch<React.SetStateAction<SearchTableQueryArgs>>
+  setPaginateTableArgs: React.Dispatch<React.SetStateAction<PaginateTableArgs>>
 }): ReactElement => {
+  const { searchText, sortBy, sortDirection } = paginateTableArgs
+
+  useEffect(() => {
+    setPage(0)
+  }, [paginateTableArgs.searchText, paginateTableArgs.sortBy])
+
+  useEffect(() => {
+    searchData(loading, fetchMore, paginateTableArgs)
+  }, [sortBy, sortDirection, page, rowsPerPage, searchText])
+
+  useEffect(() => {
+    const timeoutId = setTimeout(
+      () => searchData(loading, fetchMore, paginateTableArgs),
+      500
+    )
+    return (): void => {
+      clearTimeout(timeoutId)
+    }
+  }, [searchText])
+
   return (
     <>
       <ModalComponent
@@ -73,17 +95,17 @@ const TableComponent = ({
       <SearchField
         onKeyDown={(e): void => {
           if (e.key === 'Enter') {
-            searchData()
+            searchData(fetchMore, loading, paginateTableArgs)
           }
         }}
         onSearch={(): void => {
-          searchData()
+          searchData(fetchMore, loading, paginateTableArgs)
         }}
         searchButtonDisabled={loading}
         searchLabel={searchLabel}
         searchPlaceholder={searchPlaceholder}
-        searchText={searchTableQuery.searchText}
-        setSearchTableQuery={setSearchTableQuery}
+        searchText={paginateTableArgs.searchText}
+        setPaginateTableArgs={setPaginateTableArgs}
       />
       {loading && <LinearProgress />}
       <TableContainer>
@@ -132,24 +154,24 @@ const TableComponent = ({
                 return (
                   <TableCell key={index} align={headersAlign} padding={'checkbox'}>
                     <TableSortLabel
-                      active={searchTableQuery.sortBy === header}
+                      active={paginateTableArgs.sortBy === header}
                       direction={
-                        searchTableQuery.sortDirection || SortDirection.DESC
+                        paginateTableArgs.sortDirection || SortDirection.DESC
                       }
                       onClick={(): void => {
-                        setSearchTableQuery({
+                        setPaginateTableArgs({
                           sortBy: header,
                           sortDirection:
-                            searchTableQuery.sortDirection === SortDirection.ASC
+                            paginateTableArgs.sortDirection === SortDirection.ASC
                               ? SortDirection.DESC
                               : SortDirection.ASC
                         })
                       }}
                     >
                       {formatTableHeader(header)}
-                      {searchTableQuery.sortBy === header ? (
+                      {paginateTableArgs.sortBy === header ? (
                         <Box component='span' sx={{ display: 'hidden' }}>
-                          {searchTableQuery.sortBy === SortDirection.DESC
+                          {paginateTableArgs.sortBy === SortDirection.DESC
                             ? 'sorted descending'
                             : 'sorted ascending'}
                         </Box>
