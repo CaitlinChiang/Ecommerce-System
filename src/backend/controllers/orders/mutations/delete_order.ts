@@ -3,6 +3,7 @@ import { Order, DeleteOrderArgs } from '../../../../types/order'
 import { AuditLogAction } from '../../../../types/_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 import { deletePayment } from '../../payments/mutations/delete_payment'
+import { auditArgs } from '../../../_utils/helpers/returnAuditArgs'
 
 export default async (
   _root: undefined,
@@ -16,8 +17,7 @@ export default async (
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.DELETE_ORDER,
     orderId: args._id,
-    createdAt: new Date(),
-    createdBy: context.currentUserId
+    ...auditArgs(context)
   })
 
   const order: any = await context.database.orders.findOneAndDelete({

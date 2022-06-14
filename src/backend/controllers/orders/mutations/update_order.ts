@@ -1,7 +1,10 @@
 import { Context } from '../../../../types/setup/context'
 import { Order, UpdateOrderArgs } from '../../../../types/order'
+import { MutateAction } from '../../../../types/_enums/mutateAction'
 import { AuditLogAction } from '../../../../types/_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
+import { mutationArgs } from '../../../_utils/helpers/returnMutationArgs'
+import { auditArgs } from '../../../_utils/helpers/returnAuditArgs'
 
 export default async (
   _root: undefined,
@@ -12,14 +15,13 @@ export default async (
 
   const order: any = await context.database.orders.findOneAndUpdate(
     { _id: args._id },
-    { ...args, updatedAt: new Date() }
+    mutationArgs(args, MutateAction.UPDATE)
   )
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.UPDATE_ORDER,
     orderId: order._id,
-    createdAt: new Date(),
-    createdBy: context.currentUserId
+    ...auditArgs(context)
   })
 
   return order
