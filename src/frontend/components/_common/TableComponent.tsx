@@ -16,7 +16,7 @@ import {
 } from '@mui/material'
 import FilterListIcon from '@mui/icons-material/FilterList'
 import { ReactJSXElement } from '@emotion/react/types/jsx-namespace'
-import { PaginateTableArgs } from '../../../types/actions/paginateTable'
+import { PaginateDataArgs } from '../../../types/actions/paginateData'
 import { SortDirection } from '../../../types/_enums/sortDirection'
 import ModalComponent from './ModalComponent'
 import SearchField from './SearchField'
@@ -31,13 +31,13 @@ const TableComponent = ({
   headers,
   headersAlign,
   loading,
-  paginateTableArgs,
+  paginateDataArgs,
   rows,
   rowsPerPageOptions,
   searchLabel,
   searchPlaceholder,
   setFilterOpen,
-  setPaginateTableArgs
+  setPaginateDataArgs
 }: {
   count: number
   fetchMore?: any
@@ -46,27 +46,27 @@ const TableComponent = ({
   headers: string[]
   headersAlign: 'inherit' | 'left' | 'center' | 'right' | 'justify'
   loading: boolean
-  paginateTableArgs: PaginateTableArgs
+  paginateDataArgs: PaginateDataArgs
   rows: any[]
   rowsPerPageOptions: number[]
   searchLabel?: string
   searchPlaceholder?: string
   setFilterOpen?: React.Dispatch<React.SetStateAction<boolean>>
-  setPaginateTableArgs: React.Dispatch<React.SetStateAction<PaginateTableArgs>>
+  setPaginateDataArgs: React.Dispatch<React.SetStateAction<PaginateDataArgs>>
 }): ReactElement => {
-  const { page, rowsPerPage, searchText, sortBy, sortDirection } = paginateTableArgs
+  const { page, rowsPerPage, searchText, sortBy, sortDirection } = paginateDataArgs
 
   useEffect(() => {
-    setPaginateTableArgs({ page: 0 })
+    setPaginateDataArgs({ page: 0 })
   }, [searchText, sortBy])
 
   useEffect(() => {
-    searchData(fetchMore, loading, paginateTableArgs)
-  }, [paginateTableArgs])
+    searchData(fetchMore, loading, paginateDataArgs)
+  }, [paginateDataArgs])
 
   useEffect(() => {
     const timeoutId = setTimeout(
-      () => searchData(fetchMore, loading, paginateTableArgs),
+      () => searchData(fetchMore, loading, paginateDataArgs),
       500
     )
     return (): void => clearTimeout(timeoutId)
@@ -85,17 +85,17 @@ const TableComponent = ({
       <SearchField
         onKeyDown={(e): void => {
           if (e.key === 'Enter') {
-            searchData(fetchMore, loading, paginateTableArgs)
+            searchData(fetchMore, loading, paginateDataArgs)
           }
         }}
         onSearch={(): void => {
-          searchData(fetchMore, loading, paginateTableArgs)
+          searchData(fetchMore, loading, paginateDataArgs)
         }}
         searchButtonDisabled={loading}
         searchLabel={searchLabel}
         searchPlaceholder={searchPlaceholder}
         searchText={searchText}
-        setPaginateTableArgs={setPaginateTableArgs}
+        setPaginateDataArgs={setPaginateDataArgs}
       />
       {loading && <LinearProgress />}
       <TableContainer>
@@ -125,14 +125,14 @@ const TableComponent = ({
             count={count}
             onRowsPerPageChange={async (e): Promise<void> => {
               const newRowsPerPage = Number(e.target.value)
-              setPaginateTableArgs({
+              setPaginateDataArgs({
                 rowsPerPage: newRowsPerPage,
                 page: 0
               })
             }}
             onPageChange={async (_e, newPage: number): Promise<void> => {
               window.scrollTo(0, 0)
-              setPaginateTableArgs({ page: newPage })
+              setPaginateDataArgs({ page: newPage })
             }}
             page={page}
             rowsPerPage={rowsPerPage}
@@ -149,7 +149,7 @@ const TableComponent = ({
                       active={sortBy === header}
                       direction={sortDirection || SortDirection.DESC}
                       onClick={(): void => {
-                        setPaginateTableArgs({
+                        setPaginateDataArgs({
                           sortBy: header,
                           sortDirection:
                             sortDirection === SortDirection.ASC

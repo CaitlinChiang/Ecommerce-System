@@ -1,16 +1,16 @@
-import { PaginateTableArgs } from '../../../types/actions/paginateTable'
+import { PaginateDataArgs } from '../../../types/actions/paginateData'
 
 export const searchData = (
   fetchMore: any,
   loading: boolean,
-  paginateTableArgs: PaginateTableArgs
+  paginateDataArgs: PaginateDataArgs
 ): void => {
   if (loading) return
 
   fetchMore({
     variables: {
-      ...paginateTableArgs,
-      offset: Number(paginateTableArgs.page * paginateTableArgs.rowsPerPage)
+      ...paginateDataArgs,
+      offset: Number(paginateDataArgs.page * paginateDataArgs.rowsPerPage)
     },
     updateQuery: (prev: any, { fetchMoreResult }: any) => {
       if (!fetchMoreResult) return prev

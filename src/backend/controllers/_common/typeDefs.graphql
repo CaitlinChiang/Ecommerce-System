@@ -20,7 +20,7 @@ input DateRangeInput {
   endDate: String!
 }
 
-input PaginateTableInput {
+input PaginateDataInput {
   offset: Int!
   rowsPerPage: Int!
   searchText: String

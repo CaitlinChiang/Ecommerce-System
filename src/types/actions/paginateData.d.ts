@@ -1,6 +1,6 @@
 import { SortDirection } from '../types/_enums/sortDirection'
 
-export interface PaginateTableArgs {
+export interface PaginateDataArgs {
   offset?: number
   page?: number
   rowsPerPage?: number
