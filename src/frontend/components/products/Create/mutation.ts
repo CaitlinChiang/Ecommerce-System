@@ -2,7 +2,7 @@ import { gql } from '@apollo/client'
 
 export default gql`
   mutation (
-    $category: String!
+    $categoryId: ID!
     $description: String
     $featured: Boolean!
     $image: Upload
@@ -11,7 +11,7 @@ export default gql`
     $showPublic: Boolean!
   ) {
     create_product(
-      category: $category
+      categoryId: $categoryId
       description: $description
       featured: $featured
       image: $image

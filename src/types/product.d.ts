@@ -4,6 +4,7 @@ import { PaginateDataArgs } from './actions/paginateData'
 export interface Product {
   _id?: ObjectId
   category?: string
+  categoryId?: ObjectId
   description?: string
   featured?: boolean
   image?: File
@@ -18,7 +19,7 @@ export interface Product {
 
 export interface GetProductArgs {
   _id?: ObjectId
-  category?: string
+  categoryId?: ObjectId
   featured?: boolean
   paginateData?: PaginateDataArgs
   showPublic?: boolean
@@ -26,7 +27,7 @@ export interface GetProductArgs {
 }
 
 export interface CreateProductArgs {
-  category: string
+  categoryId: ObjectId
   description?: string
   featured: boolean
   image?: File
@@ -40,7 +41,7 @@ export interface CreateProductArgs {
 
 export interface UpdateProductArgs {
   _id: ObjectId
-  category: string
+  categoryId: ObjectId
   description?: string
   featured: boolean
   image?: File

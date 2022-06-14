@@ -1,6 +1,7 @@
 type Product {
   _id: ID
   category: String
+  categoryId: ID
   description: String
   featured: Boolean
   image: File
@@ -16,14 +17,14 @@ type Product {
 extend type Query {
   get_product(_id: ID!): Product
 
-  get_products(category: String, featured: Boolean, showPublic: Boolean, paginateData: PaginateDataInput): [Product]
+  get_products(categoryId: ID, featured: Boolean, showPublic: Boolean, paginateData: PaginateDataInput): [Product]
 
-  get_products_count(category: String, featured: Boolean, showPublic: Boolean, paginateData: PaginateDataInput): Int
+  get_products_count(categoryId: ID, featured: Boolean, showPublic: Boolean, paginateData: PaginateDataInput): Int
 }
 
 extend type Mutation {
   create_product(
-    category: String!
+    categoryId: ID!
     description: String
     featured: Boolean!
     image: Upload
@@ -35,7 +36,7 @@ extend type Mutation {
 
   update_product(
     _id: ID!
-    category: String!
+    categoryId: ID!
     description: String
     featured: Boolean!
     image: Upload

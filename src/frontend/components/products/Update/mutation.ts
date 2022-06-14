@@ -3,7 +3,7 @@ import { gql } from '@apollo/client'
 export default gql`
   mutation (
     $_id: ID!
-    $category: String!
+    $categoryId: ID!
     $description: String
     $featured: Boolean!
     $image: Upload
@@ -14,7 +14,7 @@ export default gql`
   ) {
     update_product(
       _id: $_id
-      category: $category
+      categoryId: $categoryId
       description: $description
       featured: $featured
       image: $image

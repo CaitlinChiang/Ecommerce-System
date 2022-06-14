@@ -23,6 +23,7 @@ export const resolvers = [
   _common.resolvers,
   cart.resolvers,
   orders.resolvers,
+  productVariants.resolvers,
   products.resolvers
 ]
 

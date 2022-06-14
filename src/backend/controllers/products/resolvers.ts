@@ -4,6 +4,13 @@ import { ProductVariant } from '../../../types/productVariant'
 
 export default {
   Product: {
+    category: async (args: GetProductArgs, context: Context): Promise<string> => {
+      const category: any = await context.database.productCategories.find({
+        _id: args.categoryId
+      })
+      return category.name
+    },
+
     stockQuantity: async (
       args: GetProductArgs,
       context: Context
