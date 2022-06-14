@@ -5,9 +5,7 @@ export const searchData = (
   loading: boolean,
   paginateTableArgs: PaginateTableArgs
 ): void => {
-  if (loading) {
-    return
-  }
+  if (loading) return
 
   fetchMore({
     variables: {
@@ -15,10 +13,7 @@ export const searchData = (
       offset: Number(paginateTableArgs.page * paginateTableArgs.rowsPerPage)
     },
     updateQuery: (prev: any, { fetchMoreResult }: any) => {
-      if (!fetchMoreResult) {
-        return prev
-      }
-
+      if (!fetchMoreResult) return prev
       return fetchMoreResult
     }
   })
