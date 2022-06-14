@@ -1,16 +1,14 @@
+import { PaginateDataArgs } from '../../../types/actions/paginateData'
 import { SortDirection } from '../../../types/_enums/sortDirection'
 
-export const sortArgs = (sortBy: string, sortDirection: SortDirection) => {
-  let numericSortDirection = 0
+export const sortArgs = (paginateData: PaginateDataArgs) => {
+  const { sortBy, sortDirection } = paginateData
 
-  switch (sortDirection) {
-    case SortDirection.ASC:
-      numericSortDirection = 1
-      break
-    case SortDirection.DESC:
-      numericSortDirection = -1
-      break
+  const modifiedArgs: any = {}
+
+  if (sortBy && sortDirection) {
+    modifiedArgs[sortBy] = sortDirection == SortDirection.ASC ? 1 : -1
   }
 
-  return { [sortBy]: numericSortDirection }
+  return modifiedArgs
 }
