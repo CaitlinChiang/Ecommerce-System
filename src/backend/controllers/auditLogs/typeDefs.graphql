@@ -13,14 +13,14 @@ type AuditLog {
 extend type Query {
   get_audit_logs(
     action: String
-    dateRange: DateRangeInput!
+    dateRange: DateRangeInput
     orderId: ID
     paymentId: ID
   ): AuditLog
 
   get_audit_logs_count(
     action: String
-    dateRange: DateRangeInput!
+    dateRange: DateRangeInput
     orderId: ID
     paymentId: ID
   ): Int

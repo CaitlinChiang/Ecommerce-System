@@ -25,5 +25,5 @@ export interface GetAuditLogArgs {
   paymentId?: ObjectId
   productId?: ObjectId
   productVariantId?: ObjectId
-  dateRange: DateRange
+  dateRange?: DateRange
 }

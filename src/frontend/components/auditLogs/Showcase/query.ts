@@ -1,19 +1,12 @@
 import { gql } from '@apollo/client'
 
 export default gql`
-  query (
-    $action: String
-    $orderId: ID
-    $paymentId: ID
-    $startDate: String!
-    $endDate: String!
-  ) {
+  query ($action: String, $orderId: ID, $paymentId: ID, $dateRange: DateRangeInput) {
     get_audit_logs(
       action: $action
       orderId: $orderId
       paymentId: $paymentId
-      startDate: $startDate
-      endDate: $endDate
+      dateRange: $dateRange
     ) {
       _id
     }
@@ -22,8 +15,7 @@ export default gql`
       action: $action
       orderId: $orderId
       paymentId: $paymentId
-      startDate: $startDate
-      endDate: $endDate
+      dateRange: $dateRange
     )
   }
 `
