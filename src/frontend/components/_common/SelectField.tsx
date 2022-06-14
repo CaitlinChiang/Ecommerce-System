@@ -4,7 +4,7 @@ import { TextField, Autocomplete } from '@mui/material'
 const SelectField = ({
   defaultValue,
   label,
-  optionLabel,
+  optionLabelProperty,
   options,
   required,
   setValue,
@@ -15,7 +15,7 @@ const SelectField = ({
   defaultValue?: any
   label: string
   options: any
-  optionLabel?: string
+  optionLabelProperty?: string
   required?: boolean
   setValue: React.Dispatch<React.SetStateAction<string>>
   targetProperty?: string
@@ -26,7 +26,7 @@ const SelectField = ({
     <Autocomplete
       defaultValue={defaultValue}
       getOptionLabel={(option): string =>
-        optionLabel ? option[optionLabel] : option
+        optionLabelProperty ? option[optionLabelProperty] : option
       }
       onChange={(_e: any, newValue: any | null) => {
         const val = targetProperty ? newValue[targetProperty] : newValue
