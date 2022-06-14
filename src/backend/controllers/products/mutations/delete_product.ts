@@ -2,7 +2,7 @@ import { Context } from '../../../../types/setup/context'
 import { Product, DeleteProductArgs } from '../../../../types/product'
 import { AuditLogAction } from '../../../../types/_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
-import { handleDeleteImage } from '../../../_utils/handleImages/deleteImage'
+import { deleteImage } from '../../../_utils/handleImages/delete'
 
 export default async (
   _root: undefined,
@@ -11,7 +11,7 @@ export default async (
 ): Promise<Product> => {
   authenticateUser({ admin: true }, context)
 
-  await handleDeleteImage(args.imageUrl)
+  await deleteImage(args.imageUrl)
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.DELETE_PRODUCT,

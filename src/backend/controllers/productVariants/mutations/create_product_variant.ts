@@ -6,7 +6,7 @@ import {
 import { UploadImageType } from '../../../../types/_enums/uploadImageType'
 import { AuditLogAction } from '../../../../types/_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
-import { handleUploadImage } from '../../../_utils/handleImages/uploadImage'
+import { uploadImage } from '../../../_utils/handleImages/upload'
 
 export default async (
   _root: undefined,
@@ -17,7 +17,7 @@ export default async (
 
   const { image, ...modifiedArgs } = args
 
-  const imageUrl = await handleUploadImage({
+  const imageUrl = await uploadImage({
     imageType: UploadImageType.PRODUCT_VARIANT,
     image,
     productId: String(args._productId),

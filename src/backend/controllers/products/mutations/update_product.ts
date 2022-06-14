@@ -3,8 +3,8 @@ import { Product, UpdateProductArgs } from '../../../../types/product'
 import { UploadImageType } from '../../../../types/_enums/uploadImageType'
 import { AuditLogAction } from '../../../../types/_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
-import { handleUploadImage } from '../../../_utils/handleImages/uploadImage'
-import { handleDeleteImage } from '../../../_utils/handleImages/deleteImage'
+import { uploadImage } from '../../../_utils/handleImages/upload'
+import { deleteImage } from '../../../_utils/handleImages/delete'
 
 export default async (
   _root: undefined,
@@ -15,8 +15,8 @@ export default async (
 
   const { image, ...modifiedArgs } = args
 
-  await handleDeleteImage(args.imageUrl)
-  const modifiedImageUrl = await handleUploadImage({
+  await deleteImage(args.imageUrl)
+  const modifiedImageUrl = await uploadImage({
     imageType: UploadImageType.PRODUCT,
     image,
     productName: args.name

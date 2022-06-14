@@ -3,8 +3,8 @@ import { Payment, UpdatePaymentArgs } from '../../../../types/payment'
 import { UploadImageType } from '../../../../types/_enums/uploadImageType'
 import { AuditLogAction } from '../../../../types/_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
-import { handleUploadImage } from '../../../_utils/handleImages/uploadImage'
-import { handleDeleteImage } from '../../../_utils/handleImages/deleteImage'
+import { uploadImage } from '../../../_utils/handleImages/upload'
+import { deleteImage } from '../../../_utils/handleImages/delete'
 
 export default async (
   _root: undefined,
@@ -15,8 +15,8 @@ export default async (
 
   const { imageProof, ...modifiedArgs } = args
 
-  await handleDeleteImage(args.imageProofUrl)
-  const modifiedImageUrl = await handleUploadImage({
+  await deleteImage(args.imageProofUrl)
+  const modifiedImageUrl = await uploadImage({
     imageType: UploadImageType.PAYMENT,
     image: imageProof,
     orderId: String(args._orderId)

@@ -4,7 +4,7 @@ import { CreatePaymentArgs } from '../../../../types/payment'
 import { PaymentStatus } from '../../../../types/_enums/paymentStatus'
 import { UploadImageType } from '../../../../types/_enums/uploadImageType'
 import { AuditLogAction } from '../../../../types/_enums/auditLogAction'
-import { handleUploadImage } from '../../../_utils/handleImages/uploadImage'
+import { uploadImage } from '../../../_utils/handleImages/upload'
 
 export const createPayment = async (
   context: Context,
@@ -13,7 +13,7 @@ export const createPayment = async (
 ) => {
   const { imageProof, ...modifiedArgs } = payment
 
-  const imageProofUrl = await handleUploadImage({
+  const imageProofUrl = await uploadImage({
     imageType: UploadImageType.PAYMENT,
     image: imageProof,
     orderId: String(orderId)

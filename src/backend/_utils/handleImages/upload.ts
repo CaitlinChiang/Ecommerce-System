@@ -1,9 +1,9 @@
+const cloudinary = require('../setup/cloudinary')
+
 import { UploadImageArgs } from '../../../types/actions/uploadImage'
 import { UploadImageType } from '../../../types/_enums/uploadImageType'
 
-const cloudinary = require('../setup/cloudinary')
-
-export const handleUploadImage = async (args: UploadImageArgs): Promise<string> => {
+export const uploadImage = async (args: UploadImageArgs): Promise<string> => {
   const fileName = assignFileName(args)
   await cloudinary.uploader.upload(args.image, { public_id: fileName })
 
