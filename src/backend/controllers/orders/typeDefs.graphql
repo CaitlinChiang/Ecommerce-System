@@ -17,9 +17,9 @@ type Order {
 extend type Query {
   get_order(_id: ID!): Order
 
-  get_orders(dateRange: DateRangeInput): [Order]
+  get_orders(dateRange: DateRangeInput, paginateData: PaginateDataInput): [Order]
 
-  get_orders_count(dateRange: DateRangeInput): Int
+  get_orders_count(dateRange: DateRangeInput, paginateData: PaginateDataInput): Int
 }
 
 extend type Mutation {

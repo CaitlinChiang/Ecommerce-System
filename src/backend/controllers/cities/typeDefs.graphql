@@ -9,9 +9,9 @@ type City {
 extend type Query {
   get_city(_id: ID!): City
 
-  get_cities: [City]
+  get_cities(paginateData: PaginateDataInput): [City]
 
-  get_cities_count: Int
+  get_cities_count(paginateData: PaginateDataInput): Int
 }
 
 extend type Mutation {

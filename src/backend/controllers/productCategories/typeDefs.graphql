@@ -8,9 +8,9 @@ type ProductCategory {
 extend type Query {
   get_product_category(_id: ID!): ProductCategory
 
-  get_product_categories: [ProductCategory]
+  get_product_categories(paginateData: PaginateDataInput): [ProductCategory]
 
-  get_product_categories_count: Int
+  get_product_categories_count(paginateData: PaginateDataInput): Int
 }
 
 extend type Mutation {

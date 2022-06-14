@@ -15,6 +15,7 @@ extend type Query {
     action: String
     dateRange: DateRangeInput
     orderId: ID
+    paginateData: PaginateDataInput
     paymentId: ID
   ): AuditLog
 
@@ -22,6 +23,7 @@ extend type Query {
     action: String
     dateRange: DateRangeInput
     orderId: ID
+    paginateData: PaginateDataInput
     paymentId: ID
   ): Int
 }

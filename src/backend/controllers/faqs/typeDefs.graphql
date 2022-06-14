@@ -9,9 +9,9 @@ type FAQ {
 extend type Query {
   get_faq(_id: ID!): FAQ
 
-  get_faqs: [FAQ]
+  get_faqs(paginateData: PaginateDataInput): [FAQ]
 
-  get_faqs_count: Int
+  get_faqs_count(paginateData: PaginateDataInput): Int
 }
 
 extend type Mutation {

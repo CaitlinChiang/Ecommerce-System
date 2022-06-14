@@ -15,9 +15,9 @@ type User {
 extend type Query {
   get_user(_id: ID!): User
 
-  get_users(type: String!): [User]
+  get_users(type: String!, paginateData: PaginateDataInput): [User]
 
-  get_users_count(type: String!): Int
+  get_users_count(type: String!, paginateData: PaginateDataInput): Int
 }
 
 extend type Mutation {
