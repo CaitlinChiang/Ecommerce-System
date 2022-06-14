@@ -26,7 +26,7 @@ const assignFileName = (args: UploadImageArgs) => {
 
 const generatePaymentImageFileName = (orderId: string) => {
   const folderName = 'payments/'
-  const modifiedPaymentId = orderId.substr(orderId.length - 5)
+  const modifiedPaymentId = orderId.substring(orderId.length - 5)
 
   return folderName.concat(modifiedPaymentId)
 }

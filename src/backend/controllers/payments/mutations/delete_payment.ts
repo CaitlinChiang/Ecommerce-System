@@ -15,7 +15,7 @@ export const deletePayment = async (
     ...auditArgs(context)
   })
 
-  const imageProofUrl = String(orderId).substr(String(orderId).length - 5)
+  const imageProofUrl = String(orderId).substring(String(orderId).length - 5)
 
   await deleteImage('payments/' + imageProofUrl)
 
