@@ -25,10 +25,8 @@ const PasswordField = ({
       <InputLabel htmlFor='outlined-adornment-password'>Password</InputLabel>
       <OutlinedInput
         defaultValue={defaultValue}
-        error={password?.length < 8}
         id='outlined-adornment-password'
-        inputProps={{ minLength: 8 }}
-        label='Password (At Least 8 Characters)'
+        label='Password'
         onChange={(e): void => {
           setPassword(e.target.value)
         }}
