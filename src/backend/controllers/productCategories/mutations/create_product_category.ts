@@ -3,8 +3,11 @@ import {
   ProductCategory,
   CreateProductCategoryArgs
 } from '../../../../types/productCategory'
+import { MutateAction } from '../../../../types/_enums/mutateAction'
 import { AuditLogAction } from '../../../../types/_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
+import { mutationArgs } from '../../../_utils/helpers/returnMutationArgs'
+import { auditArgs } from '../../../_utils/helpers/returnAuditArgs'
 
 export default async (
   _root: undefined,
@@ -13,16 +16,14 @@ export default async (
 ): Promise<ProductCategory> => {
   authenticateUser({ admin: true }, context)
 
-  const productCategory: any = await context.database.productCategories.insertOne({
-    ...args,
-    createdAt: new Date()
-  })
+  const productCategory: any = await context.database.productCategories.insertOne(
+    mutationArgs(args, MutateAction.CREATE)
+  )
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.CREATE_PRODUCT_CATEGORY,
     productCategoryId: productCategory._id,
-    createdAt: new Date(),
-    createdBy: context.currentUserId
+    ...auditArgs(context)
   })
 
   return productCategory

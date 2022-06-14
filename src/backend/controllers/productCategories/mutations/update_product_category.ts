@@ -3,8 +3,11 @@ import {
   ProductCategory,
   UpdateProductCategoryArgs
 } from '../../../../types/productCategory'
+import { MutateAction } from '../../../../types/_enums/mutateAction'
 import { AuditLogAction } from '../../../../types/_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
+import { mutationArgs } from '../../../_utils/helpers/returnMutationArgs'
+import { auditArgs } from '../../../_utils/helpers/returnAuditArgs'
 
 export default async (
   _root: undefined,
@@ -16,14 +19,13 @@ export default async (
   const productCategory: any =
     await context.database.productCategories.findOneAndUpdate(
       { _id: args._id },
-      { ...args, updatedAt: new Date() }
+      mutationArgs(args, MutateAction.UPDATE)
     )
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.UPDATE_PRODUCT_CATEGORY,
     productCategoryId: productCategory._id,
-    createdAt: new Date(),
-    createdBy: context.currentUserId
+    ...auditArgs(context)
   })
 
   return productCategory
