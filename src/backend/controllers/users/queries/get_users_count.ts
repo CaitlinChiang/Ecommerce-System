@@ -1,6 +1,7 @@
 import { Context } from '../../../../types/setup/context'
 import { GetUserArgs } from 'types/user'
 import { authenticateUser } from '../../../_utils/authenticateUser'
+import { queryArgs } from '../../../_utils/helpers/returnQueryArgs'
 
 export default async (
   _root: undefined,
@@ -9,6 +10,8 @@ export default async (
 ): Promise<number> => {
   authenticateUser({ admin: true }, context)
 
-  const usersCount: number = await context.database.users.countDocuments(args)
+  const usersCount: any = await context.database.users.countDocuments(
+    queryArgs(args)
+  )
   return usersCount
 }

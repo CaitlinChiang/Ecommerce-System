@@ -1,7 +1,10 @@
 import { Context } from '../../../../types/setup/context'
 import { User, UpdateUserArgs } from '../../../../types/user'
+import { MutateAction } from '../../../../types/_enums/mutateAction'
 import { AuditLogAction } from '../../../../types/_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
+import { mutationArgs } from '../../../_utils/helpers/returnMutationArgs'
+import { auditArgs } from '../../../_utils/helpers/returnAuditArgs'
 
 export default async (
   _root: undefined,
@@ -12,14 +15,13 @@ export default async (
 
   const user: any = await context.database.users.findOneAndUpdate(
     { _id: args._id },
-    { ...args, updatedAt: new Date() }
+    mutationArgs(args, MutateAction.UPDATE)
   )
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.UPDATE_USER,
     userId: user._id,
-    createdAt: new Date(),
-    createdBy: context.currentUserId
+    ...auditArgs(context)
   })
 
   return user
