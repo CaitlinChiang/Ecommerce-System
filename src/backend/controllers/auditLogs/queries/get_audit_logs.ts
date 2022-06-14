@@ -1,7 +1,7 @@
 import { Context } from '../../../../types/setup/context'
 import { AuditLog, GetAuditLogArgs } from '../../../../types/auditLog'
 import { authenticateUser } from '../../../_utils/authenticateUser'
-import { modifiedArgsWithDateFilter } from '../../../_utils/helpers/returnModifiedArgs'
+import { queryArgs } from '../../../_utils/helpers/returnQueryArgs'
 
 export default async (
   _root: undefined,
@@ -10,10 +10,6 @@ export default async (
 ): Promise<AuditLog[]> => {
   authenticateUser({ admin: true }, context)
 
-  const modifiedArgs: GetAuditLogArgs = {
-    ...modifiedArgsWithDateFilter(args)
-  }
-
-  const auditLogs: any = await context.database.auditLogs.find(modifiedArgs)
+  const auditLogs: any = await context.database.auditLogs.find(queryArgs(args))
   return auditLogs
 }
