@@ -1,13 +1,11 @@
 export const queryArgs = (args: any): any => {
   const { dateRange, paginateData, ...specificArgs } = args
 
-  const modifiedArgs: any = {
-    specificArgs
+  if (paginateData?.searchText) {
+    return { $text: { $search: paginateData.searchText } }
   }
 
-  if (paginateData?.searchText) {
-    modifiedArgs['$text'] = { $search: paginateData.searchText }
-  }
+  const modifiedArgs: any = { specificArgs }
 
   if (dateRange?.startDate && dateRange?.endDate) {
     modifiedArgs.createdAt = {
