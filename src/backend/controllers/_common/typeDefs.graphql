@@ -15,7 +15,7 @@ input DeliveryAddressInput {
   cityId: ID
 }
 
-input SearchTableQuery {
+input PaginateTableInput {
   page: Int!
   rowsPerPage: Int!
   searchText: String
