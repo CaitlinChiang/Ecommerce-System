@@ -4,6 +4,8 @@ import { UploadImageArgs } from '../../../types/actions/uploadImage'
 import { UploadImageType } from '../../../types/_enums/uploadImageType'
 
 export const uploadImage = async (args: UploadImageArgs): Promise<string> => {
+  if (!args.image) return
+
   const fileName = assignFileName(args)
   await cloudinary.uploader.upload(args.image, { public_id: fileName })
 
