@@ -1,8 +1,10 @@
 import { Context } from '../../../../types/setup/context'
 import { Payment, UpdatePaymentArgs } from '../../../../types/payment'
 import { UploadImageType } from '../../../../types/_enums/uploadImageType'
+import { MutateAction } from '../../../../types/_enums/mutateAction'
 import { AuditLogAction } from '../../../../types/_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
+import { mutationArgs } from '../../../_utils/helpers/returnMutationArgs'
 import { uploadImage } from '../../../_utils/handleImages/upload'
 import { deleteImage } from '../../../_utils/handleImages/delete'
 
@@ -25,9 +27,8 @@ export default async (
   const payment: any = await context.database.payments.findOneAndUpdate(
     { _orderId: args._orderId },
     {
-      ...modifiedArgs,
-      imageProof: modifiedImageUrl,
-      updatedAt: new Date()
+      ...mutationArgs(modifiedArgs, MutateAction.UPDATE),
+      imageProof: modifiedImageUrl
     }
   )
 

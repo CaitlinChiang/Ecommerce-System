@@ -5,6 +5,7 @@ import {
 } from '../../../../types/paymentMethod'
 import { AuditLogAction } from '../../../../types/_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
+import { auditArgs } from '../../../_utils/helpers/returnAuditArgs'
 
 export default async (
   _root: undefined,
@@ -16,8 +17,7 @@ export default async (
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.DELETE_PAYMENT_METHOD,
     paymentMethodId: args._id,
-    createdAt: new Date(),
-    createdBy: context.currentUserId
+    ...auditArgs(context)
   })
 
   const paymentMethod: any = await context.database.paymentMethods.findOneAndDelete({

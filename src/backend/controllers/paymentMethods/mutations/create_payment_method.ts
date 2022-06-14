@@ -3,8 +3,11 @@ import {
   PaymentMethod,
   CreatePaymentMethodArgs
 } from '../../../../types/paymentMethod'
+import { MutateAction } from '../../../../types/_enums/mutateAction'
 import { AuditLogAction } from '../../../../types/_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
+import { mutationArgs } from '../../../_utils/helpers/returnMutationArgs'
+import { auditArgs } from '../../../_utils/helpers/returnAuditArgs'
 
 export default async (
   _root: undefined,
@@ -13,16 +16,14 @@ export default async (
 ): Promise<PaymentMethod> => {
   authenticateUser({ admin: true }, context)
 
-  const paymentMethod: any = await context.database.paymentMethods.insertOne({
-    ...args,
-    createdAt: new Date()
-  })
+  const paymentMethod: any = await context.database.paymentMethods.insertOne(
+    mutationArgs(args, MutateAction.CREATE)
+  )
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.CREATE_PAYMENT_METHOD,
     paymentMethodId: paymentMethod._id,
-    createdAt: new Date(),
-    createdBy: context.currentUserId
+    ...auditArgs(context)
   })
 
   return paymentMethod
