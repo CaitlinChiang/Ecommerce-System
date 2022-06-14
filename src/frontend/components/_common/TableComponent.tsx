@@ -31,16 +31,12 @@ const TableComponent = ({
   headers,
   headersAlign,
   loading,
-  page,
   paginateTableArgs,
   rows,
-  rowsPerPage,
   rowsPerPageOptions,
   searchLabel,
   searchPlaceholder,
   setFilterOpen,
-  setPage,
-  setRowsPerPage,
   setPaginateTableArgs
 }: {
   count: number
@@ -50,36 +46,30 @@ const TableComponent = ({
   headers: string[]
   headersAlign: 'inherit' | 'left' | 'center' | 'right' | 'justify'
   loading: boolean
-  page: number
   paginateTableArgs: PaginateTableArgs
   rows: any[]
-  rowsPerPage: number
   rowsPerPageOptions: number[]
   searchLabel?: string
   searchPlaceholder?: string
   setFilterOpen?: React.Dispatch<React.SetStateAction<boolean>>
-  setPage: React.Dispatch<React.SetStateAction<number>>
-  setRowsPerPage: React.Dispatch<React.SetStateAction<number>>
   setPaginateTableArgs: React.Dispatch<React.SetStateAction<PaginateTableArgs>>
 }): ReactElement => {
-  const { searchText, sortBy, sortDirection } = paginateTableArgs
+  const { page, rowsPerPage, searchText, sortBy, sortDirection } = paginateTableArgs
 
   useEffect(() => {
-    setPage(0)
-  }, [paginateTableArgs.searchText, paginateTableArgs.sortBy])
+    setPaginateTableArgs({ page: 0 })
+  }, [searchText, sortBy])
 
   useEffect(() => {
-    searchData(loading, fetchMore, paginateTableArgs)
-  }, [sortBy, sortDirection, page, rowsPerPage, searchText])
+    searchData(fetchMore, loading, paginateTableArgs)
+  }, [paginateTableArgs])
 
   useEffect(() => {
     const timeoutId = setTimeout(
-      () => searchData(loading, fetchMore, paginateTableArgs),
+      () => searchData(fetchMore, loading, paginateTableArgs),
       500
     )
-    return (): void => {
-      clearTimeout(timeoutId)
-    }
+    return (): void => clearTimeout(timeoutId)
   }, [searchText])
 
   return (
@@ -104,7 +94,7 @@ const TableComponent = ({
         searchButtonDisabled={loading}
         searchLabel={searchLabel}
         searchPlaceholder={searchPlaceholder}
-        searchText={paginateTableArgs.searchText}
+        searchText={searchText}
         setPaginateTableArgs={setPaginateTableArgs}
       />
       {loading && <LinearProgress />}
@@ -135,12 +125,14 @@ const TableComponent = ({
             count={count}
             onRowsPerPageChange={async (e): Promise<void> => {
               const newRowsPerPage = Number(e.target.value)
-              setRowsPerPage(newRowsPerPage)
-              setPage(0)
+              setPaginateTableArgs({
+                rowsPerPage: newRowsPerPage,
+                page: 0
+              })
             }}
             onPageChange={async (_e, newPage: number): Promise<void> => {
               window.scrollTo(0, 0)
-              setPage(newPage)
+              setPaginateTableArgs({ page: newPage })
             }}
             page={page}
             rowsPerPage={rowsPerPage}
@@ -154,24 +146,22 @@ const TableComponent = ({
                 return (
                   <TableCell key={index} align={headersAlign} padding={'checkbox'}>
                     <TableSortLabel
-                      active={paginateTableArgs.sortBy === header}
-                      direction={
-                        paginateTableArgs.sortDirection || SortDirection.DESC
-                      }
+                      active={sortBy === header}
+                      direction={sortDirection || SortDirection.DESC}
                       onClick={(): void => {
                         setPaginateTableArgs({
                           sortBy: header,
                           sortDirection:
-                            paginateTableArgs.sortDirection === SortDirection.ASC
+                            sortDirection === SortDirection.ASC
                               ? SortDirection.DESC
                               : SortDirection.ASC
                         })
                       }}
                     >
                       {formatTableHeader(header)}
-                      {paginateTableArgs.sortBy === header ? (
+                      {sortBy === header ? (
                         <Box component='span' sx={{ display: 'hidden' }}>
-                          {paginateTableArgs.sortBy === SortDirection.DESC
+                          {sortBy === SortDirection.DESC
                             ? 'sorted descending'
                             : 'sorted ascending'}
                         </Box>
