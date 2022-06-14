@@ -1,4 +1,5 @@
 import { ObjectId } from 'mongodb'
+import { DateRange } from './common/dateRange'
 
 export interface AuditLog {
   _id?: ObjectId
@@ -24,6 +25,5 @@ export interface GetAuditLogArgs {
   paymentId?: ObjectId
   productId?: ObjectId
   productVariantId?: ObjectId
-  startDate: Date
-  endDate: Date
+  dateRange: DateRange
 }

@@ -1,6 +1,7 @@
+import { DateRange } from './common/dateRange'
+
 export interface GetAnalyticsArgs {
-  startDate: Date
-  endDate: Date
+  dateRange: DateRange
 }
 
 export interface AnalyticsOrdersCount {

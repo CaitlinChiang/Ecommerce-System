@@ -1,5 +1,6 @@
 import { ObjectId } from 'mongodb'
 import { CartItem } from './cart'
+import { DateRange } from './common/dateRange'
 import { DeliveryAddress } from './common/deliveryAddress'
 import { CreatePaymentArgs } from './payment'
 import { Product } from './product'
@@ -26,8 +27,7 @@ export interface GetOrderArgs {
   _id?: ObjectId
   items?: CartItem[]
   userId?: ObjectId
-  startDate?: Date
-  endDate?: Date
+  dateRange?: DateRange
 }
 
 export interface CreateOrderArgs {
