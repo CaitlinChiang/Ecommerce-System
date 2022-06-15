@@ -3,6 +3,9 @@ import { TextField } from '@mui/material'
 
 const Text = ({
   defaultValue,
+  disabled,
+  error,
+  helperText,
   label,
   maxRows,
   multiline,
@@ -12,6 +15,9 @@ const Text = ({
   value
 }: {
   defaultValue?: string
+  disabled?: boolean
+  error?: any
+  helperText?: string
   label: string
   maxRows?: number
   multiline?: boolean
@@ -23,6 +29,9 @@ const Text = ({
   return (
     <TextField
       defaultValue={defaultValue}
+      disabled={disabled}
+      error={error}
+      helperText={error && helperText}
       id='outlined-required'
       label={label}
       maxRows={maxRows}
