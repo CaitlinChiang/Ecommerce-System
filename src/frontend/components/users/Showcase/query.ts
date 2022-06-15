@@ -8,6 +8,10 @@ export default gql`
 
     get_users(paginateData: $paginateData, type: $type) {
       _id
+      email
+      firstName
+      lastName
+      phoneNumber
     }
 
     get_users_count(paginateData: $paginateData, type: $type)
