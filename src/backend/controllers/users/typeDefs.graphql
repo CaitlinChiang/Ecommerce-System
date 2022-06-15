@@ -13,7 +13,7 @@ type User {
 }
 
 extend type Query {
-  get_user(_id: ID!): User
+  get_user(_id: ID): User
 
   get_users(type: String!, paginateData: PaginateDataInput): [User]
 
