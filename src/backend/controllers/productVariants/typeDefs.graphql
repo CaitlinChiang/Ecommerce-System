@@ -15,9 +15,19 @@ type ProductVariant {
 extend type Query {
   get_product_variant(_id: ID!): ProductVariant
 
-  get_product_variants(_productId: ID!, paginateData: PaginateDataInput, showPublic: Boolean, stockQuantity: StockQuantityInput): [ProductVariant]
+  get_product_variants(
+    _productId: ID!
+    paginateData: PaginateDataInput
+    showPublic: Boolean
+    stockQuantity: StockQuantityInput
+  ): [ProductVariant]
 
-  get_product_variants_count(_productId: ID!, paginateData: PaginateDataInput, showPublic: Boolean, stockQuantity: StockQuantityInput): Int
+  get_product_variants_count(
+    _productId: ID!
+    paginateData: PaginateDataInput
+    showPublic: Boolean
+    stockQuantity: StockQuantityInput
+  ): Int
 }
 
 extend type Mutation {
