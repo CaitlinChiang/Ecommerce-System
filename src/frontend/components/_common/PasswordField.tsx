@@ -1,11 +1,5 @@
 import React, { ReactElement, useState } from 'react'
-import {
-  FormControl,
-  InputLabel,
-  OutlinedInput,
-  InputAdornment,
-  IconButton
-} from '@mui/material'
+import { InputAdornment, IconButton, TextField } from '@mui/material'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 
@@ -21,19 +15,22 @@ const PasswordField = ({
   const [showPassword, setShowPassword] = useState<boolean>(false)
 
   return (
-    <FormControl sx={{ m: 1, width: '25ch' }} variant='outlined'>
-      <InputLabel htmlFor='outlined-adornment-password'>Password</InputLabel>
-      <OutlinedInput
-        defaultValue={defaultValue}
-        id='outlined-adornment-password'
-        label='Password'
-        onChange={(e): void => {
-          setPassword(e.target.value)
-        }}
-        required
-        type={showPassword ? 'PasswordField' : 'password'}
-        value={password}
-        endAdornment={
+    <TextField
+      defaultValue={defaultValue}
+      error={password?.length < 8}
+      helperText={
+        password?.length < 8 && 'Password must be at least 8 characters long.'
+      }
+      id='outlined-adornment-password'
+      label='Password'
+      onChange={(e): void => {
+        setPassword(e.target.value)
+      }}
+      required
+      type={showPassword ? 'PasswordField' : 'password'}
+      value={password}
+      InputProps={{
+        endAdornment: (
           <InputAdornment position='end'>
             <IconButton
               aria-label='toggle password visibility'
@@ -46,9 +43,9 @@ const PasswordField = ({
               {showPassword ? <VisibilityOff /> : <Visibility />}
             </IconButton>
           </InputAdornment>
-        }
-      />
-    </FormControl>
+        )
+      }}
+    />
   )
 }
 
