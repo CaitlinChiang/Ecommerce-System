@@ -8,9 +8,9 @@ export const queryArgs = (args: any): any => {
   const modifiedArgs: any = { specificArgs }
 
   if (dateRange?.startDate && dateRange?.endDate) {
-    modifiedArgs.createdAt = {
-      $gte: new Date(args.startDate),
-      $lte: new Date(args.endDate)
+    modifiedArgs[dateRange.filterBy] = {
+      $gte: new Date(dateRange.startDate),
+      $lte: new Date(dateRange.endDate)
     }
   }
 

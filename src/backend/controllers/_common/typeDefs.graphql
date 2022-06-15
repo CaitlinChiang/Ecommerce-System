@@ -18,6 +18,7 @@ input DeliveryAddressInput {
 input DateRangeInput {
   startDate: String!
   endDate: String!
+  filterBy: String!
 }
 
 input PaginateDataInput {
