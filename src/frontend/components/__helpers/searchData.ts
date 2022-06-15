@@ -3,12 +3,14 @@ import { PaginateDataArgs } from '../../../types/actions/paginateData'
 export const searchData = (
   fetchMore: any,
   loading: boolean,
-  paginateDataArgs: PaginateDataArgs
+  paginateDataArgs: PaginateDataArgs,
+  specificArgs: any
 ): void => {
   if (loading) return
 
   fetchMore({
     variables: {
+      ...specificArgs,
       ...paginateDataArgs,
       offset: Number(paginateDataArgs.page * paginateDataArgs.rowsPerPage)
     },

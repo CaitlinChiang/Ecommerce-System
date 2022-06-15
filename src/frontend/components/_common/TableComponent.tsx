@@ -17,11 +17,16 @@ import {
 import FilterListIcon from '@mui/icons-material/FilterList'
 import { ReactJSXElement } from '@emotion/react/types/jsx-namespace'
 import { PaginateDataArgs } from '../../../types/actions/paginateData'
-import { SortDirection } from '../../../types/_enums/sortDirection'
+// import { SortDirection } from '../../../types/_frontendEnums/sortDirection'
 import ModalComponent from './ModalComponent'
 import SearchField from './SearchField'
 import { searchData } from '../__helpers/searchData'
 import { formatTableHeader } from '../__helpers/formatTableHeaders'
+
+enum SortDirection {
+  ASC = 'ASC',
+  DESC = 'DESC'
+}
 
 const TableComponent = ({
   count,
@@ -37,14 +42,15 @@ const TableComponent = ({
   searchLabel,
   searchPlaceholder,
   setFilterOpen,
-  setPaginateDataArgs
+  setPaginateDataArgs,
+  specificArgs
 }: {
   count: number
   fetchMore?: any
   filterContent?: ReactJSXElement
   filterOpen?: boolean
   headers: string[]
-  headersAlign: 'inherit' | 'left' | 'center' | 'right' | 'justify'
+  headersAlign?: 'inherit' | 'left' | 'center' | 'right' | 'justify'
   loading: boolean
   paginateDataArgs: PaginateDataArgs
   rows: any[]
@@ -53,6 +59,7 @@ const TableComponent = ({
   searchPlaceholder?: string
   setFilterOpen?: React.Dispatch<React.SetStateAction<boolean>>
   setPaginateDataArgs: React.Dispatch<React.SetStateAction<PaginateDataArgs>>
+  specificArgs?: any
 }): ReactElement => {
   const { page, rowsPerPage, searchText, sortBy, sortDirection } = paginateDataArgs
 
@@ -61,12 +68,12 @@ const TableComponent = ({
   }, [searchText, sortBy])
 
   useEffect(() => {
-    searchData(fetchMore, loading, paginateDataArgs)
+    searchData(fetchMore, loading, paginateDataArgs, specificArgs)
   }, [paginateDataArgs])
 
   useEffect(() => {
     const timeoutId = setTimeout(
-      () => searchData(fetchMore, loading, paginateDataArgs),
+      () => searchData(fetchMore, loading, paginateDataArgs, specificArgs),
       500
     )
     return (): void => clearTimeout(timeoutId)
@@ -81,15 +88,14 @@ const TableComponent = ({
         }}
         open={filterOpen}
       />
-      {searchPlaceholder}
       <SearchField
         onKeyDown={(e): void => {
           if (e.key === 'Enter') {
-            searchData(fetchMore, loading, paginateDataArgs)
+            searchData(fetchMore, loading, paginateDataArgs, specificArgs)
           }
         }}
         onSearch={(): void => {
-          searchData(fetchMore, loading, paginateDataArgs)
+          searchData(fetchMore, loading, paginateDataArgs, specificArgs)
         }}
         searchButtonDisabled={loading}
         searchLabel={searchLabel}
@@ -144,7 +150,11 @@ const TableComponent = ({
             <TableRow>
               {headers.map((header: string, index: number): ReactElement => {
                 return (
-                  <TableCell key={index} align={headersAlign} padding={'checkbox'}>
+                  <TableCell
+                    key={index}
+                    align={headersAlign || 'center'}
+                    padding={'checkbox'}
+                  >
                     <TableSortLabel
                       active={sortBy === header}
                       direction={sortDirection || SortDirection.DESC}
