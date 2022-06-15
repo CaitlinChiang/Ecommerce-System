@@ -1,5 +1,5 @@
 import { Context } from '../../../types/setup/context'
-import { GetOrderArgs } from '../../../types/order'
+import { Order } from '../../../types/order'
 import { Payment } from '../../../types/payment'
 import { Product } from '../../../types/product'
 import { ProductVariant } from '../../../types/productVariant'
@@ -10,14 +10,14 @@ import {
 
 export default {
   Order: {
-    payment: async (args: GetOrderArgs, context: Context): Promise<Payment> => {
+    payment: async (args: Order, context: Context): Promise<Payment> => {
       const payment: Payment = await context.database.payments.findOne({
         _orderId: args._id
       })
       return payment
     },
 
-    products: async (args: GetOrderArgs, context: Context): Promise<Product[]> => {
+    products: async (args: Order, context: Context): Promise<Product[]> => {
       const products: any = await context.database.products.find({
         _id: { $in: returnProductIds(args.items) }
       })
@@ -25,7 +25,7 @@ export default {
     },
 
     productVariants: async (
-      args: GetOrderArgs,
+      args: Order,
       context: Context
     ): Promise<ProductVariant[]> => {
       const productVariants: any = await context.database.productVariants.find({

@@ -1,5 +1,5 @@
 import { Context } from '../../../types/setup/context'
-import { CartItem, GetCartArgs } from '../../../types/cart'
+import { Cart, CartItem } from '../../../types/cart'
 import { Product } from '../../../types/product'
 import { ProductVariant } from '../../../types/productVariant'
 import {
@@ -9,7 +9,7 @@ import {
 
 export default {
   Cart: {
-    products: async (args: GetCartArgs, context: Context): Promise<Product[]> => {
+    products: async (args: Cart, context: Context): Promise<Product[]> => {
       const products: any = await context.database.products.find({
         _id: { $in: returnProductIds(args.items) }
       })
@@ -17,7 +17,7 @@ export default {
     },
 
     productVariants: async (
-      args: GetCartArgs,
+      args: Cart,
       context: Context
     ): Promise<ProductVariant[]> => {
       const productVariants: any = await context.database.productVariants.find({
@@ -26,7 +26,7 @@ export default {
       return productVariants
     },
 
-    quantity: async (args: GetCartArgs): Promise<number> => {
+    quantity: async (args: Cart): Promise<number> => {
       const itemsQuantity: number = args.items.reduce(
         (totalQuantity: number, currentProduct: CartItem): number => {
           return totalQuantity + currentProduct.quantity
@@ -36,7 +36,7 @@ export default {
       return itemsQuantity
     },
 
-    totalPrice: async (args: GetCartArgs): Promise<number> => {
+    totalPrice: async (args: Cart): Promise<number> => {
       const itemsTotalPrice: number = args.items.reduce(
         (totalPrice: number, currentProduct: CartItem): number => {
           return totalPrice + currentProduct.totalPrice

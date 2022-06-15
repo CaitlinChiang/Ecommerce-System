@@ -27,7 +27,6 @@ export interface Order {
 export interface GetOrderArgs {
   _id?: ObjectId
   dateRange?: DateRange
-  items?: CartItem[]
   paginateData?: PaginateDataArgs
   userId?: ObjectId
 }

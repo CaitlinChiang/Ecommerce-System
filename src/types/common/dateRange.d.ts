@@ -1,4 +1,4 @@
-import { DateRangeType } from 'types/_enums/dateRangeType'
+import { DateRangeType } from '../../_enums/dateRangeType'
 
 export interface DateRange {
   startDate?: Date

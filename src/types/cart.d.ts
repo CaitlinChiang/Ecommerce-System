@@ -19,10 +19,6 @@ export interface CartItem {
   totalPrice: number
 }
 
-export interface GetCartArgs {
-  items: CartItem[]
-}
-
 export interface AddToCartArgs {
   productId?: ObjectId
   productVariantId?: ObjectId
