@@ -26,18 +26,9 @@ const styles = {
 }
 
 const Div = styled('div')({
-  [theme.breakpoints.down('md')]: {
-    marginTop: theme.spacing(2),
-    marginRight: theme.spacing(2),
-    marginLeft: theme.spacing(2),
-    marginBottom: theme.spacing(8)
-  },
-  [theme.breakpoints.up('md')]: {
-    marginTop: theme.spacing(),
-    marginRight: theme.spacing(),
-    marginLeft: theme.spacing(),
-    marginBottom: theme.spacing(4)
-  }
+  marginTop: theme.spacing(5),
+  marginLeft: 350,
+  marginRight: theme.spacing(5)
 })
 
 export default (

@@ -18,6 +18,7 @@ import { Context } from './types/setup/context'
 import { Database } from './types/setup/database'
 import { resolvers, typeDefs } from './backend/controllers'
 import { verifyJWT } from './backend/_utils/jwt'
+import { ObjectId } from 'mongodb'
 
 const app = express()
 app.set('trust proxy', true)
@@ -44,11 +45,11 @@ nextJSApp.prepare().then(async () => {
       const headers = context.req.headers
       const ip =
         headers['CF-Connecting-IP'] || headers['X-Forwarded-For'] || context.req.ip
-      const user = verifyJWT(headers.accesstoken)
+      const user = verifyJWT(headers.accesstoken as string)
 
       return {
-        currentUserId: user._id,
-        currentUserType: user.type,
+        currentUserId: new ObjectId(user?._id),
+        currentUserType: 'ADMIN',
         database,
         ip
       }
