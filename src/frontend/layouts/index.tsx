@@ -1,9 +1,11 @@
 import { NextPage } from 'next'
-import React, { ReactElement, FunctionComponent } from 'react'
+import React, { ReactElement, useState, FunctionComponent } from 'react'
+import { useQuery } from '@apollo/client'
+import query from './query'
 import theme from '../themes'
 import styled from '@emotion/styled'
-import Navbar from './consumer/Navbar'
-import Header from './consumer/Header'
+import Navbar from './admin/Navbar'
+import Header from './admin/Header'
 import classnames from 'classnames'
 
 const styles = {
@@ -43,9 +45,27 @@ export default (
     { title, backRoute, wide }: { title: string; backRoute: string; wide?: boolean }
   ) =>
   (): FunctionComponent | NextPage | ReactElement => {
+    const [open, setOpen] = useState(false)
+
+    const { data, loading } = useQuery(query)
+    const user = data?.user || {
+      firstName: 'Caitlin',
+      lastName: 'Chiang',
+      email: 'chiangcaitlin2003@gmail.com'
+    }
+
+    if (loading) return null
+
     return (
       <>
-        <Navbar />
+        <Navbar
+          open={open}
+          onClose={(): void => {
+            setOpen(false)
+          }}
+          permanent={true}
+          user={user}
+        />
         <Header pageTitle={title} backRoute={backRoute} />
         <div
           className={

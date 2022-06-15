@@ -17,7 +17,7 @@ const shoppingMenu = [
   { label: 'About', route: '/about' },
   { label: 'Shop', route: '/shop' },
   { label: 'Reviews', route: '/reviews' },
-  { label: 'FAQ', route: '/frequently-asked-questions' },
+  { label: 'FAQs', route: '/frequently-asked-questions' },
   { label: 'Contact Us', route: '/contact-us' }
 ]
 
