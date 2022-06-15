@@ -18,9 +18,9 @@ type Product {
 extend type Query {
   get_product(_id: ID!): Product
 
-  get_products(categoryId: ID, featured: Boolean, showPublic: Boolean, paginateData: PaginateDataInput): [Product]
+  get_products(categoryId: ID, featured: Boolean, paginateData: PaginateDataInput, showPublic: Boolean, stockQuantity: StockQuantityInput): [Product]
 
-  get_products_count(categoryId: ID, featured: Boolean, showPublic: Boolean, paginateData: PaginateDataInput): Int
+  get_products_count(categoryId: ID, featured: Boolean, paginateData: PaginateDataInput, showPublic: Boolean, stockQuantity: StockQuantityInput): Int
 }
 
 extend type Mutation {

@@ -1,5 +1,6 @@
 import { ObjectId } from 'mongodb'
 import { PaginateDataArgs } from './actions/paginateData'
+import { StockQuantity } from './common/stockQuantity'
 
 export interface Product {
   _id?: ObjectId
@@ -24,7 +25,7 @@ export interface GetProductArgs {
   featured?: boolean
   paginateData?: PaginateDataArgs
   showPublic?: boolean
-  stockQuantity?: number
+  stockQuantity?: StockQuantity
 }
 
 export interface CreateProductArgs {

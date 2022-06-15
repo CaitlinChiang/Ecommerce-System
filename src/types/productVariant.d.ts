@@ -18,9 +18,9 @@ export interface ProductVariant {
 export interface GetProductVariantArgs {
   _id?: ObjectId
   _productId?: ObjectId
-  imageUrl?: string
-  showPublic?: boolean
   paginateData?: PaginateDataArgs
+  showPublic?: boolean
+  stockQuantity?: StockQuantity
 }
 
 export interface CreateProductVariantArgs {
