@@ -10,15 +10,15 @@ import {
   TableContainer,
   TableRow
 } from '@mui/material'
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import { ReactJSXElement } from '@emotion/react/types/jsx-namespace'
 
 const DropdownsComponent = ({
+  icons,
   open,
   rows,
   setOpen
 }: {
+  icons: { closed: ReactJSXElement; opened: ReactJSXElement }
   open: boolean
   rows: { title: string; content: ReactJSXElement }[]
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -41,11 +41,7 @@ const DropdownsComponent = ({
                         onClick={() => setOpen(!open)}
                         size='small'
                       >
-                        {open ? (
-                          <KeyboardArrowDownIcon />
-                        ) : (
-                          <KeyboardArrowRightIcon />
-                        )}
+                        {open ? icons.opened : icons.closed}
                       </IconButton>
                     </TableCell>
                   </TableRow>
