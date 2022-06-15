@@ -2,8 +2,8 @@ import { NextPage } from 'next'
 import React, { ReactElement, FunctionComponent } from 'react'
 import theme from '../themes'
 import styled from '@emotion/styled'
-import Navbar from './Navbar'
-import Header from './Header'
+import Navbar from './consumer/Navbar'
+import Header from './consumer/Header'
 import classnames from 'classnames'
 
 const styles = {

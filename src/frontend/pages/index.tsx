@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import React, { ReactElement } from 'react'
-import Navbar from '../layouts/Navbar'
-import Header from '../layouts/Header'
+import Navbar from '../layouts/consumer/Navbar'
+import Header from '../layouts/consumer/Header'
 
 const Home: NextPage = (): ReactElement => {
   return (
