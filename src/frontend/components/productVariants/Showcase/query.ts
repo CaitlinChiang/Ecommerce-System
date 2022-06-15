@@ -6,6 +6,7 @@ export default gql`
     $_productId: ID
     $paginateData: PaginateDataInput
     $showPublic: Boolean
+    $stockQuantity: StockQuantityInput
   ) {
     get_product_variant(_id: $_id) {
       _id
@@ -15,6 +16,7 @@ export default gql`
       _productId: $_productId
       paginateData: $paginateData
       showPublic: $showPublic
+      stockQuantity: $stockQuantity
     ) {
       _id
     }
@@ -23,6 +25,7 @@ export default gql`
       _productId: $_productId
       paginateData: $paginateData
       showPublic: $showPublic
+      stockQuantity: $stockQuantity
     )
   }
 `

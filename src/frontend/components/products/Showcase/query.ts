@@ -7,6 +7,7 @@ export default gql`
     $featured: Boolean
     $paginateData: PaginateDataInput
     $showPublic: Boolean
+    $stockQuantity: StockQuantityInput
   ) {
     get_product(_id: $_id) {
       _id
@@ -17,6 +18,7 @@ export default gql`
       featured: $featured
       paginateData: $paginateData
       showPublic: $showPublic
+      stockQuantity: $stockQuantity
     ) {
       _id
     }
@@ -26,6 +28,7 @@ export default gql`
       featured: $featured
       paginateData: $paginateData
       showPublic: $showPublic
+      stockQuantity: $stockQuantity
     )
   }
 `
