@@ -27,15 +27,19 @@ import { User } from '../../../types/user'
 import { ReactJSXElement } from '@emotion/react/types/jsx-namespace'
 
 const navbarItems = [
-  { icon: <AccountBoxIcon />, label: 'Admin Accounts', route: '/admin-accounts' },
-  { icon: <GroupIcon />, label: 'Customer Accounts', route: '/customer-accounts' },
-  { icon: <SettingsIcon />, label: 'Settings', route: '/settings' },
-  { icon: <ReceiptIcon />, label: 'Orders', route: '/orders' },
-  { icon: <InventoryIcon />, label: 'Products', route: '/products' },
-  { icon: <HelpIcon />, label: 'FAQs', route: '/frequently-asked-questions' },
-  { icon: <EditIcon />, label: 'Reviews', route: '/reviews' },
-  { icon: <DnsIcon />, label: 'Audit Logs', route: '/audit-logs' },
-  { icon: <BarChartIcon />, label: 'Analytics', route: '/analytics' }
+  {
+    icon: <AccountBoxIcon />,
+    label: 'Administrators',
+    route: '/admin/administrators'
+  },
+  { icon: <GroupIcon />, label: 'Customers', route: '/admin/customers' },
+  { icon: <SettingsIcon />, label: 'Settings', route: '/admin/settings' },
+  { icon: <ReceiptIcon />, label: 'Orders', route: '/admin/orders' },
+  { icon: <InventoryIcon />, label: 'Products', route: '/admin/products' },
+  { icon: <HelpIcon />, label: 'FAQs', route: '/admin/frequently-asked-questions' },
+  { icon: <EditIcon />, label: 'Reviews', route: '/admin/reviews' },
+  { icon: <DnsIcon />, label: 'Audit Logs', route: '/admin/audit-logs' },
+  { icon: <BarChartIcon />, label: 'Analytics', route: '/admin/analytics' }
 ]
 
 const Navbar = ({
