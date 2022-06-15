@@ -10,8 +10,6 @@ import {
   TableContainer,
   TableRow
 } from '@mui/material'
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import { ReactJSXElement } from '@emotion/react/types/jsx-namespace'
 
 const DropdownsComponent = ({
@@ -43,9 +41,7 @@ const DropdownsComponent = ({
                         onClick={() => setOpen(!open)}
                         size='small'
                       >
-                        {open
-                          ? icons.opened || <KeyboardArrowDownIcon />
-                          : icons.closed || <KeyboardArrowRightIcon />}
+                        {open ? icons.opened : icons.closed}
                       </IconButton>
                     </TableCell>
                   </TableRow>
