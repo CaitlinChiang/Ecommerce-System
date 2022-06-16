@@ -10,7 +10,6 @@ import {
   DialogTitle,
   useMediaQuery
 } from '@mui/material'
-import { ReactJSXElement } from '@emotion/react/types/jsx-namespace'
 
 const ModalComponent = ({
   content,
@@ -27,7 +26,7 @@ const ModalComponent = ({
   secondaryButtonTitle,
   title
 }: {
-  content: ReactJSXElement
+  content: ReactElement
   fullScreen?: boolean
   loading?: boolean
   maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | false

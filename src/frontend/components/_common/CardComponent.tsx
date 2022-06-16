@@ -1,6 +1,5 @@
 import { ReactElement } from 'react'
 import { Card, CardActionArea, CardContent, CardMedia } from '@mui/material'
-import { ReactJSXElement } from '@emotion/react/types/jsx-namespace'
 
 const CardComponent = ({
   content,
@@ -8,7 +7,7 @@ const CardComponent = ({
   imageSource,
   maxWidth
 }: {
-  content: ReactJSXElement
+  content: ReactElement
   imageAlt?: string
   imageSource?: string
   maxWidth?: number

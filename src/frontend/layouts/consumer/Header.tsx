@@ -1,6 +1,6 @@
-import { Toolbar, IconButton, Typography } from '@mui/material'
 import React, { ReactElement } from 'react'
 import { useRouter } from 'next/router'
+import { Toolbar, IconButton, Typography } from '@mui/material'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
 const Header = ({

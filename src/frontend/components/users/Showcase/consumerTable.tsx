@@ -2,11 +2,10 @@ import { ReactElement, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import query from './query'
 import { TableCell } from '@mui/material'
-import { User } from 'types/user'
+import { User } from '../../../../types/user'
 import { PaginateDataArgs } from '../../../../types/actions/paginateData'
 // import { SortDirection } from '../../../../types/_frontendEnums/sortDirection'
 // import { UserType } from '../../../../types/_frontendEnums/userType'
-import { ReactJSXElement } from '@emotion/react/types/jsx-namespace'
 import TableComponent from '../../_common/TableComponent'
 
 enum SortDirection {
@@ -45,7 +44,7 @@ const ConsumerTable = (): ReactElement => {
   const usersCount: number = data?.get_users_count || 0
 
   const userRows = [
-    users?.map((user: User): ReactJSXElement => {
+    users?.map((user: User): ReactElement => {
       return (
         <>
           <TableCell align={'center'}>{user?.firstName}</TableCell>

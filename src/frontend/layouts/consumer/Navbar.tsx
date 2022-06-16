@@ -36,11 +36,7 @@ const Navbar = (): ReactElement => {
         <Typography variant={'h6'} sx={{ flexGrow: 1 }}>
           {'Logo'}
         </Typography>
-        <List
-          sx={{
-            display: 'flex'
-          }}
-        >
+        <List sx={{ display: 'flex' }}>
           {shoppingMenu.map((menuItem): ReactElement => {
             return (
               <ListItemButton
@@ -53,11 +49,7 @@ const Navbar = (): ReactElement => {
             )
           })}
         </List>
-        <List
-          sx={{
-            display: 'flex'
-          }}
-        >
+        <List sx={{ display: 'flex' }}>
           {trackingMenu.map((menuItem): ReactElement => {
             return (
               <ListItemButton

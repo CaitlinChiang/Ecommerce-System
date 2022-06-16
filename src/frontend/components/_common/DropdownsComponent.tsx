@@ -10,7 +10,6 @@ import {
   TableContainer,
   TableRow
 } from '@mui/material'
-import { ReactJSXElement } from '@emotion/react/types/jsx-namespace'
 
 const DropdownsComponent = ({
   icons,
@@ -18,9 +17,9 @@ const DropdownsComponent = ({
   rows,
   setOpen
 }: {
-  icons?: { closed: ReactJSXElement; opened: ReactJSXElement }
+  icons?: { closed: ReactElement; opened: ReactElement }
   open: boolean
-  rows: { title: string; content: ReactJSXElement }[]
+  rows: { title: string; content: ReactElement }[]
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }): ReactElement => {
   return (
@@ -28,7 +27,7 @@ const DropdownsComponent = ({
       <Table aria-label='collapsible table'>
         <TableBody>
           {rows.map(
-            (row: { title: string; content: ReactJSXElement }): ReactElement => {
+            (row: { title: string; content: ReactElement }): ReactElement => {
               return (
                 <>
                   <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>

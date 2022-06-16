@@ -1,5 +1,6 @@
 import React, { ReactElement, ReactEventHandler } from 'react'
 import { useRouter } from 'next/router'
+import theme from '../../themes'
 import {
   Avatar,
   Box,
@@ -22,9 +23,7 @@ import HelpIcon from '@mui/icons-material/Help'
 import EditIcon from '@mui/icons-material/Edit'
 import DnsIcon from '@mui/icons-material/Dns'
 import BarChartIcon from '@mui/icons-material/BarChart'
-import theme from '../../themes'
 import { User } from '../../../types/user'
-import { ReactJSXElement } from '@emotion/react/types/jsx-namespace'
 
 const navbarItems = [
   {
@@ -91,7 +90,7 @@ const Navbar = ({
         </Collapse>
         <Divider />
         <div style={{ marginTop: '25px' }} />
-        {navbarItems.map((item, index): ReactJSXElement => {
+        {navbarItems.map((item, index): ReactElement => {
           return (
             <ListItem
               key={index}

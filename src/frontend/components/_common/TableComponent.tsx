@@ -15,7 +15,6 @@ import {
   Tooltip
 } from '@mui/material'
 import FilterListIcon from '@mui/icons-material/FilterList'
-import { ReactJSXElement } from '@emotion/react/types/jsx-namespace'
 import { PaginateDataArgs } from '../../../types/actions/paginateData'
 // import { SortDirection } from '../../../types/_frontendEnums/sortDirection'
 import ModalComponent from './ModalComponent'
@@ -47,7 +46,7 @@ const TableComponent = ({
 }: {
   count: number
   fetchMore?: any
-  filterContent?: ReactJSXElement
+  filterContent?: ReactElement
   filterOpen?: boolean
   headers: string[]
   headersAlign?: 'inherit' | 'left' | 'center' | 'right' | 'justify'
