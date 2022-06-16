@@ -12,5 +12,6 @@ export default async (
   const product: Product = await context.database.products.findOne({
     _id: args._id
   })
+
   return product
 }

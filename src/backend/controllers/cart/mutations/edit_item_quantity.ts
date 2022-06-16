@@ -25,5 +25,6 @@ export default async (
       $set: { 'items.$.quantity': args.quantity }
     }
   )
+
   return cart
 }

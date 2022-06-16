@@ -25,5 +25,6 @@ export default async (
   }
 
   const token = await generateJWT(existingUser._id)
+
   return { ...existingUser, token }
 }

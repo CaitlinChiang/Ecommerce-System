@@ -13,5 +13,6 @@ export default async (
   const reviewsCount: any = await context.database.reviews.countDocuments(
     queryArgs(args)
   )
+
   return reviewsCount
 }

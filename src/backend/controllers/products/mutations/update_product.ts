@@ -19,6 +19,7 @@ export default async (
   const { image, ...modifiedArgs } = args
 
   await deleteImage(args.imageUrl)
+
   const modifiedImageUrl = await uploadImage({
     imageType: UploadImageType.PRODUCT,
     image,

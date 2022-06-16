@@ -11,14 +11,15 @@ export default async (
 ): Promise<FAQ> => {
   authenticateUser({ admin: true }, context)
 
+  const faq: any = await context.database.faqs.findOneAndDelete({
+    _id: args._id
+  })
+
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.DELETE_FAQ,
     faqId: args._id,
     ...auditArgs(args)
   })
 
-  const faq: any = await context.database.faqs.findOneAndDelete({
-    _id: args._id
-  })
   return faq
 }

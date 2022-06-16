@@ -12,5 +12,6 @@ export default async (
 
   const productCategoriesCount: any =
     await context.database.productCategories.countDocuments(queryArgs(args))
+
   return productCategoriesCount
 }

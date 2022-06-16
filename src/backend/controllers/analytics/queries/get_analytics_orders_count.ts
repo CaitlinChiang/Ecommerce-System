@@ -35,5 +35,6 @@ export default async (
   ]
 
   const analyticsOrdersCount: any = await context.database.orders.aggregate(pipeline)
+
   return analyticsOrdersCount
 }

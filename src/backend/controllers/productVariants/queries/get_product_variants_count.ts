@@ -12,5 +12,6 @@ export default async (
 
   const productVariantsCount: any =
     await context.database.productVariants.countDocuments(queryArgs(args))
+
   return productVariantsCount
 }

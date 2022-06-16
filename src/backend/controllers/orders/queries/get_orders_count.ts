@@ -19,5 +19,6 @@ export default async (
   }
 
   const ordersCount: any = await context.database.orders.countDocuments(modifiedArgs)
+
   return ordersCount
 }

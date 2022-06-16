@@ -37,5 +37,6 @@ export default async (
   const analyticsRevenueCount: any = await context.database.payments.aggregate(
     pipeline
   )
+
   return analyticsRevenueCount
 }

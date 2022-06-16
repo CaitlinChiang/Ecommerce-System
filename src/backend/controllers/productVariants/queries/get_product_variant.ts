@@ -16,5 +16,6 @@ export default async (
     await context.database.productVariants.findOne({
       _id: args._id
     })
+
   return productVariant
 }

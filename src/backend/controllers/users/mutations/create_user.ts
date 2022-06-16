@@ -39,5 +39,6 @@ export default async (
   await context.database.carts.insertOne({ _userId: user._id })
 
   const token = await generateJWT(existingUser._id)
+
   return { ...user, token }
 }

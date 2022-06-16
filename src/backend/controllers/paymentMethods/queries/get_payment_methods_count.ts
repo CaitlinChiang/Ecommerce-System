@@ -12,5 +12,6 @@ export default async (
 
   const paymentMethodsCount: any =
     await context.database.paymentMethods.countDocuments(queryArgs(args))
+
   return paymentMethodsCount
 }

@@ -10,5 +10,6 @@ export default async (
   authenticateUser({ admin: true }, context)
 
   const order: Order = await context.database.orders.findOne({ _id: args._id })
+
   return order
 }

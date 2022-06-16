@@ -20,5 +20,6 @@ export default async (
   const user: any = await context.database.users.findOneAndDelete({
     _id: args._id
   })
+
   return user
 }

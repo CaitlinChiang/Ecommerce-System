@@ -14,14 +14,15 @@ export default async (
 ): Promise<PaymentMethod> => {
   authenticateUser({ admin: true }, context)
 
+  const paymentMethod: any = await context.database.paymentMethods.findOneAndDelete({
+    _id: args._id
+  })
+
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.DELETE_PAYMENT_METHOD,
     paymentMethodId: args._id,
     ...auditArgs(context)
   })
 
-  const paymentMethod: any = await context.database.paymentMethods.findOneAndDelete({
-    _id: args._id
-  })
   return paymentMethod
 }

@@ -14,15 +14,16 @@ export default async (
 ): Promise<ProductCategory> => {
   authenticateUser({ admin: true }, context)
 
+  const productCategory: any =
+    await context.database.productCategories.findOneAndDelete({
+      _id: args._id
+    })
+
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.DELETE_PRODUCT_CATEGORY,
     productCategoryId: args._id,
     ...auditArgs(args)
   })
 
-  const productCategory: any =
-    await context.database.productCategories.findOneAndDelete({
-      _id: args._id
-    })
   return productCategory
 }

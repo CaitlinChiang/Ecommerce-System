@@ -16,5 +16,6 @@ export default async (
     await context.database.productCategories.findOne({
       _id: args._id
     })
+
   return productCategory
 }

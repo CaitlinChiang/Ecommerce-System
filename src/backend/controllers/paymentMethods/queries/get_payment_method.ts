@@ -10,9 +10,8 @@ export default async (
   authenticateUser({ admin: true }, context)
 
   const paymentMethod: PaymentMethod = await context.database.paymentMethods.findOne(
-    {
-      _id: args._id
-    }
+    { _id: args._id }
   )
+
   return paymentMethod
 }

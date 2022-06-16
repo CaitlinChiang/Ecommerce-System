@@ -13,5 +13,6 @@ export default async (
     { _userId: context.currentUserId },
     { items: { $push: args } }
   )
+
   return cart
 }

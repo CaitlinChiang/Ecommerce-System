@@ -9,15 +9,15 @@ export const deletePayment = async (
   orderId: ObjectId,
   paymentId: ObjectId
 ) => {
-  await context.database.auditLogs.insertOne({
-    action: AuditLogAction.DELETE_ORDER_PAYMENT,
-    paymentId: paymentId,
-    ...auditArgs(context)
-  })
-
   const imageProofUrl = String(orderId).substring(String(orderId).length - 5)
 
   await deleteImage('payments/' + imageProofUrl)
 
   await context.database.payments.findOneAndDelete({ _orderId: orderId })
+
+  await context.database.auditLogs.insertOne({
+    action: AuditLogAction.DELETE_ORDER_PAYMENT,
+    paymentId: paymentId,
+    ...auditArgs(context)
+  })
 }

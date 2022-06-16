@@ -13,5 +13,6 @@ export default async (
   const citiesCount: any = await context.database.cities.countDocuments(
     queryArgs(args)
   )
+
   return citiesCount
 }

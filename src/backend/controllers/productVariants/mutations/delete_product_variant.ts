@@ -17,15 +17,16 @@ export default async (
 
   await deleteImage(args.imageUrl)
 
+  const productVariant: any =
+    await context.database.productVariants.findOneAndDelete({
+      _id: args._id
+    })
+
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.DELETE_PRODUCT_VARIANT,
     productVariantId: args._id,
     ...auditArgs(context)
   })
 
-  const productVariant: any =
-    await context.database.productVariants.findOneAndDelete({
-      _id: args._id
-    })
   return productVariant
 }

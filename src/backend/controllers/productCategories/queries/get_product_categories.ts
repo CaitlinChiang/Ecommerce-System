@@ -19,5 +19,6 @@ export default async (
     .sort(sortArgs(args?.paginateData))
     .skip(args?.paginateData?.offset)
     .limit(args?.paginateData?.rowsPerPage)
+
   return productCategories
 }

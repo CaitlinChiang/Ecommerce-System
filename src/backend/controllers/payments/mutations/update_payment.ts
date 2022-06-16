@@ -18,6 +18,7 @@ export default async (
   const { imageProof, ...modifiedArgs } = args
 
   await deleteImage(args.imageProofUrl)
+
   const modifiedImageUrl = await uploadImage({
     imageType: UploadImageType.PAYMENT,
     image: imageProof,

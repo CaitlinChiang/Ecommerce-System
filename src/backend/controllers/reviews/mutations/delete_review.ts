@@ -11,14 +11,15 @@ export default async (
 ): Promise<Review> => {
   authenticateUser({ admin: true }, context)
 
+  const review: any = await context.database.reviews.findOneAndDelete({
+    _id: args._id
+  })
+
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.DELETE_REVIEW,
     reviewId: args._id,
     ...auditArgs(context)
   })
 
-  const review: any = await context.database.reviews.findOneAndDelete({
-    _id: args._id
-  })
   return review
 }

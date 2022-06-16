@@ -12,7 +12,9 @@ export default async (
 ): Promise<Order> => {
   authenticateUser({ admin: true }, context)
 
-  await deletePayment(context, args._id, args._paymentId)
+  const order: any = await context.database.orders.findOneAndDelete({
+    _id: args._id
+  })
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.DELETE_ORDER,
@@ -20,8 +22,7 @@ export default async (
     ...auditArgs(context)
   })
 
-  const order: any = await context.database.orders.findOneAndDelete({
-    _id: args._id
-  })
+  await deletePayment(context, args._id, args._paymentId)
+
   return order
 }

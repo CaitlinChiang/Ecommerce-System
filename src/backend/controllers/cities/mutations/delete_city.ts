@@ -11,14 +11,15 @@ export default async (
 ): Promise<City> => {
   authenticateUser({ admin: true }, context)
 
+  const city: any = await context.database.cities.findOneAndDelete({
+    _id: args._id
+  })
+
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.DELETE_CITY,
     cityId: args._id,
     ...auditArgs(context)
   })
 
-  const city: any = await context.database.cities.findOneAndDelete({
-    _id: args._id
-  })
   return city
 }

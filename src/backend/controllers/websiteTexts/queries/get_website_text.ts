@@ -10,5 +10,6 @@ export default async (
   authenticateUser({ admin: false }, context)
 
   const websiteText: WebsiteText = await context.database.websiteTexts.findOne(args)
+
   return websiteText
 }

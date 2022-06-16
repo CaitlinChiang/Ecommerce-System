@@ -11,5 +11,6 @@ export default async (
   authenticateUser({ admin: true }, context)
 
   const faqsCount: any = await context.database.faqs.countDocuments(queryArgs(args))
+
   return faqsCount
 }

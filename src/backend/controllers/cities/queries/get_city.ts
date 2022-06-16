@@ -10,5 +10,6 @@ export default async (
   authenticateUser({ admin: true }, context)
 
   const city: City = await context.database.cities.findOne({ _id: args._id })
+
   return city
 }
