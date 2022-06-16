@@ -6,7 +6,7 @@ type ProductCategory {
 }
 
 extend type Query {
-  get_product_category(_id: ID!): ProductCategory
+  get_product_category(_id: ID): ProductCategory
 
   get_product_categories(paginateData: PaginateDataInput): [ProductCategory]
 

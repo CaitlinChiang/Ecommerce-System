@@ -16,7 +16,7 @@ type Product {
 }
 
 extend type Query {
-  get_product(_id: ID!): Product
+  get_product(_id: ID): Product
 
   get_products(
     categoryId: ID

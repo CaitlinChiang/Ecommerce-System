@@ -7,7 +7,7 @@ type FAQ {
 }
 
 extend type Query {
-  get_faq(_id: ID!): FAQ
+  get_faq(_id: ID): FAQ
 
   get_faqs(paginateData: PaginateDataInput): [FAQ]
 

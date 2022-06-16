@@ -13,7 +13,7 @@ type ProductVariant {
 }
 
 extend type Query {
-  get_product_variant(_id: ID!): ProductVariant
+  get_product_variant(_id: ID): ProductVariant
 
   get_product_variants(
     _productId: ID!
