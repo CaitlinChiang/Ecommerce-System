@@ -7,6 +7,8 @@ import { PaginateDataArgs } from '../../../../types/actions/paginateData'
 import { SortDirection } from '../../__enums/sortDirection'
 import { UserType } from '../../__enums/userType'
 import TableComponent from '../../_common/TableComponent'
+import DeleteUserButton from '../Delete/deleteButton'
+import { tableArgs } from '../../__helpers/returnTableArgs'
 
 const AdminTable = (): ReactElement => {
   const [page, setPage] = useState<number>(0)
@@ -21,13 +23,8 @@ const AdminTable = (): ReactElement => {
   const specificArgs = { type: UserType.ADMIN }
 
   const { data, loading, fetchMore } = useQuery(query, {
-    ssr: true,
-    skip: !process.browser,
     variables: { paginateData: paginateDataArgs, ...specificArgs },
-    partialRefetch: true,
-    returnPartialData: true,
-    fetchPolicy: 'cache-and-network',
-    notifyOnNetworkStatusChange: true
+    ...tableArgs
   })
 
   const users = data?.get_users || []
@@ -41,7 +38,10 @@ const AdminTable = (): ReactElement => {
           <TableCell align={'center'}>{user?.lastName}</TableCell>
           <TableCell align={'center'}>{user?.email}</TableCell>
           <TableCell align={'center'}>{user?.phoneNumber}</TableCell>
-          <TableCell align={'center'}>{user?.createdAt}</TableCell>
+          <TableCell align={'center'}>{String(user?.createdAt)}</TableCell>
+          <TableCell align={'center'}>
+            <DeleteUserButton _id={user?._id} />
+          </TableCell>
         </TableRow>
       )
     })
@@ -51,7 +51,14 @@ const AdminTable = (): ReactElement => {
     <TableComponent
       count={usersCount}
       fetchMore={fetchMore}
-      headers={['firstName', 'lastName', 'email', 'phoneNumber', 'createdAt']}
+      headers={[
+        'firstName',
+        'lastName',
+        'email',
+        'phoneNumber',
+        'createdAt',
+        'actions'
+      ]}
       loading={loading}
       page={page}
       paginateDataArgs={paginateDataArgs}
