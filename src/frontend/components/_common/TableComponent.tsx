@@ -85,21 +85,23 @@ const TableComponent = ({
         }}
         open={filterOpen}
       />
-      <SearchField
-        onKeyDown={(e): void => {
-          if (e.key === 'Enter') {
+      {searchLabel && (
+        <SearchField
+          onKeyDown={(e): void => {
+            if (e.key === 'Enter') {
+              searchData(fetchMore, loading, page, paginateDataArgs, specificArgs)
+            }
+          }}
+          onSearch={(): void => {
             searchData(fetchMore, loading, page, paginateDataArgs, specificArgs)
-          }
-        }}
-        onSearch={(): void => {
-          searchData(fetchMore, loading, page, paginateDataArgs, specificArgs)
-        }}
-        searchButtonDisabled={loading}
-        searchLabel={searchLabel}
-        searchPlaceholder={searchPlaceholder}
-        searchText={searchText}
-        setPaginateDataArgs={setPaginateDataArgs}
-      />
+          }}
+          searchButtonDisabled={loading}
+          searchLabel={searchLabel}
+          searchPlaceholder={searchPlaceholder}
+          searchText={searchText}
+          setPaginateDataArgs={setPaginateDataArgs}
+        />
+      )}
       {loading && <LinearProgress />}
       <TableContainer>
         <div
