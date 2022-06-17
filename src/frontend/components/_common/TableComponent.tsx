@@ -1,7 +1,6 @@
 import React, { ReactElement, useEffect } from 'react'
 import theme from '../../themes'
 import {
-  Box,
   IconButton,
   LinearProgress,
   Table,
@@ -170,13 +169,6 @@ const TableComponent = ({
                       }}
                     >
                       {formatTableHeader(header)}
-                      {sortBy === header ? (
-                        <Box component='span' sx={{ display: 'hidden' }}>
-                          {sortBy === SortDirection.DESC
-                            ? 'sorted descending'
-                            : 'sorted ascending'}
-                        </Box>
-                      ) : null}
                     </TableSortLabel>
                   </TableCell>
                 )
