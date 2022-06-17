@@ -19,9 +19,9 @@ enum UserType {
 }
 
 const AdminTable = (): ReactElement => {
+  const [page, setPage] = useState<number>(0)
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
     offset: 0,
-    page: 1,
     rowsPerPage: 10,
     searchText: '',
     sortBy: 'lastName',
@@ -33,7 +33,7 @@ const AdminTable = (): ReactElement => {
   const { data, loading, fetchMore } = useQuery(query, {
     ssr: true,
     skip: !process.browser,
-    variables: { ...paginateDataArgs, ...specificArgs },
+    variables: { paginateData: paginateDataArgs, ...specificArgs },
     partialRefetch: true,
     returnPartialData: true,
     fetchPolicy: 'cache-and-network',
@@ -62,11 +62,13 @@ const AdminTable = (): ReactElement => {
       fetchMore={fetchMore}
       headers={['firstName', 'lastName', 'email', 'phoneNumber']}
       loading={loading}
+      page={page}
       paginateDataArgs={paginateDataArgs}
       rows={userRows}
       rowsPerPageOptions={[10, 25, 50, 75, 100]}
       searchLabel={'Search Account by Email'}
       searchPlaceholder={'ex. ava_cruz@gmail.com'}
+      setPage={setPage}
       setPaginateDataArgs={setPaginateDataArgs}
       specificArgs={specificArgs}
     />

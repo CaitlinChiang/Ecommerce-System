@@ -35,12 +35,14 @@ const TableComponent = ({
   headers,
   headersAlign,
   loading,
+  page,
   paginateDataArgs,
   rows,
   rowsPerPageOptions,
   searchLabel,
   searchPlaceholder,
   setFilterOpen,
+  setPage,
   setPaginateDataArgs,
   specificArgs
 }: {
@@ -51,28 +53,30 @@ const TableComponent = ({
   headers: string[]
   headersAlign?: 'inherit' | 'left' | 'center' | 'right' | 'justify'
   loading: boolean
+  page: number
   paginateDataArgs: PaginateDataArgs
   rows: any[]
   rowsPerPageOptions: number[]
   searchLabel?: string
   searchPlaceholder?: string
   setFilterOpen?: React.Dispatch<React.SetStateAction<boolean>>
+  setPage: React.Dispatch<React.SetStateAction<number>>
   setPaginateDataArgs: React.Dispatch<React.SetStateAction<PaginateDataArgs>>
   specificArgs?: any
 }): ReactElement => {
-  const { page, rowsPerPage, searchText, sortBy, sortDirection } = paginateDataArgs
+  const { rowsPerPage, searchText, sortBy, sortDirection } = paginateDataArgs
 
   useEffect(() => {
-    setPaginateDataArgs({ page: 0 })
+    setPage(0)
   }, [searchText, sortBy])
 
   useEffect(() => {
-    searchData(fetchMore, loading, paginateDataArgs, specificArgs)
-  }, [paginateDataArgs])
+    searchData(fetchMore, loading, page, paginateDataArgs, specificArgs)
+  }, [page, paginateDataArgs])
 
   useEffect(() => {
     const timeoutId = setTimeout(
-      () => searchData(fetchMore, loading, paginateDataArgs, specificArgs),
+      () => searchData(fetchMore, loading, page, paginateDataArgs, specificArgs),
       500
     )
     return (): void => clearTimeout(timeoutId)
@@ -90,11 +94,11 @@ const TableComponent = ({
       <SearchField
         onKeyDown={(e): void => {
           if (e.key === 'Enter') {
-            searchData(fetchMore, loading, paginateDataArgs, specificArgs)
+            searchData(fetchMore, loading, page, paginateDataArgs, specificArgs)
           }
         }}
         onSearch={(): void => {
-          searchData(fetchMore, loading, paginateDataArgs, specificArgs)
+          searchData(fetchMore, loading, page, paginateDataArgs, specificArgs)
         }}
         searchButtonDisabled={loading}
         searchLabel={searchLabel}
@@ -130,14 +134,12 @@ const TableComponent = ({
             count={count}
             onRowsPerPageChange={async (e): Promise<void> => {
               const newRowsPerPage = Number(e.target.value)
-              setPaginateDataArgs({
-                rowsPerPage: newRowsPerPage,
-                page: 0
-              })
+              setPage(0)
+              setPaginateDataArgs({ rowsPerPage: newRowsPerPage })
             }}
             onPageChange={async (_e, newPage: number): Promise<void> => {
               window.scrollTo(0, 0)
-              setPaginateDataArgs({ page: newPage })
+              setPage(newPage)
             }}
             page={page}
             rowsPerPage={rowsPerPage}
