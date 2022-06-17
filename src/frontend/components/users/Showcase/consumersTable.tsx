@@ -10,7 +10,7 @@ import TableComponent from '../../_common/TableComponent'
 import DeleteUserButton from '../Delete/deleteButton'
 import { tableArgs } from '../../../_utils/returnTableArgs'
 
-const ConsumerTable = (): ReactElement => {
+const ConsumersTable = (): ReactElement => {
   const [page, setPage] = useState<number>(0)
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
     offset: 0,
@@ -19,7 +19,6 @@ const ConsumerTable = (): ReactElement => {
     sortBy: 'lastName',
     sortDirection: SortDirection.ASC
   })
-
   const specificArgs = { type: UserType.CONSUMER }
 
   const { data, loading, fetchMore } = useQuery(query, {
@@ -73,4 +72,4 @@ const ConsumerTable = (): ReactElement => {
   )
 }
 
-export default ConsumerTable
+export default ConsumersTable

@@ -1,11 +1,11 @@
 import React, { ReactElement } from 'react'
 import layout from '../../../layouts'
-import ConsumerTable from '../../../components/users/Showcase/consumerTable'
+import ConsumersTable from '../../../components/users/Showcase/consumersTable'
 
 const Page = (): ReactElement => {
   return (
     <>
-      <ConsumerTable />
+      <ConsumersTable />
     </>
   )
 }
