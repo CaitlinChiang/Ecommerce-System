@@ -21,10 +21,19 @@ const emptyDefs = gql`
 
 export const resolvers = [
   _common.resolvers,
+  analytics.resolvers,
+  auditLogs.resolvers,
   cart.resolvers,
+  cities.resolvers,
+  faqs.resolvers,
   orders.resolvers,
+  paymentMethods.resolvers,
+  payments.resolvers,
+  productCategories.resolvers,
   productVariants.resolvers,
-  products.resolvers
+  products.resolvers,
+  reviews.resolvers,
+  users.resolvers
 ]
 
 export const typeDefs = [

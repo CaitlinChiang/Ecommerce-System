@@ -1,7 +1,9 @@
-import * as typeDefs from './typeDefs.graphql'
 import queries from './queries'
+import * as typeDefs from './typeDefs.graphql'
 
 export default {
   typeDefs,
-  queries
+  resolvers: {
+    Query: queries
+  }
 }
