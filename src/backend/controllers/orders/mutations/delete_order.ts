@@ -1,6 +1,6 @@
 import { Context } from '../../../../types/setup/context'
 import { Order, DeleteOrderArgs } from '../../../../types/order'
-import { AuditLogAction } from '../../../../types/_enums/auditLogAction'
+import { AuditLogAction } from '../../../../types/_enumsBackend/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 import { deletePayment } from '../../payments/mutations/delete_payment'
 import { auditArgs } from '../../../_utils/helpers/returnAuditArgs'

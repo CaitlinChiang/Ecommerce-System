@@ -1,6 +1,6 @@
 import { Context } from '../../../../types/setup/context'
 import { GetOrderArgs } from 'types/order'
-import { UserType } from '../../../../types/_enums/userType'
+import { UserType } from '../../../../types/_enumsBackend/userType'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 import { queryArgs } from '../../../_utils/helpers/returnQueryArgs'
 

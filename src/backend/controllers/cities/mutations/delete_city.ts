@@ -1,6 +1,6 @@
 import { Context } from '../../../../types/setup/context'
 import { City, DeleteCityArgs } from '../../../../types/City'
-import { AuditLogAction } from '../../../../types/_enums/auditLogAction'
+import { AuditLogAction } from '../../../../types/_enumsBackend/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 import { auditArgs } from '../../../_utils/helpers/returnAuditArgs'
 

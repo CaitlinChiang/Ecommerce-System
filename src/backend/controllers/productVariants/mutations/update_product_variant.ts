@@ -3,9 +3,9 @@ import {
   ProductVariant,
   UpdateProductVariantArgs
 } from '../../../../types/productVariant'
-import { UploadImageType } from '../../../../types/_enums/uploadImageType'
-import { MutateAction } from '../../../../types/_enums/mutateAction'
-import { AuditLogAction } from '../../../../types/_enums/auditLogAction'
+import { UploadImageType } from '../../../../types/_enumsBackend/uploadImageType'
+import { MutateAction } from '../../../../types/_enumsBackend/mutateAction'
+import { AuditLogAction } from '../../../../types/_enumsBackend/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 import { mutationArgs } from '../../../_utils/helpers/returnMutationArgs'
 import { auditArgs } from '../../../_utils/helpers/returnAuditArgs'

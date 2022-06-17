@@ -1,4 +1,4 @@
-import { StockQuantityOperator } from '../../../types/_enums/stockQuantityOperator'
+import { StockQuantityOperator } from '../../../types/_enumsBackend/stockQuantityOperator'
 
 export const queryArgs = (args: any): any => {
   const { dateRange, paginateData, stockQuantity, ...specificArgs } = args

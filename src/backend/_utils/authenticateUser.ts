@@ -1,6 +1,6 @@
 import { Context } from '../../types/setup/context'
 import { UserPermissionArgs } from '../../types/user'
-import { UserType } from '../../types/_enums/userType'
+import { UserType } from '../../types/_enumsBackend/userType'
 import { AuthenticationError } from 'apollo-server-express'
 
 export const authenticateUser = async (
