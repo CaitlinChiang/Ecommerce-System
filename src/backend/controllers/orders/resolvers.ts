@@ -7,9 +7,14 @@ import {
   returnProductIds,
   returnProductVariantIds
 } from '../../_utils/helpers/returnIdsArray'
+import { formatDateTime } from '../../_utils/helpers/formatDateTime'
 
 export default {
   Order: {
+    createdAt: async (args: Order): Promise<string> => {
+      return formatDateTime(args?.createdAt)
+    },
+
     payment: async (args: Order, context: Context): Promise<Payment> => {
       const payment: Payment = await context.database.payments.findOne({
         _orderId: args._id
@@ -32,6 +37,10 @@ export default {
         _id: { $in: returnProductVariantIds(args.items) }
       })
       return productVariants
+    },
+
+    updatedAt: async (args: Order): Promise<string> => {
+      return formatDateTime(args?.updatedAt)
     }
   }
 }
