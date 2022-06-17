@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import { Review, DeleteReviewArgs } from '../../../../types/review'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
@@ -12,12 +13,12 @@ export default async (
   authenticateUser({ admin: true }, context)
 
   const review: any = await context.database.reviews.findOneAndDelete({
-    _id: args._id
+    _id: new ObjectId(args._id)
   })
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.DELETE_REVIEW,
-    reviewId: args._id,
+    reviewId: new ObjectId(args._id),
     ...auditArgs(context)
   })
 

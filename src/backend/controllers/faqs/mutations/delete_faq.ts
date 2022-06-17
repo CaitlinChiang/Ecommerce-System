@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import { FAQ, DeleteFAQArgs } from '../../../../types/faq'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
@@ -12,12 +13,12 @@ export default async (
   authenticateUser({ admin: true }, context)
 
   const faq: any = await context.database.faqs.findOneAndDelete({
-    _id: args._id
+    _id: new ObjectId(args._id)
   })
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.DELETE_FAQ,
-    faqId: args._id,
+    faqId: new ObjectId(args._id),
     ...auditArgs(args)
   })
 

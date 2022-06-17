@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import {
   ProductVariant,
@@ -19,12 +20,12 @@ export default async (
 
   const productVariant: any =
     await context.database.productVariants.findOneAndDelete({
-      _id: args._id
+      _id: new ObjectId(args._id)
     })
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.DELETE_PRODUCT_VARIANT,
-    productVariantId: args._id,
+    productVariantId: new ObjectId(args._id),
     ...auditArgs(context)
   })
 

@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import { User, DeleteUserArgs } from '../../../../types/user'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
@@ -11,14 +12,14 @@ export default async (
 ): Promise<User> => {
   authenticateUser({ admin: true }, context)
 
-  await context.database.auditLogs.insertOne({
-    action: AuditLogAction.DELETE_USER,
-    userId: args._id,
-    ...auditArgs(context)
+  const user: any = await context.database.users.findOneAndDelete({
+    _id: new ObjectId(args._id)
   })
 
-  const user: any = await context.database.users.findOneAndDelete({
-    _id: args._id
+  await context.database.auditLogs.insertOne({
+    action: AuditLogAction.DELETE_USER,
+    userId: new ObjectId(args._id),
+    ...auditArgs(context)
   })
 
   return user

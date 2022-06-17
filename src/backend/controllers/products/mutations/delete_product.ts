@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import { Product, DeleteProductArgs } from '../../../../types/product'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
@@ -15,12 +16,12 @@ export default async (
   await deleteImage(args.imageUrl)
 
   const product: any = await context.database.products.findOneAndDelete({
-    _id: args._id
+    _id: new ObjectId(args._id)
   })
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.DELETE_PRODUCT,
-    productId: args._id,
+    productId: new ObjectId(args._id),
     ...auditArgs(context)
   })
 
