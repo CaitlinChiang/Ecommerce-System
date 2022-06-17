@@ -4,21 +4,25 @@ import { formatDateTime } from '../../_utils/helpers/formatDateTime'
 
 export default {
   ProductVariant: {
-    createdAt: async (args: ProductVariant): Promise<string> => {
-      return formatDateTime(args?.createdAt)
+    createdAt: async (productVariant: ProductVariant): Promise<string> => {
+      return formatDateTime(productVariant?.createdAt)
     },
 
-    imageUrl: async (args: ProductVariant, context: Context): Promise<string> => {
-      if (args?.imageUrl?.length == 0) {
+    imageUrl: async (
+      productVariant: ProductVariant,
+      args: undefined,
+      context: Context
+    ): Promise<string> => {
+      if (productVariant?.imageUrl?.length == 0) {
         const product: any = await context.database.products.findOne({
-          _id: args._productId
+          _id: productVariant._productId
         })
         return product.imageUrl
       }
     },
 
-    updatedAt: async (args: ProductVariant): Promise<string> => {
-      return formatDateTime(args?.updatedAt)
+    updatedAt: async (productVariant: ProductVariant): Promise<string> => {
+      return formatDateTime(productVariant?.updatedAt)
     }
   }
 }

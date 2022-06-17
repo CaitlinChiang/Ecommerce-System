@@ -11,36 +11,45 @@ import { formatDateTime } from '../../_utils/helpers/formatDateTime'
 
 export default {
   Order: {
-    createdAt: async (args: Order): Promise<string> => {
-      return formatDateTime(args?.createdAt)
+    createdAt: async (order: Order): Promise<string> => {
+      return formatDateTime(order?.createdAt)
     },
 
-    payment: async (args: Order, context: Context): Promise<Payment> => {
+    payment: async (
+      order: Order,
+      args: undefined,
+      context: Context
+    ): Promise<Payment> => {
       const payment: Payment = await context.database.payments.findOne({
-        _orderId: args._id
+        _orderId: order._id
       })
       return payment
     },
 
-    products: async (args: Order, context: Context): Promise<Product[]> => {
+    products: async (
+      order: Order,
+      args: undefined,
+      context: Context
+    ): Promise<Product[]> => {
       const products: any = await context.database.products.find({
-        _id: { $in: returnProductIds(args.items) }
+        _id: { $in: returnProductIds(order.items) }
       })
       return products
     },
 
     productVariants: async (
-      args: Order,
+      order: Order,
+      args: undefined,
       context: Context
     ): Promise<ProductVariant[]> => {
       const productVariants: any = await context.database.productVariants.find({
-        _id: { $in: returnProductVariantIds(args.items) }
+        _id: { $in: returnProductVariantIds(order.items) }
       })
       return productVariants
     },
 
-    updatedAt: async (args: Order): Promise<string> => {
-      return formatDateTime(args?.updatedAt)
+    updatedAt: async (order: Order): Promise<string> => {
+      return formatDateTime(order?.updatedAt)
     }
   }
 }

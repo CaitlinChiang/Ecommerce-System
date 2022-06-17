@@ -3,12 +3,12 @@ import { formatDateTime } from '../../_utils/helpers/formatDateTime'
 
 export default {
   PaymentMethod: {
-    createdAt: async (args: PaymentMethod): Promise<string> => {
-      return formatDateTime(args?.createdAt)
+    createdAt: async (paymentMethod: PaymentMethod): Promise<string> => {
+      return formatDateTime(paymentMethod?.createdAt)
     },
 
-    updatedAt: async (args: PaymentMethod): Promise<string> => {
-      return formatDateTime(args?.updatedAt)
+    updatedAt: async (paymentMethod: PaymentMethod): Promise<string> => {
+      return formatDateTime(paymentMethod?.updatedAt)
     }
   }
 }

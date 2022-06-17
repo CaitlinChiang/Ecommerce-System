@@ -5,21 +5,29 @@ import { formatDateTime } from '../../_utils/helpers/formatDateTime'
 
 export default {
   Product: {
-    category: async (args: Product, context: Context): Promise<string> => {
+    category: async (
+      product: Product,
+      args: undefined,
+      context: Context
+    ): Promise<string> => {
       const category: any = await context.database.productCategories.findOne({
-        _id: args.categoryId
+        _id: product.categoryId
       })
       return category.name
     },
 
-    createdAt: async (args: Product): Promise<string> => {
-      return formatDateTime(args?.createdAt)
+    createdAt: async (product: Product): Promise<string> => {
+      return formatDateTime(product?.createdAt)
     },
 
-    stockQuantity: async (args: Product, context: Context): Promise<number> => {
+    stockQuantity: async (
+      product: Product,
+      args: undefined,
+      context: Context
+    ): Promise<number> => {
       const productVariants: any = await context.database.productVariants
         .find({
-          _productId: args._id
+          _productId: product._id
         })
         .map((productVariant: ProductVariant): ProductVariant => productVariant)
 
@@ -35,12 +43,12 @@ export default {
         )
       }
 
-      if (productVariants.length == 0) return args.stockQuantity
+      if (productVariants.length == 0) return product.stockQuantity
       return getProductVariantsStockQuantities()
     },
 
-    updatedAt: async (args: Product): Promise<string> => {
-      return formatDateTime(args?.updatedAt)
+    updatedAt: async (product: Product): Promise<string> => {
+      return formatDateTime(product?.updatedAt)
     }
   }
 }

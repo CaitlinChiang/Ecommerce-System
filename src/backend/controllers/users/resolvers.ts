@@ -3,12 +3,12 @@ import { formatDateTime } from '../../_utils/helpers/formatDateTime'
 
 export default {
   User: {
-    createdAt: async (args: User): Promise<string> => {
-      return formatDateTime(args?.createdAt)
+    createdAt: async (user: User): Promise<string> => {
+      return formatDateTime(user?.createdAt)
     },
 
-    updatedAt: async (args: User): Promise<string> => {
-      return formatDateTime(args?.updatedAt)
+    updatedAt: async (user: User): Promise<string> => {
+      return formatDateTime(user?.updatedAt)
     }
   }
 }

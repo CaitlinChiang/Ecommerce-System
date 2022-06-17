@@ -9,25 +9,30 @@ import {
 
 export default {
   Cart: {
-    products: async (args: Cart, context: Context): Promise<Product[]> => {
+    products: async (
+      cart: Cart,
+      args: undefined,
+      context: Context
+    ): Promise<Product[]> => {
       const products: any = await context.database.products.find({
-        _id: { $in: returnProductIds(args.items) }
+        _id: { $in: returnProductIds(cart.items) }
       })
       return products
     },
 
     productVariants: async (
-      args: Cart,
+      cart: Cart,
+      args: undefined,
       context: Context
     ): Promise<ProductVariant[]> => {
       const productVariants: any = await context.database.productVariants.find({
-        _id: { $in: returnProductVariantIds(args.items) }
+        _id: { $in: returnProductVariantIds(cart.items) }
       })
       return productVariants
     },
 
-    quantity: async (args: Cart): Promise<number> => {
-      const itemsQuantity: number = args.items.reduce(
+    quantity: async (cart: Cart): Promise<number> => {
+      const itemsQuantity: number = cart.items.reduce(
         (totalQuantity: number, currentProduct: CartItem): number => {
           return totalQuantity + currentProduct.quantity
         },
@@ -36,8 +41,8 @@ export default {
       return itemsQuantity
     },
 
-    totalPrice: async (args: Cart): Promise<number> => {
-      const itemsTotalPrice: number = args.items.reduce(
+    totalPrice: async (cart: Cart): Promise<number> => {
+      const itemsTotalPrice: number = cart.items.reduce(
         (totalPrice: number, currentProduct: CartItem): number => {
           return totalPrice + currentProduct.totalPrice
         },

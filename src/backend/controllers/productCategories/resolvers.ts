@@ -3,12 +3,12 @@ import { formatDateTime } from '../../_utils/helpers/formatDateTime'
 
 export default {
   ProductCategory: {
-    createdAt: async (args: ProductCategory): Promise<string> => {
-      return formatDateTime(args?.createdAt)
+    createdAt: async (productCategory: ProductCategory): Promise<string> => {
+      return formatDateTime(productCategory?.createdAt)
     },
 
-    updatedAt: async (args: ProductCategory): Promise<string> => {
-      return formatDateTime(args?.updatedAt)
+    updatedAt: async (productCategory: ProductCategory): Promise<string> => {
+      return formatDateTime(productCategory?.updatedAt)
     }
   }
 }
