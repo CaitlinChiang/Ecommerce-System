@@ -1,4 +1,3 @@
-import { ObjectId } from 'mongodb'
 import { Context } from '../../../types/setup/context'
 import { Product } from '../../../types/product'
 import { ProductVariant } from '../../../types/productVariant'
@@ -7,7 +6,7 @@ import { formatDateTime } from '../../_utils/helpers/formatDateTime'
 export default {
   Product: {
     category: async (args: Product, context: Context): Promise<string> => {
-      const category: any = await context.database.productCategories.find({
+      const category: any = await context.database.productCategories.findOne({
         _id: args.categoryId
       })
       return category.name
@@ -20,7 +19,7 @@ export default {
     stockQuantity: async (args: Product, context: Context): Promise<number> => {
       const productVariants: any = await context.database.productVariants
         .find({
-          _productId: new ObjectId(args._id)
+          _productId: args._id
         })
         .map((productVariant: ProductVariant): ProductVariant => productVariant)
 

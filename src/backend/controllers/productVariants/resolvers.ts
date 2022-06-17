@@ -10,7 +10,7 @@ export default {
 
     imageUrl: async (args: ProductVariant, context: Context): Promise<string> => {
       if (args?.imageUrl?.length == 0) {
-        const product: any = await context.database.products.find({
+        const product: any = await context.database.products.findOne({
           _id: args._productId
         })
         return product.imageUrl
