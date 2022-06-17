@@ -11,8 +11,8 @@ export const searchData = (
 
   fetchMore({
     variables: {
-      ...specificArgs,
       ...paginateDataArgs,
+      ...specificArgs,
       offset: Number(page * paginateDataArgs.rowsPerPage)
     },
     updateQuery: (prev: any, { fetchMoreResult }: any) => {

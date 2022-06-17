@@ -22,8 +22,8 @@ import { searchData } from '../__helpers/searchData'
 import { formatTableHeader } from '../__helpers/formatTableHeaders'
 
 enum SortDirection {
-  ASC = 'ASC',
-  DESC = 'DESC'
+  ASC = 'asc',
+  DESC = 'desc'
 }
 
 const TableComponent = ({
@@ -64,6 +64,8 @@ const TableComponent = ({
   specificArgs?: any
 }): ReactElement => {
   const { rowsPerPage, searchText, sortBy, sortDirection } = paginateDataArgs
+
+  console.log(paginateDataArgs)
 
   useEffect(() => {
     setPage(0)
@@ -134,7 +136,10 @@ const TableComponent = ({
             onRowsPerPageChange={async (e): Promise<void> => {
               const newRowsPerPage = Number(e.target.value)
               setPage(0)
-              setPaginateDataArgs({ rowsPerPage: newRowsPerPage })
+              setPaginateDataArgs({
+                ...paginateDataArgs,
+                rowsPerPage: newRowsPerPage
+              })
             }}
             onPageChange={async (_e, newPage: number): Promise<void> => {
               window.scrollTo(0, 0)
@@ -160,6 +165,7 @@ const TableComponent = ({
                       direction={sortDirection || SortDirection.DESC}
                       onClick={(): void => {
                         setPaginateDataArgs({
+                          ...paginateDataArgs,
                           sortBy: header,
                           sortDirection:
                             sortDirection === SortDirection.ASC
@@ -175,7 +181,7 @@ const TableComponent = ({
               })}
             </TableRow>
           </TableHead>
-          <TableBody>{rows.map((row: any): ReactElement => row)}</TableBody>
+          <TableBody>{rows}</TableBody>
         </Table>
       </TableContainer>
     </>
