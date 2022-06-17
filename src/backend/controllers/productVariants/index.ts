@@ -1,7 +1,7 @@
 import * as typeDefs from './typeDefs.graphql'
+import resolvers from './resolvers'
 import mutations from './mutations'
 import queries from './queries'
-import resolvers from './resolvers'
 
 export default {
   typeDefs,

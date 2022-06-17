@@ -1,6 +1,7 @@
 import { Context } from '../../../types/setup/context'
 import { Product } from '../../../types/product'
 import { ProductVariant } from '../../../types/productVariant'
+import { formatDateTime } from '../../_utils/helpers/formatDateTime'
 
 export default {
   Product: {
@@ -9,6 +10,10 @@ export default {
         _id: args.categoryId
       })
       return category.name
+    },
+
+    createdAt: async (args: Product): Promise<string> => {
+      return formatDateTime(args?.createdAt)
     },
 
     stockQuantity: async (args: Product, context: Context): Promise<number> => {
@@ -32,6 +37,10 @@ export default {
 
       if (productVariants.length == 0) return args.stockQuantity
       return getProductVariantsStockQuantities()
+    },
+
+    updatedAt: async (args: Product): Promise<string> => {
+      return formatDateTime(args?.updatedAt)
     }
   }
 }
