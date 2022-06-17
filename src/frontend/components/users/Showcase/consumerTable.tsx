@@ -7,7 +7,6 @@ import { PaginateDataArgs } from '../../../../types/actions/paginateData'
 import { SortDirection } from '../../__enums/sortDirection'
 import { UserType } from '../../__enums/userType'
 import TableComponent from '../../_common/TableComponent'
-import { formatDateTime } from '../../__helpers/formatDateTime'
 
 const ConsumerTable = (): ReactElement => {
   const [page, setPage] = useState<number>(0)
@@ -42,7 +41,7 @@ const ConsumerTable = (): ReactElement => {
           <TableCell align={'center'}>{user?.lastName}</TableCell>
           <TableCell align={'center'}>{user?.email}</TableCell>
           <TableCell align={'center'}>{user?.phoneNumber}</TableCell>
-          <TableCell align={'center'}>{formatDateTime(user?.createdAt)}</TableCell>
+          <TableCell align={'center'}>{user?.createdAt}</TableCell>
         </TableRow>
       )
     })
