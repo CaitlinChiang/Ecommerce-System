@@ -4,6 +4,7 @@ export interface WebsiteText {
   _id?: ObjectId
   content?: string
   type?: string
+  updatedAt?: Date
 }
 
 export interface GetWebsiteTextArgs {
