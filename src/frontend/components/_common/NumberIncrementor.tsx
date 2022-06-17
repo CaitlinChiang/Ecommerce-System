@@ -2,12 +2,7 @@ import { ReactElement } from 'react'
 import { IconButton, Typography } from '@mui/material'
 import AddBoxIcon from '@mui/icons-material/AddBox'
 import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox'
-import { QuantityChange } from '../../../types/_enumsBackend/quantityChange'
-
-// enum QuantityChange {
-//   INCREMENT = 'INCREMENT',
-//   DECREMENT = 'DECREMENT'
-// }
+import { QuantityChange } from '../../../types/_enumsFrontend/quantityChange'
 
 const NumberIncrementor = ({
   setValue,

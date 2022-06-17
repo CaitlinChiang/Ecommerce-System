@@ -4,19 +4,9 @@ import query from './query'
 import { TableCell, TableRow } from '@mui/material'
 import { User } from '../../../../types/user'
 import { PaginateDataArgs } from '../../../../types/actions/paginateData'
-// import { SortDirection } from '../../../../types/_frontendEnums/sortDirection'
-// import { UserType } from '../../../../types/_frontendEnums/userType'
+import { SortDirection } from '../../../../types/_enumsFrontend/sortDirection'
+import { UserType } from '../../../../types/_enumsFrontend/userType'
 import TableComponent from '../../_common/TableComponent'
-
-enum SortDirection {
-  ASC = 'ASC',
-  DESC = 'DESC'
-}
-
-enum UserType {
-  ADMIN = 'ADMIN',
-  CONSUMER = 'CONSUMER'
-}
 
 const ConsumerTable = (): ReactElement => {
   const [page, setPage] = useState<number>(0)

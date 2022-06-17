@@ -15,16 +15,11 @@ import {
 } from '@mui/material'
 import FilterListIcon from '@mui/icons-material/FilterList'
 import { PaginateDataArgs } from '../../../types/actions/paginateData'
-// import { SortDirection } from '../../../types/_frontendEnums/sortDirection'
+import { SortDirection } from '../../../types/_enumsFrontend/sortDirection'
 import ModalComponent from './ModalComponent'
 import SearchField from './SearchField'
 import { searchData } from '../__helpers/searchData'
 import { formatTableHeader } from '../__helpers/formatTableHeaders'
-
-enum SortDirection {
-  ASC = 'asc',
-  DESC = 'desc'
-}
 
 const TableComponent = ({
   count,
