@@ -1,4 +1,4 @@
-import { PaginateDataArgs } from '../../../types/actions/paginateData'
+import { PaginateDataArgs } from '../../types/actions/paginateData'
 
 export const searchData = (
   fetchMore: any,

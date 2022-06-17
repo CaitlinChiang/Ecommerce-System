@@ -15,11 +15,11 @@ import {
 } from '@mui/material'
 import FilterListIcon from '@mui/icons-material/FilterList'
 import { PaginateDataArgs } from '../../../types/actions/paginateData'
-import { SortDirection } from '../__enums/sortDirection'
+import { SortDirection } from '../../_enums/sortDirection'
 import ModalComponent from './ModalComponent'
 import SearchField from './SearchField'
-import { searchData } from '../__helpers/searchData'
-import { formatTableHeader } from '../__helpers/formatTableHeaders'
+import { searchData } from '../../_utils/searchData'
+import { formatTableHeader } from '../../_utils/formatTableHeaders'
 
 const TableComponent = ({
   count,

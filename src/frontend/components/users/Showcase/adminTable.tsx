@@ -4,11 +4,11 @@ import query from './query'
 import { TableCell, TableRow } from '@mui/material'
 import { User } from '../../../../types/user'
 import { PaginateDataArgs } from '../../../../types/actions/paginateData'
-import { SortDirection } from '../../__enums/sortDirection'
-import { UserType } from '../../__enums/userType'
+import { SortDirection } from '../../../_enums/sortDirection'
+import { UserType } from '../../../_enums/userType'
 import TableComponent from '../../_common/TableComponent'
 import DeleteUserButton from '../Delete/deleteButton'
-import { tableArgs } from '../../__helpers/returnTableArgs'
+import { tableArgs } from '../../../_utils/returnTableArgs'
 
 const AdminTable = (): ReactElement => {
   const [page, setPage] = useState<number>(0)
