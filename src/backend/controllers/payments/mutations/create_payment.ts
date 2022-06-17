@@ -12,9 +12,9 @@ import { uploadImage } from '../../../_utils/handleImages/upload'
 export const createPayment = async (
   context: Context,
   orderId: ObjectId,
-  payment: CreatePaymentArgs
+  paymentArgs: CreatePaymentArgs
 ) => {
-  const { imageProof, ...modifiedArgs } = payment
+  const { imageProof, ...modifiedArgs } = paymentArgs
 
   const imageProofUrl = await uploadImage({
     imageType: UploadImageType.PAYMENT,
@@ -22,16 +22,16 @@ export const createPayment = async (
     orderId: String(orderId)
   })
 
-  await context.database.payments.insertOne({
+  const payment: any = await context.database.payments.insertOne({
     ...mutationArgs(modifiedArgs, MutateAction.CREATE),
-    _orderId: new ObjectId(orderId),
+    _orderId: orderId,
     imageProofUrl,
     status: PaymentStatus.COMPLETE
   })
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.CREATE_ORDER_PAYMENT,
-    paymentId: new ObjectId(orderId),
+    paymentId: payment._id,
     ...auditArgs(context)
   })
 }
