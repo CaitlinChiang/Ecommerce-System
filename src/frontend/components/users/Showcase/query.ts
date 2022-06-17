@@ -12,6 +12,7 @@ export default gql`
       firstName
       lastName
       phoneNumber
+      createdAt
     }
 
     get_users_count(paginateData: $paginateData, type: $type)

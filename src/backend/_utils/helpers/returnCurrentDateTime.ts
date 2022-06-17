@@ -1,4 +1,4 @@
-export const currentDateTime = () => {
+export const currentDateTime = (): Date => {
   const date = new Date()
   const localDate = date.toLocaleString('en-US', { timeZone: 'Asia/Manila' })
 

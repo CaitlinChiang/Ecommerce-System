@@ -7,6 +7,7 @@ import { PaginateDataArgs } from '../../../../types/actions/paginateData'
 import { SortDirection } from '../../__enums/sortDirection'
 import { UserType } from '../../__enums/userType'
 import TableComponent from '../../_common/TableComponent'
+import { formatDateTime } from '../../__helpers/formatDateTime'
 
 const ConsumerTable = (): ReactElement => {
   const [page, setPage] = useState<number>(0)
@@ -36,11 +37,12 @@ const ConsumerTable = (): ReactElement => {
   const userRows = [
     users?.map((user: User): ReactElement => {
       return (
-        <TableRow>
+        <TableRow sx={{ align: 'center' }}>
           <TableCell align={'center'}>{user?.firstName}</TableCell>
           <TableCell align={'center'}>{user?.lastName}</TableCell>
           <TableCell align={'center'}>{user?.email}</TableCell>
           <TableCell align={'center'}>{user?.phoneNumber}</TableCell>
+          <TableCell align={'center'}>{formatDateTime(user?.createdAt)}</TableCell>
         </TableRow>
       )
     })
@@ -50,7 +52,7 @@ const ConsumerTable = (): ReactElement => {
     <TableComponent
       count={usersCount}
       fetchMore={fetchMore}
-      headers={['firstName', 'lastName', 'email', 'phoneNumber']}
+      headers={['firstName', 'lastName', 'email', 'phoneNumber', 'createdAt']}
       loading={loading}
       page={page}
       paginateDataArgs={paginateDataArgs}
