@@ -8,8 +8,8 @@ export default {
       return formatDateTime(args?.createdAt)
     },
 
-    createdBy: async (args: AuditLog, context: Context): Promise<string> => {
-      const user: any = await context.database.users.find({ _id: args.createdBy })
+    createdByEmail: async (args: AuditLog, context: Context): Promise<string> => {
+      const user: any = await context.database.users.findOne({ _id: args.createdBy })
       return user?.email
     }
   }

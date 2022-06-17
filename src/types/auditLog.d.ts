@@ -18,10 +18,10 @@ export interface AuditLog {
   websiteTextId?: ObjectId
   createdAt?: Date
   createdBy?: ObjectId
+  createdByEmail?: string
 }
 
 export interface GetAuditLogArgs {
-  action?: string
   orderId?: ObjectId
   paginateData?: PaginateDataArgs
   paymentId?: ObjectId

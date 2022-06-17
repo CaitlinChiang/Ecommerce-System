@@ -8,11 +8,11 @@ type AuditLog {
   userId: ID
   createdAt: String
   createdBy: ID
+  createdByEmail: String
 }
 
 extend type Query {
   get_audit_logs(
-    action: String
     dateRange: DateRangeInput
     orderId: ID
     paginateData: PaginateDataInput
@@ -20,7 +20,6 @@ extend type Query {
   ): AuditLog
 
   get_audit_logs_count(
-    action: String
     dateRange: DateRangeInput
     orderId: ID
     paginateData: PaginateDataInput
