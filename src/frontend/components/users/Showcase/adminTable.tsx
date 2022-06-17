@@ -1,7 +1,7 @@
 import { ReactElement, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import query from './query'
-import { TableCell } from '@mui/material'
+import { TableCell, TableRow } from '@mui/material'
 import { User } from '../../../../types/user'
 import { PaginateDataArgs } from '../../../../types/actions/paginateData'
 // import { SortDirection } from '../../../../types/_frontendEnums/sortDirection'
@@ -46,12 +46,12 @@ const AdminTable = (): ReactElement => {
   const userRows = [
     users?.map((user: User): ReactElement => {
       return (
-        <>
+        <TableRow>
           <TableCell align={'center'}>{user?.firstName}</TableCell>
           <TableCell align={'center'}>{user?.lastName}</TableCell>
           <TableCell align={'center'}>{user?.email}</TableCell>
           <TableCell align={'center'}>{user?.phoneNumber}</TableCell>
-        </>
+        </TableRow>
       )
     })
   ]
