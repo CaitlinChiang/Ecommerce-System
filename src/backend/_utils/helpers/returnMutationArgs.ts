@@ -1,7 +1,7 @@
 import { MutateAction } from '../../../types/_enums/mutateAction'
 
 export const mutationArgs = (args: any, action: MutateAction): any => {
-  const modifiedArgs: any = { args }
+  const modifiedArgs: any = { ...args }
 
   switch (action) {
     case MutateAction.CREATE:
