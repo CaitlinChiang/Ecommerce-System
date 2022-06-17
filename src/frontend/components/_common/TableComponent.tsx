@@ -65,8 +65,6 @@ const TableComponent = ({
 }): ReactElement => {
   const { rowsPerPage, searchText, sortBy, sortDirection } = paginateDataArgs
 
-  console.log(paginateDataArgs)
-
   useEffect(() => {
     setPage(0)
   }, [searchText, sortBy])
