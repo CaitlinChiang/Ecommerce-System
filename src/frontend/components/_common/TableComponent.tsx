@@ -15,7 +15,7 @@ import {
 } from '@mui/material'
 import FilterListIcon from '@mui/icons-material/FilterList'
 import { PaginateDataArgs } from '../../../types/actions/paginateData'
-import { SortDirection } from '../../../types/_enumsFrontend/sortDirection'
+import { SortDirection } from '../__enums/sortDirection'
 import ModalComponent from './ModalComponent'
 import SearchField from './SearchField'
 import { searchData } from '../__helpers/searchData'

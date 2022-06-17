@@ -4,8 +4,8 @@ import query from './query'
 import { TableCell, TableRow } from '@mui/material'
 import { User } from '../../../../types/user'
 import { PaginateDataArgs } from '../../../../types/actions/paginateData'
-import { SortDirection } from '../../../../types/_enumsFrontend/sortDirection'
-import { UserType } from '../../../../types/_enumsFrontend/userType'
+import { SortDirection } from '../../__enums/sortDirection'
+import { UserType } from '../../__enums/userType'
 import TableComponent from '../../_common/TableComponent'
 
 const AdminTable = (): ReactElement => {
