@@ -17,7 +17,7 @@ extend type Query {
     orderId: ID
     paginateData: PaginateDataInput
     paymentId: ID
-  ): AuditLog
+  ): [AuditLog]
 
   get_audit_logs_count(
     dateRange: DateRangeInput
