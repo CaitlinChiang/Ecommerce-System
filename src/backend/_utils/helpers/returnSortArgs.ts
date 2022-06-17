@@ -1,5 +1,5 @@
 import { PaginateDataArgs } from '../../../types/actions/paginateData'
-import { SortDirection } from '../../../types/_enumsBackend/sortDirection'
+import { SortDirection } from '../../_enums/sortDirection'
 
 export const sortArgs = (paginateData: PaginateDataArgs) => {
   const { sortBy, sortDirection } = paginateData

@@ -1,4 +1,4 @@
-import { MutateAction } from '../../../types/_enumsBackend/mutateAction'
+import { MutateAction } from '../../_enums/mutateAction'
 
 export const mutationArgs = (args: any, action: MutateAction): any => {
   const modifiedArgs: any = { ...args }

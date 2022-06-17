@@ -3,7 +3,7 @@ import {
   PaymentMethod,
   DeletePaymentMethodArgs
 } from '../../../../types/paymentMethod'
-import { AuditLogAction } from '../../../../types/_enumsBackend/auditLogAction'
+import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 import { auditArgs } from '../../../_utils/helpers/returnAuditArgs'
 

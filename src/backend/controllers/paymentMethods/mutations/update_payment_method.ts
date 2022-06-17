@@ -3,8 +3,8 @@ import {
   PaymentMethod,
   UpdatePaymentMethodArgs
 } from '../../../../types/paymentMethod'
-import { MutateAction } from '../../../../types/_enumsBackend/mutateAction'
-import { AuditLogAction } from '../../../../types/_enumsBackend/auditLogAction'
+import { MutateAction } from '../../../_enums/mutateAction'
+import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 import { mutationArgs } from '../../../_utils/helpers/returnMutationArgs'
 import { auditArgs } from '../../../_utils/helpers/returnAuditArgs'

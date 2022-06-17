@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
-import { AuditLogAction } from '../../../../types/_enumsBackend/auditLogAction'
+import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { auditArgs } from '../../../_utils/helpers/returnAuditArgs'
 import { deleteImage } from '../../../_utils/handleImages/delete'
 

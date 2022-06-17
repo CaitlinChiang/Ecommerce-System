@@ -1,6 +1,6 @@
 import { Context } from '../../../../types/setup/context'
 import { Product, DeleteProductArgs } from '../../../../types/product'
-import { AuditLogAction } from '../../../../types/_enumsBackend/auditLogAction'
+import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 import { deleteImage } from '../../../_utils/handleImages/delete'
 import { auditArgs } from '../../../_utils/helpers/returnAuditArgs'

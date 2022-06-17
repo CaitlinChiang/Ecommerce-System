@@ -1,7 +1,7 @@
 const cloudinary = require('../setup/cloudinary')
 
 import { UploadImageArgs } from '../../../types/actions/uploadImage'
-import { UploadImageType } from '../../../types/_enumsBackend/uploadImageType'
+import { UploadImageType } from '../../_enums/uploadImageType'
 
 export const uploadImage = async (args: UploadImageArgs): Promise<string> => {
   if (!args.image) return
