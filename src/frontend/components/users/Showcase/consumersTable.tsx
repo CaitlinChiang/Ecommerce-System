@@ -32,7 +32,7 @@ const ConsumersTable = (): ReactElement => {
   const userRows = [
     users?.map((user: User): ReactElement => {
       return (
-        <TableRow sx={{ align: 'center' }}>
+        <TableRow>
           <TableCell align={'center'}>{user?.firstName}</TableCell>
           <TableCell align={'center'}>{user?.lastName}</TableCell>
           <TableCell align={'center'}>{user?.email}</TableCell>
