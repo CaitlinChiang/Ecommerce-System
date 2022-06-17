@@ -8,7 +8,7 @@ export const currentDateTime = (): Date => {
   return new Date(formattedDate + formattedTime)
 }
 
-const formatCurrentDate = (localDate: string) => {
+const formatCurrentDate = (localDate: string): string => {
   const currentDate = localDate.split(', ')[0]
   const splitDate = currentDate.split('/')
 
@@ -19,7 +19,7 @@ const formatCurrentDate = (localDate: string) => {
   return year + '-' + month + '-' + day
 }
 
-const formatCurrentTime = (localDate: string) => {
+const formatCurrentTime = (localDate: string): string => {
   const currentTime = localDate.split(', ')[1].split(' ')[0]
   const currentTimeOfDay = localDate.split(', ')[1].split(' ')[1]
   const splitTime = currentTime.split(':')
@@ -33,7 +33,7 @@ const formatCurrentTime = (localDate: string) => {
   return 'T' + time + '.000+00:00'
 }
 
-const transformTo24HourTime = (hour: string, currentTimeOfDay: string) => {
+const transformTo24HourTime = (hour: string, currentTimeOfDay: string): string => {
   switch (currentTimeOfDay) {
     case 'AM':
       return addZeroIfNeeded(hour)
@@ -42,7 +42,7 @@ const transformTo24HourTime = (hour: string, currentTimeOfDay: string) => {
   }
 }
 
-const addZeroIfNeeded = (number: string) => {
+const addZeroIfNeeded = (number: string): string => {
   if (String(number).length === 1) {
     return '0' + number
   }
