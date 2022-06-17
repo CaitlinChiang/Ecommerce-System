@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import { FAQ, UpdateFAQArgs } from '../../../../types/faq'
 import { MutateAction } from '../../../_enums/mutateAction'
@@ -14,13 +15,13 @@ export default async (
   authenticateUser({ admin: true }, context)
 
   const faq: any = await context.database.faqs.findOneAndUpdate(
-    { _id: args._id },
+    { _id: new ObjectId(args._id) },
     mutationArgs(args, MutateAction.UPDATE)
   )
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.UPDATE_FAQ,
-    faqId: faq._id,
+    faqId: new ObjectId(faq._id),
     ...auditArgs(context)
   })
 

@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import {
   ProductCategory,
@@ -18,13 +19,13 @@ export default async (
 
   const productCategory: any =
     await context.database.productCategories.findOneAndUpdate(
-      { _id: args._id },
+      { _id: new ObjectId(args._id) },
       mutationArgs(args, MutateAction.UPDATE)
     )
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.UPDATE_PRODUCT_CATEGORY,
-    productCategoryId: productCategory._id,
+    productCategoryId: new ObjectId(productCategory._id),
     ...auditArgs(context)
   })
 

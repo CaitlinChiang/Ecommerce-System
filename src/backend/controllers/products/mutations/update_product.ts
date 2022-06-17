@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import { Product, UpdateProductArgs } from '../../../../types/product'
 import { UploadImageType } from '../../../_enums/uploadImageType'
@@ -27,7 +28,7 @@ export default async (
   })
 
   const product: any = await context.database.products.findOneAndUpdate(
-    { _id: args._id },
+    { _id: new ObjectId(args._id) },
     {
       ...mutationArgs(modifiedArgs, MutateAction.UPDATE),
       imageUrl: modifiedImageUrl
@@ -36,7 +37,7 @@ export default async (
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.UPDATE_PRODUCT,
-    productId: product._id,
+    productId: new ObjectId(product._id),
     ...auditArgs(context)
   })
 

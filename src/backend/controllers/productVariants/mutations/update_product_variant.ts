@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import {
   ProductVariant,
@@ -32,7 +33,7 @@ export default async (
 
   const productVariant: any =
     await context.database.productVariants.findOneAndUpdate(
-      { _id: args._id },
+      { _id: new ObjectId(args._id) },
       {
         ...mutationArgs(modifiedArgs, MutateAction.UPDATE),
         imageUrl: modifiedImageUrl
@@ -41,7 +42,7 @@ export default async (
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.UPDATE_PRODUCT_VARIANT,
-    productVariantId: productVariant._id,
+    productVariantId: new ObjectId(productVariant._id),
     ...auditArgs(context)
   })
 

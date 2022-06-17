@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import {
   ProductCategory,
@@ -14,7 +15,7 @@ export default async (
 
   const productCategory: ProductCategory =
     await context.database.productCategories.findOne({
-      _id: args._id
+      _id: new ObjectId(args._id)
     })
 
   return productCategory

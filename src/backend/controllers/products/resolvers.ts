@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import { Context } from '../../../types/setup/context'
 import { Product } from '../../../types/product'
 import { ProductVariant } from '../../../types/productVariant'
@@ -19,7 +20,7 @@ export default {
     stockQuantity: async (args: Product, context: Context): Promise<number> => {
       const productVariants: any = await context.database.productVariants
         .find({
-          _productId: args._id
+          _productId: new ObjectId(args._id)
         })
         .map((productVariant: ProductVariant): ProductVariant => productVariant)
 

@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import {
   PaymentMethod,
@@ -17,13 +18,13 @@ export default async (
   authenticateUser({ admin: true }, context)
 
   const paymentMethod: any = await context.database.paymentMethods.findOneAndUpdate(
-    { _id: args._id },
+    { _id: new ObjectId(args._id) },
     mutationArgs(args, MutateAction.UPDATE)
   )
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.UPDATE_PAYMENT_METHOD,
-    paymentMethodId: paymentMethod._id,
+    paymentMethodId: new ObjectId(paymentMethod._id),
     ...auditArgs(context)
   })
 

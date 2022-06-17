@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import { FAQ, GetFAQArgs } from '../../../../types/faq'
 import { authenticateUser } from '../../../_utils/authenticateUser'
@@ -9,7 +10,9 @@ export default async (
 ): Promise<FAQ> => {
   authenticateUser({ admin: true }, context)
 
-  const faq: FAQ = await context.database.faqs.findOne({ _id: args._id })
+  const faq: FAQ = await context.database.faqs.findOne({
+    _id: new ObjectId(args._id)
+  })
 
   return faq
 }

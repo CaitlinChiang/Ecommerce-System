@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import {
   ProductVariant,
@@ -14,7 +15,7 @@ export default async (
 
   const productVariant: ProductVariant =
     await context.database.productVariants.findOne({
-      _id: args._id
+      _id: new ObjectId(args._id)
     })
 
   return productVariant

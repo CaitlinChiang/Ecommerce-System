@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import { Review, UpdateReviewArgs } from '../../../../types/review'
 import { MutateAction } from '../../../_enums/mutateAction'
@@ -14,13 +15,13 @@ export default async (
   authenticateUser({ admin: true }, context)
 
   const review: any = await context.database.reviews.findOneAndUpdate(
-    { _id: args._id },
+    { _id: new ObjectId(args._id) },
     mutationArgs(args, MutateAction.UPDATE)
   )
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.UPDATE_REVIEW,
-    reviewId: review._id,
+    reviewId: new ObjectId(review._id),
     ...auditArgs(context)
   })
 

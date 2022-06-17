@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import { Payment, UpdatePaymentArgs } from '../../../../types/payment'
 import { UploadImageType } from '../../../_enums/uploadImageType'
@@ -27,7 +28,7 @@ export default async (
   })
 
   const payment: any = await context.database.payments.findOneAndUpdate(
-    { _orderId: args._orderId },
+    { _orderId: new ObjectId(args._orderId) },
     {
       ...mutationArgs(modifiedArgs, MutateAction.UPDATE),
       imageProof: modifiedImageUrl
@@ -36,7 +37,7 @@ export default async (
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.UPDATE_ORDER_PAYMENT,
-    paymentId: payment._id,
+    paymentId: new ObjectId(payment._id),
     ...auditArgs(context)
   })
 

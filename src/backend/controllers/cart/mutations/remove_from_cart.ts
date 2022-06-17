@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import { Cart, RemoveFromCartArgs } from '../../../../types/cart'
 import { authenticateUser } from '../../../_utils/authenticateUser'
@@ -14,8 +15,8 @@ export default async (
     {
       $pull: {
         items: {
-          productId: args?.productId,
-          productVariantId: args?.productVariantId
+          productId: new ObjectId(args?.productId),
+          productVariantId: new ObjectId(args?.productVariantId)
         }
       }
     }

@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 import { Context } from '../../../../types/setup/context'
 import { Product, GetProductArgs } from '../../../../types/product'
@@ -10,7 +11,7 @@ export default async (
   authenticateUser({ admin: false }, context)
 
   const product: Product = await context.database.products.findOne({
-    _id: args._id
+    _id: new ObjectId(args._id)
   })
 
   return product

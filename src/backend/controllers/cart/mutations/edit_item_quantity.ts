@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import { Cart, AddToCartArgs } from '../../../../types/cart'
 import { authenticateUser } from '../../../_utils/authenticateUser'
@@ -15,8 +16,8 @@ export default async (
       items: {
         $elemMatch: {
           $or: [
-            { productId: args?.productId },
-            { productVariantId: args?.productVariantId }
+            { productId: new ObjectId(args?.productId) },
+            { productVariantId: new ObjectId(args?.productVariantId) }
           ]
         }
       }

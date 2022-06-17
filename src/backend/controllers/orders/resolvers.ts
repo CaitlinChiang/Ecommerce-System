@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import { Context } from '../../../types/setup/context'
 import { Order } from '../../../types/order'
 import { Payment } from '../../../types/payment'
@@ -17,7 +18,7 @@ export default {
 
     payment: async (args: Order, context: Context): Promise<Payment> => {
       const payment: Payment = await context.database.payments.findOne({
-        _orderId: args._id
+        _orderId: new ObjectId(args._id)
       })
       return payment
     },
