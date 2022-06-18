@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import { MutateAction } from '../../_enums/mutateAction'
 import { currentDateTime } from './returnCurrentDateTime'
 
@@ -15,6 +16,16 @@ export const mutationArgs = (args: any, action: MutateAction): any => {
       modifiedArgs = { ...updateArgs, updatedAt: currentDateTime() }
       break
   }
+
+  Object.keys(modifiedArgs).forEach((key) => {
+    if (modifiedArgs[key] === null) {
+      delete modifiedArgs[key]
+    }
+
+    if (String(key).includes('Id')) {
+      modifiedArgs[key] = new ObjectId(modifiedArgs[key])
+    }
+  })
 
   return modifiedArgs
 }
