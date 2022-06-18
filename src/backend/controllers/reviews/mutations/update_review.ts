@@ -16,7 +16,7 @@ export default async (
 
   const review: any = await context.database.reviews.findOneAndUpdate(
     { _id: new ObjectId(args._id) },
-    mutationArgs(args, MutateAction.UPDATE)
+    { $set: mutationArgs(args, MutateAction.UPDATE) }
   )
 
   await context.database.auditLogs.insertOne({
