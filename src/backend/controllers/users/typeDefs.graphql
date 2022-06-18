@@ -37,11 +37,11 @@ extend type Mutation {
   ): User
 
   update_user(
-    active: Boolean!
+    active: Boolean
     address: DeliveryAddressInput
-    email: String!
-    password: String!
-    phoneNumber: String!
+    email: String
+    password: String
+    phoneNumber: String
   ): User
 
   delete_user(_id: ID!): User

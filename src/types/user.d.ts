@@ -48,11 +48,11 @@ export interface CreateUserArgs {
 
 export interface UpdateUserArgs {
   _id: ObjectId
-  active: boolean
+  active?: boolean
   address?: DeliveryAddress
-  email: string
-  password: string
-  phoneNumber: string
+  email?: string
+  password?: string
+  phoneNumber?: string
   updatedAt?: Date
 }
 
