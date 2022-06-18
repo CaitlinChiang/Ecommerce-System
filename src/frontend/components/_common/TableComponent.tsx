@@ -84,6 +84,7 @@ const TableComponent = ({
           setFilterOpen(false)
         }}
         open={filterOpen}
+        title={'Filters'}
       />
       {searchLabel && (
         <SearchField
