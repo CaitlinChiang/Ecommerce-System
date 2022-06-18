@@ -6,9 +6,10 @@ import { Review } from '../../../../types/review'
 import { PaginateDataArgs } from '../../../../types/actions/paginateData'
 import { SortDirection } from '../../../_enums/sortDirection'
 import TableComponent from '../../_common/TableComponent'
-import { tableArgs } from '../../../_utils/returnTableArgs'
 import UpdateReviewCheckbox from '../Update/updateCheckbox'
 import DeleteReviewButton from '../Delete/deleteButton'
+import SelectField from '../../_common/SelectField'
+import { tableArgs } from '../../../_utils/returnTableArgs'
 
 const ReviewsTable = (): ReactElement => {
   const [page, setPage] = useState<number>(0)
@@ -20,8 +21,9 @@ const ReviewsTable = (): ReactElement => {
     sortDirection: SortDirection.DESC
   })
   const [specificArgs, setSpecificArgs] = useState<any>({
-    featured: false
+    featured: null
   })
+  const [filterOpen, setFilterOpen] = useState<boolean>(false)
 
   const { data, loading, fetchMore } = useQuery(query, {
     variables: { paginateData: paginateDataArgs, ...specificArgs },
@@ -61,12 +63,28 @@ const ReviewsTable = (): ReactElement => {
     <TableComponent
       count={reviewsCount}
       fetchMore={fetchMore}
+      filterContent={
+        <SelectField
+          label={'Review Type'}
+          optionLabelProperty={'label'}
+          options={[
+            { label: 'All Reviews', featured: null },
+            { label: 'Featured Reviews', featured: true },
+            { label: 'Non-Featured Reviews', featured: false }
+          ]}
+          setSpecificArgs={setSpecificArgs}
+          specificArgs={specificArgs}
+          targetProperty={'featured'}
+        />
+      }
+      filterOpen={filterOpen}
       headers={['createdAt', 'username', 'content', 'featured', 'actions']}
       loading={loading}
       page={page}
       paginateDataArgs={paginateDataArgs}
       rows={reviewRows}
       rowsPerPageOptions={[10, 25, 50, 75, 100]}
+      setFilterOpen={setFilterOpen}
       setPage={setPage}
       setPaginateDataArgs={setPaginateDataArgs}
       specificArgs={specificArgs}
