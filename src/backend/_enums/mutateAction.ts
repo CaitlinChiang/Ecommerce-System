@@ -1,4 +1,5 @@
 export enum MutateAction {
   CREATE = 'CREATE',
-  UPDATE = 'UPDATE'
+  UPDATE = 'UPDATE',
+  DELETE = 'DELETE'
 }
