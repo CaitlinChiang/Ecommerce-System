@@ -1,13 +1,19 @@
 import { gql } from '@apollo/client'
 
 export default gql`
-  query ($_id: ID, $paginateData: PaginateDataInput, $type: String) {
+  query (
+    $_id: ID
+    $active: Boolean
+    $paginateData: PaginateDataInput
+    $type: String
+  ) {
     get_user(_id: $_id) {
       _id
     }
 
-    get_users(paginateData: $paginateData, type: $type) {
+    get_users(active: $active, paginateData: $paginateData, type: $type) {
       _id
+      active
       firstName
       lastName
       email
@@ -15,6 +21,6 @@ export default gql`
       createdAt
     }
 
-    get_users_count(paginateData: $paginateData, type: $type)
+    get_users_count(active: $active, paginateData: $paginateData, type: $type)
   }
 `

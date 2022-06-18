@@ -4,6 +4,7 @@ import { DeliveryAddress } from './common/deliveryAddress'
 
 export interface User {
   _id?: ObjectId
+  active?: boolean
   address?: DeliveryAddress
   email?: string
   firstName?: string
@@ -28,11 +29,13 @@ export interface SignInUserArgs {
 
 export interface GetUserArgs {
   _id?: ObjectId
+  active?: boolean
   paginateData?: PaginateDataArgs
   type?: string
 }
 
 export interface CreateUserArgs {
+  active: boolean
   address?: DeliveryAddress
   email: string
   firstName: string
@@ -45,6 +48,7 @@ export interface CreateUserArgs {
 
 export interface UpdateUserArgs {
   _id: ObjectId
+  active: boolean
   address?: DeliveryAddress
   email: string
   password: string

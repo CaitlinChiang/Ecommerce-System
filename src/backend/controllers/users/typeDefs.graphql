@@ -1,5 +1,6 @@
 type User {
   _id: ID
+  active: Boolean
   address: DeliveryAddress
   email: String
   firstName: String
@@ -16,15 +17,16 @@ type User {
 extend type Query {
   get_user(_id: ID): User
 
-  get_users(type: String, paginateData: PaginateDataInput): [User]
+  get_users(active: Boolean, type: String, paginateData: PaginateDataInput): [User]
 
-  get_users_count(type: String, paginateData: PaginateDataInput): Int
+  get_users_count(active: Boolean, type: String, paginateData: PaginateDataInput): Int
 }
 
 extend type Mutation {
   sign_in_user(email: String!, password: String!): User
 
   create_user(
+    active: Boolean!
     address: DeliveryAddressInput
     email: String!
     firstName: String!
@@ -35,6 +37,7 @@ extend type Mutation {
   ): User
 
   update_user(
+    active: Boolean!
     address: DeliveryAddressInput
     email: String!
     password: String!
