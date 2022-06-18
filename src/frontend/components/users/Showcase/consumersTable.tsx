@@ -29,6 +29,15 @@ const ConsumersTable = (): ReactElement => {
   const users = data?.get_users || []
   const usersCount: number = data?.get_users_count || 0
 
+  const userHeaders = [
+    { label: 'firstName', sortable: true },
+    { label: 'lastName', sortable: true },
+    { label: 'email', sortable: true },
+    { label: 'phoneNumber', sortable: false },
+    { label: 'createdAt', sortable: true },
+    { label: 'actions', sortable: false }
+  ]
+
   const userRows = [
     users?.map((user: User): ReactElement => {
       return (
@@ -50,14 +59,7 @@ const ConsumersTable = (): ReactElement => {
     <TableComponent
       count={usersCount}
       fetchMore={fetchMore}
-      headers={[
-        'firstName',
-        'lastName',
-        'email',
-        'phoneNumber',
-        'createdAt',
-        'actions'
-      ]}
+      headers={userHeaders}
       loading={loading}
       page={page}
       paginateDataArgs={paginateDataArgs}

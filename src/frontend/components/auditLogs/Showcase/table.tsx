@@ -34,6 +34,12 @@ const AuditLogsTable = ({
   const auditLogs = data?.get_audit_logs || []
   const auditLogsCount: number = data?.get_audit_logs_count || 0
 
+  const auditLogHeaders = [
+    { label: 'action', sortable: false },
+    { label: 'createdAt', sortable: true },
+    { label: 'createdBy', sortable: false }
+  ]
+
   const auditLogRows = [
     auditLogs?.map((auditLog: AuditLog): ReactElement => {
       return (
@@ -50,7 +56,7 @@ const AuditLogsTable = ({
     <TableComponent
       count={auditLogsCount}
       fetchMore={fetchMore}
-      headers={['action', 'createdAt', 'createdBy']}
+      headers={auditLogHeaders}
       loading={loading}
       page={page}
       paginateDataArgs={paginateDataArgs}

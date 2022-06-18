@@ -34,11 +34,11 @@ const ReviewsTable = (): ReactElement => {
   const reviewsCount: number = data?.get_reviews_count || 0
 
   const reviewHeaders = [
-    { header: 'createdAt', sortable: true },
-    { header: 'username', sortable: false },
-    { header: 'content', sortable: false },
-    { header: 'featured', sortable: true },
-    { header: 'actions', sortable: false }
+    { label: 'createdAt', sortable: true },
+    { label: 'username', sortable: false },
+    { label: 'content', sortable: false },
+    { label: 'featured', sortable: true },
+    { label: 'actions', sortable: false }
   ]
 
   const reviewRows = [
@@ -78,7 +78,7 @@ const ReviewsTable = (): ReactElement => {
         />
       }
       filterOpen={filterOpen}
-      headers={['createdAt', 'username', 'content', 'featured', 'actions']}
+      headers={reviewHeaders}
       loading={loading}
       page={page}
       paginateDataArgs={paginateDataArgs}
