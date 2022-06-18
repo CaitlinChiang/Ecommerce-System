@@ -2,14 +2,17 @@ import { MutateAction } from '../../_enums/mutateAction'
 import { currentDateTime } from './returnCurrentDateTime'
 
 export const mutationArgs = (args: any, action: MutateAction): any => {
-  const modifiedArgs: any = { ...args }
+  let modifiedArgs: any = {}
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { _id, ...updateArgs } = args
 
   switch (action) {
     case MutateAction.CREATE:
-      modifiedArgs.createdAt = currentDateTime()
+      modifiedArgs = { ...args, createdAt: currentDateTime() }
       break
     case MutateAction.UPDATE:
-      modifiedArgs.updatedAt = currentDateTime()
+      modifiedArgs = { ...updateArgs, updatedAt: currentDateTime() }
       break
   }
 
