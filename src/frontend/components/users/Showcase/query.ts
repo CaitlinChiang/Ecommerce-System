@@ -8,9 +8,9 @@ export default gql`
 
     get_users(paginateData: $paginateData, type: $type) {
       _id
-      email
       firstName
       lastName
+      email
       phoneNumber
       createdAt
     }
