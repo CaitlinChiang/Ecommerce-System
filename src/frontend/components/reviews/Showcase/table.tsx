@@ -7,6 +7,7 @@ import { PaginateDataArgs } from '../../../../types/actions/paginateData'
 import { SortDirection } from '../../../_enums/sortDirection'
 import TableComponent from '../../_common/TableComponent'
 import { tableArgs } from '../../../_utils/returnTableArgs'
+import UpdateReviewCheckbox from '../Update/updateCheckbox'
 import DeleteReviewButton from '../Delete/deleteButton'
 
 const ReviewsTable = (): ReactElement => {
@@ -45,7 +46,9 @@ const ReviewsTable = (): ReactElement => {
           <TableCell align={'center'}>{String(review?.createdAt)}</TableCell>
           <TableCell align={'center'}>{review?.username}</TableCell>
           <TableCell align={'center'}>{review?.content}</TableCell>
-          <TableCell align={'center'}></TableCell>
+          <TableCell align={'center'}>
+            <UpdateReviewCheckbox _id={review._id} featured={review.featured} />
+          </TableCell>
           <TableCell align={'center'}>
             <DeleteReviewButton _id={review._id} />
           </TableCell>
