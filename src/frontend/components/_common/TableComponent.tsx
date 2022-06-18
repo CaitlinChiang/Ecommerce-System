@@ -44,7 +44,7 @@ const TableComponent = ({
   fetchMore?: any
   filterContent?: ReactElement
   filterOpen?: boolean
-  headers: string[]
+  headers: { label: string; sortable: boolean }[]
   headersAlign?: 'inherit' | 'left' | 'center' | 'right' | 'justify'
   loading: boolean
   page: number
@@ -149,32 +149,40 @@ const TableComponent = ({
         <Table size={'small'}>
           <TableHead>
             <TableRow>
-              {headers.map((header: string, index: number): ReactElement => {
-                return (
-                  <TableCell
-                    key={index}
-                    align={headersAlign || 'center'}
-                    padding={'checkbox'}
-                  >
-                    <TableSortLabel
-                      active={sortBy === header}
-                      direction={sortDirection || SortDirection.DESC}
-                      onClick={(): void => {
-                        setPaginateDataArgs({
-                          ...paginateDataArgs,
-                          sortBy: header,
-                          sortDirection:
-                            sortDirection === SortDirection.ASC
-                              ? SortDirection.DESC
-                              : SortDirection.ASC
-                        })
-                      }}
+              {headers.map(
+                (
+                  header: { label: string; sortable: boolean },
+                  index: number
+                ): ReactElement => {
+                  return (
+                    <TableCell
+                      key={index}
+                      align={headersAlign || 'center'}
+                      padding={'checkbox'}
                     >
-                      {formatTableHeader(header)}
-                    </TableSortLabel>
-                  </TableCell>
-                )
-              })}
+                      {!header.sortable && formatTableHeader(header.label)}
+                      {header.sortable && (
+                        <TableSortLabel
+                          active={sortBy === header.label}
+                          direction={sortDirection || SortDirection.DESC}
+                          onClick={(): void => {
+                            setPaginateDataArgs({
+                              ...paginateDataArgs,
+                              sortBy: header.label,
+                              sortDirection:
+                                sortDirection === SortDirection.ASC
+                                  ? SortDirection.DESC
+                                  : SortDirection.ASC
+                            })
+                          }}
+                        >
+                          {formatTableHeader(header.label)}
+                        </TableSortLabel>
+                      )}
+                    </TableCell>
+                  )
+                }
+              )}
             </TableRow>
           </TableHead>
           <TableBody>{rows}</TableBody>
