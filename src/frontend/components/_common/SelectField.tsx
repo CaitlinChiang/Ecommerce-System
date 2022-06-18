@@ -1,4 +1,5 @@
 import { ReactElement } from 'react'
+import theme from '../../themes'
 import { TextField, Autocomplete } from '@mui/material'
 
 const SelectField = ({
@@ -7,37 +8,35 @@ const SelectField = ({
   optionLabelProperty,
   options,
   required,
-  setValue,
+  setSpecificArgs,
+  specificArgs,
   targetProperty,
-  value,
   width
 }: {
   defaultValue?: any
   label: string
-  options: any
   optionLabelProperty?: string
+  options: any[]
   required?: boolean
-  setValue: React.Dispatch<React.SetStateAction<string>>
-  targetProperty?: string
-  value: any
+  setSpecificArgs: React.Dispatch<React.SetStateAction<any>>
+  specificArgs: any
+  targetProperty: string
   width?: number
 }): ReactElement => {
   return (
     <Autocomplete
       defaultValue={defaultValue}
-      getOptionLabel={(option): string =>
-        optionLabelProperty ? option[optionLabelProperty] : option
-      }
+      getOptionLabel={(option: any): string => option[optionLabelProperty]}
       onChange={(_e: any, newValue: any | null) => {
-        const val = targetProperty ? newValue[targetProperty] : newValue
-        setValue(val)
+        const val = newValue[targetProperty]
+        setSpecificArgs({ ...specificArgs, [targetProperty]: val })
       }}
       options={options}
       renderInput={(params): ReactElement => (
         <TextField {...params} label={label} required={required} />
       )}
-      sx={{ width: width || 300 }}
-      value={value}
+      sx={{ width: width || 300, padding: theme.spacing(2) }}
+      value={specificArgs[optionLabelProperty]}
     />
   )
 }
