@@ -7,7 +7,9 @@ import { PaginateDataArgs } from '../../../../types/actions/paginateData'
 import { SortDirection } from '../../../_enums/sortDirection'
 import { UserType } from '../../../_enums/userType'
 import TableComponent from '../../_common/TableComponent'
+import UpdateUserCheckbox from '../Update/updateCheckbox'
 import DeleteUserButton from '../Delete/deleteButton'
+import SelectField from '../../_common/SelectField'
 import { tableArgs } from '../../../_utils/returnTableArgs'
 
 const AdminsTable = (): ReactElement => {
@@ -19,7 +21,11 @@ const AdminsTable = (): ReactElement => {
     sortBy: 'lastName',
     sortDirection: SortDirection.ASC
   })
-  const specificArgs = { type: UserType.ADMIN }
+  const [specificArgs, setSpecificArgs] = useState<any>({
+    active: null,
+    type: UserType.ADMIN
+  })
+  const [filterOpen, setFilterOpen] = useState<boolean>(false)
 
   const { data, loading, fetchMore } = useQuery(query, {
     variables: { paginateData: paginateDataArgs, ...specificArgs },
@@ -30,6 +36,7 @@ const AdminsTable = (): ReactElement => {
   const usersCount: number = data?.get_users_count || 0
 
   const userHeaders = [
+    { label: 'active', sortable: true },
     { label: 'firstName', sortable: true },
     { label: 'lastName', sortable: true },
     { label: 'email', sortable: true },
@@ -42,6 +49,9 @@ const AdminsTable = (): ReactElement => {
     users?.map((user: User): ReactElement => {
       return (
         <TableRow>
+          <TableCell align={'center'}>
+            <UpdateUserCheckbox _id={user._id} active={user.active} />
+          </TableCell>
           <TableCell align={'center'}>{user?.firstName}</TableCell>
           <TableCell align={'center'}>{user?.lastName}</TableCell>
           <TableCell align={'center'}>{user?.email}</TableCell>
@@ -59,6 +69,21 @@ const AdminsTable = (): ReactElement => {
     <TableComponent
       count={usersCount}
       fetchMore={fetchMore}
+      filterContent={
+        <SelectField
+          label={'Active Status'}
+          optionLabelProperty={'label'}
+          options={[
+            { label: 'All Users', active: null },
+            { label: 'Active Users', active: true },
+            { label: 'Non-Active Users', active: false }
+          ]}
+          setSpecificArgs={setSpecificArgs}
+          specificArgs={specificArgs}
+          targetProperty={'active'}
+        />
+      }
+      filterOpen={filterOpen}
       headers={userHeaders}
       loading={loading}
       page={page}
@@ -67,6 +92,7 @@ const AdminsTable = (): ReactElement => {
       rowsPerPageOptions={[10, 25, 50, 75, 100]}
       searchLabel={'Search Account by Email'}
       searchPlaceholder={'ex. ava_cruz@gmail.com'}
+      setFilterOpen={setFilterOpen}
       setPage={setPage}
       setPaginateDataArgs={setPaginateDataArgs}
       specificArgs={specificArgs}
