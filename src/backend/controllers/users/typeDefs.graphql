@@ -10,6 +10,7 @@ type User {
   type: String
   createdAt: String
   updatedAt: String
+  deletedAt: String
 }
 
 extend type Query {

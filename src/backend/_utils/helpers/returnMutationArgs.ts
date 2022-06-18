@@ -15,6 +15,9 @@ export const mutationArgs = (args: any, action: MutateAction): any => {
     case MutateAction.UPDATE:
       modifiedArgs = { ...updateArgs, updatedAt: currentDateTime() }
       break
+    case MutateAction.DELETE:
+      modifiedArgs = { deletedAt: currentDateTime() }
+      break
   }
 
   Object.keys(modifiedArgs).forEach((key) => {

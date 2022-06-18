@@ -20,6 +20,8 @@ export const queryArgs = (args: any): any => {
     }
   })
 
+  modifiedArgs.deletedAt = { $exists: false }
+
   if (dateRange?.startDate && dateRange?.endDate) {
     modifiedArgs[dateRange.filterBy] = {
       $gte: new Date(dateRange.startDate),

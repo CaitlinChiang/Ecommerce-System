@@ -14,6 +14,7 @@ export interface User {
   type?: string
   createdAt?: Date
   updatedAt?: Date
+  deletedAt?: Date
 }
 
 export interface UserPermissionArgs {
@@ -53,4 +54,5 @@ export interface UpdateUserArgs {
 
 export interface DeleteUserArgs {
   _id: ObjectId
+  deletedAt?: Date
 }
