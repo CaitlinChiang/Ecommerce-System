@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import { StockQuantityOperator } from '../../_enums/stockQuantityOperator'
 
 export const queryArgs = (args: any): any => {
@@ -8,6 +9,16 @@ export const queryArgs = (args: any): any => {
   }
 
   const modifiedArgs: any = { ...specificArgs }
+
+  Object.keys(modifiedArgs).forEach((key) => {
+    if (modifiedArgs[key] === null) {
+      delete modifiedArgs[key]
+    }
+
+    if (String(key).includes('Id')) {
+      modifiedArgs[key] = new ObjectId(modifiedArgs[key])
+    }
+  })
 
   if (dateRange?.startDate && dateRange?.endDate) {
     modifiedArgs[dateRange.filterBy] = {
