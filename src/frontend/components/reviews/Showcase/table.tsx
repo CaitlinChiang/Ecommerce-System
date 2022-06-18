@@ -65,7 +65,7 @@ const ReviewsTable = (): ReactElement => {
       fetchMore={fetchMore}
       filterContent={
         <SelectField
-          label={'Review Type'}
+          label={'Featured Status'}
           optionLabelProperty={'label'}
           options={[
             { label: 'All Reviews', featured: null },

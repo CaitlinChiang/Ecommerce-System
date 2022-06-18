@@ -2,6 +2,7 @@ import { gql } from '@apollo/client'
 
 export default gql`
   mutation (
+    $_id: ID!
     $active: Boolean
     $address: DeliveryAddressInput
     $email: String
@@ -9,6 +10,7 @@ export default gql`
     $phoneNumber: String
   ) {
     update_user(
+      _id: $_id
       active: $active
       address: $address
       email: $email
