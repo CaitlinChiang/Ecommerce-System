@@ -30,8 +30,10 @@ export default async (
   const payment: any = await context.database.payments.findOneAndUpdate(
     { _orderId: new ObjectId(args._orderId) },
     {
-      ...mutationArgs(modifiedArgs, MutateAction.UPDATE),
-      imageProof: modifiedImageUrl
+      $set: {
+        ...mutationArgs(modifiedArgs, MutateAction.UPDATE),
+        imageProofUrl: modifiedImageUrl
+      }
     }
   )
 

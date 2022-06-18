@@ -16,7 +16,7 @@ export default async (
 
   const faq: any = await context.database.faqs.findOneAndUpdate(
     { _id: new ObjectId(args._id) },
-    mutationArgs(args, MutateAction.UPDATE)
+    { $set: mutationArgs(args, MutateAction.UPDATE) }
   )
 
   await context.database.auditLogs.insertOne({

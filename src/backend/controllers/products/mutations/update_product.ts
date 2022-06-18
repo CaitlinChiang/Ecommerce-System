@@ -30,8 +30,10 @@ export default async (
   const product: any = await context.database.products.findOneAndUpdate(
     { _id: new ObjectId(args._id) },
     {
-      ...mutationArgs(modifiedArgs, MutateAction.UPDATE),
-      imageUrl: modifiedImageUrl
+      $set: {
+        ...mutationArgs(modifiedArgs, MutateAction.UPDATE),
+        imageUrl: modifiedImageUrl
+      }
     }
   )
 

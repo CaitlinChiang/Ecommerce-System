@@ -20,7 +20,7 @@ export default async (
   const productCategory: any =
     await context.database.productCategories.findOneAndUpdate(
       { _id: new ObjectId(args._id) },
-      mutationArgs(args, MutateAction.UPDATE)
+      { $set: mutationArgs(args, MutateAction.UPDATE) }
     )
 
   await context.database.auditLogs.insertOne({
