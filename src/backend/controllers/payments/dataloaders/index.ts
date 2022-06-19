@@ -2,12 +2,14 @@ import Dataloader from 'dataloader'
 import { ObjectId } from 'mongodb'
 import { Database } from '../../../../types/setup/database'
 import { Payment } from '../../../../types/payment'
-import byId from './byId'
+import byOrderId from './byOrderId'
 
 export interface PaymentDataloaders {
-  byId: Dataloader<ObjectId, Payment, ObjectId[]>
+  byOrderId: Dataloader<ObjectId, Payment, ObjectId[]>
 }
 
 export default (db: Database): PaymentDataloaders => ({
-  byId: new Dataloader((ids: ObjectId[]): Promise<Payment[]> => byId(db, ids))
+  byOrderId: new Dataloader(
+    (ids: ObjectId[]): Promise<Payment[]> => byOrderId(db, ids)
+  )
 })

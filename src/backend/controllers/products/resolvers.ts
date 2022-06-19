@@ -25,11 +25,8 @@ export default {
       args: undefined,
       context: Context
     ): Promise<number> => {
-      const productVariants: any = await context.database.productVariants
-        .find({
-          _productId: product._id
-        })
-        .map((productVariant: ProductVariant): ProductVariant => productVariant)
+      const productVariants: any =
+        await context.dataloaders.productVariants.byProductId.load(product._id)
 
       const getProductVariantsStockQuantities = (): number => {
         return productVariants.reduce(
