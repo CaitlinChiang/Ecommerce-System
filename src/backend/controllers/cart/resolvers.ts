@@ -14,9 +14,9 @@ export default {
       args: undefined,
       context: Context
     ): Promise<Product[]> => {
-      const products: any = await context.database.products.find({
-        _id: { $in: returnProductIds(cart.items) }
-      })
+      const products: any = await context.dataloaders.products.byIds.load(
+        returnProductIds(cart.items)
+      )
       return products
     },
 
@@ -25,9 +25,10 @@ export default {
       args: undefined,
       context: Context
     ): Promise<ProductVariant[]> => {
-      const productVariants: any = await context.database.productVariants.find({
-        _id: { $in: returnProductVariantIds(cart.items) }
-      })
+      const productVariants: any =
+        await context.dataloaders.productVariants.byIds.load(
+          returnProductVariantIds(cart.items)
+        )
       return productVariants
     },
 
