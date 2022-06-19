@@ -50,5 +50,4 @@ export interface UpdateOrderArgs {
 
 export interface DeleteOrderArgs {
   _id: ObjectId
-  _paymentId: ObjectId
 }

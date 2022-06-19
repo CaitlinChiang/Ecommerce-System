@@ -23,7 +23,7 @@ export default async (
     ...auditArgs(context)
   })
 
-  await deletePayment(context, args._id, args._paymentId)
+  await deletePayment(context, args._id)
 
   return order
 }

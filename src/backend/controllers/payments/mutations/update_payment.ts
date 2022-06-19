@@ -39,7 +39,7 @@ export default async (
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.UPDATE_ORDER_PAYMENT,
-    paymentId: payment._id,
+    orderId: new ObjectId(args._orderId),
     ...auditArgs(context)
   })
 

@@ -22,7 +22,7 @@ export const createPayment = async (
     orderId: String(orderId)
   })
 
-  const payment: any = await context.database.payments.insertOne({
+  await context.database.payments.insertOne({
     ...mutationArgs(modifiedArgs, MutateAction.CREATE),
     _orderId: orderId,
     imageProofUrl,
@@ -31,7 +31,7 @@ export const createPayment = async (
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.CREATE_ORDER_PAYMENT,
-    paymentId: payment._id,
+    orderId,
     ...auditArgs(context)
   })
 }
