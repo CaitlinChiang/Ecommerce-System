@@ -1,6 +1,6 @@
 import Dataloader from 'dataloader'
 import { ObjectId } from 'mongodb'
-import { Context } from '../../../../types/setup/context'
+import { Database } from '../../../../types/setup/database'
 import { ProductVariant } from '../../../../types/productVariant'
 import byId from './byId'
 
@@ -8,8 +8,6 @@ export interface ProductVariantDataloaders {
   byId: Dataloader<ObjectId, ProductVariant, ObjectId[]>
 }
 
-export default (context: Context): ProductVariantDataloaders => ({
-  byId: new Dataloader(
-    (ids: ObjectId[]): Promise<ProductVariant[]> => byId(context, ids)
-  )
+export default (db: Database): ProductVariantDataloaders => ({
+  byId: new Dataloader((ids: ObjectId[]): Promise<ProductVariant[]> => byId(db, ids))
 })

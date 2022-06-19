@@ -1,12 +1,9 @@
 import { ObjectId } from 'mongodb'
-import { Context } from '../../../../types/setup/context'
+import { Database } from '../../../../types/setup/database'
 import { ProductVariant } from '../../../../types/productVariant'
 
-export default async (
-  context: Context,
-  ids: ObjectId[]
-): Promise<ProductVariant[]> => {
-  const productVariants: ProductVariant[] = await context.database.productVariants
+export default async (db: Database, ids: ObjectId[]): Promise<ProductVariant[]> => {
+  const productVariants: ProductVariant[] = await db.productVariants
     .find({ _productId: { $in: ids } })
     .toArray()
 
