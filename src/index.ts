@@ -16,7 +16,7 @@ import { parse } from 'url'
 import dbSetup from './backend/_utils/setup/database'
 import { Context } from './types/setup/context'
 import { Database } from './types/setup/database'
-import { resolvers, typeDefs } from './backend/controllers'
+import { typeDefs, resolvers, buildDataloaders } from './backend/controllers'
 // import { verifyJWT } from './backend/_utils/jwt'
 import { ObjectId } from 'mongodb'
 // import { User } from 'types/user'
@@ -58,6 +58,7 @@ nextJSApp.prepare().then(async () => {
         currentUserActive: true,
         currentUserType: 'ADMIN',
         database,
+        dataloaders: buildDataloaders(database),
         ip
       }
     },
