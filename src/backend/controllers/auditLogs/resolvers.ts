@@ -13,10 +13,8 @@ export default {
       args: undefined,
       context: Context
     ): Promise<string> => {
-      const user: any = await context.database.users.findOne({
-        _id: auditLog.createdBy
-      })
-      return user?.email
+      const user: any = await context.dataloaders.users.byId.load(auditLog.createdBy)
+      return user.email
     }
   }
 }
