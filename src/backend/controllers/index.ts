@@ -23,6 +23,7 @@ const emptyDefs = gql`
 
 export const buildDataloaders = (db: Database): Dataloaders => ({
   productVariants: productVariants.dataloaders(db),
+  products: products.dataloaders(db),
   users: users.dataloaders(db)
 })
 
