@@ -13,6 +13,7 @@ export default async (
     const productVariants = await db.productVariants
       .find({ _id: { $in: idsArray } })
       .toArray()
+
     productVariants.map((productVariant: ProductVariant) =>
       modifiedProductVariants.push({ ...productVariant, groupId: String(index) })
     )
