@@ -1,5 +1,5 @@
-import { ObjectId } from 'mongodb'
 import { groupBy } from 'lodash'
+import { ObjectId } from 'mongodb'
 import { Database } from '../../../../types/setup/database'
 import { ProductVariant } from '../../../../types/productVariant'
 
