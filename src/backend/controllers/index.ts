@@ -1,5 +1,5 @@
 import { gql } from 'apollo-server-express'
-import { Context } from '../../types/setup/context'
+import { Database } from '../../types/setup/database'
 import { Dataloaders } from '../../types/setup/dataloaders'
 import _common from './_common'
 import analytics from './analytics'
@@ -21,22 +21,10 @@ const emptyDefs = gql`
   type Mutation
 `
 
-export const resolvers = [
-  _common.resolvers,
-  analytics.resolvers,
-  auditLogs.resolvers,
-  cart.resolvers,
-  cities.resolvers,
-  faqs.resolvers,
-  orders.resolvers,
-  paymentMethods.resolvers,
-  payments.resolvers,
-  productCategories.resolvers,
-  productVariants.resolvers,
-  products.resolvers,
-  reviews.resolvers,
-  users.resolvers
-]
+export const buildDataloaders = (db: Database): Dataloaders => ({
+  productVariants: productVariants.dataloaders(db),
+  users: users.dataloaders(db)
+})
 
 export const typeDefs = [
   emptyDefs,
@@ -56,6 +44,19 @@ export const typeDefs = [
   users.typeDefs
 ]
 
-export const buildDataloaders = (context: Context): Dataloaders => ({
-  productVariants: productVariants.dataloaders(context)
-})
+export const resolvers = [
+  _common.resolvers,
+  analytics.resolvers,
+  auditLogs.resolvers,
+  cart.resolvers,
+  cities.resolvers,
+  faqs.resolvers,
+  orders.resolvers,
+  paymentMethods.resolvers,
+  payments.resolvers,
+  productCategories.resolvers,
+  productVariants.resolvers,
+  products.resolvers,
+  reviews.resolvers,
+  users.resolvers
+]
