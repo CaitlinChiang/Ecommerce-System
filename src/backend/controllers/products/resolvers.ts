@@ -10,9 +10,9 @@ export default {
       args: undefined,
       context: Context
     ): Promise<string> => {
-      const category: any = await context.database.productCategories.findOne({
-        _id: product.categoryId
-      })
+      const category: any = await context.dataloaders.productCategories.byId.load(
+        product.categoryId
+      )
       return category.name
     },
 

@@ -20,9 +20,9 @@ export default {
       args: undefined,
       context: Context
     ): Promise<Payment> => {
-      const payment: Payment = await context.database.payments.findOne({
-        _orderId: order._id
-      })
+      const payment: Payment = await context.dataloaders.payments.byId.load(
+        order._id
+      )
       return payment
     },
 
