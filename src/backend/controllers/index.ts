@@ -1,4 +1,6 @@
 import { gql } from 'apollo-server-express'
+import { Context } from '../../types/setup/context'
+import { Dataloaders } from '../../types/setup/dataloaders'
 import _common from './_common'
 import analytics from './analytics'
 import auditLogs from './auditLogs'
@@ -53,3 +55,7 @@ export const typeDefs = [
   reviews.typeDefs,
   users.typeDefs
 ]
+
+export const buildDataloaders = (context: Context): Dataloaders => ({
+  productVariants: productVariants.dataloaders(context)
+})
