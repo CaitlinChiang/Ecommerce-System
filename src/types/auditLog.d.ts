@@ -8,7 +8,6 @@ export interface AuditLog {
   cityId?: ObjectId
   faqId?: ObjectId
   orderId?: ObjectId
-  paymentId?: ObjectId
   paymentMethodId?: ObjectId
   productCategoryId?: ObjectId
   productId?: ObjectId
@@ -24,6 +23,5 @@ export interface AuditLog {
 export interface GetAuditLogArgs {
   orderId?: ObjectId
   paginateData?: PaginateDataArgs
-  paymentId?: ObjectId
   dateRange?: DateRange
 }

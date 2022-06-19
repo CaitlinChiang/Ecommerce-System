@@ -2,7 +2,6 @@ type AuditLog {
   _id: ID
   action: String
   orderId: ID
-  paymentId: ID
   productId: ID
   productVariantId: ID
   userId: ID
@@ -16,13 +15,11 @@ extend type Query {
     dateRange: DateRangeInput
     orderId: ID
     paginateData: PaginateDataInput
-    paymentId: ID
   ): [AuditLog]
 
   get_audit_logs_count(
     dateRange: DateRangeInput
     orderId: ID
     paginateData: PaginateDataInput
-    paymentId: ID
   ): Int
 }
