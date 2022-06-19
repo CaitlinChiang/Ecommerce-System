@@ -3,7 +3,9 @@ import { Database } from '../../../../types/setup/database'
 import { Payment } from '../../../../types/payment'
 
 export default async (db: Database, ids: ObjectId[]): Promise<Payment[]> => {
-  const payments: Payment[] = await db.payments.find({ _id: { $in: ids } }).toArray()
+  const payments: Payment[] = await db.payments
+    .find({ _orderId: { $in: ids } })
+    .toArray()
 
   const paymentsById: { [id: string]: Payment } = {}
 
