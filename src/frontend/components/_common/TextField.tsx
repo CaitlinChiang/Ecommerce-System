@@ -1,4 +1,5 @@
 import { ReactElement } from 'react'
+import theme from '../../themes'
 import { TextField } from '@mui/material'
 
 const Text = ({
@@ -12,7 +13,8 @@ const Text = ({
   placeholder,
   required,
   setValue,
-  value
+  value,
+  width
 }: {
   defaultValue?: string
   disabled?: boolean
@@ -25,6 +27,7 @@ const Text = ({
   required?: boolean
   setValue: React.Dispatch<React.SetStateAction<string>>
   value: string
+  width?: number
 }): ReactElement => {
   return (
     <TextField
@@ -40,8 +43,9 @@ const Text = ({
         setValue(e.target.value)
       }}
       placeholder={placeholder}
-      value={value}
       required={required}
+      sx={{ width: width || 300, padding: theme.spacing(2) }}
+      value={value}
     />
   )
 }
