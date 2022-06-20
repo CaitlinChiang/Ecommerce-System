@@ -1,4 +1,4 @@
-export const tableArgs: any = {
+export const fetchMoreArgs: any = {
   ssr: true,
   skip: !process.browser,
   partialRefetch: true,

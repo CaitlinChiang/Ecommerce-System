@@ -7,7 +7,7 @@ import { PaginateDataArgs } from '../../../../types/actions/paginateData'
 import { ObjectId } from 'mongodb'
 import { SortDirection } from '../../../_enums/sortDirection'
 import TableComponent from '../../_common/TableComponent'
-import { tableArgs } from '../../../_utils/returnTableArgs'
+import { fetchMoreArgs } from '../../../_utils/returnFetchMoreArgs'
 
 const AuditLogsTable = ({
   orderId,
@@ -28,7 +28,7 @@ const AuditLogsTable = ({
 
   const { data, loading, fetchMore } = useQuery(query, {
     variables: { paginateData: paginateDataArgs, ...specificArgs },
-    ...tableArgs
+    ...fetchMoreArgs
   })
 
   const auditLogs = data?.get_audit_logs || []

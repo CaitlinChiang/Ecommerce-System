@@ -10,7 +10,7 @@ import TableComponent from '../../_common/TableComponent'
 import UpdateReviewCheckbox from '../Update/updateCheckbox'
 import DeleteButton from '../../_common/DeleteButton'
 import ReviewsTableFilters from './tableFilters'
-import { tableArgs } from '../../../_utils/returnTableArgs'
+import { fetchMoreArgs } from '../../../_utils/returnFetchMoreArgs'
 
 const ReviewsTable = (): ReactElement => {
   const [page, setPage] = useState<number>(0)
@@ -28,7 +28,7 @@ const ReviewsTable = (): ReactElement => {
 
   const { data, loading, fetchMore } = useQuery(query, {
     variables: { paginateData: paginateDataArgs, ...specificArgs },
-    ...tableArgs
+    ...fetchMoreArgs
   })
 
   const reviews = data?.get_reviews || []

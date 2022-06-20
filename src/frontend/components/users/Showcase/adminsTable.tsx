@@ -11,7 +11,7 @@ import TableComponent from '../../_common/TableComponent'
 import UpdateUserCheckbox from '../Update/updateCheckbox'
 import DeleteButton from '../../_common/DeleteButton'
 import AdminsTableFilters from './adminsTableFilters'
-import { tableArgs } from '../../../_utils/returnTableArgs'
+import { fetchMoreArgs } from '../../../_utils/returnFetchMoreArgs'
 
 const AdminsTable = (): ReactElement => {
   const [page, setPage] = useState<number>(0)
@@ -30,7 +30,7 @@ const AdminsTable = (): ReactElement => {
 
   const { data, loading, fetchMore } = useQuery(query, {
     variables: { paginateData: paginateDataArgs, ...specificArgs },
-    ...tableArgs
+    ...fetchMoreArgs
   })
 
   const users = data?.get_users || []

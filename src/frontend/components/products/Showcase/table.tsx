@@ -11,7 +11,7 @@ import TableComponent from '../../_common/TableComponent'
 // import UpdateProductButton from '../Update/updateButton'
 import DeleteButton from '../../_common/DeleteButton'
 import ProductsTableFilters from './tableFilters'
-import { tableArgs } from '../../../_utils/returnTableArgs'
+import { fetchMoreArgs } from '../../../_utils/returnFetchMoreArgs'
 
 const ProductsTable = (): ReactElement => {
   const [page, setPage] = useState<number>(0)
@@ -44,7 +44,7 @@ const ProductsTable = (): ReactElement => {
       paginateData: paginateDataArgs,
       ...specificArgs
     },
-    ...tableArgs
+    ...fetchMoreArgs
   })
 
   const products = data?.get_products || []

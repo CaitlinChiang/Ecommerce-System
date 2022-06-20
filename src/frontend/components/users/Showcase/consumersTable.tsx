@@ -9,7 +9,7 @@ import { SortDirection } from '../../../_enums/sortDirection'
 import { UserType } from '../../../_enums/userType'
 import TableComponent from '../../_common/TableComponent'
 import DeleteButton from '../../_common/DeleteButton'
-import { tableArgs } from '../../../_utils/returnTableArgs'
+import { fetchMoreArgs } from '../../../_utils/returnFetchMoreArgs'
 
 const ConsumersTable = (): ReactElement => {
   const [page, setPage] = useState<number>(0)
@@ -24,7 +24,7 @@ const ConsumersTable = (): ReactElement => {
 
   const { data, loading, fetchMore } = useQuery(query, {
     variables: { paginateData: paginateDataArgs, ...specificArgs },
-    ...tableArgs
+    ...fetchMoreArgs
   })
 
   const users = data?.get_users || []
