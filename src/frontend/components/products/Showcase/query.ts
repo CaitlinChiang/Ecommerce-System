@@ -11,6 +11,17 @@ export default gql`
   ) {
     get_product(_id: $_id) {
       _id
+      category
+      description
+      expirationDate
+      featured
+      imageUrl
+      name
+      price
+      showPublic
+      stockQuantity
+      createdAt
+      updatedAt
     }
 
     get_products(
@@ -21,6 +32,13 @@ export default gql`
       stockQuantity: $stockQuantity
     ) {
       _id
+      category
+      name
+      expirationDate
+      imageUrl
+      name
+      price
+      stockQuantity
     }
 
     get_products_count(
