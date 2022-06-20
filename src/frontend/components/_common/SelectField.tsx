@@ -5,6 +5,7 @@ import { TextField, Autocomplete } from '@mui/material'
 const SelectField = ({
   defaultValue,
   label,
+  multiple,
   optionLabelProperty,
   options,
   required,
@@ -15,6 +16,7 @@ const SelectField = ({
 }: {
   defaultValue?: any
   label: string
+  multiple?: boolean
   optionLabelProperty?: string
   options: any[]
   required?: boolean
@@ -27,6 +29,7 @@ const SelectField = ({
     <Autocomplete
       defaultValue={defaultValue}
       getOptionLabel={(option: any): string => option[optionLabelProperty]}
+      multiple={multiple}
       onChange={(_e: any, newValue: any | null) => {
         const val = newValue?.[targetProperty]
         setSpecificArgs({ ...specificArgs, [targetProperty]: val })
