@@ -12,6 +12,7 @@ export default gql`
     $name: String!
     $price: Float!
     $showPublic: Boolean!
+    $stockQuantity: Int!
   ) {
     update_product(
       _id: $_id
@@ -24,6 +25,7 @@ export default gql`
       name: $name
       price: $price
       showPublic: $showPublic
+      stockQuantity: $stockQuantity
     ) {
       _id
     }

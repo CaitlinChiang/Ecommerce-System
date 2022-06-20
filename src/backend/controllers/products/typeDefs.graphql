@@ -61,7 +61,7 @@ extend type Mutation {
     name: String!
     price: Float!
     showPublic: Boolean!
-    stockQuantity: Int
+    stockQuantity: Int!
   ): Product
 
   delete_product(_id: ID!, imageUrl: String): Product

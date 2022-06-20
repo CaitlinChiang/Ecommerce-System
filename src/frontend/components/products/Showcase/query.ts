@@ -13,6 +13,7 @@ export default gql`
     get_product(_id: $_id) {
       _id
       category
+      categoryId
       description
       expirationDate
       featured
