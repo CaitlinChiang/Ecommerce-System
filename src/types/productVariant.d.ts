@@ -4,6 +4,7 @@ import { PaginateDataArgs } from './actions/paginateData'
 export interface ProductVariant {
   _id?: ObjectId
   _productId?: ObjectId
+  description?: string
   expirationDate?: Date
   image?: File
   imageUrl?: string
@@ -26,6 +27,7 @@ export interface GetProductVariantArgs {
 
 export interface CreateProductVariantArgs {
   _productId: ObjectId
+  description?: string
   expirationDate?: Date
   image?: File
   imageUrl?: string
@@ -39,6 +41,7 @@ export interface CreateProductVariantArgs {
 export interface UpdateProductVariantArgs {
   _id: ObjectId
   _productId: ObjectId
+  description?: string
   expirationDate?: Date
   image?: File
   imageUrl?: string
