@@ -12,8 +12,9 @@ const Text = ({
   multiline,
   placeholder,
   required,
-  setValue,
-  value,
+  setSpecificArgs,
+  specificArgs,
+  targetProperty,
   width
 }: {
   defaultValue?: string
@@ -25,8 +26,9 @@ const Text = ({
   multiline?: boolean
   placeholder?: string
   required?: boolean
-  setValue: React.Dispatch<React.SetStateAction<string>>
-  value: string
+  setSpecificArgs: React.Dispatch<React.SetStateAction<any>>
+  specificArgs: any
+  targetProperty: string
   width?: number
 }): ReactElement => {
   return (
@@ -40,12 +42,12 @@ const Text = ({
       maxRows={maxRows}
       multiline={multiline}
       onChange={(e): void => {
-        setValue(e.target.value)
+        setSpecificArgs({ ...specificArgs, [targetProperty]: e.target.value })
       }}
       placeholder={placeholder}
       required={required}
       sx={{ width: width || 300, padding: theme.spacing(2) }}
-      value={value}
+      value={specificArgs[targetProperty]}
     />
   )
 }
