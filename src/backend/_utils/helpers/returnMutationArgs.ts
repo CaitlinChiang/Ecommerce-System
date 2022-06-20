@@ -1,12 +1,12 @@
 import { MutateAction } from '../../_enums/mutateAction'
-import { currentDateTime } from './returnCurrentDateTime'
+import { currentDateTime } from './dateFormatters/returnCurrentDateTime'
 import { correctArgs } from './correctArgs'
 
 export const mutationArgs = (args: any, action: MutateAction): any => {
   let modifiedArgs: any = {}
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { _id, ...updateArgs } = args
+  const { _id, expirationDate, ...updateArgs } = args
 
   switch (action) {
     case MutateAction.CREATE:
@@ -14,6 +14,11 @@ export const mutationArgs = (args: any, action: MutateAction): any => {
       break
     case MutateAction.UPDATE:
       modifiedArgs = { ...updateArgs, updatedAt: currentDateTime() }
+
+      if (expirationDate) {
+        modifiedArgs.expirationDate = new Date(expirationDate)
+      }
+
       break
     case MutateAction.DELETE:
       modifiedArgs = { deletedAt: currentDateTime() }
