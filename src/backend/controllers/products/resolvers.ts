@@ -18,11 +18,11 @@ export default {
     },
 
     createdAt: async (product: Product): Promise<string> => {
-      return formatDateTime(product?.createdAt)
+      return formatDateTime(product?.createdAt) || '-'
     },
 
     expirationDate: async (product: Product): Promise<string> => {
-      return formatDate(product?.expirationDate)
+      return formatDate(product?.expirationDate) || '-'
     },
 
     stockQuantity: async (

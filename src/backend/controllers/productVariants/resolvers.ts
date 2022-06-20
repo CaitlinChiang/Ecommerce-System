@@ -7,11 +7,11 @@ import { formatDateTime } from '../../_utils/helpers/dateFormatters/formatDateTi
 export default {
   ProductVariant: {
     createdAt: async (productVariant: ProductVariant): Promise<string> => {
-      return formatDateTime(productVariant?.createdAt)
+      return formatDateTime(productVariant?.createdAt) || '-'
     },
 
     expirationDate: async (product: ProductVariant): Promise<string> => {
-      return formatDate(product?.expirationDate)
+      return formatDate(product?.expirationDate) || '-'
     },
 
     imageUrl: async (
@@ -28,7 +28,7 @@ export default {
     },
 
     updatedAt: async (productVariant: ProductVariant): Promise<string> => {
-      return formatDateTime(productVariant?.updatedAt)
+      return formatDateTime(productVariant?.updatedAt) || '-'
     }
   }
 }

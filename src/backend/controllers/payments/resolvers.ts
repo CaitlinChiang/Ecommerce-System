@@ -4,11 +4,11 @@ import { formatDateTime } from '../../_utils/helpers/dateFormatters/formatDateTi
 export default {
   Payment: {
     createdAt: async (payment: Payment): Promise<string> => {
-      return formatDateTime(payment?.createdAt)
+      return formatDateTime(payment?.createdAt) || '-'
     },
 
     updatedAt: async (payment: Payment): Promise<string> => {
-      return formatDateTime(payment?.updatedAt)
+      return formatDateTime(payment?.updatedAt) || '-'
     }
   }
 }

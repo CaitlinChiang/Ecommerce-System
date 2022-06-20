@@ -4,11 +4,11 @@ import { formatDateTime } from '../../_utils/helpers/dateFormatters/formatDateTi
 export default {
   FAQ: {
     createdAt: async (faq: FAQ): Promise<string> => {
-      return formatDateTime(faq?.createdAt)
+      return formatDateTime(faq?.createdAt) || '-'
     },
 
     updatedAt: async (faq: FAQ): Promise<string> => {
-      return formatDateTime(faq?.updatedAt)
+      return formatDateTime(faq?.updatedAt) || '-'
     }
   }
 }

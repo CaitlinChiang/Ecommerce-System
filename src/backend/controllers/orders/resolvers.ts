@@ -12,7 +12,7 @@ import { formatDateTime } from '../../_utils/helpers/dateFormatters/formatDateTi
 export default {
   Order: {
     createdAt: async (order: Order): Promise<string> => {
-      return formatDateTime(order?.createdAt)
+      return formatDateTime(order?.createdAt) || '-'
     },
 
     payment: async (
@@ -50,7 +50,7 @@ export default {
     },
 
     updatedAt: async (order: Order): Promise<string> => {
-      return formatDateTime(order?.updatedAt)
+      return formatDateTime(order?.updatedAt) || '-'
     }
   }
 }

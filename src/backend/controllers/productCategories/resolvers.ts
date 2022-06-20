@@ -4,11 +4,11 @@ import { formatDateTime } from '../../_utils/helpers/dateFormatters/formatDateTi
 export default {
   ProductCategory: {
     createdAt: async (productCategory: ProductCategory): Promise<string> => {
-      return formatDateTime(productCategory?.createdAt)
+      return formatDateTime(productCategory?.createdAt) || '-'
     },
 
     updatedAt: async (productCategory: ProductCategory): Promise<string> => {
-      return formatDateTime(productCategory?.updatedAt)
+      return formatDateTime(productCategory?.updatedAt) || '-'
     }
   }
 }
