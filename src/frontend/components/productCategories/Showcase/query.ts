@@ -8,6 +8,7 @@ export default gql`
 
     get_product_categories(paginateData: $paginateData) {
       _id
+      name
     }
 
     get_product_categories_count(paginateData: $paginateData)

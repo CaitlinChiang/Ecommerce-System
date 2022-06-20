@@ -14,8 +14,8 @@ export default async (
   const reviews: any = await context.database.reviews
     .find(queryArgs(args))
     .sort(sortArgs(args?.paginateData))
-    .skip(args?.paginateData?.offset)
-    .limit(args?.paginateData?.rowsPerPage)
+    .skip(args?.paginateData?.offset || 0)
+    .limit(args?.paginateData?.rowsPerPage || 200)
     .toArray()
 
   return reviews

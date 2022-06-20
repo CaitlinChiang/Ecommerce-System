@@ -22,8 +22,8 @@ export default async (
   const orders: any = await context.database.orders
     .find(modifiedArgs)
     .sort(sortArgs(args?.paginateData))
-    .skip(args?.paginateData?.offset)
-    .limit(args?.paginateData?.rowsPerPage)
+    .skip(args?.paginateData?.offset || 0)
+    .limit(args?.paginateData?.rowsPerPage || 200)
     .toArray()
 
   return orders
