@@ -9,7 +9,7 @@ import { SortDirection } from '../../../_enums/sortDirection'
 import { StockQuantityOperator } from '../../../_enums/stockQuantityOperator'
 import TableComponent from '../../_common/TableComponent'
 // import UpdateProductButton from '../Update/updateButton'
-// import DeleteProductButton from '../Delete/deleteButton'
+import DeleteProductButton from '../Delete/deleteButton'
 import SelectField from '../../_common/SelectField'
 import ProductCategoriesSelect from '../../productCategories/Showcase/select'
 import { tableArgs } from '../../../_utils/returnTableArgs'
@@ -67,7 +67,7 @@ const ProductsTable = (): ReactElement => {
           <TableCell align={'center'}>{String(product?.expirationDate)}</TableCell>
           <TableCell align={'center'}>
             {/* <UpdateProductButton _id={product?._id} /> */}
-            {/* <DeleteProductButton _id={product?._id} /> */}
+            <DeleteProductButton _id={product?._id} />
           </TableCell>
         </TableRow>
       )
