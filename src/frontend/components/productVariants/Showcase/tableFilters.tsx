@@ -5,7 +5,6 @@ import { StockQuantity } from '../../../../types/common/stockQuantity'
 import { DateRangeType } from '../../../_enums/dateRangeType'
 import { StockQuantityOperator } from '../../../_enums/stockQuantityOperator'
 import SelectField from '../../_common/SelectField'
-import ProductCategoriesSelect from '../../productCategories/Showcase/select'
 import DatePickerField from '../../_common/DatePickerField'
 import NumberField from '../../_common/NumberField'
 
@@ -56,7 +55,6 @@ const ProductVariantsTableFilters = ({
         setArgs={setArgs}
         targetProp={'showPublic'}
       />
-      <ProductCategoriesSelect args={args} multiple={true} setArgs={setArgs} />
       <Box>
         <SelectField
           args={dateRangeArgs}
