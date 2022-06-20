@@ -19,7 +19,7 @@ export const querySingular = gql`
 
 export const queryMultiple = gql`
   query (
-    $_productId: ID
+    $_productId: ID!
     $dateRange: DateRangeInput
     $paginateData: PaginateDataInput
     $showPublic: Boolean
