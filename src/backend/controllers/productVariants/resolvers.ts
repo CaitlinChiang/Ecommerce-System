@@ -1,6 +1,7 @@
 import { Context } from '../../../types/setup/context'
 import { Product } from '../../../types/product'
 import { ProductVariant } from '../../../types/productVariant'
+import { formatDate } from '../../_utils/helpers/formatDate'
 import { formatDateTime } from '../../_utils/helpers/formatDateTime'
 
 export default {
@@ -10,7 +11,7 @@ export default {
     },
 
     expirationDate: async (product: ProductVariant): Promise<string> => {
-      return formatDateTime(product?.expirationDate)
+      return formatDate(product?.expirationDate)
     },
 
     imageUrl: async (
