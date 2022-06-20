@@ -6,7 +6,6 @@ import { TableCell, TableRow } from '@mui/material'
 import { Product } from '../../../../types/product'
 import { PaginateDataArgs } from '../../../../types/actions/paginateData'
 import { SortDirection } from '../../../_enums/sortDirection'
-import { StockQuantityOperator } from '../../../_enums/stockQuantityOperator'
 import TableComponent from '../../_common/TableComponent'
 // import UpdateProductButton from '../Update/updateButton'
 import DeleteButton from '../../_common/DeleteButton'
@@ -32,9 +31,9 @@ const ProductsTable = (): ReactElement => {
     featured: null,
     showPublic: null,
     stockQuantity: {
-      operator: StockQuantityOperator.ABOVE,
-      value1: 0,
-      value2: 0
+      operator: null,
+      value1: null,
+      value2: null
     }
   })
   const [filterOpen, setFilterOpen] = useState<boolean>(false)

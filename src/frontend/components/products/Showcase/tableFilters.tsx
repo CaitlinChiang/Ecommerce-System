@@ -1,5 +1,5 @@
 import { ReactElement, useState, useEffect } from 'react'
-import { Box } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import { DateRange } from '../../../../types/common/dateRange'
 import { StockQuantity } from '../../../../types/common/stockQuantity'
 import { DateRangeType } from '../../../_enums/dateRangeType'
@@ -7,6 +7,7 @@ import { StockQuantityOperator } from '../../../_enums/stockQuantityOperator'
 import SelectField from '../../_common/SelectField'
 import ProductCategoriesSelect from '../../productCategories/Showcase/select'
 import DatePickerField from '../../_common/DatePickerField'
+import NumberField from '../../_common/NumberField'
 
 const ProductsTableFilters = ({
   setSpecificArgs,
@@ -20,10 +21,10 @@ const ProductsTableFilters = ({
     endDate: null,
     filterBy: null
   })
-  const [stockQuantityArgs, setStockQuantityArgs] = useState<StockQuantity>({
-    operator: StockQuantityOperator.ABOVE,
-    value1: 0,
-    value2: 0
+  const [stockQuantityArgs, setStockQuantityArgs] = useState<StockQuantity | any>({
+    operator: null,
+    value1: null,
+    value2: null
   })
 
   useEffect(() => {
@@ -85,18 +86,61 @@ const ProductsTableFilters = ({
         />
         <DatePickerField
           dateRangeArgs={dateRangeArgs}
-          disabled={dateRangeArgs?.filterBy === null}
+          disabled={
+            dateRangeArgs?.filterBy === null || dateRangeArgs?.filterBy == undefined
+          }
           setDateRangeArgs={setDateRangeArgs}
           targetProperty={'startDate'}
         />
         <DatePickerField
           dateRangeArgs={dateRangeArgs}
-          disabled={dateRangeArgs?.filterBy === null}
+          disabled={
+            dateRangeArgs?.filterBy === null || dateRangeArgs?.filterBy == undefined
+          }
           setDateRangeArgs={setDateRangeArgs}
           targetProperty={'endDate'}
         />
       </Box>
-      {/* INSERT LOGIC FOR STOCK QUANTITY FILTERING */}
+      <Box>
+        <SelectField
+          label={'Filter Stock Quantity Operator'}
+          optionLabelProperty={'label'}
+          options={[
+            { label: 'ABOVE', operator: StockQuantityOperator.ABOVE },
+            { label: 'BELOW', operator: StockQuantityOperator.BELOW },
+            { label: 'BETWEEN', operator: StockQuantityOperator.BETWEEN },
+            { label: 'EQUAL TO', operator: StockQuantityOperator.EQUAL }
+          ]}
+          setSpecificArgs={setStockQuantityArgs}
+          specificArgs={stockQuantityArgs}
+          targetProperty={'operator'}
+        />
+        <NumberField
+          disabled={
+            stockQuantityArgs?.operator === null ||
+            stockQuantityArgs?.operator == undefined
+          }
+          label={
+            stockQuantityArgs?.operator === StockQuantityOperator.BETWEEN
+              ? 'Value 1'
+              : 'Value'
+          }
+          setSpecificArgs={setStockQuantityArgs}
+          specificArgs={stockQuantityArgs}
+          targetProperty={'value1'}
+        />
+        {stockQuantityArgs?.operator === StockQuantityOperator.BETWEEN && (
+          <>
+            <Typography>{'and'}</Typography>
+            <NumberField
+              label={'Value 2'}
+              setSpecificArgs={setStockQuantityArgs}
+              specificArgs={stockQuantityArgs}
+              targetProperty={'value2'}
+            />
+          </>
+        )}
+      </Box>
     </>
   )
 }
