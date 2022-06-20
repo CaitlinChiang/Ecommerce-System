@@ -1,66 +1,28 @@
-const months = {
-  Jan: '01',
-  Feb: '02',
-  Mar: '03',
-  Apr: '04',
-  May: '05',
-  Jun: '06',
-  Jul: '07',
-  Aug: '08',
-  Sep: '09',
-  Oct: '10',
-  Nov: '11',
-  Dec: '12'
-}
-
 export const formatDateTime = (unformattedDate: Date): string => {
   if (!unformattedDate) return
 
-  const formattedDate = formatCurrentDate(unformattedDate)
-  const formattedTime = formatCurrentTime(unformattedDate)
+  const dateString = unformattedDate.toLocaleString('en-US', { timeZone: 'UTC' })
+  const splitDate = dateString.split(', ')
+
+  const formattedDate = formatCurrentDate(splitDate[0])
+  const formattedTime = splitDate[1]
 
   return formattedDate + ', ' + formattedTime
 }
 
-const formatCurrentDate = (unformattedDate: Date): string => {
-  const currentDate = String(unformattedDate).substring(4, 15)
-  const splitDate = currentDate.split(' ')
+const formatCurrentDate = (unformattedDate: string): string => {
+  const splitDate = unformattedDate.split('/')
 
-  const month = months[splitDate[0]]
-  const day = splitDate[1]
-  const year = splitDate[2].substring(2, 4)
+  const month = addZeroIfNeeded(splitDate[0])
+  const day = addZeroIfNeeded(splitDate[1])
+  const year = splitDate[2]
 
   return month + '-' + day + '-' + year
 }
 
-const formatCurrentTime = (unformattedDate: Date): string => {
-  const currentTime = String(unformattedDate).substring(16, 24)
-  const splitTime = currentTime.split(':')
-  const currentTimeOfDay = checkTimeOfDay(splitTime[0])
-
-  const hour = transformTo12HourTime(splitTime[0])
-  const minute = splitTime[1]
-  const second = splitTime[2]
-
-  const time = hour + ':' + minute + ':' + second
-
-  return time + ' ' + currentTimeOfDay
-}
-
-const checkTimeOfDay = (hour: string): string => {
-  const PhilippineHour = Number(hour) + 4
-
-  if (PhilippineHour > 12) {
-    return 'PM'
+const addZeroIfNeeded = (number: string): string => {
+  if (String(number).length === 1) {
+    return '0' + number
   }
-  return 'AM'
-}
-
-const transformTo12HourTime = (hour: string): string => {
-  const PhilippineHour = Number(hour) + 4
-
-  if (PhilippineHour > 12) {
-    return String(Number(hour) - 8)
-  }
-  return hour
+  return number
 }
