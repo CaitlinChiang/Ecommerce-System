@@ -19,7 +19,7 @@ extend type Query {
   get_product(_id: ID): Product
 
   get_products(
-    categoryId: ID
+    categoryIds: [String]
     featured: Boolean
     paginateData: PaginateDataInput
     showPublic: Boolean
@@ -27,7 +27,7 @@ extend type Query {
   ): [Product]
 
   get_products_count(
-    categoryId: ID
+    categoryIds: [String]
     featured: Boolean
     paginateData: PaginateDataInput
     showPublic: Boolean

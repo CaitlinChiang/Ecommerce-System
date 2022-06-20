@@ -3,7 +3,7 @@ import { gql } from '@apollo/client'
 export default gql`
   query (
     $_id: ID
-    $categoryId: ID
+    $categoryIds: [String]
     $featured: Boolean
     $paginateData: PaginateDataInput
     $showPublic: Boolean
@@ -25,7 +25,7 @@ export default gql`
     }
 
     get_products(
-      categoryId: $categoryId
+      categoryIds: $categoryIds
       featured: $featured
       paginateData: $paginateData
       showPublic: $showPublic
@@ -41,7 +41,7 @@ export default gql`
     }
 
     get_products_count(
-      categoryId: $categoryId
+      categoryIds: $categoryIds
       featured: $featured
       paginateData: $paginateData
       showPublic: $showPublic

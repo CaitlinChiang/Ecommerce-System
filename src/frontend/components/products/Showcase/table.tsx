@@ -29,7 +29,7 @@ const ProductsTable = (): ReactElement => {
     value2: 0
   })
   const [specificArgs, setSpecificArgs] = useState<any>({
-    categoryId: null,
+    categoryIds: [],
     featured: null,
     showPublic: null
   })
@@ -103,6 +103,7 @@ const ProductsTable = (): ReactElement => {
             targetProperty={'showPublic'}
           />
           <ProductCategoriesSelect
+            multiple={true}
             setSpecificArgs={setSpecificArgs}
             specificArgs={specificArgs}
           />
