@@ -7,7 +7,7 @@ type City {
 }
 
 extend type Query {
-  get_city(_id: ID): City
+  get_city(_id: ID!): City
 
   get_cities(paginateData: PaginateDataInput): [City]
 

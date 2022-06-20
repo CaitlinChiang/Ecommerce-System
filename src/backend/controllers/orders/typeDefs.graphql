@@ -15,7 +15,7 @@ type Order {
 }
 
 extend type Query {
-  get_order(_id: ID): Order
+  get_order(_id: ID!): Order
 
   get_orders(dateRange: DateRangeInput, paginateData: PaginateDataInput): [Order]
 

@@ -1,11 +1,15 @@
 import { gql } from '@apollo/client'
 
-export default gql`
-  query ($_id: ID, $dateRange: DateRangeInput, $paginateData: PaginateDataInput) {
+export const querySingular = gql`
+  query ($_id: ID!) {
     get_order(_id: $_id) {
       _id
     }
+  }
+`
 
+export const queryMultiple = gql`
+  query ($dateRange: DateRangeInput, $paginateData: PaginateDataInput) {
     get_orders(dateRange: $dateRange, paginateData: $paginateData) {
       _id
     }

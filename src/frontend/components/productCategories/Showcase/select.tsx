@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 import { useQuery } from '@apollo/client'
-import query from './query'
+import { queryMultiple } from './query'
 import { ProductCategory } from '../../../../types/productCategory'
 import { SortDirection } from '../../../_enums/sortDirection'
 import SelectField from '../../../components/_common/SelectField'
@@ -18,7 +18,7 @@ const ProductCategoriesSelect = ({
 }): ReactElement => {
   const targetProp = multiple ? 'categoryIds' : 'categoryId'
 
-  const { data } = useQuery(query, {
+  const { data } = useQuery(queryMultiple, {
     variables: {
       paginateData: { sortBy: 'name', sortDirection: SortDirection.ASC }
     }

@@ -7,7 +7,7 @@ type PaymentMethod {
 }
 
 extend type Query {
-  get_payment_method(_id: ID): PaymentMethod
+  get_payment_method(_id: ID!): PaymentMethod
 
   get_payment_methods(paginateData: PaginateDataInput): [PaymentMethod]
 

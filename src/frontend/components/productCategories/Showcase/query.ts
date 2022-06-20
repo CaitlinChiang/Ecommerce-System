@@ -1,11 +1,15 @@
 import { gql } from '@apollo/client'
 
-export default gql`
-  query ($_id: ID, $paginateData: PaginateDataInput) {
+export const querySingular = gql`
+  query ($_id: ID!) {
     get_product_category(_id: $_id) {
       _id
     }
+  }
+`
 
+export const queryMultiple = gql`
+  query ($paginateData: PaginateDataInput) {
     get_product_categories(paginateData: $paginateData) {
       _id
       name

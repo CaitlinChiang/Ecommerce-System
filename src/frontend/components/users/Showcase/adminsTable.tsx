@@ -1,6 +1,6 @@
 import { ReactElement, useState } from 'react'
 import { useQuery } from '@apollo/client'
-import query from './query'
+import { queryMultiple } from './query'
 import deleteMutation from '../Delete/mutation'
 import { TableCell, TableRow } from '@mui/material'
 import { User } from '../../../../types/user'
@@ -28,7 +28,7 @@ const AdminsTable = (): ReactElement => {
   })
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
 
-  const { data, loading, fetchMore } = useQuery(query, {
+  const { data, loading, fetchMore } = useQuery(queryMultiple, {
     variables: { ...args, paginateData: paginateDataArgs },
     ...fetchMoreArgs
   })
