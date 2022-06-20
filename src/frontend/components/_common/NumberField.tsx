@@ -1,6 +1,7 @@
 import { ReactElement } from 'react'
 import theme from '../../themes'
 import { TextField } from '@mui/material'
+import { formatProperCapitalization } from '../../_utils/formatProperCapitalization'
 
 const NumberField = ({
   args,
@@ -15,7 +16,7 @@ const NumberField = ({
   args: any
   defaultValue?: number
   disabled?: boolean
-  label: string
+  label?: string
   required?: boolean
   setArgs: React.Dispatch<React.SetStateAction<any>>
   targetProperty: string
@@ -26,7 +27,7 @@ const NumberField = ({
       defaultValue={defaultValue}
       disabled={disabled}
       id='outlined-required'
-      label={label}
+      label={label || formatProperCapitalization(targetProperty)}
       onChange={(e): void => {
         const val = Number(e.target.value)
         setArgs({ ...args, [targetProperty]: val })

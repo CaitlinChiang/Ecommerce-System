@@ -1,6 +1,7 @@
 import { ReactElement } from 'react'
 import theme from '../../themes'
 import { TextField } from '@mui/material'
+import { formatProperCapitalization } from '../../_utils/formatProperCapitalization'
 
 const Text = ({
   args,
@@ -22,7 +23,7 @@ const Text = ({
   disabled?: boolean
   error?: any
   helperText?: string
-  label: string
+  label?: string
   maxRows?: number
   multiline?: boolean
   placeholder?: string
@@ -38,7 +39,7 @@ const Text = ({
       error={error}
       helperText={error && helperText}
       id='outlined-required'
-      label={label}
+      label={label || formatProperCapitalization(targetProperty)}
       maxRows={maxRows}
       multiline={multiline}
       onChange={(e): void => {
