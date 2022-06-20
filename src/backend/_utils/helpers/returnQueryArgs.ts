@@ -1,5 +1,6 @@
 import { ObjectId } from 'mongodb'
 import { StockQuantityOperator } from '../../_enums/stockQuantityOperator'
+import { correctArgs } from './correctArgs'
 
 export const queryArgs = (args: any): any => {
   const { categoryIds, dateRange, paginateData, stockQuantity, ...specificArgs } =
@@ -11,15 +12,7 @@ export const queryArgs = (args: any): any => {
 
   const modifiedArgs: any = { ...specificArgs }
 
-  Object.keys(modifiedArgs).forEach((key) => {
-    if (modifiedArgs[key] != null && String(key).includes('Id')) {
-      modifiedArgs[key] = new ObjectId(modifiedArgs[key])
-    }
-
-    if (modifiedArgs[key] === null) {
-      delete modifiedArgs[key]
-    }
-  })
+  correctArgs(modifiedArgs)
 
   modifiedArgs.deletedAt = { $exists: false }
 
