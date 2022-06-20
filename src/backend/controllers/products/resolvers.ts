@@ -20,6 +20,10 @@ export default {
       return formatDateTime(product?.createdAt)
     },
 
+    expirationDate: async (product: Product): Promise<string> => {
+      return formatDateTime(product?.expirationDate)
+    },
+
     stockQuantity: async (
       product: Product,
       args: undefined,
@@ -29,7 +33,7 @@ export default {
         await context.dataloaders.productVariants.byProductId.load(product._id)
 
       const getProductVariantsStockQuantities = (): number => {
-        return productVariants.reduce(
+        return productVariants?.reduce(
           (
             totalStockQuantity: number,
             currentProductVariant: ProductVariant
@@ -40,7 +44,7 @@ export default {
         )
       }
 
-      if (productVariants.length == 0) return product.stockQuantity
+      if (productVariants?.length == 0) return product.stockQuantity
       return getProductVariantsStockQuantities()
     },
 
