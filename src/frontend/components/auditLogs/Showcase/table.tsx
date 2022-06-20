@@ -16,6 +16,7 @@ const AuditLogsTable = ({
   orderId?: ObjectId
   paymentId?: ObjectId
 }): ReactElement => {
+  const args = { orderId, paymentId }
   const [page, setPage] = useState<number>(0)
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
     offset: 0,
@@ -24,10 +25,9 @@ const AuditLogsTable = ({
     sortBy: 'createdAt',
     sortDirection: SortDirection.DESC
   })
-  const specificArgs = { orderId, paymentId }
 
   const { data, loading, fetchMore } = useQuery(query, {
-    variables: { paginateData: paginateDataArgs, ...specificArgs },
+    variables: { ...args, paginateData: paginateDataArgs },
     ...fetchMoreArgs
   })
 
@@ -54,6 +54,7 @@ const AuditLogsTable = ({
 
   return (
     <TableComponent
+      args={args}
       count={auditLogsCount}
       fetchMore={fetchMore}
       headers={auditLogHeaders}
@@ -64,7 +65,6 @@ const AuditLogsTable = ({
       rowsPerPageOptions={[10, 25, 50, 75, 100]}
       setPage={setPage}
       setPaginateDataArgs={setPaginateDataArgs}
-      specificArgs={specificArgs}
     />
   )
 }

@@ -7,14 +7,14 @@ import { Box, TextField } from '@mui/material'
 import { formatProperCapitalization } from '../../_utils/formatProperCapitalization'
 
 const DatePickerField = ({
+  args,
   disabled,
-  setSpecificArgs,
-  specificArgs,
+  setArgs,
   targetProperty
 }: {
+  args?: any
   disabled?: boolean
-  setSpecificArgs?: React.Dispatch<React.SetStateAction<any>>
-  specificArgs?: any
+  setArgs?: React.Dispatch<React.SetStateAction<any>>
   targetProperty: string
 }): ReactElement => {
   return (
@@ -25,10 +25,10 @@ const DatePickerField = ({
           inputFormat={'MM-dd-yyyy'}
           label={formatProperCapitalization(targetProperty)}
           onChange={(newValue: Date | null) => {
-            setSpecificArgs({ ...specificArgs, [targetProperty]: newValue })
+            setArgs({ ...args, [targetProperty]: newValue })
           }}
           renderInput={(params) => <TextField {...params} />}
-          value={specificArgs[targetProperty]}
+          value={args[targetProperty]}
         />
       </LocalizationProvider>
     </Box>

@@ -8,7 +8,7 @@ import Text from '../../_common/TextField'
 import DatePickerField from 'frontend/components/_common/DatePickerField'
 
 const UpdateProduct = (): ReactElement => {
-  const [specificArgs, setSpecificArgs] = useState<any>({
+  const [args, setArgs] = useState<any>({
     categoryId: null,
     description: null,
     expirationDate: null,
@@ -20,9 +20,9 @@ const UpdateProduct = (): ReactElement => {
   })
 
   const { data } = useQuery(query, {
-    variables: specificArgs,
+    variables: args,
     onCompleted: (product): void => {
-      setSpecificArgs({
+      setArgs({
         categoryId: product?.categoryId,
         description: product?.description,
         expirationDate: product?.expirationDate,
@@ -39,27 +39,22 @@ const UpdateProduct = (): ReactElement => {
 
   return (
     <>
-      <ProductCategoriesSelect
-        setSpecificArgs={setSpecificArgs}
-        specificArgs={specificArgs}
-      />
+      <ProductCategoriesSelect args={args} setArgs={setArgs} />
       <Text
+        args={args}
         label={'Description'}
-        setSpecificArgs={setSpecificArgs}
-        specificArgs={specificArgs}
+        setArgs={setArgs}
         targetProperty={'description'}
         width={800}
       />
       <DatePickerField
-        setSpecificArgs={setSpecificArgs}
-        specificArgs={specificArgs}
+        args={args}
+        setArgs={setArgs}
         targetProperty={'expirationDate'}
       />
       <Checkbox
-        checked={specificArgs?.featured}
-        onChange={() =>
-          setSpecificArgs({ ...specificArgs, featured: !specificArgs?.featured })
-        }
+        checked={args?.featured}
+        onChange={() => setArgs({ ...args, featured: !args?.featured })}
       />
     </>
   )

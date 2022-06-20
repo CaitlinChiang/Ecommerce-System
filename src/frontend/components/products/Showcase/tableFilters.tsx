@@ -10,11 +10,11 @@ import DatePickerField from '../../_common/DatePickerField'
 import NumberField from '../../_common/NumberField'
 
 const ProductsTableFilters = ({
-  setSpecificArgs,
-  specificArgs
+  args,
+  setArgs
 }: {
-  setSpecificArgs: React.Dispatch<React.SetStateAction<any>>
-  specificArgs: any
+  args: any
+  setArgs: React.Dispatch<React.SetStateAction<any>>
 }): ReactElement => {
   const [dateRangeArgs, setDateRangeArgs] = useState<DateRange>({
     startDate: null,
@@ -28,8 +28,8 @@ const ProductsTableFilters = ({
   })
 
   useEffect(() => {
-    setSpecificArgs({
-      ...specificArgs,
+    setArgs({
+      ...args,
       dateRange: {
         startDate: dateRangeArgs?.startDate,
         endDate: dateRangeArgs?.endDate,
@@ -46,63 +46,60 @@ const ProductsTableFilters = ({
   return (
     <>
       <SelectField
+        args={args}
         label={'Featured Status'}
         optionLabelProperty={'label'}
         options={[
           { label: 'Featured Products', featured: true },
           { label: 'Non-Featured Products', featured: false }
         ]}
-        setSpecificArgs={setSpecificArgs}
-        specificArgs={specificArgs}
+        setArgs={setArgs}
         targetProperty={'featured'}
       />
       <SelectField
+        args={args}
         label={'Show Public Status'}
         optionLabelProperty={'label'}
         options={[
           { label: 'Public Products', showPublic: true },
           { label: 'Private Products', showPublic: false }
         ]}
-        setSpecificArgs={setSpecificArgs}
-        specificArgs={specificArgs}
+        setArgs={setArgs}
         targetProperty={'showPublic'}
       />
-      <ProductCategoriesSelect
-        multiple={true}
-        setSpecificArgs={setSpecificArgs}
-        specificArgs={specificArgs}
-      />
+      <ProductCategoriesSelect args={args} multiple={true} setArgs={setArgs} />
       <Box>
         <SelectField
+          args={dateRangeArgs}
           label={'Filter Date Range by'}
           optionLabelProperty={'label'}
           options={[
             { label: 'Created At Date', filterBy: DateRangeType.CREATED },
             { label: 'Expiration Date', filterBy: DateRangeType.EXPIRATION }
           ]}
-          setSpecificArgs={setDateRangeArgs}
-          specificArgs={dateRangeArgs}
+          setArgs={setDateRangeArgs}
           targetProperty={'filterBy'}
         />
         <DatePickerField
+          args={dateRangeArgs}
           disabled={
             dateRangeArgs?.filterBy === null || dateRangeArgs?.filterBy == undefined
           }
-          setSpecificArgs={setDateRangeArgs}
-          specificArgs={dateRangeArgs}
+          setArgs={setDateRangeArgs}
           targetProperty={'startDate'}
         />
         <DatePickerField
+          args={dateRangeArgs}
           disabled={
             dateRangeArgs?.filterBy === null || dateRangeArgs?.filterBy == undefined
           }
-          setSpecificArgs={setDateRangeArgs}
-          specificArgs={dateRangeArgs}
+          setArgs={setDateRangeArgs}
           targetProperty={'endDate'}
         />
       </Box>
       <Box>
         <SelectField
+          args={stockQuantityArgs}
           label={'Filter Stock Quantity Operator'}
           optionLabelProperty={'label'}
           options={[
@@ -111,11 +108,11 @@ const ProductsTableFilters = ({
             { label: 'BETWEEN', operator: StockQuantityOperator.BETWEEN },
             { label: 'EQUAL TO', operator: StockQuantityOperator.EQUAL }
           ]}
-          setSpecificArgs={setStockQuantityArgs}
-          specificArgs={stockQuantityArgs}
+          setArgs={setStockQuantityArgs}
           targetProperty={'operator'}
         />
         <NumberField
+          args={stockQuantityArgs}
           disabled={
             stockQuantityArgs?.operator === null ||
             stockQuantityArgs?.operator == undefined
@@ -125,17 +122,16 @@ const ProductsTableFilters = ({
               ? 'Value 1'
               : 'Value'
           }
-          setSpecificArgs={setStockQuantityArgs}
-          specificArgs={stockQuantityArgs}
+          setArgs={setStockQuantityArgs}
           targetProperty={'value1'}
         />
         {stockQuantityArgs?.operator === StockQuantityOperator.BETWEEN && (
           <>
             <Typography>{'and'}</Typography>
             <NumberField
+              args={stockQuantityArgs}
               label={'Value 2'}
-              setSpecificArgs={setStockQuantityArgs}
-              specificArgs={stockQuantityArgs}
+              setArgs={setStockQuantityArgs}
               targetProperty={'value2'}
             />
           </>

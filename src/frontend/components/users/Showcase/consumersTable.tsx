@@ -12,6 +12,7 @@ import DeleteButton from '../../_common/DeleteButton'
 import { fetchMoreArgs } from '../../../_utils/returnFetchMoreArgs'
 
 const ConsumersTable = (): ReactElement => {
+  const args = { type: UserType.CONSUMER }
   const [page, setPage] = useState<number>(0)
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
     offset: 0,
@@ -20,10 +21,9 @@ const ConsumersTable = (): ReactElement => {
     sortBy: 'lastName',
     sortDirection: SortDirection.ASC
   })
-  const specificArgs = { type: UserType.CONSUMER }
 
   const { data, loading, fetchMore } = useQuery(query, {
-    variables: { paginateData: paginateDataArgs, ...specificArgs },
+    variables: { ...args, paginateData: paginateDataArgs },
     ...fetchMoreArgs
   })
 
@@ -58,6 +58,7 @@ const ConsumersTable = (): ReactElement => {
 
   return (
     <TableComponent
+      args={args}
       count={usersCount}
       fetchMore={fetchMore}
       headers={userHeaders}
@@ -70,7 +71,6 @@ const ConsumersTable = (): ReactElement => {
       searchPlaceholder={'ex. ava_cruz@gmail.com'}
       setPage={setPage}
       setPaginateDataArgs={setPaginateDataArgs}
-      specificArgs={specificArgs}
     />
   )
 }

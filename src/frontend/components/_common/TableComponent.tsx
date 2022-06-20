@@ -22,6 +22,7 @@ import { searchData } from '../../_utils/searchData'
 import { formatProperCapitalization } from '../../_utils/formatProperCapitalization'
 
 const TableComponent = ({
+  args,
   count,
   fetchMore,
   filterContent,
@@ -37,9 +38,9 @@ const TableComponent = ({
   searchPlaceholder,
   setFilterOpen,
   setPage,
-  setPaginateDataArgs,
-  specificArgs
+  setPaginateDataArgs
 }: {
+  args?: any
   count: number
   fetchMore?: any
   filterContent?: ReactElement
@@ -56,7 +57,6 @@ const TableComponent = ({
   setFilterOpen?: React.Dispatch<React.SetStateAction<boolean>>
   setPage: React.Dispatch<React.SetStateAction<number>>
   setPaginateDataArgs: React.Dispatch<React.SetStateAction<PaginateDataArgs>>
-  specificArgs?: any
 }): ReactElement => {
   const { rowsPerPage, searchText, sortBy, sortDirection } = paginateDataArgs
 
@@ -65,12 +65,12 @@ const TableComponent = ({
   }, [searchText, sortBy])
 
   useEffect(() => {
-    searchData(fetchMore, loading, page, paginateDataArgs, specificArgs)
+    searchData(args, fetchMore, loading, page, paginateDataArgs)
   }, [page, paginateDataArgs])
 
   useEffect(() => {
     const timeoutId = setTimeout(
-      () => searchData(fetchMore, loading, page, paginateDataArgs, specificArgs),
+      () => searchData(args, fetchMore, loading, page, paginateDataArgs),
       500
     )
     return (): void => clearTimeout(timeoutId)
@@ -90,11 +90,11 @@ const TableComponent = ({
         <SearchField
           onKeyDown={(e): void => {
             if (e.key === 'Enter') {
-              searchData(fetchMore, loading, page, paginateDataArgs, specificArgs)
+              searchData(args, fetchMore, loading, page, paginateDataArgs)
             }
           }}
           onSearch={(): void => {
-            searchData(fetchMore, loading, page, paginateDataArgs, specificArgs)
+            searchData(args, fetchMore, loading, page, paginateDataArgs)
           }}
           searchButtonDisabled={loading}
           searchLabel={searchLabel}

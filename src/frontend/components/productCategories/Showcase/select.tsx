@@ -7,12 +7,12 @@ import SelectField from '../../../components/_common/SelectField'
 
 const ProductCategoriesSelect = ({
   multiple,
-  setSpecificArgs,
-  specificArgs
+  setArgs,
+  args
 }: {
   multiple?: boolean
-  setSpecificArgs: React.Dispatch<React.SetStateAction<any>>
-  specificArgs: any
+  setArgs: React.Dispatch<React.SetStateAction<any>>
+  args: any
 }): ReactElement => {
   const targetProperty = multiple ? 'categoryIds' : 'categoryId'
 
@@ -39,8 +39,8 @@ const ProductCategoriesSelect = ({
       multiple={multiple}
       optionLabelProperty={'label'}
       options={productCategoryOptions}
-      setSpecificArgs={setSpecificArgs}
-      specificArgs={specificArgs}
+      setArgs={setArgs}
+      args={args}
       targetProperty={targetProperty}
     />
   )

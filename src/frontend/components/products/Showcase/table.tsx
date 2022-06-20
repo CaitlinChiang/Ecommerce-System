@@ -16,15 +16,7 @@ import { fetchMoreArgs } from '../../../_utils/returnFetchMoreArgs'
 const ProductsTable = (): ReactElement => {
   const router = useRouter()
 
-  const [page, setPage] = useState<number>(0)
-  const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
-    offset: 0,
-    rowsPerPage: 10,
-    searchText: '',
-    sortBy: 'name',
-    sortDirection: SortDirection.ASC
-  })
-  const [specificArgs, setSpecificArgs] = useState<any>({
+  const [args, setArgs] = useState<any>({
     dateRange: {
       startDate: null,
       endDate: null,
@@ -39,12 +31,20 @@ const ProductsTable = (): ReactElement => {
       value2: null
     }
   })
+  const [page, setPage] = useState<number>(0)
+  const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
+    offset: 0,
+    rowsPerPage: 10,
+    searchText: '',
+    sortBy: 'name',
+    sortDirection: SortDirection.ASC
+  })
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
 
   const { data, loading, fetchMore } = useQuery(query, {
     variables: {
-      paginateData: paginateDataArgs,
-      ...specificArgs
+      ...args,
+      paginateData: paginateDataArgs
     },
     ...fetchMoreArgs
   })
@@ -91,14 +91,10 @@ const ProductsTable = (): ReactElement => {
 
   return (
     <TableComponent
+      args={args}
       count={productsCount}
       fetchMore={fetchMore}
-      filterContent={
-        <ProductsTableFilters
-          setSpecificArgs={setSpecificArgs}
-          specificArgs={specificArgs}
-        />
-      }
+      filterContent={<ProductsTableFilters args={args} setArgs={setArgs} />}
       filterOpen={filterOpen}
       headers={productHeaders}
       loading={loading}
@@ -111,7 +107,6 @@ const ProductsTable = (): ReactElement => {
       setFilterOpen={setFilterOpen}
       setPage={setPage}
       setPaginateDataArgs={setPaginateDataArgs}
-      specificArgs={specificArgs}
     />
   )
 }

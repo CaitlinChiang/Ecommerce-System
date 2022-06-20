@@ -3,21 +3,21 @@ import theme from '../../themes'
 import { TextField } from '@mui/material'
 
 const NumberField = ({
+  args,
   defaultValue,
   disabled,
   label,
   required,
-  setSpecificArgs,
-  specificArgs,
+  setArgs,
   targetProperty,
   width
 }: {
+  args: any
   defaultValue?: number
   disabled?: boolean
   label: string
   required?: boolean
-  setSpecificArgs: React.Dispatch<React.SetStateAction<any>>
-  specificArgs: any
+  setArgs: React.Dispatch<React.SetStateAction<any>>
   targetProperty: string
   width?: number
 }): ReactElement => {
@@ -29,13 +29,13 @@ const NumberField = ({
       label={label}
       onChange={(e): void => {
         const val = Number(e.target.value)
-        setSpecificArgs({ ...specificArgs, [targetProperty]: val })
+        setArgs({ ...args, [targetProperty]: val })
       }}
       placeholder={'0'}
       required={required}
       sx={{ width: width || 300, padding: theme.spacing(2) }}
       type={'number'}
-      value={specificArgs[targetProperty]}
+      value={args[targetProperty]}
       InputProps={{ inputProps: { min: 0 } }}
     />
   )

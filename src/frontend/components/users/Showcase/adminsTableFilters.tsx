@@ -2,22 +2,22 @@ import { ReactElement } from 'react'
 import SelectField from '../../_common/SelectField'
 
 const AdminsTableFilters = ({
-  setSpecificArgs,
-  specificArgs
+  args,
+  setArgs
 }: {
-  setSpecificArgs: React.Dispatch<React.SetStateAction<any>>
-  specificArgs: any
+  args: any
+  setArgs: React.Dispatch<React.SetStateAction<any>>
 }): ReactElement => {
   return (
     <SelectField
+      args={args}
       label={'Active Status'}
       optionLabelProperty={'label'}
       options={[
         { label: 'Active Users', active: true },
         { label: 'Non-Active Users', active: false }
       ]}
-      setSpecificArgs={setSpecificArgs}
-      specificArgs={specificArgs}
+      setArgs={setArgs}
       targetProperty={'active'}
     />
   )

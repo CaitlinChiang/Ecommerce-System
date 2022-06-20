@@ -3,25 +3,25 @@ import theme from '../../themes'
 import { TextField, Autocomplete } from '@mui/material'
 
 const SelectField = ({
+  args,
   defaultValue,
   label,
   multiple,
   optionLabelProperty,
   options,
   required,
-  setSpecificArgs,
-  specificArgs,
+  setArgs,
   targetProperty,
   width
 }: {
+  args: any
   defaultValue?: any
   label: string
   multiple?: boolean
   optionLabelProperty?: string
   options: any[]
   required?: boolean
-  setSpecificArgs: React.Dispatch<React.SetStateAction<any>>
-  specificArgs: any
+  setArgs: React.Dispatch<React.SetStateAction<any>>
   targetProperty: string
   width?: number
 }): ReactElement => {
@@ -37,14 +37,14 @@ const SelectField = ({
           val = newValue.map((option: any) => option?.[targetProperty])
         }
 
-        setSpecificArgs({ ...specificArgs, [targetProperty]: val })
+        setArgs({ ...args, [targetProperty]: val })
       }}
       options={options}
       renderInput={(params): ReactElement => (
         <TextField {...params} label={label} required={required} />
       )}
       sx={{ width: width || 300, padding: theme.spacing(2) }}
-      value={specificArgs[optionLabelProperty]}
+      value={args[optionLabelProperty]}
     />
   )
 }

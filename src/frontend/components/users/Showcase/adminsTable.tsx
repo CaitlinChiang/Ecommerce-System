@@ -14,6 +14,10 @@ import AdminsTableFilters from './adminsTableFilters'
 import { fetchMoreArgs } from '../../../_utils/returnFetchMoreArgs'
 
 const AdminsTable = (): ReactElement => {
+  const [args, setArgs] = useState<any>({
+    active: null,
+    type: UserType.ADMIN
+  })
   const [page, setPage] = useState<number>(0)
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
     offset: 0,
@@ -22,14 +26,10 @@ const AdminsTable = (): ReactElement => {
     sortBy: 'lastName',
     sortDirection: SortDirection.ASC
   })
-  const [specificArgs, setSpecificArgs] = useState<any>({
-    active: null,
-    type: UserType.ADMIN
-  })
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
 
   const { data, loading, fetchMore } = useQuery(query, {
-    variables: { paginateData: paginateDataArgs, ...specificArgs },
+    variables: { ...args, paginateData: paginateDataArgs },
     ...fetchMoreArgs
   })
 
@@ -68,14 +68,10 @@ const AdminsTable = (): ReactElement => {
 
   return (
     <TableComponent
+      args={args}
       count={usersCount}
       fetchMore={fetchMore}
-      filterContent={
-        <AdminsTableFilters
-          setSpecificArgs={setSpecificArgs}
-          specificArgs={specificArgs}
-        />
-      }
+      filterContent={<AdminsTableFilters args={args} setArgs={setArgs} />}
       filterOpen={filterOpen}
       headers={userHeaders}
       loading={loading}
@@ -88,7 +84,6 @@ const AdminsTable = (): ReactElement => {
       setFilterOpen={setFilterOpen}
       setPage={setPage}
       setPaginateDataArgs={setPaginateDataArgs}
-      specificArgs={specificArgs}
     />
   )
 }

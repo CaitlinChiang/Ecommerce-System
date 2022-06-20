@@ -4,14 +4,13 @@ import { correctArgs } from './correctArgs'
 import { formatDateRange } from './formatDateRange'
 
 export const queryArgs = (args: any): any => {
-  const { categoryIds, dateRange, paginateData, stockQuantity, ...specificArgs } =
-    args
+  const { categoryIds, dateRange, paginateData, stockQuantity, ...queryArgs } = args
 
   if (paginateData?.searchText) {
     return { $text: { $search: paginateData.searchText } }
   }
 
-  const modifiedArgs: any = { ...specificArgs }
+  const modifiedArgs: any = { ...queryArgs }
 
   correctArgs(modifiedArgs)
 

@@ -3,6 +3,7 @@ import theme from '../../themes'
 import { TextField } from '@mui/material'
 
 const Text = ({
+  args,
   defaultValue,
   disabled,
   error,
@@ -12,11 +13,11 @@ const Text = ({
   multiline,
   placeholder,
   required,
-  setSpecificArgs,
-  specificArgs,
+  setArgs,
   targetProperty,
   width
 }: {
+  args: any
   defaultValue?: string
   disabled?: boolean
   error?: any
@@ -26,8 +27,7 @@ const Text = ({
   multiline?: boolean
   placeholder?: string
   required?: boolean
-  setSpecificArgs: React.Dispatch<React.SetStateAction<any>>
-  specificArgs: any
+  setArgs: React.Dispatch<React.SetStateAction<any>>
   targetProperty: string
   width?: number
 }): ReactElement => {
@@ -42,12 +42,12 @@ const Text = ({
       maxRows={maxRows}
       multiline={multiline}
       onChange={(e): void => {
-        setSpecificArgs({ ...specificArgs, [targetProperty]: e.target.value })
+        setArgs({ ...args, [targetProperty]: e.target.value })
       }}
       placeholder={placeholder}
       required={required}
       sx={{ width: width || 300, padding: theme.spacing(2) }}
-      value={specificArgs[targetProperty]}
+      value={args[targetProperty]}
     />
   )
 }

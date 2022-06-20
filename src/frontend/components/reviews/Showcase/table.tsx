@@ -13,6 +13,9 @@ import ReviewsTableFilters from './tableFilters'
 import { fetchMoreArgs } from '../../../_utils/returnFetchMoreArgs'
 
 const ReviewsTable = (): ReactElement => {
+  const [args, setArgs] = useState<any>({
+    featured: null
+  })
   const [page, setPage] = useState<number>(0)
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
     offset: 0,
@@ -21,13 +24,10 @@ const ReviewsTable = (): ReactElement => {
     sortBy: 'createdAt',
     sortDirection: SortDirection.DESC
   })
-  const [specificArgs, setSpecificArgs] = useState<any>({
-    featured: null
-  })
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
 
   const { data, loading, fetchMore } = useQuery(query, {
-    variables: { paginateData: paginateDataArgs, ...specificArgs },
+    variables: { ...args, paginateData: paginateDataArgs },
     ...fetchMoreArgs
   })
 
@@ -66,14 +66,10 @@ const ReviewsTable = (): ReactElement => {
 
   return (
     <TableComponent
+      args={args}
       count={reviewsCount}
       fetchMore={fetchMore}
-      filterContent={
-        <ReviewsTableFilters
-          setSpecificArgs={setSpecificArgs}
-          specificArgs={specificArgs}
-        />
-      }
+      filterContent={<ReviewsTableFilters args={args} setArgs={setArgs} />}
       filterOpen={filterOpen}
       headers={reviewHeaders}
       loading={loading}
@@ -84,7 +80,6 @@ const ReviewsTable = (): ReactElement => {
       setFilterOpen={setFilterOpen}
       setPage={setPage}
       setPaginateDataArgs={setPaginateDataArgs}
-      specificArgs={specificArgs}
     />
   )
 }

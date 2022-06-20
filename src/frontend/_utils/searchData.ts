@@ -1,21 +1,21 @@
 import { PaginateDataArgs } from '../../types/actions/paginateData'
 
 export const searchData = (
+  args: any,
   fetchMore: any,
   loading: boolean,
   page: number,
-  paginateDataArgs: PaginateDataArgs,
-  specificArgs: any
+  paginateDataArgs: PaginateDataArgs
 ): void => {
   if (loading) return
 
   fetchMore({
     variables: {
+      ...args,
       paginateData: {
         ...paginateDataArgs,
         offset: Number(page * paginateDataArgs.rowsPerPage)
-      },
-      ...specificArgs
+      }
     },
     updateQuery: (prev: any, { fetchMoreResult }: any) => {
       if (!fetchMoreResult) return prev
