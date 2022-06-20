@@ -10,4 +10,4 @@ const Page = (): ReactElement => {
   )
 }
 
-export default layout(Page, { title: 'Administrators', backRoute: '/' })
+export default layout(Page, { title: 'Administrators' })

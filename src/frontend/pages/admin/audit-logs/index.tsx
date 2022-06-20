@@ -10,4 +10,4 @@ const Page = (): ReactElement => {
   )
 }
 
-export default layout(Page, { title: 'Audit Logs', backRoute: '/' })
+export default layout(Page, { title: 'Audit Logs' })

@@ -33,7 +33,7 @@ const Div = styled('div')({
 
 export default (
     Page: FunctionComponent,
-    { title, backRoute, wide }: { title: string; backRoute: string; wide?: boolean }
+    { title, backRoute, wide }: { title: string; backRoute?: string; wide?: boolean }
   ) =>
   (): FunctionComponent | NextPage | ReactElement => {
     const [open, setOpen] = useState(false)
