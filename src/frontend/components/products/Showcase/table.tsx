@@ -11,6 +11,7 @@ import TableComponent from '../../_common/TableComponent'
 // import UpdateProductButton from '../Update/updateButton'
 // import DeleteProductButton from '../Delete/deleteButton'
 import SelectField from '../../_common/SelectField'
+import ProductCategoriesSelect from '../../productCategories/Showcase/select'
 import { tableArgs } from '../../../_utils/returnTableArgs'
 
 const ProductsTable = (): ReactElement => {
@@ -103,7 +104,10 @@ const ProductsTable = (): ReactElement => {
             specificArgs={specificArgs}
             targetProperty={'showPublic'}
           />
-          
+          <ProductCategoriesSelect
+            setSpecificArgs={setSpecificArgs}
+            specificArgs={specificArgs}
+          />
           {/* INSERT LOGIC FOR STOCK QUANTITY FILTERING */}
         </>
       }
