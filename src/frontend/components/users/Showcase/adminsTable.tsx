@@ -10,7 +10,7 @@ import { UserType } from '../../../_enums/userType'
 import TableComponent from '../../_common/TableComponent'
 import UpdateUserCheckbox from '../Update/updateCheckbox'
 import DeleteButton from '../../_common/DeleteButton'
-import SelectField from '../../_common/SelectField'
+import AdminsTableFilters from './adminsTableFilters'
 import { tableArgs } from '../../../_utils/returnTableArgs'
 
 const AdminsTable = (): ReactElement => {
@@ -71,16 +71,9 @@ const AdminsTable = (): ReactElement => {
       count={usersCount}
       fetchMore={fetchMore}
       filterContent={
-        <SelectField
-          label={'Active Status'}
-          optionLabelProperty={'label'}
-          options={[
-            { label: 'Active Users', active: true },
-            { label: 'Non-Active Users', active: false }
-          ]}
+        <AdminsTableFilters
           setSpecificArgs={setSpecificArgs}
           specificArgs={specificArgs}
-          targetProperty={'active'}
         />
       }
       filterOpen={filterOpen}

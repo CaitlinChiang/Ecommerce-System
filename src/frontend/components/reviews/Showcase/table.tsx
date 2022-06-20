@@ -9,7 +9,7 @@ import { SortDirection } from '../../../_enums/sortDirection'
 import TableComponent from '../../_common/TableComponent'
 import UpdateReviewCheckbox from '../Update/updateCheckbox'
 import DeleteButton from '../../_common/DeleteButton'
-import SelectField from '../../_common/SelectField'
+import ReviewsTableFilters from './tableFilters'
 import { tableArgs } from '../../../_utils/returnTableArgs'
 
 const ReviewsTable = (): ReactElement => {
@@ -69,16 +69,9 @@ const ReviewsTable = (): ReactElement => {
       count={reviewsCount}
       fetchMore={fetchMore}
       filterContent={
-        <SelectField
-          label={'Featured Status'}
-          optionLabelProperty={'label'}
-          options={[
-            { label: 'Featured Reviews', featured: true },
-            { label: 'Non-Featured Reviews', featured: false }
-          ]}
+        <ReviewsTableFilters
           setSpecificArgs={setSpecificArgs}
           specificArgs={specificArgs}
-          targetProperty={'featured'}
         />
       }
       filterOpen={filterOpen}

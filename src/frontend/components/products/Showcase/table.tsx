@@ -11,8 +11,7 @@ import { StockQuantityOperator } from '../../../_enums/stockQuantityOperator'
 import TableComponent from '../../_common/TableComponent'
 // import UpdateProductButton from '../Update/updateButton'
 import DeleteButton from '../../_common/DeleteButton'
-import SelectField from '../../_common/SelectField'
-import ProductCategoriesSelect from '../../productCategories/Showcase/select'
+import ProductsTableFilters from './tableFilters'
 import { tableArgs } from '../../../_utils/returnTableArgs'
 
 const ProductsTable = (): ReactElement => {
@@ -84,36 +83,10 @@ const ProductsTable = (): ReactElement => {
       count={productsCount}
       fetchMore={fetchMore}
       filterContent={
-        <>
-          <SelectField
-            label={'Featured Status'}
-            optionLabelProperty={'label'}
-            options={[
-              { label: 'Featured Products', featured: true },
-              { label: 'Non-Featured Products', featured: false }
-            ]}
-            setSpecificArgs={setSpecificArgs}
-            specificArgs={specificArgs}
-            targetProperty={'featured'}
-          />
-          <SelectField
-            label={'Show Public Status'}
-            optionLabelProperty={'label'}
-            options={[
-              { label: 'Public Products', showPublic: true },
-              { label: 'Private Products', showPublic: false }
-            ]}
-            setSpecificArgs={setSpecificArgs}
-            specificArgs={specificArgs}
-            targetProperty={'showPublic'}
-          />
-          <ProductCategoriesSelect
-            multiple={true}
-            setSpecificArgs={setSpecificArgs}
-            specificArgs={specificArgs}
-          />
-          {/* INSERT LOGIC FOR STOCK QUANTITY FILTERING */}
-        </>
+        <ProductsTableFilters
+          setSpecificArgs={setSpecificArgs}
+          specificArgs={specificArgs}
+        />
       }
       filterOpen={filterOpen}
       headers={productHeaders}
