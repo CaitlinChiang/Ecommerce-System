@@ -62,7 +62,7 @@ const ProductsTable = (): ReactElement => {
         <TableRow>
           <TableCell align={'center'}>{product?.name}</TableCell>
           <TableCell align={'center'}>{product?.category}</TableCell>
-          <TableCell align={'center'}>{'P' + product?.price}</TableCell>
+          <TableCell align={'center'}>{'P' + product?.price?.toFixed(2)}</TableCell>
           <TableCell align={'center'}>{product?.stockQuantity}</TableCell>
           <TableCell align={'center'}>{String(product?.expirationDate)}</TableCell>
           <TableCell align={'center'}>

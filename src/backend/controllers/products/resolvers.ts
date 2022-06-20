@@ -29,6 +29,8 @@ export default {
       args: undefined,
       context: Context
     ): Promise<number> => {
+      if (product?.stockQuantity) return product.stockQuantity
+
       const productVariants: any =
         await context.dataloaders.productVariants.byProductId.load(product._id)
 
@@ -43,8 +45,6 @@ export default {
           0
         )
       }
-
-      if (productVariants?.length == 0) return product.stockQuantity
       return getProductVariantsStockQuantities()
     },
 
