@@ -22,11 +22,11 @@ input DateRangeInput {
 }
 
 input PaginateDataInput {
-  offset: Int!
-  rowsPerPage: Int!
+  offset: Int
+  rowsPerPage: Int
   searchText: String
-  sortBy: String!
-  sortDirection: String!
+  sortBy: String
+  sortDirection: String
 }
 
 input StockQuantityInput {
