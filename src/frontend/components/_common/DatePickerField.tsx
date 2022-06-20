@@ -12,9 +12,9 @@ const DatePickerField = ({
   setArgs,
   targetProperty
 }: {
-  args?: any
+  args: any
   disabled?: boolean
-  setArgs?: React.Dispatch<React.SetStateAction<any>>
+  setArgs: React.Dispatch<React.SetStateAction<any>>
   targetProperty: string
 }): ReactElement => {
   return (
