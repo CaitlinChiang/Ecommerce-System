@@ -84,7 +84,6 @@ const ProductsTable = (): ReactElement => {
             label={'Featured Status'}
             optionLabelProperty={'label'}
             options={[
-              { label: 'All Products', featured: null },
               { label: 'Featured Products', featured: true },
               { label: 'Non-Featured Products', featured: false }
             ]}
@@ -96,7 +95,6 @@ const ProductsTable = (): ReactElement => {
             label={'Show Public Status'}
             optionLabelProperty={'label'}
             options={[
-              { label: 'All Products', showPublic: null },
               { label: 'Public Products', showPublic: true },
               { label: 'Private Products', showPublic: false }
             ]}

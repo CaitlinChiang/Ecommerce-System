@@ -74,7 +74,6 @@ const AdminsTable = (): ReactElement => {
           label={'Active Status'}
           optionLabelProperty={'label'}
           options={[
-            { label: 'All Users', active: null },
             { label: 'Active Users', active: true },
             { label: 'Non-Active Users', active: false }
           ]}

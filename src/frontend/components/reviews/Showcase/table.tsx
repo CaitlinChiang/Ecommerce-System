@@ -68,7 +68,6 @@ const ReviewsTable = (): ReactElement => {
           label={'Featured Status'}
           optionLabelProperty={'label'}
           options={[
-            { label: 'All Reviews', featured: null },
             { label: 'Featured Reviews', featured: true },
             { label: 'Non-Featured Reviews', featured: false }
           ]}
