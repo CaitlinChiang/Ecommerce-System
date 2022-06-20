@@ -84,8 +84,8 @@ const ProductsTable = (): ReactElement => {
             optionLabelProperty={'label'}
             options={[
               { label: 'All Products', featured: null },
-              { label: 'Featured products', featured: true },
-              { label: 'Non-Featured products', featured: false }
+              { label: 'Featured Products', featured: true },
+              { label: 'Non-Featured Products', featured: false }
             ]}
             setSpecificArgs={setSpecificArgs}
             specificArgs={specificArgs}
@@ -103,6 +103,7 @@ const ProductsTable = (): ReactElement => {
             specificArgs={specificArgs}
             targetProperty={'showPublic'}
           />
+          
           {/* INSERT LOGIC FOR STOCK QUANTITY FILTERING */}
         </>
       }

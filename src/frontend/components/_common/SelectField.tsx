@@ -28,7 +28,7 @@ const SelectField = ({
       defaultValue={defaultValue}
       getOptionLabel={(option: any): string => option[optionLabelProperty]}
       onChange={(_e: any, newValue: any | null) => {
-        const val = newValue[targetProperty]
+        const val = newValue?.[targetProperty]
         setSpecificArgs({ ...specificArgs, [targetProperty]: val })
       }}
       options={options}
