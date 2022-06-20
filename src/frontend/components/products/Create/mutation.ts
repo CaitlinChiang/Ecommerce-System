@@ -10,6 +10,7 @@ export default gql`
     $name: String!
     $price: Float!
     $showPublic: Boolean!
+    $stockQuantity: Int!
   ) {
     create_product(
       categoryId: $categoryId
@@ -20,6 +21,7 @@ export default gql`
       name: $name
       price: $price
       showPublic: $showPublic
+      stockQuantity: $stockQuantity
     ) {
       _id
     }
