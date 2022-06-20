@@ -34,7 +34,7 @@ const NumberField = ({
       }}
       placeholder={'0'}
       required={required}
-      sx={{ width: width || 300, padding: theme.spacing(2) }}
+      sx={{ width: width || 300, padding: theme.spacing(2), display: 'block' }}
       type={'number'}
       value={args[targetProperty]}
       InputProps={{ inputProps: { min: 0 } }}

@@ -43,7 +43,7 @@ const SelectField = ({
       renderInput={(params): ReactElement => (
         <TextField {...params} label={label} required={required} />
       )}
-      sx={{ width: width || 300, padding: theme.spacing(2) }}
+      sx={{ width: width || 300, padding: theme.spacing(2), display: 'block' }}
       value={args[optionLabelProperty]}
     />
   )

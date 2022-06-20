@@ -47,7 +47,7 @@ const Text = ({
       }}
       placeholder={placeholder}
       required={required}
-      sx={{ width: width || 300, padding: theme.spacing(2) }}
+      sx={{ width: width || 300, padding: theme.spacing(2), display: 'block' }}
       value={args[targetProperty]}
     />
   )
