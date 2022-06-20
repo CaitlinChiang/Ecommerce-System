@@ -19,7 +19,11 @@ extend type Query {
 
   get_users(active: Boolean, type: String, paginateData: PaginateDataInput): [User]
 
-  get_users_count(active: Boolean, type: String, paginateData: PaginateDataInput): Int
+  get_users_count(
+    active: Boolean
+    type: String
+    paginateData: PaginateDataInput
+  ): Int
 }
 
 extend type Mutation {

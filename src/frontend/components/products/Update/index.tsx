@@ -51,11 +51,7 @@ const UpdateProduct = (): ReactElement => {
       )}
       <ProductCategoriesSelect args={args} required={true} setArgs={setArgs} />
       <Text args={args} setArgs={setArgs} targetProp={'description'} />
-      <DatePickerField
-        args={args}
-        setArgs={setArgs}
-        targetProp={'expirationDate'}
-      />
+      <DatePickerField args={args} setArgs={setArgs} targetProp={'expirationDate'} />
       <CheckboxField args={args} setArgs={setArgs} targetProp={'featured'} />
       <Text args={args} required={true} setArgs={setArgs} targetProp={'name'} />
       <NumberField
