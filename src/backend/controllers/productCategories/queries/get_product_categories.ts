@@ -14,12 +14,13 @@ export default async (
 ): Promise<ProductCategory[]> => {
   authenticateUser({ admin: false }, context)
 
-  const productCategories: any = await context.database.productCategories
-    .find(queryArgs(args))
-    .sort(sortArgs(args?.paginateData))
-    .skip(args?.paginateData?.offset || 0)
-    .limit(args?.paginateData?.rowsPerPage || 200)
-    .toArray()
+  const productCategories: ProductCategory[] =
+    await context.database.productCategories
+      .find(queryArgs(args))
+      .sort(sortArgs(args?.paginateData))
+      .skip(args?.paginateData?.offset || 0)
+      .limit(args?.paginateData?.rowsPerPage || 200)
+      .toArray()
 
   return productCategories
 }

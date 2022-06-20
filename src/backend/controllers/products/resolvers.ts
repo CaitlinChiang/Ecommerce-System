@@ -1,5 +1,6 @@
 import { Context } from '../../../types/setup/context'
 import { Product } from '../../../types/product'
+import { ProductCategory } from '../../../types/productCategory'
 import { ProductVariant } from '../../../types/productVariant'
 import { formatDateTime } from '../../_utils/helpers/formatDateTime'
 
@@ -10,9 +11,8 @@ export default {
       args: undefined,
       context: Context
     ): Promise<string> => {
-      const category: any = await context.dataloaders.productCategories.byId.load(
-        product.categoryId
-      )
+      const category: ProductCategory =
+        await context.dataloaders.productCategories.byId.load(product.categoryId)
       return category.name
     },
 
@@ -31,7 +31,7 @@ export default {
     ): Promise<number> => {
       if (product?.stockQuantity) return product.stockQuantity
 
-      const productVariants: any =
+      const productVariants: ProductVariant[] =
         await context.dataloaders.productVariants.byProductId.load(product._id)
 
       const getProductVariantsStockQuantities = (): number => {

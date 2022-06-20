@@ -1,5 +1,6 @@
 import { Context } from '../../../types/setup/context'
 import { AuditLog } from '../../../types/auditLog'
+import { User } from '../../../types/user'
 import { formatDateTime } from '../../_utils/helpers/formatDateTime'
 
 export default {
@@ -13,7 +14,9 @@ export default {
       args: undefined,
       context: Context
     ): Promise<string> => {
-      const user: any = await context.dataloaders.users.byId.load(auditLog.createdBy)
+      const user: User = await context.dataloaders.users.byId.load(
+        auditLog.createdBy
+      )
       return user.email
     }
   }

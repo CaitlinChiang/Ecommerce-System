@@ -11,7 +11,7 @@ export default async (
 ): Promise<AuditLog[]> => {
   authenticateUser({ admin: true }, context)
 
-  const auditLogs: any = await context.database.auditLogs
+  const auditLogs: AuditLog[] = await context.database.auditLogs
     .find(queryArgs(args))
     .sort(sortArgs(args?.paginateData))
     .skip(args?.paginateData?.offset || 0)

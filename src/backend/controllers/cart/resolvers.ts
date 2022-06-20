@@ -14,7 +14,7 @@ export default {
       args: undefined,
       context: Context
     ): Promise<Product[]> => {
-      const products: any = await context.dataloaders.products.byIds.load(
+      const products: Product[] = await context.dataloaders.products.byIds.load(
         returnProductIds(cart.items)
       )
       return products
@@ -25,7 +25,7 @@ export default {
       args: undefined,
       context: Context
     ): Promise<ProductVariant[]> => {
-      const productVariants: any =
+      const productVariants: ProductVariant[] =
         await context.dataloaders.productVariants.byIds.load(
           returnProductVariantIds(cart.items)
         )

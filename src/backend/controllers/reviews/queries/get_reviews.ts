@@ -11,7 +11,7 @@ export default async (
 ): Promise<Review[]> => {
   authenticateUser({ admin: false }, context)
 
-  const reviews: any = await context.database.reviews
+  const reviews: Review[] = await context.database.reviews
     .find(queryArgs(args))
     .sort(sortArgs(args?.paginateData))
     .skip(args?.paginateData?.offset || 0)

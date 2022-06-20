@@ -11,7 +11,7 @@ export default async (
 ): Promise<PaymentMethod[]> => {
   authenticateUser({ admin: false }, context)
 
-  const paymentMethods: any = await context.database.paymentMethods
+  const paymentMethods: PaymentMethod[] = await context.database.paymentMethods
     .find(queryArgs(args))
     .sort(sortArgs(args?.paginateData))
     .skip(args?.paginateData?.offset || 0)

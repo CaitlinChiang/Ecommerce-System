@@ -14,7 +14,7 @@ export default async (
 ): Promise<ProductVariant[]> => {
   authenticateUser({ admin: false }, context)
 
-  const productVariants: any = await context.database.productVariants
+  const productVariants: ProductVariant[] = await context.database.productVariants
     .find(queryArgs(args))
     .sort(sortArgs(args?.paginateData))
     .skip(args?.paginateData?.offset || 0)

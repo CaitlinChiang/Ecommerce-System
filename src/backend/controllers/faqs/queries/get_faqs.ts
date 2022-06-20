@@ -11,7 +11,7 @@ export default async (
 ): Promise<FAQ[]> => {
   authenticateUser({ admin: false }, context)
 
-  const faqs: any = await context.database.faqs
+  const faqs: FAQ[] = await context.database.faqs
     .find(queryArgs(args))
     .sort(sortArgs(args?.paginateData))
     .skip(args?.paginateData?.offset || 0)

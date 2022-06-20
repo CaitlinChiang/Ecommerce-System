@@ -19,7 +19,7 @@ export default async (
     modifiedArgs.userId = context.currentUserId
   }
 
-  const orders: any = await context.database.orders
+  const orders: Order[] = await context.database.orders
     .find(modifiedArgs)
     .sort(sortArgs(args?.paginateData))
     .skip(args?.paginateData?.offset || 0)

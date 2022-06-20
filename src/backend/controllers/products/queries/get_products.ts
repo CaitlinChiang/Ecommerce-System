@@ -11,7 +11,7 @@ export default async (
 ): Promise<Product[]> => {
   authenticateUser({ admin: false }, context)
 
-  const products: any = await context.database.products
+  const products: Product[] = await context.database.products
     .find(queryArgs(args))
     .sort(sortArgs(args?.paginateData))
     .skip(args?.paginateData?.offset || 0)

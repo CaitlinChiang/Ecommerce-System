@@ -11,7 +11,7 @@ export default async (
 ): Promise<City[]> => {
   authenticateUser({ admin: false }, context)
 
-  const cities: any = await context.database.cities
+  const cities: City[] = await context.database.cities
     .find(queryArgs(args))
     .sort(sortArgs(args?.paginateData))
     .skip(args?.paginateData?.offset || 0)
