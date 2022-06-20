@@ -32,6 +32,7 @@ const ProductCategoriesSelect = ({
   return (
     <SelectField
       label={'Categories'}
+      multiple={true}
       optionLabelProperty={'label'}
       options={productCategoryOptions}
       setSpecificArgs={setSpecificArgs}
