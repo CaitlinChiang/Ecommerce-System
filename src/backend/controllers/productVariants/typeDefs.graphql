@@ -47,7 +47,6 @@ extend type Mutation {
 
   update_product_variant(
     _id: ID!
-    _productId: ID!
     description: String
     expirationDate: String
     image: Upload

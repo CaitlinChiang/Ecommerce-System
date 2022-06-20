@@ -13,6 +13,7 @@ import NumberField from '../../_common/NumberField'
 
 const UpdateProduct = (): ReactElement => {
   const router = useRouter()
+  const _id = '62b036fe3fcf87061111d52c'
 
   const [args, setArgs] = useState<any>({
     categoryId: null,
@@ -26,13 +27,14 @@ const UpdateProduct = (): ReactElement => {
   })
 
   const { data } = useQuery(querySingular, {
-    variables: { _id: '62b036fe3fcf87061111d52c' }
+    variables: { _id }
   })
 
   const product: Product = data?.get_product || {}
 
   useEffect(() => {
     setArgs({
+      _id,
       categoryId: product?.categoryId,
       description: product?.description,
       expirationDate: product?.expirationDate,
@@ -45,7 +47,7 @@ const UpdateProduct = (): ReactElement => {
   }, [data])
 
   const [updateMutation, updateMutationState] = useMutation(mutation, {
-    variables: { _id: '62b036fe3fcf87061111d52c', ...args },
+    variables: args,
     onCompleted: () => {
       console.log('Product successfully updated!')
     },

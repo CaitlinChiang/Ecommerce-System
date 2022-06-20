@@ -3,23 +3,23 @@ import { gql } from '@apollo/client'
 export default gql`
   mutation (
     $_id: ID!
-    $_productId: ID!
     $expirationDate: String
     $image: Upload
     $imageUrl: String
     $name: String!
     $price: Float!
     $showPublic: Boolean!
+    $stockQuantity: Int!
   ) {
     update_product_variant(
       _id: $_id
-      _productId: $_productId
       expirationDate: $expirationDate
       image: $image
       imageUrl: $imageUrl
       name: $name
       price: $price
       showPublic: $showPublic
+      stockQuantity: $stockQuantity
     ) {
       _id
     }

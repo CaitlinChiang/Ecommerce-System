@@ -75,7 +75,7 @@ const ProductVariantsTable = (): ReactElement => {
           <TableCell align={'center'}>
             <IconButton
               onClick={(): void => {
-                router.push(`productVariants/update/${productVariant._id}`)
+                router.push(`variants/update/${productVariant._id}`)
               }}
             >
               <EditIcon />
