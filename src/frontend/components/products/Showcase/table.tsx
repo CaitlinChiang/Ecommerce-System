@@ -1,18 +1,21 @@
 import { ReactElement, useState } from 'react'
+import { useRouter } from 'next/router'
 import { useQuery } from '@apollo/client'
 import query from './query'
 import deleteMutation from '../Delete/mutation'
-import { TableCell, TableRow } from '@mui/material'
+import { IconButton, TableCell, TableRow } from '@mui/material'
+import EditIcon from '@mui/icons-material/Edit'
 import { Product } from '../../../../types/product'
 import { PaginateDataArgs } from '../../../../types/actions/paginateData'
 import { SortDirection } from '../../../_enums/sortDirection'
 import TableComponent from '../../_common/TableComponent'
-// import UpdateProductButton from '../Update/updateButton'
 import DeleteButton from '../../_common/DeleteButton'
 import ProductsTableFilters from './tableFilters'
 import { fetchMoreArgs } from '../../../_utils/returnFetchMoreArgs'
 
 const ProductsTable = (): ReactElement => {
+  const router = useRouter()
+
   const [page, setPage] = useState<number>(0)
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
     offset: 0,
@@ -68,7 +71,13 @@ const ProductsTable = (): ReactElement => {
           <TableCell align={'center'}>{product?.stockQuantity}</TableCell>
           <TableCell align={'center'}>{String(product?.expirationDate)}</TableCell>
           <TableCell align={'center'}>
-            {/* <UpdateProductButton _id={product?._id} /> */}
+            <IconButton
+              onClick={(): void => {
+                router.push(`products/update/${product._id}`)
+              }}
+            >
+              <EditIcon />
+            </IconButton>
             <DeleteButton
               _id={product?._id}
               label={'Product'}
