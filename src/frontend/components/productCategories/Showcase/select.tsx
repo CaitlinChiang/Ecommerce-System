@@ -6,12 +6,16 @@ import { SortDirection } from '../../../_enums/sortDirection'
 import SelectField from '../../../components/_common/SelectField'
 
 const ProductCategoriesSelect = ({
+  multiple,
   setSpecificArgs,
   specificArgs
 }: {
+  multiple?: boolean
   setSpecificArgs: React.Dispatch<React.SetStateAction<any>>
   specificArgs: any
 }): ReactElement => {
+  const targetProperty = multiple ? 'categoryIds' : 'categoryId'
+
   const { data } = useQuery(query, {
     variables: {
       paginateData: { sortBy: 'name', sortDirection: SortDirection.ASC }
@@ -24,7 +28,7 @@ const ProductCategoriesSelect = ({
     (productCategory: ProductCategory) => {
       return {
         label: productCategory.name,
-        _id: productCategory._id
+        [targetProperty]: productCategory._id
       }
     }
   )
@@ -32,12 +36,12 @@ const ProductCategoriesSelect = ({
   return (
     <SelectField
       label={'Categories'}
-      multiple={true}
+      multiple={multiple}
       optionLabelProperty={'label'}
       options={productCategoryOptions}
       setSpecificArgs={setSpecificArgs}
       specificArgs={specificArgs}
-      targetProperty={'_id'}
+      targetProperty={targetProperty}
     />
   )
 }

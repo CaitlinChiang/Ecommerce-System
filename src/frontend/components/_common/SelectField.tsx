@@ -31,7 +31,12 @@ const SelectField = ({
       getOptionLabel={(option: any): string => option[optionLabelProperty]}
       multiple={multiple}
       onChange={(_e: any, newValue: any | null) => {
-        const val = newValue?.[targetProperty]
+        let val = newValue?.[targetProperty]
+
+        if (multiple) {
+          val = newValue.map((option: any) => option?.[targetProperty])
+        }
+
         setSpecificArgs({ ...specificArgs, [targetProperty]: val })
       }}
       options={options}
