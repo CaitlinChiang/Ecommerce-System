@@ -1,6 +1,7 @@
 import { ObjectId } from 'mongodb'
 import { StockQuantityOperator } from '../../_enums/stockQuantityOperator'
 import { correctArgs } from './correctArgs'
+import { formatDateRange } from './formatDateRange'
 
 export const queryArgs = (args: any): any => {
   const { categoryIds, dateRange, paginateData, stockQuantity, ...specificArgs } =
@@ -26,8 +27,8 @@ export const queryArgs = (args: any): any => {
 
   if (dateRange?.startDate && dateRange?.endDate) {
     modifiedArgs[dateRange.filterBy] = {
-      $gte: new Date(dateRange.startDate),
-      $lte: new Date(dateRange.endDate)
+      $gte: formatDateRange(dateRange?.startDate, true),
+      $lte: formatDateRange(dateRange?.endDate, false)
     }
   }
 
