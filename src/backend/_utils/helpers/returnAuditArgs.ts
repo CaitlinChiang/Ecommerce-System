@@ -1,5 +1,5 @@
 import { Context } from '@apollo/client'
-import { currentDateTime } from './returnCurrentDateTime'
+import { currentDateTime } from './dateFormatters/returnCurrentDateTime'
 
 export const auditArgs = (context: Context): any => {
   const newArgs: any = {

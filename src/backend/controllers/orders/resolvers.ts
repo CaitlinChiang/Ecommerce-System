@@ -7,7 +7,7 @@ import {
   returnProductIds,
   returnProductVariantIds
 } from '../../_utils/helpers/returnIdsArray'
-import { formatDateTime } from '../../_utils/helpers/formatDateTime'
+import { formatDateTime } from '../../_utils/helpers/dateFormatters/formatDateTime'
 
 export default {
   Order: {

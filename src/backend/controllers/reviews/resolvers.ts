@@ -1,5 +1,5 @@
 import { Review } from '../../../types/review'
-import { formatDateTime } from '../../_utils/helpers/formatDateTime'
+import { formatDateTime } from '../../_utils/helpers/dateFormatters/formatDateTime'
 
 export default {
   Review: {
