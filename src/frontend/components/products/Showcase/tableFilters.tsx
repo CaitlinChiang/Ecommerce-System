@@ -85,19 +85,19 @@ const ProductsTableFilters = ({
           targetProperty={'filterBy'}
         />
         <DatePickerField
-          dateRangeArgs={dateRangeArgs}
           disabled={
             dateRangeArgs?.filterBy === null || dateRangeArgs?.filterBy == undefined
           }
-          setDateRangeArgs={setDateRangeArgs}
+          setSpecificArgs={setDateRangeArgs}
+          specificArgs={dateRangeArgs}
           targetProperty={'startDate'}
         />
         <DatePickerField
-          dateRangeArgs={dateRangeArgs}
           disabled={
             dateRangeArgs?.filterBy === null || dateRangeArgs?.filterBy == undefined
           }
-          setDateRangeArgs={setDateRangeArgs}
+          setSpecificArgs={setDateRangeArgs}
+          specificArgs={dateRangeArgs}
           targetProperty={'endDate'}
         />
       </Box>
