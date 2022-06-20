@@ -19,7 +19,7 @@ import { SortDirection } from '../../_enums/sortDirection'
 import ModalComponent from './ModalComponent'
 import SearchField from './SearchField'
 import { searchData } from '../../_utils/searchData'
-import { formatTableHeader } from '../../_utils/formatTableHeaders'
+import { formatProperCapitalization } from '../../_utils/formatProperCapitalization'
 
 const TableComponent = ({
   count,
@@ -160,7 +160,7 @@ const TableComponent = ({
                       align={headersAlign || 'center'}
                       padding={'checkbox'}
                     >
-                      {!header.sortable && formatTableHeader(header.label)}
+                      {!header.sortable && formatProperCapitalization(header.label)}
                       {header.sortable && (
                         <TableSortLabel
                           active={sortBy === header.label}
@@ -176,7 +176,7 @@ const TableComponent = ({
                             })
                           }}
                         >
-                          {formatTableHeader(header.label)}
+                          {formatProperCapitalization(header.label)}
                         </TableSortLabel>
                       )}
                     </TableCell>
