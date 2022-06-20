@@ -1,6 +1,7 @@
 import { ReactElement, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import query from './query'
+import deleteMutation from '../Delete/mutation'
 import { TableCell, TableRow } from '@mui/material'
 import { User } from '../../../../types/user'
 import { PaginateDataArgs } from '../../../../types/actions/paginateData'
@@ -8,7 +9,7 @@ import { SortDirection } from '../../../_enums/sortDirection'
 import { UserType } from '../../../_enums/userType'
 import TableComponent from '../../_common/TableComponent'
 import UpdateUserCheckbox from '../Update/updateCheckbox'
-import DeleteUserButton from '../Delete/deleteButton'
+import DeleteButton from '../../_common/DeleteButton'
 import SelectField from '../../_common/SelectField'
 import { tableArgs } from '../../../_utils/returnTableArgs'
 
@@ -58,7 +59,7 @@ const AdminsTable = (): ReactElement => {
           <TableCell align={'center'}>{user?.phoneNumber}</TableCell>
           <TableCell align={'center'}>{String(user?.createdAt)}</TableCell>
           <TableCell align={'center'}>
-            <DeleteUserButton _id={user?._id} />
+            <DeleteButton _id={user._id} label={'User'} mutation={deleteMutation} />
           </TableCell>
         </TableRow>
       )

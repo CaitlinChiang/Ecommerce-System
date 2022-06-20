@@ -1,13 +1,14 @@
 import { ReactElement, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import query from './query'
+import deleteMutation from '../Delete/mutation'
 import { TableCell, TableRow } from '@mui/material'
 import { Review } from '../../../../types/review'
 import { PaginateDataArgs } from '../../../../types/actions/paginateData'
 import { SortDirection } from '../../../_enums/sortDirection'
 import TableComponent from '../../_common/TableComponent'
 import UpdateReviewCheckbox from '../Update/updateCheckbox'
-import DeleteReviewButton from '../Delete/deleteButton'
+import DeleteButton from '../../_common/DeleteButton'
 import SelectField from '../../_common/SelectField'
 import { tableArgs } from '../../../_utils/returnTableArgs'
 
@@ -52,7 +53,11 @@ const ReviewsTable = (): ReactElement => {
             <UpdateReviewCheckbox _id={review._id} featured={review.featured} />
           </TableCell>
           <TableCell align={'center'}>
-            <DeleteReviewButton _id={review._id} />
+            <DeleteButton
+              _id={review._id}
+              label={'Review'}
+              mutation={deleteMutation}
+            />
           </TableCell>
         </TableRow>
       )

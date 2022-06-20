@@ -1,6 +1,7 @@
 import { ReactElement, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import query from './query'
+import deleteMutation from '../Delete/mutation'
 import { TableCell, TableRow } from '@mui/material'
 import { Product } from '../../../../types/product'
 import { PaginateDataArgs } from '../../../../types/actions/paginateData'
@@ -9,7 +10,7 @@ import { SortDirection } from '../../../_enums/sortDirection'
 import { StockQuantityOperator } from '../../../_enums/stockQuantityOperator'
 import TableComponent from '../../_common/TableComponent'
 // import UpdateProductButton from '../Update/updateButton'
-import DeleteProductButton from '../Delete/deleteButton'
+import DeleteButton from '../../_common/DeleteButton'
 import SelectField from '../../_common/SelectField'
 import ProductCategoriesSelect from '../../productCategories/Showcase/select'
 import { tableArgs } from '../../../_utils/returnTableArgs'
@@ -67,7 +68,11 @@ const ProductsTable = (): ReactElement => {
           <TableCell align={'center'}>{String(product?.expirationDate)}</TableCell>
           <TableCell align={'center'}>
             {/* <UpdateProductButton _id={product?._id} /> */}
-            <DeleteProductButton _id={product?._id} />
+            <DeleteButton
+              _id={product?._id}
+              label={'Product'}
+              mutation={deleteMutation}
+            />
           </TableCell>
         </TableRow>
       )
