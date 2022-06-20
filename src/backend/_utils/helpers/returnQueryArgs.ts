@@ -2,7 +2,8 @@ import { ObjectId } from 'mongodb'
 import { StockQuantityOperator } from '../../_enums/stockQuantityOperator'
 
 export const queryArgs = (args: any): any => {
-  const { dateRange, paginateData, stockQuantity, ...specificArgs } = args
+  const { categoryIds, dateRange, paginateData, stockQuantity, ...specificArgs } =
+    args
 
   if (paginateData?.searchText) {
     return { $text: { $search: paginateData.searchText } }
@@ -21,6 +22,14 @@ export const queryArgs = (args: any): any => {
   })
 
   modifiedArgs.deletedAt = { $exists: false }
+
+  if (categoryIds?.length > 0) {
+    modifiedArgs.categoryId = {
+      $in: categoryIds.map(
+        (categoryId: string): ObjectId => new ObjectId(categoryId)
+      )
+    }
+  }
 
   if (dateRange?.startDate && dateRange?.endDate) {
     modifiedArgs[dateRange.filterBy] = {
