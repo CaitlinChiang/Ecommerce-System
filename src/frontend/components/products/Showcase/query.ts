@@ -35,7 +35,6 @@ export default gql`
       category
       name
       expirationDate
-      imageUrl
       name
       price
       stockQuantity
