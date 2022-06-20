@@ -10,12 +10,12 @@ const DatePickerField = ({
   args,
   disabled,
   setArgs,
-  targetProperty
+  targetProp
 }: {
   args: any
   disabled?: boolean
   setArgs: React.Dispatch<React.SetStateAction<any>>
-  targetProperty: string
+  targetProp: string
 }): ReactElement => {
   return (
     <Box sx={{ padding: theme.spacing(2) }}>
@@ -23,12 +23,12 @@ const DatePickerField = ({
         <DatePicker
           disabled={disabled}
           inputFormat={'MM-dd-yyyy'}
-          label={formatProperCapitalization(targetProperty)}
+          label={formatProperCapitalization(targetProp)}
           onChange={(newValue: Date | null) => {
-            setArgs({ ...args, [targetProperty]: newValue })
+            setArgs({ ...args, [targetProp]: newValue })
           }}
           renderInput={(params) => <TextField {...params} />}
-          value={args[targetProperty]}
+          value={args[targetProp]}
         />
       </LocalizationProvider>
     </Box>

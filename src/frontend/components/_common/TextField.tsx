@@ -15,7 +15,7 @@ const Text = ({
   placeholder,
   required,
   setArgs,
-  targetProperty,
+  targetProp,
   width
 }: {
   args: any
@@ -29,7 +29,7 @@ const Text = ({
   placeholder?: string
   required?: boolean
   setArgs: React.Dispatch<React.SetStateAction<any>>
-  targetProperty: string
+  targetProp: string
   width?: number
 }): ReactElement => {
   return (
@@ -39,16 +39,16 @@ const Text = ({
       error={error}
       helperText={error && helperText}
       id='outlined-required'
-      label={label || formatProperCapitalization(targetProperty)}
+      label={label || formatProperCapitalization(targetProp)}
       maxRows={maxRows}
       multiline={multiline}
       onChange={(e): void => {
-        setArgs({ ...args, [targetProperty]: e.target.value })
+        setArgs({ ...args, [targetProp]: e.target.value })
       }}
       placeholder={placeholder}
       required={required}
       sx={{ width: width || 300, padding: theme.spacing(2), display: 'block' }}
-      value={args[targetProperty]}
+      value={args[targetProp]}
     />
   )
 }

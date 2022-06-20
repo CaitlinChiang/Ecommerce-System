@@ -50,26 +50,26 @@ const UpdateProduct = (): ReactElement => {
         <Typography>{`Last Updated At: ${product?.updatedAt}`}</Typography>
       )}
       <ProductCategoriesSelect args={args} required={true} setArgs={setArgs} />
-      <Text args={args} setArgs={setArgs} targetProperty={'description'} />
+      <Text args={args} setArgs={setArgs} targetProp={'description'} />
       <DatePickerField
         args={args}
         setArgs={setArgs}
-        targetProperty={'expirationDate'}
+        targetProp={'expirationDate'}
       />
-      <CheckboxField args={args} setArgs={setArgs} targetProperty={'featured'} />
-      <Text args={args} required={true} setArgs={setArgs} targetProperty={'name'} />
+      <CheckboxField args={args} setArgs={setArgs} targetProp={'featured'} />
+      <Text args={args} required={true} setArgs={setArgs} targetProp={'name'} />
       <NumberField
         args={args}
         required={true}
         setArgs={setArgs}
-        targetProperty={'price'}
+        targetProp={'price'}
       />
-      <CheckboxField args={args} setArgs={setArgs} targetProperty={'showPublic'} />
+      <CheckboxField args={args} setArgs={setArgs} targetProp={'showPublic'} />
       <NumberField
         args={args}
         required={true}
         setArgs={setArgs}
-        targetProperty={'stockQuantity'}
+        targetProp={'stockQuantity'}
       />
     </>
   )

@@ -48,37 +48,37 @@ const ProductsTableFilters = ({
       <SelectField
         args={args}
         label={'Featured Status'}
-        optionLabelProperty={'label'}
+        optionLabelProp={'label'}
         options={[
           { label: 'Featured Products', featured: true },
           { label: 'Non-Featured Products', featured: false }
         ]}
         setArgs={setArgs}
-        targetProperty={'featured'}
+        targetProp={'featured'}
       />
       <SelectField
         args={args}
         label={'Show Public Status'}
-        optionLabelProperty={'label'}
+        optionLabelProp={'label'}
         options={[
           { label: 'Public Products', showPublic: true },
           { label: 'Private Products', showPublic: false }
         ]}
         setArgs={setArgs}
-        targetProperty={'showPublic'}
+        targetProp={'showPublic'}
       />
       <ProductCategoriesSelect args={args} multiple={true} setArgs={setArgs} />
       <Box>
         <SelectField
           args={dateRangeArgs}
           label={'Filter Date Range by'}
-          optionLabelProperty={'label'}
+          optionLabelProp={'label'}
           options={[
             { label: 'Created At Date', filterBy: DateRangeType.CREATED },
             { label: 'Expiration Date', filterBy: DateRangeType.EXPIRATION }
           ]}
           setArgs={setDateRangeArgs}
-          targetProperty={'filterBy'}
+          targetProp={'filterBy'}
         />
         <DatePickerField
           args={dateRangeArgs}
@@ -86,7 +86,7 @@ const ProductsTableFilters = ({
             dateRangeArgs?.filterBy === null || dateRangeArgs?.filterBy == undefined
           }
           setArgs={setDateRangeArgs}
-          targetProperty={'startDate'}
+          targetProp={'startDate'}
         />
         <DatePickerField
           args={dateRangeArgs}
@@ -94,14 +94,14 @@ const ProductsTableFilters = ({
             dateRangeArgs?.filterBy === null || dateRangeArgs?.filterBy == undefined
           }
           setArgs={setDateRangeArgs}
-          targetProperty={'endDate'}
+          targetProp={'endDate'}
         />
       </Box>
       <Box>
         <SelectField
           args={stockQuantityArgs}
           label={'Filter Stock Quantity Operator'}
-          optionLabelProperty={'label'}
+          optionLabelProp={'label'}
           options={[
             { label: 'ABOVE', operator: StockQuantityOperator.ABOVE },
             { label: 'BELOW', operator: StockQuantityOperator.BELOW },
@@ -109,7 +109,7 @@ const ProductsTableFilters = ({
             { label: 'EQUAL TO', operator: StockQuantityOperator.EQUAL }
           ]}
           setArgs={setStockQuantityArgs}
-          targetProperty={'operator'}
+          targetProp={'operator'}
         />
         <NumberField
           args={stockQuantityArgs}
@@ -123,7 +123,7 @@ const ProductsTableFilters = ({
               : 'Value'
           }
           setArgs={setStockQuantityArgs}
-          targetProperty={'value1'}
+          targetProp={'value1'}
         />
         {stockQuantityArgs?.operator === StockQuantityOperator.BETWEEN && (
           <>
@@ -132,7 +132,7 @@ const ProductsTableFilters = ({
               args={stockQuantityArgs}
               label={'Value 2'}
               setArgs={setStockQuantityArgs}
-              targetProperty={'value2'}
+              targetProp={'value2'}
             />
           </>
         )}

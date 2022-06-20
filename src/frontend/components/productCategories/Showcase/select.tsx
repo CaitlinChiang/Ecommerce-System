@@ -16,7 +16,7 @@ const ProductCategoriesSelect = ({
   setArgs: React.Dispatch<React.SetStateAction<any>>
   args: any
 }): ReactElement => {
-  const targetProperty = multiple ? 'categoryIds' : 'categoryId'
+  const targetProp = multiple ? 'categoryIds' : 'categoryId'
 
   const { data } = useQuery(query, {
     variables: {
@@ -30,7 +30,7 @@ const ProductCategoriesSelect = ({
     (productCategory: ProductCategory) => {
       return {
         label: productCategory.name,
-        [targetProperty]: productCategory._id
+        [targetProp]: productCategory._id
       }
     }
   )
@@ -39,12 +39,12 @@ const ProductCategoriesSelect = ({
     <SelectField
       label={'Categories'}
       multiple={multiple}
-      optionLabelProperty={'label'}
+      optionLabelProp={'label'}
       options={productCategoryOptions}
       required={required}
       setArgs={setArgs}
       args={args}
-      targetProperty={targetProperty}
+      targetProp={targetProp}
     />
   )
 }

@@ -7,44 +7,44 @@ const SelectField = ({
   defaultValue,
   label,
   multiple,
-  optionLabelProperty,
+  optionLabelProp,
   options,
   required,
   setArgs,
-  targetProperty,
+  targetProp,
   width
 }: {
   args: any
   defaultValue?: any
   label: string
   multiple?: boolean
-  optionLabelProperty?: string
+  optionLabelProp?: string
   options: any[]
   required?: boolean
   setArgs: React.Dispatch<React.SetStateAction<any>>
-  targetProperty: string
+  targetProp: string
   width?: number
 }): ReactElement => {
   return (
     <Autocomplete
       defaultValue={defaultValue}
-      getOptionLabel={(option: any): string => option[optionLabelProperty]}
+      getOptionLabel={(option: any): string => option[optionLabelProp]}
       multiple={multiple}
       onChange={(_e: any, newValue: any | null) => {
-        let val = newValue?.[targetProperty]
+        let val = newValue?.[targetProp]
 
         if (multiple) {
-          val = newValue.map((option: any) => option?.[targetProperty])
+          val = newValue.map((option: any) => option?.[targetProp])
         }
 
-        setArgs({ ...args, [targetProperty]: val })
+        setArgs({ ...args, [targetProp]: val })
       }}
       options={options}
       renderInput={(params): ReactElement => (
         <TextField {...params} label={label} required={required} />
       )}
       sx={{ width: width || 300, padding: theme.spacing(2), display: 'block' }}
-      value={args[optionLabelProperty]}
+      value={args[optionLabelProp]}
     />
   )
 }

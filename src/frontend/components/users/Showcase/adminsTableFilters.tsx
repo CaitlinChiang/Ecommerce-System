@@ -12,13 +12,13 @@ const AdminsTableFilters = ({
     <SelectField
       args={args}
       label={'Active Status'}
-      optionLabelProperty={'label'}
+      optionLabelProp={'label'}
       options={[
         { label: 'Active Users', active: true },
         { label: 'Non-Active Users', active: false }
       ]}
       setArgs={setArgs}
-      targetProperty={'active'}
+      targetProp={'active'}
     />
   )
 }

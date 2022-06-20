@@ -10,7 +10,7 @@ const NumberField = ({
   label,
   required,
   setArgs,
-  targetProperty,
+  targetProp,
   width
 }: {
   args: any
@@ -19,7 +19,7 @@ const NumberField = ({
   label?: string
   required?: boolean
   setArgs: React.Dispatch<React.SetStateAction<any>>
-  targetProperty: string
+  targetProp: string
   width?: number
 }): ReactElement => {
   return (
@@ -27,16 +27,16 @@ const NumberField = ({
       defaultValue={defaultValue}
       disabled={disabled}
       id='outlined-required'
-      label={label || formatProperCapitalization(targetProperty)}
+      label={label || formatProperCapitalization(targetProp)}
       onChange={(e): void => {
         const val = Number(e.target.value)
-        setArgs({ ...args, [targetProperty]: val })
+        setArgs({ ...args, [targetProp]: val })
       }}
       placeholder={'0'}
       required={required}
       sx={{ width: width || 300, padding: theme.spacing(2), display: 'block' }}
       type={'number'}
-      value={args[targetProperty]}
+      value={args[targetProp]}
       InputProps={{ inputProps: { min: 0 } }}
     />
   )

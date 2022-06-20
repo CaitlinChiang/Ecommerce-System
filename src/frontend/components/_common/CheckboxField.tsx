@@ -6,25 +6,25 @@ const DatePickerField = ({
   args,
   disabled,
   setArgs,
-  targetProperty
+  targetProp
 }: {
   args: any
   disabled?: boolean
   setArgs: React.Dispatch<React.SetStateAction<any>>
-  targetProperty: string
+  targetProp: string
 }): ReactElement => {
   return (
     <FormControlLabel
       control={
         <Checkbox
-          checked={args?.[targetProperty]}
+          checked={args?.[targetProp]}
           onChange={() =>
-            setArgs({ ...args, [targetProperty]: !args?.[targetProperty] })
+            setArgs({ ...args, [targetProp]: !args?.[targetProp] })
           }
         />
       }
       disabled={disabled}
-      label={formatProperCapitalization(targetProperty)}
+      label={formatProperCapitalization(targetProp)}
     />
   )
 }
