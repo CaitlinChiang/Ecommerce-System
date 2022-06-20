@@ -1,7 +1,7 @@
 import { ReactElement, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useQuery } from '@apollo/client'
-import query from './query'
+import { queryMultiple } from './query'
 import deleteMutation from '../Delete/mutation'
 import { IconButton, TableCell, TableRow } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
@@ -41,7 +41,7 @@ const ProductsTable = (): ReactElement => {
   })
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
 
-  const { data, loading, fetchMore } = useQuery(query, {
+  const { data, loading, fetchMore } = useQuery(queryMultiple, {
     variables: {
       ...args,
       paginateData: paginateDataArgs
@@ -73,7 +73,7 @@ const ProductsTable = (): ReactElement => {
           <TableCell align={'center'}>
             <IconButton
               onClick={(): void => {
-                router.push(`admin/products/update/${product._id}`)
+                router.push(`products/update/${product._id}`)
               }}
             >
               <EditIcon />

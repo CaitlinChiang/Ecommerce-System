@@ -1,15 +1,7 @@
 import { gql } from '@apollo/client'
 
-export default gql`
-  query (
-    $_id: ID
-    $categoryIds: [String]
-    $dateRange: DateRangeInput
-    $featured: Boolean
-    $paginateData: PaginateDataInput
-    $showPublic: Boolean
-    $stockQuantity: StockQuantityInput
-  ) {
+export const querySingular = gql`
+  query ($_id: ID!) {
     get_product(_id: $_id) {
       _id
       category
@@ -25,7 +17,18 @@ export default gql`
       createdAt
       updatedAt
     }
+  }
+`
 
+export const queryMultiple = gql`
+  query (
+    $categoryIds: [String]
+    $dateRange: DateRangeInput
+    $featured: Boolean
+    $paginateData: PaginateDataInput
+    $showPublic: Boolean
+    $stockQuantity: StockQuantityInput
+  ) {
     get_products(
       categoryIds: $categoryIds
       dateRange: $dateRange
