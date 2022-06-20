@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 import { useMutation } from '@apollo/client'
-import { ListItemButton } from '@mui/material'
+import { IconButton } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { ObjectId } from 'mongodb'
 
@@ -22,12 +22,12 @@ const DeleteButton = ({
   })
 
   return (
-    <ListItemButton
+    <IconButton
       onClick={() => deleteMutation()}
       disabled={deleteMutationState.loading}
     >
       <DeleteIcon />
-    </ListItemButton>
+    </IconButton>
   )
 }
 
