@@ -1,8 +1,9 @@
 import { ReactElement, useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { useQuery } from '@apollo/client'
+import { useQuery, useMutation } from '@apollo/client'
 import { querySingular } from '../Showcase/query'
-import { Typography } from '@mui/material'
+import mutation from './mutation'
+import { Button, Typography } from '@mui/material'
 import { Product } from '../../../../types/product'
 import ProductCategoriesSelect from '../../../components/productCategories/Showcase/select'
 import Text from '../../_common/TextField'
@@ -43,6 +44,14 @@ const UpdateProduct = (): ReactElement => {
     })
   }, [data])
 
+  const [updateMutation, updateMutationState] = useMutation(mutation, {
+    variables: { _id: '62b036fe3fcf87061111d52c', ...args },
+    onCompleted: () => {
+      console.log('Product successfully updated!')
+    },
+    onError: (error) => console.log(error)
+  })
+
   return (
     <>
       <Typography>{`Created At: ${product?.createdAt}`}</Typography>
@@ -67,6 +76,12 @@ const UpdateProduct = (): ReactElement => {
         setArgs={setArgs}
         targetProp={'stockQuantity'}
       />
+      <Button
+        onClick={() => updateMutation()}
+        disabled={updateMutationState.loading}
+      >
+        {'Save Changes'}
+      </Button>
     </>
   )
 }
