@@ -22,6 +22,7 @@ export interface Product {
 export interface GetProductArgs {
   _id?: ObjectId
   categoryIds?: ObjectId[]
+  dateRange?: DateRange
   featured?: boolean
   paginateData?: PaginateDataArgs
   showPublic?: boolean

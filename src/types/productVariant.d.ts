@@ -18,6 +18,7 @@ export interface ProductVariant {
 export interface GetProductVariantArgs {
   _id?: ObjectId
   _productId?: ObjectId
+  dateRange?: DateRange
   paginateData?: PaginateDataArgs
   showPublic?: boolean
   stockQuantity?: StockQuantity

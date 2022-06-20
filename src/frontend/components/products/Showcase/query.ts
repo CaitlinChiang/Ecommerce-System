@@ -4,6 +4,7 @@ export default gql`
   query (
     $_id: ID
     $categoryIds: [String]
+    $dateRange: DateRangeInput
     $featured: Boolean
     $paginateData: PaginateDataInput
     $showPublic: Boolean
@@ -26,6 +27,7 @@ export default gql`
 
     get_products(
       categoryIds: $categoryIds
+      dateRange: $dateRange
       featured: $featured
       paginateData: $paginateData
       showPublic: $showPublic
@@ -42,6 +44,7 @@ export default gql`
 
     get_products_count(
       categoryIds: $categoryIds
+      dateRange: $dateRange
       featured: $featured
       paginateData: $paginateData
       showPublic: $showPublic

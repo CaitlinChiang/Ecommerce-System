@@ -20,6 +20,7 @@ extend type Query {
 
   get_products(
     categoryIds: [String]
+    dateRange: DateRangeInput
     featured: Boolean
     paginateData: PaginateDataInput
     showPublic: Boolean
@@ -28,6 +29,7 @@ extend type Query {
 
   get_products_count(
     categoryIds: [String]
+    dateRange: DateRangeInput
     featured: Boolean
     paginateData: PaginateDataInput
     showPublic: Boolean

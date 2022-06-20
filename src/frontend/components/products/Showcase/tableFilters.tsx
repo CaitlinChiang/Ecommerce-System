@@ -38,6 +38,7 @@ const ProductsTableFilters = ({
         setSpecificArgs={setSpecificArgs}
         specificArgs={specificArgs}
       />
+      {/* INSERT LOGIC FOR EXPIRATION / CREATED AT DATE FILTERING */}
       {/* INSERT LOGIC FOR STOCK QUANTITY FILTERING */}
     </>
   )

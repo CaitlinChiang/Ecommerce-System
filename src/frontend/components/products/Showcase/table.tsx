@@ -5,7 +5,6 @@ import deleteMutation from '../Delete/mutation'
 import { TableCell, TableRow } from '@mui/material'
 import { Product } from '../../../../types/product'
 import { PaginateDataArgs } from '../../../../types/actions/paginateData'
-import { StockQuantity } from '../../../../types/common/stockQuantity'
 import { SortDirection } from '../../../_enums/sortDirection'
 import { StockQuantityOperator } from '../../../_enums/stockQuantityOperator'
 import TableComponent from '../../_common/TableComponent'
@@ -23,23 +22,27 @@ const ProductsTable = (): ReactElement => {
     sortBy: 'name',
     sortDirection: SortDirection.ASC
   })
-  const [stockQuantityArgs, setStockQuantityArgs] = useState<StockQuantity>({
-    operator: StockQuantityOperator.ABOVE,
-    value1: 0,
-    value2: 0
-  })
   const [specificArgs, setSpecificArgs] = useState<any>({
+    dateRange: {
+      startDate: null,
+      endDate: null,
+      filterBy: null
+    },
     categoryIds: [],
     featured: null,
-    showPublic: null
+    showPublic: null,
+    stockQuantity: {
+      operator: StockQuantityOperator.ABOVE,
+      value1: 0,
+      value2: 0
+    }
   })
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
 
   const { data, loading, fetchMore } = useQuery(query, {
     variables: {
       paginateData: paginateDataArgs,
-      ...specificArgs,
-      stockQuantity: stockQuantityArgs
+      ...specificArgs
     },
     ...tableArgs
   })

@@ -9,7 +9,7 @@ type AnalyticsRevenueCount {
 }
 
 extend type Query {
-  get_analytics_orders_count(dateRange: DateRangeInput): AnalyticsOrdersCount
+  get_analytics_orders_count(dateRange: DateRangeInput!): AnalyticsOrdersCount
 
-  get_analytics_revenue_count(dateRange: DateRangeInput): AnalyticsRevenueCount
+  get_analytics_revenue_count(dateRange: DateRangeInput!): AnalyticsRevenueCount
 }
