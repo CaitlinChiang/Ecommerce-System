@@ -8,6 +8,10 @@ export default {
       return formatDateTime(productVariant?.createdAt)
     },
 
+    expirationDate: async (product: ProductVariant): Promise<string> => {
+      return formatDateTime(product?.expirationDate)
+    },
+
     imageUrl: async (
       productVariant: ProductVariant,
       args: undefined,
