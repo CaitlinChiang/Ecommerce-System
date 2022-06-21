@@ -26,13 +26,11 @@ const NumberField = ({
     <TextField
       defaultValue={defaultValue}
       disabled={disabled}
-      id='outlined-required'
       label={label || formatProperCapitalization(targetProp)}
       onChange={(e): void => {
-        const val = Number(e.target.value)
-        setArgs({ ...args, [targetProp]: val })
+        setArgs({ ...args, [targetProp]: e.target.value })
       }}
-      placeholder={'0'}
+      placeholder={targetProp == 'price' ? '0.00' : '0'}
       required={required}
       sx={{ width: width || 300, padding: theme.spacing(2), display: 'block' }}
       type={'number'}
