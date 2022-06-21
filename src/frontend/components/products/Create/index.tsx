@@ -21,7 +21,11 @@ const CreateProduct = (): ReactElement => {
   })
 
   const [createMutation, createMutationState] = useMutation(mutation, {
-    variables: args,
+    variables: {
+      ...args,
+      price: parseFloat(Number(args.price)?.toFixed(2)),
+      stockQuantity: Math.round(args.stockQuantity)
+    },
     onCompleted: () => {
       console.log('Product successfully created!')
     },
