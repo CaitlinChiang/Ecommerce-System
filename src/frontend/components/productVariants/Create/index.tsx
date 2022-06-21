@@ -1,5 +1,4 @@
 import { ReactElement, useState } from 'react'
-import { useRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
 import mutation from './mutation'
 import { Button } from '@mui/material'
@@ -9,7 +8,6 @@ import CheckboxField from '../../_common/CheckboxField'
 import NumberField from '../../_common/NumberField'
 
 const CreateProductVariant = (): ReactElement => {
-  const router = useRouter()
   const _productId = '62b036fe3fcf87061111d52c'
 
   const [args, setArgs] = useState<any>({

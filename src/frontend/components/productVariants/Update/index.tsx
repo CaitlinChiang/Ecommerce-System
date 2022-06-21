@@ -1,5 +1,4 @@
 import { ReactElement, useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
 import { useQuery, useMutation } from '@apollo/client'
 import { querySingular } from '../Showcase/query'
 import mutation from './mutation'
@@ -11,7 +10,6 @@ import CheckboxField from '../../_common/CheckboxField'
 import NumberField from '../../_common/NumberField'
 
 const UpdateProductVariant = (): ReactElement => {
-  const router = useRouter()
   const _id = '62b0d0f66423363ebc55a395'
 
   const [args, setArgs] = useState<any>({
