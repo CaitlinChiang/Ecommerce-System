@@ -21,7 +21,6 @@ const PasswordField = ({
       helperText={
         password?.length < 8 && 'Password must be at least 8 characters long.'
       }
-      id='outlined-adornment-password'
       label='Password'
       onChange={(e): void => {
         setPassword(e.target.value)

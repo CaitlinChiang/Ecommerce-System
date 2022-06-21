@@ -49,7 +49,7 @@ const ModalComponent = ({
         onClose={onClose}
         open={Boolean(open)}
       >
-        <DialogTitle id='responsive-dialog-title'>{title}</DialogTitle>
+        <DialogTitle>{title}</DialogTitle>
         <DialogContent>
           <Collapse in={Boolean(!loading && content)}>{content}</Collapse>
           <Collapse
@@ -78,7 +78,6 @@ const ModalComponent = ({
             <Button
               color={'secondary'}
               disabled={loading || Boolean(secondaryButtonDisabled)}
-              id={'modal-secondary-button'}
               onClick={secondaryButtonOnClick}
               sx={{
                 [theme.breakpoints.down('sm')]: {
@@ -93,7 +92,6 @@ const ModalComponent = ({
             <Button
               color={'primary'}
               disabled={loading || Boolean(primaryButtonDisabled)}
-              id={'modal-primary-button'}
               onClick={primaryButtonOnClick}
               sx={{
                 [theme.breakpoints.down('sm')]: {

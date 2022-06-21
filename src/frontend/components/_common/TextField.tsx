@@ -38,7 +38,6 @@ const Text = ({
       disabled={disabled}
       error={error}
       helperText={error && helperText}
-      id='outlined-required'
       label={label || formatProperCapitalization(targetProp)}
       maxRows={maxRows}
       multiline={multiline}
