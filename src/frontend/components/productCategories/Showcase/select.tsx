@@ -35,6 +35,10 @@ const ProductCategoriesSelect = ({
     }
   )
 
+  const selectVal = productCategoryOptions.find(
+    (category: any) => category[targetProp] === args?.[targetProp]
+  )
+
   return (
     <SelectField
       label={'Categories'}
@@ -42,6 +46,7 @@ const ProductCategoriesSelect = ({
       optionLabelProp={'label'}
       options={productCategoryOptions}
       required={required}
+      selectVal={selectVal}
       setArgs={setArgs}
       args={args}
       targetProp={targetProp}
