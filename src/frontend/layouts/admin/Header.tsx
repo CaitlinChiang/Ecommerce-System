@@ -9,7 +9,7 @@ const Header = ({
   backRoute
 }: {
   pageTitle?: string
-  backRoute?: string
+  backRoute?: boolean
 }): ReactElement => {
   const router = useRouter()
 
@@ -19,9 +19,7 @@ const Header = ({
         <IconButton
           edge={'start'}
           color={'inherit'}
-          onClick={(): void => {
-            router.push(backRoute)
-          }}
+          onClick={(): void => router.back()}
         >
           <ArrowBackIcon fontSize={'large'} />
         </IconButton>
