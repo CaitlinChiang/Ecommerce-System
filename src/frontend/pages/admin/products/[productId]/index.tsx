@@ -7,20 +7,23 @@ import ProductVariantsTable from '../../../../components/productVariants/Showcas
 
 const Page = (): ReactElement => {
   const router = useRouter()
+  const productId = router?.query?.productId as string
 
   return (
     <>
-      <UpdateProduct />
+      <UpdateProduct _id={productId} />
       <Button
         color={'primary'}
         fullWidth
-        onClick={() => router.push('62b036fe3fcf87061111d52c/variants/create')}
+        onClick={() =>
+          router.push('[productId]/variants/create', `${productId}/variants/create`)
+        }
         type='submit'
         variant={'contained'}
       >
         {'Create Product Variant'}
       </Button>
-      <ProductVariantsTable />
+      <ProductVariantsTable _productId={productId} />
     </>
   )
 }
