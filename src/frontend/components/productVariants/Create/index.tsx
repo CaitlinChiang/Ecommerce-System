@@ -1,4 +1,5 @@
 import { ReactElement, useState } from 'react'
+import { useRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
 import mutation from './mutation'
 import { Button } from '@mui/material'
@@ -12,6 +13,8 @@ const CreateProductVariant = ({
 }: {
   _productId: string
 }): ReactElement => {
+  const router = useRouter()
+
   const [args, setArgs] = useState<any>({
     _productId,
     description: null,
@@ -30,6 +33,7 @@ const CreateProductVariant = ({
     },
     onCompleted: () => {
       console.log('Product successfully created!')
+      router.back()
     },
     onError: (error) => console.log(error)
   })

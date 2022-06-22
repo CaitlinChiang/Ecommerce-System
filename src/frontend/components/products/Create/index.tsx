@@ -1,4 +1,5 @@
 import { ReactElement, useState } from 'react'
+import { useRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
 import mutation from './mutation'
 import { Button } from '@mui/material'
@@ -9,6 +10,8 @@ import CheckboxField from '../../_common/CheckboxField'
 import NumberField from '../../_common/NumberField'
 
 const CreateProduct = (): ReactElement => {
+  const router = useRouter()
+
   const [args, setArgs] = useState<any>({
     categoryId: null,
     description: null,
@@ -28,6 +31,7 @@ const CreateProduct = (): ReactElement => {
     },
     onCompleted: () => {
       console.log('Product successfully created!')
+      router.back()
     },
     onError: (error) => console.log(error)
   })
