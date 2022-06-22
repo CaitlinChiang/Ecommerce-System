@@ -13,7 +13,7 @@ import DeleteButton from '../../../_common/DeleteButton'
 import { fetchMoreArgs } from '../../../../_utils/returnFetchMoreArgs'
 
 const CustomersTable = (): ReactElement => {
-  const args = { type: UserType.CUSTOMER }
+  const args: any = { type: UserType.CUSTOMER }
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
     page: 0,
     rowsPerPage: 10,

@@ -9,12 +9,14 @@ export const querySingular = gql`
 `
 
 export const queryMultiple = gql`
-  query ($paginateData: PaginateDataInput) {
-    get_product_categories(paginateData: $paginateData) {
+  query ($paginateData: PaginateDataInput, showPublic: Boolean) {
+    get_product_categories(paginateData: $paginateData, showPublic: $showPublic) {
       _id
       name
+      createdAt
+      updatedAt
     }
 
-    get_product_categories_count(paginateData: $paginateData)
+    get_product_categories_count(paginateData: $paginateData, showPublic: $showPublic)
   }
 `

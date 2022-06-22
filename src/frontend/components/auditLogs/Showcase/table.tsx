@@ -16,7 +16,7 @@ const AuditLogsTable = ({
   orderId?: ObjectId
   paymentId?: ObjectId
 }): ReactElement => {
-  const args = { orderId, paymentId }
+  const args: any = { orderId, paymentId }
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
     page: 0,
     rowsPerPage: 10,
