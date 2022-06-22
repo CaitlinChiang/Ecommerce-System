@@ -1,19 +1,19 @@
 import { ReactElement, useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client'
-import { queryMultiple } from './query'
-import deleteMutation from '../Delete/mutation'
+import { queryMultiple } from '../query'
+import deleteMutation from '../../Delete/mutation'
 import { TableCell, TableRow } from '@mui/material'
-import { User } from '../../../../types/user'
-import { PaginateDataArgs } from '../../../../types/actions/paginateData'
-import { RefetchDataArgs } from '../../../../types/actions/refetchData'
-import { SortDirection } from '../../../_enums/sortDirection'
-import { UserType } from '../../../_enums/userType'
-import TableComponent from '../../_common/TableComponent'
-import DeleteButton from '../../_common/DeleteButton'
-import { fetchMoreArgs } from '../../../_utils/returnFetchMoreArgs'
+import { User } from '../../../../../types/user'
+import { PaginateDataArgs } from '../../../../../types/actions/paginateData'
+import { RefetchDataArgs } from '../../../../../types/actions/refetchData'
+import { SortDirection } from '../../../../_enums/sortDirection'
+import { UserType } from '../../../../_enums/userType'
+import TableComponent from '../../../_common/TableComponent'
+import DeleteButton from '../../../_common/DeleteButton'
+import { fetchMoreArgs } from '../../../../_utils/returnFetchMoreArgs'
 
-const ConsumersTable = (): ReactElement => {
-  const args = { type: UserType.CONSUMER }
+const CustomersTable = (): ReactElement => {
+  const args = { type: UserType.CUSTOMER }
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
     page: 0,
     rowsPerPage: 10,
@@ -93,4 +93,4 @@ const ConsumersTable = (): ReactElement => {
   )
 }
 
-export default ConsumersTable
+export default CustomersTable

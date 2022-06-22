@@ -9,7 +9,7 @@ export const authenticateUser = async (
 ): Promise<void> => {
   if (
     args.admin &&
-    (context.currentUserType != UserType.ADMIN || !context.currentUserActive)
+    (context.currentUserType != UserType.ADMINISTRATOR || !context.currentUserActive)
   ) {
     throw new AuthenticationError('Action not permitted.')
   }

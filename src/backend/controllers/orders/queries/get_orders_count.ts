@@ -14,7 +14,7 @@ export default async (
   const modifiedArgs: GetOrderArgs = {
     ...queryArgs(args)
   }
-  if (context.currentUserType == UserType.CONSUMER) {
+  if (context.currentUserType == UserType.CUSTOMER) {
     modifiedArgs.userId = context.currentUserId
   }
 

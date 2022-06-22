@@ -1,21 +1,21 @@
 import { ReactElement, useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client'
 import { useMutation } from '@apollo/client'
-import query from '../Showcase/query'
-import mutation from './mutation'
+import query from '../../Showcase/query'
+import mutation from '../mutation'
 import { Button, Typography } from '@mui/material'
-import { WebsiteText } from '../../../../types/websiteText'
-import { WebsiteTextType } from '../../../_enums/websiteTextType'
-import Text from '../../_common/TextField'
+import { WebsiteText } from '../../../../../types/websiteText'
+import { WebsiteTextType } from '../../../../_enums/websiteTextType'
+import Text from '../../../_common/TextField'
 
-const UpdateAboutWriteup = (): ReactElement => {
+const UpdateHomeSlogan = (): ReactElement => {
   const [args, setArgs] = useState<any>({
     content: null,
     type: null
   })
 
   const { data, refetch } = useQuery(query, {
-    variables: { type: WebsiteTextType.ABOUT_WRITEUP }
+    variables: { type: WebsiteTextType.HOME_SLOGAN }
   })
 
   const websiteText: WebsiteText = data?.get_website_text || {}
@@ -23,7 +23,7 @@ const UpdateAboutWriteup = (): ReactElement => {
   useEffect(() => {
     setArgs({
       content: websiteText?.content,
-      type: WebsiteTextType.ABOUT_WRITEUP
+      type: WebsiteTextType.HOME_SLOGAN
     })
   }, [data])
 
@@ -41,11 +41,10 @@ const UpdateAboutWriteup = (): ReactElement => {
       <Typography>{`Last Updated At: ${websiteText?.updatedAt}`}</Typography>
       <Text
         args={args}
-        error={args['content']?.length > 700}
+        error={args['content']?.length > 100}
         helperText={'You have surpassed the character limit.'}
-        maxLength={700}
-        multiline={true}
-        placeholder={'Type about page write-up here...'}
+        maxLength={100}
+        placeholder={'Type home page slogan here...'}
         required={true}
         setArgs={setArgs}
         targetProp={'content'}
@@ -60,4 +59,4 @@ const UpdateAboutWriteup = (): ReactElement => {
   )
 }
 
-export default UpdateAboutWriteup
+export default UpdateHomeSlogan

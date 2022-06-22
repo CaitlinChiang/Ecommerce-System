@@ -1,12 +1,12 @@
 import { ReactElement, useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client'
 import { useMutation } from '@apollo/client'
-import query from '../Showcase/query'
-import mutation from './mutation'
+import query from '../../Showcase/query'
+import mutation from '../mutation'
 import { Button, Typography } from '@mui/material'
-import { WebsiteText } from '../../../../types/websiteText'
-import { WebsiteTextType } from '../../../_enums/websiteTextType'
-import Text from '../../_common/TextField'
+import { WebsiteText } from '../../../../../types/websiteText'
+import { WebsiteTextType } from '../../../../_enums/websiteTextType'
+import Text from '../../../_common/TextField'
 
 const UpdateContactInformation = (): ReactElement => {
   const [args, setArgs] = useState<any>({

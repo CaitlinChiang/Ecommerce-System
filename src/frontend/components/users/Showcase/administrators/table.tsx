@@ -1,23 +1,23 @@
 import { ReactElement, useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client'
-import { queryMultiple } from './query'
-import deleteMutation from '../Delete/mutation'
+import { queryMultiple } from '../query'
+import deleteMutation from '../../Delete/mutation'
 import { TableCell, TableRow } from '@mui/material'
-import { User } from '../../../../types/user'
-import { PaginateDataArgs } from '../../../../types/actions/paginateData'
-import { RefetchDataArgs } from '../../../../types/actions/refetchData'
-import { SortDirection } from '../../../_enums/sortDirection'
-import { UserType } from '../../../_enums/userType'
-import TableComponent from '../../_common/TableComponent'
-import UpdateUserCheckbox from '../Update/updateCheckbox'
-import DeleteButton from '../../_common/DeleteButton'
-import AdminsTableFilters from './adminsTableFilters'
-import { fetchMoreArgs } from '../../../_utils/returnFetchMoreArgs'
+import { User } from '../../../../../types/user'
+import { PaginateDataArgs } from '../../../../../types/actions/paginateData'
+import { RefetchDataArgs } from '../../../../../types/actions/refetchData'
+import { SortDirection } from '../../../../_enums/sortDirection'
+import { UserType } from '../../../../_enums/userType'
+import TableComponent from '../../../_common/TableComponent'
+import UpdateUserCheckbox from '../../Update/checkbox'
+import DeleteButton from '../../../_common/DeleteButton'
+import AdministratorsTableFilters from './tableFilters'
+import { fetchMoreArgs } from '../../../../_utils/returnFetchMoreArgs'
 
-const AdminsTable = (): ReactElement => {
+const AdministratorsTable = (): ReactElement => {
   const [args, setArgs] = useState<any>({
     active: null,
-    type: UserType.ADMIN
+    type: UserType.ADMINISTRATOR
   })
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
     page: 0,
@@ -95,7 +95,7 @@ const AdminsTable = (): ReactElement => {
       args={args}
       count={usersCount}
       fetchMore={fetchMore}
-      filterContent={<AdminsTableFilters args={args} setArgs={setArgs} />}
+      filterContent={<AdministratorsTableFilters args={args} setArgs={setArgs} />}
       filterOpen={filterOpen}
       headers={userHeaders}
       loading={loading}
@@ -110,4 +110,4 @@ const AdminsTable = (): ReactElement => {
   )
 }
 
-export default AdminsTable
+export default AdministratorsTable

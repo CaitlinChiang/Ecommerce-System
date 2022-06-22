@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
-import SelectField from '../../_common/SelectField'
+import SelectField from '../../../_common/SelectField'
 
-const AdminsTableFilters = ({
+const AdministratorsTableFilters = ({
   args,
   setArgs
 }: {
@@ -23,4 +23,4 @@ const AdminsTableFilters = ({
   )
 }
 
-export default AdminsTableFilters
+export default AdministratorsTableFilters

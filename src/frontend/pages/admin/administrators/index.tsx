@@ -1,11 +1,11 @@
 import React, { ReactElement } from 'react'
 import layout from '../../../layouts'
-import AdminsTable from '../../../components/users/Showcase/adminsTable'
+import AdministratorsTable from '../../../components/users/Showcase/administrators/table'
 
 const Page = (): ReactElement => {
   return (
     <>
-      <AdminsTable />
+      <AdministratorsTable />
     </>
   )
 }
