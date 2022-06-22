@@ -32,15 +32,20 @@ const ProductsTable = (): ReactElement => {
       value2: null
     }
   })
-  const [page, setPage] = useState<number>(0)
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
-    offset: 0,
+    page: 0,
     rowsPerPage: 10,
     searchText: '',
     sortBy: 'name',
     sortDirection: SortDirection.ASC
   })
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
+  const [refetchArgs, setRefetchArgs] = useState<RefetchDataArgs>({
+    args: null,
+    loading: false,
+    paginateDataArgs: null,
+    refetch: null
+  })
 
   const { data, loading, fetchMore, refetch } = useQuery(queryMultiple, {
     variables: {
@@ -50,23 +55,14 @@ const ProductsTable = (): ReactElement => {
     ...fetchMoreArgs
   })
 
-  const [refetchArgs, setRefetchArgs] = useState<RefetchDataArgs>({
-    args: null,
-    loading: false,
-    page: 0,
-    paginateDataArgs: null,
-    refetch: null
-  })
-
   useEffect(() => {
     setRefetchArgs({
       args,
       loading,
-      page,
       paginateDataArgs,
       refetch
     })
-  }, [args, page, paginateDataArgs])
+  }, [args, paginateDataArgs])
 
   const products = data?.get_products || []
   const productsCount: number = data?.get_products_count || 0
@@ -118,14 +114,12 @@ const ProductsTable = (): ReactElement => {
       filterOpen={filterOpen}
       headers={productHeaders}
       loading={loading}
-      page={page}
       paginateDataArgs={paginateDataArgs}
       rows={productRows}
       rowsPerPageOptions={[10, 25, 50, 75, 100]}
       searchLabel={'Search Product by Name'}
       searchPlaceholder={'ex. Original Lightweight Sweater'}
       setFilterOpen={setFilterOpen}
-      setPage={setPage}
       setPaginateDataArgs={setPaginateDataArgs}
     />
   )

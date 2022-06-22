@@ -19,38 +19,34 @@ const AdminsTable = (): ReactElement => {
     active: null,
     type: UserType.ADMIN
   })
-  const [page, setPage] = useState<number>(0)
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
-    offset: 0,
+    page: 0,
     rowsPerPage: 10,
     searchText: '',
     sortBy: 'lastName',
     sortDirection: SortDirection.ASC
   })
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
+  const [refetchArgs, setRefetchArgs] = useState<RefetchDataArgs>({
+    args: null,
+    loading: false,
+    paginateDataArgs: null,
+    refetch: null
+  })
 
   const { data, loading, fetchMore, refetch } = useQuery(queryMultiple, {
     variables: { ...args, paginateData: paginateDataArgs },
     ...fetchMoreArgs
   })
 
-  const [refetchArgs, setRefetchArgs] = useState<RefetchDataArgs>({
-    args: null,
-    loading: false,
-    page: 0,
-    paginateDataArgs: null,
-    refetch: null
-  })
-
   useEffect(() => {
     setRefetchArgs({
       args,
       loading,
-      page,
       paginateDataArgs,
       refetch
     })
-  }, [args, page, paginateDataArgs])
+  }, [args, paginateDataArgs])
 
   const users = data?.get_users || []
   const usersCount: number = data?.get_users_count || 0
@@ -103,14 +99,12 @@ const AdminsTable = (): ReactElement => {
       filterOpen={filterOpen}
       headers={userHeaders}
       loading={loading}
-      page={page}
       paginateDataArgs={paginateDataArgs}
       rows={userRows}
       rowsPerPageOptions={[10, 25, 50, 75, 100]}
       searchLabel={'Search Account by Email'}
       searchPlaceholder={'ex. ava_cruz@gmail.com'}
       setFilterOpen={setFilterOpen}
-      setPage={setPage}
       setPaginateDataArgs={setPaginateDataArgs}
     />
   )

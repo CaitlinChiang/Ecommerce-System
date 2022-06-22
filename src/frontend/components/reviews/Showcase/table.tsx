@@ -17,38 +17,34 @@ const ReviewsTable = (): ReactElement => {
   const [args, setArgs] = useState<any>({
     featured: null
   })
-  const [page, setPage] = useState<number>(0)
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
-    offset: 0,
+    page: 0,
     rowsPerPage: 10,
     searchText: '',
     sortBy: 'createdAt',
     sortDirection: SortDirection.DESC
   })
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
+  const [refetchArgs, setRefetchArgs] = useState<RefetchDataArgs>({
+    args: null,
+    loading: false,
+    paginateDataArgs: null,
+    refetch: null
+  })
 
   const { data, loading, fetchMore, refetch } = useQuery(query, {
     variables: { ...args, paginateData: paginateDataArgs },
     ...fetchMoreArgs
   })
 
-  const [refetchArgs, setRefetchArgs] = useState<RefetchDataArgs>({
-    args: null,
-    loading: false,
-    page: 0,
-    paginateDataArgs: null,
-    refetch: null
-  })
-
   useEffect(() => {
     setRefetchArgs({
       args,
       loading,
-      page,
       paginateDataArgs,
       refetch
     })
-  }, [args, page, paginateDataArgs])
+  }, [args, paginateDataArgs])
 
   const reviews = data?.get_reviews || []
   const reviewsCount: number = data?.get_reviews_count || 0
@@ -97,12 +93,10 @@ const ReviewsTable = (): ReactElement => {
       filterOpen={filterOpen}
       headers={reviewHeaders}
       loading={loading}
-      page={page}
       paginateDataArgs={paginateDataArgs}
       rows={reviewRows}
       rowsPerPageOptions={[10, 25, 50, 75, 100]}
       setFilterOpen={setFilterOpen}
-      setPage={setPage}
       setPaginateDataArgs={setPaginateDataArgs}
     />
   )

@@ -17,9 +17,8 @@ const AuditLogsTable = ({
   paymentId?: ObjectId
 }): ReactElement => {
   const args = { orderId, paymentId }
-  const [page, setPage] = useState<number>(0)
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
-    offset: 0,
+    page: 0,
     rowsPerPage: 10,
     searchText: '',
     sortBy: 'createdAt',
@@ -59,11 +58,9 @@ const AuditLogsTable = ({
       fetchMore={fetchMore}
       headers={auditLogHeaders}
       loading={loading}
-      page={page}
       paginateDataArgs={paginateDataArgs}
       rows={auditLogRows}
       rowsPerPageOptions={[10, 25, 50, 75, 100]}
-      setPage={setPage}
       setPaginateDataArgs={setPaginateDataArgs}
     />
   )
