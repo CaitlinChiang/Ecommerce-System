@@ -7,16 +7,19 @@ import { ObjectId } from 'mongodb'
 const DeleteButton = ({
   _id,
   label,
-  mutation
+  mutation,
+  refetch
 }: {
   _id: ObjectId
   label: string
   mutation: any
+  refetch?: any
 }): ReactElement => {
   const [deleteMutation, deleteMutationState] = useMutation(mutation, {
     variables: { _id },
     onCompleted: () => {
       console.log(label + ' successfully deleted!')
+      refetch()
     },
     onError: (error) => console.log(error)
   })
