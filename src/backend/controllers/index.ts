@@ -15,6 +15,7 @@ import productVariants from './productVariants'
 import products from './products'
 import reviews from './reviews'
 import users from './users'
+import websiteTexts from './websiteTexts'
 
 const emptyDefs = gql`
   type Query
@@ -44,7 +45,8 @@ export const typeDefs = [
   productVariants.typeDefs,
   products.typeDefs,
   reviews.typeDefs,
-  users.typeDefs
+  users.typeDefs,
+  websiteTexts.typeDefs
 ]
 
 export const resolvers = [
@@ -61,5 +63,6 @@ export const resolvers = [
   productVariants.resolvers,
   products.resolvers,
   reviews.resolvers,
-  users.resolvers
+  users.resolvers,
+  websiteTexts.resolvers
 ]
