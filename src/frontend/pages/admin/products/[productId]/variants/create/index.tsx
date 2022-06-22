@@ -16,5 +16,5 @@ const Page = (): ReactElement => {
 
 export default layout(Page, {
   title: 'Create Product Variant',
-  backRoute: '/admin/products'
+  backRoute: true
 })
