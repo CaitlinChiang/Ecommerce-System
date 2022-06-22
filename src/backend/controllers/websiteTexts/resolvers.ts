@@ -4,7 +4,7 @@ import { formatDateTime } from '../../_utils/helpers/dateFormatters/formatDateTi
 export default {
   WebsiteText: {
     updatedAt: async (websiteText: WebsiteText): Promise<string> => {
-      return formatDateTime(websiteText?.updatedAt)
+      return formatDateTime(websiteText?.updatedAt) || '-'
     }
   }
 }
