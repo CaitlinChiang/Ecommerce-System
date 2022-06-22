@@ -38,7 +38,7 @@ const UpdateHomeSlogan = (): ReactElement => {
 
   return (
     <>
-      <Typography>{`Update At: ${websiteText?.updatedAt}`}</Typography>
+      <Typography>{`Last Updated At: ${websiteText?.updatedAt}`}</Typography>
       <Text
         args={args}
         error={args['content']?.length > 100}
