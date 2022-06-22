@@ -56,7 +56,7 @@ nextJSApp.prepare().then(async () => {
       return {
         currentUserId: new ObjectId('62a9d9bee5d675784bd59602'),
         currentUserActive: true,
-        currentUserType: 'ADMIN',
+        currentUserType: 'ADMINISTRATOR',
         database,
         dataloaders: buildDataloaders(database),
         ip
