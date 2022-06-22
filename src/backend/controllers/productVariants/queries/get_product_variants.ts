@@ -17,7 +17,7 @@ export default async (
   const productVariants: ProductVariant[] = await context.database.productVariants
     .find(queryArgs(args))
     .sort(sortArgs(args?.paginateData))
-    .skip(args?.paginateData?.offset || 0)
+    .skip(args?.paginateData?.page * args?.paginateData?.rowsPerPage || 0)
     .limit(args?.paginateData?.rowsPerPage || 200)
     .toArray()
 
