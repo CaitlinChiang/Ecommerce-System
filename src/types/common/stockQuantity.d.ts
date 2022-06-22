@@ -1,4 +1,4 @@
-import { StockQuantityOperator } from '../../_enums/stockQuantityOperator'
+import { StockQuantityOperator } from '../../backend/_enums/stockQuantityOperator'
 
 export interface StockQuantity {
   operator?: StockQuantityOperator

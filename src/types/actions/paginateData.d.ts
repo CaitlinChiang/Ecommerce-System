@@ -1,4 +1,4 @@
-import { SortDirection } from '../types/_enums/sortDirection'
+import { SortDirection } from '../../backend/_enums/sortDirection'
 
 export interface PaginateDataArgs {
   page?: number
