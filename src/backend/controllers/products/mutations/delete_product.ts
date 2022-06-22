@@ -25,5 +25,9 @@ export default async (
     ...auditArgs(context)
   })
 
+  await context.database.productVariants.deleteMany({
+    _productId: new ObjectId(args._id)
+  })
+
   return product
 }
