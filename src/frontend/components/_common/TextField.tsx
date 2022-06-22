@@ -8,8 +8,10 @@ const Text = ({
   defaultValue,
   disabled,
   error,
+  fullWidth,
   helperText,
   label,
+  maxLength,
   maxRows,
   multiline,
   placeholder,
@@ -22,8 +24,10 @@ const Text = ({
   defaultValue?: string
   disabled?: boolean
   error?: any
+  fullWidth?: boolean
   helperText?: string
   label?: string
+  maxLength?: number
   maxRows?: number
   multiline?: boolean
   placeholder?: string
@@ -37,7 +41,9 @@ const Text = ({
       defaultValue={defaultValue}
       disabled={disabled}
       error={error}
+      fullWidth={fullWidth}
       helperText={error && helperText}
+      inputProps={{ maxLength: maxLength || 150 }}
       label={label || formatProperCapitalization(targetProp)}
       maxRows={maxRows}
       multiline={multiline}
@@ -46,7 +52,7 @@ const Text = ({
       }}
       placeholder={placeholder}
       required={required}
-      sx={{ width: width || 300, padding: theme.spacing(2), display: 'block' }}
+      sx={{ width: width || 500, padding: theme.spacing(2), display: 'block' }}
       value={args[targetProp]}
     />
   )
