@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import { ReactElement, useState } from 'react'
 import {
   Box,
   Collapse,
@@ -11,16 +11,48 @@ import {
   TableRow
 } from '@mui/material'
 
+const Row = ({
+  icons,
+  row
+}: {
+  icons: { closed: ReactElement; opened: ReactElement }
+  row: { title: string; content: ReactElement }
+}): ReactElement => {
+  const [open, setOpen] = useState<boolean>(false)
+
+  return (
+    <>
+      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+        <TableCell component='th' scope='row'>
+          {row.title}
+        </TableCell>
+        <TableCell align={'right'}>
+          <IconButton
+            aria-label='expand row'
+            onClick={() => setOpen(!open)}
+            size='small'
+          >
+            {open ? icons.opened : icons.closed}
+          </IconButton>
+        </TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell colSpan={6} style={{ paddingBottom: 0, paddingTop: 0 }}>
+          <Collapse in={open} timeout='auto' unmountOnExit>
+            <Box sx={{ margin: 1 }}>{row.content}</Box>
+          </Collapse>
+        </TableCell>
+      </TableRow>
+    </>
+  )
+}
+
 const DropdownsComponent = ({
   icons,
-  open,
-  rows,
-  setOpen
+  rows
 }: {
-  icons?: { closed: ReactElement; opened: ReactElement }
-  open: boolean
+  icons: { closed: ReactElement; opened: ReactElement }
   rows: { title: string; content: ReactElement }[]
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }): ReactElement => {
   return (
     <TableContainer component={Paper}>
@@ -30,30 +62,7 @@ const DropdownsComponent = ({
             (row: { title: string; content: ReactElement }): ReactElement => {
               return (
                 <>
-                  <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-                    <TableCell component='th' scope='row'>
-                      {row.title}
-                    </TableCell>
-                    <TableCell align={'right'}>
-                      <IconButton
-                        aria-label='expand row'
-                        onClick={() => setOpen(!open)}
-                        size='small'
-                      >
-                        {open ? icons.opened : icons.closed}
-                      </IconButton>
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell
-                      colSpan={6}
-                      style={{ paddingBottom: 0, paddingTop: 0 }}
-                    >
-                      <Collapse in={open} timeout='auto' unmountOnExit>
-                        <Box sx={{ margin: 1 }}>{row.content}</Box>
-                      </Collapse>
-                    </TableCell>
-                  </TableRow>
+                  <Row icons={icons} row={row} />
                 </>
               )
             }
