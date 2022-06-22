@@ -1,6 +1,7 @@
 type ProductCategory {
   _id: ID
   name: String
+  showPublic: Boolean
   createdAt: String
   updatedAt: String
 }
@@ -8,15 +9,15 @@ type ProductCategory {
 extend type Query {
   get_product_category(_id: ID!): ProductCategory
 
-  get_product_categories(paginateData: PaginateDataInput): [ProductCategory]
+  get_product_categories(paginateData: PaginateDataInput, showPublic: Boolean!): [ProductCategory]
 
-  get_product_categories_count(paginateData: PaginateDataInput): Int
+  get_product_categories_count(paginateData: PaginateDataInput, showPublic: Boolean!): Int
 }
 
 extend type Mutation {
-  create_product_category(name: String!): ProductCategory
+  create_product_category(name: String!, showPublic: Boolean!): ProductCategory
 
-  update_product_category(_id: ID!, name: String!): ProductCategory
+  update_product_category(_id: ID!, name: String!, showPublic: Boolean!): ProductCategory
 
   delete_product_category(_id: ID!): ProductCategory
 }
