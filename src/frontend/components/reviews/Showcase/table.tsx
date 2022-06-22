@@ -50,7 +50,11 @@ const ReviewsTable = (): ReactElement => {
           <TableCell align={'center'}>{review?.username}</TableCell>
           <TableCell align={'center'}>{review?.content}</TableCell>
           <TableCell align={'center'}>
-            <UpdateReviewCheckbox _id={review._id} featured={review.featured} />
+            <UpdateReviewCheckbox
+              _id={review._id}
+              featured={review.featured}
+              refetch={refetch}
+            />
           </TableCell>
           <TableCell align={'center'}>
             <DeleteButton

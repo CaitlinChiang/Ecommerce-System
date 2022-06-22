@@ -51,7 +51,11 @@ const AdminsTable = (): ReactElement => {
       return (
         <TableRow>
           <TableCell align={'center'}>
-            <UpdateUserCheckbox _id={user._id} active={user.active} />
+            <UpdateUserCheckbox
+              _id={user._id}
+              active={user.active}
+              refetch={refetch}
+            />
           </TableCell>
           <TableCell align={'center'}>{user?.firstName}</TableCell>
           <TableCell align={'center'}>{user?.lastName}</TableCell>

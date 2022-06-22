@@ -6,15 +6,18 @@ import { ObjectId } from 'mongodb'
 
 const UpdateUserCheckbox = ({
   _id,
-  active
+  active,
+  refetch
 }: {
   _id: ObjectId
   active: boolean
+  refetch: any
 }): ReactElement => {
   const [updateMutation, updateMutationState] = useMutation(mutation, {
     variables: { _id, active: !active },
     onCompleted: () => {
       console.log('Update Success')
+      refetch()
     },
     onError: (error) => console.log(error)
   })
