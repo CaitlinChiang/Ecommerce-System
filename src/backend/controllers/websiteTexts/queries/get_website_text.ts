@@ -9,7 +9,9 @@ export default async (
 ): Promise<WebsiteText> => {
   authenticateUser({ admin: false }, context)
 
-  const websiteText: WebsiteText = await context.database.websiteTexts.findOne(args)
+  const websiteText: WebsiteText = await context.database.websiteTexts.findOne({
+    type: args.type
+  })
 
   return websiteText
 }
