@@ -12,6 +12,7 @@ import NumberField from '../../_common/NumberField'
 
 const UpdateProduct = ({ _id }: { _id: string }): ReactElement => {
   const [args, setArgs] = useState<any>({
+    _id: null,
     categoryId: null,
     description: null,
     expirationDate: null,

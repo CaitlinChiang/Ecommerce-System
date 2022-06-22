@@ -14,7 +14,7 @@ const UpdateProductVariant = ({ _id }: { _id: string }): ReactElement => {
   const router = useRouter()
 
   const [args, setArgs] = useState<any>({
-    _id,
+    _id: null,
     description: null,
     expirationDate: null,
     name: null,
