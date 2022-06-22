@@ -26,7 +26,7 @@ const ReviewsTable = (): ReactElement => {
   })
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
 
-  const { data, loading, fetchMore } = useQuery(query, {
+  const { data, loading, fetchMore, refetch } = useQuery(query, {
     variables: { ...args, paginateData: paginateDataArgs },
     ...fetchMoreArgs
   })
@@ -57,6 +57,7 @@ const ReviewsTable = (): ReactElement => {
               _id={review._id}
               label={'Review'}
               mutation={deleteMutation}
+              refetch={refetch}
             />
           </TableCell>
         </TableRow>

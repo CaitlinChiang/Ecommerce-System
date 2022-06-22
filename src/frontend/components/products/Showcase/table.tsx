@@ -41,7 +41,7 @@ const ProductsTable = (): ReactElement => {
   })
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
 
-  const { data, loading, fetchMore } = useQuery(queryMultiple, {
+  const { data, loading, fetchMore, refetch } = useQuery(queryMultiple, {
     variables: {
       ...args,
       paginateData: paginateDataArgs
@@ -82,6 +82,7 @@ const ProductsTable = (): ReactElement => {
               _id={product?._id}
               label={'Product'}
               mutation={deleteMutation}
+              refetch={refetch}
             />
           </TableCell>
         </TableRow>

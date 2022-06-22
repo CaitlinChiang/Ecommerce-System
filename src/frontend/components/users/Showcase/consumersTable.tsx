@@ -22,7 +22,7 @@ const ConsumersTable = (): ReactElement => {
     sortDirection: SortDirection.ASC
   })
 
-  const { data, loading, fetchMore } = useQuery(queryMultiple, {
+  const { data, loading, fetchMore, refetch } = useQuery(queryMultiple, {
     variables: { ...args, paginateData: paginateDataArgs },
     ...fetchMoreArgs
   })
@@ -49,7 +49,12 @@ const ConsumersTable = (): ReactElement => {
           <TableCell align={'center'}>{user?.phoneNumber}</TableCell>
           <TableCell align={'center'}>{String(user?.createdAt)}</TableCell>
           <TableCell align={'center'}>
-            <DeleteButton _id={user._id} label={'User'} mutation={deleteMutation} />
+            <DeleteButton
+              _id={user._id}
+              label={'User'}
+              mutation={deleteMutation}
+              refetch={refetch}
+            />
           </TableCell>
         </TableRow>
       )

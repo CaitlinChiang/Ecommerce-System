@@ -28,7 +28,7 @@ const AdminsTable = (): ReactElement => {
   })
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
 
-  const { data, loading, fetchMore } = useQuery(queryMultiple, {
+  const { data, loading, fetchMore, refetch } = useQuery(queryMultiple, {
     variables: { ...args, paginateData: paginateDataArgs },
     ...fetchMoreArgs
   })
@@ -59,7 +59,12 @@ const AdminsTable = (): ReactElement => {
           <TableCell align={'center'}>{user?.phoneNumber}</TableCell>
           <TableCell align={'center'}>{String(user?.createdAt)}</TableCell>
           <TableCell align={'center'}>
-            <DeleteButton _id={user._id} label={'User'} mutation={deleteMutation} />
+            <DeleteButton
+              _id={user._id}
+              label={'User'}
+              mutation={deleteMutation}
+              refetch={refetch}
+            />
           </TableCell>
         </TableRow>
       )

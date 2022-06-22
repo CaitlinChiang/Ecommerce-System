@@ -43,7 +43,7 @@ const ProductVariantsTable = ({
   })
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
 
-  const { data, loading, fetchMore } = useQuery(queryMultiple, {
+  const { data, loading, fetchMore, refetch } = useQuery(queryMultiple, {
     variables: {
       _productId,
       ...args,
@@ -90,6 +90,7 @@ const ProductVariantsTable = ({
               _id={productVariant?._id}
               label={'Product Variant'}
               mutation={deleteMutation}
+              refetch={refetch}
             />
           </TableCell>
         </TableRow>
