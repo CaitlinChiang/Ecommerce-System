@@ -1,12 +1,8 @@
-import { PaginateDataArgs } from '../../types/actions/paginateData'
+import { RefetchDataArgs } from '../../types/actions/refetchData'
 
-export const refetchData = (
-  args: any,
-  refetch: any,
-  loading: boolean,
-  page: number,
-  paginateDataArgs: PaginateDataArgs
-): void => {
+export const refetchData = (refetchDataArgs: RefetchDataArgs): void => {
+  const { args, refetch, loading, page, paginateDataArgs } = refetchDataArgs
+
   if (loading) return
 
   refetch({
