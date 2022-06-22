@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react'
+import { ReactElement, useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useQuery } from '@apollo/client'
 import { queryMultiple } from './query'
@@ -7,6 +7,7 @@ import { IconButton, TableCell, TableRow } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
 import { ProductVariant } from '../../../../types/productVariant'
 import { PaginateDataArgs } from '../../../../types/actions/paginateData'
+import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import { SortDirection } from '../../../_enums/sortDirection'
 import TableComponent from '../../_common/TableComponent'
 import DeleteButton from '../../_common/DeleteButton'
@@ -52,6 +53,24 @@ const ProductVariantsTable = ({
     ...fetchMoreArgs
   })
 
+  const [refetchArgs, setRefetchArgs] = useState<RefetchDataArgs>({
+    args: null,
+    loading: false,
+    page: 0,
+    paginateDataArgs: null,
+    refetch: null
+  })
+
+  useEffect(() => {
+    setRefetchArgs({
+      args,
+      loading,
+      page,
+      paginateDataArgs,
+      refetch
+    })
+  }, [args, page, paginateDataArgs])
+
   const productVariants = data?.get_product_variants || []
   const productVariantsCount: number = data?.get_product_variants_count || 0
 
@@ -90,7 +109,7 @@ const ProductVariantsTable = ({
               _id={productVariant?._id}
               label={'Product Variant'}
               mutation={deleteMutation}
-              refetch={refetch}
+              refetchArgs={refetchArgs}
             />
           </TableCell>
         </TableRow>

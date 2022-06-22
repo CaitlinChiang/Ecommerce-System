@@ -1,10 +1,11 @@
-import { ReactElement, useState } from 'react'
+import { ReactElement, useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client'
 import query from './query'
 import deleteMutation from '../Delete/mutation'
 import { TableCell, TableRow } from '@mui/material'
 import { Review } from '../../../../types/review'
 import { PaginateDataArgs } from '../../../../types/actions/paginateData'
+import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import { SortDirection } from '../../../_enums/sortDirection'
 import TableComponent from '../../_common/TableComponent'
 import UpdateReviewCheckbox from '../Update/updateCheckbox'
@@ -31,6 +32,24 @@ const ReviewsTable = (): ReactElement => {
     ...fetchMoreArgs
   })
 
+  const [refetchArgs, setRefetchArgs] = useState<RefetchDataArgs>({
+    args: null,
+    loading: false,
+    page: 0,
+    paginateDataArgs: null,
+    refetch: null
+  })
+
+  useEffect(() => {
+    setRefetchArgs({
+      args,
+      loading,
+      page,
+      paginateDataArgs,
+      refetch
+    })
+  }, [args, page, paginateDataArgs])
+
   const reviews = data?.get_reviews || []
   const reviewsCount: number = data?.get_reviews_count || 0
 
@@ -53,7 +72,7 @@ const ReviewsTable = (): ReactElement => {
             <UpdateReviewCheckbox
               _id={review._id}
               featured={review.featured}
-              refetch={refetch}
+              refetchArgs={refetchArgs}
             />
           </TableCell>
           <TableCell align={'center'}>
@@ -61,7 +80,7 @@ const ReviewsTable = (): ReactElement => {
               _id={review._id}
               label={'Review'}
               mutation={deleteMutation}
-              refetch={refetch}
+              refetchArgs={refetchArgs}
             />
           </TableCell>
         </TableRow>

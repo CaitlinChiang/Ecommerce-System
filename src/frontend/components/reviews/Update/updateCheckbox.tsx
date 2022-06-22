@@ -3,21 +3,23 @@ import { useMutation } from '@apollo/client'
 import mutation from './mutation'
 import { Checkbox } from '@mui/material'
 import { ObjectId } from 'mongodb'
+import { RefetchDataArgs } from '../../../../types/actions/refetchData'
+import { refetchData } from '../../../_utils/refetchData'
 
 const UpdateReviewCheckbox = ({
   _id,
   featured,
-  refetch
+  refetchArgs
 }: {
   _id: ObjectId
   featured: boolean
-  refetch: any
+  refetchArgs: RefetchDataArgs
 }): ReactElement => {
   const [updateMutation, updateMutationState] = useMutation(mutation, {
     variables: { _id, featured: !featured },
     onCompleted: () => {
       console.log('Update Success')
-      refetch()
+      refetchData(refetchArgs)
     },
     onError: (error) => console.log(error)
   })
