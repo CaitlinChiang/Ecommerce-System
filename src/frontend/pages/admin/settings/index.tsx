@@ -6,6 +6,7 @@ import DropdownsComponent from '../../../components/_common/DropdownsComponent'
 import UpdateHomeSlogan from '../../../components/websiteTexts/Update/homeSlogan'
 import UpdateAboutWriteup from '../../../components/websiteTexts/Update/aboutWriteup'
 import UpdateContactInformation from '../../../components/websiteTexts/Update/contactInformation'
+import ProductCategoriesTable from '../../../components/productCategories/Showcase/table'
 
 const Page = (): ReactElement => {
   const icons = {
@@ -16,7 +17,8 @@ const Page = (): ReactElement => {
   const rows = [
     { title: 'Home Page Slogan', content: <UpdateHomeSlogan /> },
     { title: 'About Page Write-up', content: <UpdateAboutWriteup /> },
-    { title: 'Contact Information', content: <UpdateContactInformation /> }
+    { title: 'Contact Information', content: <UpdateContactInformation /> },
+    { title: 'Product Categories', content: <ProductCategoriesTable /> }
   ]
 
   return (
