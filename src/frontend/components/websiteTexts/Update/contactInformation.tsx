@@ -22,21 +22,22 @@ const UpdateContactInformation = (): ReactElement => {
 
   const websiteText: WebsiteText = data?.get_website_text || {}
 
-  const formatTextSplit = (arrayPosition: number): string => {
+  const formatLink = (arrayPosition: number): string => {
     const websiteTextSplit = websiteText?.content?.split(', ')
-    const formattedString = websiteTextSplit[arrayPosition].substring(
-      websiteTextSplit[arrayPosition].indexOf('[') + 1
+    const link = websiteTextSplit?.[arrayPosition].substring(
+      websiteTextSplit[arrayPosition].indexOf('[') + 1,
+      websiteTextSplit[arrayPosition].lastIndexOf(']')
     )
 
-    return formattedString
+    return link
   }
 
   useEffect(() => {
     setArgs({
-      facebook: formatTextSplit(0),
-      instagram: formatTextSplit(1),
-      email: formatTextSplit(2),
-      phoneNumber: formatTextSplit(3)
+      facebook: formatLink(0),
+      instagram: formatLink(1),
+      email: formatLink(2),
+      phoneNumber: formatLink(3)
     })
   }, [data])
 
