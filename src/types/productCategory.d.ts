@@ -23,7 +23,7 @@ export interface CreateProductCategoryArgs {
 
 export interface UpdateProductCategoryArgs {
   _id: ObjectId
-  name: string
+  name?: string
   showPublic: boolean
   updatedAt?: Date
 }
