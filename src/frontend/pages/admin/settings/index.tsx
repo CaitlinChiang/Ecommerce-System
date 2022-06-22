@@ -5,6 +5,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import DropdownsComponent from '../../../components/_common/DropdownsComponent'
 import UpdateHomeSlogan from '../../../components/websiteTexts/Update/homeSlogan'
 import UpdateAboutWriteup from '../../../components/websiteTexts/Update/aboutWriteup'
+import UpdateContactInformation from '../../../components/websiteTexts/Update/contactInformation'
 
 const Page = (): ReactElement => {
   const icons = {
@@ -14,7 +15,8 @@ const Page = (): ReactElement => {
 
   const rows = [
     { title: 'Home Page Slogan', content: <UpdateHomeSlogan /> },
-    { title: 'About Page Write-up', content: <UpdateAboutWriteup /> }
+    { title: 'About Page Write-up', content: <UpdateAboutWriteup /> },
+    { title: 'Contact Information', content: <UpdateContactInformation /> }
   ]
 
   return (

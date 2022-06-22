@@ -8,7 +8,7 @@ import { WebsiteText } from '../../../../types/websiteText'
 import { WebsiteTextType } from '../../../_enums/websiteTextType'
 import Text from '../../_common/TextField'
 
-const UpdateAboutWriteup = (): ReactElement => {
+const UpdateContactInformation = (): ReactElement => {
   const [args, setArgs] = useState<any>({
     facebook: null,
     instagram: null,
@@ -78,4 +78,4 @@ const UpdateAboutWriteup = (): ReactElement => {
   )
 }
 
-export default UpdateAboutWriteup
+export default UpdateContactInformation
