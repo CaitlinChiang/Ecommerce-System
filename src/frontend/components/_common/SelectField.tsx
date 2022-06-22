@@ -46,7 +46,7 @@ const SelectField = ({
         <TextField {...params} label={label} required={required} />
       )}
       sx={{ width: width || 300, padding: theme.spacing(2), display: 'block' }}
-      value={selectVal ? selectVal : args[targetProp]}
+      value={selectVal !== null ? selectVal : args[targetProp]}
     />
   )
 }
