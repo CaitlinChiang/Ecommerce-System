@@ -12,7 +12,7 @@ export const queryArgs = (args: any): any => {
 
   const modifiedArgs: any = { ...queryArgs }
 
-  correctArgs(modifiedArgs)
+  correctArgs(modifiedArgs, false)
 
   modifiedArgs.deletedAt = { $exists: false }
 

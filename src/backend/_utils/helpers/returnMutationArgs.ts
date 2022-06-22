@@ -14,18 +14,13 @@ export const mutationArgs = (args: any, action: MutateAction): any => {
       break
     case MutateAction.UPDATE:
       modifiedArgs = { ...updateArgs, updatedAt: currentDateTime() }
-
-      if (expirationDate) {
-        modifiedArgs.expirationDate = new Date(expirationDate)
-      }
-
       break
     case MutateAction.DELETE:
       modifiedArgs = { deletedAt: currentDateTime() }
       break
   }
 
-  correctArgs(modifiedArgs)
+  correctArgs(modifiedArgs, true)
 
   return modifiedArgs
 }
