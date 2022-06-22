@@ -15,7 +15,7 @@ export default async (
   authenticateUser({ admin: true }, context)
 
   const websiteText: any = await context.database.websiteTexts.findOneAndUpdate(
-    { _id: new ObjectId(args._id) },
+    { type: args.type },
     { $set: mutationArgs(args, MutateAction.UPDATE) }
   )
 
