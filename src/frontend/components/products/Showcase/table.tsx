@@ -73,7 +73,7 @@ const ProductsTable = (): ReactElement => {
           <TableCell align={'center'}>
             <IconButton
               onClick={(): void => {
-                router.push(`products/update/${product._id}`)
+                router.push('products/[productId]', `products/${product._id}`)
               }}
             >
               <EditIcon />

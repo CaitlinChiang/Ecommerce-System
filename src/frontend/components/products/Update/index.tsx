@@ -10,9 +10,7 @@ import DatePickerField from '../../_common/DatePickerField'
 import CheckboxField from '../../_common/CheckboxField'
 import NumberField from '../../_common/NumberField'
 
-const UpdateProduct = (): ReactElement => {
-  const _id = '62b036fe3fcf87061111d52c'
-
+const UpdateProduct = ({ _id }: { _id: string }): ReactElement => {
   const [args, setArgs] = useState<any>({
     categoryId: null,
     description: null,

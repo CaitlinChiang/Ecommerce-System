@@ -13,9 +13,12 @@ import DeleteButton from '../../_common/DeleteButton'
 import ProductVariantsTableFilters from './tableFilters'
 import { fetchMoreArgs } from '../../../_utils/returnFetchMoreArgs'
 
-const ProductVariantsTable = (): ReactElement => {
+const ProductVariantsTable = ({
+  _productId
+}: {
+  _productId: string
+}): ReactElement => {
   const router = useRouter()
-  const _productId = '62b036fe3fcf87061111d52c'
 
   const [args, setArgs] = useState<any>({
     dateRange: {
@@ -75,7 +78,10 @@ const ProductVariantsTable = (): ReactElement => {
           <TableCell align={'center'}>
             <IconButton
               onClick={(): void => {
-                router.push(`variants/update/${productVariant._id}`)
+                router.push(
+                  '[productId]/variants/[productVariantId]',
+                  `${_productId}/variants/${productVariant._id}`
+                )
               }}
             >
               <EditIcon />

@@ -7,9 +7,11 @@ import DatePickerField from '../../_common/DatePickerField'
 import CheckboxField from '../../_common/CheckboxField'
 import NumberField from '../../_common/NumberField'
 
-const CreateProductVariant = (): ReactElement => {
-  const _productId = '62b036fe3fcf87061111d52c'
-
+const CreateProductVariant = ({
+  _productId
+}: {
+  _productId: string
+}): ReactElement => {
   const [args, setArgs] = useState<any>({
     _productId,
     description: null,
