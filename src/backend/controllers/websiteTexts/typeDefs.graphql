@@ -6,9 +6,9 @@ type WebsiteText {
 }
 
 extend type Query {
-  get_website_text(_id: ID, type: String): WebsiteText
+  get_website_text(type: String!): WebsiteText
 }
 
 extend type Mutation {
-  update_website_text(_id: ID!, content: String!): WebsiteText
+  update_website_text(content: String!, type: String!): WebsiteText
 }
