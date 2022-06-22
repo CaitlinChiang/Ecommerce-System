@@ -5,6 +5,7 @@ export default gql`
     get_website_text(type: $type) {
       _id
       content
+      updatedAt
     }
   }
 `
