@@ -113,7 +113,7 @@ const ProductCategoriesTable = (): ReactElement => {
           setUpdateModalOpen(false)
         }}
         open={updateModalOpen}
-        title={'Filters'}
+        title={'Update Product Category'}
       />
       <TableComponent
         args={args}

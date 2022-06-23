@@ -7,6 +7,7 @@ import UpdateHomeSlogan from '../../../components/websiteTexts/Update/homeSlogan
 import UpdateAboutWriteup from '../../../components/websiteTexts/Update/aboutWriteup'
 import UpdateContactInformation from '../../../components/websiteTexts/Update/contactInformation'
 import ProductCategoriesTable from '../../../components/productCategories/Showcase/table'
+import PaymentMethodsTable from '../../../components/paymentMethods/Showcase/table'
 
 const Page = (): ReactElement => {
   const icons = {
@@ -18,7 +19,8 @@ const Page = (): ReactElement => {
     { title: 'Home Page Slogan', content: <UpdateHomeSlogan /> },
     { title: 'About Page Write-up', content: <UpdateAboutWriteup /> },
     { title: 'Contact Information', content: <UpdateContactInformation /> },
-    { title: 'Product Categories', content: <ProductCategoriesTable /> }
+    { title: 'Product Categories', content: <ProductCategoriesTable /> },
+    { title: 'Payment Methods', content: <PaymentMethodsTable /> }
   ]
 
   return (
