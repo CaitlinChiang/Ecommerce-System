@@ -14,6 +14,7 @@ import UpdateProductCategoryCheckbox from '../Update/checkbox'
 import UpdateProductCategory from '../Update'
 import DeleteButton from '../../_common/DeleteButton'
 import ProductsTableFilters from './tableFilters'
+import CreateProductCategory from '../Create'
 import { fetchMoreArgs } from '../../../_utils/returnFetchMoreArgs'
 
 const ProductCategoriesTable = (): ReactElement => {
@@ -99,6 +100,7 @@ const ProductCategoriesTable = (): ReactElement => {
 
   return (
     <>
+      <CreateProductCategory refetchArgs={refetchArgs} />
       <ModalComponent
         content={
           <UpdateProductCategory
