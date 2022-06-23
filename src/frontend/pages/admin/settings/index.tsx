@@ -8,6 +8,7 @@ import UpdateAboutWriteup from '../../../components/websiteTexts/Update/aboutWri
 import UpdateContactInformation from '../../../components/websiteTexts/Update/contactInformation'
 import ProductCategoriesTable from '../../../components/productCategories/Showcase/table'
 import PaymentMethodsTable from '../../../components/paymentMethods/Showcase/table'
+import CitiesTable from '../../../components/cities/Showcase/table'
 
 const Page = (): ReactElement => {
   const icons = {
@@ -20,7 +21,8 @@ const Page = (): ReactElement => {
     { title: 'About Page Write-up', content: <UpdateAboutWriteup /> },
     { title: 'Contact Information', content: <UpdateContactInformation /> },
     { title: 'Product Categories', content: <ProductCategoriesTable /> },
-    { title: 'Payment Methods', content: <PaymentMethodsTable /> }
+    { title: 'Payment Methods', content: <PaymentMethodsTable /> },
+    { title: 'Cities & Shipping Fees', content: <CitiesTable /> }
   ]
 
   return (
