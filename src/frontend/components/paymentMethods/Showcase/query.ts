@@ -13,7 +13,7 @@ export const querySingular = gql`
 `
 
 export const queryMultiple = gql`
-  query (paginateData: PaginateDataInput) {
+  query ($paginateData: PaginateDataInput) {
     get_payment_methods(paginateData: $paginateData) {
       _id
       name
