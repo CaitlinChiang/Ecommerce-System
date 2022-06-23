@@ -28,7 +28,13 @@ const CreateProductCategory = ({
 
   return (
     <>
-      <Text args={args} required={true} setArgs={setArgs} targetProp={'name'} />
+      <Text
+        args={args}
+        placeholder={'Product Category (ex. Tops)'}
+        required={true}
+        setArgs={setArgs}
+        targetProp={'name'}
+      />
       <CheckboxField args={args} setArgs={setArgs} targetProp={'showPublic'} />
       <Button
         onClick={() => createMutation()}
