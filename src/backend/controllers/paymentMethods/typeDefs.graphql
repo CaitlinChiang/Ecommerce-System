@@ -1,7 +1,7 @@
 type PaymentMethod {
   _id: ID
-  answer: String
-  question: String
+  name: String
+  details: String
   createdAt: String
   updatedAt: String
 }
