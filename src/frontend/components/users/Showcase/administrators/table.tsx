@@ -29,6 +29,7 @@ const AdministratorsTable = (): ReactElement => {
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
   const [refetchArgs, setRefetchArgs] = useState<RefetchDataArgs>({
     args: null,
+    count: null,
     loading: false,
     paginateDataArgs: null,
     refetch: null
@@ -39,17 +40,18 @@ const AdministratorsTable = (): ReactElement => {
     ...fetchMoreArgs
   })
 
+  const users = data?.get_users || []
+  const usersCount: number = data?.get_users_count || 0
+
   useEffect(() => {
     setRefetchArgs({
       args,
+      count: usersCount,
       loading,
       paginateDataArgs,
       refetch
     })
-  }, [args, paginateDataArgs])
-
-  const users = data?.get_users || []
-  const usersCount: number = data?.get_users_count || 0
+  }, [args, data, paginateDataArgs])
 
   const userHeaders = [
     { label: 'active', sortable: true },
@@ -83,6 +85,7 @@ const AdministratorsTable = (): ReactElement => {
               label={'User'}
               mutation={deleteMutation}
               refetchArgs={refetchArgs}
+              setPaginateDataArgs={setPaginateDataArgs}
             />
           </TableCell>
         </TableRow>

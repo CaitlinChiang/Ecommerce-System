@@ -27,6 +27,7 @@ const ReviewsTable = (): ReactElement => {
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
   const [refetchArgs, setRefetchArgs] = useState<RefetchDataArgs>({
     args: null,
+    count: null,
     loading: false,
     paginateDataArgs: null,
     refetch: null
@@ -37,17 +38,18 @@ const ReviewsTable = (): ReactElement => {
     ...fetchMoreArgs
   })
 
+  const reviews = data?.get_reviews || []
+  const reviewsCount: number = data?.get_reviews_count || 0
+
   useEffect(() => {
     setRefetchArgs({
       args,
+      count: reviewsCount,
       loading,
       paginateDataArgs,
       refetch
     })
-  }, [args, paginateDataArgs])
-
-  const reviews = data?.get_reviews || []
-  const reviewsCount: number = data?.get_reviews_count || 0
+  }, [args, data, paginateDataArgs])
 
   const reviewHeaders = [
     { label: 'createdAt', sortable: true },
@@ -77,6 +79,7 @@ const ReviewsTable = (): ReactElement => {
               label={'Review'}
               mutation={deleteMutation}
               refetchArgs={refetchArgs}
+              setPaginateDataArgs={setPaginateDataArgs}
             />
           </TableCell>
         </TableRow>

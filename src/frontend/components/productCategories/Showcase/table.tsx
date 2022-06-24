@@ -33,6 +33,7 @@ const ProductCategoriesTable = (): ReactElement => {
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
   const [refetchArgs, setRefetchArgs] = useState<RefetchDataArgs>({
     args: null,
+    count: null,
     loading: false,
     paginateDataArgs: null,
     refetch: null
@@ -43,17 +44,18 @@ const ProductCategoriesTable = (): ReactElement => {
     ...fetchMoreArgs
   })
 
+  const productCategories = data?.get_product_categories || []
+  const productCategoriesCount: number = data?.get_product_categories_count || 0
+
   useEffect(() => {
     setRefetchArgs({
       args,
+      count: productCategoriesCount,
       loading,
       paginateDataArgs,
       refetch
     })
-  }, [args, paginateDataArgs])
-
-  const productCategories = data?.get_product_categories || []
-  const productCategoriesCount: number = data?.get_product_categories_count || 0
+  }, [args, data, paginateDataArgs])
 
   const productCategoryHeaders = [
     { label: 'showPublic', sortable: true },

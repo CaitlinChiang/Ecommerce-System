@@ -28,6 +28,7 @@ const CitiesTable = (): ReactElement => {
   const [updateModalOpen, setUpdateModalOpen] = useState<boolean>(false)
   const [refetchArgs, setRefetchArgs] = useState<RefetchDataArgs>({
     args: null,
+    count: null,
     loading: false,
     paginateDataArgs: null,
     refetch: null
@@ -38,17 +39,18 @@ const CitiesTable = (): ReactElement => {
     ...fetchMoreArgs
   })
 
+  const cities = data?.get_cities || []
+  const citiesCount: number = data?.get_cities_count || 0
+
   useEffect(() => {
     setRefetchArgs({
       args,
+      count: citiesCount,
       loading,
       paginateDataArgs,
       refetch
     })
-  }, [args, paginateDataArgs])
-
-  const cities = data?.get_cities || []
-  const citiesCount: number = data?.get_cities_count || 0
+  }, [args, data, paginateDataArgs])
 
   const cityHeaders = [
     { label: 'name', sortable: true },
@@ -78,6 +80,7 @@ const CitiesTable = (): ReactElement => {
               label={'City & shipping fee'}
               mutation={deleteMutation}
               refetchArgs={refetchArgs}
+              setPaginateDataArgs={setPaginateDataArgs}
             />
           </TableCell>
         </TableRow>

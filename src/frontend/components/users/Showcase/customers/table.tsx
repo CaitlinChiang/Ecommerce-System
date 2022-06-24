@@ -23,6 +23,7 @@ const CustomersTable = (): ReactElement => {
   })
   const [refetchArgs, setRefetchArgs] = useState<RefetchDataArgs>({
     args: null,
+    count: null,
     loading: false,
     paginateDataArgs: null,
     refetch: null
@@ -33,17 +34,18 @@ const CustomersTable = (): ReactElement => {
     ...fetchMoreArgs
   })
 
+  const users = data?.get_users || []
+  const usersCount: number = data?.get_users_count || 0
+
   useEffect(() => {
     setRefetchArgs({
       args,
+      count: usersCount,
       loading,
       paginateDataArgs,
       refetch
     })
-  }, [args, paginateDataArgs])
-
-  const users = data?.get_users || []
-  const usersCount: number = data?.get_users_count || 0
+  }, [args, data, paginateDataArgs])
 
   const userHeaders = [
     { label: 'firstName', sortable: true },
@@ -69,6 +71,7 @@ const CustomersTable = (): ReactElement => {
               label={'User'}
               mutation={deleteMutation}
               refetchArgs={refetchArgs}
+              setPaginateDataArgs={setPaginateDataArgs}
             />
           </TableCell>
         </TableRow>

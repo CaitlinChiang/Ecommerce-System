@@ -44,6 +44,7 @@ const ProductVariantsTable = ({
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
   const [refetchArgs, setRefetchArgs] = useState<RefetchDataArgs>({
     args: null,
+    count: null,
     loading: false,
     paginateDataArgs: null,
     refetch: null
@@ -58,17 +59,18 @@ const ProductVariantsTable = ({
     ...fetchMoreArgs
   })
 
+  const productVariants = data?.get_product_variants || []
+  const productVariantsCount: number = data?.get_product_variants_count || 0
+
   useEffect(() => {
     setRefetchArgs({
       args,
+      count: productVariantsCount,
       loading,
       paginateDataArgs,
       refetch
     })
-  }, [args, paginateDataArgs])
-
-  const productVariants = data?.get_product_variants || []
-  const productVariantsCount: number = data?.get_product_variants_count || 0
+  }, [args, data, paginateDataArgs])
 
   const productHeaders = [
     { label: 'name', sortable: true },
@@ -106,6 +108,7 @@ const ProductVariantsTable = ({
               label={'Product Variant'}
               mutation={deleteMutation}
               refetchArgs={refetchArgs}
+              setPaginateDataArgs={setPaginateDataArgs}
             />
           </TableCell>
         </TableRow>

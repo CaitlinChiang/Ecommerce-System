@@ -28,6 +28,7 @@ const PaymentMethodsTable = (): ReactElement => {
   const [updateModalOpen, setUpdateModalOpen] = useState<boolean>(false)
   const [refetchArgs, setRefetchArgs] = useState<RefetchDataArgs>({
     args: null,
+    count: null,
     loading: false,
     paginateDataArgs: null,
     refetch: null
@@ -38,17 +39,18 @@ const PaymentMethodsTable = (): ReactElement => {
     ...fetchMoreArgs
   })
 
+  const paymentMethods = data?.get_payment_methods || []
+  const paymentMethodsCount: number = data?.get_payment_methods_count || 0
+
   useEffect(() => {
     setRefetchArgs({
       args,
+      count: paymentMethodsCount,
       loading,
       paginateDataArgs,
       refetch
     })
-  }, [args, paginateDataArgs])
-
-  const paymentMethods = data?.get_payment_methods || []
-  const paymentMethodsCount: number = data?.get_payment_methods_count || 0
+  }, [args, data, paginateDataArgs])
 
   const paymentMethodHeaders = [
     { label: 'name', sortable: true },
@@ -76,6 +78,7 @@ const PaymentMethodsTable = (): ReactElement => {
               label={'Payment Method'}
               mutation={deleteMutation}
               refetchArgs={refetchArgs}
+              setPaginateDataArgs={setPaginateDataArgs}
             />
           </TableCell>
         </TableRow>

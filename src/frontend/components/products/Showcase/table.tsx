@@ -42,6 +42,7 @@ const ProductsTable = (): ReactElement => {
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
   const [refetchArgs, setRefetchArgs] = useState<RefetchDataArgs>({
     args: null,
+    count: null,
     loading: false,
     paginateDataArgs: null,
     refetch: null
@@ -55,17 +56,18 @@ const ProductsTable = (): ReactElement => {
     ...fetchMoreArgs
   })
 
+  const products = data?.get_products || []
+  const productsCount: number = data?.get_products_count || 0
+
   useEffect(() => {
     setRefetchArgs({
       args,
+      count: productsCount,
       loading,
       paginateDataArgs,
       refetch
     })
-  }, [args, paginateDataArgs])
-
-  const products = data?.get_products || []
-  const productsCount: number = data?.get_products_count || 0
+  }, [args, data, paginateDataArgs])
 
   const productHeaders = [
     { label: 'name', sortable: true },
@@ -98,6 +100,7 @@ const ProductsTable = (): ReactElement => {
               label={'Product'}
               mutation={deleteMutation}
               refetchArgs={refetchArgs}
+              setPaginateDataArgs={setPaginateDataArgs}
             />
           </TableCell>
         </TableRow>
