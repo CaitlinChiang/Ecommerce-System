@@ -8,6 +8,7 @@ type File {
 
 type DeliveryAddress {
   address: String
+  city: City
   cityId: ID
 }
 input DeliveryAddressInput {
