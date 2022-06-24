@@ -35,9 +35,11 @@ const ProductCategoriesSelect = ({
     }
   )
 
-  const selectVal = productCategoryOptions.find(
+  const selectVal = productCategoryOptions?.find(
     (category: any) => category[targetProp] === args?.[targetProp]
   )
+
+  if (!selectVal) return
 
   return (
     <SelectField
