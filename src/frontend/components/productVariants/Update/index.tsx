@@ -9,6 +9,7 @@ import Text from '../../_common/TextField'
 import DatePickerField from '../../_common/DatePickerField'
 import CheckboxField from '../../_common/CheckboxField'
 import NumberField from '../../_common/NumberField'
+import { formatFromPercentage } from '../../../_utils/formatFromPercentage'
 
 const UpdateProductVariant = ({ _id }: { _id: string }): ReactElement => {
   const router = useRouter()
@@ -16,6 +17,7 @@ const UpdateProductVariant = ({ _id }: { _id: string }): ReactElement => {
   const [args, setArgs] = useState<any>({
     _id: null,
     description: null,
+    discount: null,
     expirationDate: null,
     name: null,
     price: null,
@@ -33,6 +35,7 @@ const UpdateProductVariant = ({ _id }: { _id: string }): ReactElement => {
     setArgs({
       _id,
       description: productVariant?.description,
+      discount: productVariant?.discount,
       expirationDate: productVariant?.expirationDate,
       name: productVariant?.name,
       price: productVariant?.price,
@@ -44,6 +47,7 @@ const UpdateProductVariant = ({ _id }: { _id: string }): ReactElement => {
   const [updateMutation, updateMutationState] = useMutation(mutation, {
     variables: {
       ...args,
+      discount: formatFromPercentage(args.discount),
       price: parseFloat(Number(args.price)?.toFixed(2)),
       stockQuantity: Math.round(args.stockQuantity)
     },
@@ -68,6 +72,13 @@ const UpdateProductVariant = ({ _id }: { _id: string }): ReactElement => {
         required={true}
         setArgs={setArgs}
         targetProp={'price'}
+      />
+      <Text
+        args={args}
+        placeholder={'ex. 20%'}
+        required={true}
+        setArgs={setArgs}
+        targetProp={'discount'}
       />
       <CheckboxField args={args} setArgs={setArgs} targetProp={'showPublic'} />
       <NumberField
