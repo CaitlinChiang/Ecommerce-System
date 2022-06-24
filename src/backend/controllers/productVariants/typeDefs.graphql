@@ -29,6 +29,7 @@ extend type Query {
   get_product_variants_count(
     _productId: ID!
     dateRange: DateRangeInput
+    discount: Boolean
     paginateData: PaginateDataInput
     showPublic: Boolean
     stockQuantity: StockQuantityInput

@@ -32,6 +32,7 @@ extend type Query {
   get_products_count(
     categoryIds: [String]
     dateRange: DateRangeInput
+    discount: Boolean
     featured: Boolean
     paginateData: PaginateDataInput
     showPublic: Boolean
