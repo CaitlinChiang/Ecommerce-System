@@ -55,6 +55,17 @@ const ProductVariantsTableFilters = ({
         setArgs={setArgs}
         targetProp={'showPublic'}
       />
+      <SelectField
+        args={args}
+        label={'Discount Status'}
+        optionLabelProp={'label'}
+        options={[
+          { label: 'Products with Discount', discount: true },
+          { label: 'Products without Discount', discount: false }
+        ]}
+        setArgs={setArgs}
+        targetProp={'discount'}
+      />
       <Box>
         <SelectField
           args={dateRangeArgs}
