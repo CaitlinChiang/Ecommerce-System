@@ -27,29 +27,6 @@ export default {
       return payment
     },
 
-    products: async (
-      order: Order,
-      args: undefined,
-      context: Context
-    ): Promise<Product[]> => {
-      const products: Product[] = await context.dataloaders.products.byIds.load(
-        returnProductIds(order.items)
-      )
-      return products
-    },
-
-    productVariants: async (
-      order: Order,
-      args: undefined,
-      context: Context
-    ): Promise<ProductVariant[]> => {
-      const productVariants: ProductVariant[] =
-        await context.dataloaders.productVariants.byIds.load(
-          returnProductVariantIds(order.items)
-        )
-      return productVariants
-    },
-
     user: async (order: Order, args: undefined, context: Context): Promise<User> => {
       const user: User = await context.dataloaders.users.byId.load(order.userId)
       return user

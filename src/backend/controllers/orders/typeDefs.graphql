@@ -5,8 +5,6 @@ type Order {
   items: [CartItem]
   payment: Payment
   paymentId: ID
-  products: [Product]
-  productVariants: [ProductVariant]
   status: String
   user: User
   userId: ID
