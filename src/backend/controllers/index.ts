@@ -24,6 +24,7 @@ const emptyDefs = gql`
 
 export const buildDataloaders = (db: Database): Dataloaders => ({
   cities: cities.dataloaders(db),
+  paymentMethods: paymentMethods.dataloaders(db),
   payments: payments.dataloaders(db),
   productCategories: productCategories.dataloaders(db),
   productVariants: productVariants.dataloaders(db),
