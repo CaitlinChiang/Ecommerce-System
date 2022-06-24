@@ -3,6 +3,7 @@ import { Order } from '../../../types/order'
 import { Payment } from '../../../types/payment'
 import { Product } from '../../../types/product'
 import { ProductVariant } from '../../../types/productVariant'
+import { User } from '../../../types/user'
 import {
   returnProductIds,
   returnProductVariantIds
@@ -47,6 +48,11 @@ export default {
           returnProductVariantIds(order.items)
         )
       return productVariants
+    },
+
+    user: async (order: Order, args: undefined, context: Context): Promise<User> => {
+      const user: User = await context.dataloaders.users.byId.load(order.userId)
+      return user
     },
 
     updatedAt: async (order: Order): Promise<string> => {
