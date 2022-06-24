@@ -1,25 +1,33 @@
 import { ObjectId } from 'mongodb'
 
 export const correctArgs = (modifiedArgs: any, mutation: boolean): any => {
-  Object.keys(modifiedArgs).forEach((key: any) => {
-    // LOGIC IF THE KEY IS AN OBJECT
-    if (typeof key === 'object' && !Array.isArray(key) && key != null) {
-      Object.keys(key).forEach((nestedKey: string) => {
-        modifyArgs(nestedKey, key, mutation)
+  Object.keys(modifiedArgs).forEach((key: string) => {
+    // KEY VALUE IS AN OBJECT
+    if (
+      typeof modifiedArgs[key] === 'object' &&
+      !Array.isArray(modifiedArgs[key]) &&
+      modifiedArgs[key] != null
+    ) {
+      Object.keys(modifiedArgs[key]).forEach((nestedKey: string) => {
+        modifyArgs(nestedKey, modifiedArgs[key], mutation)
       })
     }
 
-    // LOGIC IF THE KEY IS AN ARRAY
-    if (Array.isArray(key) && key != null) {
-      key.forEach((obj: any) => {
-        Object.keys(obj).forEach((nestedKey: string) => {
-          modifyArgs(nestedKey, obj, mutation)
+    // KEY VALUE IS AN ARRAY
+    if (
+      typeof modifiedArgs[key] === 'object' &&
+      Array.isArray(modifiedArgs[key]) &&
+      modifiedArgs[key] != null
+    ) {
+      modifiedArgs[key].forEach((item: any) => {
+        Object.keys(item).forEach((nestedKey: string) => {
+          modifyArgs(nestedKey, item, mutation)
         })
       })
     }
 
-    // LOGIC IF THE KEY IS A STRING
-    if (typeof key === 'string') {
+    // KEY VALUE IS A STRING
+    if (typeof modifiedArgs[key] === 'string') {
       modifyArgs(key, modifiedArgs, mutation)
     }
   })
