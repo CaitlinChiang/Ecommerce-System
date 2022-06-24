@@ -4,7 +4,7 @@ type Payment {
   amountDue: Float
   imageProof: File
   imageProofUrl: String
-  method: String
+  paymentMethodId: ID
   shippingFee: Float
   status: String
   createdAt: String
@@ -13,7 +13,7 @@ type Payment {
 input PaymentInput {
   amountDue: Float
   imageProof: Upload
-  method: String
+  paymentMethodId: ID
   shippingFee: Float
 }
 

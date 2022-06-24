@@ -7,17 +7,19 @@ import { CreatePaymentArgs } from './payment'
 import { Product } from './product'
 import { ProductVariant } from './productVariant'
 import { User } from './user'
+import { CollectionMethod } from '../frontend/_enums/collectionMethod'
+import { OrderStatus } from '../backend/_enums/orderStatus'
 
 export interface Order {
   _id?: ObjectId
-  collectionMethod?: string
+  collectionMethod?: CollectionMethod
   deliveryAddress?: DeliveryAddress
   items?: CartItem[]
   payment?: Payment
   paymentId?: ObjectId
   products?: Product[]
   productVariants?: ProductVariant[]
-  status?: string
+  status?: OrderStatus
   user?: User
   userId?: ObjectId
   createdAt?: Date
@@ -32,19 +34,19 @@ export interface GetOrderArgs {
 }
 
 export interface CreateOrderArgs {
-  collectionMethod?: string
+  collectionMethod?: CollectionMethod
   deliveryAddress?: DeliveryAddress
   items: CartItem[]
   payment: CreatePaymentArgs
-  status?: string
+  status?: OrderStatus
   userId?: ObjectId
   createdAt?: Date
 }
 
 export interface UpdateOrderArgs {
   _id: ObjectId
-  collectionMethod: string
-  status: string
+  collectionMethod: CollectionMethod
+  status: OrderStatus
   updatedAt?: Date
 }
 
