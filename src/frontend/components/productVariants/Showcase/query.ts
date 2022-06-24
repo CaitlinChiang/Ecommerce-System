@@ -5,6 +5,7 @@ export const querySingular = gql`
     get_product_variant(_id: $_id) {
       _id
       description
+      discount
       expirationDate
       imageUrl
       name
@@ -33,7 +34,7 @@ export const queryMultiple = gql`
       stockQuantity: $stockQuantity
     ) {
       _id
-      name
+      discount
       expirationDate
       name
       price

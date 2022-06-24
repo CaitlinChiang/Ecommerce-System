@@ -27,6 +27,7 @@ const ProductVariantsTable = ({
       endDate: null,
       filterBy: null
     },
+    discount: null,
     showPublic: null,
     stockQuantity: {
       operator: null,
@@ -75,6 +76,7 @@ const ProductVariantsTable = ({
   const productHeaders = [
     { label: 'name', sortable: true },
     { label: 'price', sortable: true },
+    { label: 'discount', sortable: false },
     { label: 'stockQuantity', sortable: true },
     { label: 'expirationDate', sortable: true },
     { label: 'actions', sortable: false }
@@ -88,6 +90,7 @@ const ProductVariantsTable = ({
           <TableCell align={'center'}>
             {'P' + productVariant?.price?.toFixed(2)}
           </TableCell>
+          <TableCell align={'center'}>{productVariant?.discount}</TableCell>
           <TableCell align={'center'}>{productVariant?.stockQuantity}</TableCell>
           <TableCell align={'center'}>
             {String(productVariant?.expirationDate)}
