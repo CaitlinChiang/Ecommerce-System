@@ -10,6 +10,7 @@ import DatePickerField from '../../_common/DatePickerField'
 import CheckboxField from '../../_common/CheckboxField'
 import NumberField from '../../_common/NumberField'
 import { formatFromPercentage } from '../../../_utils/formatFromPercentage'
+import { formatToPercentage } from '../../../_utils/formatToPercentage'
 
 const UpdateProductVariant = ({ _id }: { _id: string }): ReactElement => {
   const router = useRouter()
@@ -35,7 +36,7 @@ const UpdateProductVariant = ({ _id }: { _id: string }): ReactElement => {
     setArgs({
       _id,
       description: productVariant?.description,
-      discount: productVariant?.discount,
+      discount: formatToPercentage(productVariant?.discount),
       expirationDate: productVariant?.expirationDate,
       name: productVariant?.name,
       price: productVariant?.price,

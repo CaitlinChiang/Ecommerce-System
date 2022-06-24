@@ -10,6 +10,7 @@ import DatePickerField from '../../_common/DatePickerField'
 import CheckboxField from '../../_common/CheckboxField'
 import NumberField from '../../_common/NumberField'
 import { formatFromPercentage } from '../../../_utils/formatFromPercentage'
+import { formatToPercentage } from '../../../_utils/formatToPercentage'
 
 const UpdateProduct = ({ _id }: { _id: string }): ReactElement => {
   const [args, setArgs] = useState<any>({
@@ -36,7 +37,7 @@ const UpdateProduct = ({ _id }: { _id: string }): ReactElement => {
       _id,
       categoryId: product?.categoryId,
       description: product?.description,
-      discount: product?.discount,
+      discount: formatToPercentage(product?.discount),
       expirationDate: product?.expirationDate,
       featured: product?.featured,
       name: product?.name,

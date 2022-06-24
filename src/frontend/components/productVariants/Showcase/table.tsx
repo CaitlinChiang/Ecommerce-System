@@ -13,6 +13,7 @@ import TableComponent from '../../_common/TableComponent'
 import DeleteButton from '../../_common/DeleteButton'
 import ProductVariantsTableFilters from './tableFilters'
 import { fetchMoreArgs } from '../../../_utils/returnFetchMoreArgs'
+import { formatToPercentage } from '../../../_utils/formatToPercentage'
 
 const ProductVariantsTable = ({
   _productId
@@ -90,7 +91,9 @@ const ProductVariantsTable = ({
           <TableCell align={'center'}>
             {'P' + productVariant?.price?.toFixed(2)}
           </TableCell>
-          <TableCell align={'center'}>{productVariant?.discount}</TableCell>
+          <TableCell align={'center'}>
+            {formatToPercentage(productVariant?.discount)}
+          </TableCell>
           <TableCell align={'center'}>{productVariant?.stockQuantity}</TableCell>
           <TableCell align={'center'}>
             {String(productVariant?.expirationDate)}
