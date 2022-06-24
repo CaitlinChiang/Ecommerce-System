@@ -4,7 +4,6 @@ import { ProductCategory } from '../../../types/productCategory'
 import { ProductVariant } from '../../../types/productVariant'
 import { formatDate } from '../../_utils/helpers/dateFormatters/formatDate'
 import { formatDateTime } from '../../_utils/helpers/dateFormatters/formatDateTime'
-import { formatDiscount } from '../../_utils/helpers/formatDiscount'
 
 export default {
   Product: {
@@ -20,10 +19,6 @@ export default {
 
     createdAt: async (product: Product): Promise<string> => {
       return formatDateTime(product?.createdAt) || '-'
-    },
-
-    discount: async (product: Product): Promise<string> => {
-      return formatDiscount(product?.discount)
     },
 
     expirationDate: async (product: Product): Promise<string> => {
