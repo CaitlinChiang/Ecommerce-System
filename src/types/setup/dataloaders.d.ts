@@ -1,3 +1,4 @@
+import { CityDataloaders } from '../../controllers/cities/dataloaders'
 import { PaymentDataloaders } from '../../controllers/payments/dataloaders'
 import { ProductCategoryDataloaders } from '../../controllers/productCategories/dataloaders'
 import { ProductVariantDataloaders } from '../../backend/controllers/productVariants/dataloaders'
@@ -5,6 +6,7 @@ import { ProductDataloaders } from '../../backend/controllers/products/dataloade
 import { UserDataloaders } from '../../backend/controllers/users/dataloaders'
 
 export interface Dataloaders {
+  cities: CityDataloaders
   payments: PaymentDataloaders
   productCategories: ProductCategoryDataloaders
   productVariants: ProductVariantDataloaders
