@@ -5,7 +5,7 @@ export const correctArgs = (modifiedArgs: any, mutation: boolean): any => {
     // LOGIC IF THE KEY IS AN OBJECT
     if (typeof key === 'object' && !Array.isArray(key) && key != null) {
       Object.keys(key).forEach((nestedKey: string) => {
-        modifyArgs(nestedKey, key[nestedKey], mutation)
+        modifyArgs(nestedKey, key, mutation)
       })
     }
 
@@ -13,7 +13,7 @@ export const correctArgs = (modifiedArgs: any, mutation: boolean): any => {
     if (Array.isArray(key) && key != null) {
       key.forEach((obj: any) => {
         Object.keys(obj).forEach((nestedKey: string) => {
-          modifyArgs(nestedKey, obj[nestedKey], mutation)
+          modifyArgs(nestedKey, obj, mutation)
         })
       })
     }
