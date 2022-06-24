@@ -1,4 +1,5 @@
 import { ObjectId } from 'mongodb'
+import { PaymentMethod } from './paymentMethod'
 import { PaymentStatus } from '../backend/_enums/paymentStatus'
 
 export interface Payment {
@@ -7,6 +8,7 @@ export interface Payment {
   amountDue?: number
   imageProof?: File
   imageProofUrl?: string
+  paymentMethod?: PaymentMethod
   paymentMethodId?: ObjectId
   shippingFee?: number
   status?: PaymentStatus

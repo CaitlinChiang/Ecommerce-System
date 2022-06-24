@@ -4,8 +4,6 @@ import { CartItem } from './cart'
 import { DateRange } from './common/dateRange'
 import { DeliveryAddress } from './common/deliveryAddress'
 import { CreatePaymentArgs } from './payment'
-import { Product } from './product'
-import { ProductVariant } from './productVariant'
 import { User } from './user'
 import { CollectionMethod } from '../frontend/_enums/collectionMethod'
 import { OrderStatus } from '../backend/_enums/orderStatus'
@@ -17,8 +15,6 @@ export interface Order {
   items?: CartItem[]
   payment?: Payment
   paymentId?: ObjectId
-  products?: Product[]
-  productVariants?: ProductVariant[]
   status?: OrderStatus
   user?: User
   userId?: ObjectId

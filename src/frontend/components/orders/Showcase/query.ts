@@ -43,6 +43,8 @@ export const queryMultiple = gql`
         lastName
         phoneNumber
       }
+      createdAt
+      updatedAt
     }
 
     get_orders_count(dateRange: $dateRange, paginateData: $paginateData)
