@@ -5,6 +5,7 @@ import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 import { deletePayment } from '../../payments/mutations/delete_payment'
 import { auditArgs } from '../../../_utils/helpers/returnAuditArgs'
+import { modifyStockQuantity } from '../../../_utils/helpers/modifyStockQuantity'
 
 export default async (
   _root: undefined,
@@ -13,7 +14,13 @@ export default async (
 ): Promise<Order> => {
   authenticateUser({ admin: true }, context)
 
-  const order: any = await context.database.orders.findOneAndDelete({
+  const order: Order = await context.database.orders.findOne({
+    _id: new ObjectId(args._id)
+  })
+
+  await modifyStockQuantity(order.items, 'ADD', context)
+
+  await context.database.orders.findOneAndDelete({
     _id: new ObjectId(args._id)
   })
 

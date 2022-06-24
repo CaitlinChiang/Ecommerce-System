@@ -7,6 +7,7 @@ import { authenticateUser } from '../../../_utils/authenticateUser'
 import { mutationArgs } from '../../../_utils/helpers/returnMutationArgs'
 import { auditArgs } from '../../../_utils/helpers/returnAuditArgs'
 import { createPayment } from '../../payments/mutations/create_payment'
+import { modifyStockQuantity } from '../../../_utils/helpers/modifyStockQuantity'
 
 export default async (
   _root: undefined,
@@ -30,6 +31,8 @@ export default async (
   })
 
   await createPayment(context, order._id, payment)
+
+  await modifyStockQuantity(args.items, 'SUBTRACT', context)
 
   return order
 }
