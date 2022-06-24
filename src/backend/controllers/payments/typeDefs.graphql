@@ -4,6 +4,7 @@ type Payment {
   amountDue: Float
   imageProof: File
   imageProofUrl: String
+  paymentMethod: PaymentMethod
   paymentMethodId: ID
   shippingFee: Float
   status: String
