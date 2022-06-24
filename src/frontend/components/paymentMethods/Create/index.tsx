@@ -5,6 +5,7 @@ import { Button } from '@mui/material'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
 import { refetchData } from '../../../_utils/refetchData'
+import { clearFields } from '../../../_utils/clearFields'
 
 const CreatePaymentMethod = ({
   refetchArgs
@@ -20,6 +21,7 @@ const CreatePaymentMethod = ({
     variables: args,
     onCompleted: () => {
       console.log('Payment method successfully created!')
+      setArgs(clearFields(args))
       refetchData(refetchArgs)
     },
     onError: (error) => console.log(error)

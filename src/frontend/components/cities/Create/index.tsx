@@ -6,6 +6,7 @@ import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
 import NumberField from '../../_common/NumberField'
 import { refetchData } from '../../../_utils/refetchData'
+import { clearFields } from '../../../_utils/clearFields'
 
 const CreateCity = ({
   refetchArgs
@@ -24,6 +25,7 @@ const CreateCity = ({
     },
     onCompleted: () => {
       console.log('City & shipping fee successfully created!')
+      setArgs(clearFields(args))
       refetchData(refetchArgs)
     },
     onError: (error) => console.log(error)

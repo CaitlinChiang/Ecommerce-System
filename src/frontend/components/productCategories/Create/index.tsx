@@ -6,6 +6,7 @@ import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
 import CheckboxField from '../../_common/CheckboxField'
 import { refetchData } from '../../../_utils/refetchData'
+import { clearFields } from '../../../_utils/clearFields'
 
 const CreateProductCategory = ({
   refetchArgs
@@ -21,6 +22,7 @@ const CreateProductCategory = ({
     variables: args,
     onCompleted: () => {
       console.log('Product category successfully created!')
+      setArgs(clearFields(args))
       refetchData(refetchArgs)
     },
     onError: (error) => console.log(error)
