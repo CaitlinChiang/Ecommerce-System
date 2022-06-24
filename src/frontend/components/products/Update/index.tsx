@@ -9,12 +9,14 @@ import Text from '../../_common/TextField'
 import DatePickerField from '../../_common/DatePickerField'
 import CheckboxField from '../../_common/CheckboxField'
 import NumberField from '../../_common/NumberField'
+import { formatFromPercentage } from '../../../_utils/formatFromPercentage'
 
 const UpdateProduct = ({ _id }: { _id: string }): ReactElement => {
   const [args, setArgs] = useState<any>({
     _id: null,
     categoryId: null,
     description: null,
+    discount: null,
     expirationDate: null,
     featured: false,
     name: null,
@@ -34,6 +36,7 @@ const UpdateProduct = ({ _id }: { _id: string }): ReactElement => {
       _id,
       categoryId: product?.categoryId,
       description: product?.description,
+      discount: product?.discount,
       expirationDate: product?.expirationDate,
       featured: product?.featured,
       name: product?.name,
@@ -46,6 +49,7 @@ const UpdateProduct = ({ _id }: { _id: string }): ReactElement => {
   const [updateMutation, updateMutationState] = useMutation(mutation, {
     variables: {
       ...args,
+      discount: formatFromPercentage(args.discount),
       price: parseFloat(Number(args.price)?.toFixed(2)),
       stockQuantity: Math.round(args.stockQuantity)
     },
@@ -71,6 +75,13 @@ const UpdateProduct = ({ _id }: { _id: string }): ReactElement => {
         required={true}
         setArgs={setArgs}
         targetProp={'price'}
+      />
+      <Text
+        args={args}
+        placeholder={'ex. 20%'}
+        required={true}
+        setArgs={setArgs}
+        targetProp={'discount'}
       />
       <CheckboxField args={args} setArgs={setArgs} targetProp={'showPublic'} />
       <NumberField

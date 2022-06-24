@@ -5,6 +5,7 @@ export default gql`
     $_id: ID!
     $categoryId: ID!
     $description: String
+    $discount: Float
     $expirationDate: String
     $featured: Boolean!
     $image: Upload
@@ -18,6 +19,7 @@ export default gql`
       _id: $_id
       categoryId: $categoryId
       description: $description
+      discount: $discount
       expirationDate: $expirationDate
       featured: $featured
       image: $image
