@@ -22,7 +22,7 @@ export default {
     },
 
     expirationDate: async (product: Product): Promise<string> => {
-      return formatDate(product?.expirationDate) || '-'
+      return formatDate(product?.expirationDate)
     },
 
     stockQuantity: async (

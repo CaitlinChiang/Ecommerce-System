@@ -11,7 +11,7 @@ export default {
     },
 
     expirationDate: async (product: ProductVariant): Promise<string> => {
-      return formatDate(product?.expirationDate) || '-'
+      return formatDate(product?.expirationDate)
     },
 
     imageUrl: async (

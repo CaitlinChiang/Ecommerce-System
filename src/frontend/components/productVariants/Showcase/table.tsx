@@ -96,7 +96,7 @@ const ProductVariantsTable = ({
           </TableCell>
           <TableCell align={'center'}>{productVariant?.stockQuantity}</TableCell>
           <TableCell align={'center'}>
-            {String(productVariant?.expirationDate)}
+            {String(productVariant?.expirationDate || '-')}
           </TableCell>
           <TableCell align={'center'}>
             <IconButton
