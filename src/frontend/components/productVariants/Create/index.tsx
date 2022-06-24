@@ -1,8 +1,11 @@
-import { ReactElement, useState } from 'react'
+import { ReactElement, useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { useQuery } from '@apollo/client'
 import { useMutation } from '@apollo/client'
+import { querySingular } from '../../products/Showcase/query'
 import mutation from './mutation'
 import { Button } from '@mui/material'
+import { Product } from '../../../../types/product'
 import Text from '../../_common/TextField'
 import DatePickerField from '../../_common/DatePickerField'
 import CheckboxField from '../../_common/CheckboxField'
@@ -24,6 +27,19 @@ const CreateProductVariant = ({
     showPublic: false,
     stockQuantity: null
   })
+
+  const { data } = useQuery(querySingular, {
+    variables: { _id: _productId }
+  })
+
+  const product: Product = data?.get_product || {}
+
+  useEffect(() => {
+    setArgs({
+      expirationDate: product?.expirationDate,
+      price: product?.price
+    })
+  }, [data])
 
   const [createMutation, createMutationState] = useMutation(mutation, {
     variables: {

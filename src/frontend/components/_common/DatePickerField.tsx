@@ -28,7 +28,7 @@ const DatePickerField = ({
             setArgs({ ...args, [targetProp]: newValue })
           }}
           renderInput={(params) => <TextField {...params} />}
-          value={args[targetProp]}
+          value={new Date(args[targetProp])}
         />
       </LocalizationProvider>
     </Box>
