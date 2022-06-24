@@ -19,7 +19,7 @@ export const correctArgs = (modifiedArgs: any, mutation: boolean): any => {
     }
 
     // LOGIC IF THE KEY IS A STRING
-    if (typeof key !== 'object') {
+    if (typeof key === 'string') {
       modifyArgs(key, modifiedArgs, mutation)
     }
   })
