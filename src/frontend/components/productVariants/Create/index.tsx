@@ -11,6 +11,7 @@ import DatePickerField from '../../_common/DatePickerField'
 import CheckboxField from '../../_common/CheckboxField'
 import NumberField from '../../_common/NumberField'
 import { formatFromPercentage } from '../../../_utils/formatFromPercentage'
+import { formatToPercentage } from '../../../_utils/formatToPercentage'
 
 const CreateProductVariant = ({
   _productId
@@ -38,7 +39,7 @@ const CreateProductVariant = ({
 
   useEffect(() => {
     setArgs({
-      discount: product?.discount,
+      discount: formatToPercentage(product?.discount),
       expirationDate: product?.expirationDate,
       price: product?.price
     })

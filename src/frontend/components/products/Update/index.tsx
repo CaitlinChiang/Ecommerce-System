@@ -26,7 +26,7 @@ const UpdateProduct = ({ _id }: { _id: string }): ReactElement => {
     stockQuantity: null
   })
 
-  const { data } = useQuery(querySingular, {
+  const { data, refetch } = useQuery(querySingular, {
     variables: { _id }
   })
 
@@ -56,6 +56,7 @@ const UpdateProduct = ({ _id }: { _id: string }): ReactElement => {
     },
     onCompleted: () => {
       console.log('Product successfully updated!')
+      refetch()
     },
     onError: (error) => console.log(error)
   })
