@@ -2,17 +2,17 @@ type Cart {
   _id: ID
   _userId: ID
   items: [CartItem]
-  products: [Product]
-  productVariants: [ProductVariant]
   quantity: Int
   totalPrice: Float
 }
 
 type CartItem {
+  product: Product
   productId: ID
+  productVariant: ProductVariant
   productVariantId: ID
-  quantity: Int!
-  totalPrice: Float!
+  quantity: Int
+  totalPrice: Float
 }
 input CartItemInput {
   productId: ID

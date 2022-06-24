@@ -9,29 +9,6 @@ import {
 
 export default {
   Cart: {
-    products: async (
-      cart: Cart,
-      args: undefined,
-      context: Context
-    ): Promise<Product[]> => {
-      const products: Product[] = await context.dataloaders.products.byIds.load(
-        returnProductIds(cart.items)
-      )
-      return products
-    },
-
-    productVariants: async (
-      cart: Cart,
-      args: undefined,
-      context: Context
-    ): Promise<ProductVariant[]> => {
-      const productVariants: ProductVariant[] =
-        await context.dataloaders.productVariants.byIds.load(
-          returnProductVariantIds(cart.items)
-        )
-      return productVariants
-    },
-
     quantity: async (cart: Cart): Promise<number> => {
       const itemsQuantity: number = cart.items.reduce(
         (totalQuantity: number, currentProduct: CartItem): number => {
