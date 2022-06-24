@@ -15,8 +15,8 @@ export interface CartItem {
   productId?: ObjectId
   productVariant?: ProductVariant
   productVariantId?: ObjectId
-  quantity: number
-  totalPrice: number
+  quantity?: number
+  totalPrice?: number
 }
 
 export interface AddToCartArgs {
