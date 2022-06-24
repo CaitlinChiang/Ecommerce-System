@@ -25,8 +25,8 @@ const CreateCity = ({
     },
     onCompleted: () => {
       console.log('City & shipping fee successfully created!')
-      setArgs(clearFields(args))
       refetchData(refetchArgs)
+      setArgs(clearFields(args))
     },
     onError: (error) => console.log(error)
   })

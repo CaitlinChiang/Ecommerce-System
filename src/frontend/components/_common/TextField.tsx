@@ -53,7 +53,7 @@ const Text = ({
       placeholder={placeholder}
       required={required}
       sx={{ width: width || 500, padding: theme.spacing(2), display: 'block' }}
-      value={args[targetProp]}
+      value={args?.[targetProp]}
     />
   )
 }

@@ -15,15 +15,15 @@ const CreateProductCategory = ({
 }): ReactElement => {
   const [args, setArgs] = useState<any>({
     name: null,
-    showPublic: null
+    showPublic: false
   })
 
   const [createMutation, createMutationState] = useMutation(mutation, {
     variables: args,
     onCompleted: () => {
       console.log('Product category successfully created!')
-      setArgs(clearFields(args))
       refetchData(refetchArgs)
+      setArgs(clearFields(args))
     },
     onError: (error) => console.log(error)
   })

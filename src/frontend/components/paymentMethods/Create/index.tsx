@@ -21,8 +21,8 @@ const CreatePaymentMethod = ({
     variables: args,
     onCompleted: () => {
       console.log('Payment method successfully created!')
-      setArgs(clearFields(args))
       refetchData(refetchArgs)
+      setArgs(clearFields(args))
     },
     onError: (error) => console.log(error)
   })
