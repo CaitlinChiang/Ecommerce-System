@@ -89,7 +89,7 @@ const ProductsTable = (): ReactElement => {
           <TableCell align={'center'}>{product?.category}</TableCell>
           <TableCell align={'center'}>{'P' + product?.price?.toFixed(2)}</TableCell>
           <TableCell align={'center'}>
-            {formatToPercentage(product?.discount)}
+            {formatToPercentage(product?.discount) || '-'}
           </TableCell>
           <TableCell align={'center'}>{product?.stockQuantity}</TableCell>
           <TableCell align={'center'}>{String(product?.expirationDate)}</TableCell>

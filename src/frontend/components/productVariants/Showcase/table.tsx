@@ -92,7 +92,7 @@ const ProductVariantsTable = ({
             {'P' + productVariant?.price?.toFixed(2)}
           </TableCell>
           <TableCell align={'center'}>
-            {formatToPercentage(productVariant?.discount)}
+            {formatToPercentage(productVariant?.discount) || '-'}
           </TableCell>
           <TableCell align={'center'}>{productVariant?.stockQuantity}</TableCell>
           <TableCell align={'center'}>
