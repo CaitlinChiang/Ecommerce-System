@@ -4,6 +4,7 @@ export default gql`
   mutation (
     $categoryId: ID!
     $description: String
+    $discount: Float
     $expirationDate: String
     $featured: Boolean!
     $image: Upload
@@ -15,6 +16,7 @@ export default gql`
     create_product(
       categoryId: $categoryId
       description: $description
+      discount: $discount
       expirationDate: $expirationDate
       featured: $featured
       image: $image

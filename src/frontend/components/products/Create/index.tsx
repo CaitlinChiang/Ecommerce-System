@@ -8,6 +8,7 @@ import Text from '../../_common/TextField'
 import DatePickerField from '../../_common/DatePickerField'
 import CheckboxField from '../../_common/CheckboxField'
 import NumberField from '../../_common/NumberField'
+import { formatFromPercentage } from '../../../_utils/formatFromPercentage'
 
 const CreateProduct = (): ReactElement => {
   const router = useRouter()
@@ -15,6 +16,7 @@ const CreateProduct = (): ReactElement => {
   const [args, setArgs] = useState<any>({
     categoryId: null,
     description: null,
+    discount: null,
     expirationDate: null,
     featured: false,
     name: null,
@@ -26,6 +28,7 @@ const CreateProduct = (): ReactElement => {
   const [createMutation, createMutationState] = useMutation(mutation, {
     variables: {
       ...args,
+      discount: formatFromPercentage(args.discount),
       price: parseFloat(Number(args.price)?.toFixed(2)),
       stockQuantity: Math.round(args.stockQuantity)
     },
@@ -48,6 +51,13 @@ const CreateProduct = (): ReactElement => {
         required={true}
         setArgs={setArgs}
         targetProp={'price'}
+      />
+      <Text
+        args={args}
+        placeholder={'ex. 20%'}
+        required={true}
+        setArgs={setArgs}
+        targetProp={'discount'}
       />
       <CheckboxField args={args} setArgs={setArgs} targetProp={'showPublic'} />
       <NumberField
