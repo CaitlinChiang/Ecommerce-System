@@ -1,5 +1,5 @@
 export const formatToPercentage = (discount: number): string => {
-  if (!discount) return
+  if (!discount) return '-'
 
   const discountWholeNumber = String(discount * 100)
 
