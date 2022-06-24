@@ -7,6 +7,7 @@ export interface Product {
   category?: string
   categoryId?: ObjectId
   description?: string
+  discount?: number
   expirationDate?: Date
   featured?: boolean
   image?: File
@@ -23,6 +24,7 @@ export interface GetProductArgs {
   _id?: ObjectId
   categoryIds?: ObjectId[]
   dateRange?: DateRange
+  discount?: boolean
   featured?: boolean
   paginateData?: PaginateDataArgs
   showPublic?: boolean
@@ -32,6 +34,7 @@ export interface GetProductArgs {
 export interface CreateProductArgs {
   categoryId: ObjectId
   description?: string
+  discount?: number
   expirationDate?: Date
   featured: boolean
   image?: File
@@ -47,6 +50,7 @@ export interface UpdateProductArgs {
   _id: ObjectId
   categoryId: ObjectId
   description?: string
+  discount?: number
   expirationDate?: Date
   featured: boolean
   image?: File

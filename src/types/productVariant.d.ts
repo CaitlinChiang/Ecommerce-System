@@ -5,6 +5,7 @@ export interface ProductVariant {
   _id?: ObjectId
   _productId?: ObjectId
   description?: string
+  discount?: number
   expirationDate?: Date
   image?: File
   imageUrl?: string
@@ -20,6 +21,7 @@ export interface GetProductVariantArgs {
   _id?: ObjectId
   _productId?: ObjectId
   dateRange?: DateRange
+  discount?: boolean
   paginateData?: PaginateDataArgs
   showPublic?: boolean
   stockQuantity?: StockQuantity
@@ -28,6 +30,7 @@ export interface GetProductVariantArgs {
 export interface CreateProductVariantArgs {
   _productId: ObjectId
   description?: string
+  discount?: number
   expirationDate?: Date
   image?: File
   imageUrl?: string
@@ -42,6 +45,7 @@ export interface UpdateProductVariantArgs {
   _id: ObjectId
   _productId: ObjectId
   description?: string
+  discount?: number
   expirationDate?: Date
   image?: File
   imageUrl?: string

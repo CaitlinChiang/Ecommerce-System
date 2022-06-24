@@ -2,6 +2,7 @@ type ProductVariant {
   _id: ID
   _productId: ID
   description: String
+  discount: Float
   expirationDate: String
   image: File
   imageUrl: String
@@ -19,6 +20,7 @@ extend type Query {
   get_product_variants(
     _productId: ID!
     dateRange: DateRangeInput
+    discount: Boolean
     paginateData: PaginateDataInput
     showPublic: Boolean
     stockQuantity: StockQuantityInput
@@ -37,6 +39,7 @@ extend type Mutation {
   create_product_variant(
     _productId: ID!
     description: String
+    discount: Float
     expirationDate: String
     image: Upload
     name: String!
@@ -48,6 +51,7 @@ extend type Mutation {
   update_product_variant(
     _id: ID!
     description: String
+    discount: Float
     expirationDate: String
     image: Upload
     imageUrl: String

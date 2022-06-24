@@ -3,6 +3,7 @@ type Product {
   category: String
   categoryId: ID
   description: String
+  discount: Float
   expirationDate: String
   featured: Boolean
   image: File
@@ -21,6 +22,7 @@ extend type Query {
   get_products(
     categoryIds: [String]
     dateRange: DateRangeInput
+    discount: Boolean
     featured: Boolean
     paginateData: PaginateDataInput
     showPublic: Boolean
@@ -41,6 +43,7 @@ extend type Mutation {
   create_product(
     categoryId: ID!
     description: String
+    discount: Float
     expirationDate: String
     featured: Boolean!
     image: Upload
@@ -54,6 +57,7 @@ extend type Mutation {
     _id: ID!
     categoryId: ID!
     description: String
+    discount: Float
     expirationDate: String
     featured: Boolean!
     image: Upload

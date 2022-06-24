@@ -4,7 +4,14 @@ import { correctArgs } from './correctArgs'
 import { formatDateRange } from './dateFormatters/formatDateRange'
 
 export const queryArgs = (args: any): any => {
-  const { categoryIds, dateRange, paginateData, stockQuantity, ...queryArgs } = args
+  const {
+    categoryIds,
+    dateRange,
+    discount,
+    paginateData,
+    stockQuantity,
+    ...queryArgs
+  } = args
 
   if (paginateData?.searchText) {
     return { $text: { $search: paginateData.searchText } }
@@ -29,6 +36,10 @@ export const queryArgs = (args: any): any => {
       $gte: formatDateRange(dateRange?.startDate, true),
       $lte: formatDateRange(dateRange?.endDate, false)
     }
+  }
+
+  if (discount) {
+    modifiedArgs.discount = { $exists: true }
   }
 
   if (stockQuantity) {
