@@ -10,7 +10,7 @@ export default async (db: Database, ids: ObjectId[]): Promise<Payment[]> => {
   const paymentsById: { [id: string]: Payment } = {}
 
   payments.forEach((payment: Payment): void => {
-    paymentsById[String(payment._id)] = payment
+    paymentsById[String(payment._orderId)] = payment
   })
 
   return ids.map((id: ObjectId): Payment => paymentsById[String(id)])
