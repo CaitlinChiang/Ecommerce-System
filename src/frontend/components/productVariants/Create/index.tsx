@@ -10,6 +10,7 @@ import Text from '../../_common/TextField'
 import DatePickerField from '../../_common/DatePickerField'
 import CheckboxField from '../../_common/CheckboxField'
 import NumberField from '../../_common/NumberField'
+import { formatFromPercentage } from '../../../_utils/formatFromPercentage'
 
 const CreateProductVariant = ({
   _productId
@@ -21,6 +22,7 @@ const CreateProductVariant = ({
   const [args, setArgs] = useState<any>({
     _productId,
     description: null,
+    discount: null,
     expirationDate: null,
     name: null,
     price: null,
@@ -36,6 +38,7 @@ const CreateProductVariant = ({
 
   useEffect(() => {
     setArgs({
+      discount: product?.discount,
       expirationDate: product?.expirationDate,
       price: product?.price
     })
@@ -44,6 +47,7 @@ const CreateProductVariant = ({
   const [createMutation, createMutationState] = useMutation(mutation, {
     variables: {
       ...args,
+      discount: formatFromPercentage(args.discount),
       price: parseFloat(Number(args.price)?.toFixed(2)),
       stockQuantity: Math.round(args.stockQuantity)
     },
@@ -64,6 +68,13 @@ const CreateProductVariant = ({
         required={true}
         setArgs={setArgs}
         targetProp={'price'}
+      />
+      <Text
+        args={args}
+        placeholder={'ex. 20%'}
+        required={true}
+        setArgs={setArgs}
+        targetProp={'discount'}
       />
       <CheckboxField args={args} setArgs={setArgs} targetProp={'showPublic'} />
       <NumberField
