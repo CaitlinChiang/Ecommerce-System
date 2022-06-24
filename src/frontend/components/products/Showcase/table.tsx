@@ -18,12 +18,13 @@ const ProductsTable = (): ReactElement => {
   const router = useRouter()
 
   const [args, setArgs] = useState<any>({
+    categoryIds: [],
     dateRange: {
       startDate: null,
       endDate: null,
       filterBy: null
     },
-    categoryIds: [],
+    discount: null,
     featured: null,
     showPublic: null,
     stockQuantity: {
@@ -73,6 +74,7 @@ const ProductsTable = (): ReactElement => {
     { label: 'name', sortable: true },
     { label: 'category', sortable: true },
     { label: 'price', sortable: true },
+    { label: 'discount', sortable: false },
     { label: 'stockQuantity', sortable: true },
     { label: 'expirationDate', sortable: true },
     { label: 'actions', sortable: false }
@@ -85,6 +87,7 @@ const ProductsTable = (): ReactElement => {
           <TableCell align={'center'}>{product?.name}</TableCell>
           <TableCell align={'center'}>{product?.category}</TableCell>
           <TableCell align={'center'}>{'P' + product?.price?.toFixed(2)}</TableCell>
+          <TableCell align={'center'}>{product?.discount}</TableCell>
           <TableCell align={'center'}>{product?.stockQuantity}</TableCell>
           <TableCell align={'center'}>{String(product?.expirationDate)}</TableCell>
           <TableCell align={'center'}>

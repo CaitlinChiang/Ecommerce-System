@@ -7,6 +7,7 @@ export const querySingular = gql`
       category
       categoryId
       description
+      discount
       expirationDate
       featured
       imageUrl
@@ -24,6 +25,7 @@ export const queryMultiple = gql`
   query (
     $categoryIds: [String]
     $dateRange: DateRangeInput
+    $discount: Boolean
     $featured: Boolean
     $paginateData: PaginateDataInput
     $showPublic: Boolean
@@ -32,6 +34,7 @@ export const queryMultiple = gql`
     get_products(
       categoryIds: $categoryIds
       dateRange: $dateRange
+      discount: $discount
       featured: $featured
       paginateData: $paginateData
       showPublic: $showPublic
@@ -39,7 +42,7 @@ export const queryMultiple = gql`
     ) {
       _id
       category
-      name
+      discount
       expirationDate
       name
       price
