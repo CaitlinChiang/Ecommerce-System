@@ -1,13 +1,13 @@
+import bcrypt from 'bcrypt'
 import { Context } from '../../../../types/setup/context'
 import { User, CreateUserArgs } from '../../../../types/user'
 import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
-import { UserInputError } from 'apollo-server-express'
-import bcrypt from 'bcrypt'
-import { generateJWT } from '../../../_utils/jwt'
 import { authenticateUser } from '../../../_utils/authenticateUser'
+import { generateJWT } from '../../../_utils/jwt'
 import { mutationArgs } from '../../../_utils/helpers/returnMutationArgs'
 import { auditArgs } from '../../../_utils/helpers/returnAuditArgs'
+import { checkIfUserExists } from '../../../_utils/helpers/checkIfUserExists'
 
 export default async (
   _root: undefined,
@@ -16,12 +16,7 @@ export default async (
 ): Promise<User> => {
   authenticateUser({ admin: false }, context)
 
-  const existingUser = await context.database.users.findOne({
-    email: args.email
-  })
-  if (existingUser) {
-    throw new UserInputError('User with email already exists.')
-  }
+  checkIfUserExists(args.email, context)
 
   const hashedPassword = await bcrypt.hash(args.password, 12)
 
@@ -32,13 +27,13 @@ export default async (
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.CREATE_USER,
-    userId: user._id,
+    userId: user.insertedId,
     ...auditArgs(context)
   })
 
-  await context.database.carts.insertOne({ _userId: user._id })
+  await context.database.carts.insertOne({ _userId: user.insertedId })
 
-  const token = await generateJWT(existingUser._id)
+  const token = await generateJWT(user.insertedId)
 
   return { ...user, token }
 }

@@ -1,8 +1,8 @@
 import { Context } from '../../../../types/setup/context'
 import { GetOrderArgs } from 'types/order'
-import { UserType } from '../../../_enums/userType'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 import { queryArgs } from '../../../_utils/helpers/returnQueryArgs'
+import { returnOrdersUserId } from '../../../_utils/helpers/returnOrdersUserId'
 
 export default async (
   _root: undefined,
@@ -11,12 +11,8 @@ export default async (
 ): Promise<number> => {
   authenticateUser({ admin: false }, context)
 
-  const modifiedArgs: GetOrderArgs = {
-    ...queryArgs(args)
-  }
-  if (context.currentUserType == UserType.CUSTOMER) {
-    modifiedArgs.userId = context.currentUserId
-  }
+  const modifiedArgs: GetOrderArgs = queryArgs(args)
+  returnOrdersUserId(modifiedArgs, context)
 
   const ordersCount: any = await context.database.orders.countDocuments(modifiedArgs)
 

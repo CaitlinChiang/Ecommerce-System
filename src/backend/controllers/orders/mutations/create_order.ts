@@ -1,6 +1,7 @@
 import { Context } from '../../../../types/setup/context'
 import { Order, CreateOrderArgs } from '../../../../types/order'
 import { OrderStatus } from '../../../_enums/orderStatus'
+import { StockQuantityAction } from '../../../_enums/stockQuantityAction'
 import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
@@ -26,13 +27,13 @@ export default async (
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.CREATE_ORDER,
-    orderId: order._id,
+    orderId: order.insertedId,
     ...auditArgs(context)
   })
 
-  await createPayment(context, order._id, payment)
+  await createPayment(context, order.insertedId, payment)
 
-  await modifyStockQuantity(args.items, 'SUBTRACT', context)
+  await modifyStockQuantity(args.items, StockQuantityAction.SUBTRACT, context)
 
   return order
 }

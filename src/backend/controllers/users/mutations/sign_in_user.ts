@@ -1,9 +1,9 @@
 import { Context } from '../../../../types/setup/context'
 import { User, SignInUserArgs } from '../../../../types/user'
-import { AuthenticationError } from 'apollo-server-express'
-import bcrypt from 'bcrypt'
-import { generateJWT } from '../../../_utils/jwt'
 import { authenticateUser } from '../../../_utils/authenticateUser'
+import { generateJWT } from '../../../_utils/jwt'
+import { checkIfUserExists } from '../../../_utils/helpers/checkIfUserExists'
+import { checkIfPasswordsMatch } from '../../../_utils/helpers/checkIfPasswordsMatch'
 
 export default async (
   _root: undefined,
@@ -12,19 +12,12 @@ export default async (
 ): Promise<User> => {
   authenticateUser({ admin: false }, context)
 
-  const existingUser = await context.database.users.findOne({
-    email: args.email
-  })
-  if (!existingUser) {
-    throw new AuthenticationError('Invalid email, please try again.')
-  }
+  const user = await context.database.users.findOne({ email: args.email })
 
-  const validatePassword = await bcrypt.compare(args.password, existingUser.password)
-  if (!validatePassword) {
-    throw new AuthenticationError('Incorrect password, please try again.')
-  }
+  checkIfUserExists(args.email, context)
+  checkIfPasswordsMatch(args.password, user)
 
-  const token = await generateJWT(existingUser._id)
+  const token = await generateJWT(user._id)
 
-  return { ...existingUser, token }
+  return { ...user, token }
 }

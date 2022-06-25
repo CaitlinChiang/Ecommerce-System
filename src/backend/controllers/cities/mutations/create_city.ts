@@ -19,7 +19,7 @@ export default async (
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.CREATE_CITY,
-    cityId: city._id,
+    cityId: city.insertedId,
     ...auditArgs(context)
   })
 

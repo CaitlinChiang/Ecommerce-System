@@ -1,6 +1,7 @@
 import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import { Order, DeleteOrderArgs } from '../../../../types/order'
+import { StockQuantityAction } from '../../../_enums/stockQuantityAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 import { deletePayment } from '../../payments/mutations/delete_payment'
@@ -18,7 +19,7 @@ export default async (
     _id: new ObjectId(args._id)
   })
 
-  await modifyStockQuantity(order.items, 'ADD', context)
+  await modifyStockQuantity(order.items, StockQuantityAction.ADD, context)
 
   await context.database.orders.findOneAndDelete({
     _id: new ObjectId(args._id)

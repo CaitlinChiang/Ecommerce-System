@@ -15,13 +15,13 @@ export default async (
   authenticateUser({ admin: true }, context)
 
   const websiteText: any = await context.database.websiteTexts.findOneAndUpdate(
-    { type: args.type },
+    { _id: new ObjectId(args._id) },
     { $set: mutationArgs(args, MutateAction.UPDATE) }
   )
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.UPDATE_WEBSITE_TEXT,
-    websiteTextId: new ObjectId(websiteText._id),
+    websiteTextId: new ObjectId(args._id),
     ...auditArgs(context)
   })
 

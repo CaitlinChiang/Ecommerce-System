@@ -19,7 +19,7 @@ export default async (
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.CREATE_FAQ,
-    faqId: faq._id,
+    faqId: faq.insertedId,
     ...auditArgs(context)
   })
 

@@ -44,7 +44,7 @@ const modifyArgs = (key: string, obj: any, mutation: boolean): any => {
     delete obj[key]
   }
 
-  if ((key.includes('Id') || key === '_id') && obj[key] != null) {
+  if (key.includes('Id') && obj[key] != null) {
     obj[key] = new ObjectId(obj[key])
   }
 

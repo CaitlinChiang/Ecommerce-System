@@ -19,7 +19,7 @@ export default async (
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.CREATE_REVIEW,
-    reviewId: review._id,
+    reviewId: review.insertedId,
     ...auditArgs(context)
   })
 

@@ -10,5 +10,5 @@ extend type Query {
 }
 
 extend type Mutation {
-  update_website_text(content: String!, type: String!): WebsiteText
+  update_website_text(_id: ID!, content: String!, type: String!): WebsiteText
 }

@@ -22,7 +22,7 @@ export default async (
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.CREATE_PRODUCT_CATEGORY,
-    productCategoryId: productCategory._id,
+    productCategoryId: productCategory.insertedId,
     ...auditArgs(context)
   })
 

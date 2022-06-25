@@ -50,7 +50,7 @@ export default {
     },
 
     updatedAt: async (product: Product): Promise<string> => {
-      return formatDateTime(product?.updatedAt)
+      return formatDateTime(product?.updatedAt) || '-'
     }
   }
 }
