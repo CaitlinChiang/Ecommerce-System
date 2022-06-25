@@ -8,6 +8,7 @@ import { authenticateUser } from '../../../_utils/authenticateUser'
 import { mutationArgs } from '../../../_utils/helpers/returnMutationArgs'
 import { auditArgs } from '../../../_utils/helpers/returnAuditArgs'
 import { createPayment } from '../../payments/mutations/create_payment'
+import { emptyCart } from '../../cart/mutations/empty_cart'
 import { modifyStockQuantity } from '../../../_utils/helpers/modifyStockQuantity'
 
 export default async (
@@ -31,7 +32,9 @@ export default async (
     ...auditArgs(context)
   })
 
-  await createPayment(context, order.insertedId, payment)
+  await createPayment(order.insertedId, payment, context)
+
+  await emptyCart(context)
 
   await modifyStockQuantity(args.items, StockQuantityAction.SUBTRACT, context)
 

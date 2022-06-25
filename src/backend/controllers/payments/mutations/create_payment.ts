@@ -10,9 +10,9 @@ import { auditArgs } from '../../../_utils/helpers/returnAuditArgs'
 import { uploadImage } from '../../../_utils/handleImages/upload'
 
 export const createPayment = async (
-  context: Context,
   orderId: ObjectId,
-  paymentArgs: CreatePaymentArgs
+  paymentArgs: CreatePaymentArgs,
+  context: Context
 ) => {
   const { imageProof, ...modifiedArgs } = paymentArgs
 
