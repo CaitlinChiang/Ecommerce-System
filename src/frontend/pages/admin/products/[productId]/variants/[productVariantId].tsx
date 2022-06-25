@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import { useRouter } from 'next/router'
 import layout from '../../../../../layouts'
 import UpdateProductVariant from '../../../../../components/productVariants/Update'

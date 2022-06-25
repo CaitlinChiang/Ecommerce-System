@@ -13,7 +13,6 @@ import {
 
 const ModalComponent = ({
   content,
-  fullScreen,
   loading,
   maxWidth,
   onClose,
@@ -27,7 +26,6 @@ const ModalComponent = ({
   title
 }: {
   content: ReactElement
-  fullScreen?: boolean
   loading?: boolean
   maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | false
   onClose?: VoidFunction
@@ -44,7 +42,7 @@ const ModalComponent = ({
     <>
       <Dialog
         aria-labelledby='responsive-dialog-title'
-        fullScreen={fullScreen || useMediaQuery(theme.breakpoints.down('sm'))}
+        fullScreen={useMediaQuery(theme.breakpoints.down('sm'))}
         maxWidth={maxWidth || 'lg'}
         onClose={onClose}
         open={Boolean(open)}

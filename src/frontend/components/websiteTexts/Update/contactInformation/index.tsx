@@ -5,6 +5,7 @@ import query from '../../Showcase/query'
 import mutation from '../mutation'
 import { Button, Typography } from '@mui/material'
 import { WebsiteText } from '../../../../../types/websiteText'
+import { WebsiteTextId } from '../../../../_enums/websiteTextId'
 import { WebsiteTextType } from '../../../../_enums/websiteTextType'
 import Text from '../../../_common/TextField'
 
@@ -47,6 +48,7 @@ const UpdateContactInformation = (): ReactElement => {
 
   const [updateMutation, updateMutationState] = useMutation(mutation, {
     variables: {
+      _id: WebsiteTextId.CONTACT_INFORMATION,
       content: formatContent(args),
       type: WebsiteTextType.CONTACT_INFORMATION
     },

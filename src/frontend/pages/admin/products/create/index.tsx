@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import layout from '../../../../layouts'
 import CreateProduct from '../../../../components/products/Create'
 

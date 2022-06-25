@@ -5,7 +5,6 @@ import { formatProperCapitalization } from '../../_utils/formatProperCapitalizat
 
 const Text = ({
   args,
-  defaultValue,
   disabled,
   error,
   fullWidth,
@@ -21,7 +20,6 @@ const Text = ({
   width
 }: {
   args: any
-  defaultValue?: string
   disabled?: boolean
   error?: any
   fullWidth?: boolean
@@ -38,7 +36,6 @@ const Text = ({
 }): ReactElement => {
   return (
     <TextField
-      defaultValue={defaultValue}
       disabled={disabled}
       error={error}
       fullWidth={fullWidth}

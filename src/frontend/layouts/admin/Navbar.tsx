@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactEventHandler } from 'react'
+import { ReactElement, ReactEventHandler } from 'react'
 import { useRouter } from 'next/router'
 import theme from '../../themes'
 import {

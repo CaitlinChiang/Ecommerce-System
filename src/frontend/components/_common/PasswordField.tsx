@@ -1,14 +1,12 @@
-import React, { ReactElement, useState } from 'react'
+import { ReactElement, useState } from 'react'
 import { InputAdornment, IconButton, TextField } from '@mui/material'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 
 const PasswordField = ({
-  defaultValue,
   password,
   setPassword
 }: {
-  defaultValue?: string
   password: string
   setPassword: React.Dispatch<React.SetStateAction<string>>
 }): ReactElement => {
@@ -16,7 +14,6 @@ const PasswordField = ({
 
   return (
     <TextField
-      defaultValue={defaultValue}
       error={password?.length < 8}
       helperText={
         password?.length < 8 && 'Password must be at least 8 characters long.'

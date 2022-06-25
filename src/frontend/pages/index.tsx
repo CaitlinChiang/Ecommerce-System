@@ -1,5 +1,5 @@
 import { NextPage } from 'next'
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import Header from '../layouts/admin/Header'
 import layout from '../layouts'
 
@@ -11,4 +11,4 @@ const Home: NextPage = (): ReactElement => {
   )
 }
 
-export default layout(Home, { title: 'Home', backRoute: '/' })
+export default layout(Home, { title: 'Home' })

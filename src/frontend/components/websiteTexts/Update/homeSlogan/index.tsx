@@ -5,11 +5,13 @@ import query from '../../Showcase/query'
 import mutation from '../mutation'
 import { Button, Typography } from '@mui/material'
 import { WebsiteText } from '../../../../../types/websiteText'
+import { WebsiteTextId } from '../../../../_enums/websiteTextId'
 import { WebsiteTextType } from '../../../../_enums/websiteTextType'
 import Text from '../../../_common/TextField'
 
 const UpdateHomeSlogan = (): ReactElement => {
   const [args, setArgs] = useState<any>({
+    _id: null,
     content: null,
     type: null
   })
@@ -22,6 +24,7 @@ const UpdateHomeSlogan = (): ReactElement => {
 
   useEffect(() => {
     setArgs({
+      _id: WebsiteTextId.HOME_SLOGAN,
       content: websiteText?.content,
       type: WebsiteTextType.HOME_SLOGAN
     })

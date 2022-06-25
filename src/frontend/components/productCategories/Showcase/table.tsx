@@ -93,6 +93,7 @@ const ProductCategoriesTable = (): ReactElement => {
               label={'Product Category'}
               mutation={deleteMutation}
               refetchArgs={refetchArgs}
+              setPaginateDataArgs={setPaginateDataArgs}
             />
           </TableCell>
         </TableRow>

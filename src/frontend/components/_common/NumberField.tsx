@@ -5,7 +5,6 @@ import { formatProperCapitalization } from '../../_utils/formatProperCapitalizat
 
 const NumberField = ({
   args,
-  defaultValue,
   disabled,
   label,
   required,
@@ -14,7 +13,6 @@ const NumberField = ({
   width
 }: {
   args: any
-  defaultValue?: number
   disabled?: boolean
   label?: string
   required?: boolean
@@ -24,7 +22,6 @@ const NumberField = ({
 }): ReactElement => {
   return (
     <TextField
-      defaultValue={defaultValue}
       disabled={disabled}
       label={label || formatProperCapitalization(targetProp)}
       onChange={(e): void => {

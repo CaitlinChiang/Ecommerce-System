@@ -30,7 +30,7 @@ extend type Mutation {
   sign_in_user(email: String!, password: String!): User
 
   create_user(
-    active: Boolean!
+    active: Boolean
     address: DeliveryAddressInput
     email: String!
     firstName: String!

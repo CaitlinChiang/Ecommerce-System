@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 import { Checkbox, FormControlLabel } from '@mui/material'
 import { formatProperCapitalization } from '../../_utils/formatProperCapitalization'
 
-const DatePickerField = ({
+const CheckboxField = ({
   args,
   disabled,
   setArgs,
@@ -27,4 +27,4 @@ const DatePickerField = ({
   )
 }
 
-export default DatePickerField
+export default CheckboxField
