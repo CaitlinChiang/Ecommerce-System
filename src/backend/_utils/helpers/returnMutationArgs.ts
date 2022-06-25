@@ -6,7 +6,7 @@ export const mutationArgs = (args: any, action: MutateAction): any => {
   let modifiedArgs: any = {}
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { _id, expirationDate, ...updateArgs } = args
+  const { _id, ...updateArgs } = args
 
   switch (action) {
     case MutateAction.CREATE:
@@ -17,7 +17,6 @@ export const mutationArgs = (args: any, action: MutateAction): any => {
       break
     case MutateAction.DELETE:
       modifiedArgs = { deletedAt: currentDateTime() }
-      break
   }
 
   correctArgs(modifiedArgs, true)

@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb'
-import { StockQuantityOperator } from '../../_enums/stockQuantityOperator'
 import { correctArgs } from './correctArgs'
 import { formatDateRange } from './dateFormatters/formatDateRange'
+import { returnStockQuantityArgs } from './returnStockQuantityArgs'
 
 export const queryArgs = (args: any): any => {
   const {
@@ -43,23 +43,7 @@ export const queryArgs = (args: any): any => {
   }
 
   if (stockQuantity) {
-    switch (stockQuantity.operator) {
-      case StockQuantityOperator.ABOVE:
-        modifiedArgs.stockQuantity = { $gt: stockQuantity.value1 }
-        break
-      case StockQuantityOperator.BELOW:
-        modifiedArgs.stockQuantity = { $lt: stockQuantity.value1 }
-        break
-      case StockQuantityOperator.BETWEEN:
-        modifiedArgs.stockQuantity = {
-          $gt: stockQuantity.value1,
-          $lt: stockQuantity.value2
-        }
-        break
-      case StockQuantityOperator.EQUAL:
-        modifiedArgs.stockQuantity = stockQuantity.value1
-        break
-    }
+    returnStockQuantityArgs(modifiedArgs, stockQuantity)
   }
 
   return modifiedArgs

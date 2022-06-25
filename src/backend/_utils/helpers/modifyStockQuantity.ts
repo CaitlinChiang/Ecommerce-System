@@ -1,13 +1,15 @@
 import { Context } from '../../../types/setup/context'
 import { CartItem } from '../../../types/cart'
+import { StockQuantityAction } from '../../_enums/stockQuantityAction'
 
 export const modifyStockQuantity = (
   items: CartItem[],
-  action: string,
+  action: StockQuantityAction,
   context: Context
 ): void => {
   items?.forEach(async (cartItem: CartItem) => {
-    const stockQuantity = action == 'ADD' ? cartItem.quantity : -cartItem.quantity
+    const stockQuantity =
+      action == StockQuantityAction.ADD ? cartItem.quantity : -cartItem.quantity
 
     if (cartItem?.productId) {
       await context.database.products.findOneAndUpdate(
