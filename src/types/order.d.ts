@@ -41,7 +41,6 @@ export interface CreateOrderArgs {
 
 export interface UpdateOrderArgs {
   _id: ObjectId
-  collectionMethod: CollectionMethod
   status: OrderStatus
   updatedAt?: Date
 }
