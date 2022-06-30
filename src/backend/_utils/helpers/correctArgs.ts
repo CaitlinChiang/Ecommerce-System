@@ -18,7 +18,7 @@ export const correctArgs = (modifiedArgs: any, mutation: boolean): any => {
       })
     }
 
-    if (isValueString(val)) {
+    if (isValueStringOrNull(val)) {
       modifyArgs(key, modifiedArgs, mutation)
     }
   })
@@ -34,7 +34,7 @@ const isValueArray = (val: any) => {
   return false
 }
 
-const isValueString = (val: any) => {
+const isValueStringOrNull = (val: any) => {
   if (typeof val === 'string' || val === null) return true
   return false
 }
