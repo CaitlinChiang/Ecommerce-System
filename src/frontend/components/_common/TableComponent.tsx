@@ -114,9 +114,7 @@ const TableComponent = ({
             <Tooltip title={'Filter'}>
               <IconButton
                 color={'primary'}
-                onClick={(): void => {
-                  setFilterOpen(true)
-                }}
+                onClick={(): void => setFilterOpen(true)}
               >
                 <FilterListIcon />
               </IconButton>

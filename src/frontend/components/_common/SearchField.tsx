@@ -63,9 +63,7 @@ const SearchField = ({
             <InputAdornment position={'end'}>
               <IconButton
                 edge={'end'}
-                onClick={(): void => {
-                  setPaginateDataArgs({ searchText: '' })
-                }}
+                onClick={(): void => setPaginateDataArgs({ searchText: '' })}
               >
                 <CancelIcon />
               </IconButton>

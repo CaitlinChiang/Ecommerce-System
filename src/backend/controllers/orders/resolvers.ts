@@ -20,6 +20,8 @@ export default {
       args: undefined,
       context: Context
     ): Promise<DeliveryAddress> => {
+      if (!order?.deliveryAddress) return
+
       const city: City = await context.dataloaders.cities.byId.load(
         order?.deliveryAddress?.cityId
       )

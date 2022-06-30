@@ -2,12 +2,13 @@ import { ReactElement, useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client'
 import { queryMultiple } from '../query'
 import deleteMutation from '../../Delete/mutation'
-import { TableCell, TableRow } from '@mui/material'
+import { Button, TableCell, TableRow, Typography } from '@mui/material'
 import { Order } from '../../../../../types/order'
 import { PaginateDataArgs } from '../../../../../types/actions/paginateData'
 import { RefetchDataArgs } from '../../../../../types/actions/refetchData'
 import { SortDirection } from '../../../../_enums/sortDirection'
 import TableComponent from '../../../_common/TableComponent'
+import ModalComponent from '../../../_common/ModalComponent'
 import DeleteButton from '../../../_common/DeleteButton'
 import OrdersTableFilters from './tableFilters'
 import { fetchMoreArgs } from '../../../../_utils/returnFetchMoreArgs'
@@ -28,6 +29,14 @@ const OrdersTable = (): ReactElement => {
     sortDirection: SortDirection.DESC
   })
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
+  const [showAddress, setShowAddress] = useState<any>({
+    address: null,
+    open: false
+  })
+  const [showOrderItems, setShowOrderItems] = useState<any>({
+    items: [],
+    open: false
+  })
   const [refetchArgs, setRefetchArgs] = useState<RefetchDataArgs>({
     args: null,
     count: null,
@@ -76,13 +85,31 @@ const OrdersTable = (): ReactElement => {
           <TableCell align={'center'}>{order?.user?.firstName}</TableCell>
           <TableCell align={'center'}>{order?.user?.lastName}</TableCell>
           <TableCell align={'center'}>
-            {order?.user?.email}
-            <br />
-            {order?.user?.phoneNumber}
+            {order?.user?.email} <br /> {order?.user?.phoneNumber}
           </TableCell>
-          <TableCell align={'center'}>{order?.collectionMethod}</TableCell>
-          {/* INSERT MODAL FOR VIEWING ORDER ITEMS */}
-          <TableCell align={'center'}></TableCell>
+          <TableCell align={'center'}>
+            {order?.collectionMethod}
+            {order?.deliveryAddress !== null && (
+              <Button
+                color={'primary'}
+                onClick={() =>
+                  setShowAddress({ address: order?.deliveryAddress, open: true })
+                }
+                variant={'contained'}
+              >
+                {'View Address'}
+              </Button>
+            )}
+          </TableCell>
+          <TableCell align={'center'}>
+            <Button
+              color={'primary'}
+              onClick={() => setShowOrderItems({ items: order?.items, open: true })}
+              variant={'contained'}
+            >
+              {'View Items'}
+            </Button>
+          </TableCell>
           <TableCell align={'center'}>{order?.status}</TableCell>
           <TableCell align={'center'}>
             {String(order?.payment?.amountDue + order?.payment?.shippingFee)}
@@ -108,22 +135,54 @@ const OrdersTable = (): ReactElement => {
   ]
 
   return (
-    <TableComponent
-      args={args}
-      count={ordersCount}
-      fetchMore={fetchMore}
-      filterContent={<OrdersTableFilters args={args} setArgs={setArgs} />}
-      filterOpen={filterOpen}
-      headers={orderHeaders}
-      loading={loading}
-      paginateDataArgs={paginateDataArgs}
-      rows={orderRows}
-      rowsPerPageOptions={[10, 25, 50, 75, 100]}
-      searchLabel={'Search Order by Email'}
-      searchPlaceholder={'ex. ava_cruz@gmail.com'}
-      setFilterOpen={setFilterOpen}
-      setPaginateDataArgs={setPaginateDataArgs}
-    />
+    <>
+      <ModalComponent
+        content={
+          <Typography>
+            {showAddress?.address?.address} <br /> {showAddress?.address?.city?.name}
+          </Typography>
+        }
+        onClose={(): void => {
+          setShowAddress({ open: false })
+        }}
+        open={showAddress.open}
+        title={'Address'}
+      />
+      <ModalComponent
+        content={showOrderItems?.items?.map((item: any) => {
+          return (
+            <Typography>
+              {item?.quantity?.length > 9 ? item?.quantity : '0' + item?.quantity}
+              {' - '}
+              {item?.product?.name}
+              {item?.productVariant?.name !== null &&
+                `[${item?.productVariant?.name}]`}
+            </Typography>
+          )
+        })}
+        onClose={(): void => {
+          setShowOrderItems({ open: false })
+        }}
+        open={showOrderItems.open}
+        title={'Order Items'}
+      />
+      <TableComponent
+        args={args}
+        count={ordersCount}
+        fetchMore={fetchMore}
+        filterContent={<OrdersTableFilters args={args} setArgs={setArgs} />}
+        filterOpen={filterOpen}
+        headers={orderHeaders}
+        loading={loading}
+        paginateDataArgs={paginateDataArgs}
+        rows={orderRows}
+        rowsPerPageOptions={[10, 25, 50, 75, 100]}
+        searchLabel={'Search Order by Email'}
+        searchPlaceholder={'ex. ava_cruz@gmail.com'}
+        setFilterOpen={setFilterOpen}
+        setPaginateDataArgs={setPaginateDataArgs}
+      />
+    </>
   )
 }
 
