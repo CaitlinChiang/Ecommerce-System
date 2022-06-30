@@ -9,8 +9,18 @@ export const querySingular = gql`
 `
 
 export const queryMultiple = gql`
-  query ($dateRange: DateRangeInput, $paginateData: PaginateDataInput) {
-    get_orders(dateRange: $dateRange, paginateData: $paginateData) {
+  query (
+    $collectionMethod: String
+    $dateRange: DateRangeInput
+    $paginateData: PaginateDataInput
+    $status: String
+  ) {
+    get_orders(
+      collectionMethod: $collectionMethod
+      dateRange: $dateRange
+      paginateData: $paginateData
+      status: $status
+    ) {
       _id
       collectionMethod
       deliveryAddress {
@@ -47,6 +57,11 @@ export const queryMultiple = gql`
       updatedAt
     }
 
-    get_orders_count(dateRange: $dateRange, paginateData: $paginateData)
+    get_orders_count(
+      collectionMethod: $collectionMethod
+      dateRange: $dateRange
+      paginateData: $paginateData
+      status: $status
+    )
   }
 `

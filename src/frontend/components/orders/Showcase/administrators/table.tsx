@@ -73,7 +73,7 @@ const OrdersTable = (): ReactElement => {
     { label: 'firstName', sortable: true },
     { label: 'lastName', sortable: true },
     { label: 'contact', sortable: false },
-    { label: 'collectionMethod', sortable: false },
+    { label: 'collectionMethod', sortable: true },
     { label: 'orderItems', sortable: false },
     { label: 'orderStatus', sortable: true },
     { label: 'amountDue', sortable: false },
