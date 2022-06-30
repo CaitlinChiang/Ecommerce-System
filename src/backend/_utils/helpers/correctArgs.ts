@@ -35,7 +35,7 @@ const isValueArray = (val: any) => {
 }
 
 const isValueString = (val: any) => {
-  if (typeof val === 'string') return true
+  if (typeof val === 'string' || val === null) return true
   return false
 }
 
