@@ -4,6 +4,7 @@ import { TextField, Autocomplete } from '@mui/material'
 
 const SelectField = ({
   args,
+  disabled,
   label,
   multiple,
   optionLabelProp,
@@ -15,6 +16,7 @@ const SelectField = ({
   width
 }: {
   args: any
+  disabled?: boolean
   label: string
   multiple?: boolean
   optionLabelProp?: string
@@ -27,6 +29,7 @@ const SelectField = ({
 }): ReactElement => {
   return (
     <Autocomplete
+      disabled={disabled}
       getOptionLabel={(option: any): string => option[optionLabelProp]}
       multiple={multiple}
       onChange={(_e: any, newValue: any | null) => {
