@@ -9,6 +9,8 @@ import { RefetchDataArgs } from '../../../../../types/actions/refetchData'
 import { SortDirection } from '../../../../_enums/sortDirection'
 import TableComponent from '../../../_common/TableComponent'
 import ModalComponent from '../../../_common/ModalComponent'
+import UpdateOrderSelect from '../../Update/select'
+import UpdatePaymentSelect from '../../../payments/Update/select'
 import DeleteButton from '../../../_common/DeleteButton'
 import OrdersTableFilters from './tableFilters'
 import { fetchMoreArgs } from '../../../../_utils/returnFetchMoreArgs'
@@ -28,7 +30,6 @@ const OrdersTable = (): ReactElement => {
     sortBy: 'createdAt',
     sortDirection: SortDirection.DESC
   })
-  const [filterOpen, setFilterOpen] = useState<boolean>(false)
   const [showAddress, setShowAddress] = useState<any>({
     address: null,
     open: false
@@ -37,6 +38,11 @@ const OrdersTable = (): ReactElement => {
     items: [],
     open: false
   })
+  const [showPaymentProof, setShowPaymentProof] = useState<any>({
+    imageProofUrl: null,
+    open: false
+  })
+  const [filterOpen, setFilterOpen] = useState<boolean>(false)
   const [refetchArgs, setRefetchArgs] = useState<RefetchDataArgs>({
     args: null,
     count: null,
@@ -110,13 +116,33 @@ const OrdersTable = (): ReactElement => {
               {'View Items'}
             </Button>
           </TableCell>
-          <TableCell align={'center'}>{order?.status}</TableCell>
+          <TableCell align={'center'}>
+            <UpdateOrderSelect
+              _id={order._id}
+              refetchArgs={refetchArgs}
+              status={order?.status}
+            />
+          </TableCell>
           <TableCell align={'center'}>
             {String(order?.payment?.amountDue + order?.payment?.shippingFee)}
           </TableCell>
-          <TableCell align={'center'}>{order?.payment?.status}</TableCell>
+          <TableCell align={'center'}>
+            <UpdatePaymentSelect
+              _orderId={order._id}
+              refetchArgs={refetchArgs}
+              status={order?.payment?.status}
+            />
+          </TableCell>
           <TableCell align={'center'}>
             {order?.payment?.paymentMethod?.name}
+            <br />
+            <Button
+              color={'primary'}
+              onClick={() => setShowPaymentProof({ imageProofUrl: '', open: true })}
+              variant={'contained'}
+            >
+              {'View Proof'}
+            </Button>
           </TableCell>
           <TableCell align={'center'}>{String(order?.createdAt)}</TableCell>
           <TableCell align={'center'}>{String(order?.updatedAt)}</TableCell>
@@ -165,6 +191,14 @@ const OrdersTable = (): ReactElement => {
         }}
         open={showOrderItems.open}
         title={'Order Items'}
+      />
+      <ModalComponent
+        content={<></>}
+        onClose={(): void => {
+          setShowPaymentProof({ open: false })
+        }}
+        open={showPaymentProof.open}
+        title={'Payment Proof'}
       />
       <TableComponent
         args={args}
