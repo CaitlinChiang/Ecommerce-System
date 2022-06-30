@@ -156,7 +156,7 @@ const OrdersTable = (): ReactElement => {
               {' - '}
               {item?.product?.name}
               {item?.productVariant?.name !== null &&
-                `[${item?.productVariant?.name}]`}
+                ` [${item?.productVariant?.name}]`}
             </Typography>
           )
         })}

@@ -20,7 +20,7 @@ export interface CartItem {
 }
 
 export interface AddToCartArgs {
-  productId?: ObjectId
+  productId: ObjectId
   productVariantId?: ObjectId
   quantity: number
   totalPrice: number
