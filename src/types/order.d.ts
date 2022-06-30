@@ -24,8 +24,10 @@ export interface Order {
 
 export interface GetOrderArgs {
   _id?: ObjectId
+  collectionMethod?: CollectionMethod
   dateRange?: DateRange
   paginateData?: PaginateDataArgs
+  status?: OrderStatus
   userId?: ObjectId
 }
 
