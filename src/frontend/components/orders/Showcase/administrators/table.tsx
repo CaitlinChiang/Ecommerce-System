@@ -17,11 +17,13 @@ import { fetchMoreArgs } from '../../../../_utils/returnFetchMoreArgs'
 
 const OrdersTable = (): ReactElement => {
   const [args, setArgs] = useState<any>({
+    collectionMethod: null,
     dateRange: {
       startDate: null,
       endDate: null,
       filterBy: null
-    }
+    },
+    status: null
   })
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
     page: 0,
