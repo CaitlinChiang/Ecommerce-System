@@ -8,6 +8,7 @@ import Text from '../../_common/TextField'
 import DatePickerField from '../../_common/DatePickerField'
 import CheckboxField from '../../_common/CheckboxField'
 import NumberField from '../../_common/NumberField'
+import ImageUploader from '../../_common/ImageUploader'
 import { formatFromPercentage } from '../../../_utils/formatFromPercentage'
 
 const CreateProduct = (): ReactElement => {
@@ -19,6 +20,7 @@ const CreateProduct = (): ReactElement => {
     discount: null,
     expirationDate: null,
     featured: false,
+    image: null,
     name: null,
     price: null,
     showPublic: false,
@@ -36,12 +38,17 @@ const CreateProduct = (): ReactElement => {
       console.log('Product successfully created!')
       router.back()
     },
-    onError: (error) => console.log(error)
+    onError: (error) => console.log({ image: args.image, error: error })
   })
 
   return (
     <>
-      <ProductCategoriesSelect args={args} required={true} setArgs={setArgs} />
+      <ProductCategoriesSelect
+        args={args}
+        create={true}
+        required={true}
+        setArgs={setArgs}
+      />
       <Text args={args} setArgs={setArgs} targetProp={'description'} />
       <DatePickerField args={args} setArgs={setArgs} targetProp={'expirationDate'} />
       <CheckboxField args={args} setArgs={setArgs} targetProp={'featured'} />
@@ -55,7 +62,6 @@ const CreateProduct = (): ReactElement => {
       <Text
         args={args}
         placeholder={'ex. 20%'}
-        required={true}
         setArgs={setArgs}
         targetProp={'discount'}
       />
@@ -65,6 +71,12 @@ const CreateProduct = (): ReactElement => {
         required={true}
         setArgs={setArgs}
         targetProp={'stockQuantity'}
+      />
+      <ImageUploader
+        alt={'Product Photo'}
+        args={args}
+        setArgs={setArgs}
+        targetProp={'image'}
       />
       <Button
         onClick={() => createMutation()}
