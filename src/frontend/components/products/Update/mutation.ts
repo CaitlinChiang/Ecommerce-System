@@ -8,8 +8,8 @@ export default gql`
     $discount: Float
     $expirationDate: String
     $featured: Boolean!
-    $image: Upload
-    $imageUrl: String
+    $image: String!
+    $imageUrl: String!
     $name: String!
     $price: Float!
     $showPublic: Boolean!
