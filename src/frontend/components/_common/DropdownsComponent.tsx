@@ -16,7 +16,7 @@ const Row = ({
   row
 }: {
   icons: { closed: ReactElement; opened: ReactElement }
-  row: { title: string; content: ReactElement }
+  row: { actions?: ReactElement; title: string; content: ReactElement }
 }): ReactElement => {
   const [open, setOpen] = useState<boolean>(false)
 
@@ -26,6 +26,7 @@ const Row = ({
         <TableCell component='th' scope='row'>
           {row.title}
         </TableCell>
+        {row?.actions && <TableCell align={'right'}>{row.actions}</TableCell>}
         <TableCell align={'right'}>
           <IconButton
             aria-label='expand row'
@@ -52,7 +53,7 @@ const DropdownsComponent = ({
   rows
 }: {
   icons: { closed: ReactElement; opened: ReactElement }
-  rows: { title: string; content: ReactElement }[]
+  rows: { actions?: ReactElement; title: string; content: ReactElement }[]
 }): ReactElement => {
   return (
     <TableContainer component={Paper}>
