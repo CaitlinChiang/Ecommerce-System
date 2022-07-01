@@ -3,7 +3,7 @@ import { gql } from '@apollo/client'
 export default gql`
   mutation (
     $_orderId: ID!
-    $imageProof: String
+    $imageProof: Upload
     $imageProofUrl: String
     $status: String
   ) {
