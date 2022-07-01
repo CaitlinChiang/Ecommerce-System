@@ -35,7 +35,7 @@ const navbarItems = [
   { icon: <SettingsIcon />, label: 'Settings', route: '/admin/settings' },
   { icon: <ReceiptIcon />, label: 'Orders', route: '/admin/orders' },
   { icon: <InventoryIcon />, label: 'Products', route: '/admin/products' },
-  { icon: <HelpIcon />, label: 'FAQs', route: '/admin/frequently-asked-questions' },
+  { icon: <HelpIcon />, label: 'FAQs', route: '/admin/faqs' },
   { icon: <EditIcon />, label: 'Reviews', route: '/admin/reviews' },
   { icon: <DnsIcon />, label: 'Audit Logs', route: '/admin/audit-logs' },
   { icon: <BarChartIcon />, label: 'Analytics', route: '/admin/analytics' }
