@@ -52,7 +52,6 @@ export const typeDefs = [
 ]
 
 export const resolvers = [
-  _common.resolvers,
   analytics.resolvers,
   auditLogs.resolvers,
   cart.resolvers,
