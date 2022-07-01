@@ -111,7 +111,6 @@ const PaymentMethodsTable = (): ReactElement => {
         loading={loading}
         paginateDataArgs={paginateDataArgs}
         rows={paymentMethodRows}
-        rowsPerPageOptions={[10, 25, 50, 75, 100]}
         searchLabel={'Search Payment Methods by Name'}
         searchPlaceholder={'ex. BDO Bank Transfer'}
         setPaginateDataArgs={setPaginateDataArgs}

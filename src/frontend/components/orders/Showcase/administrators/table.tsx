@@ -212,7 +212,6 @@ const OrdersTable = (): ReactElement => {
         loading={loading}
         paginateDataArgs={paginateDataArgs}
         rows={orderRows}
-        rowsPerPageOptions={[10, 25, 50, 75, 100]}
         searchLabel={'Search Order by Email'}
         searchPlaceholder={'ex. ava_cruz@gmail.com'}
         setFilterOpen={setFilterOpen}

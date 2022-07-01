@@ -60,7 +60,6 @@ const AuditLogsTable = ({
       loading={loading}
       paginateDataArgs={paginateDataArgs}
       rows={auditLogRows}
-      rowsPerPageOptions={[10, 25, 50, 75, 100]}
       setPaginateDataArgs={setPaginateDataArgs}
     />
   )

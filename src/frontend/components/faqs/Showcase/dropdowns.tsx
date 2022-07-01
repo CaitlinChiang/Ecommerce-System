@@ -110,7 +110,6 @@ const FAQsDropdowns = (): ReactElement => {
         loading={loading}
         paginateDataArgs={paginateDataArgs}
         rows={faqRows}
-        rowsPerPageOptions={[10, 15, 20]}
         setPaginateDataArgs={setPaginateDataArgs}
       />
     </>

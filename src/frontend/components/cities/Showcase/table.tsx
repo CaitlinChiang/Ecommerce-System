@@ -113,7 +113,6 @@ const CitiesTable = (): ReactElement => {
         loading={loading}
         paginateDataArgs={paginateDataArgs}
         rows={cityRows}
-        rowsPerPageOptions={[10, 25, 50, 75, 100]}
         searchLabel={'Search City by Name'}
         searchPlaceholder={'ex. Makati'}
         setPaginateDataArgs={setPaginateDataArgs}

@@ -127,7 +127,6 @@ const ProductsTable = (): ReactElement => {
       loading={loading}
       paginateDataArgs={paginateDataArgs}
       rows={productRows}
-      rowsPerPageOptions={[10, 25, 50, 75, 100]}
       searchLabel={'Search Product by Name'}
       searchPlaceholder={'ex. Original Lightweight Sweater'}
       setFilterOpen={setFilterOpen}

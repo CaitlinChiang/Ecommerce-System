@@ -13,6 +13,7 @@ import {
 } from '@mui/material'
 import { PaginateDataArgs } from '../../../types/actions/paginateData'
 import { searchData } from '../../_utils/searchData'
+import { generateRowsPerPage } from '../../_utils/generateRowsPerPage'
 
 const Row = ({
   icons,
@@ -59,7 +60,6 @@ const DropdownsComponent = ({
   loading,
   paginateDataArgs,
   rows,
-  rowsPerPageOptions,
   setPaginateDataArgs
 }: {
   args?: any
@@ -69,7 +69,6 @@ const DropdownsComponent = ({
   loading?: boolean
   paginateDataArgs?: PaginateDataArgs
   rows: { actions?: ReactElement; title: string; content: ReactElement }[]
-  rowsPerPageOptions?: number[]
   setPaginateDataArgs?: React.Dispatch<React.SetStateAction<PaginateDataArgs>>
 }): ReactElement => {
   useEffect(() => {
@@ -101,7 +100,7 @@ const DropdownsComponent = ({
           }}
           page={paginateDataArgs?.page}
           rowsPerPage={paginateDataArgs?.rowsPerPage}
-          rowsPerPageOptions={rowsPerPageOptions}
+          rowsPerPageOptions={generateRowsPerPage(count)}
         />
       )}
       <Table aria-label='collapsible table'>

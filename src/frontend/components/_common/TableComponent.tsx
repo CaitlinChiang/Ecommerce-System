@@ -19,6 +19,7 @@ import { SortDirection } from '../../_enums/sortDirection'
 import ModalComponent from './ModalComponent'
 import SearchField from './SearchField'
 import { searchData } from '../../_utils/searchData'
+import { generateRowsPerPage } from '../../_utils/generateRowsPerPage'
 import { formatProperCapitalization } from '../../_utils/formatProperCapitalization'
 
 const TableComponent = ({
@@ -32,7 +33,6 @@ const TableComponent = ({
   loading,
   paginateDataArgs,
   rows,
-  rowsPerPageOptions,
   searchLabel,
   searchPlaceholder,
   setFilterOpen,
@@ -48,7 +48,6 @@ const TableComponent = ({
   loading: boolean
   paginateDataArgs: PaginateDataArgs
   rows: any[]
-  rowsPerPageOptions: number[]
   searchLabel?: string
   searchPlaceholder?: string
   setFilterOpen?: React.Dispatch<React.SetStateAction<boolean>>
@@ -140,7 +139,7 @@ const TableComponent = ({
             }}
             page={page}
             rowsPerPage={rowsPerPage}
-            rowsPerPageOptions={rowsPerPageOptions}
+            rowsPerPageOptions={generateRowsPerPage(count)}
           />
         </div>
         <Table size={'small'}>

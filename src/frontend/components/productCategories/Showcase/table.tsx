@@ -128,7 +128,6 @@ const ProductCategoriesTable = (): ReactElement => {
         loading={loading}
         paginateDataArgs={paginateDataArgs}
         rows={productCategoryRows}
-        rowsPerPageOptions={[10, 25, 50, 75, 100]}
         searchLabel={'Search Product Category by Name'}
         searchPlaceholder={'ex. Tops'}
         setFilterOpen={setFilterOpen}

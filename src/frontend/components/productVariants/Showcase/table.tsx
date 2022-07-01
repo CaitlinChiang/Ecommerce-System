@@ -133,7 +133,6 @@ const ProductVariantsTable = ({
       loading={loading}
       paginateDataArgs={paginateDataArgs}
       rows={productVariantRows}
-      rowsPerPageOptions={[10, 25, 50, 75, 100]}
       searchLabel={'Search Product Variant by Name'}
       searchPlaceholder={'ex. Medium'}
       setFilterOpen={setFilterOpen}

@@ -98,7 +98,6 @@ const ReviewsTable = (): ReactElement => {
       loading={loading}
       paginateDataArgs={paginateDataArgs}
       rows={reviewRows}
-      rowsPerPageOptions={[10, 25, 50, 75, 100]}
       setFilterOpen={setFilterOpen}
       setPaginateDataArgs={setPaginateDataArgs}
     />
