@@ -6,15 +6,17 @@ import { SortDirection } from '../../../_enums/sortDirection'
 import SelectField from '../../../components/_common/SelectField'
 
 const ProductCategoriesSelect = ({
+  args,
+  create,
   multiple,
   required,
-  setArgs,
-  args
+  setArgs
 }: {
+  args: any
+  create?: boolean
   multiple?: boolean
   required?: boolean
   setArgs: React.Dispatch<React.SetStateAction<any>>
-  args: any
 }): ReactElement => {
   const targetProp = multiple ? 'categoryIds' : 'categoryId'
 
@@ -39,7 +41,7 @@ const ProductCategoriesSelect = ({
     (category: any) => category[targetProp] === args?.[targetProp]
   )
 
-  if (!selectVal) return
+  if (!selectVal && !create) return
 
   return (
     <SelectField
