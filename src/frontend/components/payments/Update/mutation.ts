@@ -1,8 +1,18 @@
 import { gql } from '@apollo/client'
 
 export default gql`
-  mutation ($_orderId: ID!, $imageProof: Upload, $status: String) {
-    update_payment(_orderId: $_orderId, imageProof: $imageProof, status: $status) {
+  mutation (
+    $_orderId: ID!
+    $imageProof: String
+    $imageProofUrl: String
+    $status: String
+  ) {
+    update_payment(
+      _orderId: $_orderId
+      imageProof: $imageProof
+      imageProofUrl: $imageProofUrl
+      status: $status
+    ) {
       _id
     }
   }
