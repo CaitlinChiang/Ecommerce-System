@@ -45,7 +45,7 @@ const CustomersTable = (): ReactElement => {
       paginateDataArgs,
       refetch
     })
-  }, [args, data, paginateDataArgs])
+  }, [data, paginateDataArgs])
 
   const userHeaders = [
     { label: 'firstName', sortable: true },
