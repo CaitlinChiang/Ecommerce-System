@@ -7,7 +7,7 @@ export default gql`
     $discount: Float
     $expirationDate: String
     $featured: Boolean!
-    $image: Upload
+    $image: String!
     $name: String!
     $price: Float!
     $showPublic: Boolean!
