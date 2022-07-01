@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react'
+import { ReactElement, useState, useEffect } from 'react'
 import {
   Box,
   Collapse,
@@ -8,8 +8,11 @@ import {
   TableBody,
   TableCell,
   TableContainer,
+  TablePagination,
   TableRow
 } from '@mui/material'
+import { PaginateDataArgs } from '../../../types/actions/paginateData'
+import { searchData } from '../../_utils/searchData'
 
 const Row = ({
   icons,
@@ -49,14 +52,58 @@ const Row = ({
 }
 
 const DropdownsComponent = ({
+  args,
+  count,
+  fetchMore,
   icons,
-  rows
+  loading,
+  paginateDataArgs,
+  rows,
+  rowsPerPageOptions,
+  setPaginateDataArgs
 }: {
+  args?: any
+  count?: number
+  fetchMore?: any
   icons: { closed: ReactElement; opened: ReactElement }
+  loading?: boolean
+  paginateDataArgs?: PaginateDataArgs
   rows: { actions?: ReactElement; title: string; content: ReactElement }[]
+  rowsPerPageOptions?: number[]
+  setPaginateDataArgs?: React.Dispatch<React.SetStateAction<PaginateDataArgs>>
 }): ReactElement => {
+  useEffect(() => {
+    if (paginateDataArgs) {
+      searchData(args, fetchMore, loading, paginateDataArgs)
+    }
+  }, [paginateDataArgs])
+
   return (
     <TableContainer component={Paper}>
+      {count && (
+        <TablePagination
+          component={'span'}
+          count={count}
+          onRowsPerPageChange={async (e): Promise<void> => {
+            const newRowsPerPage = Number(e.target.value)
+            setPaginateDataArgs({
+              ...paginateDataArgs,
+              page: 0,
+              rowsPerPage: newRowsPerPage
+            })
+          }}
+          onPageChange={async (_e, newPage: number): Promise<void> => {
+            window.scrollTo(0, 0)
+            setPaginateDataArgs({
+              ...paginateDataArgs,
+              page: newPage
+            })
+          }}
+          page={paginateDataArgs?.page}
+          rowsPerPage={paginateDataArgs?.rowsPerPage}
+          rowsPerPageOptions={rowsPerPageOptions}
+        />
+      )}
       <Table aria-label='collapsible table'>
         <TableBody>
           {rows.map(
