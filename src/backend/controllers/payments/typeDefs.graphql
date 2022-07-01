@@ -2,7 +2,7 @@ type Payment {
   _id: ID
   _orderId: ID
   amountDue: Float
-  imageProof: File
+  imageProof: String
   imageProofUrl: String
   paymentMethod: PaymentMethod
   paymentMethodId: ID
@@ -13,11 +13,16 @@ type Payment {
 }
 input PaymentInput {
   amountDue: Float
-  imageProof: Upload
+  imageProof: String
   paymentMethodId: ID
   shippingFee: Float
 }
 
 extend type Mutation {
-  update_payment(_orderId: ID!, imageProof: Upload, status: String): Payment
+  update_payment(
+    _orderId: ID!
+    imageProof: String
+    imageProofUrl: String
+    status: String
+  ): Payment
 }
