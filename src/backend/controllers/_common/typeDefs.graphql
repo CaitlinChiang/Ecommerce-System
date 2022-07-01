@@ -1,3 +1,5 @@
+scalar Upload
+
 type DeliveryAddress {
   address: String
   city: City

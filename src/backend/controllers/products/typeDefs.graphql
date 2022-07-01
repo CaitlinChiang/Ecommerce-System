@@ -6,7 +6,6 @@ type Product {
   discount: Float
   expirationDate: String
   featured: Boolean
-  image: String
   imageUrl: String
   name: String
   price: Float
@@ -47,7 +46,7 @@ extend type Mutation {
     discount: Float
     expirationDate: String
     featured: Boolean!
-    image: String!
+    image: Upload!
     name: String!
     price: Float!
     showPublic: Boolean!
@@ -61,7 +60,7 @@ extend type Mutation {
     discount: Float
     expirationDate: String
     featured: Boolean!
-    image: String!
+    image: Upload!
     imageUrl: String!
     name: String!
     price: Float!
