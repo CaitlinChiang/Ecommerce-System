@@ -10,7 +10,7 @@ export interface Product {
   discount?: number
   expirationDate?: Date
   featured?: boolean
-  image?: File
+  image?: string
   imageUrl?: string
   name?: string
   price?: number
@@ -37,8 +37,7 @@ export interface CreateProductArgs {
   discount?: number
   expirationDate?: Date
   featured: boolean
-  image?: File
-  imageUrl?: string
+  image: string
   name: string
   price: number
   showPublic: boolean
@@ -53,8 +52,8 @@ export interface UpdateProductArgs {
   discount?: number
   expirationDate?: Date
   featured: boolean
-  image?: File
-  imageUrl?: string
+  image: string
+  imageUrl: string
   name: string
   price: number
   showPublic: boolean
@@ -64,5 +63,5 @@ export interface UpdateProductArgs {
 
 export interface DeleteProductArgs {
   _id: ObjectId
-  imageUrl?: string
+  imageUrl: string
 }

@@ -1,5 +1,5 @@
 export interface UploadImageArgs {
-  image?: File
+  image?: string
   imageType?: string
   orderId?: string
   productId?: string

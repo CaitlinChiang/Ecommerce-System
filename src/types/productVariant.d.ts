@@ -32,8 +32,7 @@ export interface CreateProductVariantArgs {
   description?: string
   discount?: number
   expirationDate?: Date
-  image?: File
-  imageUrl?: string
+  image?: string
   name: string
   price: number
   showPublic: boolean

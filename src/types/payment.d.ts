@@ -6,7 +6,7 @@ export interface Payment {
   _id?: ObjectId
   _orderId?: ObjectId
   amountDue?: number
-  imageProof?: File
+  imageProof?: string
   imageProofUrl?: string
   paymentMethod?: PaymentMethod
   paymentMethodId?: ObjectId
@@ -18,18 +18,17 @@ export interface Payment {
 
 export interface CreatePaymentArgs {
   amountDue: number
-  imageProof?: File
-  imageProofUrl?: string
-  paymentMethodId?: ObjectId
-  shippingFee?: number
+  imageProof: string
+  paymentMethodId: ObjectId
+  shippingFee: number
   status?: PaymentStatus
   createdAt?: Date
 }
 
 export interface UpdatePaymentArgs {
   _orderId: ObjectId
-  imageProof?: File
+  imageProof?: string
   imageProofUrl?: string
-  status: PaymentStatus
+  status?: PaymentStatus
   updatedAt?: Date
 }
