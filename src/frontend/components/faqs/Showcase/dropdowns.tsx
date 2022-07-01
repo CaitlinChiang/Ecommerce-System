@@ -102,7 +102,17 @@ const FAQsDropdowns = (): ReactElement => {
         open={updateModalOpen}
         title={'Update FAQ'}
       />
-      <DropdownsComponent icons={icons} rows={faqRows} />
+      <DropdownsComponent
+        args={args}
+        count={faqsCount}
+        fetchMore={fetchMore}
+        icons={icons}
+        loading={loading}
+        paginateDataArgs={paginateDataArgs}
+        rows={faqRows}
+        rowsPerPageOptions={[10, 15, 20]}
+        setPaginateDataArgs={setPaginateDataArgs}
+      />
     </>
   )
 }
