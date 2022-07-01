@@ -7,7 +7,7 @@ export interface ProductVariant {
   description?: string
   discount?: number
   expirationDate?: Date
-  image?: File
+  image?: string
   imageUrl?: string
   name?: string
   price?: number
@@ -46,7 +46,7 @@ export interface UpdateProductVariantArgs {
   description?: string
   discount?: number
   expirationDate?: Date
-  image?: File
+  image?: string
   imageUrl?: string
   name: string
   price: number
