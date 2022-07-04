@@ -9,6 +9,7 @@ import {
   ExpressContext
 } from 'apollo-server-express'
 import { GraphQLFormattedError, GraphQLError } from 'graphql'
+import { graphqlUploadExpress } from 'graphql-upload'
 import cors from 'cors'
 import express from 'express'
 import next from 'next'
@@ -76,7 +77,10 @@ nextJSApp.prepare().then(async () => {
     }
   })
 
+  app.use(graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }))
+
   await server.start()
+
   server.applyMiddleware({ app, path: '/graphql' })
 
   app.use((req, res) => {
