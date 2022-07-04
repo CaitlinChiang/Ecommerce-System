@@ -1,3 +1,4 @@
+import { FileUpload } from 'graphql-upload'
 import { ObjectId } from 'mongodb'
 import { PaginateDataArgs } from './actions/paginateData'
 import { StockQuantity } from './common/stockQuantity'
@@ -10,7 +11,6 @@ export interface Product {
   discount?: number
   expirationDate?: Date
   featured?: boolean
-  image?: File
   imageUrl?: string
   name?: string
   price?: number
@@ -37,11 +37,11 @@ export interface CreateProductArgs {
   discount?: number
   expirationDate?: Date
   featured: boolean
-  image: File
+  image: Promise<FileUpload>
   name: string
   price: number
   showPublic: boolean
-  stockQuantity?: number
+  stockQuantity: number
   createdAt?: Date
 }
 
@@ -52,7 +52,7 @@ export interface UpdateProductArgs {
   discount?: number
   expirationDate?: Date
   featured: boolean
-  image: File
+  image?: Promise<FileUpload>
   imageUrl: string
   name: string
   price: number

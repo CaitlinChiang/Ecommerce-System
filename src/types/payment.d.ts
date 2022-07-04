@@ -1,3 +1,4 @@
+import { FileUpload } from 'graphql-upload'
 import { ObjectId } from 'mongodb'
 import { PaymentMethod } from './paymentMethod'
 import { PaymentStatus } from '../backend/_enums/paymentStatus'
@@ -6,7 +7,6 @@ export interface Payment {
   _id?: ObjectId
   _orderId?: ObjectId
   amountDue?: number
-  imageProof?: File
   imageProofUrl?: string
   paymentMethod?: PaymentMethod
   paymentMethodId?: ObjectId
@@ -18,7 +18,7 @@ export interface Payment {
 
 export interface CreatePaymentArgs {
   amountDue: number
-  imageProof: File
+  imageProof: Promise<FileUpload>
   paymentMethodId: ObjectId
   shippingFee: number
   status?: PaymentStatus
@@ -27,7 +27,7 @@ export interface CreatePaymentArgs {
 
 export interface UpdatePaymentArgs {
   _orderId: ObjectId
-  imageProof?: File
+  imageProof?: Promise<FileUpload>
   imageProofUrl?: string
   status?: PaymentStatus
   updatedAt?: Date

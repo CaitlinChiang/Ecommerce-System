@@ -1,5 +1,7 @@
+import { FileUpload } from 'graphql-upload'
+
 export interface UploadImageArgs {
-  image?: File
+  image?: Promise<FileUpload>
   imageType?: string
   orderId?: string
   productId?: string
