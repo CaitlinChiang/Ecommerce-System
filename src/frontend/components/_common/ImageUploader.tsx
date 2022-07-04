@@ -18,12 +18,13 @@ const ImageUploader = ({
     const existingUrl = targetProp + 'Url'
 
     if (args?.[existingUrl]) {
-      setImageUrl(args?.[existingUrl])
+      setImageUrl(args[existingUrl])
     }
   }, [args])
 
-  const uploadImage = async (event: any) => {
+  const uploadImage = (event: any) => {
     const image = event.target.files[0]
+    if (!image) return
     setArgs({ ...args, [targetProp]: image })
 
     const imageUrl = URL.createObjectURL(image)
@@ -33,7 +34,7 @@ const ImageUploader = ({
   return (
     <>
       <Button variant={'contained'}>
-        <input type='file' onChange={(event) => uploadImage(event)} />
+        <input type='file' accept='image/*' onChange={uploadImage} />
         {'Upload Product Photo'}
       </Button>
       {imageUrl && (
