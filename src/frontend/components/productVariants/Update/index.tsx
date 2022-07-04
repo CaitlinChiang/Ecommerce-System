@@ -9,6 +9,7 @@ import Text from '../../_common/TextField'
 import DatePickerField from '../../_common/DatePickerField'
 import CheckboxField from '../../_common/CheckboxField'
 import NumberField from '../../_common/NumberField'
+import ImageUploader from '../../_common/ImageUploader'
 import { formatFromPercentage } from '../../../_utils/formatFromPercentage'
 import { formatToPercentage } from '../../../_utils/formatToPercentage'
 
@@ -20,6 +21,8 @@ const UpdateProductVariant = ({ _id }: { _id: string }): ReactElement => {
     description: null,
     discount: null,
     expirationDate: null,
+    image: null,
+    imageUrl: null,
     name: null,
     price: null,
     showPublic: false,
@@ -87,6 +90,12 @@ const UpdateProductVariant = ({ _id }: { _id: string }): ReactElement => {
         required={true}
         setArgs={setArgs}
         targetProp={'stockQuantity'}
+      />
+      <ImageUploader
+        alt={'Product Variant Photo'}
+        args={args}
+        setArgs={setArgs}
+        targetProp={'image'}
       />
       <Button
         onClick={() => updateMutation()}

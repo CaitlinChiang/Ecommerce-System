@@ -10,6 +10,7 @@ import Text from '../../_common/TextField'
 import DatePickerField from '../../_common/DatePickerField'
 import CheckboxField from '../../_common/CheckboxField'
 import NumberField from '../../_common/NumberField'
+import ImageUploader from '../../_common/ImageUploader'
 import { formatFromPercentage } from '../../../_utils/formatFromPercentage'
 import { formatToPercentage } from '../../../_utils/formatToPercentage'
 
@@ -25,6 +26,7 @@ const CreateProductVariant = ({
     description: null,
     discount: null,
     expirationDate: null,
+    image: null,
     name: null,
     price: null,
     showPublic: false,
@@ -83,6 +85,12 @@ const CreateProductVariant = ({
         required={true}
         setArgs={setArgs}
         targetProp={'stockQuantity'}
+      />
+      <ImageUploader
+        alt={'Product Variant Photo'}
+        args={args}
+        setArgs={setArgs}
+        targetProp={'image'}
       />
       <Button
         onClick={() => createMutation()}
