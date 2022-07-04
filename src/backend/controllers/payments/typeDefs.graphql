@@ -11,9 +11,9 @@ type Payment {
   updatedAt: String
 }
 input PaymentInput {
-  amountDue: Float
-  imageProof: Upload
-  paymentMethodId: ID
+  amountDue: Float!
+  imageProof: Upload!
+  paymentMethodId: ID!
   shippingFee: Float
 }
 
