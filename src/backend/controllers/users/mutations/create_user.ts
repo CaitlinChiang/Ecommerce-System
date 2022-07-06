@@ -16,7 +16,7 @@ export default async (
 ): Promise<User> => {
   authenticateUser({ admin: false }, context)
 
-  checkIfUserExists(args.email, context)
+  checkIfUserExists(false, args.email, context)
 
   const hashedPassword = await bcrypt.hash(args.password, 12)
 
