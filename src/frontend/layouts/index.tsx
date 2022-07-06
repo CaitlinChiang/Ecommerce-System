@@ -43,11 +43,7 @@ export default (
     const [open, setOpen] = useState(false)
 
     const { data, loading } = useQuery(query)
-    const user = data?.user || {
-      firstName: 'Caitlin',
-      lastName: 'Chiang',
-      email: 'chiangcaitlin2003@gmail.com'
-    }
+    const user = data?.user
 
     if (loading) return null
 

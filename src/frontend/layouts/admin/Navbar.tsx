@@ -65,9 +65,9 @@ const Navbar = ({
         <Collapse in={Boolean(user)}>
           <ListItem
             button
-            selected={router.pathname.includes('/account')}
+            selected={router.pathname.includes('/admin/user/account')}
             onClick={(): void => {
-              router.push('/account')
+              router.push('/admin/user/account')
             }}
             sx={{ paddingTop: theme.spacing(3), paddingBottom: theme.spacing(3) }}
           >
@@ -86,6 +86,18 @@ const Navbar = ({
               primary={user?.firstName + user?.lastName}
               secondary={user?.email}
             />
+          </ListItem>
+        </Collapse>
+        <Collapse in={Boolean(!user)}>
+          <ListItem
+            button
+            selected={router.pathname.includes('/admin/user/sign-in')}
+            onClick={(): void => {
+              router.push('/admin/user/sign-in')
+            }}
+            sx={{ paddingTop: theme.spacing(3), paddingBottom: theme.spacing(3) }}
+          >
+            <ListItemText primary={'Sign In'} />
           </ListItem>
         </Collapse>
         <Divider />
