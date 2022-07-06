@@ -12,7 +12,7 @@ const jwtSettings = {
 
 export const generateJWT = (_id: ObjectId): string => {
   const stringId = String(_id)
-  return jwt.sign({ stringId }, SECRET_KEY, jwtSettings)
+  return jwt.sign({ _id: stringId }, SECRET_KEY, jwtSettings)
 }
 
 export const verifyJWT = (
