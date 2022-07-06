@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie'
 import { ReactElement, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
@@ -16,7 +17,8 @@ const SignInUser = (): ReactElement => {
 
   const [signInMutation, signInMutationState] = useMutation(mutation, {
     variables: args,
-    onCompleted: () => {
+    onCompleted: (data) => {
+      Cookies.set('accessToken', data.sign_in_user)
       console.log('User successfully signed in!')
       router.push('/')
     },

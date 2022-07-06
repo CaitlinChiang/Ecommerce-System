@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie'
 import { ReactElement, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
@@ -27,8 +28,9 @@ const CreateUser = ({ type }: { type: UserType }): ReactElement => {
       ...args,
       deliveryAddress: { address: args?.address, cityId: args?.cityId }
     },
-    onCompleted: () => {
-      console.log('User successfully created!')
+    onCompleted: (data) => {
+      Cookies.set('accessToken', data.create_user.token)
+      console.log('User successfully signed up!')
       router.push('/')
     },
     onError: (error) => console.log(error)
