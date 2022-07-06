@@ -18,9 +18,7 @@ import dbSetup from './backend/_utils/setup/database'
 import { Context } from './types/setup/context'
 import { Database } from './types/setup/database'
 import { typeDefs, resolvers, buildDataloaders } from './backend/controllers'
-// import { verifyJWT } from './backend/_utils/jwt'
-import { ObjectId } from 'mongodb'
-// import { User } from 'types/user'
+import returnCurrentUser from './backend/_utils/returnCurrentUser'
 
 const app = express()
 app.set('trust proxy', true)
@@ -48,16 +46,12 @@ nextJSApp.prepare().then(async () => {
       const ip =
         headers['CF-Connecting-IP'] || headers['X-Forwarded-For'] || context.req.ip
 
-      // const user = verifyJWT(headers.accesstoken as string)
-      // const currentUserId = new ObjectId(user?._id)
-      // const currentUser: User = await database.users.findOne({
-      //   _id: currentUserId
-      // })
+      const user = await returnCurrentUser(headers, database)
 
       return {
-        currentUserId: new ObjectId('62a9d9bee5d675784bd59602'),
-        currentUserActive: true,
-        currentUserType: 'ADMINISTRATOR',
+        currentUserId: user?._id,
+        currentUserActive: user?.active,
+        currentUserType: user?.type,
         database,
         dataloaders: buildDataloaders(database),
         ip
