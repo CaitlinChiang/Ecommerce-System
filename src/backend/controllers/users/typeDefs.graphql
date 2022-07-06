@@ -1,7 +1,7 @@
 type User {
   _id: ID
   active: Boolean
-  address: DeliveryAddress
+  deliveryAddress: DeliveryAddress
   email: String
   firstName: String
   lastName: String
@@ -30,8 +30,7 @@ extend type Mutation {
   sign_in_user(email: String!, password: String!): User
 
   create_user(
-    active: Boolean
-    address: DeliveryAddressInput
+    deliveryAddress: DeliveryAddressInput
     email: String!
     firstName: String!
     lastName: String!
@@ -43,7 +42,7 @@ extend type Mutation {
   update_user(
     _id: ID!
     active: Boolean
-    address: DeliveryAddressInput
+    deliveryAddress: DeliveryAddressInput
     email: String
     password: String
     phoneNumber: String
