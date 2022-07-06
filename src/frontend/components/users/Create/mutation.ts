@@ -2,8 +2,7 @@ import { gql } from '@apollo/client'
 
 export default gql`
   mutation (
-    $active: Boolean
-    $address: DeliveryAddressInput
+    $deliveryAddress: DeliveryAddressInput
     $email: String!
     $firstName: String!
     $lastName: String!
@@ -12,8 +11,7 @@ export default gql`
     $type: String!
   ) {
     create_user(
-      active: $active
-      address: $address
+      deliveryAddress: $deliveryAddress
       email: $email
       firstName: $firstName
       lastName: $lastName
