@@ -11,4 +11,4 @@ const Page = (): ReactElement => {
   )
 }
 
-export default layout(Page, { title: 'Sign Up' })
+export default layout(Page, { title: 'Create Account' })
