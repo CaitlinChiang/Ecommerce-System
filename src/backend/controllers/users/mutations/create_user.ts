@@ -22,6 +22,7 @@ export default async (
 
   const user: any = await context.database.users.insertOne({
     ...mutationArgs(args, MutateAction.CREATE),
+    active: false,
     password: hashedPassword
   })
 
