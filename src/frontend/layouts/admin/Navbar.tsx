@@ -77,11 +77,11 @@ const Navbar = ({
               }}
               variant={'square'}
             >
-              {`${user?.firstName[0]}`}
+              {`${user?.firstName?.[0]}`}
             </Avatar>
           </ListItemAvatar>
           <ListItemText
-            primary={user?.firstName + user?.lastName}
+            primary={user?.firstName + ' ' + user?.lastName}
             secondary={user?.email}
           />
         </ListItem>

@@ -43,7 +43,7 @@ export default (
     const [open, setOpen] = useState(false)
 
     const { data, loading } = useQuery(query)
-    const user = data?.user
+    const user = data?.get_user || {}
 
     if (loading) return null
 
