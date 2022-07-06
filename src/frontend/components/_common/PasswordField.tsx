@@ -4,12 +4,15 @@ import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 
 const PasswordField = ({
-  password,
-  setPassword
+  args,
+  required,
+  setArgs
 }: {
-  password: string
-  setPassword: React.Dispatch<React.SetStateAction<string>>
+  args: any
+  required?: boolean
+  setArgs: React.Dispatch<React.SetStateAction<any>>
 }): ReactElement => {
+  const { password } = args
   const [showPassword, setShowPassword] = useState<boolean>(false)
 
   return (
@@ -20,9 +23,9 @@ const PasswordField = ({
       }
       label='Password'
       onChange={(e): void => {
-        setPassword(e.target.value)
+        setArgs({ ...args, password: e.target.value })
       }}
-      required
+      required={required}
       type={showPassword ? 'PasswordField' : 'password'}
       value={password}
       InputProps={{
