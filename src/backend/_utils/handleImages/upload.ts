@@ -6,9 +6,11 @@ import { UploadImageType } from '../../_enums/uploadImageType'
 export const uploadImage = async (args: UploadImageArgs): Promise<string> => {
   if (!args.image) return
 
+  const { createReadStream } = await args.image
+
   const fileName = assignFileName(args)
 
-  await cloudinary.uploader.upload(args.image, { public_id: fileName })
+  await uploadToCloudinary(createReadStream, fileName)
 
   return fileName
 }
@@ -52,4 +54,15 @@ const generateProductVariantImageFileName = (
     .toLowerCase()
 
   return folderName.concat(modifiedProductId, '_', modifiedProductVariantName)
+}
+
+const uploadToCloudinary = async (createReadStream, fileName): Promise<void> => {
+  const stream = cloudinary.uploader.upload_stream(
+    { public_id: fileName },
+    (err: any) => {
+      if (err) console.log(err)
+    }
+  )
+
+  createReadStream().pipe(stream)
 }
