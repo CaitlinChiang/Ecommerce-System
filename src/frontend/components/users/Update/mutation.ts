@@ -4,7 +4,7 @@ export default gql`
   mutation (
     $_id: ID!
     $active: Boolean
-    $address: DeliveryAddressInput
+    $deliveryAddress: DeliveryAddressInput
     $email: String
     $password: String
     $phoneNumber: String
@@ -12,7 +12,7 @@ export default gql`
     update_user(
       _id: $_id
       active: $active
-      address: $address
+      deliveryAddress: $deliveryAddress
       email: $email
       password: $password
       phoneNumber: $phoneNumber
