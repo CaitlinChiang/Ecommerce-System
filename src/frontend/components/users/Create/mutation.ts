@@ -20,6 +20,7 @@ export default gql`
       type: $type
     ) {
       _id
+      token
     }
   }
 `

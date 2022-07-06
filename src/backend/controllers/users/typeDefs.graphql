@@ -27,7 +27,7 @@ extend type Query {
 }
 
 extend type Mutation {
-  sign_in_user(email: String!, password: String!): User
+  sign_in_user(email: String!, password: String!): String
 
   create_user(
     deliveryAddress: DeliveryAddressInput
