@@ -10,8 +10,10 @@ export default async (
 ): Promise<User> => {
   authenticateUser({ admin: false }, context)
 
+  const userId = args?._id ? new ObjectId(args._id) : context.currentUserId
+
   const user: User = await context.database.users.findOne({
-    _id: new ObjectId(args._id)
+    _id: userId
   })
 
   return user
