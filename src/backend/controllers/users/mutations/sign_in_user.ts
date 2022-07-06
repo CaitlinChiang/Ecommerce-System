@@ -9,15 +9,16 @@ export default async (
   _root: undefined,
   args: SignInUserArgs,
   context: Context
-): Promise<User> => {
+): Promise<string> => {
   authenticateUser({ admin: false }, context)
 
-  const user = await context.database.users.findOne({ email: args.email })
+  checkIfUserExists(true, args.email, context)
 
-  checkIfUserExists(args.email, context)
+  const user: User = await context.database.users.findOne({ email: args.email })
+
   validatePassword(args.password, user)
 
   const token = await generateJWT(user._id)
 
-  return { ...user, token }
+  return token
 }
