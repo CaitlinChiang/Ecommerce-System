@@ -4,7 +4,6 @@ import theme from '../../themes'
 import {
   Avatar,
   Box,
-  Collapse,
   Divider,
   Drawer,
   List,
@@ -62,44 +61,30 @@ const Navbar = ({
       variant={permanent ? 'permanent' : 'temporary'}
     >
       <List dense>
-        <Collapse in={Boolean(user)}>
-          <ListItem
-            button
-            selected={router.pathname.includes('/admin/user/account')}
-            onClick={(): void => {
-              router.push('/admin/user/account')
-            }}
-            sx={{ paddingTop: theme.spacing(3), paddingBottom: theme.spacing(3) }}
-          >
-            <ListItemAvatar>
-              <Avatar
-                sx={{
-                  color: '#ffffff',
-                  backgroundColor: theme.palette.secondary.main
-                }}
-                variant={'square'}
-              >
-                {`${user?.firstName[0]}`}
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText
-              primary={user?.firstName + user?.lastName}
-              secondary={user?.email}
-            />
-          </ListItem>
-        </Collapse>
-        <Collapse in={Boolean(!user)}>
-          <ListItem
-            button
-            selected={router.pathname.includes('/admin/user/sign-in')}
-            onClick={(): void => {
-              router.push('/admin/user/sign-in')
-            }}
-            sx={{ paddingTop: theme.spacing(3), paddingBottom: theme.spacing(3) }}
-          >
-            <ListItemText primary={'Sign In'} />
-          </ListItem>
-        </Collapse>
+        <ListItem
+          button
+          selected={router.pathname.includes('/admin/user/account')}
+          onClick={(): void => {
+            router.push('/admin/user/account')
+          }}
+          sx={{ paddingTop: theme.spacing(3), paddingBottom: theme.spacing(3) }}
+        >
+          <ListItemAvatar>
+            <Avatar
+              sx={{
+                color: '#ffffff',
+                backgroundColor: theme.palette.secondary.main
+              }}
+              variant={'square'}
+            >
+              {`${user?.firstName[0]}`}
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText
+            primary={user?.firstName + user?.lastName}
+            secondary={user?.email}
+          />
+        </ListItem>
         <Divider />
         <div style={{ marginTop: '25px' }} />
         {navbarItems.map((item, index): ReactElement => {
