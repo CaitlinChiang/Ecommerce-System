@@ -1,6 +1,5 @@
-import { ReactElement, useState, useEffect } from 'react'
+import { ReactElement } from 'react'
 import { Box } from '@mui/material'
-import { DateRange } from '../../../../../types/common/dateRange'
 import { CollectionMethod } from '../../../../_enums/collectionMethod'
 import { DateRangeType } from '../../../../_enums/dateRangeType'
 import { OrderStatus } from '../../../../_enums/orderStatus'
@@ -14,29 +13,11 @@ const OrdersTableFilters = ({
   args: any
   setArgs: React.Dispatch<React.SetStateAction<any>>
 }): ReactElement => {
-  const [dateRangeArgs, setDateRangeArgs] = useState<DateRange>({
-    startDate: null,
-    endDate: null,
-    filterBy: null
-  })
-
-  useEffect(() => {
-    setArgs({
-      ...args,
-      dateRange: {
-        startDate: dateRangeArgs?.startDate,
-        endDate: dateRangeArgs?.endDate,
-        filterBy: dateRangeArgs?.filterBy
-      }
-    })
-  }, [dateRangeArgs])
-
   return (
     <>
       <SelectField
         args={args}
         label={'Collection Method'}
-        optionLabelProp={'label'}
         options={Object.keys(CollectionMethod).map((method) => {
           return { label: method, collectionMethod: method }
         })}
@@ -46,7 +27,6 @@ const OrdersTableFilters = ({
       <SelectField
         args={args}
         label={'Order Status'}
-        optionLabelProp={'label'}
         options={Object.keys(OrderStatus).map((status) => {
           return { label: status, status: status }
         })}
@@ -55,31 +35,35 @@ const OrdersTableFilters = ({
       />
       <Box>
         <SelectField
-          args={dateRangeArgs}
+          args={args}
           label={'Filter Date Range by'}
-          optionLabelProp={'label'}
+          nestedProp={'filterBy'}
           options={[
             { label: 'Created At Date', filterBy: DateRangeType.CREATED },
             { label: 'Updated At Date', filterBy: DateRangeType.UPDATED }
           ]}
-          setArgs={setDateRangeArgs}
-          targetProp={'filterBy'}
+          setArgs={setArgs}
+          targetProp={'dateRange'}
         />
         <DatePickerField
-          args={dateRangeArgs}
+          args={args}
           disabled={
-            dateRangeArgs?.filterBy === null || dateRangeArgs?.filterBy == undefined
+            args.dateRange?.filterBy === null ||
+            args.dateRange?.filterBy == undefined
           }
-          setArgs={setDateRangeArgs}
-          targetProp={'startDate'}
+          nestedProp={'startDate'}
+          setArgs={setArgs}
+          targetProp={'dateRange'}
         />
         <DatePickerField
-          args={dateRangeArgs}
+          args={args}
           disabled={
-            dateRangeArgs?.filterBy === null || dateRangeArgs?.filterBy == undefined
+            args.dateRange?.filterBy === null ||
+            args.dateRange?.filterBy == undefined
           }
-          setArgs={setDateRangeArgs}
-          targetProp={'endDate'}
+          nestedProp={'endDate'}
+          setArgs={setArgs}
+          targetProp={'dateRange'}
         />
       </Box>
     </>
