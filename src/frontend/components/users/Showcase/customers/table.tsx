@@ -88,8 +88,8 @@ const CustomersTable = (): ReactElement => {
       loading={loading}
       paginateDataArgs={paginateDataArgs}
       rows={userRows}
-      searchLabel={'Search Account by Email'}
-      searchPlaceholder={'ex. ava_cruz@gmail.com'}
+      searchLabel={'Search Account by Email or Name'}
+      searchPlaceholder={'ex. ava_cruz@gmail.com or Ava Cruz'}
       setPaginateDataArgs={setPaginateDataArgs}
     />
   )
