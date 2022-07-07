@@ -7,6 +7,7 @@ const NumberField = ({
   args,
   disabled,
   label,
+  nestedProp,
   required,
   setArgs,
   targetProp,
@@ -15,6 +16,7 @@ const NumberField = ({
   args: any
   disabled?: boolean
   label?: string
+  nestedProp?: string
   required?: boolean
   setArgs: React.Dispatch<React.SetStateAction<any>>
   targetProp: string
@@ -23,15 +25,22 @@ const NumberField = ({
   return (
     <TextField
       disabled={disabled}
-      label={label || formatProperCapitalization(targetProp)}
+      label={label || formatProperCapitalization(nestedProp || targetProp)}
       onChange={(e): void => {
-        setArgs({ ...args, [targetProp]: e.target.value })
+        if (!nestedProp) setArgs({ ...args, [targetProp]: e.target.value })
+
+        if (nestedProp) {
+          setArgs({
+            ...args,
+            [targetProp]: { ...args[targetProp], [nestedProp]: e.target.value }
+          })
+        }
       }}
-      placeholder={targetProp == 'price' ? '0.00' : '0'}
+      placeholder={targetProp === 'price' || nestedProp === 'price' ? '0.00' : '0'}
       required={required}
       sx={{ width: width || 300, padding: theme.spacing(2), display: 'block' }}
       type={'number'}
-      value={args[targetProp]}
+      value={args[targetProp] || args[targetProp][nestedProp]}
       InputProps={{ inputProps: { min: 0 } }}
     />
   )
