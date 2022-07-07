@@ -1,7 +1,5 @@
-import { ReactElement, useState, useEffect } from 'react'
+import { ReactElement } from 'react'
 import { Box, Typography } from '@mui/material'
-import { DateRange } from '../../../../types/common/dateRange'
-import { StockQuantity } from '../../../../types/common/stockQuantity'
 import { DateRangeType } from '../../../_enums/dateRangeType'
 import { StockQuantityOperator } from '../../../_enums/stockQuantityOperator'
 import SelectField from '../../_common/SelectField'
@@ -15,39 +13,11 @@ const ProductVariantsTableFilters = ({
   args: any
   setArgs: React.Dispatch<React.SetStateAction<any>>
 }): ReactElement => {
-  const [dateRangeArgs, setDateRangeArgs] = useState<DateRange>({
-    startDate: null,
-    endDate: null,
-    filterBy: null
-  })
-  const [stockQuantityArgs, setStockQuantityArgs] = useState<StockQuantity | any>({
-    operator: null,
-    value1: null,
-    value2: null
-  })
-
-  useEffect(() => {
-    setArgs({
-      ...args,
-      dateRange: {
-        startDate: dateRangeArgs?.startDate,
-        endDate: dateRangeArgs?.endDate,
-        filterBy: dateRangeArgs?.filterBy
-      },
-      stockQuantity: {
-        operator: stockQuantityArgs?.operator,
-        value1: stockQuantityArgs?.value1,
-        value2: stockQuantityArgs?.value2
-      }
-    })
-  }, [dateRangeArgs, stockQuantityArgs])
-
   return (
     <>
       <SelectField
         args={args}
         label={'Show Public Status'}
-        optionLabelProp={'label'}
         options={[
           { label: 'Public Products', showPublic: true },
           { label: 'Private Products', showPublic: false }
@@ -58,7 +28,6 @@ const ProductVariantsTableFilters = ({
       <SelectField
         args={args}
         label={'Discount Status'}
-        optionLabelProp={'label'}
         options={[
           { label: 'Products with Discount', discount: true },
           { label: 'Products without Discount', discount: false }
@@ -68,69 +37,74 @@ const ProductVariantsTableFilters = ({
       />
       <Box>
         <SelectField
-          args={dateRangeArgs}
+          args={args}
           label={'Filter Date Range by'}
-          optionLabelProp={'label'}
+          nestedProp={'filterBy'}
           options={[
             { label: 'Created At Date', filterBy: DateRangeType.CREATED },
             { label: 'Expiration Date', filterBy: DateRangeType.EXPIRATION }
           ]}
-          setArgs={setDateRangeArgs}
-          targetProp={'filterBy'}
+          setArgs={setArgs}
+          targetProp={'dateRange'}
         />
         <DatePickerField
-          args={dateRangeArgs}
+          args={args}
           disabled={
-            dateRangeArgs?.filterBy === null || dateRangeArgs?.filterBy == undefined
+            args.dateRange?.filterBy === null ||
+            args.dateRange?.filterBy == undefined
           }
-          setArgs={setDateRangeArgs}
-          targetProp={'startDate'}
+          nestedProp={'startDate'}
+          setArgs={setArgs}
+          targetProp={'dateRange'}
         />
         <DatePickerField
-          args={dateRangeArgs}
+          args={args}
           disabled={
-            dateRangeArgs?.filterBy === null || dateRangeArgs?.filterBy == undefined
+            args.dateRange?.filterBy === null ||
+            args.dateRange?.filterBy == undefined
           }
-          setArgs={setDateRangeArgs}
-          targetProp={'endDate'}
+          nestedProp={'endDate'}
+          setArgs={setArgs}
+          targetProp={'dateRange'}
         />
       </Box>
       <Box>
         <SelectField
-          args={stockQuantityArgs}
+          args={args}
           label={'Filter Stock Quantity Operator'}
-          optionLabelProp={'label'}
+          nestedProp={'operator'}
           options={[
             { label: 'ABOVE', operator: StockQuantityOperator.ABOVE },
             { label: 'BELOW', operator: StockQuantityOperator.BELOW },
             { label: 'BETWEEN', operator: StockQuantityOperator.BETWEEN },
             { label: 'EQUAL TO', operator: StockQuantityOperator.EQUAL }
           ]}
-          setArgs={setStockQuantityArgs}
-          targetProp={'operator'}
+          setArgs={setArgs}
+          targetProp={'stockQuantity'}
         />
         <NumberField
-          args={stockQuantityArgs}
+          args={args}
           disabled={
-            stockQuantityArgs?.operator === null ||
-            stockQuantityArgs?.operator == undefined
+            args.stockQuantity?.operator === null ||
+            args.stockQuantity?.operator == undefined
           }
           label={
-            stockQuantityArgs?.operator === StockQuantityOperator.BETWEEN
+            args.stockQuantity?.operator === StockQuantityOperator.BETWEEN
               ? 'Value 1'
               : 'Value'
           }
-          setArgs={setStockQuantityArgs}
-          targetProp={'value1'}
+          nestedProp={'value1'}
+          setArgs={setArgs}
+          targetProp={'stockQuantity'}
         />
-        {stockQuantityArgs?.operator === StockQuantityOperator.BETWEEN && (
+        {args.stockQuantity?.operator === StockQuantityOperator.BETWEEN && (
           <>
             <Typography>{'and'}</Typography>
             <NumberField
-              args={stockQuantityArgs}
-              label={'Value 2'}
-              setArgs={setStockQuantityArgs}
-              targetProp={'value2'}
+              args={args}
+              nestedProp={'value2'}
+              setArgs={setArgs}
+              targetProp={'stockQuantity'}
             />
           </>
         )}
