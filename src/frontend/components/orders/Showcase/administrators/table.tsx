@@ -72,12 +72,12 @@ const OrdersTable = (): ReactElement => {
   }, [args, data, paginateDataArgs])
 
   const orderHeaders = [
-    { label: 'firstName', sortable: true },
-    { label: 'lastName', sortable: true },
+    { label: 'firstName', sortable: false },
+    { label: 'lastName', sortable: false },
     { label: 'contact', sortable: false },
     { label: 'collectionMethod', sortable: true },
     { label: 'orderItems', sortable: false },
-    { label: 'orderStatus', sortable: true },
+    { label: 'status', sortable: true },
     { label: 'amountDue', sortable: false },
     { label: 'paymentStatus', sortable: false },
     { label: 'paymentProof', sortable: false },
