@@ -12,7 +12,6 @@ const ReviewsTableFilters = ({
     <SelectField
       args={args}
       label={'Featured Status'}
-      optionLabelProp={'label'}
       options={[
         { label: 'Featured Reviews', featured: true },
         { label: 'Non-Featured Reviews', featured: false }

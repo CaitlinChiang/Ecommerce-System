@@ -12,7 +12,6 @@ const ProductCategoriesTableFilters = ({
     <SelectField
       args={args}
       label={'Show Public Status'}
-      optionLabelProp={'label'}
       options={[
         { label: 'Public Categories', showPublic: true },
         { label: 'Private Categories', showPublic: false }

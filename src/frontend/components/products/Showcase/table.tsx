@@ -51,7 +51,15 @@ const ProductsTable = (): ReactElement => {
   })
 
   const { data, loading, fetchMore, refetch } = useQuery(queryMultiple, {
-    variables: { ...args, paginateData: paginateDataArgs },
+    variables: {
+      ...args,
+      stockQuantity: {
+        operator: args.stockQuantity?.operator,
+        value1: Math.round(args.stockQuantity?.value1),
+        value2: Math.round(args.stockQuantity?.value2)
+      },
+      paginateData: paginateDataArgs
+    },
     ...fetchMoreArgs
   })
 

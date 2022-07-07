@@ -12,7 +12,6 @@ const AdministratorsTableFilters = ({
     <SelectField
       args={args}
       label={'Active Status'}
-      optionLabelProp={'label'}
       options={[
         { label: 'Active Users', active: true },
         { label: 'Non-Active Users', active: false }
