@@ -40,7 +40,7 @@ const NumberField = ({
       required={required}
       sx={{ width: width || 300, padding: theme.spacing(2), display: 'block' }}
       type={'number'}
-      value={args[targetProp] || args[targetProp][nestedProp] || '0'}
+      value={!nestedProp ? args[targetProp] : args[targetProp][nestedProp]}
       InputProps={{ inputProps: { min: 0 } }}
     />
   )
