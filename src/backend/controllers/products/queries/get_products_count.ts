@@ -1,5 +1,5 @@
 import { Context } from '../../../../types/setup/context'
-import { GetProductArgs } from 'types/product'
+import { GetProductArgs } from '../../../../types/product'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 import { queryArgs } from '../../../_utils/helpers/returnQueryArgs'
 
