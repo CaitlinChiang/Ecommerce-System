@@ -23,8 +23,8 @@ const AdministratorsTable = (): ReactElement => {
     page: 0,
     rowsPerPage: 10,
     searchText: '',
-    sortBy: 'lastName',
-    sortDirection: SortDirection.ASC
+    sortBy: 'createdAt',
+    sortDirection: SortDirection.DESC
   })
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
   const [refetchArgs, setRefetchArgs] = useState<RefetchDataArgs>({

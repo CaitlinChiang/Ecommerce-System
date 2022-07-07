@@ -18,8 +18,8 @@ const CustomersTable = (): ReactElement => {
     page: 0,
     rowsPerPage: 10,
     searchText: '',
-    sortBy: 'lastName',
-    sortDirection: SortDirection.ASC
+    sortBy: 'createdAt',
+    sortDirection: SortDirection.DESC
   })
   const [refetchArgs, setRefetchArgs] = useState<RefetchDataArgs>({
     args: null,
