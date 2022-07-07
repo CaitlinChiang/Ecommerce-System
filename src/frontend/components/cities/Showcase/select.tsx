@@ -7,12 +7,10 @@ import SelectField from '../../../components/_common/SelectField'
 
 const CitiesSelect = ({
   args,
-  create,
   required,
   setArgs
 }: {
   args: any
-  create?: boolean
   required?: boolean
   setArgs: React.Dispatch<React.SetStateAction<any>>
 }): ReactElement => {
@@ -31,17 +29,11 @@ const CitiesSelect = ({
     }
   })
 
-  const selectVal = cityOptions?.find((city: any) => city.cityId === args?.cityId)
-
-  if (!selectVal && !create) return
-
   return (
     <SelectField
       label={'City'}
-      optionLabelProp={'label'}
       options={cityOptions}
       required={required}
-      selectVal={selectVal}
       setArgs={setArgs}
       args={args}
       targetProp={'cityId'}

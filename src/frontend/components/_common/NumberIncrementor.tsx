@@ -18,7 +18,6 @@ const NumberIncrementor = ({
         break
       case QuantityChange.DECREMENT:
         setValue(value - 1)
-        break
     }
   }
 

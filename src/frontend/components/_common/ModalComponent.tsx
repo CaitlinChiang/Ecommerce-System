@@ -41,7 +41,6 @@ const ModalComponent = ({
   return (
     <>
       <Dialog
-        aria-labelledby='responsive-dialog-title'
         fullScreen={useMediaQuery(theme.breakpoints.down('sm'))}
         maxWidth={maxWidth || 'lg'}
         onClose={onClose}

@@ -41,7 +41,7 @@ const CreateUser = ({ type }: { type: UserType }): ReactElement => {
       {type === UserType.CUSTOMER && (
         <>
           <Text args={args} setArgs={setArgs} targetProp={'address'} />
-          <CitiesSelect args={args} create={true} setArgs={setArgs} />
+          <CitiesSelect args={args} setArgs={setArgs} />
         </>
       )}
       <Text args={args} required={true} setArgs={setArgs} targetProp={'email'} />
