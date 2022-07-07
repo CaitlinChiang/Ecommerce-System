@@ -1,5 +1,5 @@
 import { MutateAction } from '../../_enums/mutateAction'
-import { currentDateTime } from './dateFormatters/returnCurrentDateTime'
+import { currentDateTime } from '../handleDates/returnCurrentDateTime'
 import { correctArgs } from './correctArgs'
 
 export const mutationArgs = (args: any, action: MutateAction): any => {
@@ -19,7 +19,7 @@ export const mutationArgs = (args: any, action: MutateAction): any => {
       modifiedArgs = { deletedAt: currentDateTime() }
   }
 
-  correctArgs(modifiedArgs, true)
+  correctArgs({ modifiedArgs, mutation: true })
 
   return modifiedArgs
 }

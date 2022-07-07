@@ -1,4 +1,5 @@
 const cloudinary = require('../setup/cloudinary')
+
 import { UploadImageArgs } from '../../../types/actions/uploadImage'
 import { UploadImageType } from '../../_enums/uploadImageType'
 
@@ -56,11 +57,8 @@ const generateProductVariantImageFileName = (
 }
 
 const uploadToCloudinary = async (createReadStream, fileName): Promise<void> => {
-  const stream = cloudinary.uploader.upload_stream(
-    { public_id: fileName },
-    (err: any) => {
-      if (err) console.log(err)
-    }
+  const stream = cloudinary.uploader.upload_stream({ public_id: fileName }, (err) =>
+    console.log(err)
   )
 
   createReadStream().pipe(stream)

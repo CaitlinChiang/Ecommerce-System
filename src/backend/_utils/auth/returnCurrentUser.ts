@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb'
-import { User } from '../../types/user'
+import { User } from '../../../types/user'
 import { generateJWT, verifyJWT } from './jwt'
 
 export default async (headers, database): Promise<User | null> => {

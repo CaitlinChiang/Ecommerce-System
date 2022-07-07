@@ -18,7 +18,7 @@ import dbSetup from './backend/_utils/setup/database'
 import { Context } from './types/setup/context'
 import { Database } from './types/setup/database'
 import { typeDefs, resolvers, buildDataloaders } from './backend/controllers'
-import returnCurrentUser from './backend/_utils/returnCurrentUser'
+import returnCurrentUser from './backend/_utils/auth/returnCurrentUser'
 
 const app = express()
 app.set('trust proxy', true)

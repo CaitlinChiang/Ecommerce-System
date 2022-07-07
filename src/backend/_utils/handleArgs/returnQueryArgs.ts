@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb'
 import { correctArgs } from './correctArgs'
-import { formatDateRange } from './dateFormatters/formatDateRange'
-import { returnStockQuantityArgs } from './returnStockQuantityArgs'
+import { formatDateRange } from '../handleDates/formatDateRange'
+import { formatStockQuantityArgs } from './formatStockQuantityArgs'
 
 export const queryArgs = (args: any): any => {
   const {
@@ -18,8 +18,7 @@ export const queryArgs = (args: any): any => {
   }
 
   const modifiedArgs: any = { ...queryArgs }
-
-  correctArgs(modifiedArgs, false)
+  correctArgs({ modifiedArgs })
 
   modifiedArgs.deletedAt = { $exists: false }
 
@@ -43,7 +42,7 @@ export const queryArgs = (args: any): any => {
   }
 
   if (stockQuantity) {
-    returnStockQuantityArgs(modifiedArgs, stockQuantity)
+    formatStockQuantityArgs(modifiedArgs, stockQuantity)
   }
 
   return modifiedArgs

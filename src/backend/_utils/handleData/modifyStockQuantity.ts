@@ -1,12 +1,12 @@
 import { Context } from '../../../types/setup/context'
 import { CartItem } from '../../../types/cart'
-import { StockQuantityAction } from '../../_enums/stockQuantityAction'
+import { StockQuantityAction } from '../../_enums/stockQuantity'
 
-export const modifyStockQuantity = (
+export const modifyStockQuantity = async (
   items: CartItem[],
   action: StockQuantityAction,
   context: Context
-): void => {
+): Promise<void> => {
   items?.forEach(async (cartItem: CartItem) => {
     const stockQuantity =
       action == StockQuantityAction.ADD ? cartItem.quantity : -cartItem.quantity
