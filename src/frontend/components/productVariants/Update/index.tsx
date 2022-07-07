@@ -41,6 +41,7 @@ const UpdateProductVariant = ({ _id }: { _id: string }): ReactElement => {
       description: productVariant?.description,
       discount: formatToPercentage(productVariant?.discount),
       expirationDate: productVariant?.expirationDate,
+      imageUrl: productVariant?.imageUrl,
       name: productVariant?.name,
       price: productVariant?.price,
       showPublic: productVariant?.showPublic,
@@ -52,6 +53,7 @@ const UpdateProductVariant = ({ _id }: { _id: string }): ReactElement => {
     variables: {
       ...args,
       discount: formatFromPercentage(args.discount),
+      imageUrl: args?.imageUrl?.contains('products/') ? null : args?.imageUrl,
       price: parseFloat(Number(args.price)?.toFixed(2)),
       stockQuantity: Math.round(args.stockQuantity)
     },

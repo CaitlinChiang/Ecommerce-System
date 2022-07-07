@@ -43,6 +43,7 @@ const UpdateProduct = ({ _id }: { _id: string }): ReactElement => {
       discount: formatToPercentage(product?.discount),
       expirationDate: product?.expirationDate,
       featured: product?.featured,
+      imageUrl: product?.imageUrl,
       name: product?.name,
       price: product?.price,
       showPublic: product?.showPublic,
