@@ -1,7 +1,7 @@
 import { PaginateDataArgs } from '../../../types/actions/paginateData'
 import { SortDirection } from '../../_enums/sortDirection'
 
-export const sortArgs = (paginateData: PaginateDataArgs) => {
+export const sortArgs = (paginateData: PaginateDataArgs): any => {
   const { sortBy, sortDirection } = paginateData
 
   const modifiedArgs: any = {}

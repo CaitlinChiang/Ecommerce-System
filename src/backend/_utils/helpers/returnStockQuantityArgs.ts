@@ -4,7 +4,7 @@ import { StockQuantityOperator } from '../../_enums/stockQuantityOperator'
 export const returnStockQuantityArgs = (
   modifiedArgs: any,
   stockQuantity: StockQuantity
-) => {
+): any => {
   switch (stockQuantity.operator) {
     case StockQuantityOperator.ABOVE:
       modifiedArgs.stockQuantity = { $gt: stockQuantity.value1 }

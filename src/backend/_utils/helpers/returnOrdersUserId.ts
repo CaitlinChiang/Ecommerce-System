@@ -1,7 +1,7 @@
 import { Context } from '../../../types/setup/context'
 import { UserType } from '../../_enums/userType'
 
-export const returnOrdersUserId = (modifiedArgs: any, context: Context) => {
+export const returnOrdersUserId = (modifiedArgs: any, context: Context): any => {
   if (context.currentUserType == UserType.CUSTOMER) {
     modifiedArgs.userId = context.currentUserId
   }

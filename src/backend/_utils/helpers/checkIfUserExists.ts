@@ -5,7 +5,7 @@ export const checkIfUserExists = async (
   shouldExist: boolean,
   email: string,
   context: Context
-) => {
+): Promise<void> => {
   const existingUser = await context.database.users.findOne({ email })
 
   if (!shouldExist && existingUser) {
