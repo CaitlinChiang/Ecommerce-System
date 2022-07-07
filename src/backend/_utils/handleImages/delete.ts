@@ -1,10 +1,16 @@
 const cloudinary = require('../setup/cloudinary')
+import { FileUpload } from 'graphql-upload'
 import { ObjectId } from 'mongodb'
 import { Context } from '../../../types/setup/context'
 import { ProductVariant } from '../../../types/productVariant'
+import { MutateAction } from '../../_enums/mutateAction'
 
-export const deleteImage = async (imageUrl: string): Promise<void> => {
-  if (!imageUrl) return
+export const deleteImage = async (
+  image: Promise<FileUpload>,
+  imageUrl: string,
+  mutation: MutateAction
+): Promise<void> => {
+  if (!imageUrl || (!image && mutation === MutateAction.UPDATE)) return
 
   await cloudinary.uploader.destroy(imageUrl, (res) => console.log(res))
 }
