@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import { Cart, RemoveFromCartArgs } from '../../../../types/cart'
-import { authenticateUser } from '../../../_utils/authenticateUser'
+import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 
 export default async (
   _root: undefined,

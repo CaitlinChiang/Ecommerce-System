@@ -1,5 +1,5 @@
 import { FAQ } from '../../../types/faq'
-import { formatDateTime } from '../../_utils/helpers/dateFormatters/formatDateTime'
+import { formatDateTime } from '../../_utils/handleDates/formatDateTime'
 
 export default {
   FAQ: {

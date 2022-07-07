@@ -1,7 +1,7 @@
 import { Context } from '../../../../types/setup/context'
 import { GetFAQArgs } from '../../../../types/faq'
-import { authenticateUser } from '../../../_utils/authenticateUser'
-import { queryArgs } from '../../../_utils/helpers/returnQueryArgs'
+import { authenticateUser } from '../../../_utils/auth/authenticateUser'
+import { queryArgs } from '../../../_utils/handleArgs/returnQueryArgs'
 
 export default async (
   _root: undefined,

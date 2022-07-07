@@ -7,7 +7,7 @@ import { Payment } from '../../../types/payment'
 import { Product } from '../../../types/product'
 import { ProductVariant } from '../../../types/productVariant'
 import { User } from '../../../types/user'
-import { formatDateTime } from '../../_utils/helpers/dateFormatters/formatDateTime'
+import { formatDateTime } from '../../_utils/handleDates/formatDateTime'
 
 export default {
   Order: {
