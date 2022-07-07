@@ -7,13 +7,11 @@ import SelectField from '../../../components/_common/SelectField'
 
 const ProductCategoriesSelect = ({
   args,
-  create,
   multiple,
   required,
   setArgs
 }: {
   args: any
-  create?: boolean
   multiple?: boolean
   required?: boolean
   setArgs: React.Dispatch<React.SetStateAction<any>>
@@ -37,20 +35,12 @@ const ProductCategoriesSelect = ({
     }
   )
 
-  const selectVal = productCategoryOptions?.find(
-    (category: any) => category[targetProp] === args?.[targetProp]
-  )
-
-  if (!selectVal && !create) return
-
   return (
     <SelectField
       label={'Categories'}
       multiple={multiple}
-      optionLabelProp={'label'}
       options={productCategoryOptions}
       required={required}
-      selectVal={selectVal}
       setArgs={setArgs}
       args={args}
       targetProp={targetProp}

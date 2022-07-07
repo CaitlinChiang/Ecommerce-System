@@ -43,12 +43,7 @@ const CreateProduct = (): ReactElement => {
 
   return (
     <>
-      <ProductCategoriesSelect
-        args={args}
-        create={true}
-        required={true}
-        setArgs={setArgs}
-      />
+      <ProductCategoriesSelect args={args} required={true} setArgs={setArgs} />
       <Text args={args} setArgs={setArgs} targetProp={'description'} />
       <DatePickerField args={args} setArgs={setArgs} targetProp={'expirationDate'} />
       <CheckboxField args={args} setArgs={setArgs} targetProp={'featured'} />

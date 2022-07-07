@@ -36,11 +36,9 @@ const UpdatePaymentSelect = ({
       args={args}
       disabled={updateMutationState.loading}
       label={'Payment Status'}
-      optionLabelProp={'label'}
       options={Object.keys(PaymentStatus).map((status) => {
         return { label: status, status: status }
       })}
-      selectVal={{ label: status, status: status }}
       setArgs={setArgs}
       targetProp={'status'}
     />
