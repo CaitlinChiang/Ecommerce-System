@@ -9,26 +9,44 @@ import { formatProperCapitalization } from '../../_utils/formatProperCapitalizat
 const DatePickerField = ({
   args,
   disabled,
+  nestedProp,
   setArgs,
   targetProp
 }: {
   args: any
   disabled?: boolean
+  nestedProp?: string
   setArgs: React.Dispatch<React.SetStateAction<any>>
   targetProp: string
 }): ReactElement => {
+  let value = args?.[targetProp] === null ? null : new Date(args[targetProp])
+
+  if (nestedProp) {
+    value =
+      args[targetProp]?.[nestedProp] === null
+        ? null
+        : new Date(args[targetProp][nestedProp])
+  }
+
   return (
     <Box sx={{ padding: theme.spacing(2) }}>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <DatePicker
           disabled={disabled}
           inputFormat={'MM-dd-yyyy'}
-          label={formatProperCapitalization(targetProp)}
+          label={formatProperCapitalization(nestedProp || targetProp)}
           onChange={(newValue: Date | null) => {
-            setArgs({ ...args, [targetProp]: newValue })
+            if (!nestedProp) setArgs({ ...args, [targetProp]: newValue })
+
+            if (nestedProp) {
+              setArgs({
+                ...args,
+                [targetProp]: { ...args[targetProp], [nestedProp]: newValue }
+              })
+            }
           }}
           renderInput={(params) => <TextField {...params} />}
-          value={args?.[targetProp] !== null ? new Date(args[targetProp]) : null}
+          value={value}
         />
       </LocalizationProvider>
     </Box>
