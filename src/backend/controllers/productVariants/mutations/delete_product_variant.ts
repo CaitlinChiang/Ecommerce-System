@@ -4,11 +4,10 @@ import {
   ProductVariant,
   DeleteProductVariantArgs
 } from '../../../../types/productVariant'
-import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
-import { authenticateUser } from '../../../_utils/authenticateUser'
+import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { deleteImage } from '../../../_utils/handleImages/delete'
-import { auditArgs } from '../../../_utils/helpers/returnAuditArgs'
+import { auditArgs } from '../../../_utils/handleArgs/returnAuditArgs'
 
 export default async (
   _root: undefined,
@@ -17,7 +16,7 @@ export default async (
 ): Promise<ProductVariant> => {
   authenticateUser({ admin: true }, context)
 
-  await deleteImage(null, args.imageUrl, MutateAction.DELETE)
+  await deleteImage({ imageUrl: args?.imageUrl })
 
   const productVariant: any =
     await context.database.productVariants.findOneAndDelete({

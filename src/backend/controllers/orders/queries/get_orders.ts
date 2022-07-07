@@ -1,10 +1,10 @@
 import { Context } from '../../../../types/setup/context'
 import { Order, GetOrderArgs } from '../../../../types/order'
-import { authenticateUser } from '../../../_utils/authenticateUser'
-import { queryArgs } from '../../../_utils/helpers/returnQueryArgs'
-import { searchUser } from '../../../_utils/helpers/searchUser'
-import { returnOrdersUserId } from '../../../_utils/helpers/returnOrdersUserId'
-import { sortArgs } from '../../../_utils/helpers/returnSortArgs'
+import { authenticateUser } from '../../../_utils/auth/authenticateUser'
+import { queryArgs } from '../../../_utils/handleArgs/returnQueryArgs'
+import { searchUser } from '../../../_utils/handleData/searchUser'
+import { returnOrdersUserId } from '../../../_utils/handleArgs/returnOrdersUserId'
+import { sortArgs } from '../../../_utils/handleArgs/returnSortArgs'
 
 export default async (
   _root: undefined,
@@ -14,7 +14,7 @@ export default async (
   authenticateUser({ admin: false }, context)
 
   const modifiedArgs: GetOrderArgs | any = queryArgs(args)
-  await searchUser(args.paginateData?.searchText, modifiedArgs, context)
+  await searchUser(modifiedArgs, args.paginateData?.searchText, context)
 
   returnOrdersUserId(modifiedArgs, context)
 

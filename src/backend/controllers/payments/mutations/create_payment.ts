@@ -5,15 +5,15 @@ import { PaymentStatus } from '../../../_enums/paymentStatus'
 import { UploadImageType } from '../../../_enums/uploadImageType'
 import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
-import { mutationArgs } from '../../../_utils/helpers/returnMutationArgs'
-import { auditArgs } from '../../../_utils/helpers/returnAuditArgs'
+import { mutationArgs } from '../../../_utils/handleArgs/returnMutationArgs'
+import { auditArgs } from '../../../_utils/handleArgs/returnAuditArgs'
 import { uploadImage } from '../../../_utils/handleImages/upload'
 
 export const createPayment = async (
   orderId: ObjectId,
   paymentArgs: CreatePaymentArgs,
   context: Context
-) => {
+): Promise<void> => {
   const { imageProof, ...modifiedArgs } = paymentArgs
 
   const imageProofUrl = await uploadImage({

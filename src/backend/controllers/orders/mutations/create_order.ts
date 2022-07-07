@@ -1,15 +1,15 @@
 import { Context } from '../../../../types/setup/context'
 import { Order, CreateOrderArgs } from '../../../../types/order'
 import { OrderStatus } from '../../../_enums/orderStatus'
-import { StockQuantityAction } from '../../../_enums/stockQuantityAction'
+import { StockQuantityAction } from '../../../_enums/stockQuantity'
 import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
-import { authenticateUser } from '../../../_utils/authenticateUser'
-import { mutationArgs } from '../../../_utils/helpers/returnMutationArgs'
-import { auditArgs } from '../../../_utils/helpers/returnAuditArgs'
+import { authenticateUser } from '../../../_utils/auth/authenticateUser'
+import { mutationArgs } from '../../../_utils/handleArgs/returnMutationArgs'
+import { auditArgs } from '../../../_utils/handleArgs/returnAuditArgs'
 import { createPayment } from '../../payments/mutations/create_payment'
 import { emptyCart } from '../../cart/mutations/empty_cart'
-import { modifyStockQuantity } from '../../../_utils/helpers/modifyStockQuantity'
+import { modifyStockQuantity } from '../../../_utils/handleData/modifyStockQuantity'
 
 export default async (
   _root: undefined,

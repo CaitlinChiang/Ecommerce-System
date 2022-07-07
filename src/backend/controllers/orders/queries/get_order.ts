@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import { Order, GetOrderArgs } from '../../../../types/order'
-import { authenticateUser } from '../../../_utils/authenticateUser'
+import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 
 export default async (
   _root: undefined,

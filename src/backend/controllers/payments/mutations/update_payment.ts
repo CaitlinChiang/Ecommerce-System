@@ -4,9 +4,9 @@ import { Payment, UpdatePaymentArgs } from '../../../../types/payment'
 import { UploadImageType } from '../../../_enums/uploadImageType'
 import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
-import { authenticateUser } from '../../../_utils/authenticateUser'
-import { mutationArgs } from '../../../_utils/helpers/returnMutationArgs'
-import { auditArgs } from '../../../_utils/helpers/returnAuditArgs'
+import { authenticateUser } from '../../../_utils/auth/authenticateUser'
+import { mutationArgs } from '../../../_utils/handleArgs/returnMutationArgs'
+import { auditArgs } from '../../../_utils/handleArgs/returnAuditArgs'
 import { uploadImage } from '../../../_utils/handleImages/upload'
 import { deleteImage } from '../../../_utils/handleImages/delete'
 
@@ -19,7 +19,11 @@ export default async (
 
   const { imageProof, ...modifiedArgs } = args
 
-  await deleteImage(imageProof, args.imageProofUrl, MutateAction.UPDATE)
+  await deleteImage({
+    image: imageProof,
+    imageUrl: args.imageProofUrl,
+    shouldExist: true
+  })
 
   const modifiedImageUrl = await uploadImage({
     imageType: UploadImageType.PAYMENT,

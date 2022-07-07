@@ -7,9 +7,9 @@ import {
 import { UploadImageType } from '../../../_enums/uploadImageType'
 import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
-import { authenticateUser } from '../../../_utils/authenticateUser'
-import { mutationArgs } from '../../../_utils/helpers/returnMutationArgs'
-import { auditArgs } from '../../../_utils/helpers/returnAuditArgs'
+import { authenticateUser } from '../../../_utils/auth/authenticateUser'
+import { mutationArgs } from '../../../_utils/handleArgs/returnMutationArgs'
+import { auditArgs } from '../../../_utils/handleArgs/returnAuditArgs'
 import { uploadImage } from '../../../_utils/handleImages/upload'
 import { deleteImage } from '../../../_utils/handleImages/delete'
 
@@ -22,7 +22,7 @@ export default async (
 
   const { image, ...modifiedArgs } = args
 
-  await deleteImage(image, args.imageUrl, MutateAction.UPDATE)
+  await deleteImage({ image, imageUrl: args?.imageUrl, shouldExist: true })
 
   const modifiedImageUrl = await uploadImage({
     imageType: UploadImageType.PRODUCT_VARIANT,

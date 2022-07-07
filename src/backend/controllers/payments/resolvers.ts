@@ -1,7 +1,7 @@
 import { Context } from '../../../types/setup/context'
 import { Payment } from '../../../types/payment'
 import { PaymentMethod } from '../../../types/paymentMethod'
-import { formatDateTime } from '../../_utils/helpers/dateFormatters/formatDateTime'
+import { formatDateTime } from '../../_utils/handleDates/formatDateTime'
 
 export default {
   Payment: {

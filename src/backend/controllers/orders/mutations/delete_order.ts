@@ -1,12 +1,12 @@
 import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import { Order, DeleteOrderArgs } from '../../../../types/order'
-import { StockQuantityAction } from '../../../_enums/stockQuantityAction'
+import { StockQuantityAction } from '../../../_enums/stockQuantity'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
-import { authenticateUser } from '../../../_utils/authenticateUser'
+import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { deletePayment } from '../../payments/mutations/delete_payment'
-import { auditArgs } from '../../../_utils/helpers/returnAuditArgs'
-import { modifyStockQuantity } from '../../../_utils/helpers/modifyStockQuantity'
+import { auditArgs } from '../../../_utils/handleArgs/returnAuditArgs'
+import { modifyStockQuantity } from '../../../_utils/handleData/modifyStockQuantity'
 
 export default async (
   _root: undefined,

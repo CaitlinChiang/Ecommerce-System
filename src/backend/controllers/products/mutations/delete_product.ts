@@ -1,14 +1,13 @@
 import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import { Product, DeleteProductArgs } from '../../../../types/product'
-import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
-import { authenticateUser } from '../../../_utils/authenticateUser'
+import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import {
   deleteImage,
   deleteProductVariantImages
 } from '../../../_utils/handleImages/delete'
-import { auditArgs } from '../../../_utils/helpers/returnAuditArgs'
+import { auditArgs } from '../../../_utils/handleArgs/returnAuditArgs'
 
 export default async (
   _root: undefined,
@@ -17,7 +16,7 @@ export default async (
 ): Promise<Product> => {
   authenticateUser({ admin: true }, context)
 
-  await deleteImage(null, args.imageUrl, MutateAction.DELETE)
+  await deleteImage({ imageUrl: args?.imageUrl })
 
   const product: any = await context.database.products.findOneAndDelete({
     _id: new ObjectId(args._id)

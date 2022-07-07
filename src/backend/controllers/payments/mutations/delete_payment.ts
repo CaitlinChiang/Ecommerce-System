@@ -1,14 +1,16 @@
 import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
-import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
-import { auditArgs } from '../../../_utils/helpers/returnAuditArgs'
+import { auditArgs } from '../../../_utils/handleArgs/returnAuditArgs'
 import { deleteImage } from '../../../_utils/handleImages/delete'
 
-export const deletePayment = async (orderId: ObjectId, context: Context) => {
+export const deletePayment = async (
+  orderId: ObjectId,
+  context: Context
+): Promise<void> => {
   const imageProofUrl = String(orderId).substring(String(orderId).length - 5)
 
-  await deleteImage(null, 'payments/' + imageProofUrl, MutateAction.DELETE)
+  await deleteImage({ imageUrl: 'payments/' + imageProofUrl })
 
   await context.database.payments.findOneAndDelete({
     _orderId: new ObjectId(orderId)

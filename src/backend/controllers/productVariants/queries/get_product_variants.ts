@@ -3,9 +3,9 @@ import {
   ProductVariant,
   GetProductVariantArgs
 } from '../../../../types/productVariant'
-import { authenticateUser } from '../../../_utils/authenticateUser'
-import { queryArgs } from '../../../_utils/helpers/returnQueryArgs'
-import { sortArgs } from '../../../_utils/helpers/returnSortArgs'
+import { authenticateUser } from '../../../_utils/auth/authenticateUser'
+import { queryArgs } from '../../../_utils/handleArgs/returnQueryArgs'
+import { sortArgs } from '../../../_utils/handleArgs/returnSortArgs'
 
 export default async (
   _root: undefined,

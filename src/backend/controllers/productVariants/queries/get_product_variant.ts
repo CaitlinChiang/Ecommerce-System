@@ -4,7 +4,7 @@ import {
   ProductVariant,
   GetProductVariantArgs
 } from '../../../../types/productVariant'
-import { authenticateUser } from '../../../_utils/authenticateUser'
+import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 
 export default async (
   _root: undefined,

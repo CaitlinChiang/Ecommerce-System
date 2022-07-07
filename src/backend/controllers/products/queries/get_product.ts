@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb'
-import { authenticateUser } from '../../../_utils/authenticateUser'
+import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { Context } from '../../../../types/setup/context'
 import { Product, GetProductArgs } from '../../../../types/product'
 

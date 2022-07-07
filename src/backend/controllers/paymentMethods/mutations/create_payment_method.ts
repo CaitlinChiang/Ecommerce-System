@@ -5,9 +5,9 @@ import {
 } from '../../../../types/paymentMethod'
 import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
-import { authenticateUser } from '../../../_utils/authenticateUser'
-import { mutationArgs } from '../../../_utils/helpers/returnMutationArgs'
-import { auditArgs } from '../../../_utils/helpers/returnAuditArgs'
+import { authenticateUser } from '../../../_utils/auth/authenticateUser'
+import { mutationArgs } from '../../../_utils/handleArgs/returnMutationArgs'
+import { auditArgs } from '../../../_utils/handleArgs/returnAuditArgs'
 
 export default async (
   _root: undefined,
