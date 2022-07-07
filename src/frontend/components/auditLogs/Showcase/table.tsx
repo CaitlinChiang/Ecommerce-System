@@ -5,6 +5,7 @@ import { TableCell, TableRow } from '@mui/material'
 import { AuditLog } from '../../../../types/auditLog'
 import { PaginateDataArgs } from '../../../../types/actions/paginateData'
 import { SortDirection } from '../../../_enums/sortDirection'
+import { DateRangeType } from '../../../_enums/dateRangeType'
 import TableComponent from '../../_common/TableComponent'
 import AuditLogsTableFilters from './tableFilters'
 import { fetchMoreArgs } from '../../../_utils/returnFetchMoreArgs'
@@ -14,7 +15,7 @@ const AuditLogsTable = (): ReactElement => {
     dateRange: {
       startDate: null,
       endDate: null,
-      filterBy: null
+      filterBy: DateRangeType.CREATED
     }
   })
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({

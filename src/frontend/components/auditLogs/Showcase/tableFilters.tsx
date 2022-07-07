@@ -1,7 +1,5 @@
-import { ReactElement, useState, useEffect } from 'react'
+import { ReactElement } from 'react'
 import { Box } from '@mui/material'
-import { DateRange } from '../../../../types/common/dateRange'
-import { DateRangeType } from '../../../_enums/dateRangeType'
 import DatePickerField from '../../_common/DatePickerField'
 
 const AuditLogsTableFilters = ({
@@ -11,34 +9,19 @@ const AuditLogsTableFilters = ({
   args: any
   setArgs: React.Dispatch<React.SetStateAction<any>>
 }): ReactElement => {
-  const [dateRangeArgs, setDateRangeArgs] = useState<DateRange>({
-    startDate: null,
-    endDate: null,
-    filterBy: null
-  })
-
-  useEffect(() => {
-    setArgs({
-      ...args,
-      dateRange: {
-        startDate: dateRangeArgs?.startDate,
-        endDate: dateRangeArgs?.endDate,
-        filterBy: DateRangeType.CREATED
-      }
-    })
-  }, [dateRangeArgs])
-
   return (
     <Box>
       <DatePickerField
-        args={dateRangeArgs}
-        setArgs={setDateRangeArgs}
-        targetProp={'startDate'}
+        args={args}
+        nestedProp={'startDate'}
+        setArgs={setArgs}
+        targetProp={'dateRange'}
       />
       <DatePickerField
-        args={dateRangeArgs}
-        setArgs={setDateRangeArgs}
-        targetProp={'endDate'}
+        args={args}
+        nestedProp={'endDate'}
+        setArgs={setArgs}
+        targetProp={'dateRange'}
       />
     </Box>
   )
