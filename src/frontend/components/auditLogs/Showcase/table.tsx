@@ -4,19 +4,19 @@ import query from './query'
 import { TableCell, TableRow } from '@mui/material'
 import { AuditLog } from '../../../../types/auditLog'
 import { PaginateDataArgs } from '../../../../types/actions/paginateData'
-import { ObjectId } from 'mongodb'
 import { SortDirection } from '../../../_enums/sortDirection'
 import TableComponent from '../../_common/TableComponent'
+import AuditLogsTableFilters from './tableFilters'
 import { fetchMoreArgs } from '../../../_utils/returnFetchMoreArgs'
 
-const AuditLogsTable = ({
-  orderId,
-  paymentId
-}: {
-  orderId?: ObjectId
-  paymentId?: ObjectId
-}): ReactElement => {
-  const args: any = { orderId, paymentId }
+const AuditLogsTable = (): ReactElement => {
+  const [args, setArgs] = useState<any>({
+    dateRange: {
+      startDate: null,
+      endDate: null,
+      filterBy: null
+    }
+  })
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
     page: 0,
     rowsPerPage: 10,
@@ -24,6 +24,7 @@ const AuditLogsTable = ({
     sortBy: 'createdAt',
     sortDirection: SortDirection.DESC
   })
+  const [filterOpen, setFilterOpen] = useState<boolean>(false)
 
   const { data, loading, fetchMore } = useQuery(query, {
     variables: { ...args, paginateData: paginateDataArgs },
@@ -56,10 +57,13 @@ const AuditLogsTable = ({
       args={args}
       count={auditLogsCount}
       fetchMore={fetchMore}
+      filterContent={<AuditLogsTableFilters args={args} setArgs={setArgs} />}
+      filterOpen={filterOpen}
       headers={auditLogHeaders}
       loading={loading}
       paginateDataArgs={paginateDataArgs}
       rows={auditLogRows}
+      setFilterOpen={setFilterOpen}
       setPaginateDataArgs={setPaginateDataArgs}
     />
   )
