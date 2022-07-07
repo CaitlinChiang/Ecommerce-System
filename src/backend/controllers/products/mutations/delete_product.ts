@@ -3,7 +3,10 @@ import { Context } from '../../../../types/setup/context'
 import { Product, DeleteProductArgs } from '../../../../types/product'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
-import { deleteImage } from '../../../_utils/handleImages/delete'
+import {
+  deleteImage,
+  deleteProductVariantImages
+} from '../../../_utils/handleImages/delete'
 import { auditArgs } from '../../../_utils/helpers/returnAuditArgs'
 
 export default async (
@@ -24,6 +27,8 @@ export default async (
     productId: new ObjectId(args._id),
     ...auditArgs(context)
   })
+
+  await deleteProductVariantImages(args._id, context)
 
   await context.database.productVariants.deleteMany({
     _productId: new ObjectId(args._id)
