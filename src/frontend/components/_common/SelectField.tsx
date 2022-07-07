@@ -7,10 +7,9 @@ const SelectField = ({
   disabled,
   label,
   multiple,
-  optionLabelProp,
+  nestedProp,
   options,
   required,
-  selectVal,
   setArgs,
   targetProp,
   width
@@ -19,18 +18,25 @@ const SelectField = ({
   disabled?: boolean
   label: string
   multiple?: boolean
-  optionLabelProp?: string
+  nestedProp?: string
   options: any[]
   required?: boolean
-  selectVal?: any
   setArgs: React.Dispatch<React.SetStateAction<any>>
   targetProp: string
   width?: number
 }): ReactElement => {
+  let value = options.find((option: any) => option[targetProp] === args[targetProp])
+
+  if (nestedProp) {
+    value = options.find(
+      (option: any) => option[nestedProp] === args[targetProp][nestedProp]
+    )
+  }
+
   return (
     <Autocomplete
       disabled={disabled}
-      getOptionLabel={(option: any): string => option[optionLabelProp]}
+      getOptionLabel={(option: any): string => option.label}
       multiple={multiple}
       onChange={(_e: any, newValue: any | null) => {
         let val = newValue?.[targetProp]
@@ -39,14 +45,24 @@ const SelectField = ({
           val = newValue.map((option: any) => option?.[targetProp])
         }
 
-        setArgs({ ...args, [targetProp]: val })
+        if (!nestedProp) setArgs({ ...args, [targetProp]: val })
+
+        if (nestedProp) {
+          val = newValue?.[nestedProp]
+          setArgs({
+            ...args,
+            [targetProp]: { ...args[targetProp], [nestedProp]: val }
+          })
+        }
       }}
       options={options}
       renderInput={(params): ReactElement => (
         <TextField {...params} label={label} required={required} />
       )}
       sx={{ width: width || 300, padding: theme.spacing(2), display: 'block' }}
-      value={selectVal !== null ? selectVal : args[targetProp]}
+      value={
+        value || (!nestedProp ? args[targetProp] : args[targetProp][nestedProp])
+      }
     />
   )
 }
