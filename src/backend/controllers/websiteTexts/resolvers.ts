@@ -1,5 +1,5 @@
 import { WebsiteText } from '../../../types/websiteText'
-import { formatDateTime } from '../../_utils/helpers/dateFormatters/formatDateTime'
+import { formatDateTime } from '../../_utils/handleDates/formatDateTime'
 
 export default {
   WebsiteText: {

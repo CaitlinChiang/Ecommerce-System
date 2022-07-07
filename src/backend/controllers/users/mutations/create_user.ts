@@ -3,11 +3,11 @@ import { Context } from '../../../../types/setup/context'
 import { User, CreateUserArgs } from '../../../../types/user'
 import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
-import { authenticateUser } from '../../../_utils/authenticateUser'
-import { generateJWT } from '../../../_utils/jwt'
-import { mutationArgs } from '../../../_utils/helpers/returnMutationArgs'
-import { auditArgs } from '../../../_utils/helpers/returnAuditArgs'
-import { checkIfUserExists } from '../../../_utils/helpers/checkIfUserExists'
+import { authenticateUser } from '../../../_utils/auth/authenticateUser'
+import { generateJWT } from '../../../_utils/auth/jwt'
+import { mutationArgs } from '../../../_utils/handleArgs/returnMutationArgs'
+import { auditArgs } from '../../../_utils/handleArgs/returnAuditArgs'
+import { checkIfUserExists } from '../../../_utils/handleValidation/checkIfUserExists'
 
 export default async (
   _root: undefined,
@@ -16,7 +16,7 @@ export default async (
 ): Promise<User> => {
   authenticateUser({ admin: false }, context)
 
-  checkIfUserExists(false, args.email, context)
+  await checkIfUserExists(args.email, false, context)
 
   const hashedPassword = await bcrypt.hash(args.password, 12)
 
