@@ -14,14 +14,14 @@ export const correctArgs = ({
       modifyArgs(key, modifiedArgs, mutation)
     }
 
-    if (isValueObject(val)) {
+    if (isValueObject(val) && val !== null) {
       Object.keys(val).forEach((nestedKey: string) => {
         modifyArgs(nestedKey, val, mutation)
       })
       deleteObject(modifiedArgs, key)
     }
 
-    if (isValueArray(val)) {
+    if (isValueArray(val) && val !== null) {
       val.forEach((item: any, index: number) => {
         Object.keys(item).forEach((nestedKey: string) =>
           modifyArgs(nestedKey, item, mutation)
@@ -52,11 +52,11 @@ const modifyArgs = (key: string, obj: any, mutation: boolean): any => {
     delete obj[key]
   }
 
-  if (key.includes('Id') && obj[key] != null) {
+  if (key.includes('Id') && obj[key] !== null) {
     obj[key] = new ObjectId(obj[key])
   }
 
-  if (key.includes('Date') && mutation && obj[key] != null) {
+  if (key.includes('Date') && mutation && obj[key] !== null) {
     obj[key] = new Date(obj[key])
   }
 }
