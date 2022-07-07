@@ -1,5 +1,4 @@
 const cloudinary = require('../setup/cloudinary')
-
 import { UploadImageArgs } from '../../../types/actions/uploadImage'
 import { UploadImageType } from '../../_enums/uploadImageType'
 
@@ -48,7 +47,7 @@ const generateProductVariantImageFileName = (
   productVariantName: string
 ) => {
   const folderName = 'product-variants/'
-  const modifiedProductId = productId.substr(productId.length - 5)
+  const modifiedProductId = productId.substring(productId.length - 5)
   const modifiedProductVariantName = productVariantName
     .replaceAll(' ', '_')
     .toLowerCase()

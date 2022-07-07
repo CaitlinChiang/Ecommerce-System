@@ -19,7 +19,7 @@ export default async (
 
   const { image, ...modifiedArgs } = args
 
-  await deleteImage(args.imageUrl)
+  await deleteImage(image, args.imageUrl, MutateAction.UPDATE)
 
   const modifiedImageUrl = await uploadImage({
     imageType: UploadImageType.PRODUCT,

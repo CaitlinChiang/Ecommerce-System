@@ -1,6 +1,7 @@
 import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import { Product, DeleteProductArgs } from '../../../../types/product'
+import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/authenticateUser'
 import {
@@ -16,7 +17,7 @@ export default async (
 ): Promise<Product> => {
   authenticateUser({ admin: true }, context)
 
-  await deleteImage(args.imageUrl)
+  await deleteImage(null, args.imageUrl, MutateAction.DELETE)
 
   const product: any = await context.database.products.findOneAndDelete({
     _id: new ObjectId(args._id)

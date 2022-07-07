@@ -1,5 +1,6 @@
 import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
+import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { auditArgs } from '../../../_utils/helpers/returnAuditArgs'
 import { deleteImage } from '../../../_utils/handleImages/delete'
@@ -7,7 +8,7 @@ import { deleteImage } from '../../../_utils/handleImages/delete'
 export const deletePayment = async (orderId: ObjectId, context: Context) => {
   const imageProofUrl = String(orderId).substring(String(orderId).length - 5)
 
-  await deleteImage('payments/' + imageProofUrl)
+  await deleteImage(null, 'payments/' + imageProofUrl, MutateAction.DELETE)
 
   await context.database.payments.findOneAndDelete({
     _orderId: new ObjectId(orderId)
