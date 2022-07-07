@@ -3,9 +3,11 @@ import { User } from '../../types/user'
 import { generateJWT, verifyJWT } from './jwt'
 
 export default async (headers, database): Promise<User | null> => {
-  if (!headers.accesstoken) return null
+  if (!headers.accesstoken) return
 
   const decoded = await verifyJWT(headers.accesstoken)
+
+  if (!decoded) return
 
   const user: User = await database.users.findOne({
     _id: new ObjectId(decoded._id)
