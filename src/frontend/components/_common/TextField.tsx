@@ -2,6 +2,8 @@ import { ReactElement } from 'react'
 import theme from '../../themes'
 import { TextField } from '@mui/material'
 import { formatProperCapitalization } from '../../_utils/handleFormatting/formatProperCapitalization'
+import { returnError } from '../../_utils/handleData/returnError'
+import { returnHelperText } from '../../_utils/handleData/returnHelperText'
 
 const Text = ({
   args,
@@ -37,13 +39,9 @@ const Text = ({
   return (
     <TextField
       disabled={disabled}
-      error={error && !args?.[targetProp]}
+      error={returnError({ args, error, targetProp })}
       fullWidth={fullWidth}
-      helperText={
-        error &&
-        (helperText ||
-          formatProperCapitalization(targetProp) + ' is a required field.')
-      }
+      helperText={helperText || returnHelperText({ args, error, targetProp })}
       inputProps={{ maxLength: maxLength || 150 }}
       label={label || formatProperCapitalization(targetProp)}
       maxRows={maxRows}

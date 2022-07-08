@@ -5,6 +5,8 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider'
 import { DatePicker } from '@mui/lab'
 import { Box, TextField } from '@mui/material'
 import { formatProperCapitalization } from '../../_utils/handleFormatting/formatProperCapitalization'
+import { returnError } from '../../_utils/handleData/returnError'
+import { returnHelperText } from '../../_utils/handleData/returnHelperText'
 
 const DatePickerField = ({
   args,
@@ -50,12 +52,8 @@ const DatePickerField = ({
           renderInput={(params) => (
             <TextField
               {...params}
-              error={error && !args?.[targetProp]}
-              helperText={
-                error &&
-                formatProperCapitalization(nestedProp || targetProp) +
-                  ' is a required field.'
-              }
+              error={returnError({ args, error, targetProp, nestedProp })}
+              helperText={returnHelperText({ args, error, targetProp, nestedProp })}
             />
           )}
           value={value}

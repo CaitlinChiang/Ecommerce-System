@@ -2,6 +2,8 @@ import { ReactElement } from 'react'
 import theme from '../../themes'
 import { TextField } from '@mui/material'
 import { formatProperCapitalization } from '../../_utils/handleFormatting/formatProperCapitalization'
+import { returnError } from '../../_utils/handleData/returnError'
+import { returnHelperText } from '../../_utils/handleData/returnHelperText'
 
 const NumberField = ({
   args,
@@ -27,15 +29,8 @@ const NumberField = ({
   return (
     <TextField
       disabled={disabled}
-      error={
-        error &&
-        (nestedProp ? !args?.[targetProp]?.[nestedProp] : !args?.[targetProp])
-      }
-      helperText={
-        error &&
-        formatProperCapitalization(nestedProp || targetProp) +
-          ' is a required field.'
-      }
+      error={returnError({ args, error, targetProp, nestedProp })}
+      helperText={returnHelperText({ args, error, targetProp, nestedProp })}
       label={label || formatProperCapitalization(nestedProp || targetProp)}
       onChange={(e): void => {
         if (!nestedProp) setArgs({ ...args, [targetProp]: e.target.value })
