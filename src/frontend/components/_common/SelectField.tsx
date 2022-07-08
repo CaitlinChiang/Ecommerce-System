@@ -33,6 +33,12 @@ const SelectField = ({
     )
   }
 
+  if (multiple) {
+    value = options.filter((option) =>
+      args[targetProp]?.includes(option[targetProp])
+    )
+  }
+
   return (
     <Autocomplete
       disabled={disabled}
