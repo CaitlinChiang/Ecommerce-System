@@ -7,7 +7,6 @@ const NumberField = ({
   args,
   disabled,
   error,
-  helperText,
   label,
   nestedProp,
   required,
@@ -18,7 +17,6 @@ const NumberField = ({
   args: any
   disabled?: boolean
   error?: boolean
-  helperText?: string
   label?: string
   nestedProp?: string
   required?: boolean
@@ -32,8 +30,8 @@ const NumberField = ({
       error={error}
       helperText={
         error &&
-        (helperText ||
-          formatProperCapitalization(targetProp) + ' cannot be an empty field.')
+        formatProperCapitalization(nestedProp || targetProp) +
+          ' is a required field.'
       }
       label={label || formatProperCapitalization(nestedProp || targetProp)}
       onChange={(e): void => {
@@ -46,9 +44,7 @@ const NumberField = ({
           })
         }
       }}
-      placeholder={
-        targetProp === 'price' || targetProp === 'shippingFee' ? '0.00' : '0'
-      }
+      placeholder={'0'}
       required={required}
       sx={{ width: width || 300, padding: theme.spacing(2), display: 'block' }}
       type={'number'}

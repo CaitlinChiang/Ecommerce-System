@@ -10,7 +10,6 @@ const DatePickerField = ({
   args,
   disabled,
   error,
-  helperText,
   nestedProp,
   setArgs,
   targetProp
@@ -18,7 +17,6 @@ const DatePickerField = ({
   args: any
   disabled?: boolean
   error?: boolean
-  helperText?: string
   nestedProp?: string
   setArgs: React.Dispatch<React.SetStateAction<any>>
   targetProp: string
@@ -50,7 +48,15 @@ const DatePickerField = ({
             }
           }}
           renderInput={(params) => (
-            <TextField {...params} error={error} helperText={helperText} />
+            <TextField
+              {...params}
+              error={error}
+              helperText={
+                error &&
+                formatProperCapitalization(nestedProp || targetProp) +
+                  ' is a required field.'
+              }
+            />
           )}
           value={value}
         />

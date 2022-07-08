@@ -7,10 +7,12 @@ import SelectField from '../../../components/_common/SelectField'
 
 const CitiesSelect = ({
   args,
+  error,
   required,
   setArgs
 }: {
   args: any
+  error?: boolean
   required?: boolean
   setArgs: React.Dispatch<React.SetStateAction<any>>
 }): ReactElement => {
@@ -31,11 +33,12 @@ const CitiesSelect = ({
 
   return (
     <SelectField
+      args={args}
+      error={error}
       label={'City'}
       options={cityOptions}
       required={required}
       setArgs={setArgs}
-      args={args}
       targetProp={'cityId'}
     />
   )

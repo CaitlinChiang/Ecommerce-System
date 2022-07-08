@@ -7,7 +7,6 @@ const SelectField = ({
   args,
   disabled,
   error,
-  helperText,
   label,
   multiple,
   nestedProp,
@@ -21,7 +20,6 @@ const SelectField = ({
   args: any
   disabled?: boolean
   error?: boolean
-  helperText?: string
   label: string
   multiple?: boolean
   nestedProp?: string
@@ -79,8 +77,8 @@ const SelectField = ({
           error={error}
           helperText={
             error &&
-            (helperText ||
-              formatProperCapitalization(targetProp) + ' cannot be an empty field.')
+            formatProperCapitalization(nestedProp || targetProp) +
+              ' is a required field.'
           }
           label={label}
           required={required}
