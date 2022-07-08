@@ -7,6 +7,7 @@ import { City } from '../../../../types/city'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
 import NumberField from '../../_common/NumberField'
+import { formatShippingFee } from '../../../_utils/handleFormatting/formatShippingFee'
 import { refetchData } from '../../../_utils/handleData/refetchData'
 
 const UpdateCity = ({
@@ -23,6 +24,7 @@ const UpdateCity = ({
     name: null,
     shippingFee: null
   })
+  const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const { data } = useQuery(querySingular, {
     variables: { _id }
@@ -41,11 +43,12 @@ const UpdateCity = ({
   const [updateMutation, updateMutationState] = useMutation(mutation, {
     variables: {
       ...args,
-      shippingFee: parseFloat(Number(args.shippingFee)?.toFixed(2))
+      shippingFee: formatShippingFee(args?.shippingFee)
     },
     onCompleted: () => {
       console.log('City & shipping fee successfully updated!')
       refetchData(refetchArgs)
+      setValidateFields(false)
       setUpdateModalOpen(false)
     },
     onError: (error) => console.log(error)
@@ -57,15 +60,25 @@ const UpdateCity = ({
       {city?.updatedAt && (
         <Typography>{`Last Updated At: ${city?.updatedAt}`}</Typography>
       )}
-      <Text args={args} required={true} setArgs={setArgs} targetProp={'name'} />
+      <Text
+        args={args}
+        error={validateFields && !args?.name}
+        required={true}
+        setArgs={setArgs}
+        targetProp={'name'}
+      />
       <NumberField
         args={args}
+        error={validateFields && !args?.shippingFee}
         required={true}
         setArgs={setArgs}
         targetProp={'shippingFee'}
       />
       <Button
-        onClick={() => updateMutation()}
+        onClick={() => {
+          setValidateFields(true)
+          updateMutation()
+        }}
         disabled={updateMutationState.loading}
       >
         {'Save Changes'}

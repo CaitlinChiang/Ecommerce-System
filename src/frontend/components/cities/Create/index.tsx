@@ -5,6 +5,7 @@ import { Button } from '@mui/material'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
 import NumberField from '../../_common/NumberField'
+import { formatShippingFee } from '../../../_utils/handleFormatting/formatShippingFee'
 import { refetchData } from '../../../_utils/handleData/refetchData'
 import { clearFields } from '../../../_utils/handleFields/clearFields'
 
@@ -17,15 +18,17 @@ const CreateCity = ({
     name: null,
     shippingFee: null
   })
+  const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const [createMutation, createMutationState] = useMutation(mutation, {
     variables: {
       ...args,
-      shippingFee: parseFloat(Number(args.shippingFee)?.toFixed(2))
+      shippingFee: formatShippingFee(args?.shippingFee)
     },
     onCompleted: () => {
       console.log('City & shipping fee successfully created!')
       refetchData(refetchArgs)
+      setValidateFields(false)
       setArgs(clearFields(args))
     },
     onError: (error) => console.log(error)
@@ -35,6 +38,7 @@ const CreateCity = ({
     <>
       <Text
         args={args}
+        error={validateFields && !args?.name}
         placeholder={'City (ex. Makati)'}
         required={true}
         setArgs={setArgs}
@@ -42,12 +46,16 @@ const CreateCity = ({
       />
       <NumberField
         args={args}
+        error={validateFields && !args?.shippingFee}
         required={true}
         setArgs={setArgs}
         targetProp={'shippingFee'}
       />
       <Button
-        onClick={() => createMutation()}
+        onClick={() => {
+          setValidateFields(true)
+          createMutation()
+        }}
         disabled={createMutationState.loading}
       >
         {'Create'}
