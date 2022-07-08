@@ -10,8 +10,9 @@ const Text = ({
   disabled,
   error,
   fullWidth,
-  helperText,
   maxLength,
+  maxRows,
+  multiline,
   placeholder,
   required,
   setArgs,
@@ -22,8 +23,9 @@ const Text = ({
   disabled?: boolean
   error?: boolean
   fullWidth?: boolean
-  helperText?: string
   maxLength?: number
+  maxRows?: number
+  multiline?: boolean
   placeholder?: string
   required?: boolean
   setArgs: React.Dispatch<React.SetStateAction<any>>
@@ -35,9 +37,11 @@ const Text = ({
       disabled={disabled}
       error={returnError({ args, error, targetProp })}
       fullWidth={fullWidth}
-      helperText={helperText || returnHelperText({ args, error, targetProp })}
+      helperText={returnHelperText({ args, error, targetProp })}
       inputProps={{ maxLength: maxLength || 150 }}
       label={formatProperCapitalization(targetProp)}
+      maxRows={maxRows}
+      multiline={multiline}
       onChange={(e): void => {
         setArgs({ ...args, [targetProp]: e.target.value })
       }}
