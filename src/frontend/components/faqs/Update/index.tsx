@@ -6,6 +6,7 @@ import { Button, Typography } from '@mui/material'
 import { FAQ } from '../../../../types/faq'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
+import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
 import { refetchData } from '../../../_utils/handleData/refetchData'
 
 const UpdateFAQ = ({
@@ -39,7 +40,7 @@ const UpdateFAQ = ({
   }, [data])
 
   const [updateMutation, updateMutationState] = useMutation(mutation, {
-    variables: args,
+    variables: correctArgs(args),
     onCompleted: () => {
       console.log('FAQ successfully updated!')
       refetchData(refetchArgs)

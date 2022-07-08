@@ -10,6 +10,7 @@ import DatePickerField from '../../_common/DatePickerField'
 import CheckboxField from '../../_common/CheckboxField'
 import NumberField from '../../_common/NumberField'
 import ImageUploader from '../../_common/ImageUploader'
+import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
 import { formatFee } from '../../../_utils/handleFormatting/formatFee'
 import { formatFromPercentage } from '../../../_utils/handleFormatting/formatFromPercentage'
 import { formatToPercentage } from '../../../_utils/handleFormatting/formatToPercentage'
@@ -53,7 +54,7 @@ const UpdateProductVariant = ({ _id }: { _id: string }): ReactElement => {
 
   const [updateMutation, updateMutationState] = useMutation(mutation, {
     variables: {
-      ...args,
+      ...correctArgs(args),
       discount: formatFromPercentage(args?.discount),
       imageUrl: args?.imageUrl?.contains('products/') ? null : args?.imageUrl,
       price: formatFee(args?.price),

@@ -7,6 +7,7 @@ import { City } from '../../../../types/city'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
 import NumberField from '../../_common/NumberField'
+import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
 import { formatFee } from '../../../_utils/handleFormatting/formatFee'
 import { refetchData } from '../../../_utils/handleData/refetchData'
 
@@ -42,7 +43,7 @@ const UpdateCity = ({
 
   const [updateMutation, updateMutationState] = useMutation(mutation, {
     variables: {
-      ...args,
+      ...correctArgs(args),
       shippingFee: formatFee(args?.shippingFee)
     },
     onCompleted: () => {

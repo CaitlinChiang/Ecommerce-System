@@ -8,6 +8,7 @@ import { WebsiteText } from '../../../../../types/websiteText'
 import { WebsiteTextId } from '../../../../_enums/websiteTextId'
 import { WebsiteTextType } from '../../../../_enums/websiteTextType'
 import Text from '../../../_common/TextField'
+import { correctArgs } from '../../../../_utils/handleArgs/correctArgs'
 
 const UpdateAboutWriteup = (): ReactElement => {
   const [args, setArgs] = useState<any>({
@@ -32,7 +33,7 @@ const UpdateAboutWriteup = (): ReactElement => {
   }, [data])
 
   const [updateMutation, updateMutationState] = useMutation(mutation, {
-    variables: args,
+    variables: correctArgs(args),
     onCompleted: () => {
       console.log('Update Success')
       setValidateFields(false)

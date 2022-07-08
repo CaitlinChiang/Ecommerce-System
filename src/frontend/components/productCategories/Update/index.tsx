@@ -7,6 +7,7 @@ import { ProductCategory } from '../../../../types/productCategory'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
 import CheckboxField from '../../_common/CheckboxField'
+import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
 import { refetchData } from '../../../_utils/handleData/refetchData'
 
 const UpdateProductCategory = ({
@@ -40,7 +41,7 @@ const UpdateProductCategory = ({
   }, [data])
 
   const [updateMutation, updateMutationState] = useMutation(mutation, {
-    variables: args,
+    variables: correctArgs(args),
     onCompleted: () => {
       console.log('Product category successfully updated!')
       refetchData(refetchArgs)

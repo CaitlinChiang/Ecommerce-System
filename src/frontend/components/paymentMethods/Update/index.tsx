@@ -6,6 +6,7 @@ import { Button, Typography } from '@mui/material'
 import { PaymentMethod } from '../../../../types/paymentMethod'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
+import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
 import { refetchData } from '../../../_utils/handleData/refetchData'
 
 const UpdatePaymentMethod = ({
@@ -39,7 +40,7 @@ const UpdatePaymentMethod = ({
   }, [data])
 
   const [updateMutation, updateMutationState] = useMutation(mutation, {
-    variables: args,
+    variables: correctArgs(args),
     onCompleted: () => {
       console.log('Payment method successfully updated!')
       refetchData(refetchArgs)
