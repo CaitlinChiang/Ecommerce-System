@@ -1,3 +1,6 @@
+import isEmail from 'validator/lib/isEmail'
+import isMobilePhone from 'validator/lib/isMobilePhone'
+
 export const returnError = ({
   args,
   error,
@@ -16,6 +19,11 @@ export const returnError = ({
   }
 
   if (error && emptyArgs) return true
+
+  if (error && targetProp === 'email' && !isEmail(args?.email)) return true
+  if (error && targetProp === 'phoneNumber' && !isMobilePhone(args?.phoneNumber)) {
+    return true
+  }
 
   return false
 }
