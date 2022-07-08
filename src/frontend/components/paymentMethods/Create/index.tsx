@@ -16,12 +16,14 @@ const CreatePaymentMethod = ({
     name: null,
     details: null
   })
+  const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const [createMutation, createMutationState] = useMutation(mutation, {
     variables: args,
     onCompleted: () => {
       console.log('Payment method successfully created!')
       refetchData(refetchArgs)
+      setValidateFields(false)
       setArgs(clearFields(args))
     },
     onError: (error) => console.log(error)
@@ -31,6 +33,7 @@ const CreatePaymentMethod = ({
     <>
       <Text
         args={args}
+        error={validateFields && !args?.name}
         placeholder={'Payment Method (ex. BDO Bank Transfer)'}
         required={true}
         setArgs={setArgs}
@@ -38,13 +41,17 @@ const CreatePaymentMethod = ({
       />
       <Text
         args={args}
+        error={validateFields && !args?.details}
         placeholder={'Bank Details (ex. BDO Account - 5210 6988 8182 2136)'}
         required={true}
         setArgs={setArgs}
         targetProp={'details'}
       />
       <Button
-        onClick={() => createMutation()}
+        onClick={() => {
+          setValidateFields(true)
+          createMutation()
+        }}
         disabled={createMutationState.loading}
       >
         {'Create'}

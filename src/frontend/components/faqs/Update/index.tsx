@@ -22,6 +22,7 @@ const UpdateFAQ = ({
     answer: null,
     question: null
   })
+  const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const { data } = useQuery(querySingular, {
     variables: { _id }
@@ -42,6 +43,7 @@ const UpdateFAQ = ({
     onCompleted: () => {
       console.log('FAQ successfully updated!')
       refetchData(refetchArgs)
+      setValidateFields(false)
       setUpdateModalOpen(false)
     },
     onError: (error) => console.log(error)
@@ -53,10 +55,25 @@ const UpdateFAQ = ({
       {faq?.updatedAt && (
         <Typography>{`Last Updated At: ${faq?.updatedAt}`}</Typography>
       )}
-      <Text args={args} required={true} setArgs={setArgs} targetProp={'question'} />
-      <Text args={args} required={true} setArgs={setArgs} targetProp={'answer'} />
+      <Text
+        args={args}
+        error={validateFields && !args?.question}
+        required={true}
+        setArgs={setArgs}
+        targetProp={'question'}
+      />
+      <Text
+        args={args}
+        error={validateFields && !args?.answer}
+        required={true}
+        setArgs={setArgs}
+        targetProp={'answer'}
+      />
       <Button
-        onClick={() => updateMutation()}
+        onClick={() => {
+          setValidateFields(true)
+          updateMutation()
+        }}
         disabled={updateMutationState.loading}
       >
         {'Save Changes'}

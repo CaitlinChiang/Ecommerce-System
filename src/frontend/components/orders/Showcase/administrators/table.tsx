@@ -7,6 +7,7 @@ import { Order } from '../../../../../types/order'
 import { PaginateDataArgs } from '../../../../../types/actions/paginateData'
 import { RefetchDataArgs } from '../../../../../types/actions/refetchData'
 import { SortDirection } from '../../../../_enums/sortDirection'
+import { DateRangeType } from '../../../../_enums/dateRangeType'
 import TableComponent from '../../../_common/TableComponent'
 import ModalComponent from '../../../_common/ModalComponent'
 import UpdateOrderSelect from '../../Update/select'
@@ -19,9 +20,9 @@ const OrdersTable = (): ReactElement => {
   const [args, setArgs] = useState<any>({
     collectionMethod: null,
     dateRange: {
-      startDate: null,
-      endDate: null,
-      filterBy: null
+      startDate: new Date(Date.now() - 6096e5),
+      endDate: new Date(),
+      filterBy: DateRangeType.CREATED
     },
     status: null
   })

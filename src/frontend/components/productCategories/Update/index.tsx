@@ -23,6 +23,7 @@ const UpdateProductCategory = ({
     name: null,
     showPublic: null
   })
+  const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const { data } = useQuery(querySingular, {
     variables: { _id }
@@ -43,6 +44,7 @@ const UpdateProductCategory = ({
     onCompleted: () => {
       console.log('Product category successfully updated!')
       refetchData(refetchArgs)
+      setValidateFields(false)
       setUpdateModalOpen(false)
     },
     onError: (error) => console.log(error)
@@ -54,10 +56,19 @@ const UpdateProductCategory = ({
       {productCategory?.updatedAt && (
         <Typography>{`Last Updated At: ${productCategory?.updatedAt}`}</Typography>
       )}
-      <Text args={args} required={true} setArgs={setArgs} targetProp={'name'} />
+      <Text
+        args={args}
+        error={validateFields && !args?.name}
+        required={true}
+        setArgs={setArgs}
+        targetProp={'name'}
+      />
       <CheckboxField args={args} setArgs={setArgs} targetProp={'showPublic'} />
       <Button
-        onClick={() => updateMutation()}
+        onClick={() => {
+          setValidateFields(true)
+          updateMutation()
+        }}
         disabled={updateMutationState.loading}
       >
         {'Save Changes'}

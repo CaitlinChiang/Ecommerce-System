@@ -22,6 +22,7 @@ const UpdatePaymentMethod = ({
     name: null,
     details: null
   })
+  const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const { data } = useQuery(querySingular, {
     variables: { _id }
@@ -42,6 +43,7 @@ const UpdatePaymentMethod = ({
     onCompleted: () => {
       console.log('Payment method successfully updated!')
       refetchData(refetchArgs)
+      setValidateFields(false)
       setUpdateModalOpen(false)
     },
     onError: (error) => console.log(error)
@@ -53,10 +55,25 @@ const UpdatePaymentMethod = ({
       {paymentMethod?.updatedAt && (
         <Typography>{`Last Updated At: ${paymentMethod?.updatedAt}`}</Typography>
       )}
-      <Text args={args} required={true} setArgs={setArgs} targetProp={'name'} />
-      <Text args={args} required={true} setArgs={setArgs} targetProp={'details'} />
+      <Text
+        args={args}
+        error={validateFields && !args?.name}
+        required={true}
+        setArgs={setArgs}
+        targetProp={'name'}
+      />
+      <Text
+        args={args}
+        error={validateFields && !args?.details}
+        required={true}
+        setArgs={setArgs}
+        targetProp={'details'}
+      />
       <Button
-        onClick={() => updateMutation()}
+        onClick={() => {
+          setValidateFields(true)
+          updateMutation()
+        }}
         disabled={updateMutationState.loading}
       >
         {'Save Changes'}

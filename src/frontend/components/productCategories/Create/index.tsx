@@ -17,12 +17,14 @@ const CreateProductCategory = ({
     name: null,
     showPublic: false
   })
+  const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const [createMutation, createMutationState] = useMutation(mutation, {
     variables: args,
     onCompleted: () => {
       console.log('Product category successfully created!')
       refetchData(refetchArgs)
+      setValidateFields(false)
       setArgs(clearFields(args))
     },
     onError: (error) => console.log(error)
@@ -32,6 +34,7 @@ const CreateProductCategory = ({
     <>
       <Text
         args={args}
+        error={validateFields && !args?.name}
         placeholder={'Product Category (ex. Tops)'}
         required={true}
         setArgs={setArgs}
@@ -39,7 +42,10 @@ const CreateProductCategory = ({
       />
       <CheckboxField args={args} setArgs={setArgs} targetProp={'showPublic'} />
       <Button
-        onClick={() => createMutation()}
+        onClick={() => {
+          setValidateFields(true)
+          createMutation()
+        }}
         disabled={createMutationState.loading}
       >
         {'Create'}

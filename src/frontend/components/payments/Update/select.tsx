@@ -29,6 +29,7 @@ const UpdatePaymentSelect = ({
   return (
     <SelectField
       args={args}
+      error={!args.status}
       disabled={updateMutationState.loading}
       label={'Payment Status'}
       options={Object.keys(PaymentStatus).map((status) => {
