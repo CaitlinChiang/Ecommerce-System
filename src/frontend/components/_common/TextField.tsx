@@ -21,7 +21,7 @@ const Text = ({
 }: {
   args: any
   disabled?: boolean
-  error?: any
+  error?: boolean
   fullWidth?: boolean
   helperText?: string
   label?: string

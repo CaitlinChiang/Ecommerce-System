@@ -5,6 +5,8 @@ import { TextField, Autocomplete } from '@mui/material'
 const SelectField = ({
   args,
   disabled,
+  error,
+  helperText,
   label,
   multiple,
   nestedProp,
@@ -17,6 +19,8 @@ const SelectField = ({
 }: {
   args: any
   disabled?: boolean
+  error?: boolean
+  helperText?: string
   label: string
   multiple?: boolean
   nestedProp?: string
@@ -69,7 +73,13 @@ const SelectField = ({
       onChange={handleChange}
       options={options}
       renderInput={(params): ReactElement => (
-        <TextField {...params} label={label} required={required} />
+        <TextField
+          {...params}
+          error={error}
+          helperText={error && helperText}
+          label={label}
+          required={required}
+        />
       )}
       sx={{ width: width || 300, padding: theme.spacing(2), display: 'block' }}
       value={

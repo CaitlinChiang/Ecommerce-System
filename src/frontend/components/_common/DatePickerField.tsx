@@ -9,12 +9,16 @@ import { formatProperCapitalization } from '../../_utils/handleFormatting/format
 const DatePickerField = ({
   args,
   disabled,
+  error,
+  helperText,
   nestedProp,
   setArgs,
   targetProp
 }: {
   args: any
   disabled?: boolean
+  error?: boolean
+  helperText?: string
   nestedProp?: string
   setArgs: React.Dispatch<React.SetStateAction<any>>
   targetProp: string
@@ -45,7 +49,9 @@ const DatePickerField = ({
               })
             }
           }}
-          renderInput={(params) => <TextField {...params} />}
+          renderInput={(params) => (
+            <TextField {...params} error={error} helperText={helperText} />
+          )}
           value={value}
         />
       </LocalizationProvider>

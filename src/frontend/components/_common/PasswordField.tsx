@@ -5,10 +5,12 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff'
 
 const PasswordField = ({
   args,
+  error,
   required,
   setArgs
 }: {
   args: any
+  error?: boolean
   required?: boolean
   setArgs: React.Dispatch<React.SetStateAction<any>>
 }): ReactElement => {
@@ -17,10 +19,8 @@ const PasswordField = ({
 
   return (
     <TextField
-      error={password?.length < 8}
-      helperText={
-        password?.length < 8 && 'Password must be at least 8 characters long.'
-      }
+      error={error}
+      helperText={error && 'Password must be at least 8 characters long.'}
       label='Password'
       onChange={(e): void => {
         setArgs({ ...args, password: e.target.value })

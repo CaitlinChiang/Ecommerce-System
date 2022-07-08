@@ -6,6 +6,8 @@ import { formatProperCapitalization } from '../../_utils/handleFormatting/format
 const NumberField = ({
   args,
   disabled,
+  error,
+  helperText,
   label,
   nestedProp,
   required,
@@ -15,6 +17,8 @@ const NumberField = ({
 }: {
   args: any
   disabled?: boolean
+  error?: boolean
+  helperText?: string
   label?: string
   nestedProp?: string
   required?: boolean
@@ -25,6 +29,8 @@ const NumberField = ({
   return (
     <TextField
       disabled={disabled}
+      error={error}
+      helperText={error && helperText}
       label={label || formatProperCapitalization(nestedProp || targetProp)}
       onChange={(e): void => {
         if (!nestedProp) setArgs({ ...args, [targetProp]: e.target.value })
