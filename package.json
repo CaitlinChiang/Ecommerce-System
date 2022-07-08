@@ -54,11 +54,13 @@
     "prettier": "^2.6.2",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
-    "ts-node": "^10.7.0"
+    "ts-node": "^10.7.0",
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "@types/apollo-upload-client": "^17.0.1",
     "@types/js-cookie": "^3.0.2",
+    "@types/validator": "^13.7.4",
     "@typescript-eslint/eslint-plugin": "^5.27.0",
     "eslint-plugin-prettier": "^4.0.0"
   }
