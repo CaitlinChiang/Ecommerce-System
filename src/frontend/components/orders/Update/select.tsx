@@ -16,10 +16,9 @@ const UpdateOrderSelect = ({
   refetchArgs: RefetchDataArgs
   status: OrderStatus
 }): ReactElement => {
-  const [args, setArgs] = useState<any>({ status: status })
+  const [args, setArgs] = useState<any>({ _id, status })
 
   const [updateMutation, updateMutationState] = useMutation(mutation, {
-    variables: { _id, status: args.status },
     onCompleted: () => {
       console.log('Order Status Updated')
       refetchData(refetchArgs)

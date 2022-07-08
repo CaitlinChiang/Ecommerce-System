@@ -16,10 +16,9 @@ const UpdatePaymentSelect = ({
   refetchArgs: RefetchDataArgs
   status: PaymentStatus
 }): ReactElement => {
-  const [args, setArgs] = useState<any>({ status: status })
+  const [args, setArgs] = useState<any>({ _orderId, status })
 
   const [updateMutation, updateMutationState] = useMutation(mutation, {
-    variables: { _orderId, status: args.status },
     onCompleted: () => {
       console.log('Payment Status Updated')
       refetchData(refetchArgs)
