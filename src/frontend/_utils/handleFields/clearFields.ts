@@ -1,9 +1,11 @@
-export const clearFields = (args: any): void => {
+export const clearFields = (args: any): any => {
   Object.keys(args).forEach((key) => {
-    if (['showPublic', 'featured'].includes(key)) {
+    if (key === 'showPublic' || key === 'featured') {
       args[key] = false
     } else {
       args[key] = ''
     }
   })
+
+  return args
 }

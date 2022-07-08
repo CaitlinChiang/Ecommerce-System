@@ -30,7 +30,11 @@ const NumberField = ({
     <TextField
       disabled={disabled}
       error={error}
-      helperText={error && helperText}
+      helperText={
+        error &&
+        (helperText ||
+          formatProperCapitalization(targetProp) + ' cannot be an empty field.')
+      }
       label={label || formatProperCapitalization(nestedProp || targetProp)}
       onChange={(e): void => {
         if (!nestedProp) setArgs({ ...args, [targetProp]: e.target.value })
@@ -42,11 +46,13 @@ const NumberField = ({
           })
         }
       }}
-      placeholder={targetProp === 'price' || nestedProp === 'price' ? '0.00' : '0'}
+      placeholder={
+        targetProp === 'price' || targetProp === 'shippingFee' ? '0.00' : '0'
+      }
       required={required}
       sx={{ width: width || 300, padding: theme.spacing(2), display: 'block' }}
       type={'number'}
-      value={!nestedProp ? args[targetProp] : args[targetProp][nestedProp]}
+      value={!nestedProp ? args[targetProp] : args[targetProp]?.[nestedProp]}
       InputProps={{ inputProps: { min: 0 } }}
     />
   )

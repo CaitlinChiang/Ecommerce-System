@@ -39,7 +39,11 @@ const Text = ({
       disabled={disabled}
       error={error}
       fullWidth={fullWidth}
-      helperText={error && helperText}
+      helperText={
+        error &&
+        (helperText ||
+          formatProperCapitalization(targetProp) + ' cannot be an empty field.')
+      }
       inputProps={{ maxLength: maxLength || 150 }}
       label={label || formatProperCapitalization(targetProp)}
       maxRows={maxRows}
