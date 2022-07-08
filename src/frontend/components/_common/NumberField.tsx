@@ -27,7 +27,10 @@ const NumberField = ({
   return (
     <TextField
       disabled={disabled}
-      error={error}
+      error={
+        error &&
+        (nestedProp ? !args?.[targetProp]?.[nestedProp] : !args?.[targetProp])
+      }
       helperText={
         error &&
         formatProperCapitalization(nestedProp || targetProp) +

@@ -9,6 +9,7 @@ import DatePickerField from '../../_common/DatePickerField'
 import CheckboxField from '../../_common/CheckboxField'
 import NumberField from '../../_common/NumberField'
 import ImageUploader from '../../_common/ImageUploader'
+import { formatFee } from '../../../_utils/handleFormatting/formatFee'
 import { formatFromPercentage } from '../../../_utils/handleFormatting/formatFromPercentage'
 
 const CreateProduct = (): ReactElement => {
@@ -26,13 +27,14 @@ const CreateProduct = (): ReactElement => {
     showPublic: false,
     stockQuantity: null
   })
+  const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const [createMutation, createMutationState] = useMutation(mutation, {
     variables: {
       ...args,
-      discount: formatFromPercentage(args.discount),
-      price: parseFloat(Number(args.price)?.toFixed(2)),
-      stockQuantity: Math.round(args.stockQuantity)
+      discount: formatFromPercentage(args?.discount),
+      price: formatFee(args?.price),
+      stockQuantity: args?.stockQuantity ? Math.round(args.stockQuantity) : null
     },
     onCompleted: () => {
       console.log('Product successfully created!')
@@ -43,13 +45,25 @@ const CreateProduct = (): ReactElement => {
 
   return (
     <>
-      <ProductCategoriesSelect args={args} required={true} setArgs={setArgs} />
+      <ProductCategoriesSelect
+        args={args}
+        error={validateFields}
+        required={true}
+        setArgs={setArgs}
+      />
       <Text args={args} setArgs={setArgs} targetProp={'description'} />
       <DatePickerField args={args} setArgs={setArgs} targetProp={'expirationDate'} />
       <CheckboxField args={args} setArgs={setArgs} targetProp={'featured'} />
-      <Text args={args} required={true} setArgs={setArgs} targetProp={'name'} />
+      <Text
+        args={args}
+        error={validateFields}
+        required={true}
+        setArgs={setArgs}
+        targetProp={'name'}
+      />
       <NumberField
         args={args}
+        error={validateFields}
         required={true}
         setArgs={setArgs}
         targetProp={'price'}
@@ -63,6 +77,7 @@ const CreateProduct = (): ReactElement => {
       <CheckboxField args={args} setArgs={setArgs} targetProp={'showPublic'} />
       <NumberField
         args={args}
+        error={validateFields}
         required={true}
         setArgs={setArgs}
         targetProp={'stockQuantity'}
@@ -74,7 +89,10 @@ const CreateProduct = (): ReactElement => {
         targetProp={'image'}
       />
       <Button
-        onClick={() => createMutation()}
+        onClick={() => {
+          setValidateFields(true)
+          createMutation()
+        }}
         disabled={createMutationState.loading}
       >
         {'Create'}

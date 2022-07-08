@@ -34,7 +34,7 @@ const CreateProductCategory = ({
     <>
       <Text
         args={args}
-        error={validateFields && !args?.name}
+        error={validateFields}
         placeholder={'Product Category (ex. Tops)'}
         required={true}
         setArgs={setArgs}

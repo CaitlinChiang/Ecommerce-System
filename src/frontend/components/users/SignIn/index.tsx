@@ -14,6 +14,7 @@ const SignInUser = (): ReactElement => {
     email: null,
     password: null
   })
+  const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const [signInMutation, signInMutationState] = useMutation(mutation, {
     variables: args,
@@ -27,10 +28,24 @@ const SignInUser = (): ReactElement => {
 
   return (
     <>
-      <Text args={args} required={true} setArgs={setArgs} targetProp={'email'} />
-      <PasswordField args={args} required={true} setArgs={setArgs} />
+      <Text
+        args={args}
+        error={validateFields}
+        required={true}
+        setArgs={setArgs}
+        targetProp={'email'}
+      />
+      <PasswordField
+        args={args}
+        error={validateFields}
+        required={true}
+        setArgs={setArgs}
+      />
       <Button
-        onClick={() => signInMutation()}
+        onClick={() => {
+          setValidateFields(true)
+          signInMutation()
+        }}
         disabled={signInMutationState.loading}
       >
         {'Sign In'}

@@ -50,7 +50,7 @@ const DatePickerField = ({
           renderInput={(params) => (
             <TextField
               {...params}
-              error={error}
+              error={error && !args?.[targetProp]}
               helperText={
                 error &&
                 formatProperCapitalization(nestedProp || targetProp) +

@@ -22,6 +22,7 @@ const CreateUser = ({ type }: { type: UserType }): ReactElement => {
     phoneNumber: null,
     type
   })
+  const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const [createMutation, createMutationState] = useMutation(mutation, {
     variables: {
@@ -44,18 +45,45 @@ const CreateUser = ({ type }: { type: UserType }): ReactElement => {
           <CitiesSelect args={args} setArgs={setArgs} />
         </>
       )}
-      <Text args={args} required={true} setArgs={setArgs} targetProp={'email'} />
-      <Text args={args} required={true} setArgs={setArgs} targetProp={'firstName'} />
-      <Text args={args} required={true} setArgs={setArgs} targetProp={'lastName'} />
-      <PasswordField args={args} required={true} setArgs={setArgs} />
       <Text
         args={args}
+        error={validateFields}
+        required={true}
+        setArgs={setArgs}
+        targetProp={'email'}
+      />
+      <Text
+        args={args}
+        error={validateFields}
+        required={true}
+        setArgs={setArgs}
+        targetProp={'firstName'}
+      />
+      <Text
+        args={args}
+        error={validateFields}
+        required={true}
+        setArgs={setArgs}
+        targetProp={'lastName'}
+      />
+      <PasswordField
+        args={args}
+        error={validateFields}
+        required={true}
+        setArgs={setArgs}
+      />
+      <Text
+        args={args}
+        error={validateFields}
         required={true}
         setArgs={setArgs}
         targetProp={'phoneNumber'}
       />
       <Button
-        onClick={() => createMutation()}
+        onClick={() => {
+          setValidateFields(true)
+          createMutation()
+        }}
         disabled={createMutationState.loading}
       >
         {'Create'}

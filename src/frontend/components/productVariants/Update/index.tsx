@@ -10,6 +10,7 @@ import DatePickerField from '../../_common/DatePickerField'
 import CheckboxField from '../../_common/CheckboxField'
 import NumberField from '../../_common/NumberField'
 import ImageUploader from '../../_common/ImageUploader'
+import { formatFee } from '../../../_utils/handleFormatting/formatFee'
 import { formatFromPercentage } from '../../../_utils/handleFormatting/formatFromPercentage'
 import { formatToPercentage } from '../../../_utils/handleFormatting/formatToPercentage'
 
@@ -28,6 +29,7 @@ const UpdateProductVariant = ({ _id }: { _id: string }): ReactElement => {
     showPublic: false,
     stockQuantity: null
   })
+  const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const { data } = useQuery(querySingular, {
     variables: { _id }
@@ -52,10 +54,10 @@ const UpdateProductVariant = ({ _id }: { _id: string }): ReactElement => {
   const [updateMutation, updateMutationState] = useMutation(mutation, {
     variables: {
       ...args,
-      discount: formatFromPercentage(args.discount),
+      discount: formatFromPercentage(args?.discount),
       imageUrl: args?.imageUrl?.contains('products/') ? null : args?.imageUrl,
-      price: parseFloat(Number(args.price)?.toFixed(2)),
-      stockQuantity: Math.round(args.stockQuantity)
+      price: formatFee(args?.price),
+      stockQuantity: args?.stockQuantity ? Math.round(args.stockQuantity) : null
     },
     onCompleted: () => {
       console.log('Product successfully updated!')
@@ -72,9 +74,16 @@ const UpdateProductVariant = ({ _id }: { _id: string }): ReactElement => {
       )}
       <Text args={args} setArgs={setArgs} targetProp={'description'} />
       <DatePickerField args={args} setArgs={setArgs} targetProp={'expirationDate'} />
-      <Text args={args} required={true} setArgs={setArgs} targetProp={'name'} />
+      <Text
+        args={args}
+        error={validateFields}
+        required={true}
+        setArgs={setArgs}
+        targetProp={'name'}
+      />
       <NumberField
         args={args}
+        error={validateFields}
         required={true}
         setArgs={setArgs}
         targetProp={'price'}
@@ -89,6 +98,7 @@ const UpdateProductVariant = ({ _id }: { _id: string }): ReactElement => {
       <CheckboxField args={args} setArgs={setArgs} targetProp={'showPublic'} />
       <NumberField
         args={args}
+        error={validateFields}
         required={true}
         setArgs={setArgs}
         targetProp={'stockQuantity'}
@@ -100,7 +110,10 @@ const UpdateProductVariant = ({ _id }: { _id: string }): ReactElement => {
         targetProp={'image'}
       />
       <Button
-        onClick={() => updateMutation()}
+        onClick={() => {
+          setValidateFields(true)
+          updateMutation()
+        }}
         disabled={updateMutationState.loading}
       >
         {'Save Changes'}

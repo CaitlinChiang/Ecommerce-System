@@ -58,7 +58,7 @@ const UpdateProductCategory = ({
       )}
       <Text
         args={args}
-        error={validateFields && !args?.name}
+        error={validateFields}
         required={true}
         setArgs={setArgs}
         targetProp={'name'}

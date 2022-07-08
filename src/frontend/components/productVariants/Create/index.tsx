@@ -11,6 +11,7 @@ import DatePickerField from '../../_common/DatePickerField'
 import CheckboxField from '../../_common/CheckboxField'
 import NumberField from '../../_common/NumberField'
 import ImageUploader from '../../_common/ImageUploader'
+import { formatFee } from '../../../_utils/handleFormatting/formatFee'
 import { formatFromPercentage } from '../../../_utils/handleFormatting/formatFromPercentage'
 import { formatToPercentage } from '../../../_utils/handleFormatting/formatToPercentage'
 
@@ -32,6 +33,7 @@ const CreateProductVariant = ({
     showPublic: false,
     stockQuantity: null
   })
+  const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const { data } = useQuery(querySingular, {
     variables: { _id: _productId }
@@ -50,9 +52,9 @@ const CreateProductVariant = ({
   const [createMutation, createMutationState] = useMutation(mutation, {
     variables: {
       ...args,
-      discount: formatFromPercentage(args.discount),
-      price: parseFloat(Number(args.price)?.toFixed(2)),
-      stockQuantity: Math.round(args.stockQuantity)
+      discount: formatFromPercentage(args?.discount),
+      price: formatFee(args?.price),
+      stockQuantity: args?.stockQuantity ? Math.round(args.stockQuantity) : null
     },
     onCompleted: () => {
       console.log('Product successfully created!')
@@ -65,9 +67,16 @@ const CreateProductVariant = ({
     <>
       <Text args={args} setArgs={setArgs} targetProp={'description'} />
       <DatePickerField args={args} setArgs={setArgs} targetProp={'expirationDate'} />
-      <Text args={args} required={true} setArgs={setArgs} targetProp={'name'} />
+      <Text
+        args={args}
+        error={validateFields}
+        required={true}
+        setArgs={setArgs}
+        targetProp={'name'}
+      />
       <NumberField
         args={args}
+        error={validateFields}
         required={true}
         setArgs={setArgs}
         targetProp={'price'}
@@ -82,6 +91,7 @@ const CreateProductVariant = ({
       <CheckboxField args={args} setArgs={setArgs} targetProp={'showPublic'} />
       <NumberField
         args={args}
+        error={validateFields}
         required={true}
         setArgs={setArgs}
         targetProp={'stockQuantity'}
@@ -93,7 +103,10 @@ const CreateProductVariant = ({
         targetProp={'image'}
       />
       <Button
-        onClick={() => createMutation()}
+        onClick={() => {
+          setValidateFields(true)
+          createMutation()
+        }}
         disabled={createMutationState.loading}
       >
         {'Create'}

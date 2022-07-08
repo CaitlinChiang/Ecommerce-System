@@ -74,7 +74,10 @@ const SelectField = ({
       renderInput={(params): ReactElement => (
         <TextField
           {...params}
-          error={error}
+          error={
+            error &&
+            (nestedProp ? !args?.[targetProp]?.[nestedProp] : !args?.[targetProp])
+          }
           helperText={
             error &&
             formatProperCapitalization(nestedProp || targetProp) +

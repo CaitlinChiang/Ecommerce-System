@@ -57,14 +57,14 @@ const UpdateFAQ = ({
       )}
       <Text
         args={args}
-        error={validateFields && !args?.question}
+        error={validateFields}
         required={true}
         setArgs={setArgs}
         targetProp={'question'}
       />
       <Text
         args={args}
-        error={validateFields && !args?.answer}
+        error={validateFields}
         required={true}
         setArgs={setArgs}
         targetProp={'answer'}

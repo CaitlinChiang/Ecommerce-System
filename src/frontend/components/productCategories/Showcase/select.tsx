@@ -7,11 +7,13 @@ import SelectField from '../../../components/_common/SelectField'
 
 const ProductCategoriesSelect = ({
   args,
+  error,
   multiple,
   required,
   setArgs
 }: {
   args: any
+  error?: boolean
   multiple?: boolean
   required?: boolean
   setArgs: React.Dispatch<React.SetStateAction<any>>
@@ -37,6 +39,7 @@ const ProductCategoriesSelect = ({
 
   return (
     <SelectField
+      error={error}
       label={'Categories'}
       multiple={multiple}
       options={productCategoryOptions}

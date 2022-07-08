@@ -8,6 +8,7 @@ const Text = ({
   disabled,
   error,
   fullWidth,
+  helperText,
   label,
   maxLength,
   maxRows,
@@ -22,6 +23,7 @@ const Text = ({
   disabled?: boolean
   error?: boolean
   fullWidth?: boolean
+  helperText?: string
   label?: string
   maxLength?: number
   maxRows?: number
@@ -35,10 +37,12 @@ const Text = ({
   return (
     <TextField
       disabled={disabled}
-      error={error}
+      error={error && !args?.[targetProp]}
       fullWidth={fullWidth}
       helperText={
-        error && formatProperCapitalization(targetProp) + ' is a required field.'
+        error &&
+        (helperText ||
+          formatProperCapitalization(targetProp) + ' is a required field.')
       }
       inputProps={{ maxLength: maxLength || 150 }}
       label={label || formatProperCapitalization(targetProp)}

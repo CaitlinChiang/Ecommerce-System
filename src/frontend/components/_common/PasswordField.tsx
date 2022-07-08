@@ -19,7 +19,7 @@ const PasswordField = ({
 
   return (
     <TextField
-      error={error}
+      error={error && args?.password?.length < 8}
       helperText={error && 'Password must be at least 8 characters long.'}
       label='Password'
       onChange={(e): void => {

@@ -7,7 +7,7 @@ import { City } from '../../../../types/city'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
 import NumberField from '../../_common/NumberField'
-import { formatShippingFee } from '../../../_utils/handleFormatting/formatShippingFee'
+import { formatFee } from '../../../_utils/handleFormatting/formatFee'
 import { refetchData } from '../../../_utils/handleData/refetchData'
 
 const UpdateCity = ({
@@ -43,7 +43,7 @@ const UpdateCity = ({
   const [updateMutation, updateMutationState] = useMutation(mutation, {
     variables: {
       ...args,
-      shippingFee: formatShippingFee(args?.shippingFee)
+      shippingFee: formatFee(args?.shippingFee)
     },
     onCompleted: () => {
       console.log('City & shipping fee successfully updated!')
@@ -62,14 +62,14 @@ const UpdateCity = ({
       )}
       <Text
         args={args}
-        error={validateFields && !args?.name}
+        error={validateFields}
         required={true}
         setArgs={setArgs}
         targetProp={'name'}
       />
       <NumberField
         args={args}
-        error={validateFields && !args?.shippingFee}
+        error={validateFields}
         required={true}
         setArgs={setArgs}
         targetProp={'shippingFee'}

@@ -57,14 +57,14 @@ const UpdatePaymentMethod = ({
       )}
       <Text
         args={args}
-        error={validateFields && !args?.name}
+        error={validateFields}
         required={true}
         setArgs={setArgs}
         targetProp={'name'}
       />
       <Text
         args={args}
-        error={validateFields && !args?.details}
+        error={validateFields}
         required={true}
         setArgs={setArgs}
         targetProp={'details'}

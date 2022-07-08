@@ -33,7 +33,7 @@ const CreatePaymentMethod = ({
     <>
       <Text
         args={args}
-        error={validateFields && !args?.name}
+        error={validateFields}
         placeholder={'Payment Method (ex. BDO Bank Transfer)'}
         required={true}
         setArgs={setArgs}
@@ -41,7 +41,7 @@ const CreatePaymentMethod = ({
       />
       <Text
         args={args}
-        error={validateFields && !args?.details}
+        error={validateFields}
         placeholder={'Bank Details (ex. BDO Account - 5210 6988 8182 2136)'}
         required={true}
         setArgs={setArgs}
