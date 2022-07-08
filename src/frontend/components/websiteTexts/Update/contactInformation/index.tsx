@@ -11,9 +11,9 @@ import Text from '../../../_common/TextField'
 
 const UpdateContactInformation = (): ReactElement => {
   const [args, setArgs] = useState<any>({
+    email: null,
     facebook: null,
     instagram: null,
-    email: null,
     phoneNumber: null
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
@@ -24,27 +24,40 @@ const UpdateContactInformation = (): ReactElement => {
 
   const websiteText: WebsiteText = data?.get_website_text || {}
 
-  const formatLink = (arrayPosition: number): string => {
+  const formatValue = (medium: string): string => {
     const websiteTextSplit = websiteText?.content?.split(', ')
-    const link = websiteTextSplit?.[arrayPosition].substring(
-      websiteTextSplit[arrayPosition].indexOf('[') + 1,
-      websiteTextSplit[arrayPosition].lastIndexOf(']')
-    )
 
-    return link
+    const val = websiteTextSplit?.find((text: string) => text.includes(medium))
+
+    const formattedVal = val?.substring(val.indexOf('[') + 1, val.indexOf(']'))
+    return formattedVal
   }
 
   useEffect(() => {
     setArgs({
-      facebook: formatLink(0),
-      instagram: formatLink(1),
-      email: formatLink(2),
-      phoneNumber: formatLink(3)
+      facebook: formatValue('Facebook'),
+      instagram: formatValue('Instagram'),
+      email: formatValue('Email'),
+      phoneNumber: formatValue('PhoneNumber')
     })
   }, [data])
 
-  const formatContent = (args: any) => {
-    return `Facebook-[${args.facebook}], Instagram-[${args.instagram}], Email-[${args.email}], PhoneNumber=[${args.phoneNumber}]`
+  const formatContent = (args: any): string | null => {
+    if (args?.email?.trim().length === 0 || args?.phoneNumber?.trim().length === 0) {
+      return null
+    }
+
+    let contentString = `Email-[${args.email}], PhoneNumber-[${args.phoneNumber}]`
+
+    if (args?.facebook?.trim().length > 0) {
+      contentString += `, Facebook-[${args.facebook}]`
+    }
+
+    if (args?.instagram?.trim().length > 0) {
+      contentString += `, Instagram-[${args.instagram}]`
+    }
+
+    return contentString
   }
 
   const [updateMutation, updateMutationState] = useMutation(mutation, {
