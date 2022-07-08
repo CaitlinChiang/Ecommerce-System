@@ -16,6 +16,7 @@ const UpdateContactInformation = (): ReactElement => {
     email: null,
     phoneNumber: null
   })
+  const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const { data, refetch } = useQuery(query, {
     variables: { type: WebsiteTextType.CONTACT_INFORMATION }
@@ -54,6 +55,7 @@ const UpdateContactInformation = (): ReactElement => {
     },
     onCompleted: () => {
       console.log('Update Success')
+      setValidateFields(false)
       refetch()
     },
     onError: (error) => console.log(error)
@@ -64,15 +66,25 @@ const UpdateContactInformation = (): ReactElement => {
       <Typography>{`Last Updated At: ${websiteText?.updatedAt}`}</Typography>
       <Text args={args} setArgs={setArgs} targetProp={'facebook'} />
       <Text args={args} setArgs={setArgs} targetProp={'instagram'} />
-      <Text args={args} required={true} setArgs={setArgs} targetProp={'email'} />
       <Text
         args={args}
+        error={validateFields}
+        required={true}
+        setArgs={setArgs}
+        targetProp={'email'}
+      />
+      <Text
+        args={args}
+        error={validateFields}
         required={true}
         setArgs={setArgs}
         targetProp={'phoneNumber'}
       />
       <Button
-        onClick={() => updateMutation()}
+        onClick={() => {
+          setValidateFields(true)
+          updateMutation()
+        }}
         disabled={updateMutationState.loading}
       >
         {'Save Changes'}

@@ -15,6 +15,7 @@ const UpdateAboutWriteup = (): ReactElement => {
     content: null,
     type: null
   })
+  const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const { data, refetch } = useQuery(query, {
     variables: { type: WebsiteTextType.ABOUT_WRITEUP }
@@ -34,6 +35,7 @@ const UpdateAboutWriteup = (): ReactElement => {
     variables: args,
     onCompleted: () => {
       console.log('Update Success')
+      setValidateFields(false)
       refetch()
     },
     onError: (error) => console.log(error)
@@ -44,8 +46,7 @@ const UpdateAboutWriteup = (): ReactElement => {
       <Typography>{`Last Updated At: ${websiteText?.updatedAt}`}</Typography>
       <Text
         args={args}
-        error={args['content']?.length > 700}
-        helperText={'You have surpassed the character limit.'}
+        error={validateFields}
         maxLength={700}
         multiline={true}
         placeholder={'Type about page write-up here...'}
@@ -54,7 +55,10 @@ const UpdateAboutWriteup = (): ReactElement => {
         targetProp={'content'}
       />
       <Button
-        onClick={() => updateMutation()}
+        onClick={() => {
+          setValidateFields(true)
+          updateMutation()
+        }}
         disabled={updateMutationState.loading}
       >
         {'Save Changes'}

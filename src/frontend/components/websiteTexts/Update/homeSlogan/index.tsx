@@ -15,6 +15,7 @@ const UpdateHomeSlogan = (): ReactElement => {
     content: null,
     type: null
   })
+  const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const { data, refetch } = useQuery(query, {
     variables: { type: WebsiteTextType.HOME_SLOGAN }
@@ -34,6 +35,7 @@ const UpdateHomeSlogan = (): ReactElement => {
     variables: args,
     onCompleted: () => {
       console.log('Update Success')
+      setValidateFields(false)
       refetch()
     },
     onError: (error) => console.log(error)
@@ -44,8 +46,7 @@ const UpdateHomeSlogan = (): ReactElement => {
       <Typography>{`Last Updated At: ${websiteText?.updatedAt}`}</Typography>
       <Text
         args={args}
-        error={args['content']?.length > 100}
-        helperText={'You have surpassed the character limit.'}
+        error={validateFields}
         maxLength={100}
         placeholder={'Type home page slogan here...'}
         required={true}
@@ -53,7 +54,10 @@ const UpdateHomeSlogan = (): ReactElement => {
         targetProp={'content'}
       />
       <Button
-        onClick={() => updateMutation()}
+        onClick={() => {
+          setValidateFields(true)
+          updateMutation()
+        }}
         disabled={updateMutationState.loading}
       >
         {'Save Changes'}
