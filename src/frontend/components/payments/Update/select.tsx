@@ -1,4 +1,4 @@
-import { ReactElement, useState, useEffect } from 'react'
+import { ReactElement, useState } from 'react'
 import { useMutation } from '@apollo/client'
 import mutation from './mutation'
 import SelectField from '../../_common/SelectField'
@@ -27,10 +27,6 @@ const UpdatePaymentSelect = ({
     onError: (error) => console.log(error)
   })
 
-  useEffect(() => {
-    updateMutation()
-  }, [args])
-
   return (
     <SelectField
       args={args}
@@ -41,6 +37,7 @@ const UpdatePaymentSelect = ({
       })}
       setArgs={setArgs}
       targetProp={'status'}
+      updateMutation={updateMutation}
     />
   )
 }
