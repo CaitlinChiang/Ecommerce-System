@@ -13,8 +13,8 @@ import { fetchMoreArgs } from '../../../_utils/handleData/returnFetchMoreArgs'
 const AuditLogsTable = (): ReactElement => {
   const [args, setArgs] = useState<any>({
     dateRange: {
-      startDate: null,
-      endDate: null,
+      startDate: new Date(Date.now() - 6096e5),
+      endDate: new Date(),
       filterBy: DateRangeType.CREATED
     }
   })

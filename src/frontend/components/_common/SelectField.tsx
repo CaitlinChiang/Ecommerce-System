@@ -1,6 +1,7 @@
 import { ReactElement } from 'react'
 import theme from '../../themes'
 import { TextField, Autocomplete } from '@mui/material'
+import { formatProperCapitalization } from '../../_utils/handleFormatting/formatProperCapitalization'
 
 const SelectField = ({
   args,
@@ -76,7 +77,11 @@ const SelectField = ({
         <TextField
           {...params}
           error={error}
-          helperText={error && helperText}
+          helperText={
+            error &&
+            (helperText ||
+              formatProperCapitalization(targetProp) + ' cannot be an empty field.')
+          }
           label={label}
           required={required}
         />
