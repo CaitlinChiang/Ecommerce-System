@@ -12,6 +12,7 @@ const SelectField = ({
   required,
   setArgs,
   targetProp,
+  updateMutation,
   width
 }: {
   args: any
@@ -23,15 +24,10 @@ const SelectField = ({
   required?: boolean
   setArgs: React.Dispatch<React.SetStateAction<any>>
   targetProp: string
+  updateMutation?: any
   width?: number
 }): ReactElement => {
   let value = options.find((option: any) => option[targetProp] === args[targetProp])
-
-  if (nestedProp) {
-    value = options.find(
-      (option: any) => option[nestedProp] === args[targetProp][nestedProp]
-    )
-  }
 
   if (multiple) {
     value = options.filter((option) =>
@@ -39,28 +35,38 @@ const SelectField = ({
     )
   }
 
+  if (nestedProp) {
+    value = options.find(
+      (option: any) => option[nestedProp] === args[targetProp][nestedProp]
+    )
+  }
+
+  const handleChange = (_e: any, newValue: any | null): void => {
+    let val = newValue?.[targetProp]
+
+    if (multiple) {
+      val = newValue.map((option: any) => option?.[targetProp])
+    }
+
+    if (!nestedProp) setArgs({ ...args, [targetProp]: val })
+
+    if (nestedProp) {
+      val = newValue?.[nestedProp]
+      setArgs({
+        ...args,
+        [targetProp]: { ...args[targetProp], [nestedProp]: val }
+      })
+    }
+
+    if (updateMutation) updateMutation({ variables: { ...args, [targetProp]: val } })
+  }
+
   return (
     <Autocomplete
       disabled={disabled}
       getOptionLabel={(option: any): string => option.label}
       multiple={multiple}
-      onChange={(_e: any, newValue: any | null) => {
-        let val = newValue?.[targetProp]
-
-        if (multiple) {
-          val = newValue.map((option: any) => option?.[targetProp])
-        }
-
-        if (!nestedProp) setArgs({ ...args, [targetProp]: val })
-
-        if (nestedProp) {
-          val = newValue?.[nestedProp]
-          setArgs({
-            ...args,
-            [targetProp]: { ...args[targetProp], [nestedProp]: val }
-          })
-        }
-      }}
+      onChange={handleChange}
       options={options}
       renderInput={(params): ReactElement => (
         <TextField {...params} label={label} required={required} />
