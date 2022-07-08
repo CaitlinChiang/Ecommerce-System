@@ -11,8 +11,8 @@ import DatePickerField from '../../_common/DatePickerField'
 import CheckboxField from '../../_common/CheckboxField'
 import NumberField from '../../_common/NumberField'
 import ImageUploader from '../../_common/ImageUploader'
-import { formatFromPercentage } from '../../../_utils/formatFromPercentage'
-import { formatToPercentage } from '../../../_utils/formatToPercentage'
+import { formatFromPercentage } from '../../../_utils/handleFormatting/formatFromPercentage'
+import { formatToPercentage } from '../../../_utils/handleFormatting/formatToPercentage'
 
 const CreateProductVariant = ({
   _productId

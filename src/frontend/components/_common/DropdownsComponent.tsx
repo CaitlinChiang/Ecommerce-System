@@ -12,8 +12,8 @@ import {
   TableRow
 } from '@mui/material'
 import { PaginateDataArgs } from '../../../types/actions/paginateData'
-import { searchData } from '../../_utils/searchData'
-import { generateRowsPerPage } from '../../_utils/generateRowsPerPage'
+import { searchData } from '../../_utils/handleData/searchData'
+import { generateRowsPerPage } from '../../_utils/handleData/generateRowsPerPage'
 
 const Row = ({
   icons,

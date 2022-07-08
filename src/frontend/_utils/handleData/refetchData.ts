@@ -1,4 +1,4 @@
-import { RefetchDataArgs } from '../../types/actions/refetchData'
+import { RefetchDataArgs } from '../../../types/actions/refetchData'
 
 export const refetchData = (refetchDataArgs: RefetchDataArgs): void => {
   const { args, loading, refetch, paginateDataArgs } = refetchDataArgs

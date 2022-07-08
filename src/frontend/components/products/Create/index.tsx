@@ -9,7 +9,7 @@ import DatePickerField from '../../_common/DatePickerField'
 import CheckboxField from '../../_common/CheckboxField'
 import NumberField from '../../_common/NumberField'
 import ImageUploader from '../../_common/ImageUploader'
-import { formatFromPercentage } from '../../../_utils/formatFromPercentage'
+import { formatFromPercentage } from '../../../_utils/handleFormatting/formatFromPercentage'
 
 const CreateProduct = (): ReactElement => {
   const router = useRouter()

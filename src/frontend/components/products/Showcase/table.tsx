@@ -12,8 +12,8 @@ import { SortDirection } from '../../../_enums/sortDirection'
 import TableComponent from '../../_common/TableComponent'
 import DeleteButton from '../../_common/DeleteButton'
 import ProductsTableFilters from './tableFilters'
-import { fetchMoreArgs } from '../../../_utils/returnFetchMoreArgs'
-import { formatToPercentage } from '../../../_utils/formatToPercentage'
+import { fetchMoreArgs } from '../../../_utils/handleData/returnFetchMoreArgs'
+import { formatToPercentage } from '../../../_utils/handleFormatting/formatToPercentage'
 
 const ProductsTable = (): ReactElement => {
   const router = useRouter()

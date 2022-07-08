@@ -11,7 +11,7 @@ import TableComponent from '../../_common/TableComponent'
 import UpdateReviewCheckbox from '../Update/checkbox'
 import DeleteButton from '../../_common/DeleteButton'
 import ReviewsTableFilters from './tableFilters'
-import { fetchMoreArgs } from '../../../_utils/returnFetchMoreArgs'
+import { fetchMoreArgs } from '../../../_utils/handleData/returnFetchMoreArgs'
 
 const ReviewsTable = (): ReactElement => {
   const [args, setArgs] = useState<any>({

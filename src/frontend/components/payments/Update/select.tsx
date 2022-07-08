@@ -5,7 +5,7 @@ import SelectField from '../../_common/SelectField'
 import { ObjectId } from 'mongodb'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import { PaymentStatus } from '../../../_enums/paymentStatus'
-import { refetchData } from '../../../_utils/refetchData'
+import { refetchData } from '../../../_utils/handleData/refetchData'
 
 const UpdatePaymentSelect = ({
   _orderId,

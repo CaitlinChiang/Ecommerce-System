@@ -7,7 +7,7 @@ import { ProductCategory } from '../../../../types/productCategory'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
 import CheckboxField from '../../_common/CheckboxField'
-import { refetchData } from '../../../_utils/refetchData'
+import { refetchData } from '../../../_utils/handleData/refetchData'
 
 const UpdateProductCategory = ({
   _id,

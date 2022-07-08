@@ -6,7 +6,7 @@ import { Button, Typography } from '@mui/material'
 import { FAQ } from '../../../../types/faq'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
-import { refetchData } from '../../../_utils/refetchData'
+import { refetchData } from '../../../_utils/handleData/refetchData'
 
 const UpdateFAQ = ({
   _id,

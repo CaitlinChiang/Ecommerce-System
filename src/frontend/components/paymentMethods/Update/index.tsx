@@ -6,7 +6,7 @@ import { Button, Typography } from '@mui/material'
 import { PaymentMethod } from '../../../../types/paymentMethod'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
-import { refetchData } from '../../../_utils/refetchData'
+import { refetchData } from '../../../_utils/handleData/refetchData'
 
 const UpdatePaymentMethod = ({
   _id,

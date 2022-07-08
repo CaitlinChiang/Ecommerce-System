@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import theme from '../../themes'
 import { TextField } from '@mui/material'
-import { formatProperCapitalization } from '../../_utils/formatProperCapitalization'
+import { formatProperCapitalization } from '../../_utils/handleFormatting/formatProperCapitalization'
 
 const NumberField = ({
   args,

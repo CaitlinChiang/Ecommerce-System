@@ -6,6 +6,4 @@ export const clearFields = (args: any): void => {
       args[key] = ''
     }
   })
-
-  return args
 }

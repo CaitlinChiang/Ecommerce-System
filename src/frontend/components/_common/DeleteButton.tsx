@@ -5,7 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import { ObjectId } from 'mongodb'
 import { PaginateDataArgs } from '../../../types/actions/paginateData'
 import { RefetchDataArgs } from '../../../types/actions/refetchData'
-import { refetchData } from '../../_utils/refetchData'
+import { refetchData } from '../../_utils/handleData/refetchData'
 
 const DeleteButton = ({
   _id,

@@ -4,7 +4,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns'
 import LocalizationProvider from '@mui/lab/LocalizationProvider'
 import { DatePicker } from '@mui/lab'
 import { Box, TextField } from '@mui/material'
-import { formatProperCapitalization } from '../../_utils/formatProperCapitalization'
+import { formatProperCapitalization } from '../../_utils/handleFormatting/formatProperCapitalization'
 
 const DatePickerField = ({
   args,

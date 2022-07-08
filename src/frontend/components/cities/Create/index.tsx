@@ -5,8 +5,8 @@ import { Button } from '@mui/material'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
 import NumberField from '../../_common/NumberField'
-import { refetchData } from '../../../_utils/refetchData'
-import { clearFields } from '../../../_utils/clearFields'
+import { refetchData } from '../../../_utils/handleData/refetchData'
+import { clearFields } from '../../../_utils/handleFields/clearFields'
 
 const CreateCity = ({
   refetchArgs

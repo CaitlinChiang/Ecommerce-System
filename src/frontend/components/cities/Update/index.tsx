@@ -7,7 +7,7 @@ import { City } from '../../../../types/city'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
 import NumberField from '../../_common/NumberField'
-import { refetchData } from '../../../_utils/refetchData'
+import { refetchData } from '../../../_utils/handleData/refetchData'
 
 const UpdateCity = ({
   _id,

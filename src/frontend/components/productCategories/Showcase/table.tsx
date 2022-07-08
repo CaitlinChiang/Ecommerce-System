@@ -15,7 +15,7 @@ import UpdateProductCategory from '../Update'
 import DeleteButton from '../../_common/DeleteButton'
 import ProductsTableFilters from './tableFilters'
 import CreateProductCategory from '../Create'
-import { fetchMoreArgs } from '../../../_utils/returnFetchMoreArgs'
+import { fetchMoreArgs } from '../../../_utils/handleData/returnFetchMoreArgs'
 
 const ProductCategoriesTable = (): ReactElement => {
   const [args, setArgs] = useState<any>({

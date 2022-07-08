@@ -10,7 +10,7 @@ import { SortDirection } from '../../../../_enums/sortDirection'
 import { UserType } from '../../../../_enums/userType'
 import TableComponent from '../../../_common/TableComponent'
 import DeleteButton from '../../../_common/DeleteButton'
-import { fetchMoreArgs } from '../../../../_utils/returnFetchMoreArgs'
+import { fetchMoreArgs } from '../../../../_utils/handleData/returnFetchMoreArgs'
 
 const CustomersTable = (): ReactElement => {
   const args: any = { type: UserType.CUSTOMER }

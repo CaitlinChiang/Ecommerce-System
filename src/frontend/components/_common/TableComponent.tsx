@@ -18,9 +18,9 @@ import { PaginateDataArgs } from '../../../types/actions/paginateData'
 import { SortDirection } from '../../_enums/sortDirection'
 import ModalComponent from './ModalComponent'
 import SearchField from './SearchField'
-import { searchData } from '../../_utils/searchData'
-import { generateRowsPerPage } from '../../_utils/generateRowsPerPage'
-import { formatProperCapitalization } from '../../_utils/formatProperCapitalization'
+import { searchData } from '../../_utils/handleData/searchData'
+import { generateRowsPerPage } from '../../_utils/handleData/generateRowsPerPage'
+import { formatProperCapitalization } from '../../_utils/handleFormatting/formatProperCapitalization'
 
 const TableComponent = ({
   args,

@@ -13,7 +13,7 @@ import ModalComponent from '../../_common/ModalComponent'
 import UpdatePaymentMethod from '../Update'
 import DeleteButton from '../../_common/DeleteButton'
 import CreatePaymentMethod from '../Create'
-import { fetchMoreArgs } from '../../../_utils/returnFetchMoreArgs'
+import { fetchMoreArgs } from '../../../_utils/handleData/returnFetchMoreArgs'
 
 const PaymentMethodsTable = (): ReactElement => {
   const args: any = {}

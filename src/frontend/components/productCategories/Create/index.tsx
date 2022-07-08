@@ -5,8 +5,8 @@ import { Button } from '@mui/material'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
 import CheckboxField from '../../_common/CheckboxField'
-import { refetchData } from '../../../_utils/refetchData'
-import { clearFields } from '../../../_utils/clearFields'
+import { refetchData } from '../../../_utils/handleData/refetchData'
+import { clearFields } from '../../../_utils/handleFields/clearFields'
 
 const CreateProductCategory = ({
   refetchArgs

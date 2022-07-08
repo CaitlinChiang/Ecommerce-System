@@ -4,7 +4,7 @@ import mutation from './mutation'
 import { Checkbox } from '@mui/material'
 import { ObjectId } from 'mongodb'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
-import { refetchData } from '../../../_utils/refetchData'
+import { refetchData } from '../../../_utils/handleData/refetchData'
 
 const UpdateProductCategoryCheckbox = ({
   _id,
