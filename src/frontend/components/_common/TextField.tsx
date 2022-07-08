@@ -2,8 +2,8 @@ import { ReactElement } from 'react'
 import theme from '../../themes'
 import { TextField } from '@mui/material'
 import { formatProperCapitalization } from '../../_utils/handleFormatting/formatProperCapitalization'
-import { returnError } from '../../_utils/handleData/returnError'
-import { returnHelperText } from '../../_utils/handleData/returnHelperText'
+import { returnError } from '../../_utils/handleArgs/returnError'
+import { returnHelperText } from '../../_utils/handleArgs/returnHelperText'
 
 const Text = ({
   args,

@@ -13,7 +13,7 @@ import ModalComponent from '../../_common/ModalComponent'
 import UpdateCity from '../Update'
 import DeleteButton from '../../_common/DeleteButton'
 import CreateCity from '../Create'
-import { fetchMoreArgs } from '../../../_utils/handleData/returnFetchMoreArgs'
+import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
 
 const CitiesTable = (): ReactElement => {
   const args: any = {}

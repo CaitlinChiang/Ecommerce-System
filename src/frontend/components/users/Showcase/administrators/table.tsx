@@ -12,7 +12,7 @@ import TableComponent from '../../../_common/TableComponent'
 import UpdateUserCheckbox from '../../Update/checkbox'
 import DeleteButton from '../../../_common/DeleteButton'
 import AdministratorsTableFilters from './tableFilters'
-import { fetchMoreArgs } from '../../../../_utils/handleData/returnFetchMoreArgs'
+import { fetchMoreArgs } from '../../../../_utils/handleArgs/returnFetchMoreArgs'
 
 const AdministratorsTable = (): ReactElement => {
   const [args, setArgs] = useState<any>({

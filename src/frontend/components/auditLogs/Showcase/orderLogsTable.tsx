@@ -7,7 +7,7 @@ import { PaginateDataArgs } from '../../../../types/actions/paginateData'
 import { ObjectId } from 'mongodb'
 import { SortDirection } from '../../../_enums/sortDirection'
 import TableComponent from '../../_common/TableComponent'
-import { fetchMoreArgs } from '../../../_utils/handleData/returnFetchMoreArgs'
+import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
 
 const OrderLogsTable = ({ orderId }: { orderId: ObjectId }): ReactElement => {
   const args: any = { orderId }

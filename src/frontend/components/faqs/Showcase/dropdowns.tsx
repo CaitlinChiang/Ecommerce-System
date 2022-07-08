@@ -15,7 +15,7 @@ import ModalComponent from '../../_common/ModalComponent'
 import UpdateFAQ from '../Update'
 import DeleteButton from '../../_common/DeleteButton'
 import CreateFAQ from '../Create'
-import { fetchMoreArgs } from '../../../_utils/handleData/returnFetchMoreArgs'
+import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
 
 const FAQsDropdowns = (): ReactElement => {
   const args: any = {}

@@ -12,7 +12,7 @@ import { SortDirection } from '../../../_enums/sortDirection'
 import TableComponent from '../../_common/TableComponent'
 import DeleteButton from '../../_common/DeleteButton'
 import ProductsTableFilters from './tableFilters'
-import { fetchMoreArgs } from '../../../_utils/handleData/returnFetchMoreArgs'
+import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
 import { formatToPercentage } from '../../../_utils/handleFormatting/formatToPercentage'
 
 const ProductsTable = (): ReactElement => {

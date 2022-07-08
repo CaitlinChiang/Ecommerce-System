@@ -14,7 +14,7 @@ import UpdateOrderSelect from '../../Update/select'
 import UpdatePaymentSelect from '../../../payments/Update/select'
 import DeleteButton from '../../../_common/DeleteButton'
 import OrdersTableFilters from './tableFilters'
-import { fetchMoreArgs } from '../../../../_utils/handleData/returnFetchMoreArgs'
+import { fetchMoreArgs } from '../../../../_utils/handleArgs/returnFetchMoreArgs'
 
 const OrdersTable = (): ReactElement => {
   const [args, setArgs] = useState<any>({

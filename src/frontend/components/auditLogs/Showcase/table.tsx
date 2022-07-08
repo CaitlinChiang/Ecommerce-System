@@ -8,7 +8,7 @@ import { SortDirection } from '../../../_enums/sortDirection'
 import { DateRangeType } from '../../../_enums/dateRangeType'
 import TableComponent from '../../_common/TableComponent'
 import AuditLogsTableFilters from './tableFilters'
-import { fetchMoreArgs } from '../../../_utils/handleData/returnFetchMoreArgs'
+import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
 
 const AuditLogsTable = (): ReactElement => {
   const [args, setArgs] = useState<any>({
