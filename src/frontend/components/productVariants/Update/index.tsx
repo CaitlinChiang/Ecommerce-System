@@ -64,7 +64,7 @@ const UpdateProductVariant = ({ _id }: { _id: string }): ReactElement => {
       console.log('Product successfully updated!')
       router.back()
     },
-    onError: (error) => console.log(error)
+    onError: (error) => console.log(error.message)
   })
 
   return (

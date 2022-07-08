@@ -23,7 +23,7 @@ const UpdateOrderSelect = ({
       console.log('Order Status Updated')
       refetchData(refetchArgs)
     },
-    onError: (error) => console.log(error)
+    onError: (error) => console.log(error.message)
   })
 
   return (

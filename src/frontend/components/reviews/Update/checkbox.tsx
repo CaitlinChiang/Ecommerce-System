@@ -21,7 +21,7 @@ const UpdateReviewCheckbox = ({
       console.log('Update Success')
       refetchData(refetchArgs)
     },
-    onError: (error) => console.log(error)
+    onError: (error) => console.log(error.message)
   })
 
   return (

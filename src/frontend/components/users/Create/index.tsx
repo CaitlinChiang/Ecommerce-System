@@ -34,7 +34,7 @@ const CreateUser = ({ type }: { type: UserType }): ReactElement => {
       console.log('User successfully signed up!')
       router.push('/')
     },
-    onError: (error) => console.log(error)
+    onError: (error) => console.log(error.message)
   })
 
   return (

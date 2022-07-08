@@ -26,7 +26,7 @@ const CreateFAQ = ({
       setValidateFields(false)
       setArgs(clearFields(args))
     },
-    onError: (error) => console.log(error)
+    onError: (error) => console.log(error.message)
   })
 
   return (

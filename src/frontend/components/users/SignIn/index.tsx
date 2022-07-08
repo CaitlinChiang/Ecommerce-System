@@ -23,7 +23,7 @@ const SignInUser = (): ReactElement => {
       console.log('User successfully signed in!')
       router.push('/')
     },
-    onError: (error) => console.log(error)
+    onError: (error) => console.log(error.message)
   })
 
   return (

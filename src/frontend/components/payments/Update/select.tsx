@@ -23,7 +23,7 @@ const UpdatePaymentSelect = ({
       console.log('Payment Status Updated')
       refetchData(refetchArgs)
     },
-    onError: (error) => console.log(error)
+    onError: (error) => console.log(error.message)
   })
 
   return (

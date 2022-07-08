@@ -52,7 +52,7 @@ const UpdateCity = ({
       setValidateFields(false)
       setUpdateModalOpen(false)
     },
-    onError: (error) => console.log(error)
+    onError: (error) => console.log(error.message)
   })
 
   return (

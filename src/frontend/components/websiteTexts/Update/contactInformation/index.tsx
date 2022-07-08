@@ -71,7 +71,7 @@ const UpdateContactInformation = (): ReactElement => {
       setValidateFields(false)
       refetch()
     },
-    onError: (error) => console.log(error)
+    onError: (error) => console.log(error.message)
   })
 
   return (

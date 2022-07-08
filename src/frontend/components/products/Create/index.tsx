@@ -40,7 +40,7 @@ const CreateProduct = (): ReactElement => {
       console.log('Product successfully created!')
       router.back()
     },
-    onError: (error) => console.log(error)
+    onError: (error) => console.log(error.message)
   })
 
   return (
