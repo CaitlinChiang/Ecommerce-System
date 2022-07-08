@@ -14,7 +14,9 @@ export const queryArgs = (args: any): any => {
   } = args
 
   if (paginateData?.searchText) {
-    return { $text: { $search: paginateData.searchText } }
+    const modifiedSearchText = paginateData?.searchText.split('@')[0]
+
+    return { $text: { $search: modifiedSearchText } }
   }
 
   const modifiedArgs: any = { ...queryArgs }
