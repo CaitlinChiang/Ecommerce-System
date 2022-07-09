@@ -2,17 +2,17 @@ import { ReactElement, useState } from 'react'
 import { Alert, Snackbar } from '@mui/material'
 
 const Notification = ({
-  success,
-  message
+  message,
+  success
 }: {
+  message: string
   success: boolean
-  message: { success?: string; error?: string }
 }): ReactElement => {
-  const [open, setOpen] = useState<boolean>(false)
+  const [open, setOpen] = useState<boolean>(true)
 
   return (
     <Snackbar
-      open={open}
+      open={open && success}
       autoHideDuration={6000}
       onClose={(): void => setOpen(false)}
     >
@@ -21,7 +21,7 @@ const Notification = ({
         severity={success ? 'success' : 'error'}
         sx={{ width: '100%' }}
       >
-        {success ? message.success : message.error}
+        {message}
       </Alert>
     </Snackbar>
   )
