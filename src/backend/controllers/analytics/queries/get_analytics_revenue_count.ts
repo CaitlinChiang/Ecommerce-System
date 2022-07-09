@@ -20,7 +20,7 @@ export default async (
     (payment: Payment): { amountDue: number; createdAt: string } => {
       return {
         amountDue: payment.amountDue,
-        createdAt: formatDate(payment.createdAt)
+        createdAt: formatDate(payment.createdAt).slice(0, -5)
       }
     }
   )

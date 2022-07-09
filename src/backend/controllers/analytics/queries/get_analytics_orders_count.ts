@@ -17,7 +17,7 @@ export default async (
     .toArray()
 
   const ordersModifiedDate = orders.map((order: Order): string => {
-    return formatDate(order.createdAt)
+    return formatDate(order.createdAt).slice(0, -5)
   })
 
   const analyticsOrdersCount: AnalyticsOrdersCount[] = []
