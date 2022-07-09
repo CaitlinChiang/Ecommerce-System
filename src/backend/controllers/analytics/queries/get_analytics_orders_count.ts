@@ -1,7 +1,9 @@
 import { Context } from '../../../../types/setup/context'
 import { AnalyticsOrdersCount, GetAnalyticsArgs } from '../../../../types/analytics'
+import { Order } from '../../../../types/order'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { queryArgs } from '../../../_utils/handleArgs/returnQueryArgs'
+import { formatDate } from '../../../_utils/handleDates/formatDate'
 
 export default async (
   _root: undefined,
@@ -10,31 +12,25 @@ export default async (
 ): Promise<AnalyticsOrdersCount[]> => {
   authenticateUser({ admin: true }, context)
 
-  const pipeline = [
-    {
-      $match: queryArgs(args)
-    },
-    {
-      $dateToString: {
-        date: '$createdAt',
-        format: '%m-%d-%Y'
-      }
-    },
-    {
-      $group: {
-        _id: { date: '$createdAt' },
-        orders: { $sum: 1 }
-      }
-    },
-    {
-      $project: {
-        date: '$_id',
-        orders: '$orders'
-      }
-    }
-  ]
+  const orders: Order[] = await context.database.orders
+    .find(queryArgs(args))
+    .toArray()
 
-  const analyticsOrdersCount: any = await context.database.orders.aggregate(pipeline)
+  const ordersModifiedDate = orders.map((order: Order): string => {
+    return formatDate(order.createdAt)
+  })
+
+  const analyticsOrdersCount: AnalyticsOrdersCount[] = []
+
+  ordersModifiedDate.forEach((orderDate: string): void => {
+    const exists = analyticsOrdersCount.find((res) => res.date === orderDate)
+
+    if (exists) {
+      exists.orders += 1
+    } else {
+      analyticsOrdersCount.push({ date: orderDate, orders: 1 })
+    }
+  })
 
   return analyticsOrdersCount
 }
