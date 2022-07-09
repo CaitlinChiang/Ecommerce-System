@@ -85,6 +85,8 @@ const CreateProduct = (): ReactElement => {
       <ImageUploader
         alt={'Product Photo'}
         args={args}
+        error={validateFields}
+        required={true}
         setArgs={setArgs}
         targetProp={'image'}
       />

@@ -1,14 +1,18 @@
 import { ReactElement, useState, useEffect } from 'react'
-import { Box, Button } from '@mui/material'
+import { Box, Button, FormHelperText } from '@mui/material'
 
 const ImageUploader = ({
   alt,
   args,
+  error,
+  required,
   setArgs,
   targetProp
 }: {
   alt: string
   args: any
+  error?: boolean
+  required?: boolean
   setArgs: React.Dispatch<React.SetStateAction<any>>
   targetProp: string
 }): ReactElement => {
@@ -37,6 +41,13 @@ const ImageUploader = ({
         <input type='file' accept='image/*' onChange={uploadImage} />
         {'Upload Product Photo'}
       </Button>
+      {required && error && !args?.[targetProp] && (
+        <>
+          <FormHelperText sx={{ color: 'red' }}>
+            {'Product Photo is a required field.'}
+          </FormHelperText>
+        </>
+      )}
       {imageUrl && (
         <Box
           component='img'
