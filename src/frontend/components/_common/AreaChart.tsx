@@ -8,6 +8,26 @@ import {
   Tooltip,
   ResponsiveContainer
 } from 'recharts'
+import { formatProperCapitalization } from '../../_utils/handleFormatting/formatProperCapitalization'
+
+const CustomTooltip = ({ active, payload, label, yAxisDataKey }: any) => {
+  if (active && payload && payload.length) {
+    const revenueSign = yAxisDataKey === 'revenue' ? 'P' : ''
+    const value =
+      yAxisDataKey === 'revenue' ? payload[0].value.toFixed(2) : payload[0].value
+    const valueDisplay =
+      `${formatProperCapitalization(yAxisDataKey)}: ` + revenueSign + value
+
+    return (
+      <div>
+        <p>{`Date: ${formatProperCapitalization(label)}`}</p>
+        <p>{valueDisplay}</p>
+      </div>
+    )
+  }
+
+  return null
+}
 
 const AreaChartTemplate = ({
   data,
@@ -25,7 +45,7 @@ const AreaChartTemplate = ({
           <CartesianGrid strokeDasharray='3 3' />
           <XAxis dataKey={xAxisDataKey} />
           <YAxis />
-          <Tooltip />
+          <Tooltip content={<CustomTooltip yAxisDataKey={yAxisDataKey} />} />
           <Area
             type='monotone'
             dataKey={yAxisDataKey}
