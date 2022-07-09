@@ -1,9 +1,10 @@
-import { ReactElement } from 'react'
+import { ReactElement, useState } from 'react'
 import { useMutation } from '@apollo/client'
 import mutation from './mutation'
 import { Checkbox } from '@mui/material'
 import { ObjectId } from 'mongodb'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
+import Notification from '../../_common/Notification'
 import { refetchData } from '../../../_utils/handleData/refetchData'
 
 const UpdateUserCheckbox = ({
@@ -15,21 +16,32 @@ const UpdateUserCheckbox = ({
   active: boolean
   refetchArgs: RefetchDataArgs
 }): ReactElement => {
+  const [notification, setNotification] = useState<any>({
+    message: null,
+    success: null
+  })
+
   const [updateMutation, updateMutationState] = useMutation(mutation, {
     variables: { _id, active: !active },
     onCompleted: () => {
-      console.log('Update Success')
+      setNotification({
+        message: 'User successfully updated!',
+        success: true
+      })
       refetchData(refetchArgs)
     },
-    onError: (error) => console.log(error.message)
+    onError: (error) => setNotification({ message: error.message, success: false })
   })
 
   return (
-    <Checkbox
-      checked={active}
-      disabled={updateMutationState.loading}
-      onChange={() => updateMutation()}
-    />
+    <>
+      <Checkbox
+        checked={active}
+        disabled={updateMutationState.loading}
+        onChange={() => updateMutation()}
+      />
+      <Notification message={notification.message} success={notification.success} />
+    </>
   )
 }
 

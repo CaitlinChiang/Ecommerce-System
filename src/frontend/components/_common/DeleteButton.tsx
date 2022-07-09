@@ -1,7 +1,8 @@
-import { ReactElement } from 'react'
+import { ReactElement, useState } from 'react'
 import { useMutation } from '@apollo/client'
 import { IconButton } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
+import Notification from './Notification'
 import { ObjectId } from 'mongodb'
 import { PaginateDataArgs } from '../../../types/actions/paginateData'
 import { RefetchDataArgs } from '../../../types/actions/refetchData'
@@ -20,26 +21,37 @@ const DeleteButton = ({
   refetchArgs: RefetchDataArgs
   setPaginateDataArgs: React.Dispatch<React.SetStateAction<PaginateDataArgs>>
 }): ReactElement => {
+  const [notification, setNotification] = useState<any>({
+    message: null,
+    success: null
+  })
   const [deleteMutation, deleteMutationState] = useMutation(mutation, {
     variables: { _id },
     onCompleted: () => {
-      console.log(label + ' successfully deleted!')
+      setNotification({
+        message: label + ' has been successfully deleted.',
+        success: true
+      })
       refetchData(refetchArgs)
-
       if (refetchArgs.count % refetchArgs.paginateDataArgs.rowsPerPage == 1) {
         setPaginateDataArgs({ ...refetchArgs.paginateDataArgs, page: 0 })
       }
     },
-    onError: (error) => console.log(error.message)
+    onError: (error) => {
+      setNotification({ message: error.message, success: false })
+    }
   })
 
   return (
-    <IconButton
-      onClick={() => deleteMutation()}
-      disabled={deleteMutationState.loading}
-    >
-      <DeleteIcon />
-    </IconButton>
+    <>
+      <IconButton
+        onClick={() => deleteMutation()}
+        disabled={deleteMutationState.loading}
+      >
+        <DeleteIcon />
+      </IconButton>
+      <Notification message={notification.message} success={notification.success} />
+    </>
   )
 }
 

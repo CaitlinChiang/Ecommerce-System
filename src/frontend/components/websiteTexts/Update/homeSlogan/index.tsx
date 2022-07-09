@@ -8,6 +8,7 @@ import { WebsiteText } from '../../../../../types/websiteText'
 import { WebsiteTextId } from '../../../../_enums/websiteTextId'
 import { WebsiteTextType } from '../../../../_enums/websiteTextType'
 import Text from '../../../_common/TextField'
+import Notification from '../../../_common/Notification'
 import { correctArgs } from '../../../../_utils/handleArgs/correctArgs'
 
 const UpdateHomeSlogan = (): ReactElement => {
@@ -17,6 +18,10 @@ const UpdateHomeSlogan = (): ReactElement => {
     type: null
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
+  const [notification, setNotification] = useState<any>({
+    message: null,
+    success: null
+  })
 
   const { data, refetch } = useQuery(query, {
     variables: { type: WebsiteTextType.HOME_SLOGAN }
@@ -35,11 +40,14 @@ const UpdateHomeSlogan = (): ReactElement => {
   const [updateMutation, updateMutationState] = useMutation(mutation, {
     variables: correctArgs(args),
     onCompleted: () => {
-      console.log('Update Success')
+      setNotification({
+        message: 'Home page slogan successfully updated!',
+        success: true
+      })
       setValidateFields(false)
       refetch()
     },
-    onError: (error) => console.log(error.message)
+    onError: (error) => setNotification({ message: error.message, success: false })
   })
 
   return (
@@ -63,6 +71,7 @@ const UpdateHomeSlogan = (): ReactElement => {
       >
         {'Save Changes'}
       </Button>
+      <Notification message={notification.message} success={notification.success} />
     </>
   )
 }

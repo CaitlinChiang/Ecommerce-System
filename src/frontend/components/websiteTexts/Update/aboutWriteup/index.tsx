@@ -9,6 +9,7 @@ import { WebsiteTextId } from '../../../../_enums/websiteTextId'
 import { WebsiteTextType } from '../../../../_enums/websiteTextType'
 import Text from '../../../_common/TextField'
 import { correctArgs } from '../../../../_utils/handleArgs/correctArgs'
+import Notification from '../../../_common/Notification'
 
 const UpdateAboutWriteup = (): ReactElement => {
   const [args, setArgs] = useState<any>({
@@ -17,6 +18,10 @@ const UpdateAboutWriteup = (): ReactElement => {
     type: null
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
+  const [notification, setNotification] = useState<any>({
+    message: null,
+    success: null
+  })
 
   const { data, refetch } = useQuery(query, {
     variables: { type: WebsiteTextType.ABOUT_WRITEUP }
@@ -35,7 +40,10 @@ const UpdateAboutWriteup = (): ReactElement => {
   const [updateMutation, updateMutationState] = useMutation(mutation, {
     variables: correctArgs(args),
     onCompleted: () => {
-      console.log('Update Success')
+      setNotification({
+        message: 'About page write-up successfully updated!',
+        success: true
+      })
       setValidateFields(false)
       refetch()
     },
@@ -64,6 +72,7 @@ const UpdateAboutWriteup = (): ReactElement => {
       >
         {'Save Changes'}
       </Button>
+      <Notification message={notification.message} success={notification.success} />
     </>
   )
 }

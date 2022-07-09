@@ -5,6 +5,7 @@ import { Button } from '@mui/material'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
 import CheckboxField from '../../_common/CheckboxField'
+import Notification from '../../_common/Notification'
 import { refetchData } from '../../../_utils/handleData/refetchData'
 import { clearFields } from '../../../_utils/handleFields/clearFields'
 
@@ -18,16 +19,23 @@ const CreateProductCategory = ({
     showPublic: false
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
+  const [notification, setNotification] = useState<any>({
+    message: null,
+    success: null
+  })
 
   const [createMutation, createMutationState] = useMutation(mutation, {
     variables: args,
     onCompleted: () => {
-      console.log('Product category successfully created!')
+      setNotification({
+        message: 'Product category successfully created!',
+        success: true
+      })
       refetchData(refetchArgs)
       setValidateFields(false)
       setArgs(clearFields(args))
     },
-    onError: (error) => console.log(error.message)
+    onError: (error) => setNotification({ message: error.message, success: false })
   })
 
   return (
@@ -50,6 +58,7 @@ const CreateProductCategory = ({
       >
         {'Create'}
       </Button>
+      <Notification message={notification.message} success={notification.success} />
     </>
   )
 }

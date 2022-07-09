@@ -7,6 +7,7 @@ import { ProductCategory } from '../../../../types/productCategory'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
 import CheckboxField from '../../_common/CheckboxField'
+import Notification from '../../_common/Notification'
 import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
 import { refetchData } from '../../../_utils/handleData/refetchData'
 
@@ -25,6 +26,10 @@ const UpdateProductCategory = ({
     showPublic: null
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
+  const [notification, setNotification] = useState<any>({
+    message: null,
+    success: null
+  })
 
   const { data } = useQuery(querySingular, {
     variables: { _id }
@@ -43,12 +48,15 @@ const UpdateProductCategory = ({
   const [updateMutation, updateMutationState] = useMutation(mutation, {
     variables: correctArgs(args),
     onCompleted: () => {
-      console.log('Product category successfully updated!')
+      setNotification({
+        message: 'Product category successfully updated!',
+        success: true
+      })
       refetchData(refetchArgs)
       setValidateFields(false)
       setUpdateModalOpen(false)
     },
-    onError: (error) => console.log(error.message)
+    onError: (error) => setNotification({ message: error.message, success: false })
   })
 
   return (
@@ -74,6 +82,7 @@ const UpdateProductCategory = ({
       >
         {'Save Changes'}
       </Button>
+      <Notification message={notification.message} success={notification.success} />
     </>
   )
 }

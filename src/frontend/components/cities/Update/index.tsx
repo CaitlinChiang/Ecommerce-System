@@ -7,6 +7,7 @@ import { City } from '../../../../types/city'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
 import NumberField from '../../_common/NumberField'
+import Notification from '../../_common/Notification'
 import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
 import { formatFee } from '../../../_utils/handleFormatting/formatFee'
 import { refetchData } from '../../../_utils/handleData/refetchData'
@@ -26,6 +27,10 @@ const UpdateCity = ({
     shippingFee: null
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
+  const [notification, setNotification] = useState<any>({
+    message: null,
+    success: null
+  })
 
   const { data } = useQuery(querySingular, {
     variables: { _id }
@@ -47,12 +52,17 @@ const UpdateCity = ({
       shippingFee: formatFee(args?.shippingFee)
     },
     onCompleted: () => {
-      console.log('City & shipping fee successfully updated!')
+      setNotification({
+        message: 'City & shipping fee successfully updated!',
+        success: true
+      })
       refetchData(refetchArgs)
       setValidateFields(false)
       setUpdateModalOpen(false)
     },
-    onError: (error) => console.log(error.message)
+    onError: (error) => {
+      setNotification({ message: error.message, success: false })
+    }
   })
 
   return (
@@ -84,6 +94,7 @@ const UpdateCity = ({
       >
         {'Save Changes'}
       </Button>
+      <Notification message={notification.message} success={notification.success} />
     </>
   )
 }

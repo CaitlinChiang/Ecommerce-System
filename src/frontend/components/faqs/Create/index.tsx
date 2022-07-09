@@ -4,6 +4,7 @@ import mutation from './mutation'
 import { Button } from '@mui/material'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
+import Notification from '../../_common/Notification'
 import { refetchData } from '../../../_utils/handleData/refetchData'
 import { clearFields } from '../../../_utils/handleFields/clearFields'
 
@@ -17,16 +18,25 @@ const CreateFAQ = ({
     question: null
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
+  const [notification, setNotification] = useState<any>({
+    message: null,
+    success: null
+  })
 
   const [createMutation, createMutationState] = useMutation(mutation, {
     variables: args,
     onCompleted: () => {
-      console.log('FAQ successfully created!')
+      setNotification({
+        message: 'FAQ successfully created!',
+        success: true
+      })
       refetchData(refetchArgs)
       setValidateFields(false)
       setArgs(clearFields(args))
     },
-    onError: (error) => console.log(error.message)
+    onError: (error) => {
+      setNotification({ message: error.message, success: false })
+    }
   })
 
   return (
@@ -54,6 +64,7 @@ const CreateFAQ = ({
       >
         {'Create'}
       </Button>
+      <Notification message={notification.message} success={notification.success} />
     </>
   )
 }

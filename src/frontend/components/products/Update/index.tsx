@@ -10,6 +10,7 @@ import DatePickerField from '../../_common/DatePickerField'
 import CheckboxField from '../../_common/CheckboxField'
 import NumberField from '../../_common/NumberField'
 import ImageUploader from '../../_common/ImageUploader'
+import Notification from '../../_common/Notification'
 import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
 import { formatFee } from '../../../_utils/handleFormatting/formatFee'
 import { formatFromPercentage } from '../../../_utils/handleFormatting/formatFromPercentage'
@@ -31,6 +32,10 @@ const UpdateProduct = ({ _id }: { _id: string }): ReactElement => {
     stockQuantity: null
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
+  const [notification, setNotification] = useState<any>({
+    message: null,
+    success: null
+  })
 
   const { data, refetch } = useQuery(querySingular, {
     variables: { _id }
@@ -62,10 +67,13 @@ const UpdateProduct = ({ _id }: { _id: string }): ReactElement => {
       stockQuantity: args?.stockQuantity ? Math.round(args.stockQuantity) : null
     },
     onCompleted: () => {
-      console.log('Product successfully updated!')
+      setNotification({
+        message: 'Product successfully updated!',
+        success: true
+      })
       refetch()
     },
-    onError: (error) => console.log(error.message)
+    onError: (error) => setNotification({ message: error.message, success: false })
   })
 
   return (
@@ -126,6 +134,7 @@ const UpdateProduct = ({ _id }: { _id: string }): ReactElement => {
       >
         {'Save Changes'}
       </Button>
+      <Notification message={notification.message} success={notification.success} />
     </>
   )
 }

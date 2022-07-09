@@ -5,6 +5,7 @@ import { Button } from '@mui/material'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
 import NumberField from '../../_common/NumberField'
+import Notification from '../../_common/Notification'
 import { formatFee } from '../../../_utils/handleFormatting/formatFee'
 import { refetchData } from '../../../_utils/handleData/refetchData'
 import { clearFields } from '../../../_utils/handleFields/clearFields'
@@ -19,6 +20,10 @@ const CreateCity = ({
     shippingFee: null
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
+  const [notification, setNotification] = useState<any>({
+    message: null,
+    success: null
+  })
 
   const [createMutation, createMutationState] = useMutation(mutation, {
     variables: {
@@ -26,12 +31,15 @@ const CreateCity = ({
       shippingFee: formatFee(args?.shippingFee)
     },
     onCompleted: () => {
-      console.log('City & shipping fee successfully created!')
+      setNotification({
+        message: 'City & shipping fee successfully created!',
+        success: true
+      })
       refetchData(refetchArgs)
       setValidateFields(false)
       setArgs(clearFields(args))
     },
-    onError: (error) => console.log(error.message)
+    onError: (error) => setNotification({ message: error.message, success: false })
   })
 
   return (
@@ -60,6 +68,7 @@ const CreateCity = ({
       >
         {'Create'}
       </Button>
+      <Notification message={notification.message} success={notification.success} />
     </>
   )
 }

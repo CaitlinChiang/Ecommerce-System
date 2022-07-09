@@ -6,6 +6,7 @@ import { Button, Typography } from '@mui/material'
 import { FAQ } from '../../../../types/faq'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
+import Notification from '../../_common/Notification'
 import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
 import { refetchData } from '../../../_utils/handleData/refetchData'
 
@@ -24,6 +25,10 @@ const UpdateFAQ = ({
     question: null
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
+  const [notification, setNotification] = useState<any>({
+    message: null,
+    success: null
+  })
 
   const { data } = useQuery(querySingular, {
     variables: { _id }
@@ -42,12 +47,17 @@ const UpdateFAQ = ({
   const [updateMutation, updateMutationState] = useMutation(mutation, {
     variables: correctArgs(args),
     onCompleted: () => {
-      console.log('FAQ successfully updated!')
+      setNotification({
+        message: 'FAQ successfully updated!',
+        success: true
+      })
       refetchData(refetchArgs)
       setValidateFields(false)
       setUpdateModalOpen(false)
     },
-    onError: (error) => console.log(error.message)
+    onError: (error) => {
+      setNotification({ message: error.message, success: false })
+    }
   })
 
   return (
@@ -79,6 +89,7 @@ const UpdateFAQ = ({
       >
         {'Save Changes'}
       </Button>
+      <Notification message={notification.message} success={notification.success} />
     </>
   )
 }

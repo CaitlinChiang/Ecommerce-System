@@ -11,6 +11,7 @@ import DatePickerField from '../../_common/DatePickerField'
 import CheckboxField from '../../_common/CheckboxField'
 import NumberField from '../../_common/NumberField'
 import ImageUploader from '../../_common/ImageUploader'
+import Notification from '../../_common/Notification'
 import { formatFee } from '../../../_utils/handleFormatting/formatFee'
 import { formatFromPercentage } from '../../../_utils/handleFormatting/formatFromPercentage'
 import { formatToPercentage } from '../../../_utils/handleFormatting/formatToPercentage'
@@ -34,6 +35,10 @@ const CreateProductVariant = ({
     stockQuantity: null
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
+  const [notification, setNotification] = useState<any>({
+    message: null,
+    success: null
+  })
 
   const { data } = useQuery(querySingular, {
     variables: { _id: _productId }
@@ -57,10 +62,13 @@ const CreateProductVariant = ({
       stockQuantity: args?.stockQuantity ? Math.round(args.stockQuantity) : null
     },
     onCompleted: () => {
-      console.log('Product successfully created!')
+      setNotification({
+        message: 'Product successfully created!',
+        success: true
+      })
       router.back()
     },
-    onError: (error) => console.log(error.message)
+    onError: (error) => setNotification({ message: error.message, success: false })
   })
 
   return (
@@ -111,6 +119,7 @@ const CreateProductVariant = ({
       >
         {'Create'}
       </Button>
+      <Notification message={notification.message} success={notification.success} />
     </>
   )
 }

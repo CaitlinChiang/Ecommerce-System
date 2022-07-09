@@ -8,6 +8,7 @@ import { WebsiteText } from '../../../../../types/websiteText'
 import { WebsiteTextId } from '../../../../_enums/websiteTextId'
 import { WebsiteTextType } from '../../../../_enums/websiteTextType'
 import Text from '../../../_common/TextField'
+import Notification from '../../../_common/Notification'
 
 const UpdateContactInformation = (): ReactElement => {
   const [args, setArgs] = useState<any>({
@@ -17,6 +18,10 @@ const UpdateContactInformation = (): ReactElement => {
     phoneNumber: null
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
+  const [notification, setNotification] = useState<any>({
+    message: null,
+    success: null
+  })
 
   const { data, refetch } = useQuery(query, {
     variables: { type: WebsiteTextType.CONTACT_INFORMATION }
@@ -67,11 +72,14 @@ const UpdateContactInformation = (): ReactElement => {
       type: WebsiteTextType.CONTACT_INFORMATION
     },
     onCompleted: () => {
-      console.log('Update Success')
+      setNotification({
+        message: 'Contact information successfully updated!',
+        success: true
+      })
       setValidateFields(false)
       refetch()
     },
-    onError: (error) => console.log(error.message)
+    onError: (error) => setNotification({ message: error.message, success: false })
   })
 
   return (
@@ -102,6 +110,7 @@ const UpdateContactInformation = (): ReactElement => {
       >
         {'Save Changes'}
       </Button>
+      <Notification message={notification.message} success={notification.success} />
     </>
   )
 }

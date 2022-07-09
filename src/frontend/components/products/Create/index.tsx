@@ -9,6 +9,7 @@ import DatePickerField from '../../_common/DatePickerField'
 import CheckboxField from '../../_common/CheckboxField'
 import NumberField from '../../_common/NumberField'
 import ImageUploader from '../../_common/ImageUploader'
+import Notification from '../../_common/Notification'
 import { formatFee } from '../../../_utils/handleFormatting/formatFee'
 import { formatFromPercentage } from '../../../_utils/handleFormatting/formatFromPercentage'
 
@@ -28,6 +29,10 @@ const CreateProduct = (): ReactElement => {
     stockQuantity: null
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
+  const [notification, setNotification] = useState<any>({
+    message: null,
+    success: null
+  })
 
   const [createMutation, createMutationState] = useMutation(mutation, {
     variables: {
@@ -37,10 +42,13 @@ const CreateProduct = (): ReactElement => {
       stockQuantity: args?.stockQuantity ? Math.round(args.stockQuantity) : null
     },
     onCompleted: () => {
-      console.log('Product successfully created!')
+      setNotification({
+        message: 'Product successfully created!',
+        success: true
+      })
       router.back()
     },
-    onError: (error) => console.log(error.message)
+    onError: (error) => setNotification({ message: error.message, success: false })
   })
 
   return (
@@ -99,6 +107,7 @@ const CreateProduct = (): ReactElement => {
       >
         {'Create'}
       </Button>
+      <Notification message={notification.message} success={notification.success} />
     </>
   )
 }
