@@ -60,9 +60,7 @@ const UpdateCity = ({
       setValidateFields(false)
       setUpdateModalOpen(false)
     },
-    onError: (error) => {
-      setNotification({ message: error.message, success: false })
-    }
+    onError: (error) => setNotification({ message: error.message, success: false })
   })
 
   return (

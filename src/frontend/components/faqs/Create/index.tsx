@@ -34,9 +34,7 @@ const CreateFAQ = ({
       setValidateFields(false)
       setArgs(clearFields(args))
     },
-    onError: (error) => {
-      setNotification({ message: error.message, success: false })
-    }
+    onError: (error) => setNotification({ message: error.message, success: false })
   })
 
   return (

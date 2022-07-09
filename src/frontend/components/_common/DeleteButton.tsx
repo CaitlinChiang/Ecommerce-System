@@ -37,9 +37,7 @@ const DeleteButton = ({
         setPaginateDataArgs({ ...refetchArgs.paginateDataArgs, page: 0 })
       }
     },
-    onError: (error) => {
-      setNotification({ message: error.message, success: false })
-    }
+    onError: (error) => setNotification({ message: error.message, success: false })
   })
 
   return (
