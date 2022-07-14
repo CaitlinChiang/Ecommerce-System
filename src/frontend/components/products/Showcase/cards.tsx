@@ -19,7 +19,7 @@ const ProductsCards = ({ featured }: { featured: boolean }): ReactElement => {
 
   const [args, setArgs] = useState<any>({
     categoryIds: [],
-    featured,
+    featured: featured ? true : null,
     showPublic: true,
     stockQuantity: {
       operator: StockQuantityOperator.ABOVE,
