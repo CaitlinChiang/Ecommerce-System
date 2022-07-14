@@ -40,7 +40,7 @@ extend type Mutation {
   ): User
 
   update_user(
-    _id: ID!
+    _id: ID
     active: Boolean
     deliveryAddress: DeliveryAddressInput
     email: String

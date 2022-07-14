@@ -2,10 +2,12 @@ import { gql } from '@apollo/client'
 
 export default gql`
   mutation (
-    $_id: ID!
+    $_id: ID
     $active: Boolean
     $deliveryAddress: DeliveryAddressInput
     $email: String
+    $firstName: String
+    $lastName: String
     $password: String
     $phoneNumber: String
   ) {
@@ -14,6 +16,8 @@ export default gql`
       active: $active
       deliveryAddress: $deliveryAddress
       email: $email
+      firstName: $firstName
+      lastName: $lastName
       password: $password
       phoneNumber: $phoneNumber
     ) {

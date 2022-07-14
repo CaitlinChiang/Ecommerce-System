@@ -52,6 +52,8 @@ export interface UpdateUserArgs {
   active?: boolean
   deliveryAddress?: DeliveryAddress
   email?: string
+  firstName?: string
+  lastName?: string
   password?: string
   phoneNumber?: string
   updatedAt?: Date
