@@ -69,36 +69,38 @@ const ProductsCards = ({ featured }: { featured: boolean }): ReactElement => {
     })
   }, [args, data, paginateDataArgs])
 
+  const productCards = [
+    products?.map((product: Product): ReactElement => {
+      return (
+        <CardComponent
+          content={
+            <>
+              <Typography variant={'h5'}>{product?.name}</Typography>
+              <Typography variant={'h6'}>
+                {formatDiscountedPrice(product?.discount, product?.price)}
+              </Typography>
+              {product?.discount ? (
+                <Typography variant={'h6'}>
+                  {'P' + product?.price?.toFixed(2)}
+                  {' -'}
+                  {formatToPercentage(product?.discount)}
+                </Typography>
+              ) : (
+                <div style={{ marginTop: '32px' }} />
+              )}
+            </>
+          }
+          imageAlt={product?.name + ' Product Image'}
+          imageSource={product?.imageUrl}
+        />
+      )
+    })
+  ]
+
   return (
     <>
-      <Typography variant={'h4'}>{`${
-        featured ? 'Featured ' : ''
-      } Products`}</Typography>
-      {products?.map((product: Product): ReactElement => {
-        return (
-          <CardComponent
-            content={
-              <>
-                <Typography variant={'h5'}>{product?.name}</Typography>
-                <Typography variant={'h6'}>
-                  {formatDiscountedPrice(product?.discount, product?.price)}
-                </Typography>
-                {product?.discount ? (
-                  <Typography variant={'h6'}>
-                    {'P' + product?.price?.toFixed(2)}
-                    {' -'}
-                    {formatToPercentage(product?.discount)}
-                  </Typography>
-                ) : (
-                  <div style={{ marginTop: '32px' }} />
-                )}
-              </>
-            }
-            imageAlt={product?.name + ' Product Image'}
-            imageSource={product?.imageUrl}
-          />
-        )
-      })}
+      {featured && <Typography variant={'h4'}>{'Featured Products'}</Typography>}
+      {productCards}
     </>
   )
 }

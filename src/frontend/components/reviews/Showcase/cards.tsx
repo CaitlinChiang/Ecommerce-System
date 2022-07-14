@@ -53,26 +53,28 @@ const ReviewsCards = ({ featured }: { featured: boolean }): ReactElement => {
     })
   }, [args, data, paginateDataArgs])
 
+  const reviewCards = [
+    reviews?.map((review: Review): ReactElement => {
+      return (
+        <CardComponent
+          content={
+            <>
+              <Typography sx={{ fontSize: 20 }}>{`"${review?.content}"`}</Typography>
+              <br />
+              <Typography sx={{ fontSize: 18 }}>
+                {'- ' + review?.username}
+              </Typography>
+            </>
+          }
+        />
+      )
+    })
+  ]
+
   return (
     <>
-      <Typography variant={'h4'}>{'Customer Reviews'}</Typography>
-      {reviews?.map((review: Review): ReactElement => {
-        return (
-          <CardComponent
-            content={
-              <>
-                <Typography
-                  sx={{ fontSize: 20 }}
-                >{`"${review?.content}"`}</Typography>
-                <br />
-                <Typography sx={{ fontSize: 18 }}>
-                  {'- ' + review?.username}
-                </Typography>
-              </>
-            }
-          />
-        )
-      })}
+      {featured && <Typography variant={'h4'}>{'Customer Reviews'}</Typography>}
+      {reviewCards}
     </>
   )
 }
