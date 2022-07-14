@@ -74,7 +74,6 @@ const ProductsCards = ({ featured }: { featured: boolean }): ReactElement => {
       <Typography variant={'h4'}>{`${
         featured ? 'Featured ' : ''
       } Products`}</Typography>
-      <div style={{ marginTop: '50px' }} />
       {products?.map((product: Product): ReactElement => {
         return (
           <CardComponent
