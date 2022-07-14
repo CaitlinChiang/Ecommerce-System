@@ -37,7 +37,7 @@ export default (
       title,
       backRoute,
       wide
-    }: { title: string; backRoute?: boolean; wide?: boolean }
+    }: { title?: string; backRoute?: boolean; wide?: boolean }
   ) =>
   (): FunctionComponent | NextPage | ReactElement => {
     const [open, setOpen] = useState(false)
@@ -57,7 +57,7 @@ export default (
           permanent={true}
           user={user}
         />
-        <Header pageTitle={title} backRoute={backRoute} />
+        {title && <Header pageTitle={title} backRoute={backRoute} />}
         <div
           className={
             wide
