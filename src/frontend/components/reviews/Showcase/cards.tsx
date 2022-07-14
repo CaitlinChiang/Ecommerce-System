@@ -1,13 +1,12 @@
-import { ReactElement, useState, useEffect } from 'react'
+import { ReactElement, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import query from './query'
 import { Typography } from '@mui/material'
 import { Review } from '../../../../types/review'
 import { PaginateDataArgs } from '../../../../types/actions/paginateData'
-import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import { SortDirection } from '../../../_enums/sortDirection'
 import CardComponent from '../../_common/CardComponent'
-// import ReviewsCardsFilters from './cardsFilters'
+import CardsPaginationComponent from '../../../components/_common/CardsPaginationComponent'
 import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
 
 const ReviewsCards = ({ featured }: { featured: boolean }): ReactElement => {
@@ -19,15 +18,7 @@ const ReviewsCards = ({ featured }: { featured: boolean }): ReactElement => {
     sortBy: 'createdAt',
     sortDirection: SortDirection.DESC
   })
-  const [refetchArgs, setRefetchArgs] = useState<RefetchDataArgs>({
-    args: null,
-    count: null,
-    loading: false,
-    paginateDataArgs: null,
-    refetch: null
-  })
-
-  const { data, loading, fetchMore, refetch } = useQuery(query, {
+  const { data, loading, fetchMore } = useQuery(query, {
     variables: {
       ...args,
       paginateData: {
@@ -42,16 +33,6 @@ const ReviewsCards = ({ featured }: { featured: boolean }): ReactElement => {
 
   const reviews = data?.get_reviews || []
   const reviewsCount: number = data?.get_reviews_count || 0
-
-  useEffect(() => {
-    setRefetchArgs({
-      args,
-      count: reviewsCount,
-      loading,
-      paginateDataArgs,
-      refetch
-    })
-  }, [args, data, paginateDataArgs])
 
   const reviewCards = [
     reviews?.map((review: Review): ReactElement => {
@@ -74,6 +55,16 @@ const ReviewsCards = ({ featured }: { featured: boolean }): ReactElement => {
   return (
     <>
       {featured && <Typography variant={'h4'}>{'Customer Reviews'}</Typography>}
+      {featured && (
+        <CardsPaginationComponent
+          args={args}
+          count={reviewsCount}
+          fetchMore={fetchMore}
+          loading={loading}
+          paginateDataArgs={paginateDataArgs}
+          setPaginateDataArgs={setPaginateDataArgs}
+        />
+      )}
       {reviewCards}
     </>
   )
