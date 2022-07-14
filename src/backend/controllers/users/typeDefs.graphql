@@ -44,6 +44,8 @@ extend type Mutation {
     active: Boolean
     deliveryAddress: DeliveryAddressInput
     email: String
+    firstName: String
+    lastName: String
     password: String
     phoneNumber: String
   ): User
