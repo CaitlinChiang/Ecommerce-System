@@ -25,7 +25,12 @@ export default {
             )
           }
 
-          return { product, productVariant, quantity: item?.quantity }
+          return {
+            product,
+            productVariant,
+            quantity: item?.quantity,
+            totalPrice: parseFloat(Number(item?.totalPrice).toFixed(2))
+          }
         }
       )
       return items
