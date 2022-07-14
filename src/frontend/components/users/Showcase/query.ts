@@ -4,6 +4,11 @@ export const querySingular = gql`
   query ($_id: ID) {
     get_user(_id: $_id) {
       _id
+      deliveryAddress
+      email
+      firstName
+      lastName
+      phoneNumber
     }
   }
 `
@@ -13,9 +18,9 @@ export const queryMultiple = gql`
     get_users(active: $active, paginateData: $paginateData, type: $type) {
       _id
       active
+      email
       firstName
       lastName
-      email
       phoneNumber
       createdAt
     }
