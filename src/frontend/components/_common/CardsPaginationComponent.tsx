@@ -44,21 +44,23 @@ const CardsPaginationComponent = ({
 
   return (
     <>
-      <SearchField
-        onKeyDown={(e): void => {
-          if (e.key === 'Enter') {
+      {searchLabel && (
+        <SearchField
+          onKeyDown={(e): void => {
+            if (e.key === 'Enter') {
+              searchData(args, fetchMore, loading, paginateDataArgs)
+            }
+          }}
+          onSearch={(): void => {
             searchData(args, fetchMore, loading, paginateDataArgs)
-          }
-        }}
-        onSearch={(): void => {
-          searchData(args, fetchMore, loading, paginateDataArgs)
-        }}
-        searchButtonDisabled={loading}
-        searchLabel={searchLabel}
-        searchPlaceholder={searchPlaceholder}
-        searchText={searchText}
-        setPaginateDataArgs={setPaginateDataArgs}
-      />
+          }}
+          searchButtonDisabled={loading}
+          searchLabel={searchLabel}
+          searchPlaceholder={searchPlaceholder}
+          searchText={searchText}
+          setPaginateDataArgs={setPaginateDataArgs}
+        />
+      )}
       {loading && <LinearProgress />}
       <TablePagination
         component={'span'}
