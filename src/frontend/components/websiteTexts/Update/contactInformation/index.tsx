@@ -9,6 +9,7 @@ import { WebsiteTextId } from '../../../../_enums/websiteTextId'
 import { WebsiteTextType } from '../../../../_enums/websiteTextType'
 import Text from '../../../_common/TextField'
 import Notification from '../../../_common/Notification'
+import { formatContactInformation } from '../../../../_utils/handleFormatting/formatContactInformation'
 
 const UpdateContactInformation = (): ReactElement => {
   const [args, setArgs] = useState<any>({
@@ -29,21 +30,12 @@ const UpdateContactInformation = (): ReactElement => {
 
   const websiteText: WebsiteText = data?.get_website_text || {}
 
-  const formatValue = (medium: string): string => {
-    const websiteTextSplit = websiteText?.content?.split(', ')
-
-    const val = websiteTextSplit?.find((text: string) => text.includes(medium))
-
-    const formattedVal = val?.substring(val.indexOf('[') + 1, val.indexOf(']'))
-    return formattedVal
-  }
-
   useEffect(() => {
     setArgs({
-      facebook: formatValue('Facebook'),
-      instagram: formatValue('Instagram'),
-      email: formatValue('Email'),
-      phoneNumber: formatValue('PhoneNumber')
+      facebook: formatContactInformation('Facebook', websiteText),
+      instagram: formatContactInformation('Instagram', websiteText),
+      email: formatContactInformation('Email', websiteText),
+      phoneNumber: formatContactInformation('PhoneNumber', websiteText)
     })
   }, [data])
 

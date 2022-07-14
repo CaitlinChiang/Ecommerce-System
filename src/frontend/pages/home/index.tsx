@@ -3,6 +3,7 @@ import { Divider } from '@mui/material'
 import layout from '../../layouts'
 import ProductsCards from '../../components/products/Showcase/cards'
 import ReviewsCards from '../../components/reviews/Showcase/cards'
+import ContactInformation from '../../components/websiteTexts/Showcase/contactInformation'
 
 const Page = (): ReactElement => {
   return (
@@ -10,6 +11,8 @@ const Page = (): ReactElement => {
       <ProductsCards featured={true} />
       <Divider sx={{ marginTop: 5, marginBottom: 5 }} />
       <ReviewsCards featured={true} />
+      <Divider sx={{ marginTop: 5, marginBottom: 5 }} />
+      <ContactInformation />
     </>
   )
 }
