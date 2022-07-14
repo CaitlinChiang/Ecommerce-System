@@ -37,6 +37,7 @@ export const queryMultiple = gql`
           name
         }
         quantity
+        totalPrice
       }
       payment {
         amountDue
