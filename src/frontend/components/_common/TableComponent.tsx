@@ -43,7 +43,7 @@ const TableComponent = ({
   fetchMore?: any
   filterContent?: ReactElement
   filterOpen?: boolean
-  headers: { label: string; sortable: boolean }[]
+  headers: { display?: string; label: string; sortable: boolean }[]
   headersAlign?: 'inherit' | 'left' | 'center' | 'right' | 'justify'
   loading: boolean
   paginateDataArgs: PaginateDataArgs
@@ -147,7 +147,7 @@ const TableComponent = ({
             <TableRow>
               {headers.map(
                 (
-                  header: { label: string; sortable: boolean },
+                  header: { display?: string; label: string; sortable: boolean },
                   index: number
                 ): ReactElement => {
                   return (
@@ -156,7 +156,8 @@ const TableComponent = ({
                       align={headersAlign || 'center'}
                       padding={'checkbox'}
                     >
-                      {!header.sortable && formatProperCapitalization(header.label)}
+                      {!header.sortable &&
+                        formatProperCapitalization(header?.display || header.label)}
                       {header.sortable && (
                         <TableSortLabel
                           active={sortBy === header.label}
@@ -172,7 +173,9 @@ const TableComponent = ({
                             })
                           }}
                         >
-                          {formatProperCapitalization(header.label)}
+                          {formatProperCapitalization(
+                            header?.display || header.label
+                          )}
                         </TableSortLabel>
                       )}
                     </TableCell>
