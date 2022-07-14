@@ -3,6 +3,11 @@ export const formatDiscountedPrice = (
   price: number
 ): string | null => {
   if (!price) return null
+  if (!discount) return 'P' + price.toFixed(2)
 
-  return 'P ' + parseFloat(Number(price * discount)?.toFixed(2))
+  const discountPrice = price * discount
+  const newPrice = price - discountPrice
+  const formattedNewPrice = newPrice.toFixed(2)
+
+  return 'P' + formattedNewPrice
 }
