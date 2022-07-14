@@ -14,7 +14,7 @@ import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
 import { formatToPercentage } from '../../../_utils/handleFormatting/formatToPercentage'
 import { formatDiscountedPrice } from '../../../_utils/handleFormatting/formatDiscountedPrice'
 
-const ProductsCards = (featured: boolean): ReactElement => {
+const ProductsCards = ({ featured }: { featured: boolean }): ReactElement => {
   const router = useRouter()
 
   const [args, setArgs] = useState<any>({
@@ -69,28 +69,39 @@ const ProductsCards = (featured: boolean): ReactElement => {
     })
   }, [args, data, paginateDataArgs])
 
-  return products?.map((product: Product): ReactElement => {
-    return (
-      <CardComponent
-        content={
-          <>
-            <Typography variant={'h3'}>{product?.name}</Typography>
-            <Typography variant={'h4'}>
-              {'P' + product?.price?.toFixed(2)}
-            </Typography>
-            {product?.discount && (
-              <Typography variant={'h4'}>
-                {formatDiscountedPrice(product?.discount, product?.price)} + {' -'}
-                {formatToPercentage(product?.discount)}
-              </Typography>
-            )}
-          </>
-        }
-        imageAlt={product?.name + ' Product Image'}
-        imageSource={product?.imageUrl}
-      />
-    )
-  })
+  return (
+    <>
+      <Typography variant={'h4'}>{`${
+        featured ? 'Featured ' : ''
+      } Products`}</Typography>
+      <div style={{ marginTop: '50px' }} />
+      {products?.map((product: Product): ReactElement => {
+        return (
+          <CardComponent
+            content={
+              <>
+                <Typography variant={'h5'}>{product?.name}</Typography>
+                <Typography variant={'h6'}>
+                  {formatDiscountedPrice(product?.discount, product?.price)}
+                </Typography>
+                {product?.discount ? (
+                  <Typography variant={'h6'}>
+                    {'P' + product?.price?.toFixed(2)}
+                    {' -'}
+                    {formatToPercentage(product?.discount)}
+                  </Typography>
+                ) : (
+                  <div style={{ marginTop: '32px' }} />
+                )}
+              </>
+            }
+            imageAlt={product?.name + ' Product Image'}
+            imageSource={product?.imageUrl}
+          />
+        )
+      })}
+    </>
+  )
 }
 
 export default ProductsCards
