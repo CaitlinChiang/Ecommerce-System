@@ -5,21 +5,28 @@ const CardComponent = ({
   content,
   imageAlt,
   imageSource,
-  maxWidth
+  width
 }: {
   content: ReactElement
   imageAlt?: string
   imageSource?: string
-  maxWidth?: number
+  width?: number
 }): ReactElement => {
   return (
-    <Card sx={{ maxWidth: maxWidth || 350 }}>
+    <Card
+      sx={{
+        width: width || 250,
+        marginTop: 5,
+        marginRight: 5,
+        display: 'inline-block'
+      }}
+    >
       <CardActionArea>
         {imageSource?.length > 0 && (
           <CardMedia
             alt={imageAlt}
             component={'img'}
-            height={'160'}
+            height={'200'}
             image={imageSource}
           />
         )}
