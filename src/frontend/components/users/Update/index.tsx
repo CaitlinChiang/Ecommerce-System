@@ -9,7 +9,7 @@ import Text from '../../_common/TextField'
 import Notification from '../../_common/Notification'
 import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
 
-const UpdateUser = ({ _id }: { _id: string }): ReactElement => {
+const UpdateUser = (): ReactElement => {
   const [args, setArgs] = useState<any>({
     _id: null,
     address: null,
@@ -25,15 +25,12 @@ const UpdateUser = ({ _id }: { _id: string }): ReactElement => {
     success: null
   })
 
-  const { data, refetch } = useQuery(querySingular, {
-    variables: { _id }
-  })
+  const { data, refetch } = useQuery(querySingular)
 
   const user: User = data?.get_user || {}
 
   useEffect(() => {
     setArgs({
-      _id,
       address: user?.deliveryAddress?.address,
       cityId: user?.deliveryAddress?.cityId,
       email: user?.email,
