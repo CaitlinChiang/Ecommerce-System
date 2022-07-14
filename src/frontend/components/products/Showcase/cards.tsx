@@ -83,13 +83,15 @@ const ProductsCards = ({ featured }: { featured: boolean }): ReactElement => {
   return (
     <>
       {featured && <Typography variant={'h4'}>{'Featured Products'}</Typography>}
-      {featured && (
+      {!featured && (
         <CardsPaginationComponent
           args={args}
           count={productsCount}
           fetchMore={fetchMore}
           loading={loading}
           paginateDataArgs={paginateDataArgs}
+          searchLabel={'Search Product by Name'}
+          searchPlaceholder={'ex. Jeans for Women'}
           setPaginateDataArgs={setPaginateDataArgs}
         />
       )}

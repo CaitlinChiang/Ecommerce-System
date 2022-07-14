@@ -55,7 +55,7 @@ const ReviewsCards = ({ featured }: { featured: boolean }): ReactElement => {
   return (
     <>
       {featured && <Typography variant={'h4'}>{'Customer Reviews'}</Typography>}
-      {featured && (
+      {!featured && (
         <CardsPaginationComponent
           args={args}
           count={reviewsCount}
