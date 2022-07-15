@@ -3,22 +3,29 @@ import { IconButton, Typography } from '@mui/material'
 import AddBoxIcon from '@mui/icons-material/AddBox'
 import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox'
 import { QuantityChange } from '../../_enums/quantityChange'
+import { correctArgs } from '../../_utils/handleArgs/correctArgs'
 
 const NumberIncrementor = ({
-  setValue,
-  value
+  args,
+  targetProp,
+  updateMutation
 }: {
-  setValue: React.Dispatch<React.SetStateAction<number>>
-  value: number
+  args: any
+  targetProp: string
+  updateMutation: any
 }): ReactElement => {
   const changeQuantity = (action: QuantityChange) => {
+    let val = args[targetProp]
+
     switch (action) {
       case QuantityChange.INCREMENT:
-        setValue(value + 1)
+        val = args[targetProp] + 1
         break
       case QuantityChange.DECREMENT:
-        setValue(value - 1)
+        val = args[targetProp] - 1
     }
+
+    updateMutation({ variables: { ...correctArgs(args), [targetProp]: val } })
   }
 
   return (
@@ -26,9 +33,9 @@ const NumberIncrementor = ({
       <IconButton onClick={() => changeQuantity(QuantityChange.INCREMENT)}>
         <AddBoxIcon />
       </IconButton>
-      <Typography variant={'h4'}>{value}</Typography>
+      <Typography variant={'h4'}>{args[targetProp]}</Typography>
       <IconButton
-        disabled={value == 0}
+        disabled={args[targetProp] == 0}
         onClick={() => changeQuantity(QuantityChange.DECREMENT)}
       >
         <IndeterminateCheckBoxIcon />
