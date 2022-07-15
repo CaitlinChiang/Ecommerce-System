@@ -27,7 +27,7 @@ export interface GetOrderArgs {
   collectionMethod?: CollectionMethod
   dateRange?: DateRange
   paginateData?: PaginateDataArgs
-  status?: OrderStatus
+  statuses?: OrderStatus[]
   userId?: ObjectId
 }
 

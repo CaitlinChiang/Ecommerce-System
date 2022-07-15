@@ -19,14 +19,14 @@ extend type Query {
     collectionMethod: String
     dateRange: DateRangeInput
     paginateData: PaginateDataInput
-    status: String
+    statuses: [String]
   ): [Order]
 
   get_orders_count(
     collectionMethod: String
     dateRange: DateRangeInput
     paginateData: PaginateDataInput
-    status: String
+    statuses: [String]
   ): Int
 }
 
