@@ -27,11 +27,12 @@ const OrdersTableFilters = ({
       <SelectField
         args={args}
         label={'Order Status'}
+        multiple={true}
         options={Object.keys(OrderStatus).map((status) => {
-          return { label: status, status: status }
+          return { label: status, statuses: status }
         })}
         setArgs={setArgs}
-        targetProp={'status'}
+        targetProp={'statuses'}
       />
       <Box>
         <SelectField
