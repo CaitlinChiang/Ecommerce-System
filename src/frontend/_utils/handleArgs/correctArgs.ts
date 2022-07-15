@@ -9,11 +9,15 @@ export const correctArgs = (args: any): any => {
       modifyArgs(key, args)
     }
 
-    if (key === 'email' && !isEmail(args?.email)) {
+    if (key === 'email' && args?.email && !isEmail(args?.email)) {
       args.email = null
     }
 
-    if (key === 'phoneNumber' && !isMobilePhone(args?.phoneNumber)) {
+    if (
+      key === 'phoneNumber' &&
+      args?.phoneNumber &&
+      !isMobilePhone(args?.phoneNumber)
+    ) {
       args.phoneNumber = null
     }
   })
