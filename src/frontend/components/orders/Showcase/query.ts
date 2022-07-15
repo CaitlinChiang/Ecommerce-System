@@ -13,13 +13,13 @@ export const queryMultiple = gql`
     $collectionMethod: String
     $dateRange: DateRangeInput
     $paginateData: PaginateDataInput
-    $status: String
+    $statuses: [String]
   ) {
     get_orders(
       collectionMethod: $collectionMethod
       dateRange: $dateRange
       paginateData: $paginateData
-      status: $status
+      statuses: $statuses
     ) {
       _id
       collectionMethod
@@ -62,7 +62,7 @@ export const queryMultiple = gql`
       collectionMethod: $collectionMethod
       dateRange: $dateRange
       paginateData: $paginateData
-      status: $status
+      statuses: $statuses
     )
   }
 `

@@ -24,7 +24,7 @@ const OrdersTable = (): ReactElement => {
       endDate: new Date(),
       filterBy: DateRangeType.CREATED
     },
-    status: null
+    statuses: []
   })
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
     page: 0,

@@ -14,7 +14,7 @@ import { fetchMoreArgs } from '../../../../_utils/handleArgs/returnFetchMoreArgs
 const OrdersTable = (): ReactElement => {
   const [args, setArgs] = useState<any>({
     collectionMethod: null,
-    status: OrderStatus.PENDING
+    statuses: [OrderStatus.PENDING, OrderStatus.PACKING, OrderStatus.SHIPPING]
   })
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
     page: 0,

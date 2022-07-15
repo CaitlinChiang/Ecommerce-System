@@ -39,13 +39,13 @@ const ProductCategoriesSelect = ({
 
   return (
     <SelectField
+      args={args}
       error={error}
       label={'Categories'}
       multiple={multiple}
       options={productCategoryOptions}
       required={required}
       setArgs={setArgs}
-      args={args}
       targetProp={targetProp}
     />
   )
