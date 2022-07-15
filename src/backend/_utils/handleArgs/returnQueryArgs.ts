@@ -1,4 +1,5 @@
 import { ObjectId } from 'mongodb'
+import { OrderStatus } from '../../_enums/orderStatus'
 import { correctArgs } from './correctArgs'
 import { formatDateRange } from '../handleDates/formatDateRange'
 import { formatStockQuantityArgs } from './formatStockQuantityArgs'
@@ -9,6 +10,7 @@ export const queryArgs = (args: any): any => {
     dateRange,
     discount,
     paginateData,
+    statuses,
     stockQuantity,
     ...queryArgs
   } = args
@@ -41,6 +43,12 @@ export const queryArgs = (args: any): any => {
 
   if (discount) {
     modifiedArgs.discount = { $exists: true }
+  }
+
+  if (statuses?.length > 0) {
+    modifiedArgs.status = {
+      $in: statuses.map((status: OrderStatus): OrderStatus => status)
+    }
   }
 
   if (stockQuantity) {
