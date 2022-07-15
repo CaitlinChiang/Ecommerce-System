@@ -41,7 +41,13 @@ const UpdateUser = (): ReactElement => {
   }, [data])
 
   const [updateMutation, updateMutationState] = useMutation(mutation, {
-    variables: correctArgs(args),
+    variables: {
+      ...correctArgs(args),
+      deliveryAddress: {
+        address: args?.address,
+        cityId: args?.cityId
+      }
+    },
     onCompleted: () => {
       setNotification({
         message: 'Profile successfully updated!',

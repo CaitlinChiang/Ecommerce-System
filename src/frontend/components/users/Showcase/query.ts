@@ -4,7 +4,10 @@ export const querySingular = gql`
   query ($_id: ID) {
     get_user(_id: $_id) {
       _id
-      deliveryAddress
+      deliveryAddress {
+        address
+        cityId
+      }
       email
       firstName
       lastName
