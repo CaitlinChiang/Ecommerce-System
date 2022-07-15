@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import layout from '../../../layouts'
+import layout from '../../../layouts/admin'
 import FAQsDropdowns from '../../../components/faqs/Showcase/administrators/dropdowns'
 
 const Page = (): ReactElement => {

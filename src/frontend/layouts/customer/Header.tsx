@@ -8,7 +8,7 @@ const Header = ({
   backRoute
 }: {
   pageTitle?: string
-  backRoute?: string
+  backRoute?: boolean
 }): ReactElement => {
   const router = useRouter()
 

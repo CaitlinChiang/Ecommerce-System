@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import layout from '../../../layouts'
+import layout from '../../../layouts/admin'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import DropdownsComponent from '../../../components/_common/DropdownsComponent'

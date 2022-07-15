@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import layout from '../../layouts'
+import layout from '../../layouts/customer'
 import FAQsDropdowns from '../../components/faqs/Showcase/customers/dropdowns'
 import { Typography } from '@mui/material'
 

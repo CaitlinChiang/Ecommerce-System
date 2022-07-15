@@ -2,7 +2,7 @@ import { NextPage } from 'next'
 import { ReactElement } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import Header from '../layouts/admin/Header'
-import layout from '../layouts'
+import layout from '../layouts/admin'
 
 const query = gql`
   query {

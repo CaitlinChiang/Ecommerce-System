@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import layout from '../../../../layouts'
+import layout from '../../../../layouts/admin'
 import CreateProduct from '../../../../components/products/Create'
 
 const Page = (): ReactElement => {

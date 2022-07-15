@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { useRouter } from 'next/router'
 import { Button } from '@mui/material'
-import layout from '../../../../layouts'
+import layout from '../../../../layouts/admin'
 import UpdateProduct from '../../../../components/products/Update'
 import ProductVariantsTable from '../../../../components/productVariants/Showcase/table'
 

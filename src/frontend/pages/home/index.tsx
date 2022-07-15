@@ -1,18 +1,29 @@
 import { ReactElement } from 'react'
 import { Divider } from '@mui/material'
-import layout from '../../layouts'
+import layout from '../../layouts/customer'
+import HomeSlogan from '../../components/websiteTexts/Showcase/homeSlogan'
 import ProductsCards from '../../components/products/Showcase/cards'
 import ReviewsCards from '../../components/reviews/Showcase/cards'
 import ContactInformation from '../../components/websiteTexts/Showcase/contactInformation'
 
 const Page = (): ReactElement => {
+  const homePageComponents = [
+    <HomeSlogan />,
+    <ProductsCards featured={true} />,
+    <ReviewsCards featured={true} />,
+    <ContactInformation />
+  ]
+
   return (
     <>
-      <ProductsCards featured={true} />
-      <Divider sx={{ marginTop: 5, marginBottom: 5 }} />
-      <ReviewsCards featured={true} />
-      <Divider sx={{ marginTop: 5, marginBottom: 5 }} />
-      <ContactInformation />
+      {homePageComponents.map((component: ReactElement): ReactElement => {
+        return (
+          <>
+            {component}
+            <Divider sx={{ marginTop: 5, marginBottom: 5 }} />
+          </>
+        )
+      })}
     </>
   )
 }

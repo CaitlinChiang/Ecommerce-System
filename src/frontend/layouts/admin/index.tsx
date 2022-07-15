@@ -1,11 +1,11 @@
 import { NextPage } from 'next'
 import React, { ReactElement, useState, FunctionComponent } from 'react'
 import { useQuery } from '@apollo/client'
-import query from './query'
-import theme from '../themes'
+import query from '../query'
+import theme from '../../themes'
 import styled from '@emotion/styled'
-import Navbar from './admin/Navbar'
-import Header from './admin/Header'
+import Navbar from './Navbar'
+import Header from './Header'
 import classnames from 'classnames'
 
 const styles = {

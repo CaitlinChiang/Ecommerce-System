@@ -17,13 +17,13 @@ const shoppingMenu = [
   { label: 'About', route: '/about' },
   { label: 'Shop', route: '/shop' },
   { label: 'Reviews', route: '/reviews' },
-  { label: 'FAQs', route: '/frequently-asked-questions' },
+  { label: 'FAQs', route: '/faqs' },
   { label: 'Contact Us', route: '/contact-us' }
 ]
 
 const trackingMenu = [
   { icon: <ShoppingCartIcon />, route: '/cart' },
-  { icon: <ReceiptIcon />, route: '/my-orders' },
+  { icon: <ReceiptIcon />, route: '/orders' },
   { icon: <AccountCircleIcon />, route: '/profile' }
 ]
 

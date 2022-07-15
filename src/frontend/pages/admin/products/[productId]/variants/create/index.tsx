@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 import { useRouter } from 'next/router'
-import layout from '../../../../../../layouts'
+import layout from '../../../../../../layouts/admin'
 import CreateProductVariant from '../../../../../../components/productVariants/Create'
 
 const Page = (): ReactElement => {

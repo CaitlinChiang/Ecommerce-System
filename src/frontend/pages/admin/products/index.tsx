@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { useRouter } from 'next/router'
 import { Button } from '@mui/material'
-import layout from '../../../layouts'
+import layout from '../../../layouts/admin'
 import ProductsTable from '../../../components/products/Showcase/table'
 
 const Page = (): ReactElement => {

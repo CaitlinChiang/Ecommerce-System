@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import layout from '../../layouts'
+import layout from '../../layouts/customer'
 import ProductsCards from '../../components/products/Showcase/cards'
 
 const Page = (): ReactElement => {

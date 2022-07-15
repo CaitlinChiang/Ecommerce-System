@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import layout from '../../layouts'
+import layout from '../../layouts/customer'
 import CreateUser from '../../components/users/Create'
 import { UserType } from 'frontend/_enums/userType'
 

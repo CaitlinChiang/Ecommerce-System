@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import layout from '../../../layouts'
+import layout from '../../../layouts/admin'
 import SignInUser from '../../../components/users/SignIn'
 
 const Page = (): ReactElement => {

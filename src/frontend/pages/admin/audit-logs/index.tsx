@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import layout from '../../../layouts'
+import layout from '../../../layouts/admin'
 import AuditLogsTable from '../../../components/auditLogs/Showcase/table'
 
 const Page = (): ReactElement => {
