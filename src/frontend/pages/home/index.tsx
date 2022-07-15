@@ -4,6 +4,7 @@ import layout from '../../layouts/customer'
 import HomeSlogan from '../../components/websiteTexts/Showcase/homeSlogan'
 import ProductsCards from '../../components/products/Showcase/cards'
 import ReviewsCards from '../../components/reviews/Showcase/cards'
+import AboutWriteup from '../../components/websiteTexts/Showcase/aboutWriteup'
 import ContactInformation from '../../components/websiteTexts/Showcase/contactInformation'
 
 const Page = (): ReactElement => {
@@ -11,6 +12,7 @@ const Page = (): ReactElement => {
     <HomeSlogan />,
     <ProductsCards featured={true} />,
     <ReviewsCards featured={true} />,
+    <AboutWriteup />,
     <ContactInformation />
   ]
 
