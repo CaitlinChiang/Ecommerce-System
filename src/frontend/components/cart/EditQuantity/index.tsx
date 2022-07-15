@@ -4,7 +4,7 @@ import mutation from './mutation'
 import { ObjectId } from 'mongodb'
 import NumberIncrementor from '../../_common/NumberIncrementor'
 
-const EditQuantity = ({
+const EditItemQuantity = ({
   productId,
   productVariantId,
   quantity,
@@ -36,4 +36,4 @@ const EditQuantity = ({
   )
 }
 
-export default EditQuantity
+export default EditItemQuantity

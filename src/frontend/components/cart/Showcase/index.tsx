@@ -5,7 +5,7 @@ import { useQuery } from '@apollo/client'
 import query from './query'
 import { Box, Button, Container, Divider, Typography } from '@mui/material'
 import { CartItem } from '../../../../types/cart'
-import EditQuantity from '../EditQuantity'
+import EditItemQuantity from '../EditQuantity'
 
 const Cart = (): ReactElement => {
   const router = useRouter()
@@ -40,7 +40,7 @@ const Cart = (): ReactElement => {
               <Typography variant={'h6'}>
                 {'P' + cartItem?.totalPrice?.toFixed(2)}
               </Typography>
-              <EditQuantity
+              <EditItemQuantity
                 productId={cartItem?.productId}
                 productVariantId={cartItem?.productVariantId}
                 quantity={cartItem?.quantity}
