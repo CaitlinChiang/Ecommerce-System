@@ -43,10 +43,7 @@ const UpdateUser = (): ReactElement => {
   const [updateMutation, updateMutationState] = useMutation(mutation, {
     variables: {
       ...correctArgs(args),
-      deliveryAddress: {
-        address: args?.address,
-        cityId: args?.cityId
-      }
+      deliveryAddress: { address: args?.address, cityId: args?.cityId }
     },
     onCompleted: () => {
       setNotification({
