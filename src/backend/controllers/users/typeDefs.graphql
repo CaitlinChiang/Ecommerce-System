@@ -46,7 +46,6 @@ extend type Mutation {
     email: String
     firstName: String
     lastName: String
-    password: String
     phoneNumber: String
   ): User
 

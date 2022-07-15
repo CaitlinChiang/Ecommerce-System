@@ -54,7 +54,6 @@ export interface UpdateUserArgs {
   email?: string
   firstName?: string
   lastName?: string
-  password?: string
   phoneNumber?: string
   updatedAt?: Date
 }
