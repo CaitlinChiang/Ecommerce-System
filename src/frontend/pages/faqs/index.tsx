@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import layout from '../../layouts/customer'
-import FAQsDropdowns from '../../components/faqs/Showcase/customers/dropdowns'
 import { Typography } from '@mui/material'
+import FAQsDropdowns from '../../components/faqs/Showcase/customers/dropdowns'
 
 const Page = (): ReactElement => {
   return (
