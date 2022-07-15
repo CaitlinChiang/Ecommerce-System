@@ -1,5 +1,4 @@
 import { ReactElement, useState } from 'react'
-import { useRouter } from 'next/router'
 import { useQuery } from '@apollo/client'
 import { queryMultiple } from './query'
 import { Typography } from '@mui/material'
@@ -8,15 +7,13 @@ import { PaginateDataArgs } from '../../../../types/actions/paginateData'
 import { SortDirection } from '../../../_enums/sortDirection'
 import { StockQuantityOperator } from '../../../_enums/stockQuantityOperator'
 import CardComponent from '../../_common/CardComponent'
-// import ProductsCardsFilters from './cardsFilters'
+import ProductsCardsFilters from './cardsFilters'
 import CardsPaginationComponent from '../../../components/_common/CardsPaginationComponent'
 import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
 import { formatToPercentage } from '../../../_utils/handleFormatting/formatToPercentage'
 import { formatDiscountedPrice } from '../../../_utils/handleFormatting/formatDiscountedPrice'
 
 const ProductsCards = ({ featured }: { featured: boolean }): ReactElement => {
-  const router = useRouter()
-
   const [args, setArgs] = useState<any>({
     categoryIds: [],
     featured: featured ? true : null,
@@ -34,7 +31,6 @@ const ProductsCards = ({ featured }: { featured: boolean }): ReactElement => {
     sortBy: 'name',
     sortDirection: SortDirection.ASC
   })
-  const [filterOpen, setFilterOpen] = useState<boolean>(false)
 
   const { data, loading, fetchMore } = useQuery(queryMultiple, {
     variables: {
@@ -84,16 +80,19 @@ const ProductsCards = ({ featured }: { featured: boolean }): ReactElement => {
     <>
       {featured && <Typography variant={'h4'}>{'Featured Products'}</Typography>}
       {!featured && (
-        <CardsPaginationComponent
-          args={args}
-          count={productsCount}
-          fetchMore={fetchMore}
-          loading={loading}
-          paginateDataArgs={paginateDataArgs}
-          searchLabel={'Search Product by Name'}
-          searchPlaceholder={'ex. Jeans for Women'}
-          setPaginateDataArgs={setPaginateDataArgs}
-        />
+        <>
+          <CardsPaginationComponent
+            args={args}
+            count={productsCount}
+            fetchMore={fetchMore}
+            loading={loading}
+            paginateDataArgs={paginateDataArgs}
+            searchLabel={'Search Product by Name'}
+            searchPlaceholder={'ex. Jeans for Women'}
+            setPaginateDataArgs={setPaginateDataArgs}
+          />
+          <ProductsCardsFilters args={args} setArgs={setArgs} />
+        </>
       )}
       {productCards}
     </>
