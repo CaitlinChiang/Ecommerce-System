@@ -32,21 +32,24 @@ const ProductsCardsFilters = ({
           primaryTypographyProps={{ fontSize: 14, fontWeight: 'medium' }}
         />
       </ListItemButton>
-      {productCategories.map((productCategory: ProductCategory): ReactElement => {
-        return (
-          <ListItemButton
-            onClick={(): void =>
-              setArgs({ ...args, categoryIds: [productCategory._id] })
-            }
-            sx={{ py: 0, minHeight: 32, marginLeft: -2 }}
-          >
-            <ListItemText
-              primary={productCategory.name}
-              primaryTypographyProps={{ fontSize: 14, fontWeight: 'medium' }}
-            />
-          </ListItemButton>
-        )
-      })}
+      {productCategories.map(
+        (productCategory: ProductCategory, index: number): ReactElement => {
+          return (
+            <ListItemButton
+              key={index}
+              onClick={(): void =>
+                setArgs({ ...args, categoryIds: [productCategory._id] })
+              }
+              sx={{ py: 0, minHeight: 32, marginLeft: -2 }}
+            >
+              <ListItemText
+                primary={productCategory.name}
+                primaryTypographyProps={{ fontSize: 14, fontWeight: 'medium' }}
+              />
+            </ListItemButton>
+          )
+        }
+      )}
     </>
   )
 }
