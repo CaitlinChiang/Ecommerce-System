@@ -1,7 +1,10 @@
 import { ReactElement } from 'react'
-import { Container, Link, Typography } from '@mui/material'
+import { useRouter } from 'next/router'
+import { Button, Container, Link, Typography } from '@mui/material'
 
 const OrderSuccess = (): ReactElement => {
+  const router = useRouter()
+
   return (
     <Container>
       <Typography variant={'h6'}>{'Order Successful!'}</Typography>
@@ -11,6 +14,7 @@ const OrderSuccess = (): ReactElement => {
         }
       </Typography>
       <Link href={'/orders'}>{' here.'}</Link>
+      <Button onClick={() => router.push('/')}>{'Return to Home'}</Button>
     </Container>
   )
 }

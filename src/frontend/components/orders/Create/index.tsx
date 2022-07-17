@@ -13,6 +13,7 @@ import SelectField from '../../../components/_common/SelectField'
 import Text from '../../_common/TextField'
 import ImageUploader from '../../_common/ImageUploader'
 import Notification from '../../_common/Notification'
+import OrderSuccess from './orderSuccess'
 
 const CreateOrder = (): ReactElement => {
   const router = useRouter()
@@ -30,6 +31,7 @@ const CreateOrder = (): ReactElement => {
     message: null,
     success: null
   })
+  const [orderSuccess, setOrderSuccess] = useState<boolean>(false)
 
   const { data } = useQuery(querySingular, {
     variables: { _id: args?.paymentMethodId }
@@ -53,7 +55,7 @@ const CreateOrder = (): ReactElement => {
         message: 'Order successfully placed!',
         success: true
       })
-      router.push('/')
+      setOrderSuccess(true)
     },
     onError: (error) => setNotification({ message: error.message, success: false })
   })
@@ -128,6 +130,7 @@ const CreateOrder = (): ReactElement => {
         </Button>
       </Container>
       <Notification message={notification.message} success={notification.success} />
+      {orderSuccess && <OrderSuccess />}
     </>
   )
 }
