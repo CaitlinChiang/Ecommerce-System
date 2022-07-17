@@ -39,12 +39,12 @@ const ImageUploader = ({
     <>
       <Button variant={'contained'}>
         <input type='file' accept='image/*' onChange={uploadImage} />
-        {'Upload Product Photo'}
+        {'Upload Photo'}
       </Button>
       {required && error && !args?.[targetProp] && (
         <>
           <FormHelperText sx={{ color: 'red' }}>
-            {'Product Photo is a required field.'}
+            {'Photo is required.'}
           </FormHelperText>
         </>
       )}
