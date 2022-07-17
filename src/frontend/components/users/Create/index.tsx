@@ -8,6 +8,7 @@ import { UserType } from '../../../_enums/userType'
 import CitiesSelect from '../../../components/cities/Showcase/select'
 import Text from '../../_common/TextField'
 import PasswordField from '../../_common/PasswordField'
+import Notification from '../../_common/Notification'
 
 const CreateUser = ({ type }: { type: UserType }): ReactElement => {
   const router = useRouter()
@@ -23,6 +24,10 @@ const CreateUser = ({ type }: { type: UserType }): ReactElement => {
     type
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
+  const [notification, setNotification] = useState<any>({
+    message: null,
+    success: null
+  })
 
   const [createMutation, createMutationState] = useMutation(mutation, {
     variables: {
@@ -31,10 +36,13 @@ const CreateUser = ({ type }: { type: UserType }): ReactElement => {
     },
     onCompleted: (data) => {
       Cookies.set('accessToken', data.create_user.token)
-      console.log('User successfully signed up!')
+      setNotification({
+        message: 'Account successfully create!',
+        success: true
+      })
       router.push('/')
     },
-    onError: (error) => console.log(error.message)
+    onError: (error) => setNotification({ message: error.message, success: false })
   })
 
   return (
@@ -88,6 +96,7 @@ const CreateUser = ({ type }: { type: UserType }): ReactElement => {
       >
         {'Create'}
       </Button>
+      <Notification message={notification.message} success={notification.success} />
     </>
   )
 }
