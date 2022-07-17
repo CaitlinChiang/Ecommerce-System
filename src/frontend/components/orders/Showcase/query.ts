@@ -1,14 +1,6 @@
 import { gql } from '@apollo/client'
 
-export const querySingular = gql`
-  query ($_id: ID!) {
-    get_order(_id: $_id) {
-      _id
-    }
-  }
-`
-
-export const queryMultiple = gql`
+export const GetOrders = gql`
   query (
     $collectionMethod: String
     $dateRange: DateRangeInput

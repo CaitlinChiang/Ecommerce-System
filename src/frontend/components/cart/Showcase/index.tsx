@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 import { useRouter } from 'next/router'
 import theme from '../../../themes'
 import { useQuery } from '@apollo/client'
-import query from './query'
+import { GetCart } from './query'
 import { Box, Button, Container, Divider, Typography } from '@mui/material'
 import { CartItem } from '../../../../types/cart'
 import EditItemQuantity from '../EditQuantity'
@@ -10,7 +10,7 @@ import EditItemQuantity from '../EditQuantity'
 const Cart = (): ReactElement => {
   const router = useRouter()
 
-  const { data, refetch } = useQuery(query)
+  const { data, refetch } = useQuery(GetCart)
 
   const cart = data?.get_cart || {}
 

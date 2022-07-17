@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client'
 
-export const querySingular = gql`
+export const GetProduct = gql`
   query ($_id: ID!) {
     get_product(_id: $_id) {
       _id
@@ -21,7 +21,7 @@ export const querySingular = gql`
   }
 `
 
-export const queryMultiple = gql`
+export const GetProducts = gql`
   query (
     $categoryIds: [String]
     $dateRange: DateRangeInput

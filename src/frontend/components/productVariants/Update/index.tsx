@@ -1,7 +1,7 @@
 import { ReactElement, useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useQuery, useMutation } from '@apollo/client'
-import { querySingular } from '../Showcase/query'
+import { GetProductVariant } from '../Showcase/query'
 import mutation from './mutation'
 import { Button, Typography } from '@mui/material'
 import { ProductVariant } from '../../../../types/productVariant'
@@ -37,7 +37,7 @@ const UpdateProductVariant = ({ _id }: { _id: string }): ReactElement => {
     success: null
   })
 
-  const { data } = useQuery(querySingular, {
+  const { data } = useQuery(GetProductVariant, {
     variables: { _id }
   })
 

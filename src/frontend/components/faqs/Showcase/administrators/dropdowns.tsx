@@ -1,6 +1,6 @@
 import { ReactElement, useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client'
-import { queryMultiple } from '../query'
+import { GetFAQs } from '../query'
 import deleteMutation from '../../Delete/mutation'
 import { IconButton, Typography } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
@@ -36,7 +36,7 @@ const FAQsDropdowns = (): ReactElement => {
     refetch: null
   })
 
-  const { data, loading, fetchMore, refetch } = useQuery(queryMultiple, {
+  const { data, loading, fetchMore, refetch } = useQuery(GetFAQs, {
     variables: { ...args, paginateData: paginateDataArgs },
     ...fetchMoreArgs
   })

@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client'
 
-export const queryOrdersCount = gql`
+export const GetAnalyticsOrdersCount = gql`
   query ($dateRange: DateRangeInput!) {
     get_analytics_orders_count(dateRange: $dateRange) {
       date
@@ -9,7 +9,7 @@ export const queryOrdersCount = gql`
   }
 `
 
-export const queryRevenueCount = gql`
+export const GetAnalyticsRevenueCount = gql`
   query ($dateRange: DateRangeInput!) {
     get_analytics_revenue_count(dateRange: $dateRange) {
       date

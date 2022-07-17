@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 import { useQuery } from '@apollo/client'
-import { queryMultiple } from './query'
+import { GetPaymentMethods } from './query'
 import { PaymentMethod } from '../../../../types/paymentMethod'
 import { SortDirection } from '../../../_enums/sortDirection'
 import SelectField from '../../../components/_common/SelectField'
@@ -16,7 +16,7 @@ const PaymentMethodsSelect = ({
   required?: boolean
   setArgs: React.Dispatch<React.SetStateAction<any>>
 }): ReactElement => {
-  const { data } = useQuery(queryMultiple, {
+  const { data } = useQuery(GetPaymentMethods, {
     variables: {
       paginateData: { sortBy: 'name', sortDirection: SortDirection.ASC }
     }

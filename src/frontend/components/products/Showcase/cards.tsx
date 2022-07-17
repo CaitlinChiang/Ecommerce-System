@@ -1,6 +1,6 @@
 import { ReactElement, useState } from 'react'
 import { useQuery } from '@apollo/client'
-import { queryMultiple } from './query'
+import { GetProducts } from './query'
 import { Typography } from '@mui/material'
 import { Product } from '../../../../types/product'
 import { PaginateDataArgs } from '../../../../types/actions/paginateData'
@@ -32,7 +32,7 @@ const ProductsCards = ({ featured }: { featured: boolean }): ReactElement => {
     sortDirection: SortDirection.ASC
   })
 
-  const { data, loading, fetchMore } = useQuery(queryMultiple, {
+  const { data, loading, fetchMore } = useQuery(GetProducts, {
     variables: {
       ...args,
       paginateData: {

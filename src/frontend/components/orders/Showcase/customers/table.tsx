@@ -1,6 +1,6 @@
 import { ReactElement, useState } from 'react'
 import { useQuery } from '@apollo/client'
-import { queryMultiple } from '../query'
+import { GetOrders } from '../query'
 import { TableCell, TableRow } from '@mui/material'
 import { Order } from '../../../../../types/order'
 import { CartItem } from '../../../../../types/cart'
@@ -25,7 +25,7 @@ const OrdersTable = (): ReactElement => {
   })
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
 
-  const { data, loading, fetchMore } = useQuery(queryMultiple, {
+  const { data, loading, fetchMore } = useQuery(GetOrders, {
     variables: { ...args, paginateData: paginateDataArgs },
     ...fetchMoreArgs
   })

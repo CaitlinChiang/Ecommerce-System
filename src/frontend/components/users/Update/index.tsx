@@ -1,6 +1,6 @@
 import { ReactElement, useState, useEffect } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
-import { querySingular } from '../Showcase/query'
+import { GetUser } from '../Showcase/query'
 import mutation from './mutation'
 import { Button } from '@mui/material'
 import { User } from '../../../../types/user'
@@ -25,7 +25,7 @@ const UpdateUser = (): ReactElement => {
     success: null
   })
 
-  const { data, refetch } = useQuery(querySingular)
+  const { data, refetch } = useQuery(GetUser)
 
   const user: User = data?.get_user || {}
 

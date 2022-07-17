@@ -1,6 +1,6 @@
 import { ReactElement, useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client'
-import query from './query'
+import { GetReviews } from './query'
 import deleteMutation from '../Delete/mutation'
 import { TableCell, TableRow } from '@mui/material'
 import { Review } from '../../../../types/review'
@@ -33,7 +33,7 @@ const ReviewsTable = (): ReactElement => {
     refetch: null
   })
 
-  const { data, loading, fetchMore, refetch } = useQuery(query, {
+  const { data, loading, fetchMore, refetch } = useQuery(GetReviews, {
     variables: { ...args, paginateData: paginateDataArgs },
     ...fetchMoreArgs
   })

@@ -1,7 +1,7 @@
 import { ReactElement, useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useQuery } from '@apollo/client'
-import { queryMultiple } from './query'
+import { GetProductVariants } from './query'
 import deleteMutation from '../Delete/mutation'
 import { IconButton, TableCell, TableRow } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
@@ -52,7 +52,7 @@ const ProductVariantsTable = ({
     refetch: null
   })
 
-  const { data, loading, fetchMore, refetch } = useQuery(queryMultiple, {
+  const { data, loading, fetchMore, refetch } = useQuery(GetProductVariants, {
     variables: {
       _productId,
       ...args,

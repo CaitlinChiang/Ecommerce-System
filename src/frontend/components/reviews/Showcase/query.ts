@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client'
 
-export default gql`
+export const GetReviews = gql`
   query ($featured: Boolean, $paginateData: PaginateDataInput) {
     get_reviews(featured: $featured, paginateData: $paginateData) {
       _id

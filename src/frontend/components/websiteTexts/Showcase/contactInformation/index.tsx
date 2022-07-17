@@ -1,6 +1,6 @@
 import { ReactElement, useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client'
-import query from '../../Showcase/query'
+import { GetWebsiteText } from '../../Showcase/query'
 import { Link, Typography } from '@mui/material'
 import { WebsiteText } from '../../../../../types/websiteText'
 import { WebsiteTextType } from '../../../../_enums/websiteTextType'
@@ -14,7 +14,7 @@ const ContactInformation = (): ReactElement => {
     phoneNumber: null
   })
 
-  const { data } = useQuery(query, {
+  const { data } = useQuery(GetWebsiteText, {
     variables: { type: WebsiteTextType.CONTACT_INFORMATION }
   })
 

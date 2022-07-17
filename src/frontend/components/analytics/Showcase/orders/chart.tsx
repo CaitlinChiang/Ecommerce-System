@@ -1,6 +1,6 @@
 import { ReactElement, useState } from 'react'
 import { useQuery } from '@apollo/client'
-import { queryOrdersCount } from '../query'
+import { GetAnalyticsOrdersCount } from '../query'
 import { Box } from '@mui/material'
 import AreaChart from '../../../_common/AreaChart'
 import { DateRangeType } from '../../../../_enums/dateRangeType'
@@ -15,7 +15,7 @@ const OrdersChart = (): ReactElement => {
     }
   })
 
-  const { data } = useQuery(queryOrdersCount, {
+  const { data } = useQuery(GetAnalyticsOrdersCount, {
     variables: { ...args }
   })
 

@@ -1,7 +1,7 @@
 import { ReactElement, useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client'
 import { useMutation } from '@apollo/client'
-import query from '../../Showcase/query'
+import { GetWebsiteText } from '../../Showcase/query'
 import mutation from '../mutation'
 import { Button, Typography } from '@mui/material'
 import { WebsiteText } from '../../../../../types/websiteText'
@@ -23,7 +23,7 @@ const UpdateHomeSlogan = (): ReactElement => {
     success: null
   })
 
-  const { data, refetch } = useQuery(query, {
+  const { data, refetch } = useQuery(GetWebsiteText, {
     variables: { type: WebsiteTextType.HOME_SLOGAN }
   })
 

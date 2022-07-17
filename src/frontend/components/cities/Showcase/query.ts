@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client'
 
-export const querySingular = gql`
+export const GetCity = gql`
   query ($_id: ID!) {
     get_city(_id: $_id) {
       _id
@@ -12,7 +12,7 @@ export const querySingular = gql`
   }
 `
 
-export const queryMultiple = gql`
+export const GetCities = gql`
   query ($paginateData: PaginateDataInput) {
     get_cities(paginateData: $paginateData) {
       _id

@@ -1,6 +1,6 @@
 import { ReactElement, useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client'
-import { queryMultiple } from './query'
+import { GetCities } from './query'
 import deleteMutation from '../Delete/mutation'
 import { IconButton, TableCell, TableRow } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
@@ -34,7 +34,7 @@ const CitiesTable = (): ReactElement => {
     refetch: null
   })
 
-  const { data, loading, fetchMore, refetch } = useQuery(queryMultiple, {
+  const { data, loading, fetchMore, refetch } = useQuery(GetCities, {
     variables: { ...args, paginateData: paginateDataArgs },
     ...fetchMoreArgs
   })

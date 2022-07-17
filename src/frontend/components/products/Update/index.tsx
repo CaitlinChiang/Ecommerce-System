@@ -1,6 +1,6 @@
 import { ReactElement, useState, useEffect } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
-import { querySingular } from '../Showcase/query'
+import { GetProduct } from '../Showcase/query'
 import mutation from './mutation'
 import { Button, Typography } from '@mui/material'
 import { Product } from '../../../../types/product'
@@ -37,7 +37,7 @@ const UpdateProduct = ({ _id }: { _id: string }): ReactElement => {
     success: null
   })
 
-  const { data, refetch } = useQuery(querySingular, {
+  const { data, refetch } = useQuery(GetProduct, {
     variables: { _id }
   })
 

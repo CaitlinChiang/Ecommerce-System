@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client'
 
-export default gql`
+export const GetCart = gql`
   query {
     get_cart {
       _id

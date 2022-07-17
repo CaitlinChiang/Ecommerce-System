@@ -1,8 +1,8 @@
 import { ReactElement } from 'react'
-import theme from '../../../../themes'
 import { useRouter } from 'next/router'
+import theme from '../../../../themes'
 import { useQuery } from '@apollo/client'
-import query from '../../Showcase/query'
+import { GetWebsiteText } from '../../Showcase/query'
 import { Button, Typography } from '@mui/material'
 import { WebsiteText } from '../../../../../types/websiteText'
 import { WebsiteTextType } from '../../../../_enums/websiteTextType'
@@ -10,7 +10,7 @@ import { WebsiteTextType } from '../../../../_enums/websiteTextType'
 const HomeSlogan = (): ReactElement => {
   const router = useRouter()
 
-  const { data } = useQuery(query, {
+  const { data } = useQuery(GetWebsiteText, {
     variables: { type: WebsiteTextType.HOME_SLOGAN }
   })
 

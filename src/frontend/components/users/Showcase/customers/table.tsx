@@ -1,6 +1,6 @@
 import { ReactElement, useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client'
-import { queryMultiple } from '../query'
+import { GetUsers } from '../query'
 import deleteMutation from '../../Delete/mutation'
 import { TableCell, TableRow } from '@mui/material'
 import { User } from '../../../../../types/user'
@@ -29,7 +29,7 @@ const CustomersTable = (): ReactElement => {
     refetch: null
   })
 
-  const { data, loading, fetchMore, refetch } = useQuery(queryMultiple, {
+  const { data, loading, fetchMore, refetch } = useQuery(GetUsers, {
     variables: { ...args, paginateData: paginateDataArgs },
     ...fetchMoreArgs
   })

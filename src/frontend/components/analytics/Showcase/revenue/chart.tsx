@@ -1,6 +1,6 @@
 import { ReactElement, useState } from 'react'
 import { useQuery } from '@apollo/client'
-import { queryRevenueCount } from '../query'
+import { GetAnalyticsRevenueCount } from '../query'
 import { Box } from '@mui/material'
 import AreaChart from '../../../_common/AreaChart'
 import { DateRangeType } from '../../../../_enums/dateRangeType'
@@ -15,7 +15,7 @@ const RevenueChart = (): ReactElement => {
     }
   })
 
-  const { data } = useQuery(queryRevenueCount, {
+  const { data } = useQuery(GetAnalyticsRevenueCount, {
     variables: { ...args }
   })
 

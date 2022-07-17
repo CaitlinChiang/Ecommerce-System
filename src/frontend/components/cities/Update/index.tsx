@@ -1,6 +1,6 @@
 import { ReactElement, useState, useEffect } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
-import { querySingular } from '../Showcase/query'
+import { GetCity } from '../Showcase/query'
 import mutation from './mutation'
 import { Button, Typography } from '@mui/material'
 import { City } from '../../../../types/city'
@@ -32,7 +32,7 @@ const UpdateCity = ({
     success: null
   })
 
-  const { data } = useQuery(querySingular, {
+  const { data } = useQuery(GetCity, {
     variables: { _id }
   })
 

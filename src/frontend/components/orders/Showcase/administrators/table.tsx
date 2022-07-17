@@ -1,6 +1,6 @@
 import { ReactElement, useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client'
-import { queryMultiple } from '../query'
+import { GetOrders } from '../query'
 import deleteMutation from '../../Delete/mutation'
 import { Button, TableCell, TableRow, Typography } from '@mui/material'
 import { Order } from '../../../../../types/order'
@@ -54,7 +54,7 @@ const OrdersTable = (): ReactElement => {
     refetch: null
   })
 
-  const { data, loading, fetchMore, refetch } = useQuery(queryMultiple, {
+  const { data, loading, fetchMore, refetch } = useQuery(GetOrders, {
     variables: { ...args, paginateData: paginateDataArgs },
     ...fetchMoreArgs
   })

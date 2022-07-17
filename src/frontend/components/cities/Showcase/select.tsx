@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 import { useQuery } from '@apollo/client'
-import { queryMultiple } from './query'
+import { GetCities } from './query'
 import { City } from '../../../../types/city'
 import { SortDirection } from '../../../_enums/sortDirection'
 import SelectField from '../../../components/_common/SelectField'
@@ -16,7 +16,7 @@ const CitiesSelect = ({
   required?: boolean
   setArgs: React.Dispatch<React.SetStateAction<any>>
 }): ReactElement => {
-  const { data } = useQuery(queryMultiple, {
+  const { data } = useQuery(GetCities, {
     variables: {
       paginateData: { sortBy: 'name', sortDirection: SortDirection.ASC }
     }

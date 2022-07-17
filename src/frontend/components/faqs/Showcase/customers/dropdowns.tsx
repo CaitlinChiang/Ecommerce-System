@@ -1,6 +1,6 @@
 import { ReactElement, useState } from 'react'
 import { useQuery } from '@apollo/client'
-import { queryMultiple } from '../query'
+import { GetFAQs } from '../query'
 import { Typography } from '@mui/material'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
@@ -20,7 +20,7 @@ const FAQsDropdowns = (): ReactElement => {
     sortDirection: SortDirection.ASC
   })
 
-  const { data, loading, fetchMore } = useQuery(queryMultiple, {
+  const { data, loading, fetchMore } = useQuery(GetFAQs, {
     variables: { ...args, paginateData: paginateDataArgs },
     ...fetchMoreArgs
   })

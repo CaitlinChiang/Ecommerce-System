@@ -1,6 +1,6 @@
 import { ReactElement, useState, useEffect } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
-import { querySingular } from '../Showcase/query'
+import { GetPaymentMethod } from '../Showcase/query'
 import mutation from './mutation'
 import { Button, Typography } from '@mui/material'
 import { PaymentMethod } from '../../../../types/paymentMethod'
@@ -30,7 +30,7 @@ const UpdatePaymentMethod = ({
     success: null
   })
 
-  const { data } = useQuery(querySingular, {
+  const { data } = useQuery(GetPaymentMethod, {
     variables: { _id }
   })
 

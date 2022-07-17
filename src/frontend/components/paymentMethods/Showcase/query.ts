@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client'
 
-export const querySingular = gql`
+export const GetPaymentMethod = gql`
   query ($_id: ID!) {
     get_payment_method(_id: $_id) {
       _id
@@ -12,7 +12,7 @@ export const querySingular = gql`
   }
 `
 
-export const queryMultiple = gql`
+export const GetPaymentMethods = gql`
   query ($paginateData: PaginateDataInput) {
     get_payment_methods(paginateData: $paginateData) {
       _id

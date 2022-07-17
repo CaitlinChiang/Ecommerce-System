@@ -1,6 +1,6 @@
 import { ReactElement, useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client'
-import query from './query'
+import { GetReviews } from './query'
 import { Typography } from '@mui/material'
 import { Review } from '../../../../types/review'
 import { PaginateDataArgs } from '../../../../types/actions/paginateData'
@@ -28,7 +28,7 @@ const ReviewsCards = ({ featured }: { featured: boolean }): ReactElement => {
     refetch: null
   })
 
-  const { data, loading, fetchMore, refetch } = useQuery(query, {
+  const { data, loading, fetchMore, refetch } = useQuery(GetReviews, {
     variables: {
       ...args,
       paginateData: {
