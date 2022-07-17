@@ -75,19 +75,23 @@ const CreateOrder = (): ReactElement => {
           setArgs={setArgs}
           targetProp={'collectionMethod'}
         />
-        <Text
-          args={args}
-          error={validateFields}
-          required={true}
-          setArgs={setArgs}
-          targetProp={'address'}
-        />
-        <CitiesSelect
-          args={args}
-          error={validateFields}
-          required={true}
-          setArgs={setArgs}
-        />
+        {args?.collectionMethod === CollectionMethod.DELIVERY && (
+          <>
+            <Text
+              args={args}
+              error={validateFields}
+              required={true}
+              setArgs={setArgs}
+              targetProp={'address'}
+            />
+            <CitiesSelect
+              args={args}
+              error={validateFields}
+              required={true}
+              setArgs={setArgs}
+            />
+          </>
+        )}
         <PaymentMethodsSelect
           args={args}
           error={validateFields}
