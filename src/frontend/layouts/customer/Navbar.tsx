@@ -37,9 +37,10 @@ const Navbar = (): ReactElement => {
           {'Logo'}
         </Typography>
         <List sx={{ display: 'flex' }}>
-          {shoppingMenu.map((menuItem): ReactElement => {
+          {shoppingMenu.map((menuItem, index): ReactElement => {
             return (
               <ListItemButton
+                key={index}
                 onClick={(): void => {
                   router.push(menuItem.route)
                 }}
@@ -50,9 +51,10 @@ const Navbar = (): ReactElement => {
           })}
         </List>
         <List sx={{ display: 'flex' }}>
-          {trackingMenu.map((menuItem): ReactElement => {
+          {trackingMenu.map((menuItem, index): ReactElement => {
             return (
               <ListItemButton
+                key={index}
                 onClick={(): void => {
                   router.push(menuItem.route)
                 }}

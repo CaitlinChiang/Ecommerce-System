@@ -18,9 +18,7 @@ const Header = ({
         <IconButton
           edge={'start'}
           color={'inherit'}
-          onClick={(): void => {
-            router.push(backRoute)
-          }}
+          onClick={(): void => router.back()}
         >
           <ArrowBackIcon fontSize={'large'} />
         </IconButton>

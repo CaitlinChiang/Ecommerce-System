@@ -52,10 +52,10 @@ const Cart = (): ReactElement => {
         })}
         <Typography variant={'h6'}>{'Total  P' + cart?.totalPrice}</Typography>
       </Container>
-      <Container>
+      <Container sx={{ marginTop: 10 }}>
         <Typography variant={'h6'}>{'Total'}</Typography>
         <Typography variant={'h6'}>{'Quantity ' + cart?.quantity}</Typography>
-        <Typography variant={'h6'}>{'Amount Due ' + cart?.totalPrice}</Typography>
+        <Typography variant={'h6'}>{'Amount Due P' + cart?.totalPrice}</Typography>
         <Button
           color={'primary'}
           onClick={(): void => {
