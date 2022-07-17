@@ -9,6 +9,7 @@ type User {
   phoneNumber: String
   token: String
   type: String
+  verificationCode: String
   createdAt: String
   updatedAt: String
   deletedAt: String
@@ -50,4 +51,14 @@ extend type Mutation {
   ): User
 
   delete_user(_id: ID!): User
+
+  forgot_password (
+    email: String!
+  ): Void
+
+  reset_password (
+    newPassword: String!
+    oldPassword: String
+    verificationCode: String
+  ): User
 }

@@ -14,6 +14,7 @@ export interface User {
   phoneNumber?: string
   token?: string
   type?: UserType
+  verificationCode?: string
   createdAt?: Date
   updatedAt?: Date
   deletedAt?: Date
@@ -61,4 +62,14 @@ export interface UpdateUserArgs {
 export interface DeleteUserArgs {
   _id: ObjectId
   deletedAt?: Date
+}
+
+export interface ForgotPasswordArgs {
+  email: string
+}
+
+export interface ResetPasswordArgs {
+  newPassword: string
+  oldPassword?: string
+  verificationCode?: string
 }

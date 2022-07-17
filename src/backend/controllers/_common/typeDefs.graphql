@@ -1,4 +1,5 @@
 scalar Upload
+scalar Void
 
 type DeliveryAddress {
   address: String
