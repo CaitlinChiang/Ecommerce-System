@@ -31,15 +31,15 @@ const OrderSummary = (): ReactElement => {
         )
       })}
       <Typography variant={'h6'}>
-        {`Subtotal (${cart?.quantity} items)` + `P ${cart?.totalPrice?.toFixed(2)}`}
+        {`Subtotal (${cart?.quantity} items) ` + `P${cart?.totalPrice?.toFixed(2)}`}
       </Typography>
       <Typography variant={'h6'}>
-        {'Shipping Fee' + `P ${city?.shippingFee?.toFixed(2)}`}
+        {'Shipping Fee ' + `P${city?.shippingFee?.toFixed(2) || '0.00'}`}
       </Typography>
       <Divider />
       <Typography variant={'h6'}>
-        {'Total Amount Due' +
-          `P ${(cart?.totalPrice + city?.shippingFee)?.toFixed(2)}`}
+        {'Total Amount Due ' +
+          `P${(cart?.totalPrice + city?.shippingFee || 0)?.toFixed(2)}`}
       </Typography>
     </>
   )
