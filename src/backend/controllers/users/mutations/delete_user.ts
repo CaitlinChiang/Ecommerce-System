@@ -25,5 +25,7 @@ export default async (
     ...auditArgs(context)
   })
 
+  await context.database.carts.findOneAndDelete({ _userId: new ObjectId(args._id) })
+
   return user
 }
