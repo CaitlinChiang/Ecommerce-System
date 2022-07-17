@@ -127,7 +127,8 @@ const OrdersTable = (): ReactElement => {
             />
           </TableCell>
           <TableCell align={'center'}>
-            {String(order?.payment?.amountDue + order?.payment?.shippingFee)}
+            {`Amount Due: P${order?.payment?.amountDue?.toFixed(2)}`}
+            {`Shipping Fee: P${order?.payment?.shippingFee?.toFixed(2)}`}
           </TableCell>
           <TableCell align={'center'}>
             <UpdatePaymentSelect
