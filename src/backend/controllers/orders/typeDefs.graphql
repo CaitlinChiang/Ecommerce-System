@@ -13,8 +13,6 @@ type Order {
 }
 
 extend type Query {
-  get_order(_id: ID!): Order
-
   get_orders(
     collectionMethod: String
     dateRange: DateRangeInput

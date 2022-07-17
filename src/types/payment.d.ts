@@ -20,7 +20,7 @@ export interface CreatePaymentArgs {
   amountDue: number
   imageProof: Promise<FileUpload>
   paymentMethodId: ObjectId
-  shippingFee?: number
+  shippingFee: number
   status?: PaymentStatus
   createdAt?: Date
 }
