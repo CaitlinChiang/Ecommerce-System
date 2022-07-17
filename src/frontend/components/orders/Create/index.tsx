@@ -1,6 +1,7 @@
 import { ReactElement, useState } from 'react'
 import { useQuery } from '@apollo/client'
-import { querySingular } from '../../paymentMethods/Showcase/query'
+import { GetCity } from '../../cities/Showcase/query'
+import { GetPaymentMethod } from '../../paymentMethods/Showcase/query'
 import { useRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
 import mutation from './mutation'
@@ -33,11 +34,15 @@ const CreateOrder = (): ReactElement => {
   })
   const [orderSuccess, setOrderSuccess] = useState<boolean>(false)
 
-  const { data } = useQuery(querySingular, {
+  const { data: CityData } = useQuery(GetCity, {
+    variables: { _id: args?.cityId }
+  })
+  const { data: PaymentMethodData } = useQuery(GetPaymentMethod, {
     variables: { _id: args?.paymentMethodId }
   })
 
-  const paymentMethod = data?.get_payment_method || {}
+  const city = CityData?.get_city || {}
+  const paymentMethod = PaymentMethodData?.get_payment_method || {}
 
   const [createMutation, createMutationState] = useMutation(mutation, {
     variables: {
@@ -47,7 +52,8 @@ const CreateOrder = (): ReactElement => {
       payment: {
         amountDue: args?.payment,
         imageProof: args?.imageProof,
-        paymentMethodId: args?.paymentMethodId
+        paymentMethodId: args?.paymentMethodId,
+        shippingFee: city?.shippingFee
       }
     },
     onCompleted: () => {
