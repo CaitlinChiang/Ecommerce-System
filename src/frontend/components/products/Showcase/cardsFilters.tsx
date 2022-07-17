@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 import { useQuery } from '@apollo/client'
-import { queryMultiple } from '../../productCategories/Showcase/query'
+import { GetProductCategories } from '../../productCategories/Showcase/query'
 import { ListItemButton, ListItemText } from '@mui/material'
 import { ProductCategory } from '../../../../types/productCategory'
 import { SortDirection } from '../../../_enums/sortDirection'
@@ -12,7 +12,7 @@ const ProductsCardsFilters = ({
   args: any
   setArgs: React.Dispatch<React.SetStateAction<any>>
 }): ReactElement => {
-  const { data } = useQuery(queryMultiple, {
+  const { data } = useQuery(GetProductCategories, {
     variables: {
       paginateData: { sortBy: 'name', sortDirection: SortDirection.ASC }
     }

@@ -1,4 +1,4 @@
-import { ReactElement, useState, useEffect } from 'react'
+import React, { ReactElement, useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetWebsiteText } from '../../Showcase/query'
 import { Link, Typography } from '@mui/material'
@@ -36,12 +36,16 @@ const ContactInformation = (): ReactElement => {
       </Typography>
       {args?.facebook && (
         <Typography variant={'h6'} sx={{ display: 'inline-block', marginRight: 5 }}>
-          <Link href={args?.facebook}>Facebook</Link>
+          <Link color={'#ffffff'} href={args?.facebook}>
+            {'Facebook'}
+          </Link>
         </Typography>
       )}
       {args?.instagram && (
         <Typography variant={'h6'} sx={{ display: 'inline-block', marginRight: 5 }}>
-          <Link href={args?.instagram}>Instagram</Link>
+          <Link color={'#ffffff'} href={args?.instagram}>
+            {'Instagram'}
+          </Link>
         </Typography>
       )}
       <Typography variant={'h6'} sx={{ display: 'inline-block', marginRight: 5 }}>
