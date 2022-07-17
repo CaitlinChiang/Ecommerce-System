@@ -32,7 +32,12 @@ export default async (
     ...auditArgs(context)
   })
 
-  await createPayment(order.insertedId, payment, context)
+  await createPayment(
+    order.insertedId,
+    payment,
+    remainingArgs?.deliveryAddress?.cityId,
+    context
+  )
 
   await emptyCart(context)
 
