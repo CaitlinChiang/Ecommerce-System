@@ -14,7 +14,6 @@ input PaymentInput {
   amountDue: Float!
   imageProof: Upload!
   paymentMethodId: ID!
-  shippingFee: Float
 }
 
 extend type Mutation {
