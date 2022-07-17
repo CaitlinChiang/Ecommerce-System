@@ -58,14 +58,12 @@ const ProductsCards = ({ featured }: { featured: boolean }): ReactElement => {
               <Typography variant={'h6'}>
                 {formatDiscountedPrice(product?.discount, product?.price)}
               </Typography>
-              {product?.discount ? (
+              {product?.discount && (
                 <Typography variant={'h6'}>
                   {'P' + product?.price?.toFixed(2)}
                   {' -'}
                   {formatToPercentage(product?.discount)}
                 </Typography>
-              ) : (
-                <div style={{ marginTop: '32px' }} />
               )}
             </>
           }
