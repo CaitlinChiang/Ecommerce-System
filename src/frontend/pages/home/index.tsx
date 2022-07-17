@@ -16,14 +16,17 @@ const Page = (): ReactElement => {
 
   return (
     <>
-      {homePageComponents.map((component: ReactElement): ReactElement => {
-        return (
-          <>
-            {component}
-            <Divider sx={{ marginTop: 5, marginBottom: 5 }} />
-          </>
-        )
-      })}
+      {homePageComponents.map(
+        (component: ReactElement, index: number): ReactElement => {
+          if (index === 3) return component
+          return (
+            <>
+              {component}
+              <Divider sx={{ marginTop: 5, marginBottom: 5 }} />
+            </>
+          )
+        }
+      )}
     </>
   )
 }
