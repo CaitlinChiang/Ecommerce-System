@@ -69,6 +69,7 @@ export interface ForgotPasswordArgs {
 }
 
 export interface ResetPasswordArgs {
+  email: string
   newPassword: string
   oldPassword?: string
   verificationCode?: string

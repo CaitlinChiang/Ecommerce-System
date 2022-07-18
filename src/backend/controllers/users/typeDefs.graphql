@@ -57,6 +57,7 @@ extend type Mutation {
   ): Void
 
   reset_password (
+    email: String!
     newPassword: String!
     oldPassword: String
     verificationCode: String
