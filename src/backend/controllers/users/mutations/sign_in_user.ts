@@ -16,7 +16,7 @@ export default async (
 
   const user: User = await context.database.users.findOne({ email: args.email })
 
-  await validatePassword(args.password, user)
+  await validatePassword({ password: args.password, user })
 
   const token = await generateJWT(user._id)
 

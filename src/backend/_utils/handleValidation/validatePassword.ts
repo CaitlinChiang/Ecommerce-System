@@ -1,14 +1,23 @@
 import bcrypt from 'bcrypt'
-import { AuthenticationError } from 'apollo-server-express'
+import { UserInputError } from 'apollo-server-express'
 import { User } from '../../../types/user'
 
-export const validatePassword = async (
-  password: string,
+export const validatePassword = async ({
+  password,
+  user,
+  reset
+}: {
+  password: string
   user: User
-): Promise<void> => {
+  reset?: boolean
+}): Promise<void> => {
   const passwordsMatch = await bcrypt.compare(password, user.password)
 
-  if (!passwordsMatch) {
-    throw new AuthenticationError('Incorrect password, please try again.')
+  if (!passwordsMatch && !reset) {
+    throw new UserInputError('Incorrect password, please try again.')
+  }
+
+  if (!passwordsMatch && reset) {
+    throw new UserInputError('Old password provided is incorrect.')
   }
 }
