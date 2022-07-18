@@ -31,7 +31,7 @@ const SignInUser = (): ReactElement => {
       })
       router.push('/')
     },
-    onError: (error) => console.log(error.message)
+    onError: (error) => setNotification({ message: error.message, success: false })
   })
 
   return (
@@ -48,6 +48,7 @@ const SignInUser = (): ReactElement => {
         error={validateFields}
         required={true}
         setArgs={setArgs}
+        targetProp={'password'}
       />
       <Button
         onClick={() => {

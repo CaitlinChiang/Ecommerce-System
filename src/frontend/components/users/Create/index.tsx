@@ -79,6 +79,7 @@ const CreateUser = ({ type }: { type: UserType }): ReactElement => {
         error={validateFields}
         required={true}
         setArgs={setArgs}
+        targetProp={'password'}
       />
       <Text
         args={args}
