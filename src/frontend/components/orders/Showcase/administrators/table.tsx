@@ -3,6 +3,7 @@ import { useQuery } from '@apollo/client'
 import { GetOrders } from '../query'
 import deleteMutation from '../../Delete/mutation'
 import { Button, TableCell, TableRow, Typography } from '@mui/material'
+import { CartItem } from '../../../../../types/cart'
 import { Order } from '../../../../../types/order'
 import { PaginateDataArgs } from '../../../../../types/actions/paginateData'
 import { RefetchDataArgs } from '../../../../../types/actions/refetchData'
@@ -59,7 +60,7 @@ const OrdersTable = (): ReactElement => {
     ...fetchMoreArgs
   })
 
-  const orders = data?.get_orders || []
+  const orders: Order[] = data?.get_orders || []
   const ordersCount: number = data?.get_orders_count || 0
 
   useEffect(() => {
@@ -91,66 +92,64 @@ const OrdersTable = (): ReactElement => {
     orders?.map((order: Order): ReactElement => {
       return (
         <TableRow>
-          <TableCell align={'center'}>{order?.user?.firstName}</TableCell>
-          <TableCell align={'center'}>{order?.user?.lastName}</TableCell>
-          <TableCell align={'center'}>
+          <TableCell>{order?.user?.firstName}</TableCell>
+          <TableCell>{order?.user?.lastName}</TableCell>
+          <TableCell>
             {order?.user?.email} <br /> {order?.user?.phoneNumber}
           </TableCell>
-          <TableCell align={'center'}>
+          <TableCell>
             {order?.collectionMethod}
-            {order?.deliveryAddress !== null && (
+            {order?.deliveryAddress && (
               <Button
-                color={'primary'}
                 onClick={() =>
                   setShowAddress({ address: order?.deliveryAddress, open: true })
                 }
-                variant={'contained'}
               >
                 {'View Address'}
               </Button>
             )}
           </TableCell>
-          <TableCell align={'center'}>
+          <TableCell>
             <Button
-              color={'primary'}
-              onClick={() => setShowOrderItems({ items: order?.items, open: true })}
-              variant={'contained'}
+              onClick={(): void => {
+                setShowOrderItems({ items: order?.items, open: true })
+              }}
             >
               {'View Items'}
             </Button>
           </TableCell>
-          <TableCell align={'center'}>
+          <TableCell>
             <UpdateOrderSelect
               _id={order._id}
               refetchArgs={refetchArgs}
               status={order?.status}
             />
           </TableCell>
-          <TableCell align={'center'}>
+          <TableCell>
             {`Amount Due: P${order?.payment?.amountDue?.toFixed(2)}`}
             {`Shipping Fee: P${order?.payment?.shippingFee?.toFixed(2)}`}
           </TableCell>
-          <TableCell align={'center'}>
+          <TableCell>
             <UpdatePaymentSelect
               _orderId={order._id}
               refetchArgs={refetchArgs}
               status={order?.payment?.status}
             />
           </TableCell>
-          <TableCell align={'center'}>
+          <TableCell>
             {order?.payment?.paymentMethod?.name}
             <br />
             <Button
-              color={'primary'}
-              onClick={() => setShowPaymentProof({ imageProofUrl: '', open: true })}
-              variant={'contained'}
+              onClick={(): void => {
+                setShowPaymentProof({ imageProofUrl: '', open: true })
+              }}
             >
               {'View Proof'}
             </Button>
           </TableCell>
-          <TableCell align={'center'}>{String(order?.createdAt)}</TableCell>
-          <TableCell align={'center'}>{String(order?.updatedAt)}</TableCell>
-          <TableCell align={'center'}>
+          <TableCell>{String(order?.createdAt)}</TableCell>
+          <TableCell>{String(order?.updatedAt)}</TableCell>
+          <TableCell>
             <DeleteButton
               _id={order._id}
               label={'Order'}
@@ -179,14 +178,14 @@ const OrdersTable = (): ReactElement => {
         title={'Address'}
       />
       <ModalComponent
-        content={showOrderItems?.items?.map((item: any) => {
+        content={showOrderItems?.items?.map((item: CartItem) => {
+          const { product, productVariant, quantity } = item
           return (
             <Typography>
-              {item?.quantity?.length > 9 ? item?.quantity : '0' + item?.quantity}
+              {quantity > 9 ? quantity : '0' + quantity}
               {' - '}
-              {item?.product?.name}
-              {item?.productVariant?.name !== null &&
-                ` [${item?.productVariant?.name}]`}
+              {product?.name}
+              {productVariant?.name && ` [${productVariant?.name}]`}
             </Typography>
           )
         })}

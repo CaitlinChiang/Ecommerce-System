@@ -6,15 +6,18 @@ import { useRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
 import mutation from './mutation'
 import { Button, Container, Typography } from '@mui/material'
+import { City } from '../../../../types/city'
+import { PaymentMethod } from '../../../../types/paymentMethod'
 import { CollectionMethod } from '../../../_enums/collectionMethod'
 import OrderSummary from './orderSummary'
-import CitiesSelect from '../../../components/cities/Showcase/select'
-import PaymentMethodsSelect from '../../../components/paymentMethods/Showcase/select'
-import SelectField from '../../../components/_common/SelectField'
+import CitiesSelect from '../../cities/Showcase/select'
+import PaymentMethodsSelect from '../../paymentMethods/Showcase/select'
+import SelectField from '../../_common/SelectField'
 import Text from '../../_common/TextField'
 import ImageUploader from '../../_common/ImageUploader'
-import Notification from '../../_common/NotificationComponent'
 import OrderSuccess from './orderSuccess'
+
+const globalAny: any = global
 
 const CreateOrder = (): ReactElement => {
   const router = useRouter()
@@ -28,21 +31,15 @@ const CreateOrder = (): ReactElement => {
     paymentMethodId: null
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
-  const [notification, setNotification] = useState<any>({
-    message: null,
-    success: null
-  })
   const [orderSuccess, setOrderSuccess] = useState<boolean>(false)
 
-  const { data: CityData } = useQuery(GetCity, {
-    variables: { _id: args?.cityId }
-  })
+  const { data: CityData } = useQuery(GetCity, { variables: { _id: args?.cityId } })
   const { data: PaymentMethodData } = useQuery(GetPaymentMethod, {
     variables: { _id: args?.paymentMethodId }
   })
 
-  const city = CityData?.get_city || {}
-  const paymentMethod = PaymentMethodData?.get_payment_method || {}
+  const city: City = CityData?.get_city || {}
+  const paymentMethod: PaymentMethod = PaymentMethodData?.get_payment_method || {}
 
   const [createMutation, createMutationState] = useMutation(mutation, {
     variables: {
@@ -57,13 +54,10 @@ const CreateOrder = (): ReactElement => {
       }
     },
     onCompleted: () => {
-      setNotification({
-        message: 'Order successfully placed!',
-        success: true
-      })
+      globalAny.setNotification(true, 'Order successfully placed!')
       setOrderSuccess(true)
     },
-    onError: (error) => setNotification({ message: error.message, success: false })
+    onError: (error) => globalAny.setNotification(false, error.message)
   })
 
   return (
@@ -108,7 +102,7 @@ const CreateOrder = (): ReactElement => {
         />
         {paymentMethod && (
           <Typography>
-            {'Note: Please transfer total amount due to ' + paymentMethod?.details}
+            {`Note: Please transfer total amount due to ${paymentMethod?.details}`}
           </Typography>
         )}
         <ImageUploader
@@ -120,22 +114,23 @@ const CreateOrder = (): ReactElement => {
           targetProp={'imageProof'}
         />
         <Button
-          onClick={() => router.push('/shop')}
           disabled={createMutationState.loading}
+          onClick={(): void => {
+            router.push('/shop')
+          }}
         >
           {'Return to Shop'}
         </Button>
         <Button
-          onClick={() => {
+          disabled={createMutationState.loading}
+          onClick={(): void => {
             setValidateFields(true)
             createMutation()
           }}
-          disabled={createMutationState.loading}
         >
           {'Confirm Payment'}
         </Button>
       </Container>
-      <Notification message={notification.message} success={notification.success} />
       {orderSuccess && <OrderSuccess />}
     </>
   )

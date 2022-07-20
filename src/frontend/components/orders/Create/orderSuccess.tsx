@@ -7,14 +7,20 @@ const OrderSuccess = (): ReactElement => {
 
   return (
     <Container>
-      <Typography variant={'h6'}>{'Order Successful!'}</Typography>
-      <Typography variant={'body1'}>
+      <Typography>{'Order Successful!'}</Typography>
+      <Typography>
         {
           'Please check your email for the order receipt. You may also track your order '
         }
       </Typography>
       <Link href={'/orders'}>{' here.'}</Link>
-      <Button onClick={() => router.push('/')}>{'Return to Home'}</Button>
+      <Button
+        onClick={(): void => {
+          router.push('/')
+        }}
+      >
+        {'Return to Home'}
+      </Button>
     </Container>
   )
 }

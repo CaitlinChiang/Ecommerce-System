@@ -71,11 +71,11 @@ const UpdateFAQ = ({
         targetProp={'answer'}
       />
       <Button
-        onClick={() => {
+        disabled={updateMutationState.loading}
+        onClick={(): void => {
           setValidateFields(true)
           updateMutation()
         }}
-        disabled={updateMutationState.loading}
       >
         {'Save Changes'}
       </Button>

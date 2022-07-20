@@ -1,6 +1,7 @@
 import { ReactElement } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetPaymentMethods } from './query'
+import { ObjectId } from 'mongodb'
 import { PaymentMethod } from '../../../../types/paymentMethod'
 import { SortDirection } from '../../../_enums/sortDirection'
 import SelectField from '../../../components/_common/SelectField'
@@ -22,10 +23,10 @@ const PaymentMethodsSelect = ({
     }
   })
 
-  const paymentMethods = data?.get_payment_methods || []
+  const paymentMethods: PaymentMethod[] = data?.get_payment_methods || []
 
   const paymentMethodOptions = paymentMethods?.map(
-    (paymentMethod: PaymentMethod) => {
+    (paymentMethod: PaymentMethod): { label: string; paymentMethodId: ObjectId } => {
       return {
         label: paymentMethod.name,
         paymentMethodId: paymentMethod._id

@@ -39,7 +39,7 @@ const PaymentMethodsTable = (): ReactElement => {
     ...fetchMoreArgs
   })
 
-  const paymentMethods = data?.get_payment_methods || []
+  const paymentMethods: PaymentMethod[] = data?.get_payment_methods || []
   const paymentMethodsCount: number = data?.get_payment_methods_count || 0
 
   useEffect(() => {
@@ -67,8 +67,8 @@ const PaymentMethodsTable = (): ReactElement => {
           <TableCell align={'center'}>
             <IconButton
               onClick={(): void => {
-                setUpdateModalOpen(true)
                 setPaymentMethodId(String(paymentMethod._id))
+                setUpdateModalOpen(true)
               }}
             >
               <EditIcon />

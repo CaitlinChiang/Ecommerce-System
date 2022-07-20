@@ -76,11 +76,11 @@ const UpdateCity = ({
         targetProp={'shippingFee'}
       />
       <Button
-        onClick={() => {
+        disabled={updateMutationState.loading}
+        onClick={(): void => {
           setValidateFields(true)
           updateMutation()
         }}
-        disabled={updateMutationState.loading}
       >
         {'Save Changes'}
       </Button>

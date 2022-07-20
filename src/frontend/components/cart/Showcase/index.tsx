@@ -18,7 +18,7 @@ const Cart = (): ReactElement => {
     <>
       <Container>
         {cart?.items?.map((cartItem: CartItem): ReactElement => {
-          const { product, productVariant } = cartItem
+          const { product, productVariant, quantity, totalPrice } = cartItem
           return (
             <>
               <Box
@@ -29,11 +29,11 @@ const Cart = (): ReactElement => {
               />
               <Typography>{product?.name}</Typography>
               <Typography>{productVariant?.name}</Typography>
-              <Typography>{`P${cartItem?.totalPrice?.toFixed(2)}`}</Typography>
+              <Typography>{`P${totalPrice?.toFixed(2)}`}</Typography>
               <EditItemQuantity
                 productId={cartItem?.productId}
                 productVariantId={cartItem?.productVariantId}
-                quantity={cartItem?.quantity}
+                quantity={quantity}
                 refetch={refetch}
               />
               <Divider />

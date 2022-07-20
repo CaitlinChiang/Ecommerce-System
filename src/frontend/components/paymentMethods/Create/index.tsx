@@ -4,9 +4,10 @@ import mutation from './mutation'
 import { Button } from '@mui/material'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
-import Notification from '../../_common/NotificationComponent'
 import { refetchData } from '../../../_utils/handleData/refetchData'
 import { clearFields } from '../../../_utils/handleFields/clearFields'
+
+const globalAny: any = global
 
 const CreatePaymentMethod = ({
   refetchArgs
@@ -18,23 +19,16 @@ const CreatePaymentMethod = ({
     details: null
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
-  const [notification, setNotification] = useState<any>({
-    message: null,
-    success: null
-  })
 
   const [createMutation, createMutationState] = useMutation(mutation, {
     variables: args,
     onCompleted: () => {
-      setNotification({
-        message: 'Payment method successfully created!',
-        success: true
-      })
+      globalAny.setNotification(true, 'Payment method successfully created!')
       refetchData(refetchArgs)
       setValidateFields(false)
       setArgs(clearFields(args))
     },
-    onError: (error) => setNotification({ message: error.message, success: false })
+    onError: (error) => globalAny.setNotification(false, error.message)
   })
 
   return (
@@ -56,15 +50,14 @@ const CreatePaymentMethod = ({
         targetProp={'details'}
       />
       <Button
-        onClick={() => {
+        disabled={createMutationState.loading}
+        onClick={(): void => {
           setValidateFields(true)
           createMutation()
         }}
-        disabled={createMutationState.loading}
       >
         {'Create'}
       </Button>
-      <Notification message={notification.message} success={notification.success} />
     </>
   )
 }

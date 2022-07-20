@@ -2,11 +2,12 @@ import { ReactElement, useState } from 'react'
 import { useMutation } from '@apollo/client'
 import mutation from './mutation'
 import SelectField from '../../_common/SelectField'
-import Notification from '../../_common/NotificationComponent'
 import { ObjectId } from 'mongodb'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import { OrderStatus } from '../../../_enums/orderStatus'
 import { refetchData } from '../../../_utils/handleData/refetchData'
+
+const globalAny: any = global
 
 const UpdateOrderSelect = ({
   _id,
@@ -18,20 +19,13 @@ const UpdateOrderSelect = ({
   status: OrderStatus
 }): ReactElement => {
   const [args, setArgs] = useState<any>({ _id, status })
-  const [notification, setNotification] = useState<any>({
-    message: null,
-    success: null
-  })
 
   const [updateMutation, updateMutationState] = useMutation(mutation, {
     onCompleted: () => {
-      setNotification({
-        message: 'Order status updated!',
-        success: true
-      })
+      globalAny.setNotification(true, 'Order status updated!')
       refetchData(refetchArgs)
     },
-    onError: (error) => setNotification({ message: error.message, success: false })
+    onError: (error) => globalAny.setNotification(false, error.message)
   })
 
   return (
@@ -48,7 +42,6 @@ const UpdateOrderSelect = ({
         targetProp={'status'}
         updateMutation={updateMutation}
       />
-      <Notification message={notification.message} success={notification.success} />
     </>
   )
 }

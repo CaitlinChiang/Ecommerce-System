@@ -30,7 +30,7 @@ const OrdersTable = (): ReactElement => {
     ...fetchMoreArgs
   })
 
-  const orders = data?.get_orders || []
+  const orders: Order[] = data?.get_orders || []
   const ordersCount: number = data?.get_orders_count || 0
 
   const orderHeaders = [
@@ -44,25 +44,18 @@ const OrdersTable = (): ReactElement => {
   ]
 
   const orderRows = [
-    orders?.map((order: Order) => {
+    orders?.map((order: Order): ReactElement[] => {
       return order?.items?.map((cartItem: CartItem): ReactElement => {
+        const { product, productVariant, quantity, totalPrice } = cartItem
         return (
           <TableRow>
-            <TableCell align={'center'}>
-              {String(order?.createdAt).substring(0, 10)}
-            </TableCell>
-            <TableCell align={'center'}>
-              {cartItem?.productVariant?.name || cartItem?.product?.name}
-            </TableCell>
-            <TableCell align={'center'}>{cartItem?.quantity}</TableCell>
-            <TableCell align={'center'}>
-              {'P' + cartItem?.totalPrice?.toFixed(2)}
-            </TableCell>
-            <TableCell align={'center'}>{order?.status}</TableCell>
-            <TableCell align={'center'}>
-              {order?.payment?.paymentMethod?.name}
-            </TableCell>
-            <TableCell align={'center'}>{order?.collectionMethod}</TableCell>
+            <TableCell>{String(order?.createdAt).substring(0, 10)}</TableCell>
+            <TableCell>{productVariant?.name || product?.name}</TableCell>
+            <TableCell>{quantity}</TableCell>
+            <TableCell>{`P${totalPrice?.toFixed(2)}`}</TableCell>
+            <TableCell>{order?.status}</TableCell>
+            <TableCell>{order?.payment?.paymentMethod?.name}</TableCell>
+            <TableCell>{order?.collectionMethod}</TableCell>
           </TableRow>
         )
       })

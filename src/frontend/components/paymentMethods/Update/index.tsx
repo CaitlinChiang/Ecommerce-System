@@ -6,9 +6,10 @@ import { Button, Typography } from '@mui/material'
 import { PaymentMethod } from '../../../../types/paymentMethod'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
-import Notification from '../../_common/NotificationComponent'
 import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
 import { refetchData } from '../../../_utils/handleData/refetchData'
+
+const globalAny: any = global
 
 const UpdatePaymentMethod = ({
   _id,
@@ -25,14 +26,8 @@ const UpdatePaymentMethod = ({
     details: null
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
-  const [notification, setNotification] = useState<any>({
-    message: null,
-    success: null
-  })
 
-  const { data } = useQuery(GetPaymentMethod, {
-    variables: { _id }
-  })
+  const { data } = useQuery(GetPaymentMethod, { variables: { _id } })
 
   const paymentMethod: PaymentMethod = data?.get_payment_method || {}
 
@@ -47,15 +42,12 @@ const UpdatePaymentMethod = ({
   const [updateMutation, updateMutationState] = useMutation(mutation, {
     variables: correctArgs(args),
     onCompleted: () => {
-      setNotification({
-        message: 'Payment method successfully updated!',
-        success: true
-      })
+      globalAny.setNotification(true, 'Payment method successfully updated!')
       refetchData(refetchArgs)
       setValidateFields(false)
       setUpdateModalOpen(false)
     },
-    onError: (error) => setNotification({ message: error.message, success: false })
+    onError: (error) => globalAny.setNotification(false, error.message)
   })
 
   return (
@@ -79,15 +71,14 @@ const UpdatePaymentMethod = ({
         targetProp={'details'}
       />
       <Button
-        onClick={() => {
+        disabled={updateMutationState.loading}
+        onClick={(): void => {
           setValidateFields(true)
           updateMutation()
         }}
-        disabled={updateMutationState.loading}
       >
         {'Save Changes'}
       </Button>
-      <Notification message={notification.message} success={notification.success} />
     </>
   )
 }

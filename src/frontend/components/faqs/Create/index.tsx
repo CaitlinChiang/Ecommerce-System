@@ -48,11 +48,11 @@ const CreateFAQ = ({
         targetProp={'answer'}
       />
       <Button
-        onClick={() => {
+        disabled={createMutationState.loading}
+        onClick={(): void => {
           setValidateFields(true)
           createMutation()
         }}
-        disabled={createMutationState.loading}
       >
         {'Create'}
       </Button>
