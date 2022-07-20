@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/client'
 import { GetCart } from './query'
 import { image, bottomContainer, button } from '../../../styles/cart'
 import { Box, Button, Container, Divider, Typography } from '@mui/material'
-import { CartItem } from '../../../../types/cart'
+import { Cart, CartItem } from '../../../../types/cart'
 import EditItemQuantity from '../EditQuantity'
 
 const Cart = (): ReactElement => {
@@ -12,7 +12,7 @@ const Cart = (): ReactElement => {
 
   const { data, refetch } = useQuery(GetCart)
 
-  const cart = data?.get_cart || {}
+  const cart: Cart = data?.get_cart || {}
 
   return (
     <>

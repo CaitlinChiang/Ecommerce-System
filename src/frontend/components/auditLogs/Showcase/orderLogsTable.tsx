@@ -2,9 +2,9 @@ import { ReactElement, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetAuditLogs } from './query'
 import { TableCell, TableRow } from '@mui/material'
+import { ObjectId } from 'mongodb'
 import { AuditLog } from '../../../../types/auditLog'
 import { PaginateDataArgs } from '../../../../types/actions/paginateData'
-import { ObjectId } from 'mongodb'
 import { SortDirection } from '../../../_enums/sortDirection'
 import TableComponent from '../../_common/TableComponent'
 import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
@@ -24,7 +24,7 @@ const OrderLogsTable = ({ orderId }: { orderId: ObjectId }): ReactElement => {
     ...fetchMoreArgs
   })
 
-  const auditLogs = data?.get_audit_logs || []
+  const auditLogs: AuditLog[] = data?.get_audit_logs || []
   const auditLogsCount: number = data?.get_audit_logs_count || 0
 
   const auditLogHeaders = [

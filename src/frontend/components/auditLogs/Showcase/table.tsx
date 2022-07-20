@@ -32,7 +32,7 @@ const AuditLogsTable = (): ReactElement => {
     ...fetchMoreArgs
   })
 
-  const auditLogs = data?.get_audit_logs || []
+  const auditLogs: AuditLog[] = data?.get_audit_logs || []
   const auditLogsCount: number = data?.get_audit_logs_count || 0
 
   const auditLogHeaders = [

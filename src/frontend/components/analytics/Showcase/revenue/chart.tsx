@@ -2,8 +2,9 @@ import { ReactElement, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetAnalyticsRevenueCount } from '../query'
 import { Box } from '@mui/material'
-import AreaChart from '../../../_common/AreaChart'
+import { AnalyticsRevenueCount } from '../../../../../types/analytics'
 import { DateRangeType } from '../../../../_enums/dateRangeType'
+import AreaChart from '../../../_common/AreaChart'
 import DatePickerField from '../../../_common/DatePickerField'
 
 const RevenueChart = (): ReactElement => {
@@ -17,7 +18,8 @@ const RevenueChart = (): ReactElement => {
 
   const { data } = useQuery(GetAnalyticsRevenueCount, { variables: args })
 
-  const revenueData = data?.get_analytics_revenue_count || []
+  const revenueData: AnalyticsRevenueCount[] =
+    data?.get_analytics_revenue_count || []
 
   return (
     <>

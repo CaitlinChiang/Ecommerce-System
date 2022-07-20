@@ -25,10 +25,10 @@ const FAQsDropdowns = (): ReactElement => {
     ...fetchMoreArgs
   })
 
-  const faqs = data?.get_faqs || []
+  const faqs: FAQ[] = data?.get_faqs || []
   const faqsCount: number = data?.get_faqs_count || 0
 
-  const faqRows = faqs?.map((faq: FAQ): any => {
+  const faqRows = faqs?.map((faq: FAQ): { title: string; content: ReactElement } => {
     return {
       title: faq.question,
       content: <Typography>{faq.answer}</Typography>

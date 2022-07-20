@@ -6,9 +6,10 @@ import { Button, Typography } from '@mui/material'
 import { FAQ } from '../../../../types/faq'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
-import Notification from '../../_common/NotificationComponent'
 import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
 import { refetchData } from '../../../_utils/handleData/refetchData'
+
+const globalAny: any = global
 
 const UpdateFAQ = ({
   _id,
@@ -25,14 +26,8 @@ const UpdateFAQ = ({
     question: null
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
-  const [notification, setNotification] = useState<any>({
-    message: null,
-    success: null
-  })
 
-  const { data } = useQuery(GetFAQ, {
-    variables: { _id }
-  })
+  const { data } = useQuery(GetFAQ, { variables: { _id } })
 
   const faq: FAQ = data?.get_faq || {}
 
@@ -47,15 +42,12 @@ const UpdateFAQ = ({
   const [updateMutation, updateMutationState] = useMutation(mutation, {
     variables: correctArgs(args),
     onCompleted: () => {
-      setNotification({
-        message: 'FAQ successfully updated!',
-        success: true
-      })
+      globalAny.setNotification(true, 'FAQ successfully updated!')
       refetchData(refetchArgs)
       setValidateFields(false)
       setUpdateModalOpen(false)
     },
-    onError: (error) => setNotification({ message: error.message, success: false })
+    onError: (error) => globalAny.setNotification(false, error.message)
   })
 
   return (
@@ -87,7 +79,6 @@ const UpdateFAQ = ({
       >
         {'Save Changes'}
       </Button>
-      <Notification message={notification.message} success={notification.success} />
     </>
   )
 }

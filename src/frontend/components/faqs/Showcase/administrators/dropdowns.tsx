@@ -41,7 +41,7 @@ const FAQsDropdowns = (): ReactElement => {
     ...fetchMoreArgs
   })
 
-  const faqs = data?.get_faqs || []
+  const faqs: FAQ[] = data?.get_faqs || []
   const faqsCount: number = data?.get_faqs_count || 0
 
   useEffect(() => {
@@ -54,31 +54,33 @@ const FAQsDropdowns = (): ReactElement => {
     })
   }, [data, paginateDataArgs])
 
-  const faqRows = faqs?.map((faq: FAQ): any => {
-    return {
-      actions: (
-        <>
-          <IconButton
-            onClick={(): void => {
-              setUpdateModalOpen(true)
-              setFaqId(String(faq._id))
-            }}
-          >
-            <EditIcon />
-          </IconButton>
-          <DeleteButton
-            _id={faq._id}
-            label={'FAQ'}
-            mutation={deleteMutation}
-            refetchArgs={refetchArgs}
-            setPaginateDataArgs={setPaginateDataArgs}
-          />
-        </>
-      ),
-      title: faq.question,
-      content: <Typography>{faq.answer}</Typography>
+  const faqRows = faqs?.map(
+    (faq: FAQ): { actions: ReactElement; title: string; content: ReactElement } => {
+      return {
+        actions: (
+          <>
+            <IconButton
+              onClick={(): void => {
+                setFaqId(String(faq._id))
+                setUpdateModalOpen(true)
+              }}
+            >
+              <EditIcon />
+            </IconButton>
+            <DeleteButton
+              _id={faq._id}
+              label={'FAQ'}
+              mutation={deleteMutation}
+              refetchArgs={refetchArgs}
+              setPaginateDataArgs={setPaginateDataArgs}
+            />
+          </>
+        ),
+        title: faq.question,
+        content: <Typography>{faq.answer}</Typography>
+      }
     }
-  })
+  )
 
   const icons = {
     closed: <AddCircleIcon />,
