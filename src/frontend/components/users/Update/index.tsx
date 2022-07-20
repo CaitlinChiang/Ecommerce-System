@@ -4,10 +4,11 @@ import { GetUser } from '../Showcase/query'
 import mutation from './mutation'
 import { Button } from '@mui/material'
 import { User } from '../../../../types/user'
-import CitiesSelect from '../../../components/cities/Showcase/select'
 import Text from '../../_common/TextField'
-import Notification from '../../_common/NotificationComponent'
+import CitiesSelect from '../../cities/Showcase/select'
 import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
+
+const globalAny: any = global
 
 const UpdateUser = (): ReactElement => {
   const [args, setArgs] = useState<any>({
@@ -20,10 +21,6 @@ const UpdateUser = (): ReactElement => {
     phoneNumber: null
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
-  const [notification, setNotification] = useState<any>({
-    message: null,
-    success: null
-  })
 
   const { data, refetch } = useQuery(GetUser)
 
@@ -46,13 +43,10 @@ const UpdateUser = (): ReactElement => {
       deliveryAddress: { address: args?.address, cityId: args?.cityId }
     },
     onCompleted: () => {
-      setNotification({
-        message: 'Profile successfully updated!',
-        success: true
-      })
+      globalAny.setNotification(true, 'Profile successfully updated!')
       refetch()
     },
-    onError: (error) => setNotification({ message: error.message, success: false })
+    onError: (error) => globalAny.setNotification(false, error.message)
   })
 
   return (
@@ -88,15 +82,14 @@ const UpdateUser = (): ReactElement => {
       <Text args={args} setArgs={setArgs} targetProp={'address'} />
       <CitiesSelect args={args} error={validateFields} setArgs={setArgs} />
       <Button
-        onClick={() => {
+        disabled={updateMutationState.loading}
+        onClick={(): void => {
           setValidateFields(true)
           updateMutation()
         }}
-        disabled={updateMutationState.loading}
       >
         {'Save Changes'}
       </Button>
-      <Notification message={notification.message} success={notification.success} />
     </>
   )
 }

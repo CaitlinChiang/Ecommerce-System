@@ -18,9 +18,7 @@ import CreateProductCategory from '../Create'
 import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
 
 const ProductCategoriesTable = (): ReactElement => {
-  const [args, setArgs] = useState<any>({
-    showPublic: null
-  })
+  const [args, setArgs] = useState<any>({ showPublic: null })
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
     page: 0,
     rowsPerPage: 10,
@@ -44,7 +42,7 @@ const ProductCategoriesTable = (): ReactElement => {
     ...fetchMoreArgs
   })
 
-  const productCategories = data?.get_product_categories || []
+  const productCategories: ProductCategory[] = data?.get_product_categories || []
   const productCategoriesCount: number = data?.get_product_categories_count || 0
 
   useEffect(() => {
@@ -68,22 +66,20 @@ const ProductCategoriesTable = (): ReactElement => {
     productCategories?.map((productCategory: ProductCategory): ReactElement => {
       return (
         <TableRow>
-          <TableCell align={'center'}>
+          <TableCell>
             <UpdateProductCategoryCheckbox
               _id={productCategory._id}
               refetchArgs={refetchArgs}
               showPublic={productCategory.showPublic}
             />
           </TableCell>
-          <TableCell align={'center'}>{productCategory?.name}</TableCell>
-          <TableCell align={'center'}>
-            {String(productCategory?.createdAt)}
-          </TableCell>
-          <TableCell align={'center'}>
+          <TableCell>{productCategory?.name}</TableCell>
+          <TableCell>{String(productCategory?.createdAt)}</TableCell>
+          <TableCell>
             <IconButton
               onClick={(): void => {
-                setUpdateModalOpen(true)
                 setProductCategoryId(String(productCategory._id))
+                setUpdateModalOpen(true)
               }}
             >
               <EditIcon />

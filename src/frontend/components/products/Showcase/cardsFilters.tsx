@@ -1,6 +1,11 @@
 import { ReactElement } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetProductCategories } from '../../productCategories/Showcase/query'
+import {
+  listItemTextHeader,
+  listItemButton,
+  listItemText
+} from '../../../styles/products'
 import { ListItemButton, ListItemText } from '@mui/material'
 import { ProductCategory } from '../../../../types/productCategory'
 import { SortDirection } from '../../../_enums/sortDirection'
@@ -18,18 +23,18 @@ const ProductsCardsFilters = ({
     }
   })
 
-  const productCategories = data?.get_product_categories || []
+  const productCategories: ProductCategory[] = data?.get_product_categories || []
 
   return (
     <>
-      <ListItemText primary={'Categories'} sx={{ marginBottom: 2 }} />
+      <ListItemText primary={'Categories'} sx={listItemTextHeader} />
       <ListItemButton
         onClick={(): void => setArgs({ ...args, categoryIds: [] })}
-        sx={{ py: 0, minHeight: 32, marginLeft: -2 }}
+        sx={listItemButton}
       >
         <ListItemText
           primary={'All Categories'}
-          primaryTypographyProps={{ fontSize: 14, fontWeight: 'medium' }}
+          primaryTypographyProps={listItemText}
         />
       </ListItemButton>
       {productCategories.map(
@@ -40,11 +45,11 @@ const ProductsCardsFilters = ({
               onClick={(): void =>
                 setArgs({ ...args, categoryIds: [productCategory._id] })
               }
-              sx={{ py: 0, minHeight: 32, marginLeft: -2 }}
+              sx={listItemButton}
             >
               <ListItemText
                 primary={productCategory.name}
-                primaryTypographyProps={{ fontSize: 14, fontWeight: 'medium' }}
+                primaryTypographyProps={listItemText}
               />
             </ListItemButton>
           )

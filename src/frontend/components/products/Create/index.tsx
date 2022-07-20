@@ -3,15 +3,16 @@ import { useRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
 import mutation from './mutation'
 import { Button } from '@mui/material'
-import ProductCategoriesSelect from '../../../components/productCategories/Showcase/select'
 import Text from '../../_common/TextField'
 import DatePickerField from '../../_common/DatePickerField'
 import CheckboxField from '../../_common/CheckboxField'
 import NumberField from '../../_common/NumberField'
 import ImageUploader from '../../_common/ImageUploader'
-import Notification from '../../_common/NotificationComponent'
+import ProductCategoriesSelect from '../../productCategories/Showcase/select'
 import { formatFee } from '../../../_utils/handleFormatting/formatFee'
 import { formatFromPercentage } from '../../../_utils/handleFormatting/formatFromPercentage'
+
+const globalAny: any = global
 
 const CreateProduct = (): ReactElement => {
   const router = useRouter()
@@ -29,10 +30,6 @@ const CreateProduct = (): ReactElement => {
     stockQuantity: null
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
-  const [notification, setNotification] = useState<any>({
-    message: null,
-    success: null
-  })
 
   const [createMutation, createMutationState] = useMutation(mutation, {
     variables: {
@@ -42,13 +39,10 @@ const CreateProduct = (): ReactElement => {
       stockQuantity: args?.stockQuantity ? Math.round(args.stockQuantity) : null
     },
     onCompleted: () => {
-      setNotification({
-        message: 'Product successfully created!',
-        success: true
-      })
+      globalAny.setNotification(true, 'Product successfully created!')
       router.back()
     },
-    onError: (error) => setNotification({ message: error.message, success: false })
+    onError: (error) => globalAny.setNotification(false, error.message)
   })
 
   return (
@@ -99,15 +93,14 @@ const CreateProduct = (): ReactElement => {
         targetProp={'image'}
       />
       <Button
-        onClick={() => {
+        disabled={createMutationState.loading}
+        onClick={(): void => {
           setValidateFields(true)
           createMutation()
         }}
-        disabled={createMutationState.loading}
       >
         {'Create'}
       </Button>
-      <Notification message={notification.message} success={notification.success} />
     </>
   )
 }

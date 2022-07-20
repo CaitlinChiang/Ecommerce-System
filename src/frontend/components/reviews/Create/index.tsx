@@ -4,9 +4,10 @@ import mutation from './mutation'
 import { Button } from '@mui/material'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
-import Notification from '../../_common/NotificationComponent'
 import { refetchData } from '../../../_utils/handleData/refetchData'
 import { clearFields } from '../../../_utils/handleFields/clearFields'
+
+const globalAny: any = global
 
 const CreateReview = ({
   refetchArgs
@@ -19,26 +20,16 @@ const CreateReview = ({
     username: null
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
-  const [notification, setNotification] = useState<any>({
-    message: null,
-    success: null
-  })
 
   const [createMutation, createMutationState] = useMutation(mutation, {
-    variables: {
-      ...args,
-      username: args?.username || 'Anonymous'
-    },
+    variables: { ...args, username: args?.username || 'Anonymous' },
     onCompleted: () => {
-      setNotification({
-        message: 'Review successfully submitted!',
-        success: true
-      })
+      globalAny.setNotification(true, 'Review successfully submitted!')
       refetchData(refetchArgs)
       setValidateFields(false)
       setArgs(clearFields(args))
     },
-    onError: (error) => setNotification({ message: error.message, success: false })
+    onError: (error) => globalAny.setNotification(false, error.message)
   })
 
   return (
@@ -59,15 +50,14 @@ const CreateReview = ({
         targetProp={'username'}
       />
       <Button
-        onClick={() => {
+        disabled={createMutationState.loading}
+        onClick={(): void => {
           setValidateFields(true)
           createMutation()
         }}
-        disabled={createMutationState.loading}
       >
         {'Submit'}
       </Button>
-      <Notification message={notification.message} success={notification.success} />
     </>
   )
 }

@@ -6,7 +6,8 @@ import mutation from './mutation'
 import { Button } from '@mui/material'
 import Text from '../../_common/TextField'
 import PasswordField from '../../_common/PasswordField'
-import Notification from '../../_common/NotificationComponent'
+
+const globalAny: any = global
 
 const SignInUser = (): ReactElement => {
   const router = useRouter()
@@ -16,22 +17,15 @@ const SignInUser = (): ReactElement => {
     password: null
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
-  const [notification, setNotification] = useState<any>({
-    message: null,
-    success: null
-  })
 
   const [signInMutation, signInMutationState] = useMutation(mutation, {
     variables: args,
     onCompleted: (data) => {
       Cookies.set('accessToken', data.sign_in_user)
-      setNotification({
-        message: 'You are signed-in!',
-        success: true
-      })
+      globalAny.setNotification(true, 'You are signed-in!')
       router.push('/')
     },
-    onError: (error) => setNotification({ message: error.message, success: false })
+    onError: (error) => globalAny.setNotification(false, error.message)
   })
 
   return (
@@ -51,15 +45,14 @@ const SignInUser = (): ReactElement => {
         targetProp={'password'}
       />
       <Button
-        onClick={() => {
+        disabled={signInMutationState.loading}
+        onClick={(): void => {
           setValidateFields(true)
           signInMutation()
         }}
-        disabled={signInMutationState.loading}
       >
         {'Sign In'}
       </Button>
-      <Notification message={notification.message} success={notification.success} />
     </>
   )
 }

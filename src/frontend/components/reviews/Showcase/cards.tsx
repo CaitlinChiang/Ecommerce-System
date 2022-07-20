@@ -7,7 +7,7 @@ import { PaginateDataArgs } from '../../../../types/actions/paginateData'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import { SortDirection } from '../../../_enums/sortDirection'
 import CardComponent from '../../_common/CardComponent'
-import CardsPaginationComponent from '../../../components/_common/CardsPaginationComponent'
+import CardsPaginationComponent from '../../_common/CardsPaginationComponent'
 import CreateReview from '../Create'
 import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
 
@@ -41,7 +41,7 @@ const ReviewsCards = ({ featured }: { featured: boolean }): ReactElement => {
     ...fetchMoreArgs
   })
 
-  const reviews = data?.get_reviews || []
+  const reviews: Review[] = data?.get_reviews || []
   const reviewsCount: number = data?.get_reviews_count || 0
 
   useEffect(() => {
@@ -60,11 +60,9 @@ const ReviewsCards = ({ featured }: { featured: boolean }): ReactElement => {
         <CardComponent
           content={
             <>
-              <Typography sx={{ fontSize: 20 }}>{`"${review?.content}"`}</Typography>
+              <Typography>{`"${review?.content}"`}</Typography>
               <br />
-              <Typography sx={{ fontSize: 18 }}>
-                {'- ' + review?.username}
-              </Typography>
+              <Typography>{`- ${review?.username}`}</Typography>
             </>
           }
         />
@@ -74,7 +72,7 @@ const ReviewsCards = ({ featured }: { featured: boolean }): ReactElement => {
 
   return (
     <>
-      {featured && <Typography variant={'h4'}>{'Customer Reviews'}</Typography>}
+      {featured && <Typography>{'Customer Reviews'}</Typography>}
       {!featured && (
         <>
           <CreateReview refetchArgs={refetchArgs} />

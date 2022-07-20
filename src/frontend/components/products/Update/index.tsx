@@ -4,17 +4,18 @@ import { GetProduct } from '../Showcase/query'
 import mutation from './mutation'
 import { Button, Typography } from '@mui/material'
 import { Product } from '../../../../types/product'
-import ProductCategoriesSelect from '../../../components/productCategories/Showcase/select'
 import Text from '../../_common/TextField'
 import DatePickerField from '../../_common/DatePickerField'
 import CheckboxField from '../../_common/CheckboxField'
 import NumberField from '../../_common/NumberField'
 import ImageUploader from '../../_common/ImageUploader'
-import Notification from '../../_common/NotificationComponent'
+import ProductCategoriesSelect from '../../productCategories/Showcase/select'
 import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
 import { formatFee } from '../../../_utils/handleFormatting/formatFee'
 import { formatFromPercentage } from '../../../_utils/handleFormatting/formatFromPercentage'
 import { formatToPercentage } from '../../../_utils/handleFormatting/formatToPercentage'
+
+const globalAny: any = global
 
 const UpdateProduct = ({ _id }: { _id: string }): ReactElement => {
   const [args, setArgs] = useState<any>({
@@ -32,14 +33,8 @@ const UpdateProduct = ({ _id }: { _id: string }): ReactElement => {
     stockQuantity: null
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
-  const [notification, setNotification] = useState<any>({
-    message: null,
-    success: null
-  })
 
-  const { data, refetch } = useQuery(GetProduct, {
-    variables: { _id }
-  })
+  const { data, refetch } = useQuery(GetProduct, { variables: { _id } })
 
   const product: Product = data?.get_product || {}
 
@@ -67,13 +62,10 @@ const UpdateProduct = ({ _id }: { _id: string }): ReactElement => {
       stockQuantity: args?.stockQuantity ? Math.round(args.stockQuantity) : null
     },
     onCompleted: () => {
-      setNotification({
-        message: 'Product successfully updated!',
-        success: true
-      })
+      globalAny.setNotification(true,  'Product successfully updated!')
       refetch()
     },
-    onError: (error) => setNotification({ message: error.message, success: false })
+    onError: (error) => globalAny.setNotification(false, error.message)
   })
 
   return (
@@ -126,15 +118,14 @@ const UpdateProduct = ({ _id }: { _id: string }): ReactElement => {
         targetProp={'image'}
       />
       <Button
-        onClick={() => {
+        disabled={updateMutationState.loading}
+        onClick={(): void => {
           setValidateFields(true)
           updateMutation()
         }}
-        disabled={updateMutationState.loading}
       >
         {'Save Changes'}
       </Button>
-      <Notification message={notification.message} success={notification.success} />
     </>
   )
 }

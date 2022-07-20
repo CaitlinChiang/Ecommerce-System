@@ -1,6 +1,7 @@
 import { ReactElement } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetWebsiteText } from '../../Showcase/query'
+import { aboutWriteup } from '../../../../styles/websiteTexts'
 import { Typography } from '@mui/material'
 import { WebsiteText } from '../../../../../types/websiteText'
 import { WebsiteTextType } from '../../../../_enums/websiteTextType'
@@ -14,13 +15,8 @@ const AboutWriteup = (): ReactElement => {
 
   return (
     <>
-      <Typography variant={'h4'}>{'About Company Name'}</Typography>
-      <Typography
-        sx={{ maxWidth: 550, marginTop: 5, marginLeft: 120, textAlign: 'right' }}
-        variant={'h6'}
-      >
-        {websiteText.content}
-      </Typography>
+      <Typography>{'About Company Name'}</Typography>
+      <Typography sx={aboutWriteup}>{websiteText.content}</Typography>
     </>
   )
 }

@@ -63,7 +63,7 @@ const ProductsTable = (): ReactElement => {
     ...fetchMoreArgs
   })
 
-  const products = data?.get_products || []
+  const products: Product[] = data?.get_products || []
   const productsCount: number = data?.get_products_count || 0
 
   useEffect(() => {
@@ -90,17 +90,13 @@ const ProductsTable = (): ReactElement => {
     products?.map((product: Product): ReactElement => {
       return (
         <TableRow>
-          <TableCell align={'center'}>{product?.name}</TableCell>
-          <TableCell align={'center'}>{product?.category}</TableCell>
-          <TableCell align={'center'}>{'P' + product?.price?.toFixed(2)}</TableCell>
-          <TableCell align={'center'}>
-            {formatToPercentage(product?.discount) || '-'}
-          </TableCell>
-          <TableCell align={'center'}>{product?.stockQuantity}</TableCell>
-          <TableCell align={'center'}>
-            {String(product?.expirationDate || '-')}
-          </TableCell>
-          <TableCell align={'center'}>
+          <TableCell>{product?.name}</TableCell>
+          <TableCell>{product?.category}</TableCell>
+          <TableCell>{'P' + product?.price?.toFixed(2)}</TableCell>
+          <TableCell>{formatToPercentage(product?.discount) || '-'}</TableCell>
+          <TableCell>{product?.stockQuantity}</TableCell>
+          <TableCell>{String(product?.expirationDate || '-')}</TableCell>
+          <TableCell>
             <IconButton
               onClick={(): void => {
                 router.push('products/[productId]', `products/${product._id}`)

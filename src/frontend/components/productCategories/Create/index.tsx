@@ -5,9 +5,10 @@ import { Button } from '@mui/material'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
 import CheckboxField from '../../_common/CheckboxField'
-import Notification from '../../_common/NotificationComponent'
 import { refetchData } from '../../../_utils/handleData/refetchData'
 import { clearFields } from '../../../_utils/handleFields/clearFields'
+
+const globalAny: any = global
 
 const CreateProductCategory = ({
   refetchArgs
@@ -19,23 +20,16 @@ const CreateProductCategory = ({
     showPublic: false
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
-  const [notification, setNotification] = useState<any>({
-    message: null,
-    success: null
-  })
 
   const [createMutation, createMutationState] = useMutation(mutation, {
     variables: args,
     onCompleted: () => {
-      setNotification({
-        message: 'Product category successfully created!',
-        success: true
-      })
+      globalAny.setNotification(true, 'Product category successfully created!')
       refetchData(refetchArgs)
       setValidateFields(false)
       setArgs(clearFields(args))
     },
-    onError: (error) => setNotification({ message: error.message, success: false })
+    onError: (error) => globalAny.setNotification(false, error.message)
   })
 
   return (
@@ -50,15 +44,14 @@ const CreateProductCategory = ({
       />
       <CheckboxField args={args} setArgs={setArgs} targetProp={'showPublic'} />
       <Button
-        onClick={() => {
+        disabled={createMutationState.loading}
+        onClick={(): void => {
           setValidateFields(true)
           createMutation()
         }}
-        disabled={createMutationState.loading}
       >
         {'Create'}
       </Button>
-      <Notification message={notification.message} success={notification.success} />
     </>
   )
 }

@@ -2,7 +2,7 @@ import { ReactElement, useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useQuery } from '@apollo/client'
 import { useMutation } from '@apollo/client'
-import { querySingular } from '../../products/Showcase/query'
+import { GetProduct } from '../../products/Showcase/query'
 import mutation from './mutation'
 import { Button } from '@mui/material'
 import { Product } from '../../../../types/product'
@@ -11,10 +11,11 @@ import DatePickerField from '../../_common/DatePickerField'
 import CheckboxField from '../../_common/CheckboxField'
 import NumberField from '../../_common/NumberField'
 import ImageUploader from '../../_common/ImageUploader'
-import Notification from '../../_common/NotificationComponent'
 import { formatFee } from '../../../_utils/handleFormatting/formatFee'
 import { formatFromPercentage } from '../../../_utils/handleFormatting/formatFromPercentage'
 import { formatToPercentage } from '../../../_utils/handleFormatting/formatToPercentage'
+
+const globalAny: any = global
 
 const CreateProductVariant = ({
   _productId
@@ -35,14 +36,8 @@ const CreateProductVariant = ({
     stockQuantity: null
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
-  const [notification, setNotification] = useState<any>({
-    message: null,
-    success: null
-  })
 
-  const { data } = useQuery(querySingular, {
-    variables: { _id: _productId }
-  })
+  const { data } = useQuery(GetProduct, { variables: { _id: _productId } })
 
   const product: Product = data?.get_product || {}
 
@@ -62,13 +57,10 @@ const CreateProductVariant = ({
       stockQuantity: args?.stockQuantity ? Math.round(args.stockQuantity) : null
     },
     onCompleted: () => {
-      setNotification({
-        message: 'Product successfully created!',
-        success: true
-      })
+      globalAny.setNotification(true, 'Product variant successfully created!')
       router.back()
     },
-    onError: (error) => setNotification({ message: error.message, success: false })
+    onError: (error) => globalAny.setNotification(false, error.message)
   })
 
   return (
@@ -111,15 +103,14 @@ const CreateProductVariant = ({
         targetProp={'image'}
       />
       <Button
-        onClick={() => {
+        disabled={createMutationState.loading}
+        onClick={(): void => {
           setValidateFields(true)
           createMutation()
         }}
-        disabled={createMutationState.loading}
       >
         {'Create'}
       </Button>
-      <Notification message={notification.message} success={notification.success} />
     </>
   )
 }

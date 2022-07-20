@@ -7,9 +7,10 @@ import { ProductCategory } from '../../../../types/productCategory'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
 import CheckboxField from '../../_common/CheckboxField'
-import Notification from '../../_common/NotificationComponent'
 import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
 import { refetchData } from '../../../_utils/handleData/refetchData'
+
+const globalAny: any = global
 
 const UpdateProductCategory = ({
   _id,
@@ -26,14 +27,8 @@ const UpdateProductCategory = ({
     showPublic: null
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
-  const [notification, setNotification] = useState<any>({
-    message: null,
-    success: null
-  })
 
-  const { data } = useQuery(GetProductCategory, {
-    variables: { _id }
-  })
+  const { data } = useQuery(GetProductCategory, { variables: { _id } })
 
   const productCategory: ProductCategory = data?.get_product_category || {}
 
@@ -48,15 +43,12 @@ const UpdateProductCategory = ({
   const [updateMutation, updateMutationState] = useMutation(mutation, {
     variables: correctArgs(args),
     onCompleted: () => {
-      setNotification({
-        message: 'Product category successfully updated!',
-        success: true
-      })
+      globalAny.setNotification(true, 'Product category successfully updated!')
       refetchData(refetchArgs)
       setValidateFields(false)
       setUpdateModalOpen(false)
     },
-    onError: (error) => setNotification({ message: error.message, success: false })
+    onError: (error) => globalAny.setNotification(false, error.message)
   })
 
   return (
@@ -74,15 +66,14 @@ const UpdateProductCategory = ({
       />
       <CheckboxField args={args} setArgs={setArgs} targetProp={'showPublic'} />
       <Button
-        onClick={() => {
+        disabled={updateMutationState.loading}
+        onClick={(): void => {
           setValidateFields(true)
           updateMutation()
         }}
-        disabled={updateMutationState.loading}
       >
         {'Save Changes'}
       </Button>
-      <Notification message={notification.message} success={notification.success} />
     </>
   )
 }

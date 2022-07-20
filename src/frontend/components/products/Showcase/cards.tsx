@@ -45,7 +45,7 @@ const ProductsCards = ({ featured }: { featured: boolean }): ReactElement => {
     ...fetchMoreArgs
   })
 
-  const products = data?.get_products || []
+  const products: Product[] = data?.get_products || []
   const productsCount: number = data?.get_products_count || 0
 
   const productCards = [
@@ -54,12 +54,12 @@ const ProductsCards = ({ featured }: { featured: boolean }): ReactElement => {
         <CardComponent
           content={
             <>
-              <Typography variant={'h5'}>{product?.name}</Typography>
-              <Typography variant={'h6'}>
+              <Typography>{product?.name}</Typography>
+              <Typography>
                 {formatDiscountedPrice(product?.discount, product?.price)}
               </Typography>
               {product?.discount && (
-                <Typography variant={'h6'}>
+                <Typography>
                   {'P' + product?.price?.toFixed(2)}
                   {' -'}
                   {formatToPercentage(product?.discount)}
@@ -76,7 +76,7 @@ const ProductsCards = ({ featured }: { featured: boolean }): ReactElement => {
 
   return (
     <>
-      {featured && <Typography variant={'h4'}>{'Featured Products'}</Typography>}
+      {featured && <Typography>{'Featured Products'}</Typography>}
       {!featured && (
         <>
           <CardsPaginationComponent

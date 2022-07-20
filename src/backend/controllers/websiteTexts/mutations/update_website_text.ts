@@ -1,4 +1,3 @@
-import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import { WebsiteText, UpdateWebsiteTextArgs } from '../../../../types/websiteText'
 import { MutateAction } from '../../../_enums/mutateAction'
@@ -15,13 +14,13 @@ export default async (
   authenticateUser({ admin: true, context })
 
   const websiteText: any = await context.database.websiteTexts.findOneAndUpdate(
-    { _id: new ObjectId(args._id) },
+    { type: args.type },
     { $set: mutationArgs(args, MutateAction.UPDATE) }
   )
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.UPDATE_WEBSITE_TEXT,
-    websiteTextId: new ObjectId(args._id),
+    websiteTextType: args.type,
     ...auditArgs(context)
   })
 

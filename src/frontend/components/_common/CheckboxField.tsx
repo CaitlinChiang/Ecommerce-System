@@ -18,7 +18,9 @@ const CheckboxField = ({
       control={
         <Checkbox
           checked={args?.[targetProp]}
-          onChange={() => setArgs({ ...args, [targetProp]: !args?.[targetProp] })}
+          onChange={(): void => {
+            setArgs({ ...args, [targetProp]: !args?.[targetProp] })
+          }}
         />
       }
       disabled={disabled}

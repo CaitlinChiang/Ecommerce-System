@@ -1,10 +1,11 @@
 import React, { ReactElement, useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetWebsiteText } from '../../Showcase/query'
+import { contactInfoHeader, contactInfoText } from '../../../../styles/websiteTexts'
 import { Link, Typography } from '@mui/material'
 import { WebsiteText } from '../../../../../types/websiteText'
 import { WebsiteTextType } from '../../../../_enums/websiteTextType'
-import { formatContactInformation } from '../../../../_utils/handleFormatting/formatContactInformation'
+import { displayContactInformation } from '../../../../_utils/handleFormatting/formatContactInformation'
 
 const ContactInformation = (): ReactElement => {
   const [args, setArgs] = useState<any>({
@@ -22,38 +23,32 @@ const ContactInformation = (): ReactElement => {
 
   useEffect(() => {
     setArgs({
-      facebook: formatContactInformation('Facebook', websiteText),
-      instagram: formatContactInformation('Instagram', websiteText),
-      email: formatContactInformation('Email', websiteText),
-      phoneNumber: formatContactInformation('PhoneNumber', websiteText)
+      facebook: displayContactInformation('Facebook', websiteText),
+      instagram: displayContactInformation('Instagram', websiteText),
+      email: displayContactInformation('Email', websiteText),
+      phoneNumber: displayContactInformation('PhoneNumber', websiteText)
     })
   }, [data])
 
   return (
     <>
-      <Typography variant={'h4'} sx={{ marginBottom: 4 }}>
-        {'Contact Information'}
-      </Typography>
+      <Typography sx={contactInfoHeader}>{'Contact Information'}</Typography>
       {args?.facebook && (
-        <Typography variant={'h6'} sx={{ display: 'inline-block', marginRight: 5 }}>
+        <Typography sx={contactInfoText}>
           <Link color={'#ffffff'} href={args?.facebook}>
             {'Facebook'}
           </Link>
         </Typography>
       )}
       {args?.instagram && (
-        <Typography variant={'h6'} sx={{ display: 'inline-block', marginRight: 5 }}>
+        <Typography sx={contactInfoText}>
           <Link color={'#ffffff'} href={args?.instagram}>
             {'Instagram'}
           </Link>
         </Typography>
       )}
-      <Typography variant={'h6'} sx={{ display: 'inline-block', marginRight: 5 }}>
-        {args.email}
-      </Typography>
-      <Typography variant={'h6'} sx={{ display: 'inline-block', marginRight: 5 }}>
-        {args.phoneNumber}
-      </Typography>
+      <Typography sx={contactInfoText}>{args.email}</Typography>
+      <Typography sx={contactInfoText}>{args.phoneNumber}</Typography>
     </>
   )
 }

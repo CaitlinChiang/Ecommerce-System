@@ -66,7 +66,7 @@ const ProductVariantsTable = ({
     ...fetchMoreArgs
   })
 
-  const productVariants = data?.get_product_variants || []
+  const productVariants: ProductVariant[] = data?.get_product_variants || []
   const productVariantsCount: number = data?.get_product_variants_count || 0
 
   useEffect(() => {
@@ -92,18 +92,14 @@ const ProductVariantsTable = ({
     productVariants?.map((productVariant: ProductVariant): ReactElement => {
       return (
         <TableRow>
-          <TableCell align={'center'}>{productVariant?.name}</TableCell>
-          <TableCell align={'center'}>
-            {'P' + productVariant?.price?.toFixed(2)}
-          </TableCell>
-          <TableCell align={'center'}>
+          <TableCell>{productVariant?.name}</TableCell>
+          <TableCell>{`P${productVariant?.price?.toFixed(2)}`}</TableCell>
+          <TableCell>
             {formatToPercentage(productVariant?.discount) || '-'}
           </TableCell>
-          <TableCell align={'center'}>{productVariant?.stockQuantity}</TableCell>
-          <TableCell align={'center'}>
-            {String(productVariant?.expirationDate || '-')}
-          </TableCell>
-          <TableCell align={'center'}>
+          <TableCell>{productVariant?.stockQuantity}</TableCell>
+          <TableCell>{String(productVariant?.expirationDate || '-')}</TableCell>
+          <TableCell>
             <IconButton
               onClick={(): void => {
                 router.push(

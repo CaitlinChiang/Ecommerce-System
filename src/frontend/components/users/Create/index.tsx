@@ -5,10 +5,11 @@ import { useMutation } from '@apollo/client'
 import mutation from './mutation'
 import { Button } from '@mui/material'
 import { UserType } from '../../../_enums/userType'
-import CitiesSelect from '../../../components/cities/Showcase/select'
 import Text from '../../_common/TextField'
 import PasswordField from '../../_common/PasswordField'
-import Notification from '../../_common/NotificationComponent'
+import CitiesSelect from '../../../components/cities/Showcase/select'
+
+const globalAny: any = global
 
 const CreateUser = ({ type }: { type: UserType }): ReactElement => {
   const router = useRouter()
@@ -24,10 +25,6 @@ const CreateUser = ({ type }: { type: UserType }): ReactElement => {
     type
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
-  const [notification, setNotification] = useState<any>({
-    message: null,
-    success: null
-  })
 
   const [createMutation, createMutationState] = useMutation(mutation, {
     variables: {
@@ -36,13 +33,10 @@ const CreateUser = ({ type }: { type: UserType }): ReactElement => {
     },
     onCompleted: (data) => {
       Cookies.set('accessToken', data.create_user.token)
-      setNotification({
-        message: 'Account successfully create!',
-        success: true
-      })
+      globalAny.setNotification(true, 'Account successfully created!')
       router.push('/')
     },
-    onError: (error) => setNotification({ message: error.message, success: false })
+    onError: (error) => globalAny.setNotification(false, error.message)
   })
 
   return (
@@ -89,15 +83,14 @@ const CreateUser = ({ type }: { type: UserType }): ReactElement => {
         targetProp={'phoneNumber'}
       />
       <Button
-        onClick={() => {
+        disabled={createMutationState.loading}
+        onClick={(): void => {
           setValidateFields(true)
           createMutation()
         }}
-        disabled={createMutationState.loading}
       >
         {'Create'}
       </Button>
-      <Notification message={notification.message} success={notification.success} />
     </>
   )
 }

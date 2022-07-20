@@ -26,10 +26,10 @@ const ProductCategoriesSelect = ({
     }
   })
 
-  const productCategories = data?.get_product_categories || []
+  const productCategories: ProductCategory[] = data?.get_product_categories || []
 
   const productCategoryOptions = productCategories?.map(
-    (productCategory: ProductCategory) => {
+    (productCategory: ProductCategory): any => {
       return {
         label: productCategory.name,
         [targetProp]: productCategory._id

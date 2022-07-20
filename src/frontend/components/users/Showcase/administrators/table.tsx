@@ -40,7 +40,7 @@ const AdministratorsTable = (): ReactElement => {
     ...fetchMoreArgs
   })
 
-  const users = data?.get_users || []
+  const users: User[] = data?.get_users || []
   const usersCount: number = data?.get_users_count || 0
 
   useEffect(() => {
@@ -67,19 +67,19 @@ const AdministratorsTable = (): ReactElement => {
     users?.map((user: User): ReactElement => {
       return (
         <TableRow>
-          <TableCell align={'center'}>
+          <TableCell>
             <UpdateUserCheckbox
               _id={user._id}
               active={user.active}
               refetchArgs={refetchArgs}
             />
           </TableCell>
-          <TableCell align={'center'}>{user?.firstName}</TableCell>
-          <TableCell align={'center'}>{user?.lastName}</TableCell>
-          <TableCell align={'center'}>{user?.email}</TableCell>
-          <TableCell align={'center'}>{user?.phoneNumber}</TableCell>
-          <TableCell align={'center'}>{String(user?.createdAt)}</TableCell>
-          <TableCell align={'center'}>
+          <TableCell>{user?.firstName}</TableCell>
+          <TableCell>{user?.lastName}</TableCell>
+          <TableCell>{user?.email}</TableCell>
+          <TableCell>{user?.phoneNumber}</TableCell>
+          <TableCell>{String(user?.createdAt)}</TableCell>
+          <TableCell>
             <DeleteButton
               _id={user._id}
               label={'User'}

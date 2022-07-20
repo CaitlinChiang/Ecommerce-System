@@ -1,6 +1,7 @@
 import { ObjectId } from 'mongodb'
 import { PaginateDataArgs } from './actions/paginateData'
 import { DateRange } from './common/dateRange'
+import { WebsiteTextType } from '../backend/_enums/websiteTextType'
 
 export interface AuditLog {
   _id?: ObjectId
@@ -14,7 +15,7 @@ export interface AuditLog {
   productVariantId?: ObjectId
   reviewId?: ObjectId
   userId?: ObjectId
-  websiteTextId?: ObjectId
+  websiteTextType?: WebsiteTextType
   createdAt?: Date
   createdBy?: ObjectId
   createdByEmail?: string

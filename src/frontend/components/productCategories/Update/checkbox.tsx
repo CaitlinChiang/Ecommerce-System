@@ -1,11 +1,12 @@
-import { ReactElement, useState } from 'react'
+import { ReactElement } from 'react'
 import { useMutation } from '@apollo/client'
 import mutation from './mutation'
 import { Checkbox } from '@mui/material'
-import Notification from '../../_common/NotificationComponent'
 import { ObjectId } from 'mongodb'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import { refetchData } from '../../../_utils/handleData/refetchData'
+
+const globalAny: any = global
 
 const UpdateProductCategoryCheckbox = ({
   _id,
@@ -16,21 +17,13 @@ const UpdateProductCategoryCheckbox = ({
   refetchArgs: RefetchDataArgs
   showPublic: boolean
 }): ReactElement => {
-  const [notification, setNotification] = useState<any>({
-    message: null,
-    success: null
-  })
-
   const [updateMutation, updateMutationState] = useMutation(mutation, {
     variables: { _id, showPublic: !showPublic },
     onCompleted: () => {
-      setNotification({
-        message: 'Product category successfully updated!',
-        success: true
-      })
+      globalAny.setNotification(true, 'Product category successfully updated!')
       refetchData(refetchArgs)
     },
-    onError: (error) => setNotification({ message: error.message, success: false })
+    onError: (error) => globalAny.setNotification(false, error.message)
   })
 
   return (
@@ -38,9 +31,10 @@ const UpdateProductCategoryCheckbox = ({
       <Checkbox
         checked={showPublic}
         disabled={updateMutationState.loading}
-        onChange={() => updateMutation()}
+        onChange={(): void => {
+          updateMutation()
+        }}
       />
-      <Notification message={notification.message} success={notification.success} />
     </>
   )
 }

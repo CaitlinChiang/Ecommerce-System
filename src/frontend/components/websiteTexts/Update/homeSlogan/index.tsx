@@ -5,11 +5,11 @@ import { GetWebsiteText } from '../../Showcase/query'
 import mutation from '../mutation'
 import { Button, Typography } from '@mui/material'
 import { WebsiteText } from '../../../../../types/websiteText'
-import { WebsiteTextId } from '../../../../_enums/websiteTextId'
 import { WebsiteTextType } from '../../../../_enums/websiteTextType'
 import Text from '../../../_common/TextField'
-import Notification from '../../../_common/NotificationComponent'
 import { correctArgs } from '../../../../_utils/handleArgs/correctArgs'
+
+const globalAny: any = global
 
 const UpdateHomeSlogan = (): ReactElement => {
   const [args, setArgs] = useState<any>({
@@ -18,10 +18,6 @@ const UpdateHomeSlogan = (): ReactElement => {
     type: null
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
-  const [notification, setNotification] = useState<any>({
-    message: null,
-    success: null
-  })
 
   const { data, refetch } = useQuery(GetWebsiteText, {
     variables: { type: WebsiteTextType.HOME_SLOGAN }
@@ -31,7 +27,6 @@ const UpdateHomeSlogan = (): ReactElement => {
 
   useEffect(() => {
     setArgs({
-      _id: WebsiteTextId.HOME_SLOGAN,
       content: websiteText?.content,
       type: WebsiteTextType.HOME_SLOGAN
     })
@@ -40,14 +35,11 @@ const UpdateHomeSlogan = (): ReactElement => {
   const [updateMutation, updateMutationState] = useMutation(mutation, {
     variables: correctArgs(args),
     onCompleted: () => {
-      setNotification({
-        message: 'Home page slogan successfully updated!',
-        success: true
-      })
+      globalAny.setNotification(true, 'Home page slogan successfully updated!')
       setValidateFields(false)
       refetch()
     },
-    onError: (error) => setNotification({ message: error.message, success: false })
+    onError: (error) => globalAny.setNotification(false, error.message)
   })
 
   return (
@@ -63,15 +55,14 @@ const UpdateHomeSlogan = (): ReactElement => {
         targetProp={'content'}
       />
       <Button
-        onClick={() => {
+        disabled={updateMutationState.loading}
+        onClick={(): void => {
           setValidateFields(true)
           updateMutation()
         }}
-        disabled={updateMutationState.loading}
       >
         {'Save Changes'}
       </Button>
-      <Notification message={notification.message} success={notification.success} />
     </>
   )
 }

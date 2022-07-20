@@ -5,7 +5,8 @@ import { ResetUserPassword } from '../mutation'
 import { Button } from '@mui/material'
 import Text from '../../../_common/TextField'
 import PasswordField from '../../../_common/PasswordField'
-import Notification from '../../../_common/NotificationComponent'
+
+const globalAny: any = global
 
 const ResetPassword = (): ReactElement => {
   const router = useRouter()
@@ -16,23 +17,16 @@ const ResetPassword = (): ReactElement => {
     oldPassword: null
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
-  const [notification, setNotification] = useState<any>({
-    message: null,
-    success: null
-  })
 
   const [resetPasswordMutation, resetPasswordMutationState] = useMutation(
     ResetUserPassword,
     {
       variables: args,
       onCompleted: () => {
-        setNotification({
-          message: 'Password successfully updated!',
-          success: true
-        })
+        globalAny.setNotification(true, 'Password successfully updated!')
         router.push('/user/profile')
       },
-      onError: (error) => setNotification({ message: error.message, success: false })
+      onError: (error) => globalAny.setNotification(false, error.message)
     }
   )
 
@@ -60,15 +54,14 @@ const ResetPassword = (): ReactElement => {
         targetProp={'oldPassword'}
       />
       <Button
-        onClick={() => {
+        disabled={resetPasswordMutationState.loading}
+        onClick={(): void => {
           setValidateFields(true)
           resetPasswordMutation()
         }}
-        disabled={resetPasswordMutationState.loading}
       >
         {'Forgot Password'}
       </Button>
-      <Notification message={notification.message} success={notification.success} />
     </>
   )
 }

@@ -4,30 +4,27 @@ import { useMutation } from '@apollo/client'
 import { ForgotUserPassword } from '../mutation'
 import { Button } from '@mui/material'
 import Text from '../../../_common/TextField'
-import Notification from '../../../_common/NotificationComponent'
+
+const globalAny: any = global
 
 const ForgotPassword = (): ReactElement => {
   const router = useRouter()
 
   const [args, setArgs] = useState<any>({ email: null })
   const [validateFields, setValidateFields] = useState<boolean>(false)
-  const [notification, setNotification] = useState<any>({
-    message: null,
-    success: null
-  })
 
   const [forgotPasswordMutation, forgotPasswordMutationState] = useMutation(
     ForgotUserPassword,
     {
       variables: args,
       onCompleted: () => {
-        setNotification({
-          message: 'Please check your email for your verification code.',
-          success: true
-        })
+        globalAny.setNotification(
+          true,
+          'Please check your email for your verification code.'
+        )
         router.push('/user/reset-password/verify')
       },
-      onError: (error) => setNotification({ message: error.message, success: false })
+      onError: (error) => globalAny.setNotification(false, error.message)
     }
   )
 
@@ -41,15 +38,14 @@ const ForgotPassword = (): ReactElement => {
         targetProp={'email'}
       />
       <Button
-        onClick={() => {
+        disabled={forgotPasswordMutationState.loading}
+        onClick={(): void => {
           setValidateFields(true)
           forgotPasswordMutation()
         }}
-        disabled={forgotPasswordMutationState.loading}
       >
         {'Get Verification Code'}
       </Button>
-      <Notification message={notification.message} success={notification.success} />
     </>
   )
 }

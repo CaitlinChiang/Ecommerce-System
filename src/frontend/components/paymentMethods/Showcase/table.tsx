@@ -62,9 +62,9 @@ const PaymentMethodsTable = (): ReactElement => {
     paymentMethods?.map((paymentMethod: PaymentMethod): ReactElement => {
       return (
         <TableRow>
-          <TableCell align={'center'}>{paymentMethod?.name}</TableCell>
-          <TableCell align={'center'}>{paymentMethod?.details}</TableCell>
-          <TableCell align={'center'}>
+          <TableCell>{paymentMethod?.name}</TableCell>
+          <TableCell>{paymentMethod?.details}</TableCell>
+          <TableCell>
             <IconButton
               onClick={(): void => {
                 setPaymentMethodId(String(paymentMethod._id))

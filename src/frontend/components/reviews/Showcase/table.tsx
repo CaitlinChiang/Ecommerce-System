@@ -14,9 +14,7 @@ import ReviewsTableFilters from './tableFilters'
 import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
 
 const ReviewsTable = (): ReactElement => {
-  const [args, setArgs] = useState<any>({
-    featured: null
-  })
+  const [args, setArgs] = useState<any>({ featured: null })
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
     page: 0,
     rowsPerPage: 10,
@@ -38,7 +36,7 @@ const ReviewsTable = (): ReactElement => {
     ...fetchMoreArgs
   })
 
-  const reviews = data?.get_reviews || []
+  const reviews: Review[] = data?.get_reviews || []
   const reviewsCount: number = data?.get_reviews_count || 0
 
   useEffect(() => {
@@ -63,17 +61,17 @@ const ReviewsTable = (): ReactElement => {
     reviews?.map((review: Review): ReactElement => {
       return (
         <TableRow>
-          <TableCell align={'center'}>{String(review?.createdAt)}</TableCell>
-          <TableCell align={'center'}>{review?.username}</TableCell>
-          <TableCell align={'center'}>{review?.content}</TableCell>
-          <TableCell align={'center'}>
+          <TableCell>{String(review?.createdAt)}</TableCell>
+          <TableCell>{review?.username}</TableCell>
+          <TableCell>{review?.content}</TableCell>
+          <TableCell>
             <UpdateReviewCheckbox
               _id={review._id}
               featured={review.featured}
               refetchArgs={refetchArgs}
             />
           </TableCell>
-          <TableCell align={'center'}>
+          <TableCell>
             <DeleteButton
               _id={review._id}
               label={'Review'}
