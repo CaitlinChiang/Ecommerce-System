@@ -39,7 +39,7 @@ const PasswordField = ({
           <InputAdornment position='end'>
             <IconButton
               aria-label='toggle password visibility'
-              onClick={() => setShowPassword(!showPassword)}
+              onClick={(): void => setShowPassword(!showPassword)}
               onMouseDown={(e: React.MouseEvent<HTMLButtonElement>): void => {
                 e.preventDefault()
               }}

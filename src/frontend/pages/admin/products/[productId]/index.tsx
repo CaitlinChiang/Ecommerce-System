@@ -15,9 +15,9 @@ const Page = (): ReactElement => {
       <Button
         color={'primary'}
         fullWidth
-        onClick={() =>
+        onClick={(): void => {
           router.push('[productId]/variants/create', `${productId}/variants/create`)
-        }
+        }}
         type='submit'
         variant={'contained'}
       >

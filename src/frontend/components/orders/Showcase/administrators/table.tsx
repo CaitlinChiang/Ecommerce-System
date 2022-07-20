@@ -101,7 +101,7 @@ const OrdersTable = (): ReactElement => {
             {order?.collectionMethod}
             {order?.deliveryAddress && (
               <Button
-                onClick={() =>
+                onClick={(): void =>
                   setShowAddress({ address: order?.deliveryAddress, open: true })
                 }
               >
