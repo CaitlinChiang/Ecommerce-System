@@ -1,5 +1,6 @@
 import { ReactElement, useState } from 'react'
 import { useRouter } from 'next/router'
+import { typography, list } from '../../styles/_layouts/customer/navbar'
 import {
   AppBar,
   List,
@@ -14,7 +15,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import ContactInformation from '../../components/websiteTexts/Showcase/contactInformation'
 
 const shoppingMenu = [
-  { label: 'Home', route: '/home' },
+  { label: 'Home', route: '/' },
   { label: 'Shop', route: '/shop' },
   { label: 'Reviews', route: '/reviews' },
   { label: 'FAQs', route: '/faqs' },
@@ -35,10 +36,8 @@ const Navbar = (): ReactElement => {
   return (
     <AppBar position={'static'}>
       <Toolbar>
-        <Typography variant={'h6'} sx={{ flexGrow: 1 }}>
-          {'Logo'}
-        </Typography>
-        <List sx={{ display: 'flex' }}>
+        <Typography sx={typography}>{'Logo'}</Typography>
+        <List sx={list}>
           {shoppingMenu.map((menuItem, index): ReactElement => {
             return (
               <ListItemButton
@@ -56,7 +55,7 @@ const Navbar = (): ReactElement => {
             )
           })}
         </List>
-        <List sx={{ display: 'flex' }}>
+        <List sx={list}>
           {trackingMenu.map((menuItem, index): ReactElement => {
             return (
               <ListItemButton

@@ -1,26 +1,35 @@
 import { NextPage } from 'next'
 import { ReactElement } from 'react'
-import { gql, useQuery } from '@apollo/client'
-import Header from '../layouts/admin/Header'
-import layout from '../layouts/admin'
-
-const query = gql`
-  query {
-    get_user {
-      firstName
-    }
-  }
-`
+import { Divider } from '@mui/material'
+import HomeSlogan from '../components/websiteTexts/Showcase/homeSlogan'
+import ProductsCards from '../components/products/Showcase/cards'
+import ReviewsCards from '../components/reviews/Showcase/cards'
+import AboutWriteup from '../components/websiteTexts/Showcase/aboutWriteup'
+import layout from '../layouts/customer'
 
 const Home: NextPage = (): ReactElement => {
-  const { data } = useQuery(query)
-  const user = data?.get_user || {}
+  const homePageComponents = [
+    <HomeSlogan />,
+    <ProductsCards featured={true} />,
+    <ReviewsCards featured={true} />,
+    <AboutWriteup />
+  ]
 
   return (
     <>
-      <Header pageTitle={`Welcome Back, ${user?.firstName}!`} />
+      {homePageComponents.map(
+        (component: ReactElement, index: number): ReactElement => {
+          if (index === 3) return component
+          return (
+            <>
+              {component}
+              <Divider sx={{ marginTop: 5, marginBottom: 5 }} />
+            </>
+          )
+        }
+      )}
     </>
   )
 }
 
-export default layout(Home, { title: 'Home' })
+export default layout(Home, {})

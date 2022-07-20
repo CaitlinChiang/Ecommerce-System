@@ -1,13 +1,14 @@
 import { NextPage } from 'next'
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import Header from '../layouts/customer/Header'
+import layout from '../layouts/customer'
 
 const NotFoundPage: NextPage = (): ReactElement => {
   return (
     <>
-      <Header pageTitle='Page Not Found' backRoute='/' />
+      <Header pageTitle={'Page does not exist.'} backRoute={true} />
     </>
   )
 }
 
-export default NotFoundPage
+export default layout(NotFoundPage, {})

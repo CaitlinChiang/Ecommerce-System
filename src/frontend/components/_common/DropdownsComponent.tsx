@@ -108,11 +108,7 @@ const DropdownsComponent = ({
         <TableBody>
           {rows.map(
             (row: { title: string; content: ReactElement }): ReactElement => {
-              return (
-                <>
-                  <Row icons={icons} row={row} />
-                </>
-              )
+              return <Row icons={icons} row={row} />
             }
           )}
         </TableBody>

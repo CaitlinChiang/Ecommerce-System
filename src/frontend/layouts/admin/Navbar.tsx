@@ -1,9 +1,19 @@
 import { ReactElement, ReactEventHandler } from 'react'
 import { useRouter } from 'next/router'
-import theme from '../../themes'
+import {
+  drawer,
+  listItem,
+  avatar,
+  container,
+  listItemIcon,
+  listTypography,
+  box,
+  companyNameTypography
+} from '../../styles/_layouts/admin/navbar'
 import {
   Avatar,
   Box,
+  Container,
   Divider,
   Drawer,
   List,
@@ -25,6 +35,7 @@ import BarChartIcon from '@mui/icons-material/BarChart'
 import { User } from '../../../types/user'
 
 const navbarItems = [
+  { icon: <BarChartIcon />, label: 'Analytics', route: '/admin/' },
   {
     icon: <AccountBoxIcon />,
     label: 'Administrators',
@@ -36,8 +47,7 @@ const navbarItems = [
   { icon: <InventoryIcon />, label: 'Products', route: '/admin/products' },
   { icon: <HelpIcon />, label: 'FAQs', route: '/admin/faqs' },
   { icon: <EditIcon />, label: 'Reviews', route: '/admin/reviews' },
-  { icon: <DnsIcon />, label: 'Audit Logs', route: '/admin/audit-logs' },
-  { icon: <BarChartIcon />, label: 'Analytics', route: '/admin/analytics' }
+  { icon: <DnsIcon />, label: 'Audit Logs', route: '/admin/audit-logs' }
 ]
 
 const Navbar = ({
@@ -57,7 +67,7 @@ const Navbar = ({
     <Drawer
       open={open}
       onClose={onClose}
-      sx={{ paper: 400, width: 400 }}
+      sx={drawer}
       variant={permanent ? 'permanent' : 'temporary'}
     >
       <List dense>
@@ -67,56 +77,41 @@ const Navbar = ({
           onClick={(): void => {
             router.push('/admin/user/account')
           }}
-          sx={{ paddingTop: theme.spacing(3), paddingBottom: theme.spacing(3) }}
+          sx={listItem}
         >
           <ListItemAvatar>
-            <Avatar
-              sx={{
-                color: '#ffffff',
-                backgroundColor: theme.palette.secondary.main
-              }}
-              variant={'square'}
-            >
+            <Avatar sx={avatar} variant={'square'}>
               {`${user?.firstName?.[0]}`}
             </Avatar>
           </ListItemAvatar>
           <ListItemText
-            primary={user?.firstName + ' ' + user?.lastName}
+            primary={`${user?.firstName} ${user?.lastName}`}
             secondary={user?.email}
           />
         </ListItem>
         <Divider />
-        <div style={{ marginTop: '25px' }} />
+        <Container sx={container} />
         {navbarItems.map((item, index): ReactElement => {
           return (
             <ListItem
-              key={index}
               button
+              key={index}
               onClick={(): void => {
                 router.push(item.route)
               }}
-              sx={{ padding: theme.spacing(1.7) }}
+              sx={listItem}
             >
-              <ListItemIcon
-                sx={{
-                  color: theme.palette.primary.main,
-                  marginLeft: theme.spacing(2)
-                }}
-              >
-                {item.icon}
-              </ListItemIcon>
-              <Typography sx={{ fontSize: 16 }}>{item.label}</Typography>
+              <ListItemIcon sx={listItemIcon}>{item.icon}</ListItemIcon>
+              <Typography sx={listTypography}>{item.label}</Typography>
             </ListItem>
           )
         })}
       </List>
-      <div style={{ marginTop: '25px' }} />
+      <Container sx={container} />
       <Divider />
-      <Box sx={{ fontSize: 20, textAlign: 'center', paddingTop: theme.spacing(7) }}>
+      <Box sx={box}>
         <Typography>{'Company Logo'}</Typography>
-        <Typography sx={{ paddingTop: theme.spacing(3), fontSize: 20 }}>
-          {'Company Name'}
-        </Typography>
+        <Typography sx={companyNameTypography}>{'Company Name'}</Typography>
       </Box>
     </Drawer>
   )
