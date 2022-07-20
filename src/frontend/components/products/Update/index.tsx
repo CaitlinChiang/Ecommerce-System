@@ -62,7 +62,7 @@ const UpdateProduct = ({ _id }: { _id: string }): ReactElement => {
       stockQuantity: args?.stockQuantity ? Math.round(args.stockQuantity) : null
     },
     onCompleted: () => {
-      globalAny.setNotification(true,  'Product successfully updated!')
+      globalAny.setNotification(true, 'Product successfully updated!')
       refetch()
     },
     onError: (error) => globalAny.setNotification(false, error.message)
