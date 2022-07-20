@@ -25,15 +25,11 @@ const NotificationComponent = (): ReactElement => {
   return (
     <Snackbar
       autoHideDuration={6000}
-      onClose={(): void => {
-        setOpen(false)
-      }}
+      onClose={(): void => setOpen(false)}
       open={open && message?.length > 0}
     >
       <Alert
-        onClose={(): void => {
-          setOpen(false)
-        }}
+        onClose={(): void => setOpen(false)}
         severity={success ? 'success' : 'error'}
       >
         {modifyMessage(message)}

@@ -1,4 +1,6 @@
 import { ReactElement } from 'react'
+import { container, chartMargin } from '../../styles/_common/areaChart'
+import { Container, Typography } from '@mui/material'
 import {
   AreaChart,
   Area,
@@ -15,14 +17,15 @@ const CustomTooltip = ({ active, payload, label, yAxisDataKey }: any) => {
     const revenueSign = yAxisDataKey === 'revenue' ? 'P' : ''
     const value =
       yAxisDataKey === 'revenue' ? payload[0].value.toFixed(2) : payload[0].value
-    const valueDisplay =
-      `${formatProperCapitalization(yAxisDataKey)}: ` + revenueSign + value
+    const valueDisplay = `${formatProperCapitalization(
+      yAxisDataKey
+    )}: ${revenueSign}${value}`
 
     return (
-      <div>
-        <p>{`Date: ${formatProperCapitalization(label)}`}</p>
-        <p>{valueDisplay}</p>
-      </div>
+      <>
+        <Typography>{`Date: ${formatProperCapitalization(label)}`}</Typography>
+        <Typography>{valueDisplay}</Typography>
+      </>
     )
   }
 
@@ -39,9 +42,9 @@ const AreaChartTemplate = ({
   yAxisDataKey: string
 }): ReactElement => {
   return (
-    <div style={{ width: '100%', height: 300 }}>
+    <Container sx={container}>
       <ResponsiveContainer>
-        <AreaChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+        <AreaChart data={data} margin={chartMargin}>
           <CartesianGrid strokeDasharray='3 3' />
           <XAxis dataKey={xAxisDataKey} />
           <YAxis />
@@ -54,7 +57,7 @@ const AreaChartTemplate = ({
           />
         </AreaChart>
       </ResponsiveContainer>
-    </div>
+    </Container>
   )
 }
 

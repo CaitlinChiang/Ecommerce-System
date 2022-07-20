@@ -1,6 +1,12 @@
 import { ReactElement, KeyboardEvent } from 'react'
-import theme from '../../themes'
-import { Button, IconButton, InputAdornment, TextField } from '@mui/material'
+import { container } from '../../styles/_common/searchField'
+import {
+  Button,
+  Container,
+  IconButton,
+  InputAdornment,
+  TextField
+} from '@mui/material'
 import CancelIcon from '@mui/icons-material/Cancel'
 import SearchIcon from '@mui/icons-material/Search'
 import { PaginateDataArgs } from '../../../types/actions/paginateData'
@@ -25,16 +31,7 @@ const SearchField = ({
   setPaginateDataArgs: React.Dispatch<React.SetStateAction<PaginateDataArgs>>
 }): ReactElement => {
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'start',
-        marginTop: theme.spacing(2),
-        marginBottom: theme.spacing(2)
-      }}
-    >
+    <Container sx={container}>
       <TextField
         fullWidth
         label={searchLabel}
@@ -44,9 +41,7 @@ const SearchField = ({
         onKeyDown={onKeyDown}
         placeholder={searchPlaceholder}
         size={'small'}
-        sx={{ marginRight: theme.spacing() }}
         value={searchText}
-        variant={'outlined'}
         InputProps={{
           onBlur: onBlur ? onBlur : null,
           onKeyDown: (e): void => {
@@ -72,16 +67,11 @@ const SearchField = ({
         }}
       />
       {onSearch && (
-        <Button
-          color={'primary'}
-          disabled={searchButtonDisabled}
-          onClick={onSearch}
-          variant={'contained'}
-        >
+        <Button disabled={searchButtonDisabled} onClick={onSearch}>
           {'Search'}
         </Button>
       )}
-    </div>
+    </Container>
   )
 }
 

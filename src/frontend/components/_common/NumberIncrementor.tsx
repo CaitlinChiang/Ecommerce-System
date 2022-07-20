@@ -30,13 +30,13 @@ const NumberIncrementor = ({
 
   return (
     <>
-      <IconButton onClick={() => changeQuantity(QuantityChange.INCREMENT)}>
+      <IconButton onClick={(): void => changeQuantity(QuantityChange.INCREMENT)}>
         <AddBoxIcon />
       </IconButton>
-      <Typography variant={'h4'}>{args[targetProp]}</Typography>
+      <Typography>{args[targetProp]}</Typography>
       <IconButton
         disabled={args[targetProp] == 0}
-        onClick={() => changeQuantity(QuantityChange.DECREMENT)}
+        onClick={(): void => changeQuantity(QuantityChange.DECREMENT)}
       >
         <IndeterminateCheckBoxIcon />
       </IconButton>

@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect } from 'react'
-import theme from '../../themes'
 import {
+  Container,
   IconButton,
   LinearProgress,
   Table,
@@ -75,9 +75,7 @@ const TableComponent = ({
     <>
       <ModalComponent
         content={filterContent}
-        onClose={(): void => {
-          setFilterOpen(false)
-        }}
+        onClose={(): void => setFilterOpen(false)}
         open={filterOpen}
         title={'Filters'}
       />
@@ -100,15 +98,7 @@ const TableComponent = ({
       )}
       {loading && <LinearProgress />}
       <TableContainer>
-        <div
-          style={{
-            [theme.breakpoints.up('sm')]: {
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-between'
-            }
-          }}
-        >
+        <Container>
           {filterContent && (
             <Tooltip title={'Filter'}>
               <IconButton
@@ -141,7 +131,7 @@ const TableComponent = ({
             rowsPerPage={rowsPerPage}
             rowsPerPageOptions={generateRowsPerPage(count)}
           />
-        </div>
+        </Container>
         <Table size={'small'}>
           <TableHead>
             <TableRow>

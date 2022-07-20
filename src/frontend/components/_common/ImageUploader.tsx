@@ -1,4 +1,5 @@
 import { ReactElement, useState, useEffect } from 'react'
+import { formHelperText, image } from '../../styles/_common/imageUploader'
 import { Box, Button, FormHelperText } from '@mui/material'
 
 const ImageUploader = ({
@@ -37,30 +38,16 @@ const ImageUploader = ({
 
   return (
     <>
-      <Button variant={'contained'}>
+      <Button>
         <input type='file' accept='image/*' onChange={uploadImage} />
         {'Upload Photo'}
       </Button>
       {required && error && !args?.[targetProp] && (
         <>
-          <FormHelperText sx={{ color: 'red' }}>
-            {'Photo is required.'}
-          </FormHelperText>
+          <FormHelperText sx={formHelperText}>{'Photo is required.'}</FormHelperText>
         </>
       )}
-      {imageUrl && (
-        <Box
-          component='img'
-          sx={{
-            height: 233,
-            width: 350,
-            maxHeight: { xs: 233, md: 167 },
-            maxWidth: { xs: 350, md: 250 }
-          }}
-          alt={alt}
-          src={imageUrl}
-        />
-      )}
+      {imageUrl && <Box component='img' alt={alt} src={imageUrl} sx={image} />}
     </>
   )
 }

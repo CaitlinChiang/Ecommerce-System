@@ -1,11 +1,10 @@
 import { ReactElement } from 'react'
 import theme from '../../themes'
+import { dialogCollapse } from '../../styles/_common/modalComponent'
 import {
-  Button,
   CircularProgress,
   Collapse,
   Dialog,
-  DialogActions,
   DialogContent,
   DialogTitle,
   useMediaQuery
@@ -17,12 +16,6 @@ const ModalComponent = ({
   maxWidth,
   onClose,
   open,
-  primaryButtonDisabled,
-  primaryButtonOnClick,
-  primaryButtonTitle,
-  secondaryButtonDisabled,
-  secondaryButtonOnClick,
-  secondaryButtonTitle,
   title
 }: {
   content: ReactElement
@@ -30,12 +23,6 @@ const ModalComponent = ({
   maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | false
   onClose?: VoidFunction
   open: boolean
-  primaryButtonDisabled?: boolean
-  primaryButtonOnClick?: VoidFunction
-  primaryButtonTitle?: string
-  secondaryButtonDisabled?: boolean
-  secondaryButtonOnClick?: VoidFunction
-  secondaryButtonTitle?: string
   title?: string
 }): ReactElement => {
   return (
@@ -49,57 +36,10 @@ const ModalComponent = ({
         <DialogTitle>{title}</DialogTitle>
         <DialogContent>
           <Collapse in={Boolean(!loading && content)}>{content}</Collapse>
-          <Collapse
-            in={loading}
-            sx={{
-              display: 'flex',
-              flex: 1,
-              flexDirection: 'column',
-              width: '100%',
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}
-          >
+          <Collapse in={loading} sx={dialogCollapse}>
             <CircularProgress />
           </Collapse>
         </DialogContent>
-        <DialogActions
-          disableSpacing
-          sx={{
-            [theme.breakpoints.down('sm')]: {
-              flexDirection: 'column'
-            }
-          }}
-        >
-          {secondaryButtonTitle && (
-            <Button
-              color={'secondary'}
-              disabled={loading || Boolean(secondaryButtonDisabled)}
-              onClick={secondaryButtonOnClick}
-              sx={{
-                [theme.breakpoints.down('sm')]: {
-                  marginTop: theme.spacing(1)
-                }
-              }}
-            >
-              {secondaryButtonTitle}
-            </Button>
-          )}
-          {primaryButtonTitle && (
-            <Button
-              color={'primary'}
-              disabled={loading || Boolean(primaryButtonDisabled)}
-              onClick={primaryButtonOnClick}
-              sx={{
-                [theme.breakpoints.down('sm')]: {
-                  marginTop: theme.spacing(1)
-                }
-              }}
-            >
-              {primaryButtonTitle}
-            </Button>
-          )}
-        </DialogActions>
       </Dialog>
     </>
   )

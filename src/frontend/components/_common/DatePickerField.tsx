@@ -1,9 +1,9 @@
 import { ReactElement } from 'react'
-import theme from '../../themes'
+import { container } from '../../styles/_common/datePickerField'
 import AdapterDateFns from '@mui/lab/AdapterDateFns'
 import LocalizationProvider from '@mui/lab/LocalizationProvider'
 import { DatePicker } from '@mui/lab'
-import { Box, TextField } from '@mui/material'
+import { Container, TextField } from '@mui/material'
 import { formatProperCapitalization } from '../../_utils/handleFormatting/formatProperCapitalization'
 import { returnError } from '../../_utils/handleArgs/returnError'
 import { returnHelperText } from '../../_utils/handleArgs/returnHelperText'
@@ -33,7 +33,7 @@ const DatePickerField = ({
   }
 
   return (
-    <Box sx={{ padding: theme.spacing(2) }}>
+    <Container sx={container}>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <DatePicker
           disabled={disabled}
@@ -59,7 +59,7 @@ const DatePickerField = ({
           value={value}
         />
       </LocalizationProvider>
-    </Box>
+    </Container>
   )
 }
 

@@ -1,4 +1,5 @@
 import { ReactElement, useState, useEffect } from 'react'
+import { tableRow, tableCell, box } from '../../styles/_common/dropdownsComponent'
 import {
   Box,
   Collapse,
@@ -26,7 +27,7 @@ const Row = ({
 
   return (
     <>
-      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+      <TableRow sx={tableRow}>
         <TableCell component='th' scope='row'>
           {row.title}
         </TableCell>
@@ -34,7 +35,7 @@ const Row = ({
         <TableCell align={'right'}>
           <IconButton
             aria-label='expand row'
-            onClick={() => setOpen(!open)}
+            onClick={(): void => setOpen(!open)}
             size='small'
           >
             {open ? icons.opened : icons.closed}
@@ -42,9 +43,9 @@ const Row = ({
         </TableCell>
       </TableRow>
       <TableRow>
-        <TableCell colSpan={6} style={{ paddingBottom: 0, paddingTop: 0 }}>
+        <TableCell colSpan={6} style={tableCell}>
           <Collapse in={open} timeout='auto' unmountOnExit>
-            <Box sx={{ margin: 1 }}>{row.content}</Box>
+            <Box sx={box}>{row.content}</Box>
           </Collapse>
         </TableCell>
       </TableRow>
