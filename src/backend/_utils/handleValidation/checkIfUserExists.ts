@@ -1,11 +1,15 @@
 import { UserInputError } from 'apollo-server-express'
 import { Context } from '../../../types/setup/context'
 
-export const checkIfUserExists = async (
-  email: string,
-  shouldExist: boolean,
+export const checkIfUserExists = async ({
+  email,
+  shouldExist,
+  context
+}: {
+  email: string
+  shouldExist?: boolean
   context: Context
-): Promise<void> => {
+}): Promise<void> => {
   const existingUser = await context.database.users.findOne({ email })
 
   if (!shouldExist && existingUser) {

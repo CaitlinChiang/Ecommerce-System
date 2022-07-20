@@ -1,3 +1,5 @@
+import { addZeroIfNeeded } from './formatCurrentDate'
+
 export const currentDateTime = (): Date => {
   const date = new Date()
   const localDate = date.toLocaleString('en-US', { timeZone: 'Asia/Manila' })
@@ -40,11 +42,4 @@ const transformTo24HourTime = (hour: string, currentTimeOfDay: string): string =
     case 'PM':
       return String(12 + Number(hour))
   }
-}
-
-const addZeroIfNeeded = (number: string): string => {
-  if (String(number).length === 1) {
-    return '0' + number
-  }
-  return number
 }

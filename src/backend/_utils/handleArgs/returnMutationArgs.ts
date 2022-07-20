@@ -19,7 +19,7 @@ export const mutationArgs = (args: any, action: MutateAction): any => {
       modifiedArgs = { deletedAt: currentDateTime() }
   }
 
-  correctArgs({ modifiedArgs, mutation: true })
+  correctArgs({ args: modifiedArgs, mutation: true })
 
   return modifiedArgs
 }

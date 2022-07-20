@@ -3,17 +3,17 @@ import { Context } from '../../../types/setup/context'
 import { User } from '../../../types/user'
 
 export const searchUser = async (
-  modifiedArgs: any,
+  args: any,
   searchText: string,
   context: Context
 ): Promise<void> => {
   if (!searchText) return
 
-  const users: User[] = await context.database.users.find(modifiedArgs).toArray()
+  const users: User[] = await context.database.users.find(args).toArray()
 
-  delete modifiedArgs['$text']
+  delete args['$text']
 
-  modifiedArgs.userId = {
+  args.userId = {
     $in: users.map((user: User): ObjectId => new ObjectId(user._id))
   }
 }

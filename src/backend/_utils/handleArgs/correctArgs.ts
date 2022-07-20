@@ -1,24 +1,24 @@
 import { ObjectId } from 'mongodb'
 
 export const correctArgs = ({
-  modifiedArgs,
+  args,
   mutation
 }: {
-  modifiedArgs: any
+  args: any
   mutation?: boolean
 }): void => {
-  Object.keys(modifiedArgs).forEach((key: string) => {
-    const val = modifiedArgs[key]
+  Object.keys(args).forEach((key: string): void => {
+    const val = args[key]
 
     if (isValueStringOrNull(val)) {
-      modifyArgs(key, modifiedArgs, mutation)
+      modifyArgs(key, args, mutation)
     }
 
     if (isValueObject(val) && val !== null) {
       Object.keys(val).forEach((nestedKey: string) => {
         modifyArgs(nestedKey, val, mutation)
       })
-      deleteObject(modifiedArgs, key)
+      deleteObject(args, key)
     }
 
     if (isValueArray(val) && val !== null) {
@@ -26,7 +26,7 @@ export const correctArgs = ({
         Object.keys(item).forEach((nestedKey: string) =>
           modifyArgs(nestedKey, item, mutation)
         )
-        deleteObject(modifiedArgs, key[index])
+        deleteObject(args, key[index])
       })
     }
   })
@@ -47,7 +47,7 @@ const isValueArray = (val: any): boolean => {
   return false
 }
 
-const modifyArgs = (key: string, obj: any, mutation: boolean): any => {
+const modifyArgs = (key: string, obj: any, mutation: boolean): void => {
   if (obj[key] === null) {
     delete obj[key]
   }

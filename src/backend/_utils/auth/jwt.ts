@@ -4,15 +4,9 @@ import { ObjectId } from 'mongodb'
 const path = require('path')
 require('dotenv').config({ path: path.resolve(__dirname, '../../../../.env') })
 
-const SECRET_KEY = process.env.JWT_SECRET
-
-const jwtSettings = {
-  expiresIn: '10h'
-}
-
 export const generateJWT = (_id: ObjectId): string => {
   const stringId = String(_id)
-  return jwt.sign({ _id: stringId }, SECRET_KEY, jwtSettings)
+  return jwt.sign({ _id: stringId }, process.env.JWT_SECRET, { expiresIn: '10h' })
 }
 
 export const verifyJWT = (
@@ -23,7 +17,7 @@ export const verifyJWT = (
   exp: number
 } => {
   try {
-    return jwt.verify(token, SECRET_KEY) as {
+    return jwt.verify(token, process.env.JWT_SECRET) as {
       _id: string
       iat: number
       exp: number
