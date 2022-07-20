@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 import { useRouter } from 'next/router'
-import { card } from '../../styles/_common/CardComponent'
+import styles from '../../styles/_common/cardComponent'
 import { Card, CardActionArea, CardContent, CardMedia } from '@mui/material'
 
 const CardComponent = ({
@@ -22,7 +22,7 @@ const CardComponent = ({
     if (redirectLink) {
       return (
         <Card
-          sx={{ ...card, width: width || 250 }}
+          sx={{ ...styles.card, width: width || 250 }}
           onClick={(): void => {
             router.push(redirectLink)
           }}
@@ -33,7 +33,7 @@ const CardComponent = ({
     }
 
     if (!redirectLink) {
-      return <Card sx={{ ...card, width: width || 250 }}>{content}</Card>
+      return <Card sx={{ ...styles.card, width: width || 250 }}>{content}</Card>
     }
   }
 

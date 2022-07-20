@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import { container } from '../../styles/_common/datePickerField'
+import styles from '../../styles/_common/datePickerField'
 import AdapterDateFns from '@mui/lab/AdapterDateFns'
 import LocalizationProvider from '@mui/lab/LocalizationProvider'
 import { DatePicker } from '@mui/lab'
@@ -33,7 +33,7 @@ const DatePickerField = ({
   }
 
   return (
-    <Container sx={container}>
+    <Container sx={styles.container}>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <DatePicker
           disabled={disabled}

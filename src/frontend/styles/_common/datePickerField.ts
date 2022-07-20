@@ -1,3 +1,7 @@
-export const container = {
-  padding: 2
+const styles = {
+  container: {
+    padding: 2
+  }
 }
+
+export default styles

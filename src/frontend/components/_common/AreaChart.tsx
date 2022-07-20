@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import { container, chartMargin } from '../../styles/_common/areaChart'
+import styles from '../../styles/_common/areaChart'
 import { Container, Typography } from '@mui/material'
 import {
   AreaChart,
@@ -42,9 +42,9 @@ const AreaChartTemplate = ({
   yAxisDataKey: string
 }): ReactElement => {
   return (
-    <Container sx={container}>
+    <Container sx={styles.container}>
       <ResponsiveContainer>
-        <AreaChart data={data} margin={chartMargin}>
+        <AreaChart data={data} margin={styles.chartMargin}>
           <CartesianGrid strokeDasharray='3 3' />
           <XAxis dataKey={xAxisDataKey} />
           <YAxis />

@@ -1,5 +1,5 @@
 import { ReactElement, useState, useEffect } from 'react'
-import { formHelperText, image } from '../../styles/_common/imageUploader'
+import styles from '../../styles/_common/imageUploader'
 import { Box, Button, FormHelperText } from '@mui/material'
 
 const ImageUploader = ({
@@ -44,10 +44,14 @@ const ImageUploader = ({
       </Button>
       {required && error && !args?.[targetProp] && (
         <>
-          <FormHelperText sx={formHelperText}>{'Photo is required.'}</FormHelperText>
+          <FormHelperText sx={styles.formHelperText}>
+            {'Photo is required.'}
+          </FormHelperText>
         </>
       )}
-      {imageUrl && <Box component='img' alt={alt} src={imageUrl} sx={image} />}
+      {imageUrl && (
+        <Box component='img' alt={alt} src={imageUrl} sx={styles.image} />
+      )}
     </>
   )
 }

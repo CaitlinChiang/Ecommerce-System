@@ -1,6 +1,6 @@
 import { ReactElement, useState } from 'react'
 import { useRouter } from 'next/router'
-import { typography, list } from '../../styles/_layouts/customer/navbar'
+import styles from '../../styles/_layouts/customer/navbar'
 import {
   AppBar,
   List,
@@ -36,8 +36,8 @@ const Navbar = (): ReactElement => {
   return (
     <AppBar position={'static'}>
       <Toolbar>
-        <Typography sx={typography}>{'Logo'}</Typography>
-        <List sx={list}>
+        <Typography sx={styles.typography}>{'Logo'}</Typography>
+        <List sx={styles.list}>
           {shoppingMenu.map((menuItem, index): ReactElement => {
             return (
               <ListItemButton
@@ -55,7 +55,7 @@ const Navbar = (): ReactElement => {
             )
           })}
         </List>
-        <List sx={list}>
+        <List sx={styles.list}>
           {trackingMenu.map((menuItem, index): ReactElement => {
             return (
               <ListItemButton

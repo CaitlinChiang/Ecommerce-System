@@ -1,15 +1,6 @@
 import { ReactElement, ReactEventHandler } from 'react'
 import { useRouter } from 'next/router'
-import {
-  drawer,
-  listItem,
-  avatar,
-  container,
-  listItemIcon,
-  listTypography,
-  box,
-  companyNameTypography
-} from '../../styles/_layouts/admin/navbar'
+import styles from '../../styles/_layouts/admin/navbar'
 import {
   Avatar,
   Box,
@@ -67,7 +58,7 @@ const Navbar = ({
     <Drawer
       open={open}
       onClose={onClose}
-      sx={drawer}
+      sx={styles.drawer}
       variant={permanent ? 'permanent' : 'temporary'}
     >
       <List dense>
@@ -77,10 +68,10 @@ const Navbar = ({
           onClick={(): void => {
             router.push('/admin/user/account')
           }}
-          sx={listItem}
+          sx={styles.listItem}
         >
           <ListItemAvatar>
-            <Avatar sx={avatar} variant={'square'}>
+            <Avatar sx={styles.avatar} variant={'square'}>
               {`${user?.firstName?.[0]}`}
             </Avatar>
           </ListItemAvatar>
@@ -90,7 +81,7 @@ const Navbar = ({
           />
         </ListItem>
         <Divider />
-        <Container sx={container} />
+        <Container sx={styles.container} />
         {navbarItems.map((item, index): ReactElement => {
           return (
             <ListItem
@@ -99,19 +90,19 @@ const Navbar = ({
               onClick={(): void => {
                 router.push(item.route)
               }}
-              sx={listItem}
+              sx={styles.listItem}
             >
-              <ListItemIcon sx={listItemIcon}>{item.icon}</ListItemIcon>
-              <Typography sx={listTypography}>{item.label}</Typography>
+              <ListItemIcon sx={styles.listItemIcon}>{item.icon}</ListItemIcon>
+              <Typography sx={styles.listTypography}>{item.label}</Typography>
             </ListItem>
           )
         })}
       </List>
-      <Container sx={container} />
+      <Container sx={styles.container} />
       <Divider />
-      <Box sx={box}>
+      <Box sx={styles.box}>
         <Typography>{'Company Logo'}</Typography>
-        <Typography sx={companyNameTypography}>{'Company Name'}</Typography>
+        <Typography sx={styles.companyNameTypography}>{'Company Name'}</Typography>
       </Box>
     </Drawer>
   )

@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 import theme from '../../themes'
-import { dialogCollapse } from '../../styles/_common/modalComponent'
+import styles from '../../styles/_common/modalComponent'
 import {
   CircularProgress,
   Collapse,
@@ -36,7 +36,7 @@ const ModalComponent = ({
         <DialogTitle>{title}</DialogTitle>
         <DialogContent>
           <Collapse in={Boolean(!loading && content)}>{content}</Collapse>
-          <Collapse in={loading} sx={dialogCollapse}>
+          <Collapse in={loading} sx={styles.dialogCollapse}>
             <CircularProgress />
           </Collapse>
         </DialogContent>

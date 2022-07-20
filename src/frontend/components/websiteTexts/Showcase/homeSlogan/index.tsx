@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 import { useRouter } from 'next/router'
 import { useQuery } from '@apollo/client'
 import { GetWebsiteText } from '../../Showcase/query'
-import { homeSlogan, homeVisitShop } from '../../../../styles/websiteTexts'
+import styles from '../../../../styles/websiteTexts'
 import { Button, Typography } from '@mui/material'
 import { WebsiteText } from '../../../../../types/websiteText'
 import { WebsiteTextType } from '../../../../_enums/websiteTextType'
@@ -18,12 +18,12 @@ const HomeSlogan = (): ReactElement => {
 
   return (
     <>
-      <Typography sx={homeSlogan}>{websiteText.content}</Typography>
+      <Typography sx={styles.homeSlogan}>{websiteText.content}</Typography>
       <Button
         onClick={(): void => {
           router.push('/shop')
         }}
-        sx={homeVisitShop}
+        sx={styles.homeVisitShop}
       >
         {'Visit Shop'}
       </Button>

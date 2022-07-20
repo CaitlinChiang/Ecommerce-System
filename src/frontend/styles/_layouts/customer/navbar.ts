@@ -1,7 +1,10 @@
-export const typography = {
-  flexGrow: 1
+const styles = {
+  list: {
+    display: 'flex'
+  },
+  typography: {
+    flexGrow: 1
+  }
 }
 
-export const list = {
-  display: 'flex'
-}
+export default styles

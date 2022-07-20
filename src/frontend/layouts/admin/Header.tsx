@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 import { useRouter } from 'next/router'
-import { toolbar, typography } from '../../styles/_layouts/admin/header'
+import styles from '../../styles/_layouts/admin/header'
 import { Toolbar, IconButton, Typography } from '@mui/material'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
@@ -14,7 +14,7 @@ const Header = ({
   const router = useRouter()
 
   return (
-    <Toolbar sx={toolbar}>
+    <Toolbar sx={styles.toolbar}>
       {backRoute && (
         <IconButton
           edge={'start'}
@@ -24,7 +24,7 @@ const Header = ({
           <ArrowBackIcon fontSize={'large'} />
         </IconButton>
       )}
-      <Typography sx={typography}>{pageTitle}</Typography>
+      <Typography sx={styles.typography}>{pageTitle}</Typography>
     </Toolbar>
   )
 }

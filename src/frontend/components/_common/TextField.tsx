@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import { textField } from '../../styles/_common/numberField'
+import styles from '../../styles/_common/textField'
 import { TextField } from '@mui/material'
 import { formatProperCapitalization } from '../../_utils/handleFormatting/formatProperCapitalization'
 import { returnError } from '../../_utils/handleArgs/returnError'
@@ -47,7 +47,7 @@ const Text = ({
       }}
       placeholder={placeholder}
       required={required}
-      sx={{ ...textField, width: width || 500 }}
+      sx={{ ...styles.textField, width: width || 500 }}
       value={args?.[targetProp]}
     />
   )

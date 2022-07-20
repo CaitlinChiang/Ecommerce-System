@@ -1,7 +1,7 @@
 import React, { ReactElement, useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetWebsiteText } from '../../Showcase/query'
-import { contactInfoHeader, contactInfoText } from '../../../../styles/websiteTexts'
+import styles from '../../../../styles/websiteTexts'
 import { Link, Typography } from '@mui/material'
 import { WebsiteText } from '../../../../../types/websiteText'
 import { WebsiteTextType } from '../../../../_enums/websiteTextType'
@@ -32,23 +32,23 @@ const ContactInformation = (): ReactElement => {
 
   return (
     <>
-      <Typography sx={contactInfoHeader}>{'Contact Information'}</Typography>
+      <Typography sx={styles.contactInfoHeader}>{'Contact Information'}</Typography>
       {args?.facebook && (
-        <Typography sx={contactInfoText}>
+        <Typography sx={styles.contactInfoText}>
           <Link color={'#ffffff'} href={args?.facebook}>
             {'Facebook'}
           </Link>
         </Typography>
       )}
       {args?.instagram && (
-        <Typography sx={contactInfoText}>
+        <Typography sx={styles.contactInfoText}>
           <Link color={'#ffffff'} href={args?.instagram}>
             {'Instagram'}
           </Link>
         </Typography>
       )}
-      <Typography sx={contactInfoText}>{args.email}</Typography>
-      <Typography sx={contactInfoText}>{args.phoneNumber}</Typography>
+      <Typography sx={styles.contactInfoText}>{args.email}</Typography>
+      <Typography sx={styles.contactInfoText}>{args.phoneNumber}</Typography>
     </>
   )
 }

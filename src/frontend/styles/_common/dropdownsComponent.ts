@@ -1,10 +1,12 @@
-export const tableRow = { '& > *': { borderBottom: 'unset' } }
-
-export const tableCell = {
-  paddingBottom: 0,
-  paddingTop: 0
+const styles = {
+  box: {
+    margin: 1
+  },
+  tableCell: {
+    paddingBottom: 0,
+    paddingTop: 0
+  },
+  tableRow: { '& > *': { borderBottom: 'unset' } }
 }
 
-export const box = {
-  margin: 1
-}
+export default styles

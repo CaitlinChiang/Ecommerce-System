@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 import { useRouter } from 'next/router'
-import { typography } from '../../styles/_layouts/customer/header'
+import styles from '../../styles/_layouts/customer/header'
 import { Toolbar, IconButton, Typography } from '@mui/material'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
@@ -24,7 +24,7 @@ const Header = ({
           <ArrowBackIcon fontSize={'large'} />
         </IconButton>
       )}
-      <Typography variant={'h4'} sx={typography}>
+      <Typography variant={'h4'} sx={styles.typography}>
         {pageTitle}
       </Typography>
     </Toolbar>

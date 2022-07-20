@@ -1,5 +1,5 @@
 import { ReactElement, KeyboardEvent } from 'react'
-import { container } from '../../styles/_common/searchField'
+import styles from '../../styles/_common/searchField'
 import {
   Button,
   Container,
@@ -31,7 +31,7 @@ const SearchField = ({
   setPaginateDataArgs: React.Dispatch<React.SetStateAction<PaginateDataArgs>>
 }): ReactElement => {
   return (
-    <Container sx={container}>
+    <Container sx={styles.container}>
       <TextField
         fullWidth
         label={searchLabel}

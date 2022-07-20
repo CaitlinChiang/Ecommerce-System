@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 import { useRouter } from 'next/router'
 import { useQuery } from '@apollo/client'
 import { GetCart } from './query'
-import { image, bottomContainer, button } from '../../../styles/cart'
+import styles from '../../../styles/cart'
 import { Box, Button, Container, Divider, Typography } from '@mui/material'
 import { Cart, CartItem } from '../../../../types/cart'
 import EditItemQuantity from '../EditQuantity'
@@ -23,7 +23,7 @@ const Cart = (): ReactElement => {
             <>
               <Box
                 component='img'
-                sx={image}
+                sx={styles.image}
                 alt={`${productVariant?.name || product?.name} Product Photo`}
                 src={productVariant?.imageUrl || product?.imageUrl}
               />
@@ -42,7 +42,7 @@ const Cart = (): ReactElement => {
         })}
         <Typography>{`Total  P${cart?.totalPrice?.toFixed(2)}`}</Typography>
       </Container>
-      <Container sx={bottomContainer}>
+      <Container sx={styles.bottomContainer}>
         <Typography>{'Total'}</Typography>
         <Typography>{'Quantity ' + cart?.quantity}</Typography>
         <Typography>{'Amount Due P' + cart?.totalPrice}</Typography>
@@ -51,7 +51,7 @@ const Cart = (): ReactElement => {
           onClick={(): void => {
             router.push('/payment')
           }}
-          sx={button}
+          sx={styles.button}
         >
           {'Proceed to Checkout'}
         </Button>
@@ -60,7 +60,7 @@ const Cart = (): ReactElement => {
           onClick={(): void => {
             router.push('/shop')
           }}
-          sx={button}
+          sx={styles.button}
         >
           {'Continue Shopping'}
         </Button>

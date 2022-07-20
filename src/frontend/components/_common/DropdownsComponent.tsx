@@ -1,5 +1,5 @@
 import { ReactElement, useState, useEffect } from 'react'
-import { tableRow, tableCell, box } from '../../styles/_common/dropdownsComponent'
+import styles from '../../styles/_common/dropdownsComponent'
 import {
   Box,
   Collapse,
@@ -27,7 +27,7 @@ const Row = ({
 
   return (
     <>
-      <TableRow sx={tableRow}>
+      <TableRow sx={styles.tableRow}>
         <TableCell component='th' scope='row'>
           {row.title}
         </TableCell>
@@ -43,9 +43,9 @@ const Row = ({
         </TableCell>
       </TableRow>
       <TableRow>
-        <TableCell colSpan={6} style={tableCell}>
+        <TableCell colSpan={6} style={styles.tableCell}>
           <Collapse in={open} timeout='auto' unmountOnExit>
-            <Box sx={box}>{row.content}</Box>
+            <Box sx={styles.box}>{row.content}</Box>
           </Collapse>
         </TableCell>
       </TableRow>

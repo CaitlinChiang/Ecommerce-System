@@ -1,6 +1,8 @@
-import theme from '../../themes'
-
-export const textField = {
-  padding: theme.spacing(2),
-  display: 'block'
+const styles = {
+  textField: {
+    padding: 5,
+    display: 'block'
+  }
 }
+
+export default styles

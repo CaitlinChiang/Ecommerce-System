@@ -1,14 +1,16 @@
-export const listItemTextHeader = {
-  marginBottom: 2
+const styles = {
+  listItemButton: {
+    py: 0,
+    minHeight: 32,
+    marginLeft: -2
+  },
+  listItemText: {
+    fontSize: 14,
+    fontWeight: 'medium'
+  },
+  listItemTextHeader: {
+    marginBottom: 2
+  }
 }
 
-export const listItemButton = {
-  py: 0,
-  minHeight: 32,
-  marginLeft: -2
-}
-
-export const listItemText = {
-  fontSize: 14,
-  fontWeight: 'medium'
-}
+export default styles

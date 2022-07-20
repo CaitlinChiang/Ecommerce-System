@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import { autocomplete } from '../../styles/_common/selectField'
+import styles from '../../styles/_common/selectField'
 import { TextField, Autocomplete } from '@mui/material'
 import { returnError } from '../../_utils/handleArgs/returnError'
 import { returnHelperText } from '../../_utils/handleArgs/returnHelperText'
@@ -81,7 +81,7 @@ const SelectField = ({
           required={required}
         />
       )}
-      sx={{ ...autocomplete, width: width || 300 }}
+      sx={{ ...styles.autocomplete, width: width || 300 }}
       value={
         value || (!nestedProp ? args[targetProp] : args[targetProp][nestedProp])
       }

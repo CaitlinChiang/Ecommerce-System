@@ -1,4 +1,8 @@
-export const autocomplete = {
-  padding: 5,
-  display: 'block'
+const styles = {
+  autocomplete: {
+    padding: 5,
+    display: 'block'
+  }
 }
+
+export default styles

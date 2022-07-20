@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import { textField } from '../../styles/_common/numberField'
+import styles from '../../styles/_common/numberField'
 import { TextField } from '@mui/material'
 import { formatProperCapitalization } from '../../_utils/handleFormatting/formatProperCapitalization'
 import { returnError } from '../../_utils/handleArgs/returnError'
@@ -44,7 +44,7 @@ const NumberField = ({
       }}
       placeholder={'0'}
       required={required}
-      sx={{ ...textField, width: width || 300 }}
+      sx={{ ...styles.textField, width: width || 300 }}
       type={'number'}
       value={!nestedProp ? args[targetProp] : args[targetProp]?.[nestedProp]}
       InputProps={{ inputProps: { min: 0 } }}
