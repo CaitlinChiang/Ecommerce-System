@@ -1,6 +1,6 @@
 import { ReactElement, useState } from 'react'
 import { useQuery } from '@apollo/client'
-import query from './query'
+import { GetAuditLogs } from './query'
 import { TableCell, TableRow } from '@mui/material'
 import { AuditLog } from '../../../../types/auditLog'
 import { PaginateDataArgs } from '../../../../types/actions/paginateData'
@@ -19,7 +19,7 @@ const OrderLogsTable = ({ orderId }: { orderId: ObjectId }): ReactElement => {
     sortDirection: SortDirection.DESC
   })
 
-  const { data, loading, fetchMore } = useQuery(query, {
+  const { data, loading, fetchMore } = useQuery(GetAuditLogs, {
     variables: { ...args, paginateData: paginateDataArgs },
     ...fetchMoreArgs
   })

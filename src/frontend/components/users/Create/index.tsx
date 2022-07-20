@@ -8,7 +8,7 @@ import { UserType } from '../../../_enums/userType'
 import CitiesSelect from '../../../components/cities/Showcase/select'
 import Text from '../../_common/TextField'
 import PasswordField from '../../_common/PasswordField'
-import Notification from '../../_common/Notification'
+import Notification from '../../_common/NotificationComponent'
 
 const CreateUser = ({ type }: { type: UserType }): ReactElement => {
   const router = useRouter()

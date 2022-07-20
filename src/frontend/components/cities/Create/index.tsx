@@ -5,10 +5,11 @@ import { Button } from '@mui/material'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
 import NumberField from '../../_common/NumberField'
-import Notification from '../../_common/Notification'
 import { formatFee } from '../../../_utils/handleFormatting/formatFee'
 import { refetchData } from '../../../_utils/handleData/refetchData'
 import { clearFields } from '../../../_utils/handleFields/clearFields'
+
+const globalAny: any = global
 
 const CreateCity = ({
   refetchArgs
@@ -20,10 +21,6 @@ const CreateCity = ({
     shippingFee: null
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
-  const [notification, setNotification] = useState<any>({
-    message: null,
-    success: null
-  })
 
   const [createMutation, createMutationState] = useMutation(mutation, {
     variables: {
@@ -31,15 +28,12 @@ const CreateCity = ({
       shippingFee: formatFee(args?.shippingFee)
     },
     onCompleted: () => {
-      setNotification({
-        message: 'City & shipping fee successfully created!',
-        success: true
-      })
+      globalAny.setNotification(true, 'City & shipping fee successfully created!')
       refetchData(refetchArgs)
       setValidateFields(false)
       setArgs(clearFields(args))
     },
-    onError: (error) => setNotification({ message: error.message, success: false })
+    onError: (error) => globalAny.setNotification(false, error.message)
   })
 
   return (
@@ -68,7 +62,6 @@ const CreateCity = ({
       >
         {'Create'}
       </Button>
-      <Notification message={notification.message} success={notification.success} />
     </>
   )
 }

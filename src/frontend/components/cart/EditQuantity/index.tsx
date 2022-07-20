@@ -15,12 +15,6 @@ const EditItemQuantity = ({
   quantity: number
   refetch: any
 }): ReactElement => {
-  const args: any = {
-    productId,
-    productVariantId,
-    quantity
-  }
-
   const updateMutation = useMutation(mutation, {
     onCompleted: () => refetch()
   })
@@ -28,7 +22,7 @@ const EditItemQuantity = ({
   return (
     <>
       <NumberIncrementor
-        args={args}
+        args={{ productId, productVariantId, quantity }}
         targetProp={'quantity'}
         updateMutation={updateMutation}
       />

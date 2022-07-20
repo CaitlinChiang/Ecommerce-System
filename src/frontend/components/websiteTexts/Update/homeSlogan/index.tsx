@@ -8,7 +8,7 @@ import { WebsiteText } from '../../../../../types/websiteText'
 import { WebsiteTextId } from '../../../../_enums/websiteTextId'
 import { WebsiteTextType } from '../../../../_enums/websiteTextType'
 import Text from '../../../_common/TextField'
-import Notification from '../../../_common/Notification'
+import Notification from '../../../_common/NotificationComponent'
 import { correctArgs } from '../../../../_utils/handleArgs/correctArgs'
 
 const UpdateHomeSlogan = (): ReactElement => {

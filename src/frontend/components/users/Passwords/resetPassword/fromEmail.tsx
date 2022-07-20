@@ -5,7 +5,7 @@ import { ResetUserPassword } from '../mutation'
 import { Button } from '@mui/material'
 import Text from '../../../_common/TextField'
 import PasswordField from '../../../_common/PasswordField'
-import Notification from '../../../_common/Notification'
+import Notification from '../../../_common/NotificationComponent'
 
 const ResetPassword = (): ReactElement => {
   const router = useRouter()

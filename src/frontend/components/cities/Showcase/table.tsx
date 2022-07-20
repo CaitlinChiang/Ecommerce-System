@@ -62,15 +62,13 @@ const CitiesTable = (): ReactElement => {
     cities?.map((city: City): ReactElement => {
       return (
         <TableRow>
-          <TableCell align={'center'}>{city?.name}</TableCell>
-          <TableCell align={'center'}>
-            {'P' + city?.shippingFee?.toFixed(2)}
-          </TableCell>
-          <TableCell align={'center'}>
+          <TableCell>{city?.name}</TableCell>
+          <TableCell>{`P${city?.shippingFee?.toFixed(2)}`}</TableCell>
+          <TableCell>
             <IconButton
               onClick={(): void => {
-                setUpdateModalOpen(true)
                 setCityId(String(city._id))
+                setUpdateModalOpen(true)
               }}
             >
               <EditIcon />

@@ -4,7 +4,7 @@ import mutation from './mutation'
 import { Checkbox } from '@mui/material'
 import { ObjectId } from 'mongodb'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
-import Notification from '../../_common/Notification'
+import Notification from '../../_common/NotificationComponent'
 import { refetchData } from '../../../_utils/handleData/refetchData'
 
 const UpdateReviewCheckbox = ({

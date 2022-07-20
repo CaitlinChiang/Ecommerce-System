@@ -8,7 +8,7 @@ import { WebsiteText } from '../../../../../types/websiteText'
 import { WebsiteTextId } from '../../../../_enums/websiteTextId'
 import { WebsiteTextType } from '../../../../_enums/websiteTextType'
 import Text from '../../../_common/TextField'
-import Notification from '../../../_common/Notification'
+import Notification from '../../../_common/NotificationComponent'
 import { formatContactInformation } from '../../../../_utils/handleFormatting/formatContactInformation'
 
 const UpdateContactInformation = (): ReactElement => {

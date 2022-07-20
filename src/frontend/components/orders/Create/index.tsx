@@ -13,7 +13,7 @@ import PaymentMethodsSelect from '../../../components/paymentMethods/Showcase/se
 import SelectField from '../../../components/_common/SelectField'
 import Text from '../../_common/TextField'
 import ImageUploader from '../../_common/ImageUploader'
-import Notification from '../../_common/Notification'
+import Notification from '../../_common/NotificationComponent'
 import OrderSuccess from './orderSuccess'
 
 const CreateOrder = (): ReactElement => {

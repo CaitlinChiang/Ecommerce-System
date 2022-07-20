@@ -9,7 +9,7 @@ import { WebsiteTextId } from '../../../../_enums/websiteTextId'
 import { WebsiteTextType } from '../../../../_enums/websiteTextType'
 import Text from '../../../_common/TextField'
 import { correctArgs } from '../../../../_utils/handleArgs/correctArgs'
-import Notification from '../../../_common/Notification'
+import Notification from '../../../_common/NotificationComponent'
 
 const UpdateAboutWriteup = (): ReactElement => {
   const [args, setArgs] = useState<any>({

@@ -7,7 +7,7 @@ import { ProductCategory } from '../../../../types/productCategory'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
 import CheckboxField from '../../_common/CheckboxField'
-import Notification from '../../_common/Notification'
+import Notification from '../../_common/NotificationComponent'
 import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
 import { refetchData } from '../../../_utils/handleData/refetchData'
 

@@ -4,7 +4,7 @@ import mutation from './mutation'
 import { Button } from '@mui/material'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
-import Notification from '../../_common/Notification'
+import Notification from '../../_common/NotificationComponent'
 import { refetchData } from '../../../_utils/handleData/refetchData'
 import { clearFields } from '../../../_utils/handleFields/clearFields'
 

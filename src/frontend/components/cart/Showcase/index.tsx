@@ -1,8 +1,8 @@
 import { ReactElement } from 'react'
 import { useRouter } from 'next/router'
-import theme from '../../../themes'
 import { useQuery } from '@apollo/client'
 import { GetCart } from './query'
+import { image, bottomContainer, button } from '../../../styles/cart'
 import { Box, Button, Container, Divider, Typography } from '@mui/material'
 import { CartItem } from '../../../../types/cart'
 import EditItemQuantity from '../EditQuantity'
@@ -18,28 +18,18 @@ const Cart = (): ReactElement => {
     <>
       <Container>
         {cart?.items?.map((cartItem: CartItem): ReactElement => {
+          const { product, productVariant } = cartItem
           return (
             <>
               <Box
                 component='img'
-                sx={{
-                  height: 233,
-                  width: 350,
-                  maxHeight: { xs: 233, md: 167 },
-                  maxWidth: { xs: 350, md: 250 }
-                }}
-                alt='The house from the offer.'
-                src={
-                  cartItem?.productVariant?.imageUrl || cartItem?.product?.imageUrl
-                }
+                sx={image}
+                alt={`${productVariant?.name || product?.name} Product Photo`}
+                src={productVariant?.imageUrl || product?.imageUrl}
               />
-              <Typography variant={'h6'}>{cartItem?.product?.name}</Typography>
-              <Typography variant={'body1'}>
-                {cartItem?.productVariant?.name}
-              </Typography>
-              <Typography variant={'h6'}>
-                {'P' + cartItem?.totalPrice?.toFixed(2)}
-              </Typography>
+              <Typography>{product?.name}</Typography>
+              <Typography>{productVariant?.name}</Typography>
+              <Typography>{`P${cartItem?.totalPrice?.toFixed(2)}`}</Typography>
               <EditItemQuantity
                 productId={cartItem?.productId}
                 productVariantId={cartItem?.productVariantId}
@@ -50,22 +40,18 @@ const Cart = (): ReactElement => {
             </>
           )
         })}
-        <Typography variant={'h6'}>{'Total  P' + cart?.totalPrice}</Typography>
+        <Typography>{`Total  P${cart?.totalPrice?.toFixed(2)}`}</Typography>
       </Container>
-      <Container sx={{ marginTop: 10 }}>
-        <Typography variant={'h6'}>{'Total'}</Typography>
-        <Typography variant={'h6'}>{'Quantity ' + cart?.quantity}</Typography>
-        <Typography variant={'h6'}>{'Amount Due P' + cart?.totalPrice}</Typography>
+      <Container sx={bottomContainer}>
+        <Typography>{'Total'}</Typography>
+        <Typography>{'Quantity ' + cart?.quantity}</Typography>
+        <Typography>{'Amount Due P' + cart?.totalPrice}</Typography>
         <Button
           color={'primary'}
           onClick={(): void => {
             router.push('/payment')
           }}
-          sx={{
-            [theme.breakpoints.down('sm')]: {
-              marginTop: theme.spacing(1)
-            }
-          }}
+          sx={button}
         >
           {'Proceed to Checkout'}
         </Button>
@@ -74,11 +60,7 @@ const Cart = (): ReactElement => {
           onClick={(): void => {
             router.push('/shop')
           }}
-          sx={{
-            [theme.breakpoints.down('sm')]: {
-              marginTop: theme.spacing(1)
-            }
-          }}
+          sx={button}
         >
           {'Continue Shopping'}
         </Button>

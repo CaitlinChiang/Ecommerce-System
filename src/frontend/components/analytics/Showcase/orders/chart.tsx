@@ -15,9 +15,7 @@ const OrdersChart = (): ReactElement => {
     }
   })
 
-  const { data } = useQuery(GetAnalyticsOrdersCount, {
-    variables: { ...args }
-  })
+  const { data } = useQuery(GetAnalyticsOrdersCount, { variables: args })
 
   const ordersData = data?.get_analytics_orders_count || []
 

@@ -15,9 +15,7 @@ const RevenueChart = (): ReactElement => {
     }
   })
 
-  const { data } = useQuery(GetAnalyticsRevenueCount, {
-    variables: { ...args }
-  })
+  const { data } = useQuery(GetAnalyticsRevenueCount, { variables: args })
 
   const revenueData = data?.get_analytics_revenue_count || []
 

@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/client'
 import { ForgotUserPassword } from '../mutation'
 import { Button } from '@mui/material'
 import Text from '../../../_common/TextField'
-import Notification from '../../../_common/Notification'
+import Notification from '../../../_common/NotificationComponent'
 
 const ForgotPassword = (): ReactElement => {
   const router = useRouter()

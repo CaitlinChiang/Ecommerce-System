@@ -6,7 +6,7 @@ import { Button } from '@mui/material'
 import { User } from '../../../../types/user'
 import CitiesSelect from '../../../components/cities/Showcase/select'
 import Text from '../../_common/TextField'
-import Notification from '../../_common/Notification'
+import Notification from '../../_common/NotificationComponent'
 import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
 
 const UpdateUser = (): ReactElement => {

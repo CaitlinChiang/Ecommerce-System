@@ -7,10 +7,11 @@ import { City } from '../../../../types/city'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
 import NumberField from '../../_common/NumberField'
-import Notification from '../../_common/Notification'
 import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
 import { formatFee } from '../../../_utils/handleFormatting/formatFee'
 import { refetchData } from '../../../_utils/handleData/refetchData'
+
+const globalAny: any = global
 
 const UpdateCity = ({
   _id,
@@ -27,14 +28,8 @@ const UpdateCity = ({
     shippingFee: null
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
-  const [notification, setNotification] = useState<any>({
-    message: null,
-    success: null
-  })
 
-  const { data } = useQuery(GetCity, {
-    variables: { _id }
-  })
+  const { data } = useQuery(GetCity, { variables: { _id } })
 
   const city: City = data?.get_city || {}
 
@@ -52,15 +47,12 @@ const UpdateCity = ({
       shippingFee: formatFee(args?.shippingFee)
     },
     onCompleted: () => {
-      setNotification({
-        message: 'City & shipping fee successfully updated!',
-        success: true
-      })
+      globalAny.setNotification(true, 'City & shipping fee successfully updated!')
       refetchData(refetchArgs)
       setValidateFields(false)
       setUpdateModalOpen(false)
     },
-    onError: (error) => setNotification({ message: error.message, success: false })
+    onError: (error) => globalAny.setNotification(false, error.message)
   })
 
   return (
@@ -92,7 +84,6 @@ const UpdateCity = ({
       >
         {'Save Changes'}
       </Button>
-      <Notification message={notification.message} success={notification.success} />
     </>
   )
 }

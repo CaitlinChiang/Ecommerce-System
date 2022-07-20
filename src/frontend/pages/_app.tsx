@@ -6,6 +6,7 @@ import theme from '../themes'
 import CssBaseline from '@mui/material/CssBaseline'
 import { ApolloProvider } from '@apollo/client'
 import client from '../apollo/client'
+import NotificationComponent from '../components/_common/NotificationComponent'
 
 class MyApp extends App {
   render(): ReactElement {
@@ -26,6 +27,7 @@ class MyApp extends App {
           <CssBaseline />
           <ApolloProvider client={client}>
             <Component {...pageProps} />
+            <NotificationComponent />
           </ApolloProvider>
         </ThemeProvider>
       </>

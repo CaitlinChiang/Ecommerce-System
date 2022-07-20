@@ -9,7 +9,7 @@ import DatePickerField from '../../_common/DatePickerField'
 import CheckboxField from '../../_common/CheckboxField'
 import NumberField from '../../_common/NumberField'
 import ImageUploader from '../../_common/ImageUploader'
-import Notification from '../../_common/Notification'
+import Notification from '../../_common/NotificationComponent'
 import { formatFee } from '../../../_utils/handleFormatting/formatFee'
 import { formatFromPercentage } from '../../../_utils/handleFormatting/formatFromPercentage'
 
