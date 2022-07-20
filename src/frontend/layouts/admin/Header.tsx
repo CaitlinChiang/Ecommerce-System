@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 import { useRouter } from 'next/router'
-import theme from '../../themes'
+import { toolbar, typography } from '../../styles/_layouts/admin/header'
 import { Toolbar, IconButton, Typography } from '@mui/material'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
@@ -14,7 +14,7 @@ const Header = ({
   const router = useRouter()
 
   return (
-    <Toolbar sx={{ marginTop: theme.spacing(3), marginLeft: theme.spacing(34) }}>
+    <Toolbar sx={toolbar}>
       {backRoute && (
         <IconButton
           edge={'start'}
@@ -24,12 +24,7 @@ const Header = ({
           <ArrowBackIcon fontSize={'large'} />
         </IconButton>
       )}
-      <Typography
-        variant={'h4'}
-        sx={{ flexGrow: 1, display: 'flex', marginLeft: theme.spacing(3) }}
-      >
-        {pageTitle}
-      </Typography>
+      <Typography sx={typography}>{pageTitle}</Typography>
     </Toolbar>
   )
 }

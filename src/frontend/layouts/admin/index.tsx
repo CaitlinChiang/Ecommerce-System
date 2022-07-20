@@ -2,34 +2,11 @@ import { NextPage } from 'next'
 import React, { ReactElement, useState, FunctionComponent } from 'react'
 import { useQuery } from '@apollo/client'
 import query from '../query'
-import theme from '../../themes'
-import styled from '@emotion/styled'
+import styles from '../../styles/_layouts/admin/main'
+import { User } from '../../../types/user'
 import Navbar from './Navbar'
 import Header from './Header'
 import classnames from 'classnames'
-
-const styles = {
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    margin: 'auto',
-    marginTop: theme.spacing(4),
-    minHeight: process.browser
-      ? window.innerHeight * 0.75 - Number(theme.mixins.toolbar.minHeight)
-      : '75vh'
-  },
-  narrow: {
-    maxWidth: theme.spacing(128)
-  },
-  wide: {}
-}
-
-const Div = styled('div')({
-  marginTop: theme.spacing(5),
-  marginLeft: 350,
-  marginRight: theme.spacing(5)
-})
 
 export default (
     Page: FunctionComponent,
@@ -43,7 +20,8 @@ export default (
     const [open, setOpen] = useState(false)
 
     const { data, loading } = useQuery(query)
-    const user = data?.get_user || {}
+
+    const user: User = data?.get_user || {}
 
     if (loading) return null
 
@@ -65,9 +43,9 @@ export default (
               : classnames(styles.root, styles.narrow)
           }
         >
-          <Div>
+          <div style={styles.container}>
             <Page />
-          </Div>
+          </div>
         </div>
       </>
     )
