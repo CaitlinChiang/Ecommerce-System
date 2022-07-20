@@ -12,7 +12,7 @@ export default async (
   args: UpdateUserArgs,
   context: Context
 ): Promise<User> => {
-  authenticateUser({ admin: false }, context)
+  authenticateUser({ admin: false, context })
 
   const user: any = await context.database.users.findOneAndUpdate(
     { _id: args?._id ? new ObjectId(args._id) : context.currentUserId },

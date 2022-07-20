@@ -12,7 +12,7 @@ export default async (
   args: DeleteUserArgs,
   context: Context
 ): Promise<User> => {
-  authenticateUser({ admin: true }, context)
+  authenticateUser({ admin: true, context })
 
   const user: any = await context.database.users.findOneAndUpdate(
     { _id: new ObjectId(args._id) },

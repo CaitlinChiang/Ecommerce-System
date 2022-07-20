@@ -15,6 +15,16 @@ type User {
   deletedAt: String
 }
 
+type DeliveryAddress {
+  address: String
+  city: City
+  cityId: ID
+}
+input DeliveryAddressInput {
+  address: String
+  cityId: ID
+}
+
 extend type Query {
   get_user(_id: ID): User
 

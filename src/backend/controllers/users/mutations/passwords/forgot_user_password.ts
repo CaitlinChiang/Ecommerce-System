@@ -10,9 +10,9 @@ export default async (
   args: ForgotPasswordArgs,
   context: Context
 ): Promise<void> => {
-  authenticateUser({ admin: false }, context)
+  authenticateUser({ admin: false, context })
 
-  await checkIfUserExists(args.email, true, context)
+  await checkIfUserExists({ email: args.email, shouldExist: true, context })
 
   const verificationCode = Math.floor(100000 + Math.random() * 900000).toString()
 

@@ -9,7 +9,7 @@ export default async (
   args: GetAuditLogArgs,
   context: Context
 ): Promise<AuditLog[]> => {
-  authenticateUser({ admin: true }, context)
+  authenticateUser({ admin: true, context })
 
   const auditLogs: AuditLog[] = await context.database.auditLogs
     .find(queryArgs(args))

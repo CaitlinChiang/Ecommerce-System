@@ -8,7 +8,7 @@ export default async (
   args: GetPaymentMethodArgs,
   context: Context
 ): Promise<PaymentMethod> => {
-  authenticateUser({ admin: true }, context)
+  authenticateUser({ admin: true, context })
 
   const paymentMethod: PaymentMethod = await context.database.paymentMethods.findOne(
     { _id: new ObjectId(args._id) }

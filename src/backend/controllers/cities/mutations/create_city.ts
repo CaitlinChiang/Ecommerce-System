@@ -11,7 +11,7 @@ export default async (
   args: CreateCityArgs,
   context: Context
 ): Promise<City> => {
-  authenticateUser({ admin: true }, context)
+  authenticateUser({ admin: true, context })
 
   const city: any = await context.database.cities.insertOne(
     mutationArgs(args, MutateAction.CREATE)

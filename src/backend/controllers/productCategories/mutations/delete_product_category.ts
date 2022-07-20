@@ -13,7 +13,7 @@ export default async (
   args: DeleteProductCategoryArgs,
   context: Context
 ): Promise<ProductCategory> => {
-  authenticateUser({ admin: true }, context)
+  authenticateUser({ admin: true, context })
 
   const productCategory: any =
     await context.database.productCategories.findOneAndDelete({

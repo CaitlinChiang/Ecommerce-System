@@ -13,7 +13,6 @@ export interface Payment {
   shippingFee?: number
   status?: PaymentStatus
   createdAt?: Date
-  updatedAt?: Date
 }
 
 export interface CreatePaymentArgs {
@@ -30,5 +29,4 @@ export interface UpdatePaymentArgs {
   imageProof?: Promise<FileUpload>
   imageProofUrl?: string
   status?: PaymentStatus
-  updatedAt?: Date
 }

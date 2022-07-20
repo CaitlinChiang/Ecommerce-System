@@ -12,7 +12,7 @@ export default async (
   args: UpdateReviewArgs,
   context: Context
 ): Promise<Review> => {
-  authenticateUser({ admin: true }, context)
+  authenticateUser({ admin: true, context })
 
   const review: any = await context.database.reviews.findOneAndUpdate(
     { _id: new ObjectId(args._id) },

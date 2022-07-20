@@ -12,7 +12,7 @@ export default async (
   args: GetProductVariantArgs,
   context: Context
 ): Promise<ProductVariant[]> => {
-  authenticateUser({ admin: false }, context)
+  authenticateUser({ admin: false, context })
 
   const productVariants: ProductVariant[] = await context.database.productVariants
     .find(queryArgs(args))

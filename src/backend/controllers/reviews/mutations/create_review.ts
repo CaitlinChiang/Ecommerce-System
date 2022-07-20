@@ -11,7 +11,7 @@ export default async (
   args: CreateReviewArgs,
   context: Context
 ): Promise<Review> => {
-  authenticateUser({ admin: false }, context)
+  authenticateUser({ admin: false, context })
 
   const review: any = await context.database.reviews.insertOne(
     mutationArgs(args, MutateAction.CREATE)

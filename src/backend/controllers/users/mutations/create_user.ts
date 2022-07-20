@@ -4,19 +4,19 @@ import { User, CreateUserArgs } from '../../../../types/user'
 import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
-import { generateJWT } from '../../../_utils/auth/jwt'
 import { mutationArgs } from '../../../_utils/handleArgs/returnMutationArgs'
 import { auditArgs } from '../../../_utils/handleArgs/returnAuditArgs'
 import { checkIfUserExists } from '../../../_utils/handleValidation/checkIfUserExists'
+import { generateJWT } from '../../../_utils/auth/jwt'
 
 export default async (
   _root: undefined,
   args: CreateUserArgs,
   context: Context
 ): Promise<User> => {
-  authenticateUser({ admin: false }, context)
+  authenticateUser({ admin: false, context })
 
-  await checkIfUserExists(args.email, false, context)
+  await checkIfUserExists({ email: args.email, context })
 
   const hashedPassword = await bcrypt.hash(args.password, 12)
 

@@ -6,15 +6,15 @@ import {
 } from '../../../../types/productVariant'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
-import { deleteImage } from '../../../_utils/handleImages/delete'
 import { auditArgs } from '../../../_utils/handleArgs/returnAuditArgs'
+import { deleteImage } from '../../../_utils/handleImages/delete'
 
 export default async (
   _root: undefined,
   args: DeleteProductVariantArgs,
   context: Context
 ): Promise<ProductVariant> => {
-  authenticateUser({ admin: true }, context)
+  authenticateUser({ admin: true, context })
 
   await deleteImage({ imageUrl: args?.imageUrl })
 

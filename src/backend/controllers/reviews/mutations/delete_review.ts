@@ -10,7 +10,7 @@ export default async (
   args: DeleteReviewArgs,
   context: Context
 ): Promise<Review> => {
-  authenticateUser({ admin: true }, context)
+  authenticateUser({ admin: true, context })
 
   const review: any = await context.database.reviews.findOneAndDelete({
     _id: new ObjectId(args._id)

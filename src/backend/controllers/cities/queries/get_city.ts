@@ -8,7 +8,7 @@ export default async (
   args: GetCityArgs,
   context: Context
 ): Promise<City> => {
-  authenticateUser({ admin: true }, context)
+  authenticateUser({ admin: true, context })
 
   const city: City = await context.database.cities.findOne({
     _id: new ObjectId(args._id)

@@ -2,16 +2,16 @@ import { Context } from '../../../../types/setup/context'
 import { Order, GetOrderArgs } from '../../../../types/order'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { queryArgs } from '../../../_utils/handleArgs/returnQueryArgs'
+import { sortArgs } from '../../../_utils/handleArgs/returnSortArgs'
 import { searchUser } from '../../../_utils/handleData/searchUser'
 import { returnOrdersUserId } from '../../../_utils/handleArgs/returnOrdersUserId'
-import { sortArgs } from '../../../_utils/handleArgs/returnSortArgs'
 
 export default async (
   _root: undefined,
   args: GetOrderArgs,
   context: Context
 ): Promise<Order[]> => {
-  authenticateUser({ admin: false }, context)
+  authenticateUser({ admin: false, context })
 
   const modifiedArgs: GetOrderArgs | any = queryArgs(args)
   await searchUser(modifiedArgs, args.paginateData?.searchText, context)

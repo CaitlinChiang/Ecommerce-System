@@ -13,7 +13,7 @@ export default async (
   args: CreateProductArgs,
   context: Context
 ): Promise<Product> => {
-  authenticateUser({ admin: true }, context)
+  authenticateUser({ admin: true, context })
 
   const { image, ...modifiedArgs } = args
 

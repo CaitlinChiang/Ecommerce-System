@@ -1,7 +1,6 @@
 import { Context } from '../../../types/setup/context'
 import { Payment } from '../../../types/payment'
 import { PaymentMethod } from '../../../types/paymentMethod'
-import { formatDateTime } from '../../_utils/handleDates/formatDateTime'
 
 export default {
   Payment: {
@@ -13,14 +12,6 @@ export default {
       const paymentMethod: PaymentMethod =
         await context.dataloaders.paymentMethods.byId.load(payment?.paymentMethodId)
       return paymentMethod
-    },
-
-    createdAt: async (payment: Payment): Promise<string> => {
-      return formatDateTime(payment?.createdAt) || '-'
-    },
-
-    updatedAt: async (payment: Payment): Promise<string> => {
-      return formatDateTime(payment?.updatedAt) || '-'
     }
   }
 }

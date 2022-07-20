@@ -7,16 +7,16 @@ import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { mutationArgs } from '../../../_utils/handleArgs/returnMutationArgs'
 import { auditArgs } from '../../../_utils/handleArgs/returnAuditArgs'
+import { modifyStockQuantity } from '../../../_utils/handleData/modifyStockQuantity'
 import { createPayment } from '../../payments/mutations/create_payment'
 import { emptyCart } from '../../cart/mutations/empty_cart'
-import { modifyStockQuantity } from '../../../_utils/handleData/modifyStockQuantity'
 
 export default async (
   _root: undefined,
   args: CreateOrderArgs,
   context: Context
 ): Promise<Order> => {
-  authenticateUser({ admin: false }, context)
+  authenticateUser({ admin: false, context })
 
   const { payment, ...remainingArgs } = args
 

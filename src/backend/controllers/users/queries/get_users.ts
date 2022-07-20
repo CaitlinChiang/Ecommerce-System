@@ -9,7 +9,7 @@ export default async (
   args: GetUserArgs,
   context: Context
 ): Promise<User[]> => {
-  authenticateUser({ admin: true }, context)
+  authenticateUser({ admin: true, context })
 
   const users: User[] = await context.database.users
     .find(queryArgs(args))

@@ -12,7 +12,7 @@ export default async (
   args: UpdateFAQArgs,
   context: Context
 ): Promise<FAQ> => {
-  authenticateUser({ admin: true }, context)
+  authenticateUser({ admin: true, context })
 
   const faq: any = await context.database.faqs.findOneAndUpdate(
     { _id: new ObjectId(args._id) },

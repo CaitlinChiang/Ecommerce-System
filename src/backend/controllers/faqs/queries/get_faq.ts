@@ -8,7 +8,7 @@ export default async (
   args: GetFAQArgs,
   context: Context
 ): Promise<FAQ> => {
-  authenticateUser({ admin: true }, context)
+  authenticateUser({ admin: true, context })
 
   const faq: FAQ = await context.database.faqs.findOne({
     _id: new ObjectId(args._id)

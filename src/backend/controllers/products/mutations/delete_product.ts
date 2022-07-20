@@ -3,18 +3,18 @@ import { Context } from '../../../../types/setup/context'
 import { Product, DeleteProductArgs } from '../../../../types/product'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
+import { auditArgs } from '../../../_utils/handleArgs/returnAuditArgs'
 import {
   deleteImage,
   deleteProductVariantImages
 } from '../../../_utils/handleImages/delete'
-import { auditArgs } from '../../../_utils/handleArgs/returnAuditArgs'
 
 export default async (
   _root: undefined,
   args: DeleteProductArgs,
   context: Context
 ): Promise<Product> => {
-  authenticateUser({ admin: true }, context)
+  authenticateUser({ admin: true, context })
 
   await deleteImage({ imageUrl: args?.imageUrl })
 

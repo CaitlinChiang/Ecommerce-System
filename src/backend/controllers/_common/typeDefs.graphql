@@ -1,16 +1,6 @@
 scalar Upload
 scalar Void
 
-type DeliveryAddress {
-  address: String
-  city: City
-  cityId: ID
-}
-input DeliveryAddressInput {
-  address: String
-  cityId: ID
-}
-
 input DateRangeInput {
   startDate: String
   endDate: String

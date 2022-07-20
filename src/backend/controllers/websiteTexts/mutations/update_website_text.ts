@@ -12,7 +12,7 @@ export default async (
   args: UpdateWebsiteTextArgs,
   context: Context
 ): Promise<WebsiteText> => {
-  authenticateUser({ admin: true }, context)
+  authenticateUser({ admin: true, context })
 
   const websiteText: any = await context.database.websiteTexts.findOneAndUpdate(
     { _id: new ObjectId(args._id) },

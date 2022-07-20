@@ -10,7 +10,7 @@ export default async (
   args: GetAnalyticsArgs,
   context: Context
 ): Promise<AnalyticsRevenueCount[]> => {
-  authenticateUser({ admin: true }, context)
+  authenticateUser({ admin: true, context })
 
   const payments: Payment[] = await context.database.payments
     .find(queryArgs(args))

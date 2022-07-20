@@ -8,7 +8,6 @@ type Payment {
   shippingFee: Float
   status: String
   createdAt: String
-  updatedAt: String
 }
 input PaymentInput {
   amountDue: Float!

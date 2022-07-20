@@ -12,7 +12,7 @@ export default async (
   args: GetProductCategoryArgs,
   context: Context
 ): Promise<ProductCategory[]> => {
-  authenticateUser({ admin: false }, context)
+  authenticateUser({ admin: false, context })
 
   const productCategories: ProductCategory[] =
     await context.database.productCategories

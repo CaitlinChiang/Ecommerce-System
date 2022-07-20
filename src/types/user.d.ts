@@ -20,10 +20,6 @@ export interface User {
   deletedAt?: Date
 }
 
-export interface UserPermissionArgs {
-  admin: boolean
-}
-
 export interface SignInUserArgs {
   email: string
   password: string

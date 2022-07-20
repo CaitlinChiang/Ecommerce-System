@@ -14,7 +14,7 @@ export default async (
   args: CreatePaymentMethodArgs,
   context: Context
 ): Promise<PaymentMethod> => {
-  authenticateUser({ admin: true }, context)
+  authenticateUser({ admin: true, context })
 
   const paymentMethod: any = await context.database.paymentMethods.insertOne(
     mutationArgs(args, MutateAction.CREATE)

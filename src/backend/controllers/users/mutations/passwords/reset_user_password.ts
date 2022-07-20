@@ -15,9 +15,9 @@ export default async (
   args: ResetPasswordArgs,
   context: Context
 ): Promise<User> => {
-  authenticateUser({ admin: false }, context)
+  authenticateUser({ admin: false, context })
 
-  await checkIfUserExists(args.email, true, context)
+  await checkIfUserExists({ email: args.email, shouldExist: true, context })
 
   const user: User = await context.database.users.findOne({ email: args.email })
 

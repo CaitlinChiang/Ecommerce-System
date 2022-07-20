@@ -15,7 +15,7 @@ export default async (
   args: UpdatePaymentArgs,
   context: Context
 ): Promise<Payment> => {
-  authenticateUser({ admin: true }, context)
+  authenticateUser({ admin: true, context })
 
   const { imageProof, ...modifiedArgs } = args
 

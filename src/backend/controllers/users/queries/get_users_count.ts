@@ -8,7 +8,7 @@ export default async (
   args: GetUserArgs,
   context: Context
 ): Promise<number> => {
-  authenticateUser({ admin: true }, context)
+  authenticateUser({ admin: true, context })
 
   const usersCount: any = await context.database.users.countDocuments(
     queryArgs(args)

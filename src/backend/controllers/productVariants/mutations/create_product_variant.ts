@@ -16,7 +16,7 @@ export default async (
   args: CreateProductVariantArgs,
   context: Context
 ): Promise<ProductVariant> => {
-  authenticateUser({ admin: true }, context)
+  authenticateUser({ admin: true, context })
 
   const { image, ...modifiedArgs } = args
 

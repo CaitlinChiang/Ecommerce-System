@@ -1,12 +1,14 @@
 import { AuthenticationError } from 'apollo-server-express'
 import { Context } from '../../../types/setup/context'
-import { UserPermissionArgs } from '../../../types/user'
 
-export const authenticateUser = async (
-  args: UserPermissionArgs,
+export const authenticateUser = async ({
+  admin,
+  context
+}: {
+  admin: boolean
   context: Context
-): Promise<void> => {
-  if (args.admin && !context.currentUserActive) {
+}): Promise<void> => {
+  if (admin && !context.currentUserActive) {
     throw new AuthenticationError('Action not permitted.')
   }
 }

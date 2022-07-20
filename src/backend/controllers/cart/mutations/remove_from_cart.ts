@@ -8,7 +8,7 @@ export default async (
   args: RemoveFromCartArgs,
   context: Context
 ): Promise<Cart> => {
-  authenticateUser({ admin: false }, context)
+  authenticateUser({ admin: false, context })
 
   const cart: any = await context.database.carts.findOneAndUpdate(
     { _userId: context.currentUserId },

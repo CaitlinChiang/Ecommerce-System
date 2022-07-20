@@ -4,10 +4,9 @@ import { City } from '../../../types/city'
 import { DeliveryAddress } from '../../../types/common/deliveryAddress'
 import { Order } from '../../../types/order'
 import { Payment } from '../../../types/payment'
-import { Product } from '../../../types/product'
-import { ProductVariant } from '../../../types/productVariant'
 import { User } from '../../../types/user'
 import { formatDateTime } from '../../_utils/handleDates/formatDateTime'
+import { returnCartItems } from '../../_utils/handleData/returnCartItems'
 
 export default {
   Order: {
@@ -33,30 +32,7 @@ export default {
       args: undefined,
       context: Context
     ): Promise<CartItem[]> => {
-      const items: any = order?.items?.map(
-        async (item: CartItem): Promise<CartItem> => {
-          let product: Product = {}
-          let productVariant: ProductVariant = {}
-
-          if (item?.productId) {
-            product = await context.dataloaders.products.byId.load(item?.productId)
-          }
-
-          if (item?.productVariantId) {
-            productVariant = await context.dataloaders.productVariants.byId.load(
-              item?.productVariantId
-            )
-          }
-
-          return {
-            product,
-            productVariant,
-            quantity: item?.quantity,
-            totalPrice: parseFloat(Number(item?.totalPrice).toFixed(2))
-          }
-        }
-      )
-      return items
+      return returnCartItems(order?.items, context)
     },
 
     payment: async (
