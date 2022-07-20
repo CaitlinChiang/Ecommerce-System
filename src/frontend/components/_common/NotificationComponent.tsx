@@ -14,17 +14,30 @@ const NotificationComponent = (): ReactElement => {
     setMessage(message)
   }
 
+  const modifyMessage = (message: string): string => {
+    if (message === 'Response not successful: Received status code 400') {
+      return 'Please fill in all required fields.'
+    } else {
+      return message
+    }
+  }
+
   return (
     <Snackbar
       autoHideDuration={6000}
       onClose={(): void => {
         setOpen(false)
-        setSuccess(false)
-        setMessage('')
       }}
-      open={open}
+      open={open && message?.length > 0}
     >
-      <Alert severity={success ? 'success' : 'error'}>{message}</Alert>
+      <Alert
+        onClose={(): void => {
+          setOpen(false)
+        }}
+        severity={success ? 'success' : 'error'}
+      >
+        {modifyMessage(message)}
+      </Alert>
     </Snackbar>
   )
 }

@@ -15,7 +15,7 @@ class MyApp extends App {
     return (
       <>
         <Head>
-          <title>{'E-commerce System'}</title>
+          <title>{'Company Name'}</title>
           <meta
             name={'viewport'}
             content={

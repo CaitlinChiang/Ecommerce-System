@@ -12,7 +12,9 @@ const Page = (): ReactElement => {
       <Button
         color={'primary'}
         fullWidth
-        onClick={() => router.push('products/create')}
+        onClick={(): void => {
+          router.push('products/create')
+        }}
         type='submit'
         variant={'contained'}
       >
