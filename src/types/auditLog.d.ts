@@ -22,7 +22,7 @@ export interface AuditLog {
 }
 
 export interface GetAuditLogArgs {
+  dateRange?: DateRange
   orderId?: ObjectId
   paginateData?: PaginateDataArgs
-  dateRange?: DateRange
 }

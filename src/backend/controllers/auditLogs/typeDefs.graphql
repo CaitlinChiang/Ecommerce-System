@@ -1,10 +1,16 @@
 type AuditLog {
   _id: ID
   action: String
+  cityId: ID
+  faqId: ID
   orderId: ID
+  paymentMethodId: ID
+  productCategoryId: ID
   productId: ID
   productVariantId: ID
+  reviewId: ID
   userId: ID
+  websiteTextType: String
   createdAt: String
   createdBy: ID
   createdByEmail: String
