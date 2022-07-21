@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
+import { UserType } from '../../../_enums/userType'
 import layout from '../../../layouts/admin'
 import CreateUser from '../../../components/users/Create'
-import { UserType } from 'frontend/_enums/userType'
 
 const Page = (): ReactElement => {
   return (
