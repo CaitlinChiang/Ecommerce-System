@@ -1,4 +1,5 @@
 import { ReactElement, useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 import { useQuery, useMutation } from '@apollo/client'
 import { GetUser } from '../Showcase/query'
 import mutation from './mutation'
@@ -12,6 +13,8 @@ import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
 const globalAny: any = global
 
 const UpdateUser = ({ type }: { type: UserType }): ReactElement => {
+  const router = useRouter()
+
   const [args, setArgs] = useState<any>({
     _id: null,
     address: null,
@@ -26,6 +29,18 @@ const UpdateUser = ({ type }: { type: UserType }): ReactElement => {
   const { data, refetch } = useQuery(GetUser)
 
   const user: User = data?.get_user || {}
+
+  if (!user) {
+    return (
+      <Button
+        onClick={(): void => {
+          router.push('/user/sign-in')
+        }}
+      >
+        {'Sign In'}
+      </Button>
+    )
+  }
 
   useEffect(() => {
     setArgs({
