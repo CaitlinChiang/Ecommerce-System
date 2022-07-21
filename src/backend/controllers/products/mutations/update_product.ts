@@ -32,7 +32,7 @@ export default async (
     {
       $set: {
         ...mutationArgs(modifiedArgs, MutateAction.UPDATE),
-        imageUrl: modifiedImageUrl
+        imageUrl: modifiedImageUrl || args.imageUrl
       }
     }
   )
