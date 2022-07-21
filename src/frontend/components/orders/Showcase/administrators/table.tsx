@@ -88,6 +88,7 @@ const OrdersTable = (): ReactElement => {
     { label: 'amountDue', sortable: false },
     { label: 'paymentStatus', sortable: false },
     { label: 'paymentProof', sortable: false },
+    { label: 'orderLogs', sortable: false },
     { label: 'createdAt', sortable: true },
     { label: 'updatedAt', sortable: true },
     { label: 'actions', sortable: false }
@@ -131,8 +132,9 @@ const OrdersTable = (): ReactElement => {
             />
           </TableCell>
           <TableCell>
-            {`Amount Due: P${order?.payment?.amountDue?.toFixed(2)}`}
-            {`Shipping Fee: P${order?.payment?.shippingFee?.toFixed(2)}`}
+            {`Amount Due: P${order?.payment?.amountDue?.toFixed(2) || '0.00'}`}
+            <br />
+            {`Shipping Fee: P${order?.payment?.shippingFee?.toFixed(2) || '0.00'}`}
           </TableCell>
           <TableCell>
             <UpdatePaymentSelect
@@ -158,7 +160,7 @@ const OrdersTable = (): ReactElement => {
                 setShowOrderLogsTable({ orderId: order._id, open: true })
               }}
             >
-              {'View Audit Logs'}
+              {'View Order Logs'}
             </Button>
           </TableCell>
           <TableCell>{String(order?.createdAt)}</TableCell>
@@ -222,7 +224,7 @@ const OrdersTable = (): ReactElement => {
         onClose={(): void => {
           setShowOrderLogsTable({ open: false })
         }}
-        open={showPaymentProof.open}
+        open={showOrderLogsTable.open}
         title={'Audit Logs for this Order'}
       />
       <TableComponent
