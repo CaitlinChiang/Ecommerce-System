@@ -10,9 +10,9 @@ export const uploadImage = async (args: UploadImageArgs): Promise<string> => {
 
   const fileName = assignFileName(args)
 
-  await uploadToCloudinary(createReadStream, fileName)
+  const imageUrl = await uploadToCloudinary(createReadStream, fileName)
 
-  return fileName
+  return imageUrl
 }
 
 const assignFileName = (args: UploadImageArgs) => {
@@ -56,13 +56,24 @@ const generateProductVariantImageFileName = (
   return folderName.concat(modifiedProductId, '_', modifiedProductVariantName)
 }
 
-const uploadToCloudinary = async (createReadStream, fileName): Promise<void> => {
-  const stream = cloudinary.uploader.upload_stream(
-    { public_id: fileName },
-    (err) => {
-      if (err) console.log(err)
-    }
-  )
+const uploadToCloudinary = async (createReadStream, fileName): Promise<string> => {
+  let imageUrl = ''
 
-  createReadStream().pipe(stream)
+  try {
+    imageUrl = await new Promise((resolve, reject) => {
+      const stream = cloudinary.uploader.upload_stream(
+        { public_id: fileName },
+        (err, res) => {
+          if (err) reject(err)
+          else resolve(res.secure_url)
+        }
+      )
+
+      createReadStream().pipe(stream)
+    })
+  } catch (err) {
+    console.error(err)
+  }
+
+  return imageUrl
 }
