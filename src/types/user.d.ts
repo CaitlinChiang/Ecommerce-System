@@ -23,6 +23,7 @@ export interface User {
 export interface SignInUserArgs {
   email: string
   password: string
+  type: UserType
 }
 
 export interface GetUserArgs {
