@@ -4,13 +4,14 @@ import { GetUser } from '../Showcase/query'
 import mutation from './mutation'
 import { Button } from '@mui/material'
 import { User } from '../../../../types/user'
+import { UserType } from '../../../_enums/userType'
 import Text from '../../_common/TextField'
 import CitiesSelect from '../../cities/Showcase/select'
 import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
 
 const globalAny: any = global
 
-const UpdateUser = (): ReactElement => {
+const UpdateUser = ({ type }: { type: UserType }): ReactElement => {
   const [args, setArgs] = useState<any>({
     _id: null,
     address: null,
@@ -79,8 +80,12 @@ const UpdateUser = (): ReactElement => {
         setArgs={setArgs}
         targetProp={'phoneNumber'}
       />
-      <Text args={args} setArgs={setArgs} targetProp={'address'} />
-      <CitiesSelect args={args} error={validateFields} setArgs={setArgs} />
+      {type === UserType.CUSTOMER && (
+        <>
+          <Text args={args} setArgs={setArgs} targetProp={'address'} />
+          <CitiesSelect args={args} error={validateFields} setArgs={setArgs} />
+        </>
+      )}
       <Button
         disabled={updateMutationState.loading}
         onClick={(): void => {

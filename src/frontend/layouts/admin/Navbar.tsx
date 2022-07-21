@@ -24,21 +24,25 @@ import EditIcon from '@mui/icons-material/Edit'
 import DnsIcon from '@mui/icons-material/Dns'
 import BarChartIcon from '@mui/icons-material/BarChart'
 import { User } from '../../../types/user'
+import { UserType } from '../../_enums/userType'
+import { generateAdminUrl } from '../../_utils/handleData/generateAdminUrl'
+
+const adminUrl = generateAdminUrl(UserType.ADMINISTRATOR) + '/'
 
 const navbarItems = [
-  { icon: <BarChartIcon />, label: 'Analytics', route: '/admin/' },
+  { icon: <BarChartIcon />, label: 'Analytics', route: `${adminUrl}/` },
   {
     icon: <AccountBoxIcon />,
     label: 'Administrators',
-    route: '/admin/administrators'
+    route: `${adminUrl}/administrators`
   },
-  { icon: <GroupIcon />, label: 'Customers', route: '/admin/customers' },
-  { icon: <SettingsIcon />, label: 'Settings', route: '/admin/settings' },
-  { icon: <ReceiptIcon />, label: 'Orders', route: '/admin/orders' },
-  { icon: <InventoryIcon />, label: 'Products', route: '/admin/products' },
-  { icon: <HelpIcon />, label: 'FAQs', route: '/admin/faqs' },
-  { icon: <EditIcon />, label: 'Reviews', route: '/admin/reviews' },
-  { icon: <DnsIcon />, label: 'Audit Logs', route: '/admin/audit-logs' }
+  { icon: <GroupIcon />, label: 'Customers', route: `${adminUrl}/customers` },
+  { icon: <SettingsIcon />, label: 'Settings', route: `${adminUrl}/settings` },
+  { icon: <ReceiptIcon />, label: 'Orders', route: `${adminUrl}/orders` },
+  { icon: <InventoryIcon />, label: 'Products', route: `${adminUrl}/products` },
+  { icon: <HelpIcon />, label: 'FAQs', route: `${adminUrl}/faqs` },
+  { icon: <EditIcon />, label: 'Reviews', route: `${adminUrl}/reviews` },
+  { icon: <DnsIcon />, label: 'Audit Logs', route: `${adminUrl}/audit-logs` }
 ]
 
 const Navbar = ({
