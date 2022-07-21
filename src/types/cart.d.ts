@@ -19,14 +19,14 @@ export interface CartItem {
   totalPrice?: number
 }
 
-export interface AddToCartArgs {
+export interface AddCartItemArgs {
   productId: ObjectId
   productVariantId?: ObjectId
   quantity: number
   totalPrice: number
 }
 
-export interface RemoveFromCartArgs {
+export interface RemoveCartItemArgs {
   productId?: ObjectId
   productVariantId?: ObjectId
 }

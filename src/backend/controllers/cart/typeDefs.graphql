@@ -26,7 +26,7 @@ extend type Query {
 }
 
 extend type Mutation {
-  add_to_cart(
+  add_cart_item(
     productId: ID
     productVariantId: ID
     quantity: Int!
@@ -35,5 +35,5 @@ extend type Mutation {
 
   edit_item_quantity(productId: ID, productVariantId: ID, quantity: Int!): Cart
 
-  remove_from_cart(productId: ID, productVariantId: ID): Cart
+  remove_cart_item(productId: ID, productVariantId: ID): Cart
 }
