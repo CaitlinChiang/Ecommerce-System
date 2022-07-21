@@ -14,6 +14,7 @@ import ModalComponent from '../../../_common/ModalComponent'
 import UpdateOrderSelect from '../../Update/select'
 import UpdatePaymentSelect from '../../../payments/Update/select'
 import DeleteButton from '../../../_common/DeleteButton'
+import OrderLogsTable from '../../../auditLogs/Showcase/orderLogsTable'
 import OrdersTableFilters from './tableFilters'
 import { fetchMoreArgs } from '../../../../_utils/handleArgs/returnFetchMoreArgs'
 
@@ -44,6 +45,10 @@ const OrdersTable = (): ReactElement => {
   })
   const [showPaymentProof, setShowPaymentProof] = useState<any>({
     imageProofUrl: null,
+    open: false
+  })
+  const [showOrderLogsTable, setShowOrderLogsTable] = useState<any>({
+    orderId: null,
     open: false
   })
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
@@ -147,6 +152,15 @@ const OrdersTable = (): ReactElement => {
               {'View Proof'}
             </Button>
           </TableCell>
+          <TableCell>
+            <Button
+              onClick={(): void => {
+                setShowOrderLogsTable({ orderId: order._id, open: true })
+              }}
+            >
+              {'View Audit Logs'}
+            </Button>
+          </TableCell>
           <TableCell>{String(order?.createdAt)}</TableCell>
           <TableCell>{String(order?.updatedAt)}</TableCell>
           <TableCell>
@@ -202,6 +216,14 @@ const OrdersTable = (): ReactElement => {
         }}
         open={showPaymentProof.open}
         title={'Payment Proof'}
+      />
+      <ModalComponent
+        content={<OrderLogsTable orderId={showOrderLogsTable.orderId} />}
+        onClose={(): void => {
+          setShowOrderLogsTable({ open: false })
+        }}
+        open={showPaymentProof.open}
+        title={'Audit Logs for this Order'}
       />
       <TableComponent
         args={args}

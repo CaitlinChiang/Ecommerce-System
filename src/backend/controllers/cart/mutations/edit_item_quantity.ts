@@ -1,11 +1,11 @@
 import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
-import { Cart, AddToCartArgs } from '../../../../types/cart'
+import { Cart, AddCartItemArgs } from '../../../../types/cart'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 
 export default async (
   _root: undefined,
-  args: AddToCartArgs,
+  args: AddCartItemArgs,
   context: Context
 ): Promise<Cart> => {
   authenticateUser({ admin: false, context })

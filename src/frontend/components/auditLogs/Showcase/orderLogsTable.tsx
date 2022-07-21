@@ -37,9 +37,9 @@ const OrderLogsTable = ({ orderId }: { orderId: ObjectId }): ReactElement => {
     auditLogs?.map((auditLog: AuditLog): ReactElement => {
       return (
         <TableRow>
-          <TableCell align={'center'}>{auditLog?.action}</TableCell>
-          <TableCell align={'center'}>{String(auditLog?.createdAt)}</TableCell>
-          <TableCell align={'center'}>{auditLog?.createdByEmail}</TableCell>
+          <TableCell>{auditLog?.action}</TableCell>
+          <TableCell>{String(auditLog?.createdAt)}</TableCell>
+          <TableCell>{auditLog?.createdByEmail}</TableCell>
         </TableRow>
       )
     })
