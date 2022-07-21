@@ -3,12 +3,14 @@ import { useRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
 import { ResetUserPassword } from '../mutation'
 import { Button } from '@mui/material'
+import { UserType } from '../../../../_enums/userType'
 import Text from '../../../_common/TextField'
 import PasswordField from '../../../_common/PasswordField'
+import { generateAdminUrl } from '../../../../_utils/handleData/generateAdminUrl'
 
 const globalAny: any = global
 
-const ResetPassword = (): ReactElement => {
+const ResetPassword = ({ type }: { type: UserType }): ReactElement => {
   const router = useRouter()
 
   const [args, setArgs] = useState<any>({
@@ -24,7 +26,7 @@ const ResetPassword = (): ReactElement => {
       variables: args,
       onCompleted: () => {
         globalAny.setNotification(true, 'Password successfully updated!')
-        router.push('/user/sign-in')
+        router.push(`${generateAdminUrl(type)}/user/sign-in`)
       },
       onError: (error) => globalAny.setNotification(false, error.message)
     }

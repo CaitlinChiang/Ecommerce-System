@@ -3,11 +3,13 @@ import { useRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
 import { ForgotUserPassword } from '../mutation'
 import { Button } from '@mui/material'
+import { UserType } from '../../../../_enums/userType'
 import Text from '../../../_common/TextField'
+import { generateAdminUrl } from '../../../../_utils/handleData/generateAdminUrl'
 
 const globalAny: any = global
 
-const ForgotPassword = (): ReactElement => {
+const ForgotPassword = ({ type }: { type: UserType }): ReactElement => {
   const router = useRouter()
 
   const [args, setArgs] = useState<any>({ email: null })
@@ -22,7 +24,7 @@ const ForgotPassword = (): ReactElement => {
           true,
           'Please check your email for your verification code.'
         )
-        router.push('/user/reset-password/verify')
+        router.push(`${generateAdminUrl(type)}/user/reset-password/verify`)
       },
       onError: (error) => globalAny.setNotification(false, error.message)
     }

@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'
 
 export const ForgotUserPassword = gql`
-  mutation ($email: String!) {
-    forgot_user_password(email: $email)
+  mutation ($email: String!, $type: String!) {
+    forgot_user_password(email: $email, type: $type)
   }
 `
 

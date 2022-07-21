@@ -7,6 +7,7 @@ import { Button } from '@mui/material'
 import { UserType } from '../../../_enums/userType'
 import Text from '../../_common/TextField'
 import PasswordField from '../../_common/PasswordField'
+import { generateAdminUrl } from '../../../_utils/handleData/generateAdminUrl'
 
 const globalAny: any = global
 
@@ -25,7 +26,7 @@ const SignInUser = ({ type }: { type: UserType }): ReactElement => {
     onCompleted: (data) => {
       Cookies.set('accessToken', data.sign_in_user)
       globalAny.setNotification(true, 'You are signed-in!')
-      router.push('/')
+      router.push(`${generateAdminUrl(type)}/`)
     },
     onError: (error) => globalAny.setNotification(false, error.message)
   })
@@ -58,9 +59,7 @@ const SignInUser = ({ type }: { type: UserType }): ReactElement => {
       <Button
         disabled={signInMutationState.loading}
         onClick={(): void => {
-          router.push(
-            `${type === UserType.ADMINISTRATOR ? '/admin' : ''}/user/sign-up`
-          )
+          router.push(`${generateAdminUrl(type)}/user/sign-up`)
         }}
       >
         {'Sign Up'}
@@ -68,9 +67,7 @@ const SignInUser = ({ type }: { type: UserType }): ReactElement => {
       <Button
         disabled={signInMutationState.loading}
         onClick={(): void => {
-          router.push(
-            `${type === UserType.ADMINISTRATOR ? '/admin' : ''}/user/forgot-password`
-          )
+          router.push(`${generateAdminUrl(type)}/user/forgot-password`)
         }}
       >
         {'Forgot Password'}

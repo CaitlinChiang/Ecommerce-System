@@ -63,6 +63,7 @@ export interface DeleteUserArgs {
 
 export interface ForgotPasswordArgs {
   email: string
+  type: UserType
 }
 
 export interface ResetPasswordArgs {

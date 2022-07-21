@@ -62,7 +62,7 @@ extend type Mutation {
 
   delete_user(_id: ID!): User
 
-  forgot_user_password(email: String!): Void
+  forgot_user_password(email: String!, type: String!): Void
 
   reset_user_password(
     email: String!
