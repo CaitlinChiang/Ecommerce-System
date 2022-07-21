@@ -7,7 +7,7 @@ export default gql`
     $quantity: Int!
     $totalPrice: Float!
   ) {
-    add_to_cart(
+    add_cart_item(
       productId: $productId
       productVariantId: $productVariantId
       quantity: $quantity

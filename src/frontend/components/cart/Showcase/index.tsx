@@ -6,6 +6,7 @@ import styles from '../../../styles/cart'
 import { Box, Button, Container, Divider, Typography } from '@mui/material'
 import { Cart, CartItem } from '../../../../types/cart'
 import EditItemQuantity from '../EditQuantity'
+import RemoveCartItem from '../Remove'
 
 const Cart = (): ReactElement => {
   const router = useRouter()
@@ -34,6 +35,11 @@ const Cart = (): ReactElement => {
                 productId={cartItem?.productId}
                 productVariantId={cartItem?.productVariantId}
                 quantity={quantity}
+                refetch={refetch}
+              />
+              <RemoveCartItem
+                productId={cartItem?.productId}
+                productVariantId={cartItem?.productVariantId}
                 refetch={refetch}
               />
               <Divider />
