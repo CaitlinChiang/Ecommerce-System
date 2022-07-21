@@ -1,5 +1,6 @@
 import { NextPage } from 'next'
-import React, { ReactElement, useState, FunctionComponent } from 'react'
+import { ReactElement, useState, FunctionComponent } from 'react'
+import { useRouter } from 'next/router'
 import { useQuery } from '@apollo/client'
 import query from '../query'
 import styles from '../../styles/_layouts/admin/main'
@@ -17,6 +18,8 @@ export default (
     }: { title?: string; backRoute?: boolean; wide?: boolean }
   ) =>
   (): FunctionComponent | NextPage | ReactElement => {
+    const router = useRouter()
+
     const [open, setOpen] = useState(false)
 
     const { data, loading } = useQuery(query)
@@ -24,6 +27,7 @@ export default (
     const user: User = data?.get_user || {}
 
     if (loading) return null
+    if (!user) router.push('/admin/user/sign-in')
 
     return (
       <>
