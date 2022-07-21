@@ -44,6 +44,7 @@ export const GetProducts = gql`
       category
       discount
       expirationDate
+      imageUrl
       name
       price
       stockQuantity
