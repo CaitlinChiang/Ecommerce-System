@@ -2,14 +2,13 @@ import { ReactElement, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetAuditLogs } from './query'
 import { TableCell, TableRow } from '@mui/material'
-import { ObjectId } from 'mongodb'
 import { AuditLog } from '../../../../types/auditLog'
 import { PaginateDataArgs } from '../../../../types/actions/paginateData'
 import { SortDirection } from '../../../_enums/sortDirection'
 import TableComponent from '../../_common/TableComponent'
 import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
 
-const OrderLogsTable = ({ orderId }: { orderId: ObjectId }): ReactElement => {
+const OrderLogsTable = ({ orderId }: { orderId: string }): ReactElement => {
   const args: any = { orderId }
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
     page: 0,
