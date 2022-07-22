@@ -20,10 +20,13 @@ export interface CartItem {
 }
 
 export interface AddCartItemArgs {
-  productId: ObjectId
+  item: CartItem
+}
+
+export interface EditItemQuantity {
+  productId?: ObjectId
   productVariantId?: ObjectId
   quantity: number
-  totalPrice: number
 }
 
 export interface RemoveCartItemArgs {
