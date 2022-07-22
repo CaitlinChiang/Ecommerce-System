@@ -30,8 +30,9 @@ export default (
 
     if (loading) return null
 
-    if (!user) {
+    if (Object.keys(user).length === 0) {
       router.push(`${generateAdminUrl(UserType.ADMINISTRATOR)}/user/sign-in`)
+      return
     }
 
     return (

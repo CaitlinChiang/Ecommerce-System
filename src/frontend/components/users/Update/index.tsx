@@ -31,7 +31,7 @@ const UpdateUser = ({ type }: { type: UserType }): ReactElement => {
 
   const user: User = data?.get_user || {}
 
-  if (!user) {
+  if (Object.keys(user).length === 0) {
     return (
       <Button
         onClick={(): void => {
