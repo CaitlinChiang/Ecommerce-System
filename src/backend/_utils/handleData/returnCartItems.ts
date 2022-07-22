@@ -8,12 +8,11 @@ export const returnCartItems = async (
   context: Context
 ): Promise<CartItem[]> => {
   const cartItems: any = items?.map(async (item: CartItem): Promise<CartItem> => {
-    let product: Product = {}
-    let productVariant: ProductVariant = {}
+    const product: Product = await context.dataloaders.products.byId.load(
+      item.productId
+    )
 
-    if (item?.productId) {
-      product = await context.dataloaders.products.byId.load(item?.productId)
-    }
+    let productVariant: ProductVariant = {}
 
     if (item?.productVariantId) {
       productVariant = await context.dataloaders.productVariants.byId.load(
