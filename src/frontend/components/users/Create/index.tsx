@@ -8,6 +8,7 @@ import { UserType } from '../../../_enums/userType'
 import Text from '../../_common/TextField'
 import PasswordField from '../../_common/PasswordField'
 import CitiesSelect from '../../../components/cities/Showcase/select'
+import { generateAdminUrl } from '../../../_utils/handleData/generateAdminUrl'
 
 const globalAny: any = global
 
@@ -34,7 +35,8 @@ const CreateUser = ({ type }: { type: UserType }): ReactElement => {
     onCompleted: (data) => {
       Cookies.set('accessToken', data.create_user.token)
       globalAny.setNotification(true, 'Account successfully created!')
-      router.push('/')
+      location.reload()
+      router.push(`${generateAdminUrl(type)}/`)
     },
     onError: (error) => globalAny.setNotification(false, error.message)
   })

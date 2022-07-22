@@ -26,6 +26,7 @@ const SignInUser = ({ type }: { type: UserType }): ReactElement => {
     onCompleted: (data) => {
       Cookies.set('accessToken', data.sign_in_user)
       globalAny.setNotification(true, 'You are signed-in!')
+      location.reload()
       router.push(`${generateAdminUrl(type)}/`)
     },
     onError: (error) => globalAny.setNotification(false, error.message)
