@@ -20,7 +20,7 @@ const AddCartItem = ({ args }: { args: AddCartItemArgs }): ReactElement => {
   const user: User = data?.get_user || {}
 
   const [updateMutation, updateMutationState] = useMutation(mutation, {
-    variables: args,
+    variables: { item: args },
     onCompleted: () => {
       globalAny.setNotification(true, 'Item added to cart!')
     }
