@@ -128,7 +128,7 @@ const TableComponent = ({
               })
             }}
             page={page}
-            rowsPerPage={rowsPerPage}
+            rowsPerPage={rowsPerPage || count}
             rowsPerPageOptions={generateRowsPerPage(count)}
           />
         </Container>
