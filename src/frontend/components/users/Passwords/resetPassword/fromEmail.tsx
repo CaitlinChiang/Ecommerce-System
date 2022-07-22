@@ -62,7 +62,7 @@ const ResetPassword = ({ type }: { type: UserType }): ReactElement => {
           resetPasswordMutation()
         }}
       >
-        {'Forgot Password'}
+        {'Reset Password'}
       </Button>
     </>
   )

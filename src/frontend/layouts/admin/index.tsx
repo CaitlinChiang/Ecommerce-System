@@ -5,9 +5,11 @@ import { useQuery } from '@apollo/client'
 import query from '../query'
 import styles from '../../styles/_layouts/admin/main'
 import { User } from '../../../types/user'
+import { UserType } from '../../_enums/userType'
 import Navbar from './Navbar'
 import Header from './Header'
 import classnames from 'classnames'
+import { generateAdminUrl } from '../../_utils/handleData/generateAdminUrl'
 
 export default (
     Page: FunctionComponent,
@@ -27,7 +29,10 @@ export default (
     const user: User = data?.get_user || {}
 
     if (loading) return null
-    if (!user) router.push('/admin/user/sign-in')
+
+    if (!user) {
+      router.push(`${generateAdminUrl(UserType.ADMINISTRATOR)}/user/sign-in`)
+    }
 
     return (
       <>

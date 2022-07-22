@@ -9,6 +9,7 @@ import { UserType } from '../../../_enums/userType'
 import Text from '../../_common/TextField'
 import CitiesSelect from '../../cities/Showcase/select'
 import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
+import { generateAdminUrl } from '../../../_utils/handleData/generateAdminUrl'
 
 const globalAny: any = global
 
@@ -95,6 +96,13 @@ const UpdateUser = ({ type }: { type: UserType }): ReactElement => {
         setArgs={setArgs}
         targetProp={'phoneNumber'}
       />
+      <Button
+        onClick={(): void => {
+          router.push(`${generateAdminUrl(type)}/user/reset-password`)
+        }}
+      >
+        {'Save Changes'}
+      </Button>
       {type === UserType.CUSTOMER && (
         <>
           <Text args={args} setArgs={setArgs} targetProp={'address'} />
