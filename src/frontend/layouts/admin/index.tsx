@@ -39,9 +39,7 @@ export default (
       <>
         <Navbar
           open={open}
-          onClose={(): void => {
-            setOpen(false)
-          }}
+          onClose={(): void => setOpen(false)}
           permanent={true}
           user={user}
         />

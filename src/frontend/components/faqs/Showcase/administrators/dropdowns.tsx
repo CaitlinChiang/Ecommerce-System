@@ -98,9 +98,7 @@ const FAQsDropdowns = (): ReactElement => {
             setUpdateModalOpen={setUpdateModalOpen}
           />
         }
-        onClose={(): void => {
-          setUpdateModalOpen(false)
-        }}
+        onClose={(): void => setUpdateModalOpen(false)}
         open={updateModalOpen}
         title={'Update FAQ'}
       />

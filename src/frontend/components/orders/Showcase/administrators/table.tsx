@@ -187,9 +187,7 @@ const OrdersTable = (): ReactElement => {
             {showAddress?.address?.address} <br /> {showAddress?.address?.city?.name}
           </Typography>
         }
-        onClose={(): void => {
-          setShowAddress({ open: false })
-        }}
+        onClose={(): void => setShowAddress({ open: false })}
         open={showAddress.open}
         title={'Address'}
       />
@@ -205,25 +203,19 @@ const OrdersTable = (): ReactElement => {
             </Typography>
           )
         })}
-        onClose={(): void => {
-          setShowOrderItems({ open: false })
-        }}
+        onClose={(): void => setShowOrderItems({ open: false })}
         open={showOrderItems.open}
         title={'Order Items'}
       />
       <ModalComponent
         content={<></>}
-        onClose={(): void => {
-          setShowPaymentProof({ open: false })
-        }}
+        onClose={(): void => setShowPaymentProof({ open: false })}
         open={showPaymentProof.open}
         title={'Payment Proof'}
       />
       <ModalComponent
         content={<OrderLogsTable orderId={showOrderLogsTable.orderId} />}
-        onClose={(): void => {
-          setShowOrderLogsTable({ open: false })
-        }}
+        onClose={(): void => setShowOrderLogsTable({ open: false })}
         open={showOrderLogsTable.open}
         title={'Audit Logs for this Order'}
       />

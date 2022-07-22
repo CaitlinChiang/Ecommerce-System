@@ -36,7 +36,7 @@ const Navbar = (): ReactElement => {
   return (
     <AppBar position={'static'}>
       <Toolbar>
-        <Typography sx={styles.typography}>{'Logo'}</Typography>
+        <Typography sx={styles.typography}>{'Company Logo'}</Typography>
         <List sx={styles.list}>
           {shoppingMenu.map((menuItem, index): ReactElement => {
             return (
