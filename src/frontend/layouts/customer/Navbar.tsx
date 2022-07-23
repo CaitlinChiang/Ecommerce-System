@@ -1,8 +1,11 @@
-import { ReactElement, useState } from 'react'
+import { ReactElement, useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { useQuery } from '@apollo/client'
+import { GetCart } from '../query'
 import styles from '../../styles/_layouts/customer/navbar'
 import {
   AppBar,
+  Badge,
   List,
   ListItemButton,
   ListItemText,
@@ -12,26 +15,43 @@ import {
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import ReceiptIcon from '@mui/icons-material/Receipt'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import { Cart } from '../../../types/cart'
 import ContactInformation from '../../components/websiteTexts/Showcase/contactInformation'
-
-const shoppingMenu = [
-  { label: 'Home', route: '/' },
-  { label: 'Shop', route: '/shop' },
-  { label: 'Reviews', route: '/reviews' },
-  { label: 'FAQs', route: '/faqs' },
-  { label: 'Contact Us' }
-]
-
-const trackingMenu = [
-  { icon: <ShoppingCartIcon />, route: '/cart' },
-  { icon: <ReceiptIcon />, route: '/orders' },
-  { icon: <AccountCircleIcon />, route: '/user/profile' }
-]
 
 const Navbar = (): ReactElement => {
   const router = useRouter()
 
   const [openContactInfo, setOpenContactInfo] = useState<boolean>(false)
+  const [cartQuantity, setCartQuantity] = useState<number>(0)
+
+  const { data } = useQuery(GetCart)
+
+  const cart: Cart = data?.get_cart || {}
+
+  useEffect(() => {
+    setCartQuantity(cart?.quantity)
+  }, [data])
+
+  const shoppingMenu = [
+    { label: 'Home', route: '/' },
+    { label: 'Shop', route: '/shop' },
+    { label: 'Reviews', route: '/reviews' },
+    { label: 'FAQs', route: '/faqs' },
+    { label: 'Contact Us' }
+  ]
+
+  const trackingMenu = [
+    {
+      icon: (
+        <Badge badgeContent={cartQuantity} color={'secondary'}>
+          <ShoppingCartIcon />
+        </Badge>
+      ),
+      route: '/cart'
+    },
+    { icon: <ReceiptIcon />, route: '/orders' },
+    { icon: <AccountCircleIcon />, route: '/user/profile' }
+  ]
 
   return (
     <AppBar position={'static'}>
