@@ -1,5 +1,5 @@
 import { NextPage } from 'next'
-import { ReactElement, useState, FunctionComponent } from 'react'
+import { ReactElement, FunctionComponent, useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useQuery } from '@apollo/client'
 import { GetUser } from '../query'
@@ -30,10 +30,12 @@ export default (
 
     if (loading) return null
 
-    if (Object.keys(user).length === 0) {
-      router.push(`${generateAdminUrl(UserType.ADMINISTRATOR)}/user/sign-in`)
-      return
-    }
+    useEffect(() => {
+      if (Object.keys(user).length === 0) {
+        router.push(`${generateAdminUrl(UserType.ADMINISTRATOR)}/user/sign-in`)
+        return
+      }
+    }, [data])
 
     return (
       <>
