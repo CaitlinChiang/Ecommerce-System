@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client'
 
-export default gql`
+export const GetUser = gql`
   query {
     get_user {
       _id
@@ -9,6 +9,14 @@ export default gql`
       firstName
       lastName
       type
+    }
+  }
+`
+
+export const GetCart = gql`
+  query {
+    get_cart {
+      quantity
     }
   }
 `

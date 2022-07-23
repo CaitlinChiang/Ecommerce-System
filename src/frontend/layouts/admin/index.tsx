@@ -2,7 +2,7 @@ import { NextPage } from 'next'
 import { ReactElement, useState, FunctionComponent } from 'react'
 import { useRouter } from 'next/router'
 import { useQuery } from '@apollo/client'
-import query from '../query'
+import { GetUser } from '../query'
 import styles from '../../styles/_layouts/admin/main'
 import { User } from '../../../types/user'
 import { UserType } from '../../_enums/userType'
@@ -24,7 +24,7 @@ export default (
 
     const [open, setOpen] = useState(false)
 
-    const { data, loading } = useQuery(query)
+    const { data, loading } = useQuery(GetUser)
 
     const user: User = data?.get_user || {}
 
