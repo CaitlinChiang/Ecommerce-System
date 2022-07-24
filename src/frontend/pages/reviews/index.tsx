@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 import layout from '../../layouts/customer'
-import ReviewsCards from '../../components/reviews/Showcase/cards'
+import ReviewsCards from '../../components/reviews/View/cards'
 
 const Page = (): ReactElement => {
   return (

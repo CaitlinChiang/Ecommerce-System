@@ -1,10 +1,10 @@
 import { NextPage } from 'next'
 import { ReactElement } from 'react'
 import { Divider } from '@mui/material'
-import HomeSlogan from '../components/websiteTexts/Showcase/homeSlogan'
-import ProductsCards from '../components/products/Showcase/cards'
-import ReviewsCards from '../components/reviews/Showcase/cards'
-import AboutWriteup from '../components/websiteTexts/Showcase/aboutWriteup'
+import HomeSlogan from '../components/websiteTexts/View/homeSlogan'
+import ProductsCards from '../components/products/View/cards'
+import ReviewsCards from '../components/reviews/View/cards'
+import AboutWriteup from '../components/websiteTexts/View/aboutWriteup'
 import layout from '../layouts/customer'
 
 const Home: NextPage = (): ReactElement => {

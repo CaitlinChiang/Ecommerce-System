@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client'
 import { GetProductCategories } from './query'
 import { ProductCategory } from '../../../../types/productCategory'
 import { SortDirection } from '../../../_enums/sortDirection'
-import SelectField from '../../../components/_common/SelectField'
+import SelectField from '../../_common/SelectField'
 
 const ProductCategoriesSelect = ({
   args,

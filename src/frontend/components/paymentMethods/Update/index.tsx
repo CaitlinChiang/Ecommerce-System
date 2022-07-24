@@ -1,6 +1,6 @@
 import { ReactElement, useState, useEffect } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
-import { GetPaymentMethod } from '../Showcase/query'
+import { GetPaymentMethod } from '../View/query'
 import mutation from './mutation'
 import { Button, Typography } from '@mui/material'
 import { PaymentMethod } from '../../../../types/paymentMethod'

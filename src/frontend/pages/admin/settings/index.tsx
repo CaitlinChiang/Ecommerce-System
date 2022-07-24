@@ -6,9 +6,9 @@ import DropdownsComponent from '../../../components/_common/DropdownsComponent'
 import UpdateHomeSlogan from '../../../components/websiteTexts/Update/homeSlogan'
 import UpdateAboutWriteup from '../../../components/websiteTexts/Update/aboutWriteup'
 import UpdateContactInformation from '../../../components/websiteTexts/Update/contactInformation'
-import ProductCategoriesTable from '../../../components/productCategories/Showcase/table'
-import PaymentMethodsTable from '../../../components/paymentMethods/Showcase/table'
-import CitiesTable from '../../../components/cities/Showcase/table'
+import ProductCategoriesTable from '../../../components/productCategories/View/table'
+import PaymentMethodsTable from '../../../components/paymentMethods/View/table'
+import CitiesTable from '../../../components/cities/View/table'
 
 const Page = (): ReactElement => {
   const icons = {

@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import layout from '../../layouts/admin'
-import OrdersChart from '../../components/analytics/Showcase/orders/chart'
-import RevenueChart from '../../components/analytics/Showcase/revenue/chart'
+import OrdersChart from '../../components/analytics/View/orders/chart'
+import RevenueChart from '../../components/analytics/View/revenue/chart'
 
 const Page = (): ReactElement => {
   return (

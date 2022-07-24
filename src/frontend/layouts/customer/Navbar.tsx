@@ -16,7 +16,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import ReceiptIcon from '@mui/icons-material/Receipt'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import { Cart } from '../../../types/cart'
-import ContactInformation from '../../components/websiteTexts/Showcase/contactInformation'
+import ContactInformation from '../../components/websiteTexts/View/contactInformation'
 
 const Navbar = (): ReactElement => {
   const router = useRouter()

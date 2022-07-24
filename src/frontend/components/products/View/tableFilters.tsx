@@ -3,7 +3,7 @@ import { Box, Typography } from '@mui/material'
 import { DateRangeType } from '../../../_enums/dateRangeType'
 import { StockQuantityOperator } from '../../../_enums/stockQuantityOperator'
 import SelectField from '../../_common/SelectField'
-import ProductCategoriesSelect from '../../productCategories/Showcase/select'
+import ProductCategoriesSelect from '../../productCategories/View/select'
 import DatePickerField from '../../_common/DatePickerField'
 import NumberField from '../../_common/NumberField'
 

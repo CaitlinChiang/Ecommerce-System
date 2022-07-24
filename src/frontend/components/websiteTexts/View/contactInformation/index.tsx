@@ -1,6 +1,6 @@
 import React, { ReactElement, useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client'
-import { GetWebsiteText } from '../../Showcase/query'
+import { GetWebsiteText } from '../query'
 import styles from '../../../../styles/websiteTexts'
 import { Link, Typography } from '@mui/material'
 import { WebsiteText } from '../../../../../types/websiteText'

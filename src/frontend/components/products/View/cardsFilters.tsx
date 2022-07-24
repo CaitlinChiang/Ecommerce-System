@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 import { useQuery } from '@apollo/client'
-import { GetProductCategories } from '../../productCategories/Showcase/query'
+import { GetProductCategories } from '../../productCategories/View/query'
 import styles from '../../../styles/products'
 import { ListItemButton, ListItemText } from '@mui/material'
 import { ProductCategory } from '../../../../types/productCategory'

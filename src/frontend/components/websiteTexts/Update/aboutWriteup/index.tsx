@@ -1,7 +1,7 @@
 import { ReactElement, useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client'
 import { useMutation } from '@apollo/client'
-import { GetWebsiteText } from '../../Showcase/query'
+import { GetWebsiteText } from '../../View/query'
 import mutation from '../mutation'
 import { Button, Typography } from '@mui/material'
 import { WebsiteText } from '../../../../../types/websiteText'

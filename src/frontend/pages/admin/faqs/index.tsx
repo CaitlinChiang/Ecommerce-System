@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 import layout from '../../../layouts/admin'
-import FAQsDropdowns from '../../../components/faqs/Showcase/administrators/dropdowns'
+import FAQsDropdowns from '../../../components/faqs/View/administrators/dropdowns'
 
 const Page = (): ReactElement => {
   return (

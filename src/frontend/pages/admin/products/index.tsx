@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 import { useRouter } from 'next/router'
 import { Button } from '@mui/material'
 import layout from '../../../layouts/admin'
-import ProductsTable from '../../../components/products/Showcase/table'
+import ProductsTable from '../../../components/products/View/table'
 
 const Page = (): ReactElement => {
   const router = useRouter()

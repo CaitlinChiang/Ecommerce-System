@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { useRouter } from 'next/router'
 import { useQuery } from '@apollo/client'
-import { GetWebsiteText } from '../../Showcase/query'
+import { GetWebsiteText } from '../query'
 import styles from '../../../../styles/websiteTexts'
 import { Button, Typography } from '@mui/material'
 import { WebsiteText } from '../../../../../types/websiteText'

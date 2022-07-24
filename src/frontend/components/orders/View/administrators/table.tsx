@@ -14,7 +14,7 @@ import ModalComponent from '../../../_common/ModalComponent'
 import UpdateOrderSelect from '../../Update/select'
 import UpdatePaymentSelect from '../../../payments/Update/select'
 import DeleteButton from '../../../_common/DeleteButton'
-import OrderLogsTable from '../../../auditLogs/Showcase/orderLogsTable'
+import OrderLogsTable from '../../../auditLogs/View/orderLogsTable'
 import OrdersTableFilters from './tableFilters'
 import { fetchMoreArgs } from '../../../../_utils/handleArgs/returnFetchMoreArgs'
 

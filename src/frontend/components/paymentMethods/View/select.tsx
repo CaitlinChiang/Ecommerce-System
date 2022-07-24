@@ -4,7 +4,7 @@ import { GetPaymentMethods } from './query'
 import { ObjectId } from 'mongodb'
 import { PaymentMethod } from '../../../../types/paymentMethod'
 import { SortDirection } from '../../../_enums/sortDirection'
-import SelectField from '../../../components/_common/SelectField'
+import SelectField from '../../_common/SelectField'
 
 const PaymentMethodsSelect = ({
   args,

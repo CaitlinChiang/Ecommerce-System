@@ -1,7 +1,7 @@
 import { ReactElement, useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useQuery, useMutation } from '@apollo/client'
-import { GetProductVariant } from '../Showcase/query'
+import { GetProductVariant } from '../View/query'
 import mutation from './mutation'
 import { Button, Typography } from '@mui/material'
 import { ProductVariant } from '../../../../types/productVariant'

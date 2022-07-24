@@ -7,7 +7,7 @@ import { Button } from '@mui/material'
 import { UserType } from '../../../_enums/userType'
 import Text from '../../_common/TextField'
 import PasswordField from '../../_common/PasswordField'
-import CitiesSelect from '../../../components/cities/Showcase/select'
+import CitiesSelect from '../../cities/View/select'
 import { generateAdminUrl } from '../../../_utils/handleData/generateAdminUrl'
 
 const globalAny: any = global

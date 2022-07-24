@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 import layout from '../../../layouts/admin'
-import CustomersTable from '../../../components/users/Showcase/customers/table'
+import CustomersTable from '../../../components/users/View/customers/table'
 
 const Page = (): ReactElement => {
   return (

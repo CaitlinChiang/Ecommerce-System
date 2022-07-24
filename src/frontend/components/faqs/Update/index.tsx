@@ -1,6 +1,6 @@
 import { ReactElement, useState, useEffect } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
-import { GetFAQ } from '../Showcase/query'
+import { GetFAQ } from '../View/query'
 import mutation from './mutation'
 import { Button, Typography } from '@mui/material'
 import { FAQ } from '../../../../types/faq'
