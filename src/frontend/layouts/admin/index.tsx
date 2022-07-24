@@ -1,15 +1,12 @@
 import { NextPage } from 'next'
-import { ReactElement, FunctionComponent, useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
+import { ReactElement, FunctionComponent, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetUser } from '../query'
 import styles from '../../styles/_layouts/admin/main'
 import { User } from '../../../types/user'
-import { UserType } from '../../_enums/userType'
 import Navbar from './Navbar'
 import Header from './Header'
 import classnames from 'classnames'
-import { generateAdminUrl } from '../../_utils/handleData/generateAdminUrl'
 
 export default (
     Page: FunctionComponent,
@@ -20,22 +17,11 @@ export default (
     }: { title?: string; backRoute?: boolean; wide?: boolean }
   ) =>
   (): FunctionComponent | NextPage | ReactElement => {
-    const router = useRouter()
-
     const [open, setOpen] = useState(false)
 
-    const { data, loading } = useQuery(GetUser)
+    const { data } = useQuery(GetUser)
 
     const user: User = data?.get_user || {}
-
-    if (loading) return null
-
-    useEffect(() => {
-      if (Object.keys(user).length === 0) {
-        router.push(`${generateAdminUrl(UserType.ADMINISTRATOR)}/user/sign-in`)
-        return
-      }
-    }, [data])
 
     return (
       <>
