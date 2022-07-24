@@ -35,7 +35,6 @@ const CreateUser = ({ type }: { type: UserType }): ReactElement => {
     onCompleted: (data) => {
       Cookies.set('accessToken', data.create_user.token)
       globalAny.setNotification(true, 'Account successfully created!')
-      location.reload()
       router.push(`${generateAdminUrl(type)}/`)
     },
     onError: (error) => globalAny.setNotification(false, error.message)
