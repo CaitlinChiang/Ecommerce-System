@@ -8,6 +8,7 @@ export default gql`
     $email: String
     $firstName: String
     $lastName: String
+    $permissions: [String]
     $phoneNumber: String
   ) {
     update_user(
@@ -17,6 +18,7 @@ export default gql`
       email: $email
       firstName: $firstName
       lastName: $lastName
+      permissions: $permissions
       phoneNumber: $phoneNumber
     ) {
       _id

@@ -1,6 +1,7 @@
 import { ObjectId } from 'mongodb'
 import { PaginateDataArgs } from './actions/paginateData'
 import { DeliveryAddress } from './common/deliveryAddress'
+import { AdminPermission } from '../backend/_enums/adminPermission'
 import { UserType } from '../backend/_enums/userType'
 
 export interface User {
@@ -11,9 +12,10 @@ export interface User {
   firstName?: string
   lastName?: string
   password?: string
+  permissions?: AdminPermission[]
   phoneNumber?: string
   token?: string
-  type?: UserType
+  type?: type
   verificationCode?: string
   createdAt?: Date
   updatedAt?: Date
@@ -52,6 +54,7 @@ export interface UpdateUserArgs {
   email?: string
   firstName?: string
   lastName?: string
+  permissions?: AdminPermission[]
   phoneNumber?: string
   updatedAt?: Date
 }
