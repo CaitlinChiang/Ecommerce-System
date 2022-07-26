@@ -34,6 +34,7 @@ const OrdersTable = (): ReactElement => {
   const ordersCount: number = data?.get_orders_count || 0
 
   const orderHeaders = [
+    { label: 'orderId', sortable: true },
     { display: 'Date of Order', label: 'createdAt', sortable: false },
     { display: 'Product', label: 'name', sortable: false },
     { label: 'quantity', sortable: false },
@@ -49,6 +50,7 @@ const OrdersTable = (): ReactElement => {
         const { product, productVariant, quantity, totalPrice } = cartItem
         return (
           <TableRow>
+            <TableCell>{String(order._id)}</TableCell>
             <TableCell>{String(order?.createdAt).substring(0, 10)}</TableCell>
             <TableCell>{productVariant?.name || product?.name}</TableCell>
             <TableCell>{quantity}</TableCell>
