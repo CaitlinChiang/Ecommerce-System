@@ -11,7 +11,11 @@ export default async (
   args: DeleteFAQArgs,
   context: Context
 ): Promise<FAQ> => {
-  await authenticateUser({ admin: true, permission: AdminPermission.DELETE_FAQ, context })
+  await authenticateUser({
+    admin: true,
+    permission: AdminPermission.DELETE_FAQ,
+    context
+  })
 
   const faq: any = await context.database.faqs.findOneAndDelete({
     _id: new ObjectId(args._id)

@@ -11,7 +11,11 @@ export default async (
   args: DeleteCityArgs,
   context: Context
 ): Promise<City> => {
-  await authenticateUser({ admin: true, permission: AdminPermission.DELETE_CITY, context })
+  await authenticateUser({
+    admin: true,
+    permission: AdminPermission.DELETE_CITY,
+    context
+  })
 
   const city: any = await context.database.cities.findOneAndDelete({
     _id: new ObjectId(args._id)
