@@ -24,6 +24,7 @@ export const GetUsers = gql`
       email
       firstName
       lastName
+      permissions
       phoneNumber
       createdAt
     }
