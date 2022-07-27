@@ -27,15 +27,13 @@ const UpdateProductCategoryCheckbox = ({
   })
 
   return (
-    <>
-      <Checkbox
-        checked={showPublic}
-        disabled={updateMutationState.loading}
-        onChange={(): void => {
-          updateMutation()
-        }}
-      />
-    </>
+    <Checkbox
+      checked={showPublic}
+      disabled={updateMutationState.loading}
+      onChange={(): void => {
+        updateMutation()
+      }}
+    />
   )
 }
 

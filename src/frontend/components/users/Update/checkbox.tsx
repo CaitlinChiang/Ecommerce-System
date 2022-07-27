@@ -27,15 +27,13 @@ const UpdateUserCheckbox = ({
   })
 
   return (
-    <>
-      <Checkbox
-        checked={active}
-        disabled={updateMutationState.loading}
-        onChange={(): void => {
-          updateMutation()
-        }}
-      />
-    </>
+    <Checkbox
+      checked={active}
+      disabled={updateMutationState.loading}
+      onChange={(): void => {
+        updateMutation()
+      }}
+    />
   )
 }
 
