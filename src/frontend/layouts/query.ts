@@ -8,6 +8,7 @@ export const GetUser = gql`
       email
       firstName
       lastName
+      permissions
       type
     }
   }
