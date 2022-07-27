@@ -51,6 +51,7 @@ nextJSApp.prepare().then(async () => {
       return {
         currentUserId: user?._id,
         currentUserActive: user?.active,
+        currentUserPermissions: user?.permissions,
         currentUserType: user?.type,
         database,
         dataloaders: buildDataloaders(database),

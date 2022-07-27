@@ -21,7 +21,7 @@ export default (
 
     const { data } = useQuery(GetUser)
 
-    const user: User = data?.get_user || {}
+    const user: User = data?.get_user || null
 
     return (
       <>
