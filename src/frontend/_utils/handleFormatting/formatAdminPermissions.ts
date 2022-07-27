@@ -33,10 +33,7 @@ export const allCategoryPermissions = (
   return allPermissions
 }
 
-export const checkAllPermissions = (
-  category: string,
-  permissions: string[]
-): string[] => {
+export const checkAll = (category: string, permissions: string[]): string[] => {
   const adminPermissions: string[] = []
 
   Object.keys(AdminPermission).map((permission: string) => {
@@ -50,13 +47,10 @@ export const checkAllPermissions = (
     }
   })
 
-  return adminPermissions
+  return permissions.concat(adminPermissions)
 }
 
-export const uncheckAllPermissions = (
-  category: string,
-  permissions: string[]
-): string[] => {
+export const uncheckAll = (category: string, permissions: string[]): string[] => {
   const adminPermissions: string[] = generatePermissions(category)
 
   return permissions.filter((e) => !adminPermissions.includes(e))
