@@ -112,7 +112,11 @@ const AdministratorsTable = (): ReactElement => {
     <>
       <ModalComponent
         content={
-          <UpdateAdminPermissions _id={user._id} permissions={user.permissions} />
+          <UpdateAdminPermissions
+            _id={user._id}
+            permissions={user.permissions}
+            refetchArgs={refetchArgs}
+          />
         }
         onClose={(): void => setPermissionsModalOpen(false)}
         open={permissionsModalOpen}
