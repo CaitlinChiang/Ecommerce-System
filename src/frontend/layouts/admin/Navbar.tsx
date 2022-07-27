@@ -24,25 +24,63 @@ import EditIcon from '@mui/icons-material/Edit'
 import DnsIcon from '@mui/icons-material/Dns'
 import BarChartIcon from '@mui/icons-material/BarChart'
 import { User } from '../../../types/user'
+import { AdminPermission } from '../../_enums/adminPermission'
 import { UserType } from '../../_enums/userType'
 import { generateAdminUrl } from '../../_utils/auth/generateAdminUrl'
+import { authenticateUser } from 'frontend/_utils/auth/authenticateUser'
 
 const adminUrl = generateAdminUrl(UserType.ADMINISTRATOR)
 
 const navbarItems = [
-  { icon: <BarChartIcon />, label: 'Analytics', route: adminUrl },
+  {
+    icon: <BarChartIcon />,
+    label: 'Analytics',
+    permission: AdminPermission.VIEW_ANALYTICS,
+    route: adminUrl
+  },
   {
     icon: <AccountBoxIcon />,
     label: 'Administrators',
+    permission: AdminPermission.VIEW_USER,
     route: `${adminUrl}/administrators`
   },
-  { icon: <GroupIcon />, label: 'Customers', route: `${adminUrl}/customers` },
+  {
+    icon: <GroupIcon />,
+    label: 'Customers',
+    permission: AdminPermission.VIEW_USER,
+    route: `${adminUrl}/customers`
+  },
   { icon: <SettingsIcon />, label: 'Settings', route: `${adminUrl}/settings` },
-  { icon: <ReceiptIcon />, label: 'Orders', route: `${adminUrl}/orders` },
-  { icon: <InventoryIcon />, label: 'Products', route: `${adminUrl}/products` },
-  { icon: <HelpIcon />, label: 'FAQs', route: `${adminUrl}/faqs` },
-  { icon: <EditIcon />, label: 'Reviews', route: `${adminUrl}/reviews` },
-  { icon: <DnsIcon />, label: 'Audit Logs', route: `${adminUrl}/audit-logs` }
+  {
+    icon: <ReceiptIcon />,
+    label: 'Orders',
+    permission: AdminPermission.VIEW_ORDER,
+    route: `${adminUrl}/orders`
+  },
+  {
+    icon: <InventoryIcon />,
+    label: 'Products',
+    permission: AdminPermission.VIEW_PRODUCT,
+    route: `${adminUrl}/products`
+  },
+  {
+    icon: <HelpIcon />,
+    label: 'FAQs',
+    permission: AdminPermission.VIEW_FAQ,
+    route: `${adminUrl}/faqs`
+  },
+  {
+    icon: <EditIcon />,
+    label: 'Reviews',
+    permission: AdminPermission.VIEW_REVIEW,
+    route: `${adminUrl}/reviews`
+  },
+  {
+    icon: <DnsIcon />,
+    label: 'Audit Logs',
+    permission: AdminPermission.VIEW_AUDIT_LOGS,
+    route: `${adminUrl}/audit-logs`
+  }
 ]
 
 const Navbar = ({
@@ -87,6 +125,7 @@ const Navbar = ({
         <Divider />
         <Container sx={styles.container} />
         {navbarItems.map((item, index): ReactElement => {
+          if (!authenticateUser(item.permission)) return
           return (
             <ListItem
               button
