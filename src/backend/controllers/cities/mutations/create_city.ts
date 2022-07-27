@@ -1,5 +1,6 @@
 import { Context } from '../../../../types/setup/context'
 import { City, CreateCityArgs } from '../../../../types/city'
+import { AdminPermission } from '../../../_enums/adminPermission'
 import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
@@ -11,7 +12,7 @@ export default async (
   args: CreateCityArgs,
   context: Context
 ): Promise<City> => {
-  authenticateUser({ admin: true, context })
+  authenticateUser({ admin: true, permission: AdminPermission.CREATE_CITY, context })
 
   const city: any = await context.database.cities.insertOne(
     mutationArgs(args, MutateAction.CREATE)

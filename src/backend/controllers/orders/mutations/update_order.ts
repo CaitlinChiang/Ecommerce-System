@@ -1,6 +1,7 @@
 import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import { Order, UpdateOrderArgs } from '../../../../types/order'
+import { AdminPermission } from '../../../_enums/adminPermission'
 import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
@@ -12,7 +13,11 @@ export default async (
   args: UpdateOrderArgs,
   context: Context
 ): Promise<Order> => {
-  authenticateUser({ admin: true, context })
+  authenticateUser({
+    admin: true,
+    permission: AdminPermission.UPDATE_ORDER,
+    context
+  })
 
   const order: any = await context.database.orders.findOneAndUpdate(
     { _id: new ObjectId(args._id) },

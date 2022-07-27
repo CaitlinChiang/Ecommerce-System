@@ -1,6 +1,7 @@
 import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import { Review, DeleteReviewArgs } from '../../../../types/review'
+import { AdminPermission } from '../../../_enums/adminPermission'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { auditArgs } from '../../../_utils/handleArgs/returnAuditArgs'
@@ -10,7 +11,11 @@ export default async (
   args: DeleteReviewArgs,
   context: Context
 ): Promise<Review> => {
-  authenticateUser({ admin: true, context })
+  authenticateUser({
+    admin: true,
+    permission: AdminPermission.DELETE_REVIEW,
+    context
+  })
 
   const review: any = await context.database.reviews.findOneAndDelete({
     _id: new ObjectId(args._id)

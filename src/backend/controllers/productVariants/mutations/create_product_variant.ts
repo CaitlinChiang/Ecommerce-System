@@ -3,6 +3,7 @@ import {
   ProductVariant,
   CreateProductVariantArgs
 } from '../../../../types/productVariant'
+import { AdminPermission } from '../../../_enums/adminPermission'
 import { UploadImageType } from '../../../_enums/uploadImageType'
 import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
@@ -16,7 +17,11 @@ export default async (
   args: CreateProductVariantArgs,
   context: Context
 ): Promise<ProductVariant> => {
-  authenticateUser({ admin: true, context })
+  authenticateUser({
+    admin: true,
+    permission: AdminPermission.CREATE_PRODUCT_VARIANT,
+    context
+  })
 
   const { image, ...modifiedArgs } = args
 

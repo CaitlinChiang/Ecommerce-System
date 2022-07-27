@@ -4,6 +4,7 @@ import {
   PaymentMethod,
   UpdatePaymentMethodArgs
 } from '../../../../types/paymentMethod'
+import { AdminPermission } from '../../../_enums/adminPermission'
 import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
@@ -15,7 +16,11 @@ export default async (
   args: UpdatePaymentMethodArgs,
   context: Context
 ): Promise<PaymentMethod> => {
-  authenticateUser({ admin: true, context })
+  authenticateUser({
+    admin: true,
+    permission: AdminPermission.UPDATE_PAYMENT_METHOD,
+    context
+  })
 
   const paymentMethod: any = await context.database.paymentMethods.findOneAndUpdate(
     { _id: new ObjectId(args._id) },

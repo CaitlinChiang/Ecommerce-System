@@ -4,6 +4,7 @@ import {
   ProductVariant,
   DeleteProductVariantArgs
 } from '../../../../types/productVariant'
+import { AdminPermission } from '../../../_enums/adminPermission'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { auditArgs } from '../../../_utils/handleArgs/returnAuditArgs'
@@ -14,7 +15,11 @@ export default async (
   args: DeleteProductVariantArgs,
   context: Context
 ): Promise<ProductVariant> => {
-  authenticateUser({ admin: true, context })
+  authenticateUser({
+    admin: true,
+    permission: AdminPermission.DELETE_PRODUCT_VARIANT,
+    context
+  })
 
   await deleteImage({ imageUrl: args?.imageUrl })
 

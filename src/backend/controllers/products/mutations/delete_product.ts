@@ -1,6 +1,7 @@
 import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import { Product, DeleteProductArgs } from '../../../../types/product'
+import { AdminPermission } from '../../../_enums/adminPermission'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { auditArgs } from '../../../_utils/handleArgs/returnAuditArgs'
@@ -14,7 +15,11 @@ export default async (
   args: DeleteProductArgs,
   context: Context
 ): Promise<Product> => {
-  authenticateUser({ admin: true, context })
+  authenticateUser({
+    admin: true,
+    permission: AdminPermission.DELETE_PRODUCT,
+    context
+  })
 
   await deleteImage({ imageUrl: args?.imageUrl })
 

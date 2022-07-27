@@ -1,6 +1,7 @@
 import { Context } from '../../../../types/setup/context'
 import { AnalyticsRevenueCount, GetAnalyticsArgs } from '../../../../types/analytics'
 import { Payment } from '../../../../types/payment'
+import { AdminPermission } from '../../../_enums/adminPermission'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { queryArgs } from '../../../_utils/handleArgs/returnQueryArgs'
 import { formatDate } from '../../../_utils/handleDates/formatDate'
@@ -10,7 +11,11 @@ export default async (
   args: GetAnalyticsArgs,
   context: Context
 ): Promise<AnalyticsRevenueCount[]> => {
-  authenticateUser({ admin: true, context })
+  authenticateUser({
+    admin: true,
+    permission: AdminPermission.VIEW_ANALYTICS,
+    context
+  })
 
   const payments: Payment[] = await context.database.payments
     .find(queryArgs(args))

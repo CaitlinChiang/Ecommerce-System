@@ -1,5 +1,6 @@
 import { Context } from '../../../../types/setup/context'
 import { Product, CreateProductArgs } from '../../../../types/product'
+import { AdminPermission } from '../../../_enums/adminPermission'
 import { UploadImageType } from '../../../_enums/uploadImageType'
 import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
@@ -13,7 +14,11 @@ export default async (
   args: CreateProductArgs,
   context: Context
 ): Promise<Product> => {
-  authenticateUser({ admin: true, context })
+  authenticateUser({
+    admin: true,
+    permission: AdminPermission.CREATE_PRODUCT,
+    context
+  })
 
   const { image, ...modifiedArgs } = args
 

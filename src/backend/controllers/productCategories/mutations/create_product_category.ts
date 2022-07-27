@@ -3,6 +3,7 @@ import {
   ProductCategory,
   CreateProductCategoryArgs
 } from '../../../../types/productCategory'
+import { AdminPermission } from '../../../_enums/adminPermission'
 import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
@@ -14,7 +15,11 @@ export default async (
   args: CreateProductCategoryArgs,
   context: Context
 ): Promise<ProductCategory> => {
-  authenticateUser({ admin: true, context })
+  authenticateUser({
+    admin: true,
+    permission: AdminPermission.CREATE_PRODUCT_CATEGORY,
+    context
+  })
 
   const productCategory: any = await context.database.productCategories.insertOne(
     mutationArgs(args, MutateAction.CREATE)

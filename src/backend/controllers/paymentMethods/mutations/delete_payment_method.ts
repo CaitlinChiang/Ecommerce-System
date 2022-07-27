@@ -4,6 +4,7 @@ import {
   PaymentMethod,
   DeletePaymentMethodArgs
 } from '../../../../types/paymentMethod'
+import { AdminPermission } from '../../../_enums/adminPermission'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { auditArgs } from '../../../_utils/handleArgs/returnAuditArgs'
@@ -13,7 +14,11 @@ export default async (
   args: DeletePaymentMethodArgs,
   context: Context
 ): Promise<PaymentMethod> => {
-  authenticateUser({ admin: true, context })
+  authenticateUser({
+    admin: true,
+    permission: AdminPermission.DELETE_PAYMENT_METHOD,
+    context
+  })
 
   const paymentMethod: any = await context.database.paymentMethods.findOneAndDelete({
     _id: new ObjectId(args._id)

@@ -1,6 +1,7 @@
 import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import { User, DeleteUserArgs } from '../../../../types/user'
+import { AdminPermission } from '../../../_enums/adminPermission'
 import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
@@ -12,7 +13,7 @@ export default async (
   args: DeleteUserArgs,
   context: Context
 ): Promise<User> => {
-  authenticateUser({ admin: true, context })
+  authenticateUser({ admin: true, permission: AdminPermission.DELETE_USER, context })
 
   const user: any = await context.database.users.findOneAndUpdate(
     { _id: new ObjectId(args._id) },

@@ -1,6 +1,7 @@
 import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import { Order, DeleteOrderArgs } from '../../../../types/order'
+import { AdminPermission } from '../../../_enums/adminPermission'
 import { StockQuantityAction } from '../../../_enums/stockQuantity'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
@@ -13,7 +14,11 @@ export default async (
   args: DeleteOrderArgs,
   context: Context
 ): Promise<Order> => {
-  authenticateUser({ admin: true, context })
+  authenticateUser({
+    admin: true,
+    permission: AdminPermission.DELETE_ORDER,
+    context
+  })
 
   const order: Order = await context.database.orders.findOne({
     _id: new ObjectId(args._id)

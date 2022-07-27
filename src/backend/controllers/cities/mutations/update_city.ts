@@ -1,6 +1,7 @@
 import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import { City, UpdateCityArgs } from '../../../../types/City'
+import { AdminPermission } from '../../../_enums/adminPermission'
 import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
@@ -12,7 +13,7 @@ export default async (
   args: UpdateCityArgs,
   context: Context
 ): Promise<City> => {
-  authenticateUser({ admin: true, context })
+  authenticateUser({ admin: true, permission: AdminPermission.UPDATE_CITY, context })
 
   const city: any = await context.database.cities.findOneAndUpdate(
     { _id: new ObjectId(args._id) },

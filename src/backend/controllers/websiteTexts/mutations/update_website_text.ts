@@ -1,5 +1,6 @@
 import { Context } from '../../../../types/setup/context'
 import { WebsiteText, UpdateWebsiteTextArgs } from '../../../../types/websiteText'
+import { AdminPermission } from '../../../_enums/adminPermission'
 import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
@@ -11,7 +12,11 @@ export default async (
   args: UpdateWebsiteTextArgs,
   context: Context
 ): Promise<WebsiteText> => {
-  authenticateUser({ admin: true, context })
+  authenticateUser({
+    admin: true,
+    permission: AdminPermission.UPDATE_WEBSITE_TEXT,
+    context
+  })
 
   const websiteText: any = await context.database.websiteTexts.findOneAndUpdate(
     { type: args.type },

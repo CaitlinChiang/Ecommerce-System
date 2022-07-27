@@ -1,6 +1,7 @@
 import { Context } from '../../../../types/setup/context'
 import { AnalyticsOrdersCount, GetAnalyticsArgs } from '../../../../types/analytics'
 import { Order } from '../../../../types/order'
+import { AdminPermission } from '../../../_enums/adminPermission'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { queryArgs } from '../../../_utils/handleArgs/returnQueryArgs'
 import { formatDate } from '../../../_utils/handleDates/formatDate'
@@ -10,7 +11,11 @@ export default async (
   args: GetAnalyticsArgs,
   context: Context
 ): Promise<AnalyticsOrdersCount[]> => {
-  authenticateUser({ admin: true, context })
+  authenticateUser({
+    admin: true,
+    permission: AdminPermission.VIEW_ANALYTICS,
+    context
+  })
 
   const orders: Order[] = await context.database.orders
     .find(queryArgs(args))

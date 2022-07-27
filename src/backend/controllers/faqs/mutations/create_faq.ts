@@ -1,5 +1,6 @@
 import { Context } from '../../../../types/setup/context'
 import { FAQ, CreateFAQArgs } from '../../../../types/faq'
+import { AdminPermission } from '../../../_enums/adminPermission'
 import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
@@ -11,7 +12,7 @@ export default async (
   args: CreateFAQArgs,
   context: Context
 ): Promise<FAQ> => {
-  authenticateUser({ admin: true, context })
+  authenticateUser({ admin: true, permission: AdminPermission.CREATE_FAQ, context })
 
   const faq: any = await context.database.faqs.insertOne(
     mutationArgs(args, MutateAction.CREATE)

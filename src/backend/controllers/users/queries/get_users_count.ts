@@ -1,5 +1,6 @@
 import { Context } from '../../../../types/setup/context'
-import { GetUserArgs } from 'types/user'
+import { GetUserArgs } from '../../../../types/user'
+import { AdminPermission } from '../../../_enums/adminPermission'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { queryArgs } from '../../../_utils/handleArgs/returnQueryArgs'
 
@@ -8,7 +9,7 @@ export default async (
   args: GetUserArgs,
   context: Context
 ): Promise<number> => {
-  authenticateUser({ admin: true, context })
+  authenticateUser({ admin: true, permission: AdminPermission.VIEW_USER, context })
 
   const usersCount: any = await context.database.users.countDocuments(
     queryArgs(args)

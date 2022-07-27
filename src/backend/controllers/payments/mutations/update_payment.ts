@@ -1,6 +1,7 @@
 import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import { Payment, UpdatePaymentArgs } from '../../../../types/payment'
+import { AdminPermission } from '../../../_enums/adminPermission'
 import { UploadImageType } from '../../../_enums/uploadImageType'
 import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
@@ -15,7 +16,11 @@ export default async (
   args: UpdatePaymentArgs,
   context: Context
 ): Promise<Payment> => {
-  authenticateUser({ admin: true, context })
+  authenticateUser({
+    admin: true,
+    permission: AdminPermission.UPDATE_PAYMENT,
+    context
+  })
 
   const { imageProof, ...modifiedArgs } = args
 

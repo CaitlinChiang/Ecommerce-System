@@ -4,6 +4,7 @@ import {
   ProductCategory,
   DeleteProductCategoryArgs
 } from '../../../../types/productCategory'
+import { AdminPermission } from '../../../_enums/adminPermission'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { auditArgs } from '../../../_utils/handleArgs/returnAuditArgs'
@@ -13,7 +14,11 @@ export default async (
   args: DeleteProductCategoryArgs,
   context: Context
 ): Promise<ProductCategory> => {
-  authenticateUser({ admin: true, context })
+  authenticateUser({
+    admin: true,
+    permission: AdminPermission.DELETE_PRODUCT_CATEGORY,
+    context
+  })
 
   const productCategory: any =
     await context.database.productCategories.findOneAndDelete({
