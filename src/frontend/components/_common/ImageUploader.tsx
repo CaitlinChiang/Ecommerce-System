@@ -5,6 +5,7 @@ import { Box, Button, FormHelperText } from '@mui/material'
 const ImageUploader = ({
   alt,
   args,
+  disabled,
   error,
   required,
   setArgs,
@@ -12,6 +13,7 @@ const ImageUploader = ({
 }: {
   alt: string
   args: any
+  disabled?: boolean
   error?: boolean
   required?: boolean
   setArgs: React.Dispatch<React.SetStateAction<any>>
@@ -35,6 +37,8 @@ const ImageUploader = ({
     const imageUrl = URL.createObjectURL(image)
     setImageUrl(imageUrl)
   }
+
+  if (disabled) return
 
   return (
     <>

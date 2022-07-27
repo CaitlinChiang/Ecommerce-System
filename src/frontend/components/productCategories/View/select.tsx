@@ -7,12 +7,14 @@ import SelectField from '../../_common/SelectField'
 
 const ProductCategoriesSelect = ({
   args,
+  disabled,
   error,
   multiple,
   required,
   setArgs
 }: {
   args: any
+  disabled?: boolean
   error?: boolean
   multiple?: boolean
   required?: boolean
@@ -40,6 +42,7 @@ const ProductCategoriesSelect = ({
   return (
     <SelectField
       args={args}
+      disabled={disabled}
       error={error}
       label={'Categories'}
       multiple={multiple}

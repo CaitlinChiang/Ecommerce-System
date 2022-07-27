@@ -17,7 +17,13 @@ import { formatToPercentage } from '../../../_utils/handleFormatting/formatToPer
 
 const globalAny: any = global
 
-const UpdateProduct = ({ _id }: { _id: string }): ReactElement => {
+const UpdateProduct = ({
+  _id,
+  disabled
+}: {
+  _id: string
+  disabled?: boolean
+}): ReactElement => {
   const [args, setArgs] = useState<any>({
     _id: null,
     categoryId: null,
@@ -76,15 +82,32 @@ const UpdateProduct = ({ _id }: { _id: string }): ReactElement => {
       )}
       <ProductCategoriesSelect
         args={args}
+        disabled={disabled}
         error={validateFields}
         required={true}
         setArgs={setArgs}
       />
-      <Text args={args} setArgs={setArgs} targetProp={'description'} />
-      <DatePickerField args={args} setArgs={setArgs} targetProp={'expirationDate'} />
-      <CheckboxField args={args} setArgs={setArgs} targetProp={'featured'} />
       <Text
         args={args}
+        disabled={disabled}
+        setArgs={setArgs}
+        targetProp={'description'}
+      />
+      <DatePickerField
+        args={args}
+        disabled={disabled}
+        setArgs={setArgs}
+        targetProp={'expirationDate'}
+      />
+      <CheckboxField
+        args={args}
+        disabled={disabled}
+        setArgs={setArgs}
+        targetProp={'featured'}
+      />
+      <Text
+        args={args}
+        disabled={disabled}
         error={validateFields}
         required={true}
         setArgs={setArgs}
@@ -92,6 +115,7 @@ const UpdateProduct = ({ _id }: { _id: string }): ReactElement => {
       />
       <NumberField
         args={args}
+        disabled={disabled}
         error={validateFields}
         required={true}
         setArgs={setArgs}
@@ -99,6 +123,7 @@ const UpdateProduct = ({ _id }: { _id: string }): ReactElement => {
       />
       <Text
         args={args}
+        disabled={disabled}
         placeholder={'ex. 20%'}
         setArgs={setArgs}
         targetProp={'discount'}
@@ -106,6 +131,7 @@ const UpdateProduct = ({ _id }: { _id: string }): ReactElement => {
       <CheckboxField args={args} setArgs={setArgs} targetProp={'showPublic'} />
       <NumberField
         args={args}
+        disabled={disabled}
         error={validateFields}
         required={true}
         setArgs={setArgs}
@@ -114,11 +140,12 @@ const UpdateProduct = ({ _id }: { _id: string }): ReactElement => {
       <ImageUploader
         alt={'Product Photo'}
         args={args}
+        disabled={disabled}
         setArgs={setArgs}
         targetProp={'image'}
       />
       <Button
-        disabled={updateMutationState.loading}
+        disabled={disabled || updateMutationState.loading}
         onClick={(): void => {
           setValidateFields(true)
           updateMutation()
