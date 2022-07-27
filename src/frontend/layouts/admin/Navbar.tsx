@@ -125,7 +125,7 @@ const Navbar = ({
         <Divider />
         <Container sx={styles.container} />
         {navbarItems.map((item, index): ReactElement => {
-          if (!authenticateUser(item.permission)) return
+          if (item?.permission && !authenticateUser(item?.permission)) return
           return (
             <ListItem
               button

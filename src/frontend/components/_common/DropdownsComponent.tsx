@@ -25,6 +25,8 @@ const Row = ({
 }): ReactElement => {
   const [open, setOpen] = useState<boolean>(false)
 
+  if (!row) return
+
   return (
     <>
       <TableRow sx={styles.tableRow}>
