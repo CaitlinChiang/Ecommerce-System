@@ -2,11 +2,11 @@ import { NextPage } from 'next'
 import { ReactElement, FunctionComponent, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetUser } from '../query'
+import classnames from 'classnames'
 import styles from '../../styles/_layouts/admin/main'
 import { User } from '../../../types/user'
 import Navbar from './Navbar'
 import Header from './Header'
-import classnames from 'classnames'
 
 export default (
     Page: FunctionComponent,
