@@ -25,7 +25,7 @@ import DnsIcon from '@mui/icons-material/Dns'
 import BarChartIcon from '@mui/icons-material/BarChart'
 import { User } from '../../../types/user'
 import { UserType } from '../../_enums/userType'
-import { generateAdminUrl } from '../../_utils/handleData/generateAdminUrl'
+import { generateAdminUrl } from '../../_utils/auth/generateAdminUrl'
 
 const adminUrl = generateAdminUrl(UserType.ADMINISTRATOR)
 

@@ -5,7 +5,7 @@ import { ForgotUserPassword } from '../mutation'
 import { Button } from '@mui/material'
 import { UserType } from '../../../../_enums/userType'
 import Text from '../../../_common/TextField'
-import { generateAdminUrl } from '../../../../_utils/handleData/generateAdminUrl'
+import { generateAdminUrl } from '../../../../_utils/auth/generateAdminUrl'
 
 const globalAny: any = global
 

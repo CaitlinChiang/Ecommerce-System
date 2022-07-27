@@ -9,7 +9,7 @@ import { UserType } from '../../../_enums/userType'
 import Text from '../../_common/TextField'
 import CitiesSelect from '../../cities/View/select'
 import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
-import { generateAdminUrl } from '../../../_utils/handleData/generateAdminUrl'
+import { generateAdminUrl } from '../../../_utils/auth/generateAdminUrl'
 
 const globalAny: any = global
 
