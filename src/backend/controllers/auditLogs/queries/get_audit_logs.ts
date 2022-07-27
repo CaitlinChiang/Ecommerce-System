@@ -12,7 +12,7 @@ export default async (
 ): Promise<AuditLog[]> => {
   authenticateUser({
     admin: true,
-    permission: AdminPermission.VIEW_AUDIT_LOG,
+    permission: AdminPermission.VIEW_AUDIT_LOGS,
     context
   })
 

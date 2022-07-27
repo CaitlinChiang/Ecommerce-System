@@ -11,7 +11,7 @@ export default async (
 ): Promise<number> => {
   authenticateUser({
     admin: true,
-    permission: AdminPermission.VIEW_AUDIT_LOG,
+    permission: AdminPermission.VIEW_AUDIT_LOGS,
     context
   })
 
