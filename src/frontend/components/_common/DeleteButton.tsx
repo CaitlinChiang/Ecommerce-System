@@ -35,16 +35,14 @@ const DeleteButton = ({
   })
 
   return (
-    <>
-      <IconButton
-        disabled={deleteMutationState.loading}
-        onClick={(): void => {
-          deleteMutation()
-        }}
-      >
-        <DeleteIcon />
-      </IconButton>
-    </>
+    <IconButton
+      disabled={deleteMutationState.loading}
+      onClick={(): void => {
+        deleteMutation()
+      }}
+    >
+      <DeleteIcon />
+    </IconButton>
   )
 }
 
