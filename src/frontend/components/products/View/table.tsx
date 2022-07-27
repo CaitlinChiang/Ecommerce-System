@@ -8,14 +8,19 @@ import EditIcon from '@mui/icons-material/Edit'
 import { Product } from '../../../../types/product'
 import { PaginateDataArgs } from '../../../../types/actions/paginateData'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
+import { AdminPermission } from '../../../_enums/adminPermission'
 import { SortDirection } from '../../../_enums/sortDirection'
 import TableComponent from '../../_common/TableComponent'
 import DeleteButton from '../../_common/DeleteButton'
 import ProductsTableFilters from './tableFilters'
+import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
 import { formatToPercentage } from '../../../_utils/handleFormatting/formatToPercentage'
 
 const ProductsTable = (): ReactElement => {
+  const disableUpdateProduct = !authenticateUser(AdminPermission.UPDATE_PRODUCT)
+  const disableDeleteProduct = !authenticateUser(AdminPermission.DELETE_PRODUCT)
+
   const router = useRouter()
 
   const [args, setArgs] = useState<any>({
@@ -98,6 +103,7 @@ const ProductsTable = (): ReactElement => {
           <TableCell>{String(product?.expirationDate || '-')}</TableCell>
           <TableCell>
             <IconButton
+              disabled={disableUpdateProduct}
               onClick={(): void => {
                 router.push('products/[productId]', `products/${product._id}`)
               }}
@@ -106,6 +112,7 @@ const ProductsTable = (): ReactElement => {
             </IconButton>
             <DeleteButton
               _id={product?._id}
+              disabled={disableDeleteProduct}
               label={'Product'}
               mutation={deleteMutation}
               refetchArgs={refetchArgs}

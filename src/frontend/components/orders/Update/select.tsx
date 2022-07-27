@@ -11,10 +11,12 @@ const globalAny: any = global
 
 const UpdateOrderSelect = ({
   _id,
+  disabled,
   refetchArgs,
   status
 }: {
   _id: ObjectId
+  disabled: boolean
   refetchArgs: RefetchDataArgs
   status: OrderStatus
 }): ReactElement => {
@@ -32,7 +34,7 @@ const UpdateOrderSelect = ({
     <>
       <SelectField
         args={args}
-        disabled={updateMutationState.loading}
+        disabled={disabled || updateMutationState.loading}
         error={!args.status}
         label={'Order Status'}
         options={Object.keys(OrderStatus).map((status) => {

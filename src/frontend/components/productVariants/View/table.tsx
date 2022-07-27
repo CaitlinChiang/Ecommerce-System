@@ -8,10 +8,12 @@ import EditIcon from '@mui/icons-material/Edit'
 import { ProductVariant } from '../../../../types/productVariant'
 import { PaginateDataArgs } from '../../../../types/actions/paginateData'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
+import { AdminPermission } from '../../../_enums/adminPermission'
 import { SortDirection } from '../../../_enums/sortDirection'
 import TableComponent from '../../_common/TableComponent'
 import DeleteButton from '../../_common/DeleteButton'
 import ProductVariantsTableFilters from './tableFilters'
+import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
 import { formatToPercentage } from '../../../_utils/handleFormatting/formatToPercentage'
 
@@ -20,6 +22,13 @@ const ProductVariantsTable = ({
 }: {
   _productId: string
 }): ReactElement => {
+  const disableUpdateProductVariant = !authenticateUser(
+    AdminPermission.UPDATE_PRODUCT_VARIANT
+  )
+  const disableDeleteProductVariant = !authenticateUser(
+    AdminPermission.DELETE_PRODUCT_VARIANT
+  )
+
   const router = useRouter()
 
   const [args, setArgs] = useState<any>({
@@ -101,6 +110,7 @@ const ProductVariantsTable = ({
           <TableCell>{String(productVariant?.expirationDate || '-')}</TableCell>
           <TableCell>
             <IconButton
+              disabled={disableUpdateProductVariant}
               onClick={(): void => {
                 router.push(
                   '[productId]/variants/[productVariantId]',
@@ -112,6 +122,7 @@ const ProductVariantsTable = ({
             </IconButton>
             <DeleteButton
               _id={productVariant?._id}
+              disabled={disableDeleteProductVariant}
               label={'Product Variant'}
               mutation={deleteMutation}
               refetchArgs={refetchArgs}

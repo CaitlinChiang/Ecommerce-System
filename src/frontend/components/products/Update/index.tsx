@@ -22,7 +22,7 @@ const UpdateProduct = ({
   disabled
 }: {
   _id: string
-  disabled?: boolean
+  disabled: boolean
 }): ReactElement => {
   const [args, setArgs] = useState<any>({
     _id: null,

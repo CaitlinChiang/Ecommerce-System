@@ -7,6 +7,7 @@ import { CartItem } from '../../../../../types/cart'
 import { Order } from '../../../../../types/order'
 import { PaginateDataArgs } from '../../../../../types/actions/paginateData'
 import { RefetchDataArgs } from '../../../../../types/actions/refetchData'
+import { AdminPermission } from '../../../../_enums/adminPermission'
 import { SortDirection } from '../../../../_enums/sortDirection'
 import { DateRangeType } from '../../../../_enums/dateRangeType'
 import TableComponent from '../../../_common/TableComponent'
@@ -16,9 +17,14 @@ import UpdatePaymentSelect from '../../../payments/Update/select'
 import DeleteButton from '../../../_common/DeleteButton'
 import OrderLogsTable from '../../../auditLogs/View/orderLogsTable'
 import OrdersTableFilters from './tableFilters'
+import { authenticateUser } from '../../../../_utils/auth/authenticateUser'
 import { fetchMoreArgs } from '../../../../_utils/handleArgs/returnFetchMoreArgs'
 
 const OrdersTable = (): ReactElement => {
+  const disableUpdateOrder = !authenticateUser(AdminPermission.UPDATE_ORDER)
+  const disableUpdatePayment = !authenticateUser(AdminPermission.UPDATE_PAYMENT)
+  const disableDeleteOrder = !authenticateUser(AdminPermission.DELETE_ORDER)
+
   const [args, setArgs] = useState<any>({
     collectionMethod: null,
     dateRange: {
@@ -127,6 +133,7 @@ const OrdersTable = (): ReactElement => {
           <TableCell>
             <UpdateOrderSelect
               _id={order._id}
+              disabled={disableUpdateOrder}
               refetchArgs={refetchArgs}
               status={order?.status}
             />
@@ -139,6 +146,7 @@ const OrdersTable = (): ReactElement => {
           <TableCell>
             <UpdatePaymentSelect
               _orderId={order._id}
+              disabled={disableUpdatePayment}
               refetchArgs={refetchArgs}
               status={order?.payment?.status}
             />
@@ -168,6 +176,7 @@ const OrdersTable = (): ReactElement => {
           <TableCell>
             <DeleteButton
               _id={order._id}
+              disabled={disableDeleteOrder}
               label={'Order'}
               mutation={deleteMutation}
               refetchArgs={refetchArgs}

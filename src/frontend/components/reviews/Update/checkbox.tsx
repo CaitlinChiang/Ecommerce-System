@@ -10,10 +10,12 @@ const globalAny: any = global
 
 const UpdateReviewCheckbox = ({
   _id,
+  disabled,
   featured,
   refetchArgs
 }: {
   _id: ObjectId
+  disabled: boolean
   featured: boolean
   refetchArgs: RefetchDataArgs
 }): ReactElement => {
@@ -29,7 +31,7 @@ const UpdateReviewCheckbox = ({
   return (
     <Checkbox
       checked={featured}
-      disabled={updateMutationState.loading}
+      disabled={disabled || updateMutationState.loading}
       onChange={(): void => {
         updateMutation()
       }}

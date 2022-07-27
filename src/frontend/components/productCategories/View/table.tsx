@@ -7,17 +7,26 @@ import EditIcon from '@mui/icons-material/Edit'
 import { ProductCategory } from '../../../../types/productCategory'
 import { PaginateDataArgs } from '../../../../types/actions/paginateData'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
+import { AdminPermission } from '../../../_enums/adminPermission'
 import { SortDirection } from '../../../_enums/sortDirection'
 import TableComponent from '../../_common/TableComponent'
 import ModalComponent from '../../_common/ModalComponent'
-import UpdateProductCategoryCheckbox from '../Update/checkbox'
+import CreateProductCategory from '../Create'
 import UpdateProductCategory from '../Update'
+import UpdateProductCategoryCheckbox from '../Update/checkbox'
 import DeleteButton from '../../_common/DeleteButton'
 import ProductsTableFilters from './tableFilters'
-import CreateProductCategory from '../Create'
+import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
 
 const ProductCategoriesTable = (): ReactElement => {
+  const disableUpdateProductCategory = !authenticateUser(
+    AdminPermission.UPDATE_PRODUCT_CATEGORY
+  )
+  const disableDeleteProductCategory = !authenticateUser(
+    AdminPermission.DELETE_PRODUCT_CATEGORY
+  )
+
   const [args, setArgs] = useState<any>({ showPublic: null })
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
     page: 0,
@@ -69,6 +78,7 @@ const ProductCategoriesTable = (): ReactElement => {
           <TableCell>
             <UpdateProductCategoryCheckbox
               _id={productCategory._id}
+              disabled={disableUpdateProductCategory}
               refetchArgs={refetchArgs}
               showPublic={productCategory.showPublic}
             />
@@ -77,6 +87,7 @@ const ProductCategoriesTable = (): ReactElement => {
           <TableCell>{String(productCategory?.createdAt)}</TableCell>
           <TableCell>
             <IconButton
+              disabled={disableUpdateProductCategory}
               onClick={(): void => {
                 setProductCategoryId(String(productCategory._id))
                 setUpdateModalOpen(true)
@@ -86,6 +97,7 @@ const ProductCategoriesTable = (): ReactElement => {
             </IconButton>
             <DeleteButton
               _id={productCategory._id}
+              disabled={disableDeleteProductCategory}
               label={'Product Category'}
               mutation={deleteMutation}
               refetchArgs={refetchArgs}

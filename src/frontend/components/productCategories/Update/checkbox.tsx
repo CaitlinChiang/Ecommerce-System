@@ -10,10 +10,12 @@ const globalAny: any = global
 
 const UpdateProductCategoryCheckbox = ({
   _id,
+  disabled,
   refetchArgs,
   showPublic
 }: {
   _id: ObjectId
+  disabled: boolean
   refetchArgs: RefetchDataArgs
   showPublic: boolean
 }): ReactElement => {
@@ -29,7 +31,7 @@ const UpdateProductCategoryCheckbox = ({
   return (
     <Checkbox
       checked={showPublic}
-      disabled={updateMutationState.loading}
+      disabled={disabled || updateMutationState.loading}
       onChange={(): void => {
         updateMutation()
       }}

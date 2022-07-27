@@ -9,15 +9,20 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import { FAQ } from '../../../../../types/faq'
 import { PaginateDataArgs } from '../../../../../types/actions/paginateData'
 import { RefetchDataArgs } from '../../../../../types/actions/refetchData'
+import { AdminPermission } from '../../../../_enums/adminPermission'
 import { SortDirection } from '../../../../_enums/sortDirection'
 import DropdownsComponent from '../../../_common/DropdownsComponent'
 import ModalComponent from '../../../_common/ModalComponent'
+import CreateFAQ from '../../Create'
 import UpdateFAQ from '../../Update'
 import DeleteButton from '../../../_common/DeleteButton'
-import CreateFAQ from '../../Create'
+import { authenticateUser } from '../../../../_utils/auth/authenticateUser'
 import { fetchMoreArgs } from '../../../../_utils/handleArgs/returnFetchMoreArgs'
 
 const FAQsDropdowns = (): ReactElement => {
+  const disableUpdateFAQ = !authenticateUser(AdminPermission.UPDATE_FAQ)
+  const disableDeleteFAQ = !authenticateUser(AdminPermission.DELETE_FAQ)
+
   const args: any = {}
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
     page: 0,
@@ -60,6 +65,7 @@ const FAQsDropdowns = (): ReactElement => {
         actions: (
           <>
             <IconButton
+              disabled={disableUpdateFAQ}
               onClick={(): void => {
                 setFaqId(String(faq._id))
                 setUpdateModalOpen(true)
@@ -69,6 +75,7 @@ const FAQsDropdowns = (): ReactElement => {
             </IconButton>
             <DeleteButton
               _id={faq._id}
+              disabled={disableDeleteFAQ}
               label={'FAQ'}
               mutation={deleteMutation}
               refetchArgs={refetchArgs}

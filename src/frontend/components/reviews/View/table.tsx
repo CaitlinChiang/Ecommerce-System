@@ -6,14 +6,19 @@ import { TableCell, TableRow } from '@mui/material'
 import { Review } from '../../../../types/review'
 import { PaginateDataArgs } from '../../../../types/actions/paginateData'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
+import { AdminPermission } from '../../../_enums/adminPermission'
 import { SortDirection } from '../../../_enums/sortDirection'
 import TableComponent from '../../_common/TableComponent'
 import UpdateReviewCheckbox from '../Update/checkbox'
 import DeleteButton from '../../_common/DeleteButton'
 import ReviewsTableFilters from './tableFilters'
+import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
 
 const ReviewsTable = (): ReactElement => {
+  const disableUpdateReview = !authenticateUser(AdminPermission.UPDATE_REVIEW)
+  const disableDeleteReview = !authenticateUser(AdminPermission.DELETE_REVIEW)
+
   const [args, setArgs] = useState<any>({ featured: null })
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
     page: 0,
@@ -67,6 +72,7 @@ const ReviewsTable = (): ReactElement => {
           <TableCell>
             <UpdateReviewCheckbox
               _id={review._id}
+              disabled={disableUpdateReview}
               featured={review.featured}
               refetchArgs={refetchArgs}
             />
@@ -74,6 +80,7 @@ const ReviewsTable = (): ReactElement => {
           <TableCell>
             <DeleteButton
               _id={review._id}
+              disabled={disableDeleteReview}
               label={'Review'}
               mutation={deleteMutation}
               refetchArgs={refetchArgs}

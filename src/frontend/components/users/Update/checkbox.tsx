@@ -11,10 +11,12 @@ const globalAny: any = global
 const UpdateUserCheckbox = ({
   _id,
   active,
+  disabled,
   refetchArgs
 }: {
   _id: ObjectId
   active: boolean
+  disabled: boolean
   refetchArgs: RefetchDataArgs
 }): ReactElement => {
   const [updateMutation, updateMutationState] = useMutation(mutation, {
@@ -29,7 +31,7 @@ const UpdateUserCheckbox = ({
   return (
     <Checkbox
       checked={active}
-      disabled={updateMutationState.loading}
+      disabled={disabled || updateMutationState.loading}
       onChange={(): void => {
         updateMutation()
       }}

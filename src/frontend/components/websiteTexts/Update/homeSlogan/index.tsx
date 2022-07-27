@@ -5,13 +5,19 @@ import { GetWebsiteText } from '../../View/query'
 import mutation from '../mutation'
 import { Button, Typography } from '@mui/material'
 import { WebsiteText } from '../../../../../types/websiteText'
+import { AdminPermission } from '../../../../_enums/adminPermission'
 import { WebsiteTextType } from '../../../../_enums/websiteTextType'
 import Text from '../../../_common/TextField'
+import { authenticateUser } from '../../../../_utils/auth/authenticateUser'
 import { correctArgs } from '../../../../_utils/handleArgs/correctArgs'
 
 const globalAny: any = global
 
 const UpdateHomeSlogan = (): ReactElement => {
+  const disableUpdateWebsiteText = !authenticateUser(
+    AdminPermission.UPDATE_WEBSITE_TEXT
+  )
+
   const [args, setArgs] = useState<any>({
     _id: null,
     content: null,
@@ -47,6 +53,7 @@ const UpdateHomeSlogan = (): ReactElement => {
       <Typography>{`Last Updated At: ${websiteText?.updatedAt}`}</Typography>
       <Text
         args={args}
+        disabled={disableUpdateWebsiteText}
         error={validateFields}
         maxLength={100}
         placeholder={'Type home page slogan here...'}
@@ -55,7 +62,7 @@ const UpdateHomeSlogan = (): ReactElement => {
         targetProp={'content'}
       />
       <Button
-        disabled={updateMutationState.loading}
+        disabled={disableUpdateWebsiteText || updateMutationState.loading}
         onClick={(): void => {
           setValidateFields(true)
           updateMutation()

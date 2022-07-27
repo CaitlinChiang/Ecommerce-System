@@ -3,7 +3,9 @@ import { useMutation } from '@apollo/client'
 import mutation from './mutation'
 import { Button } from '@mui/material'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
+import { AdminPermission } from '../../../_enums/adminPermission'
 import Text from '../../_common/TextField'
+import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { refetchData } from '../../../_utils/handleData/refetchData'
 import { clearFields } from '../../../_utils/handleFields/clearFields'
 
@@ -14,6 +16,8 @@ const CreateFAQ = ({
 }: {
   refetchArgs: RefetchDataArgs
 }): ReactElement => {
+  if (!authenticateUser(AdminPermission.CREATE_FAQ)) return
+
   const [args, setArgs] = useState<any>({
     answer: null,
     question: null

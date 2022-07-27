@@ -11,12 +11,14 @@ const globalAny: any = global
 
 const DeleteButton = ({
   _id,
+  disabled,
   label,
   mutation,
   refetchArgs,
   setPaginateDataArgs
 }: {
   _id: ObjectId
+  disabled?: boolean
   label: string
   mutation: any
   refetchArgs: RefetchDataArgs
@@ -36,7 +38,7 @@ const DeleteButton = ({
 
   return (
     <IconButton
-      disabled={deleteMutationState.loading}
+      disabled={disabled || deleteMutationState.loading}
       onClick={(): void => {
         deleteMutation()
       }}

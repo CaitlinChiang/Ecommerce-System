@@ -7,15 +7,24 @@ import EditIcon from '@mui/icons-material/Edit'
 import { PaymentMethod } from '../../../../types/paymentMethod'
 import { PaginateDataArgs } from '../../../../types/actions/paginateData'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
+import { AdminPermission } from '../../../_enums/adminPermission'
 import { SortDirection } from '../../../_enums/sortDirection'
 import TableComponent from '../../_common/TableComponent'
 import ModalComponent from '../../_common/ModalComponent'
+import CreatePaymentMethod from '../Create'
 import UpdatePaymentMethod from '../Update'
 import DeleteButton from '../../_common/DeleteButton'
-import CreatePaymentMethod from '../Create'
+import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
 
 const PaymentMethodsTable = (): ReactElement => {
+  const disableUpdatePaymentMethod = !authenticateUser(
+    AdminPermission.UPDATE_PAYMENT_METHOD
+  )
+  const disableDeletePaymentMethod = !authenticateUser(
+    AdminPermission.DELETE_PAYMENT_METHOD
+  )
+
   const args: any = {}
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
     page: 0,
@@ -66,6 +75,7 @@ const PaymentMethodsTable = (): ReactElement => {
           <TableCell>{paymentMethod?.details}</TableCell>
           <TableCell>
             <IconButton
+              disabled={disableUpdatePaymentMethod}
               onClick={(): void => {
                 setPaymentMethodId(String(paymentMethod._id))
                 setUpdateModalOpen(true)
@@ -75,6 +85,7 @@ const PaymentMethodsTable = (): ReactElement => {
             </IconButton>
             <DeleteButton
               _id={paymentMethod._id}
+              disabled={disableDeletePaymentMethod}
               label={'Payment Method'}
               mutation={deleteMutation}
               refetchArgs={refetchArgs}

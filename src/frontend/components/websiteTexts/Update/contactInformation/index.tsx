@@ -5,8 +5,10 @@ import { GetWebsiteText } from '../../View/query'
 import mutation from '../mutation'
 import { Button, Typography } from '@mui/material'
 import { WebsiteText } from '../../../../../types/websiteText'
+import { AdminPermission } from '../../../../_enums/adminPermission'
 import { WebsiteTextType } from '../../../../_enums/websiteTextType'
 import Text from '../../../_common/TextField'
+import { authenticateUser } from '../../../../_utils/auth/authenticateUser'
 import {
   displayContactInformation,
   formatContactInformation
@@ -15,6 +17,10 @@ import {
 const globalAny: any = global
 
 const UpdateContactInformation = (): ReactElement => {
+  const disableUpdateWebsiteText = !authenticateUser(
+    AdminPermission.UPDATE_WEBSITE_TEXT
+  )
+
   const [args, setArgs] = useState<any>({
     email: null,
     facebook: null,
@@ -54,10 +60,21 @@ const UpdateContactInformation = (): ReactElement => {
   return (
     <>
       <Typography>{`Last Updated At: ${websiteText?.updatedAt}`}</Typography>
-      <Text args={args} setArgs={setArgs} targetProp={'facebook'} />
-      <Text args={args} setArgs={setArgs} targetProp={'instagram'} />
       <Text
         args={args}
+        disabled={disableUpdateWebsiteText}
+        setArgs={setArgs}
+        targetProp={'facebook'}
+      />
+      <Text
+        args={args}
+        disabled={disableUpdateWebsiteText}
+        setArgs={setArgs}
+        targetProp={'instagram'}
+      />
+      <Text
+        args={args}
+        disabled={disableUpdateWebsiteText}
         error={validateFields}
         required={true}
         setArgs={setArgs}
@@ -65,13 +82,14 @@ const UpdateContactInformation = (): ReactElement => {
       />
       <Text
         args={args}
+        disabled={disableUpdateWebsiteText}
         error={validateFields}
         required={true}
         setArgs={setArgs}
         targetProp={'phoneNumber'}
       />
       <Button
-        disabled={updateMutationState.loading}
+        disabled={disableUpdateWebsiteText || updateMutationState.loading}
         onClick={(): void => {
           setValidateFields(true)
           updateMutation()

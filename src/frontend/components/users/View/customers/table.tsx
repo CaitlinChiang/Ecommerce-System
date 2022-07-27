@@ -6,13 +6,17 @@ import { TableCell, TableRow } from '@mui/material'
 import { User } from '../../../../../types/user'
 import { PaginateDataArgs } from '../../../../../types/actions/paginateData'
 import { RefetchDataArgs } from '../../../../../types/actions/refetchData'
+import { AdminPermission } from '../../../../_enums/adminPermission'
 import { SortDirection } from '../../../../_enums/sortDirection'
 import { UserType } from '../../../../_enums/userType'
 import TableComponent from '../../../_common/TableComponent'
 import DeleteButton from '../../../_common/DeleteButton'
+import { authenticateUser } from '../../../../_utils/auth/authenticateUser'
 import { fetchMoreArgs } from '../../../../_utils/handleArgs/returnFetchMoreArgs'
 
 const CustomersTable = (): ReactElement => {
+  const disableDeleteUser = !authenticateUser(AdminPermission.DELETE_USER)
+
   const args: any = { type: UserType.CUSTOMER }
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
     page: 0,
@@ -68,6 +72,7 @@ const CustomersTable = (): ReactElement => {
           <TableCell>
             <DeleteButton
               _id={user._id}
+              disabled={disableDeleteUser}
               label={'User'}
               mutation={deleteMutation}
               refetchArgs={refetchArgs}

@@ -7,15 +7,20 @@ import EditIcon from '@mui/icons-material/Edit'
 import { City } from '../../../../types/city'
 import { PaginateDataArgs } from '../../../../types/actions/paginateData'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
+import { AdminPermission } from '../../../_enums/adminPermission'
 import { SortDirection } from '../../../_enums/sortDirection'
 import TableComponent from '../../_common/TableComponent'
 import ModalComponent from '../../_common/ModalComponent'
+import CreateCity from '../Create'
 import UpdateCity from '../Update'
 import DeleteButton from '../../_common/DeleteButton'
-import CreateCity from '../Create'
+import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
 
 const CitiesTable = (): ReactElement => {
+  const disableUpdateCity = !authenticateUser(AdminPermission.UPDATE_CITY)
+  const disableDeleteCity = !authenticateUser(AdminPermission.DELETE_CITY)
+
   const args: any = {}
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
     page: 0,
@@ -66,6 +71,7 @@ const CitiesTable = (): ReactElement => {
           <TableCell>{`P${city?.shippingFee?.toFixed(2)}`}</TableCell>
           <TableCell>
             <IconButton
+              disabled={disableUpdateCity}
               onClick={(): void => {
                 setCityId(String(city._id))
                 setUpdateModalOpen(true)
@@ -75,6 +81,7 @@ const CitiesTable = (): ReactElement => {
             </IconButton>
             <DeleteButton
               _id={city._id}
+              disabled={disableDeleteCity}
               label={'City & shipping fee'}
               mutation={deleteMutation}
               refetchArgs={refetchArgs}

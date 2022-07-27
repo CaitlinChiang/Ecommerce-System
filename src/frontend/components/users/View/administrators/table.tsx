@@ -6,6 +6,7 @@ import { Button, TableCell, TableRow } from '@mui/material'
 import { User } from '../../../../../types/user'
 import { PaginateDataArgs } from '../../../../../types/actions/paginateData'
 import { RefetchDataArgs } from '../../../../../types/actions/refetchData'
+import { AdminPermission } from '../../../../_enums/adminPermission'
 import { SortDirection } from '../../../../_enums/sortDirection'
 import { UserType } from '../../../../_enums/userType'
 import TableComponent from '../../../_common/TableComponent'
@@ -14,9 +15,13 @@ import UpdateAdminPermissions from '../../Update/adminPermissions'
 import UpdateUserCheckbox from '../../Update/checkbox'
 import DeleteButton from '../../../_common/DeleteButton'
 import AdministratorsTableFilters from './tableFilters'
+import { authenticateUser } from '../../../../_utils/auth/authenticateUser'
 import { fetchMoreArgs } from '../../../../_utils/handleArgs/returnFetchMoreArgs'
 
 const AdministratorsTable = (): ReactElement => {
+  const disableUpdateUser = !authenticateUser(AdminPermission.UPDATE_USER)
+  const disableDeleteUser = !authenticateUser(AdminPermission.DELETE_USER)
+
   const [args, setArgs] = useState<any>({
     active: null,
     type: UserType.ADMINISTRATOR
@@ -76,6 +81,7 @@ const AdministratorsTable = (): ReactElement => {
             <UpdateUserCheckbox
               _id={user._id}
               active={user.active}
+              disabled={disableUpdateUser}
               refetchArgs={refetchArgs}
             />
           </TableCell>
@@ -85,6 +91,7 @@ const AdministratorsTable = (): ReactElement => {
           <TableCell>{user?.phoneNumber}</TableCell>
           <TableCell>
             <Button
+              disabled={disableUpdateUser}
               onClick={(): void => {
                 setUser({ _id: String(user._id), permissions: user?.permissions })
                 setPermissionsModalOpen(true)
@@ -97,6 +104,7 @@ const AdministratorsTable = (): ReactElement => {
           <TableCell>
             <DeleteButton
               _id={user._id}
+              disabled={disableDeleteUser}
               label={'User'}
               mutation={deleteMutation}
               refetchArgs={refetchArgs}
