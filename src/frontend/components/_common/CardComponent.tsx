@@ -13,7 +13,7 @@ const CardComponent = ({
   content: ReactElement
   imageAlt?: string
   imageSource?: string
-  redirectLink?: any
+  redirectLink?: { path: string; url: string }
   width?: number
 }): ReactElement => {
   const router = useRouter()
@@ -24,7 +24,7 @@ const CardComponent = ({
         <Card
           sx={{ ...styles.card, width: width || 250 }}
           onClick={(): void => {
-            router.push(redirectLink)
+            router.push(redirectLink.path, redirectLink.url)
           }}
         >
           {content}
