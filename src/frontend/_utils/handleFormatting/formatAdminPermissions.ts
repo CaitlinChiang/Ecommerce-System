@@ -17,7 +17,20 @@ export const returnAdminPermissions = (): { [key: string]: string[] } => {
 }
 
 export const formatPermissionCategory = (permission: string): string => {
-  return permission.replaceAll('_', ' ')
+  let formatCategory = permission.replaceAll('_', ' ')
+
+  const lastLetter = formatCategory.slice(-1)
+
+  if (lastLetter === 'Y') {
+    const removeLastLetter = formatCategory.slice(0, -1)
+    formatCategory = removeLastLetter + 'IES'
+  }
+
+  if (lastLetter !== 'Y' && lastLetter !== 'S') {
+    formatCategory += 'S'
+  }
+
+  return formatCategory
 }
 
 export const allCategoryPermissions = (
