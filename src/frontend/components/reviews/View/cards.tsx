@@ -11,7 +11,7 @@ import CardsPaginationComponent from '../../_common/CardsPaginationComponent'
 import CreateReview from '../Create'
 import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
 
-const ReviewsCards = ({ featured }: { featured: boolean }): ReactElement => {
+const ReviewCards = ({ featured }: { featured: boolean }): ReactElement => {
   const args: any = { featured: featured ? true : null }
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
     page: 0,
@@ -91,4 +91,4 @@ const ReviewsCards = ({ featured }: { featured: boolean }): ReactElement => {
   )
 }
 
-export default ReviewsCards
+export default ReviewCards

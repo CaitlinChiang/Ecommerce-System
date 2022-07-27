@@ -2,16 +2,16 @@ import { NextPage } from 'next'
 import { ReactElement } from 'react'
 import { Divider } from '@mui/material'
 import HomeSlogan from '../components/websiteTexts/View/homeSlogan'
-import ProductsCards from '../components/products/View/cards'
-import ReviewsCards from '../components/reviews/View/cards'
+import ProductCards from '../components/products/View/cards'
+import ReviewCards from '../components/reviews/View/cards'
 import AboutWriteup from '../components/websiteTexts/View/aboutWriteup'
 import layout from '../layouts/customer'
 
 const Home: NextPage = (): ReactElement => {
   const homePageComponents = [
     <HomeSlogan />,
-    <ProductsCards featured={true} />,
-    <ReviewsCards featured={true} />,
+    <ProductCards featured={true} />,
+    <ReviewCards featured={true} />,
     <AboutWriteup />
   ]
 

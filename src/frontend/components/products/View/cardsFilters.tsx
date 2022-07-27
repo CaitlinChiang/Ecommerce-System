@@ -6,7 +6,7 @@ import { ListItemButton, ListItemText } from '@mui/material'
 import { ProductCategory } from '../../../../types/productCategory'
 import { SortDirection } from '../../../_enums/sortDirection'
 
-const ProductsCardsFilters = ({
+const ProductCardsFilters = ({
   args,
   setArgs
 }: {
@@ -55,4 +55,4 @@ const ProductsCardsFilters = ({
   )
 }
 
-export default ProductsCardsFilters
+export default ProductCardsFilters

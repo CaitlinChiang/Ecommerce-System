@@ -7,13 +7,13 @@ import { PaginateDataArgs } from '../../../../types/actions/paginateData'
 import { SortDirection } from '../../../_enums/sortDirection'
 import { StockQuantityOperator } from '../../../_enums/stockQuantityOperator'
 import CardComponent from '../../_common/CardComponent'
-import ProductsCardsFilters from './cardsFilters'
+import ProductCardsFilters from './cardsFilters'
 import CardsPaginationComponent from '../../_common/CardsPaginationComponent'
 import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
 import { formatToPercentage } from '../../../_utils/handleFormatting/formatToPercentage'
 import { formatDiscountedPrice } from '../../../_utils/handleFormatting/formatDiscountedPrice'
 
-const ProductsCards = ({ featured }: { featured: boolean }): ReactElement => {
+const ProductCards = ({ featured }: { featured: boolean }): ReactElement => {
   const [args, setArgs] = useState<any>({
     categoryIds: [],
     featured: featured ? true : null,
@@ -69,6 +69,10 @@ const ProductsCards = ({ featured }: { featured: boolean }): ReactElement => {
           }
           imageAlt={product?.name + ' Product Image'}
           imageSource={product?.imageUrl}
+          redirectLink={{
+            path: 'products/[productId]',
+            url: `products/${product._id}`
+          }}
         />
       )
     })
@@ -89,7 +93,7 @@ const ProductsCards = ({ featured }: { featured: boolean }): ReactElement => {
             searchPlaceholder={'ex. Jeans for Women'}
             setPaginateDataArgs={setPaginateDataArgs}
           />
-          <ProductsCardsFilters args={args} setArgs={setArgs} />
+          <ProductCardsFilters args={args} setArgs={setArgs} />
         </>
       )}
       {productCards}
@@ -97,4 +101,4 @@ const ProductsCards = ({ featured }: { featured: boolean }): ReactElement => {
   )
 }
 
-export default ProductsCards
+export default ProductCards
