@@ -9,7 +9,7 @@ export default async (
   args: GetCityArgs,
   context: Context
 ): Promise<City[]> => {
-  authenticateUser({ admin: false, context })
+  await authenticateUser({ admin: false, context })
 
   const cities: City[] = await context.database.cities
     .find(queryArgs(args))

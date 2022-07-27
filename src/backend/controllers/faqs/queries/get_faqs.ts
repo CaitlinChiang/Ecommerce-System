@@ -9,7 +9,7 @@ export default async (
   args: GetFAQArgs,
   context: Context
 ): Promise<FAQ[]> => {
-  authenticateUser({ admin: false, context })
+  await authenticateUser({ admin: false, context })
 
   const faqs: FAQ[] = await context.database.faqs
     .find(queryArgs(args))

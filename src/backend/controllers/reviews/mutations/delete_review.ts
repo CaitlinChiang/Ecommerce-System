@@ -11,7 +11,7 @@ export default async (
   args: DeleteReviewArgs,
   context: Context
 ): Promise<Review> => {
-  authenticateUser({
+  await authenticateUser({
     admin: true,
     permission: AdminPermission.DELETE_REVIEW,
     context

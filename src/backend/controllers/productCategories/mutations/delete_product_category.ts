@@ -14,7 +14,7 @@ export default async (
   args: DeleteProductCategoryArgs,
   context: Context
 ): Promise<ProductCategory> => {
-  authenticateUser({
+  await authenticateUser({
     admin: true,
     permission: AdminPermission.DELETE_PRODUCT_CATEGORY,
     context

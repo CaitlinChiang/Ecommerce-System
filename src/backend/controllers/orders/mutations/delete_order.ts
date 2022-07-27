@@ -14,7 +14,7 @@ export default async (
   args: DeleteOrderArgs,
   context: Context
 ): Promise<Order> => {
-  authenticateUser({
+  await authenticateUser({
     admin: true,
     permission: AdminPermission.DELETE_ORDER,
     context

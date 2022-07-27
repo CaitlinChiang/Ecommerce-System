@@ -9,7 +9,7 @@ export default async (
   args: GetAuditLogArgs,
   context: Context
 ): Promise<number> => {
-  authenticateUser({
+  await authenticateUser({
     admin: true,
     permission: AdminPermission.VIEW_AUDIT_LOGS,
     context

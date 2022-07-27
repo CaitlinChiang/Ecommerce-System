@@ -10,7 +10,7 @@ export default async (
   args: GetOrderArgs,
   context: Context
 ): Promise<number> => {
-  authenticateUser({ admin: false, context })
+  await authenticateUser({ admin: false, context })
 
   const modifiedArgs: GetOrderArgs | any = queryArgs(args)
   await searchUser(modifiedArgs, args.paginateData?.searchText, context)

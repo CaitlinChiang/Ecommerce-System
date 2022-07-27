@@ -16,7 +16,7 @@ export default async (
   args: UpdatePaymentMethodArgs,
   context: Context
 ): Promise<PaymentMethod> => {
-  authenticateUser({
+  await authenticateUser({
     admin: true,
     permission: AdminPermission.UPDATE_PAYMENT_METHOD,
     context

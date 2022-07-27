@@ -8,7 +8,7 @@ export default async (
   args: EditItemQuantity,
   context: Context
 ): Promise<Cart> => {
-  authenticateUser({ admin: false, context })
+  await authenticateUser({ admin: false, context })
 
   const cart: any = await context.database.carts.findOneAndUpdate(
     {

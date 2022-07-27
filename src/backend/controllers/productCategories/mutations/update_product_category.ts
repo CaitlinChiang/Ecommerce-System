@@ -16,7 +16,7 @@ export default async (
   args: UpdateProductCategoryArgs,
   context: Context
 ): Promise<ProductCategory> => {
-  authenticateUser({
+  await authenticateUser({
     admin: true,
     permission: AdminPermission.UPDATE_PRODUCT_CATEGORY,
     context

@@ -8,7 +8,7 @@ export default async (
   args: GetPaymentMethodArgs,
   context: Context
 ): Promise<number> => {
-  authenticateUser({ admin: false, context })
+  await authenticateUser({ admin: false, context })
 
   const paymentMethodsCount: any =
     await context.database.paymentMethods.countDocuments(queryArgs(args))

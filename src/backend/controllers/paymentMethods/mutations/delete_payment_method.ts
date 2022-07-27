@@ -14,7 +14,7 @@ export default async (
   args: DeletePaymentMethodArgs,
   context: Context
 ): Promise<PaymentMethod> => {
-  authenticateUser({
+  await authenticateUser({
     admin: true,
     permission: AdminPermission.DELETE_PAYMENT_METHOD,
     context

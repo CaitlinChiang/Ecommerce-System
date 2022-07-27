@@ -15,7 +15,7 @@ export default async (
   args: ResetPasswordArgs,
   context: Context
 ): Promise<User> => {
-  authenticateUser({ admin: false, context })
+  await authenticateUser({ admin: false, context })
 
   await checkIfUserExists({ email: args.email, shouldExist: true, context })
 

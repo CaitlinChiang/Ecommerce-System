@@ -9,7 +9,7 @@ export default async (
   args: GetProductArgs,
   context: Context
 ): Promise<Product[]> => {
-  authenticateUser({ admin: false, context })
+  await authenticateUser({ admin: false, context })
 
   const products: Product[] = await context.database.products
     .find(queryArgs(args))

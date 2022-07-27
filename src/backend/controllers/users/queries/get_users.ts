@@ -10,7 +10,7 @@ export default async (
   args: GetUserArgs,
   context: Context
 ): Promise<User[]> => {
-  authenticateUser({ admin: true, permission: AdminPermission.VIEW_USER, context })
+  await authenticateUser({ admin: true, permission: AdminPermission.VIEW_USER, context })
 
   const users: User[] = await context.database.users
     .find(queryArgs(args))

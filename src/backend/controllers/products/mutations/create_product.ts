@@ -14,7 +14,7 @@ export default async (
   args: CreateProductArgs,
   context: Context
 ): Promise<Product> => {
-  authenticateUser({
+  await authenticateUser({
     admin: true,
     permission: AdminPermission.CREATE_PRODUCT,
     context

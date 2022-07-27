@@ -17,7 +17,7 @@ export default async (
   args: CreateProductVariantArgs,
   context: Context
 ): Promise<ProductVariant> => {
-  authenticateUser({
+  await authenticateUser({
     admin: true,
     permission: AdminPermission.CREATE_PRODUCT_VARIANT,
     context

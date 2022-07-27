@@ -11,7 +11,7 @@ export default async (
   args: GetAnalyticsArgs,
   context: Context
 ): Promise<AnalyticsOrdersCount[]> => {
-  authenticateUser({
+  await authenticateUser({
     admin: true,
     permission: AdminPermission.VIEW_ANALYTICS,
     context

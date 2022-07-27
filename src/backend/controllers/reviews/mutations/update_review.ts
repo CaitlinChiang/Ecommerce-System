@@ -13,7 +13,7 @@ export default async (
   args: UpdateReviewArgs,
   context: Context
 ): Promise<Review> => {
-  authenticateUser({
+  await authenticateUser({
     admin: true,
     permission: AdminPermission.UPDATE_REVIEW,
     context

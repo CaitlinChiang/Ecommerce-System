@@ -8,7 +8,7 @@ export default async (
   args: GetFAQArgs,
   context: Context
 ): Promise<number> => {
-  authenticateUser({ admin: false, context })
+  await authenticateUser({ admin: false, context })
 
   const faqsCount: any = await context.database.faqs.countDocuments(queryArgs(args))
 

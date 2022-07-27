@@ -12,7 +12,7 @@ export default async (
   args: UpdateWebsiteTextArgs,
   context: Context
 ): Promise<WebsiteText> => {
-  authenticateUser({
+  await authenticateUser({
     admin: true,
     permission: AdminPermission.UPDATE_WEBSITE_TEXT,
     context

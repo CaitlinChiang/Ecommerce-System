@@ -14,7 +14,7 @@ export default async (
   args: CreateUserArgs,
   context: Context
 ): Promise<User> => {
-  authenticateUser({ admin: false, context })
+  await authenticateUser({ admin: false, context })
 
   await checkIfUserExists({ email: args.email, context })
 

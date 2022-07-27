@@ -15,7 +15,7 @@ export default async (
   args: DeleteProductArgs,
   context: Context
 ): Promise<Product> => {
-  authenticateUser({
+  await authenticateUser({
     admin: true,
     permission: AdminPermission.DELETE_PRODUCT,
     context

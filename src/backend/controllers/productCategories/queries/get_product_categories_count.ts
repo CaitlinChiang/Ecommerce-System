@@ -8,7 +8,7 @@ export default async (
   args: GetProductCategoryArgs,
   context: Context
 ): Promise<number> => {
-  authenticateUser({ admin: false, context })
+  await authenticateUser({ admin: false, context })
 
   const productCategoriesCount: any =
     await context.database.productCategories.countDocuments(queryArgs(args))

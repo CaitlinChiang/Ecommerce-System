@@ -11,7 +11,7 @@ export default async (
   args: SignInUserArgs,
   context: Context
 ): Promise<string> => {
-  authenticateUser({ admin: false, context })
+  await authenticateUser({ admin: false, context })
 
   await checkIfUserExists({ email: args.email, shouldExist: true, context })
 

@@ -16,7 +16,7 @@ export default async (
   args: UpdateProductArgs,
   context: Context
 ): Promise<Product> => {
-  authenticateUser({
+  await authenticateUser({
     admin: true,
     permission: AdminPermission.UPDATE_PRODUCT,
     context

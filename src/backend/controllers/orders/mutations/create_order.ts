@@ -16,7 +16,7 @@ export default async (
   args: CreateOrderArgs,
   context: Context
 ): Promise<Order> => {
-  authenticateUser({ admin: false, context })
+  await authenticateUser({ admin: false, context })
 
   const { payment, ...remainingArgs } = args
 

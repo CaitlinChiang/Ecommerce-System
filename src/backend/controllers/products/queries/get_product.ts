@@ -8,7 +8,7 @@ export default async (
   args: GetProductArgs,
   context: Context
 ): Promise<Product> => {
-  authenticateUser({ admin: false, context })
+  await authenticateUser({ admin: false, context })
 
   const product: Product = await context.database.products.findOne({
     _id: new ObjectId(args._id)

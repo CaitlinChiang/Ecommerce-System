@@ -8,7 +8,7 @@ export default async (
   args: GetReviewArgs,
   context: Context
 ): Promise<number> => {
-  authenticateUser({ admin: false, context })
+  await authenticateUser({ admin: false, context })
 
   const reviewsCount: any = await context.database.reviews.countDocuments(
     queryArgs(args)

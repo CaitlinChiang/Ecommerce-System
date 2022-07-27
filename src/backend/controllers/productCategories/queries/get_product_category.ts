@@ -11,7 +11,7 @@ export default async (
   args: GetProductCategoryArgs,
   context: Context
 ): Promise<ProductCategory> => {
-  authenticateUser({ admin: true, context })
+  await authenticateUser({ admin: true, context })
 
   const productCategory: ProductCategory =
     await context.database.productCategories.findOne({

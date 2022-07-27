@@ -12,7 +12,7 @@ export default async (
   args: CreateFAQArgs,
   context: Context
 ): Promise<FAQ> => {
-  authenticateUser({ admin: true, permission: AdminPermission.CREATE_FAQ, context })
+  await authenticateUser({ admin: true, permission: AdminPermission.CREATE_FAQ, context })
 
   const faq: any = await context.database.faqs.insertOne(
     mutationArgs(args, MutateAction.CREATE)

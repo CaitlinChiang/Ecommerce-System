@@ -13,7 +13,7 @@ export default async (
   args: UpdateCityArgs,
   context: Context
 ): Promise<City> => {
-  authenticateUser({ admin: true, permission: AdminPermission.UPDATE_CITY, context })
+  await authenticateUser({ admin: true, permission: AdminPermission.UPDATE_CITY, context })
 
   const city: any = await context.database.cities.findOneAndUpdate(
     { _id: new ObjectId(args._id) },

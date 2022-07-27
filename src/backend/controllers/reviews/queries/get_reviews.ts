@@ -9,7 +9,7 @@ export default async (
   args: GetReviewArgs,
   context: Context
 ): Promise<Review[]> => {
-  authenticateUser({ admin: false, context })
+  await authenticateUser({ admin: false, context })
 
   const reviews: Review[] = await context.database.reviews
     .find(queryArgs(args))

@@ -13,7 +13,7 @@ export default async (
   args: UpdateOrderArgs,
   context: Context
 ): Promise<Order> => {
-  authenticateUser({
+  await authenticateUser({
     admin: true,
     permission: AdminPermission.UPDATE_ORDER,
     context

@@ -9,7 +9,7 @@ export default async (
   args: GetPaymentMethodArgs,
   context: Context
 ): Promise<PaymentMethod[]> => {
-  authenticateUser({ admin: false, context })
+  await authenticateUser({ admin: false, context })
 
   const paymentMethods: PaymentMethod[] = await context.database.paymentMethods
     .find(queryArgs(args))
