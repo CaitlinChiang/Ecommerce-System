@@ -23,10 +23,12 @@ export const correctArgs = ({
 
     if (isValueArray(val) && val !== null) {
       val.forEach((item: any, index: number) => {
-        Object.keys(item).forEach((nestedKey: string) =>
-          modifyArgs(nestedKey, item, mutation)
-        )
-        deleteObject(args, key[index])
+        if (typeof item === 'object') {
+          Object.keys(item).forEach((nestedKey: string) =>
+            modifyArgs(nestedKey, item, mutation)
+          )
+          deleteObject(args, key[index])
+        }
       })
     }
   })
