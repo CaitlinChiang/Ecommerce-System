@@ -21,15 +21,18 @@ const Page = (): ReactElement => {
   const rows = [
     {
       title: 'Home Page Slogan',
-      content: <UpdateHomeSlogan />
+      content: <UpdateHomeSlogan />,
+      permission: AdminPermission.VIEW_WEBSITE_TEXT
     },
     {
       title: 'About Page Write-up',
-      content: <UpdateAboutWriteup />
+      content: <UpdateAboutWriteup />,
+      permission: AdminPermission.VIEW_WEBSITE_TEXT
     },
     {
       title: 'Contact Information',
-      content: <UpdateContactInformation />
+      content: <UpdateContactInformation />,
+      permission: AdminPermission.VIEW_WEBSITE_TEXT
     },
     {
       title: 'Product Categories',
@@ -49,8 +52,9 @@ const Page = (): ReactElement => {
   ]
 
   const authenticatedRows = rows.map((row: any) => {
-    if (row?.permission && !authenticateUser(row?.permission)) return
-    return { title: row.title, content: row.content }
+    if (authenticateUser(row.permission)) {
+      return { title: row.title, content: row.content }
+    }
   })
 
   return (
