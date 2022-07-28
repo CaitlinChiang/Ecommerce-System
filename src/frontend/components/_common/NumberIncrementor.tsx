@@ -7,12 +7,14 @@ import { correctArgs } from '../../_utils/handleArgs/correctArgs'
 
 const NumberIncrementor = ({
   args,
+  setArgs,
   targetProp,
   updateMutation
 }: {
   args: any
+  setArgs?: React.Dispatch<React.SetStateAction<any>>
   targetProp: string
-  updateMutation: any
+  updateMutation?: any
 }): ReactElement => {
   const changeQuantity = (action: QuantityChange) => {
     let val = args[targetProp]
@@ -25,7 +27,13 @@ const NumberIncrementor = ({
         val = args[targetProp] - 1
     }
 
-    updateMutation({ variables: { ...correctArgs(args), [targetProp]: val } })
+    if (setArgs) {
+      setArgs({ ...args, [targetProp]: val })
+    }
+
+    if (updateMutation) {
+      updateMutation({ variables: { ...correctArgs(args), [targetProp]: val } })
+    }
   }
 
   return (
@@ -35,7 +43,7 @@ const NumberIncrementor = ({
       </IconButton>
       <Typography>{args[targetProp]}</Typography>
       <IconButton
-        disabled={args[targetProp] == 0}
+        disabled={args[targetProp] === 0}
         onClick={(): void => changeQuantity(QuantityChange.DECREMENT)}
       >
         <IndeterminateCheckBoxIcon />
