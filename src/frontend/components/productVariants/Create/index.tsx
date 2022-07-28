@@ -43,9 +43,11 @@ const CreateProductVariant = ({
 
   useEffect(() => {
     setArgs({
+      _productId,
       discount: formatToPercentage(product?.discount),
       expirationDate: product?.expirationDate,
-      price: product?.price
+      price: product?.price,
+      showPublic: product?.showPublic
     })
   }, [data])
 
@@ -84,7 +86,6 @@ const CreateProductVariant = ({
       <Text
         args={args}
         placeholder={'ex. 20%'}
-        required={true}
         setArgs={setArgs}
         targetProp={'discount'}
       />
@@ -106,6 +107,7 @@ const CreateProductVariant = ({
         disabled={createMutationState.loading}
         onClick={(): void => {
           setValidateFields(true)
+          console.log(args)
           createMutation()
         }}
       >

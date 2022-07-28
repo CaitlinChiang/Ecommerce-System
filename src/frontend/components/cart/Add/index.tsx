@@ -10,7 +10,7 @@ import ModalComponent from '../../_common/ModalComponent'
 
 const globalAny: any = global
 
-const AddCartItem = ({ args }: { args: AddCartItemArgs }): ReactElement => {
+const AddCartItem = ({ item }: { item: AddCartItemArgs }): ReactElement => {
   const router = useRouter()
 
   const [modalOpen, setModalOpen] = useState<boolean>(false)
@@ -20,7 +20,7 @@ const AddCartItem = ({ args }: { args: AddCartItemArgs }): ReactElement => {
   const user: User = data?.get_user || {}
 
   const [updateMutation, updateMutationState] = useMutation(mutation, {
-    variables: { item: args },
+    variables: { item },
     onCompleted: () => {
       globalAny.setNotification(true, 'Item added to cart!')
     }
