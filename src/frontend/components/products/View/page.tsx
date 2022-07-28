@@ -4,6 +4,7 @@ import { GetProduct } from './query'
 import styles from '../../../styles/products'
 import { Box, Typography } from '@mui/material'
 import { Product } from '../../../../types/product'
+import ProductVariantCards from '../../productVariants/View/cards'
 import { formatToPercentage } from '../../../_utils/handleFormatting/formatToPercentage'
 import { formatDiscountedPrice } from '../../../_utils/handleFormatting/formatDiscountedPrice'
 import { formatNumber } from '../../../_utils/handleFormatting/formatNumber'
@@ -40,6 +41,7 @@ const ProductPage = ({ _id }: { _id: string }): ReactElement => {
         src={product?.imageUrl}
         sx={styles.image}
       />
+      <ProductVariantCards _productId={product._id} />
     </>
   )
 }
