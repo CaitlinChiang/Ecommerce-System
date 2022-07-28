@@ -10,8 +10,8 @@ import CardComponent from '../../_common/CardComponent'
 import ProductCardsFilters from './cardsFilters'
 import CardsPaginationComponent from '../../_common/CardsPaginationComponent'
 import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
-import { formatToPercentage } from '../../../_utils/handleFormatting/formatToPercentage'
 import { formatDiscountedPrice } from '../../../_utils/handleFormatting/formatDiscountedPrice'
+import { formatToPercentage } from '../../../_utils/handleFormatting/formatToPercentage'
 
 const ProductCards = ({ featured }: { featured: boolean }): ReactElement => {
   const [args, setArgs] = useState<any>({
@@ -60,18 +60,18 @@ const ProductCards = ({ featured }: { featured: boolean }): ReactElement => {
               </Typography>
               {product?.discount && (
                 <Typography>
-                  {'P' + product?.price?.toFixed(2)}
-                  {' -'}
-                  {formatToPercentage(product?.discount)}
+                  {`P${product?.price?.toFixed(2)} -${formatToPercentage(
+                    product?.discount
+                  )}`}
                 </Typography>
               )}
             </>
           }
-          imageAlt={product?.name + ' Product Image'}
+          imageAlt={`${product?.name} Product Image`}
           imageSource={product?.imageUrl}
           redirectLink={{
-            path: 'products/[productId]',
-            url: `products/${product._id}`
+            path: 'shop/[productId]',
+            url: `shop/${product._id}`
           }}
         />
       )
