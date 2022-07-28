@@ -30,6 +30,7 @@ const ProductVariantCards = ({
           content={<Typography>{productVariant?.name}</Typography>}
           imageAlt={`${productVariant?.name} Product Variant Image`}
           imageSource={productVariant?.imageUrl}
+          productVariantId={String(productVariant._id)}
         />
       )
     })
