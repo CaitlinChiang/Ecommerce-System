@@ -34,7 +34,7 @@ const UpdateProductVariant = ({ _id }: { _id: string }): ReactElement => {
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
-  const { data } = useQuery(GetProductVariant, { variables: { _id } })
+  const { data } = useQuery(GetProductVariant, { skip: !_id, variables: { _id } })
 
   const productVariant: ProductVariant = data?.get_product_variant || {}
 
@@ -56,7 +56,7 @@ const UpdateProductVariant = ({ _id }: { _id: string }): ReactElement => {
     variables: {
       ...correctArgs(args),
       discount: formatFromPercentage(args?.discount),
-      imageUrl: args?.imageUrl?.contains('products/') ? null : args?.imageUrl,
+      imageUrl: args?.imageUrl?.includes('products/') ? null : args?.imageUrl,
       price: formatFee(args?.price),
       stockQuantity: args?.stockQuantity ? Math.round(args.stockQuantity) : null
     },
