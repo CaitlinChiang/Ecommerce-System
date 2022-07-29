@@ -36,6 +36,7 @@ export const GetProductVariants = gql`
       _id
       discount
       expirationDate
+      imageUrl
       name
       price
       stockQuantity
