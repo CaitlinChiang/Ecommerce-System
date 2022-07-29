@@ -40,7 +40,7 @@ const UpdateProduct = ({
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
-  const { data, refetch } = useQuery(GetProduct, { variables: { _id } })
+  const { data, refetch } = useQuery(GetProduct, { skip: !_id, variables: { _id } })
 
   const product: Product = data?.get_product || {}
 

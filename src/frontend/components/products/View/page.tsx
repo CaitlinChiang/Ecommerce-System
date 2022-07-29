@@ -25,9 +25,11 @@ const ProductPage = ({ _id }: { _id: string }): ReactElement => {
   }
 
   const { data: ProductData } = useQuery(GetProduct, {
+    skip: !_id,
     variables: { _id }
   })
   const { data: ProductVariantData } = useQuery(GetProductVariant, {
+    skip: !productVariantId,
     variables: { _id: productVariantId }
   })
 

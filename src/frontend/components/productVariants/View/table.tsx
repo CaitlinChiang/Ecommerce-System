@@ -62,6 +62,7 @@ const ProductVariantsTable = ({
   })
 
   const { data, loading, fetchMore, refetch } = useQuery(GetProductVariants, {
+    skip: !_productId,
     variables: {
       _productId,
       ...args,

@@ -15,6 +15,7 @@ const ProductVariantCards = ({
   const args: any = { _productId, showPublic: true }
 
   const { data } = useQuery(GetProductVariants, {
+    skip: !_productId,
     variables: {
       ...args,
       paginateData: { sortBy: 'name', sortDirection: SortDirection.ASC }

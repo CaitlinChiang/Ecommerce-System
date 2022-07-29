@@ -37,7 +37,10 @@ const CreateProductVariant = ({
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
-  const { data } = useQuery(GetProduct, { variables: { _id: _productId } })
+  const { data } = useQuery(GetProduct, {
+    skip: !_productId,
+    variables: { _id: _productId }
+  })
 
   const product: Product = data?.get_product || {}
 
