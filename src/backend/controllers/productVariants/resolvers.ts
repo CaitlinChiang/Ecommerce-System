@@ -19,12 +19,12 @@ export default {
       args: undefined,
       context: Context
     ): Promise<string> => {
-      if (productVariant?.imageUrl?.length == 0) {
-        const product: Product = await context.dataloaders.products.byId.load(
-          productVariant._productId
-        )
-        return product.imageUrl
-      }
+      if (productVariant?.imageUrl) return productVariant.imageUrl
+
+      const product: Product = await context.dataloaders.products.byId.load(
+        productVariant._productId
+      )
+      return product.imageUrl
     },
 
     updatedAt: async (productVariant: ProductVariant): Promise<string> => {
