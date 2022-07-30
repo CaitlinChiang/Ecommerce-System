@@ -5,6 +5,7 @@ import { GetCity } from '../../cities/View/query'
 import { Divider, Typography } from '@mui/material'
 import { Cart, CartItem } from '../../../../types/cart'
 import { City } from '../../../../types/city'
+import { formatPrice } from '../../../_utils/handleFormatting/formatPrice'
 
 const OrderSummary = (): ReactElement => {
   const { data: cartData } = useQuery(GetCart)
@@ -23,22 +24,18 @@ const OrderSummary = (): ReactElement => {
             <Typography>{product?.name}</Typography>
             <Typography>{productVariant?.name}</Typography>
             <Typography>{`Qty: ${quantity}`}</Typography>
-            <Typography>{`P${totalPrice?.toFixed(2)}`}</Typography>
+            <Typography>{`P${formatPrice(totalPrice)}`}</Typography>
             <Divider />
           </>
         )
       })}
       <Typography>
-        {`Subtotal (${cart?.quantity} items) P${cart?.totalPrice?.toFixed(2)}`}
+        {`Subtotal (${cart?.quantity} items) P${formatPrice(cart?.totalPrice)}`}
       </Typography>
-      <Typography>
-        {`Shipping Fee P${city?.shippingFee?.toFixed(2) || '0.00'}`}
-      </Typography>
+      <Typography>{`Shipping Fee P${formatPrice(city?.shippingFee)}`}</Typography>
       <Divider />
       <Typography>
-        {`Total Amount Due P${(cart?.totalPrice + city?.shippingFee || 0)?.toFixed(
-          2
-        )}`}
+        {`Total Amount Due P${formatPrice(cart?.totalPrice + city?.shippingFee)})}`}
       </Typography>
     </>
   )

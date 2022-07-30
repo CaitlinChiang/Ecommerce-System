@@ -15,6 +15,7 @@ import DeleteButton from '../../_common/DeleteButton'
 import ProductsTableFilters from './tableFilters'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
+import { formatPrice } from '../../../_utils/handleFormatting/formatPrice'
 import { formatToPercentage } from '../../../_utils/handleFormatting/formatToPercentage'
 
 const ProductsTable = (): ReactElement => {
@@ -97,7 +98,7 @@ const ProductsTable = (): ReactElement => {
         <TableRow>
           <TableCell>{product?.name}</TableCell>
           <TableCell>{product?.category}</TableCell>
-          <TableCell>{'P' + product?.price?.toFixed(2)}</TableCell>
+          <TableCell>{`P${formatPrice(product?.price)}`}</TableCell>
           <TableCell>{formatToPercentage(product?.discount) || '-'}</TableCell>
           <TableCell>{product?.stockQuantity}</TableCell>
           <TableCell>{String(product?.expirationDate || '-')}</TableCell>

@@ -14,6 +14,7 @@ import {
 import { Cart, CartItem } from '../../../../types/cart'
 import EditItemQuantity from '../EditQuantity'
 import RemoveCartItem from '../Remove'
+import { formatPrice } from '../../../_utils/handleFormatting/formatPrice'
 
 const Cart = (): ReactElement => {
   const router = useRouter()
@@ -45,7 +46,7 @@ const Cart = (): ReactElement => {
               />
               <Typography>{product?.name}</Typography>
               <Typography>{productVariant?.name}</Typography>
-              <Typography>{`P${totalPrice?.toFixed(2)}`}</Typography>
+              <Typography>{`P${formatPrice(totalPrice)}`}</Typography>
               <EditItemQuantity
                 productId={product?._id}
                 productVariantId={productVariant?._id}
@@ -61,12 +62,12 @@ const Cart = (): ReactElement => {
             </>
           )
         })}
-        <Typography>{`Total  P${cart?.totalPrice?.toFixed(2)}`}</Typography>
+        <Typography>{`Total  P${formatPrice(cart?.totalPrice)}`}</Typography>
       </Container>
       <Container sx={styles.bottomContainer}>
         <Typography>{'Total'}</Typography>
         <Typography>{`Quantity: ${cart?.quantity}`}</Typography>
-        <Typography>{`Amount Due P${cart?.totalPrice?.toFixed(2)}`}</Typography>
+        <Typography>{`Amount Due P${formatPrice(cart?.totalPrice)}`}</Typography>
         <Button
           color={'primary'}
           onClick={(): void => {

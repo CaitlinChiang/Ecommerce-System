@@ -15,6 +15,7 @@ import DeleteButton from '../../_common/DeleteButton'
 import ProductVariantsTableFilters from './tableFilters'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
+import { formatPrice } from '../../../_utils/handleFormatting/formatPrice'
 import { formatToPercentage } from '../../../_utils/handleFormatting/formatToPercentage'
 
 const ProductVariantsTable = ({
@@ -103,7 +104,7 @@ const ProductVariantsTable = ({
       return (
         <TableRow>
           <TableCell>{productVariant?.name}</TableCell>
-          <TableCell>{`P${productVariant?.price?.toFixed(2)}`}</TableCell>
+          <TableCell>{`P${formatPrice(productVariant?.price)}`}</TableCell>
           <TableCell>
             {formatToPercentage(productVariant?.discount) || '-'}
           </TableCell>

@@ -19,6 +19,7 @@ import OrderLogsTable from '../../../auditLogs/View/orderLogsTable'
 import OrdersTableFilters from './tableFilters'
 import { authenticateUser } from '../../../../_utils/auth/authenticateUser'
 import { fetchMoreArgs } from '../../../../_utils/handleArgs/returnFetchMoreArgs'
+import { formatPrice } from '../../../../_utils/handleFormatting/formatPrice'
 
 const OrdersTable = (): ReactElement => {
   const disableUpdateOrder = !authenticateUser(AdminPermission.UPDATE_ORDER)
@@ -139,9 +140,9 @@ const OrdersTable = (): ReactElement => {
             />
           </TableCell>
           <TableCell>
-            {`Amount Due: P${order?.payment?.amountDue?.toFixed(2) || '0.00'}`}
+            {`Amount Due: P${formatPrice(order?.payment?.amountDue)}`}
             <br />
-            {`Shipping Fee: P${order?.payment?.shippingFee?.toFixed(2) || '0.00'}`}
+            {`Shipping Fee: P${formatPrice(order?.payment?.shippingFee)}`}
           </TableCell>
           <TableCell>
             <UpdatePaymentSelect

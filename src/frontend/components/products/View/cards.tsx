@@ -11,6 +11,7 @@ import ProductCardsFilters from './cardsFilters'
 import CardsPaginationComponent from '../../_common/CardsPaginationComponent'
 import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
 import { formatDiscountedPrice } from '../../../_utils/handleFormatting/formatDiscountedPrice'
+import { formatPrice } from '../../../_utils/handleFormatting/formatPrice'
 import { formatToPercentage } from '../../../_utils/handleFormatting/formatToPercentage'
 
 const ProductCards = ({ featured }: { featured: boolean }): ReactElement => {
@@ -60,9 +61,7 @@ const ProductCards = ({ featured }: { featured: boolean }): ReactElement => {
               </Typography>
               {product?.discount && (
                 <Typography>
-                  {`P${product?.price?.toFixed(2)} -${formatToPercentage(
-                    product?.discount
-                  )}`}
+                  {`P${product?.price} -${formatToPercentage(product?.discount)}`}
                 </Typography>
               )}
             </>

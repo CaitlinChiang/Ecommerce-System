@@ -10,6 +10,7 @@ import { OrderStatus } from '../../../../_enums/orderStatus'
 import TableComponent from '../../../_common/TableComponent'
 import OrdersTableFilters from './tableFilters'
 import { fetchMoreArgs } from '../../../../_utils/handleArgs/returnFetchMoreArgs'
+import { formatPrice } from '../../../../_utils/handleFormatting/formatPrice'
 
 const OrdersTable = (): ReactElement => {
   const [args, setArgs] = useState<any>({
@@ -54,7 +55,7 @@ const OrdersTable = (): ReactElement => {
             <TableCell>{String(order?.createdAt).substring(0, 10)}</TableCell>
             <TableCell>{productVariant?.name || product?.name}</TableCell>
             <TableCell>{quantity}</TableCell>
-            <TableCell>{`P${totalPrice?.toFixed(2)}`}</TableCell>
+            <TableCell>{`P${formatPrice(totalPrice)}`}</TableCell>
             <TableCell>{order?.status}</TableCell>
             <TableCell>{order?.payment?.paymentMethod?.name}</TableCell>
             <TableCell>{order?.collectionMethod}</TableCell>

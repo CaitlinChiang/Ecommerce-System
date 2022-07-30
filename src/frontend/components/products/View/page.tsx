@@ -12,6 +12,7 @@ import AddCartItem from '../../cart/Add'
 import { formatToPercentage } from '../../../_utils/handleFormatting/formatToPercentage'
 import { formatDiscountedPrice } from '../../../_utils/handleFormatting/formatDiscountedPrice'
 import { formatNumber } from '../../../_utils/handleFormatting/formatNumber'
+import { formatPrice } from '../../../_utils/handleFormatting/formatPrice'
 import { calculateTotalPrice } from '../../../_utils/handleData/calculateTotalPrice'
 
 const globalAny: any = global
@@ -46,7 +47,7 @@ const ProductPage = ({ _id }: { _id: string }): ReactElement => {
       <Typography>{formatDiscountedPrice(item?.discount, item?.price)}</Typography>
       {item?.discount && (
         <Typography>
-          {`P${item?.price?.toFixed(2)} -${formatToPercentage(item?.discount)}`}
+          {`P${formatPrice(item?.price)} -${formatToPercentage(item?.discount)}`}
         </Typography>
       )}
       <Typography>{`Stock: ${formatNumber(item?.stockQuantity)} Left`}</Typography>
