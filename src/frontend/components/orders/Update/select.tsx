@@ -31,20 +31,18 @@ const UpdateOrderSelect = ({
   })
 
   return (
-    <>
-      <SelectField
-        args={args}
-        disabled={disabled || updateMutationState.loading}
-        error={!args.status}
-        label={'Order Status'}
-        options={Object.keys(OrderStatus).map((status) => {
-          return { label: status, status: status }
-        })}
-        setArgs={setArgs}
-        targetProp={'status'}
-        updateMutation={updateMutation}
-      />
-    </>
+    <SelectField
+      args={args}
+      disabled={disabled || updateMutationState.loading}
+      error={!args.status}
+      label={'Order Status'}
+      options={Object.keys(OrderStatus).map((status) => {
+        return { label: status, status: status }
+      })}
+      setArgs={setArgs}
+      targetProp={'status'}
+      updateMutation={updateMutation}
+    />
   )
 }
 

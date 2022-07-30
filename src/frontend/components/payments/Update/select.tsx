@@ -31,20 +31,18 @@ const UpdatePaymentSelect = ({
   })
 
   return (
-    <>
-      <SelectField
-        args={args}
-        error={!args.status}
-        disabled={disabled || updateMutationState.loading}
-        label={'Payment Status'}
-        options={Object.keys(PaymentStatus).map((status) => {
-          return { label: status, status: status }
-        })}
-        setArgs={setArgs}
-        targetProp={'status'}
-        updateMutation={updateMutation}
-      />
-    </>
+    <SelectField
+      args={args}
+      error={!args.status}
+      disabled={disabled || updateMutationState.loading}
+      label={'Payment Status'}
+      options={Object.keys(PaymentStatus).map((status) => {
+        return { label: status, status: status }
+      })}
+      setArgs={setArgs}
+      targetProp={'status'}
+      updateMutation={updateMutation}
+    />
   )
 }
 
