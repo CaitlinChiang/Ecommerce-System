@@ -7,26 +7,28 @@ export const returnCartItems = async (
   items: CartItem[],
   context: Context
 ): Promise<CartItem[]> => {
-  const cartItems: any = items?.map(async (item: CartItem): Promise<CartItem> => {
+  const cartItems: CartItem[] = []
+
+  for (let i = 0; i < items.length; i++) {
     const product: Product = await context.dataloaders.products.byId.load(
-      item.productId
+      items[i].productId
     )
 
-    let productVariant: ProductVariant = {}
+    let productVariant: ProductVariant = null
 
-    if (item?.productVariantId) {
+    if (items[i]?.productVariantId) {
       productVariant = await context.dataloaders.productVariants.byId.load(
-        item?.productVariantId
+        items[i]?.productVariantId
       )
     }
 
-    return {
+    cartItems.push({
       product,
       productVariant,
-      quantity: item?.quantity,
-      totalPrice: parseFloat(Number(item?.totalPrice).toFixed(2))
-    }
-  })
+      quantity: items[i]?.quantity,
+      totalPrice: parseFloat(Number(items[i]?.totalPrice).toFixed(2))
+    })
+  }
 
   return cartItems
 }
