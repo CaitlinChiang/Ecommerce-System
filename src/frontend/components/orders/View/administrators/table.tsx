@@ -3,7 +3,6 @@ import { useQuery } from '@apollo/client'
 import { GetOrders } from '../query'
 import deleteMutation from '../../Delete/mutation'
 import { Button, TableCell, TableRow, Typography } from '@mui/material'
-import { CartItem } from '../../../../../types/cart'
 import { Order } from '../../../../../types/order'
 import { PaginateDataArgs } from '../../../../../types/actions/paginateData'
 import { RefetchDataArgs } from '../../../../../types/actions/refetchData'
@@ -15,6 +14,7 @@ import ModalComponent from '../../../_common/ModalComponent'
 import UpdateOrderSelect from '../../Update/select'
 import UpdatePaymentSelect from '../../../payments/Update/select'
 import DeleteButton from '../../../_common/DeleteButton'
+import OrderItemsTable from './orderItemsTable'
 import OrderLogsTable from '../../../auditLogs/View/orderLogsTable'
 import OrdersTableFilters from './tableFilters'
 import { authenticateUser } from '../../../../_utils/auth/authenticateUser'
@@ -202,17 +202,7 @@ const OrdersTable = (): ReactElement => {
         title={'Address'}
       />
       <ModalComponent
-        content={showOrderItems?.items?.map((item: CartItem) => {
-          const { product, productVariant, quantity } = item
-          return (
-            <Typography>
-              {quantity > 9 ? quantity : '0' + quantity}
-              {' - '}
-              {product?.name}
-              {productVariant?.name && ` [${productVariant?.name}]`}
-            </Typography>
-          )
-        })}
+        content={<OrderItemsTable items={showOrderItems?.items} />}
         onClose={(): void => setShowOrderItems({ open: false })}
         open={showOrderItems.open}
         title={'Order Items'}
