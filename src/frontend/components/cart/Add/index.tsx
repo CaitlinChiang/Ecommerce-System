@@ -23,6 +23,7 @@ const AddCartItem = ({ args }: { args: AddCartItemArgs }): ReactElement => {
     variables: { item: args.item },
     onCompleted: () => {
       globalAny.setNotification(true, 'Item added to cart!')
+      globalAny.updateCartQuantity()
     },
     onError: (error) => globalAny.setNotification(false, error.message)
   })

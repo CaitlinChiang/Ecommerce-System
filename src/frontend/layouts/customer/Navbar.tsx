@@ -1,4 +1,4 @@
-import { ReactElement, useState, useEffect } from 'react'
+import { ReactElement, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useQuery } from '@apollo/client'
 import { GetCart } from '../query'
@@ -18,19 +18,20 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import { Cart } from '../../../types/cart'
 import ContactInformation from '../../components/websiteTexts/View/contactInformation'
 
+const globalAny: any = global
+
 const Navbar = (): ReactElement => {
   const router = useRouter()
 
   const [openContactInfo, setOpenContactInfo] = useState<boolean>(false)
-  const [cartQuantity, setCartQuantity] = useState<number>(0)
 
-  const { data } = useQuery(GetCart)
+  const { data, refetch } = useQuery(GetCart)
 
   const cart: Cart = data?.get_cart || {}
 
-  useEffect(() => {
-    setCartQuantity(cart?.quantity)
-  }, [data])
+  globalAny.updateCartQuantity = (): void => {
+    refetch()
+  }
 
   const shoppingMenu = [
     { label: 'Home', route: '/' },
@@ -43,7 +44,7 @@ const Navbar = (): ReactElement => {
   const trackingMenu = [
     {
       icon: (
-        <Badge badgeContent={cartQuantity} color={'secondary'}>
+        <Badge badgeContent={cart?.quantity} color={'secondary'}>
           <ShoppingCartIcon />
         </Badge>
       ),
@@ -59,15 +60,24 @@ const Navbar = (): ReactElement => {
         <Typography sx={styles.typography}>{'Company Logo'}</Typography>
         <List sx={styles.list}>
           {shoppingMenu.map((menuItem, index): ReactElement => {
+            if (!menuItem.route) {
+              return (
+                <ListItemButton
+                  key={index}
+                  onClick={(): any => {
+                    setOpenContactInfo(!openContactInfo)
+                  }}
+                >
+                  <ListItemText primary={menuItem.label.toUpperCase()} />
+                </ListItemButton>
+              )
+            }
+
             return (
               <ListItemButton
                 key={index}
                 onClick={(): any => {
-                  if (menuItem.route) {
-                    router.push(menuItem.route)
-                  } else {
-                    setOpenContactInfo(!openContactInfo)
-                  }
+                  router.push(menuItem.route)
                 }}
               >
                 <ListItemText primary={menuItem.label.toUpperCase()} />
