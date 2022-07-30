@@ -8,25 +8,23 @@ const EditItemQuantity = ({
   productId,
   productVariantId,
   quantity,
-  refetch
+  setCart
 }: {
   productId?: ObjectId
   productVariantId?: ObjectId
   quantity: number
-  refetch: any
+  setCart: any
 }): ReactElement => {
-  const updateMutation = useMutation(mutation, {
-    onCompleted: () => refetch()
+  const [updateMutation] = useMutation(mutation, {
+    onCompleted: (data) => setCart(data.edit_item_quantity)
   })
 
   return (
-    <>
-      <NumberIncrementor
-        args={{ productId, productVariantId, quantity }}
-        targetProp={'quantity'}
-        updateMutation={updateMutation}
-      />
-    </>
+    <NumberIncrementor
+      args={{ productId, productVariantId, quantity }}
+      targetProp={'quantity'}
+      updateMutation={updateMutation}
+    />
   )
 }
 

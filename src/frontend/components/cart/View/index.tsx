@@ -1,4 +1,4 @@
-import { ReactElement } from 'react'
+import { ReactElement, useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useQuery } from '@apollo/client'
 import { GetCart } from './query'
@@ -18,9 +18,15 @@ import RemoveCartItem from '../Remove'
 const Cart = (): ReactElement => {
   const router = useRouter()
 
+  const [cart, setCart] = useState<Cart>(null)
+
   const { data, loading, refetch } = useQuery(GetCart)
 
-  const cart: Cart = data?.get_cart || {}
+  const cartData: Cart = data?.get_cart || {}
+
+  useEffect(() => {
+    setCart(cartData)
+  }, [data])
 
   if (loading) return <CircularProgress />
 
@@ -44,7 +50,7 @@ const Cart = (): ReactElement => {
                 productId={product?._id}
                 productVariantId={productVariant?._id}
                 quantity={quantity}
-                refetch={refetch}
+                setCart={setCart}
               />
               <RemoveCartItem
                 productId={product?._id}
@@ -59,8 +65,8 @@ const Cart = (): ReactElement => {
       </Container>
       <Container sx={styles.bottomContainer}>
         <Typography>{'Total'}</Typography>
-        <Typography>{'Quantity ' + cart?.quantity}</Typography>
-        <Typography>{'Amount Due P' + cart?.totalPrice}</Typography>
+        <Typography>{`Quantity: ${cart?.quantity}`}</Typography>
+        <Typography>{`Amount Due P${cart?.totalPrice?.toFixed(2)}`}</Typography>
         <Button
           color={'primary'}
           onClick={(): void => {
