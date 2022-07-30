@@ -5,6 +5,7 @@ import { GetCity } from '../../cities/View/query'
 import { Divider, Typography } from '@mui/material'
 import { Cart, CartItem } from '../../../../types/cart'
 import { City } from '../../../../types/city'
+import { formatNumber } from '../../../_utils/handleFormatting/formatNumber'
 import { formatPrice } from '../../../_utils/handleFormatting/formatPrice'
 
 const OrderSummary = (): ReactElement => {
@@ -23,14 +24,16 @@ const OrderSummary = (): ReactElement => {
           <>
             <Typography>{product?.name}</Typography>
             <Typography>{productVariant?.name}</Typography>
-            <Typography>{`Qty: ${quantity}`}</Typography>
+            <Typography>{`Qty: ${formatNumber(quantity)}`}</Typography>
             <Typography>{`P${formatPrice(totalPrice)}`}</Typography>
             <Divider />
           </>
         )
       })}
       <Typography>
-        {`Subtotal (${cart?.quantity} items) P${formatPrice(cart?.totalPrice)}`}
+        {`Subtotal (${formatNumber(cart?.quantity)} items) P${formatPrice(
+          cart?.totalPrice
+        )}`}
       </Typography>
       <Typography>{`Shipping Fee P${formatPrice(city?.shippingFee)}`}</Typography>
       <Divider />

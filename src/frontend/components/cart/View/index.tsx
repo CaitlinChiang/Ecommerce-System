@@ -14,6 +14,7 @@ import {
 import { Cart, CartItem } from '../../../../types/cart'
 import EditItemQuantity from '../EditQuantity'
 import RemoveCartItem from '../Remove'
+import { formatNumber } from '../../../_utils/handleFormatting/formatNumber'
 import { formatPrice } from '../../../_utils/handleFormatting/formatPrice'
 
 const Cart = (): ReactElement => {
@@ -66,7 +67,7 @@ const Cart = (): ReactElement => {
       </Container>
       <Container sx={styles.bottomContainer}>
         <Typography>{'Total'}</Typography>
-        <Typography>{`Quantity: ${cart?.quantity}`}</Typography>
+        <Typography>{`Quantity: ${formatNumber(cart?.quantity)}`}</Typography>
         <Typography>{`Amount Due P${formatPrice(cart?.totalPrice)}`}</Typography>
         <Button
           color={'primary'}

@@ -17,6 +17,7 @@ import ReceiptIcon from '@mui/icons-material/Receipt'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import { Cart } from '../../../types/cart'
 import ContactInformation from '../../components/websiteTexts/View/contactInformation'
+import { formatNumber } from '../../_utils/handleFormatting/formatNumber'
 
 const globalAny: any = global
 
@@ -44,7 +45,7 @@ const Navbar = (): ReactElement => {
   const trackingMenu = [
     {
       icon: (
-        <Badge badgeContent={cart?.quantity} color={'secondary'}>
+        <Badge badgeContent={formatNumber(cart?.quantity)} color={'secondary'}>
           <ShoppingCartIcon />
         </Badge>
       ),
