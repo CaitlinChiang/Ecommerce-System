@@ -3,7 +3,14 @@ import { useRouter } from 'next/router'
 import { useQuery } from '@apollo/client'
 import { GetCart } from './query'
 import styles from '../../../styles/cart'
-import { Box, Button, Container, Divider, Typography } from '@mui/material'
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Container,
+  Divider,
+  Typography
+} from '@mui/material'
 import { Cart, CartItem } from '../../../../types/cart'
 import EditItemQuantity from '../EditQuantity'
 import RemoveCartItem from '../Remove'
@@ -11,9 +18,11 @@ import RemoveCartItem from '../Remove'
 const Cart = (): ReactElement => {
   const router = useRouter()
 
-  const { data, refetch } = useQuery(GetCart)
+  const { data, loading, refetch } = useQuery(GetCart)
 
   const cart: Cart = data?.get_cart || {}
+
+  if (loading) return <CircularProgress />
 
   return (
     <>
@@ -32,14 +41,14 @@ const Cart = (): ReactElement => {
               <Typography>{productVariant?.name}</Typography>
               <Typography>{`P${totalPrice?.toFixed(2)}`}</Typography>
               <EditItemQuantity
-                productId={cartItem?.productId}
-                productVariantId={cartItem?.productVariantId}
+                productId={product?._id}
+                productVariantId={productVariant?._id}
                 quantity={quantity}
                 refetch={refetch}
               />
               <RemoveCartItem
-                productId={cartItem?.productId}
-                productVariantId={cartItem?.productVariantId}
+                productId={product?._id}
+                productVariantId={productVariant?._id}
                 refetch={refetch}
               />
               <Divider />
