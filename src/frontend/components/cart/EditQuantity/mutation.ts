@@ -8,6 +8,22 @@ export default gql`
       quantity: $quantity
     ) {
       _id
+      items {
+        product {
+          _id
+          imageUrl
+          name
+        }
+        productVariant {
+          _id
+          imageUrl
+          name
+        }
+        quantity
+        totalPrice
+      }
+      quantity
+      totalPrice
     }
   }
 `

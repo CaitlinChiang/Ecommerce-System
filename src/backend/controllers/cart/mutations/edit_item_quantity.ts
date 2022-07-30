@@ -10,7 +10,7 @@ export default async (
 ): Promise<Cart> => {
   await authenticateUser({ admin: false, context })
 
-  const cart: any = await context.database.carts.findOneAndUpdate(
+  await context.database.carts.findOneAndUpdate(
     {
       _userId: context.currentUserId,
       items: {
@@ -26,6 +26,10 @@ export default async (
       $set: { 'items.$.quantity': args.quantity }
     }
   )
+
+  const cart: Cart = await context.database.carts.findOne({
+    _userId: context.currentUserId
+  })
 
   return cart
 }
