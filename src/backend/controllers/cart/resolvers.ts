@@ -9,7 +9,7 @@ export default {
       args: undefined,
       context: Context
     ): Promise<CartItem[]> => {
-      return returnCartItems(cart?.items, context)
+      return await returnCartItems(cart?.items, context)
     },
 
     quantity: async (cart: Cart): Promise<number> => {

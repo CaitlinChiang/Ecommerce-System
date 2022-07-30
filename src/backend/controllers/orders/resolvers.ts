@@ -32,7 +32,7 @@ export default {
       args: undefined,
       context: Context
     ): Promise<CartItem[]> => {
-      return returnCartItems(order?.items, context)
+      return await returnCartItems(order?.items, context)
     },
 
     payment: async (
