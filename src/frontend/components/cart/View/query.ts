@@ -6,10 +6,12 @@ export const GetCart = gql`
       _id
       items {
         product {
+          _id
           imageUrl
           name
         }
         productVariant {
+          _id
           imageUrl
           name
         }
