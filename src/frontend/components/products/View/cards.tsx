@@ -10,9 +10,9 @@ import CardComponent from '../../_common/CardComponent'
 import ProductCardsFilters from './cardsFilters'
 import CardsPaginationComponent from '../../_common/CardsPaginationComponent'
 import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
-import { formatDiscountedPrice } from '../../../_utils/handleFormatting/formatDiscountedPrice'
-import { formatPrice } from '../../../_utils/handleFormatting/formatPrice'
-import { formatToPercentage } from '../../../_utils/handleFormatting/formatToPercentage'
+import { formatDiscountedPrice } from '../../../_utils/handleFormat/formatDiscountedPrice'
+import { formatPrice } from '../../../_utils/handleFormat/formatPrice'
+import { formatToPercentage } from '../../../_utils/handleFormat/formatToPercentage'
 
 const ProductCards = ({ featured }: { featured: boolean }): ReactElement => {
   const [args, setArgs] = useState<any>({

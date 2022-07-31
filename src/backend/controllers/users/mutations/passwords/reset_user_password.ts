@@ -24,7 +24,7 @@ export default async (
   const password = await bcrypt.hash(args.newPassword, 12)
 
   if (args?.oldPassword) {
-    await validatePassword({ password: args.oldPassword, user, reset: true })
+    await validatePassword({ password: args.oldPassword, reset: true, user })
 
     await context.database.users.findOneAndUpdate(
       { email: args.email },

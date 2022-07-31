@@ -19,7 +19,7 @@ import OrderLogsTable from '../../../auditLogs/View/orderLogsTable'
 import OrdersTableFilters from './tableFilters'
 import { authenticateUser } from '../../../../_utils/auth/authenticateUser'
 import { fetchMoreArgs } from '../../../../_utils/handleArgs/returnFetchMoreArgs'
-import { formatPrice } from '../../../../_utils/handleFormatting/formatPrice'
+import { formatPrice } from '../../../../_utils/handleFormat/formatPrice'
 
 const OrdersTable = (): ReactElement => {
   const disableUpdateOrder = !authenticateUser(AdminPermission.UPDATE_ORDER)

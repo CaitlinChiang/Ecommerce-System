@@ -5,7 +5,7 @@ import styles from '../../../../styles/websiteTexts'
 import { Link, Typography } from '@mui/material'
 import { WebsiteText } from '../../../../../types/websiteText'
 import { WebsiteTextType } from '../../../../_enums/websiteTextType'
-import { displayContactInformation } from '../../../../_utils/handleFormatting/formatContactInformation'
+import { displayContactInfo } from '../../../../_utils/handleFormat/formatContactInfo'
 
 const ContactInformation = (): ReactElement => {
   const [args, setArgs] = useState<any>({
@@ -23,10 +23,10 @@ const ContactInformation = (): ReactElement => {
 
   useEffect(() => {
     setArgs({
-      facebook: displayContactInformation('Facebook', websiteText),
-      instagram: displayContactInformation('Instagram', websiteText),
-      email: displayContactInformation('Email', websiteText),
-      phoneNumber: displayContactInformation('PhoneNumber', websiteText)
+      facebook: displayContactInfo('Facebook', websiteText),
+      instagram: displayContactInfo('Instagram', websiteText),
+      email: displayContactInfo('Email', websiteText),
+      phoneNumber: displayContactInfo('PhoneNumber', websiteText)
     })
   }, [data])
 

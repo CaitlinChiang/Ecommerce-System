@@ -9,10 +9,7 @@ export const searchData = (
   if (loading) return
 
   fetchMore({
-    variables: {
-      ...args,
-      paginateData: paginateDataArgs
-    },
+    variables: { ...args, paginateData: paginateDataArgs },
     updateQuery: (prev: any, { fetchMoreResult }: any) => {
       if (!fetchMoreResult) return prev
       return fetchMoreResult

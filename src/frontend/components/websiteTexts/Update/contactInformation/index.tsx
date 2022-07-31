@@ -10,9 +10,9 @@ import { WebsiteTextType } from '../../../../_enums/websiteTextType'
 import Text from '../../../_common/TextField'
 import { authenticateUser } from '../../../../_utils/auth/authenticateUser'
 import {
-  displayContactInformation,
-  formatContactInformation
-} from '../../../../_utils/handleFormatting/formatContactInformation'
+  displayContactInfo,
+  formatContactInfo
+} from '../../../../_utils/handleFormat/formatContactInfo'
 
 const globalAny: any = global
 
@@ -37,16 +37,16 @@ const UpdateContactInformation = (): ReactElement => {
 
   useEffect(() => {
     setArgs({
-      facebook: displayContactInformation('Facebook', websiteText),
-      instagram: displayContactInformation('Instagram', websiteText),
-      email: displayContactInformation('Email', websiteText),
-      phoneNumber: displayContactInformation('PhoneNumber', websiteText)
+      facebook: displayContactInfo('Facebook', websiteText),
+      instagram: displayContactInfo('Instagram', websiteText),
+      email: displayContactInfo('Email', websiteText),
+      phoneNumber: displayContactInfo('PhoneNumber', websiteText)
     })
   }, [data])
 
   const [updateMutation, updateMutationState] = useMutation(mutation, {
     variables: {
-      content: formatContactInformation(args),
+      content: formatContactInfo(args),
       type: WebsiteTextType.CONTACT_INFORMATION
     },
     onCompleted: () => {

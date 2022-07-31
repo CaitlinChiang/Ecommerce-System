@@ -10,7 +10,9 @@ export const authenticateUser = (permission: AdminPermission): boolean => {
 
   const user: User = data?.get_user || {}
 
-  if (!user?.permissions?.includes(Object(AdminPermission)[permission])) return false
+  const adminPermission = Object(AdminPermission)[permission]
+
+  if (!user?.permissions?.includes(adminPermission)) return false
 
   return true
 }

@@ -8,7 +8,7 @@ import {
   TableRow
 } from '@mui/material'
 import { CartItem } from '../../../../../types/cart'
-import { formatNumber } from '../../../../_utils/handleFormatting/formatNumber'
+import { formatNumber } from '../../../../_utils/handleFormat/formatNumber'
 
 const OrderItemsTable = ({ items }: { items: CartItem[] }): ReactElement => {
   const itemHeaders = ['Quantity', 'Item']

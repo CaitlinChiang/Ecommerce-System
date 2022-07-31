@@ -10,7 +10,7 @@ import {
   Tooltip,
   ResponsiveContainer
 } from 'recharts'
-import { formatProperCapitalization } from '../../_utils/handleFormatting/formatProperCapitalization'
+import { formatProperCapitalization } from '../../_utils/handleFormat/formatProperCapitalization'
 
 const CustomTooltip = ({ active, payload, label, yAxisDataKey }: any) => {
   if (active && payload && payload.length) {

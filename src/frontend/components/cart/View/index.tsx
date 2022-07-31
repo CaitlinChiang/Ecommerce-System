@@ -14,8 +14,8 @@ import {
 import { Cart, CartItem } from '../../../../types/cart'
 import EditItemQuantity from '../EditQuantity'
 import RemoveCartItem from '../Remove'
-import { formatNumber } from '../../../_utils/handleFormatting/formatNumber'
-import { formatPrice } from '../../../_utils/handleFormatting/formatPrice'
+import { formatNumber } from '../../../_utils/handleFormat/formatNumber'
+import { formatPrice } from '../../../_utils/handleFormat/formatPrice'
 
 const Cart = (): ReactElement => {
   const router = useRouter()

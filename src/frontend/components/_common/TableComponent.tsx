@@ -20,7 +20,7 @@ import ModalComponent from './ModalComponent'
 import SearchField from './SearchField'
 import { searchData } from '../../_utils/handleData/searchData'
 import { generateRowsPerPage } from '../../_utils/handleData/generateRowsPerPage'
-import { formatProperCapitalization } from '../../_utils/handleFormatting/formatProperCapitalization'
+import { formatProperCapitalization } from '../../_utils/handleFormat/formatProperCapitalization'
 
 const TableComponent = ({
   args,

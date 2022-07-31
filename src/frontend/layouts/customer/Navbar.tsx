@@ -17,7 +17,7 @@ import ReceiptIcon from '@mui/icons-material/Receipt'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import { Cart } from '../../../types/cart'
 import ContactInformation from '../../components/websiteTexts/View/contactInformation'
-import { formatNumber } from '../../_utils/handleFormatting/formatNumber'
+import { formatNumber } from '../../_utils/handleFormat/formatNumber'
 
 const globalAny: any = global
 

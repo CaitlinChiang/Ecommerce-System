@@ -5,8 +5,5 @@ export const refetchData = (refetchDataArgs: RefetchDataArgs): void => {
 
   if (loading) console.log('Loading...')
 
-  refetch({
-    ...args,
-    paginateData: paginateDataArgs
-  })
+  refetch({ ...args, paginateData: paginateDataArgs })
 }

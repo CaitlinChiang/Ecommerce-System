@@ -2,7 +2,7 @@ import { ReactElement, useState } from 'react'
 import { InputAdornment, IconButton, TextField } from '@mui/material'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
-import { formatProperCapitalization } from '../../_utils/handleFormatting/formatProperCapitalization'
+import { formatProperCapitalization } from '../../_utils/handleFormat/formatProperCapitalization'
 
 const PasswordField = ({
   args,

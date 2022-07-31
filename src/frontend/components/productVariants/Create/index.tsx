@@ -11,9 +11,9 @@ import DatePickerField from '../../_common/DatePickerField'
 import CheckboxField from '../../_common/CheckboxField'
 import NumberField from '../../_common/NumberField'
 import ImageUploader from '../../_common/ImageUploader'
-import { formatFee } from '../../../_utils/handleFormatting/formatFee'
-import { formatFromPercentage } from '../../../_utils/handleFormatting/formatFromPercentage'
-import { formatToPercentage } from '../../../_utils/handleFormatting/formatToPercentage'
+import { formatFee } from '../../../_utils/handleFormat/formatFee'
+import { formatFromPercentage } from '../../../_utils/handleFormat/formatFromPercentage'
+import { formatToPercentage } from '../../../_utils/handleFormat/formatToPercentage'
 
 const globalAny: any = global
 

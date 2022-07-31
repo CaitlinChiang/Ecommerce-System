@@ -4,7 +4,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns'
 import LocalizationProvider from '@mui/lab/LocalizationProvider'
 import { DatePicker } from '@mui/lab'
 import { Container, TextField } from '@mui/material'
-import { formatProperCapitalization } from '../../_utils/handleFormatting/formatProperCapitalization'
+import { formatProperCapitalization } from '../../_utils/handleFormat/formatProperCapitalization'
 import { returnError } from '../../_utils/handleArgs/returnError'
 import { returnHelperText } from '../../_utils/handleArgs/returnHelperText'
 

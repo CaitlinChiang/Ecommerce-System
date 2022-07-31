@@ -10,7 +10,7 @@ import { OrderStatus } from '../../../../_enums/orderStatus'
 import TableComponent from '../../../_common/TableComponent'
 import OrdersTableFilters from './tableFilters'
 import { fetchMoreArgs } from '../../../../_utils/handleArgs/returnFetchMoreArgs'
-import { formatPrice } from '../../../../_utils/handleFormatting/formatPrice'
+import { formatPrice } from '../../../../_utils/handleFormat/formatPrice'
 
 const OrdersTable = (): ReactElement => {
   const [args, setArgs] = useState<any>({

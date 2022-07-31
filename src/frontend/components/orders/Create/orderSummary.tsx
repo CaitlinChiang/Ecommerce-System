@@ -5,8 +5,8 @@ import { GetCity } from '../../cities/View/query'
 import { Divider, Typography } from '@mui/material'
 import { Cart, CartItem } from '../../../../types/cart'
 import { City } from '../../../../types/city'
-import { formatNumber } from '../../../_utils/handleFormatting/formatNumber'
-import { formatPrice } from '../../../_utils/handleFormatting/formatPrice'
+import { formatNumber } from '../../../_utils/handleFormat/formatNumber'
+import { formatPrice } from '../../../_utils/handleFormat/formatPrice'
 
 const OrderSummary = (): ReactElement => {
   const { data: cartData } = useQuery(GetCart)

@@ -10,9 +10,7 @@ import Cookies from 'js-cookie'
 
 const authLink = setContext((_, { headers }) => {
   const accessToken = Cookies.get('accessToken')
-  return {
-    headers: { ...headers, accessToken }
-  }
+  return { headers: { ...headers, accessToken } }
 })
 
 const uploadLink = createUploadLink({ uri: '/graphql' })

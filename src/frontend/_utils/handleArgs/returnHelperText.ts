@@ -1,6 +1,6 @@
 import isEmail from 'validator/lib/isEmail'
 import isMobilePhone from 'validator/lib/isMobilePhone'
-import { formatProperCapitalization } from '../handleFormatting/formatProperCapitalization'
+import { formatProperCapitalization } from '../handleFormat/formatProperCapitalization'
 
 export const returnHelperText = ({
   args,
@@ -14,10 +14,12 @@ export const returnHelperText = ({
   targetProp: string
 }): string => {
   if (error && !args?.[targetProp]) {
+    const fieldName = formatProperCapitalization(nestedProp)
+
     if (nestedProp) {
-      return formatProperCapitalization(nestedProp) + ' is a required field.'
+      return `${fieldName} is a required field.`
     }
-    return formatProperCapitalization(targetProp) + ' is a required field.'
+    return `${fieldName} is a required field.`
   }
 
   if (error && targetProp === 'email' && !isEmail(args?.email)) {

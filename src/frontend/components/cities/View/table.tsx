@@ -16,7 +16,7 @@ import UpdateCity from '../Update'
 import DeleteButton from '../../_common/DeleteButton'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
-import { formatPrice } from '../../../_utils/handleFormatting/formatPrice'
+import { formatPrice } from '../../../_utils/handleFormat/formatPrice'
 
 const CitiesTable = (): ReactElement => {
   const disableUpdateCity = !authenticateUser(AdminPermission.UPDATE_CITY)

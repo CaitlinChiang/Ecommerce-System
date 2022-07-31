@@ -1,6 +1,6 @@
 import { WebsiteText } from '../../../types/websiteText'
 
-export const displayContactInformation = (
+export const displayContactInfo = (
   medium: string,
   websiteText: WebsiteText
 ): string => {
@@ -12,7 +12,7 @@ export const displayContactInformation = (
   return formattedVal
 }
 
-export const formatContactInformation = (args: any): string | null => {
+export const formatContactInfo = (args: any): string | null => {
   if (args?.email?.trim().length === 0 || args?.phoneNumber?.trim().length === 0) {
     return null
   }

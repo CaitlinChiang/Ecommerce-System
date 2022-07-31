@@ -21,7 +21,7 @@ import {
   allCategoryPermissions,
   checkAll,
   uncheckAll
-} from '../../../_utils/handleFormatting/formatAdminPermissions'
+} from '../../../_utils/handleFormat/formatAdminPermissions'
 
 const globalAny: any = global
 

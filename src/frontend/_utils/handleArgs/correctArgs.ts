@@ -2,12 +2,10 @@ import isEmail from 'validator/lib/isEmail'
 import isMobilePhone from 'validator/lib/isMobilePhone'
 
 export const correctArgs = (args: any): any => {
-  Object.keys(args).forEach((key: string) => {
+  Object.keys(args).forEach((key: string): void => {
     const val = args[key]
 
-    if (typeof val === 'string') {
-      modifyArgs(key, args)
-    }
+    if (typeof val === 'string') modifyArgs(key, args)
 
     if (key === 'email' && args?.email && !isEmail(args?.email)) {
       args.email = null

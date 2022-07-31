@@ -9,8 +9,8 @@ import CheckboxField from '../../_common/CheckboxField'
 import NumberField from '../../_common/NumberField'
 import ImageUploader from '../../_common/ImageUploader'
 import ProductCategoriesSelect from '../../productCategories/View/select'
-import { formatFee } from '../../../_utils/handleFormatting/formatFee'
-import { formatFromPercentage } from '../../../_utils/handleFormatting/formatFromPercentage'
+import { formatFee } from '../../../_utils/handleFormat/formatFee'
+import { formatFromPercentage } from '../../../_utils/handleFormat/formatFromPercentage'
 
 const globalAny: any = global
 
