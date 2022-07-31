@@ -4,7 +4,7 @@ import { Product, DeleteProductArgs } from '../../../../types/product'
 import { AdminPermission } from '../../../_enums/adminPermission'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
-import { auditArgs } from '../../../_utils/handleArgs/returnAuditArgs'
+import { auditArgs } from '../../../_utils/handleArgs/auditArgs'
 import {
   deleteImage,
   deleteProductVariantImages
@@ -39,5 +39,5 @@ export default async (
     _productId: new ObjectId(args._id)
   })
 
-  return product
+  return product.value
 }

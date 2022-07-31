@@ -1,10 +1,7 @@
 import { StockQuantity } from '../../../types/common/stockQuantity'
 import { StockQuantityOperator } from '../../_enums/stockQuantity'
 
-export const formatStockQuantityArgs = (
-  args: any,
-  stockQuantity: StockQuantity
-): void => {
+export const stockQuantityArgs = (args: any, stockQuantity: StockQuantity): void => {
   switch (stockQuantity.operator) {
     case StockQuantityOperator.ABOVE:
       args.stockQuantity = { $gt: stockQuantity.value1 }

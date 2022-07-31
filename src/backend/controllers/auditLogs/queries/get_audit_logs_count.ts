@@ -2,7 +2,7 @@ import { Context } from '../../../../types/setup/context'
 import { GetAuditLogArgs } from '../../../../types/auditLog'
 import { AdminPermission } from '../../../_enums/adminPermission'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
-import { queryArgs } from '../../../_utils/handleArgs/returnQueryArgs'
+import { queryArgs } from '../../../_utils/handleArgs/queryArgs'
 
 export default async (
   _root: undefined,

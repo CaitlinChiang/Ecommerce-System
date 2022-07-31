@@ -5,8 +5,8 @@ import { AdminPermission } from '../../../_enums/adminPermission'
 import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
-import { mutationArgs } from '../../../_utils/handleArgs/returnMutationArgs'
-import { auditArgs } from '../../../_utils/handleArgs/returnAuditArgs'
+import { mutateArgs } from '../../../_utils/handleArgs/mutateArgs'
+import { auditArgs } from '../../../_utils/handleArgs/auditArgs'
 
 export default async (
   _root: undefined,
@@ -21,7 +21,7 @@ export default async (
 
   const user: any = await context.database.users.findOneAndUpdate(
     { _id: new ObjectId(args._id) },
-    { $set: mutationArgs(args, MutateAction.DELETE) }
+    { $set: mutateArgs(args, MutateAction.DELETE) }
   )
 
   await context.database.auditLogs.insertOne({
@@ -32,5 +32,5 @@ export default async (
 
   await context.database.carts.findOneAndDelete({ _userId: new ObjectId(args._id) })
 
-  return user
+  return user.value
 }

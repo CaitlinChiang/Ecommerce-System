@@ -5,8 +5,8 @@ import { PaymentStatus } from '../../../_enums/paymentStatus'
 import { UploadImageType } from '../../../_enums/uploadImageType'
 import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
-import { mutationArgs } from '../../../_utils/handleArgs/returnMutationArgs'
-import { auditArgs } from '../../../_utils/handleArgs/returnAuditArgs'
+import { mutateArgs } from '../../../_utils/handleArgs/mutateArgs'
+import { auditArgs } from '../../../_utils/handleArgs/auditArgs'
 import { uploadImage } from '../../../_utils/handleImages/upload'
 
 export const createPayment = async (
@@ -23,7 +23,7 @@ export const createPayment = async (
   })
 
   await context.database.payments.insertOne({
-    ...mutationArgs(modifiedArgs, MutateAction.CREATE),
+    ...mutateArgs(modifiedArgs, MutateAction.CREATE),
     _orderId: orderId,
     imageProofUrl,
     status: PaymentStatus.COMPLETE

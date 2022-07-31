@@ -2,7 +2,7 @@ import { MutateAction } from '../../_enums/mutateAction'
 import { currentDateTime } from '../handleFormat/returnCurrentDateTime'
 import { correctArgs } from './correctArgs'
 
-export const mutationArgs = (args: any, action: MutateAction): any => {
+export const mutateArgs = (args: any, action: MutateAction): any => {
   let modifiedArgs: any = {}
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

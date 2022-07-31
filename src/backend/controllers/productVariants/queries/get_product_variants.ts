@@ -4,8 +4,8 @@ import {
   GetProductVariantArgs
 } from '../../../../types/productVariant'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
-import { queryArgs } from '../../../_utils/handleArgs/returnQueryArgs'
-import { sortArgs } from '../../../_utils/handleArgs/returnSortArgs'
+import { queryArgs } from '../../../_utils/handleArgs/queryArgs'
+import { sort, skip, limit } from '../../../_utils/handleArgs/paginateArgs'
 
 export default async (
   _root: undefined,
@@ -16,9 +16,9 @@ export default async (
 
   const productVariants: ProductVariant[] = await context.database.productVariants
     .find(queryArgs(args))
-    .sort(sortArgs(args?.paginateData))
-    .skip(args?.paginateData?.page * args?.paginateData?.rowsPerPage || 0)
-    .limit(args?.paginateData?.rowsPerPage || 200)
+    .sort(sort(args?.paginateData))
+    .skip(skip(args?.paginateData))
+    .limit(limit(args?.paginateData))
     .toArray()
 
   return productVariants

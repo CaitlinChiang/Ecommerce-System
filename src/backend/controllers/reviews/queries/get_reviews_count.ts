@@ -1,7 +1,7 @@
 import { Context } from '../../../../types/setup/context'
 import { GetReviewArgs } from 'types/review'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
-import { queryArgs } from '../../../_utils/handleArgs/returnQueryArgs'
+import { queryArgs } from '../../../_utils/handleArgs/queryArgs'
 
 export default async (
   _root: undefined,

@@ -3,7 +3,7 @@ import { AnalyticsRevenueCount, GetAnalyticsArgs } from '../../../../types/analy
 import { Payment } from '../../../../types/payment'
 import { AdminPermission } from '../../../_enums/adminPermission'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
-import { queryArgs } from '../../../_utils/handleArgs/returnQueryArgs'
+import { queryArgs } from '../../../_utils/handleArgs/queryArgs'
 import { formatDate } from '../../../_utils/handleFormat/formatDate'
 
 export default async (
@@ -21,30 +21,27 @@ export default async (
     .find(queryArgs(args))
     .toArray()
 
-  const paymentsModifiedDate = payments.map(
-    (payment: Payment): { amountDue: number; createdAt: string } => {
+  const paymentModifiedDates = payments.map(
+    (payment: Payment): { date: string; revenue: number } => {
       return {
-        amountDue: payment.amountDue,
-        createdAt: formatDate(payment.createdAt).slice(0, -5)
+        date: formatDate(payment.createdAt).slice(0, -5),
+        revenue: payment.amountDue
       }
     }
   )
 
   const analyticsRevenueCount: AnalyticsRevenueCount[] = []
 
-  paymentsModifiedDate.forEach(
-    (payment: { amountDue: number; createdAt: string }): void => {
-      const exists = analyticsRevenueCount.find(
-        (res) => res.date === payment.createdAt
-      )
+  paymentModifiedDates.forEach(
+    (payment: { date: string; revenue: number }): void => {
+      const { date, revenue } = payment
 
-      if (exists) {
-        exists.revenue += payment.amountDue
+      const dateAppended = analyticsRevenueCount.find((res) => res.date === date)
+
+      if (dateAppended) {
+        dateAppended.revenue += revenue
       } else {
-        analyticsRevenueCount.push({
-          date: payment.createdAt,
-          revenue: payment.amountDue
-        })
+        analyticsRevenueCount.push({ date, revenue })
       }
     }
   )

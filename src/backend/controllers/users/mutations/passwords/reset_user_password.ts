@@ -5,8 +5,8 @@ import { User, ResetPasswordArgs } from '../../../../../types/user'
 import { MutateAction } from '../../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../../_utils/auth/authenticateUser'
-import { mutationArgs } from '../../../../_utils/handleArgs/returnMutationArgs'
-import { auditArgs } from '../../../../_utils/handleArgs/returnAuditArgs'
+import { mutateArgs } from '../../../../_utils/handleArgs/mutateArgs'
+import { auditArgs } from '../../../../_utils/handleArgs/auditArgs'
 import { checkIfUserExists } from '../../../../_utils/handleValidation/checkIfUserExists'
 import { validatePassword } from '../../../../_utils/handleValidation/validatePassword'
 
@@ -28,7 +28,7 @@ export default async (
 
     await context.database.users.findOneAndUpdate(
       { email: args.email },
-      { $set: mutationArgs({ password }, MutateAction.UPDATE) }
+      { $set: mutateArgs({ password }, MutateAction.UPDATE) }
     )
   }
 
@@ -39,7 +39,7 @@ export default async (
 
     await context.database.users.findOneAndUpdate(
       { verificationCode: args.verificationCode },
-      { $set: mutationArgs({ password }, MutateAction.UPDATE) }
+      { $set: mutateArgs({ password }, MutateAction.UPDATE) }
     )
   }
 

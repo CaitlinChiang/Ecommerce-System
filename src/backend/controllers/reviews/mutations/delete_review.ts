@@ -4,7 +4,7 @@ import { Review, DeleteReviewArgs } from '../../../../types/review'
 import { AdminPermission } from '../../../_enums/adminPermission'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
-import { auditArgs } from '../../../_utils/handleArgs/returnAuditArgs'
+import { auditArgs } from '../../../_utils/handleArgs/auditArgs'
 
 export default async (
   _root: undefined,
@@ -27,5 +27,5 @@ export default async (
     ...auditArgs(context)
   })
 
-  return review
+  return review.value
 }

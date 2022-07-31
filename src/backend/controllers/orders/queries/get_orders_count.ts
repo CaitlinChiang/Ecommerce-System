@@ -1,7 +1,7 @@
 import { Context } from '../../../../types/setup/context'
 import { GetOrderArgs } from '../../../../types/order'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
-import { queryArgs } from '../../../_utils/handleArgs/returnQueryArgs'
+import { queryArgs } from '../../../_utils/handleArgs/queryArgs'
 import { searchUser } from '../../../_utils/handleData/searchUser'
 import { returnOrdersUserId } from '../../../_utils/handleArgs/returnOrdersUserId'
 

@@ -5,11 +5,11 @@ import { StockQuantityAction } from '../../../_enums/stockQuantity'
 import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
-import { mutationArgs } from '../../../_utils/handleArgs/returnMutationArgs'
-import { auditArgs } from '../../../_utils/handleArgs/returnAuditArgs'
-import { updateStockQuantity } from '../../../_utils/handleData/updateStockQuantity'
+import { mutateArgs } from '../../../_utils/handleArgs/mutateArgs'
+import { auditArgs } from '../../../_utils/handleArgs/auditArgs'
 import { createPayment } from '../../payments/mutations/create_payment'
 import { emptyCart } from '../../cart/mutations/empty_cart'
+import { updateStockQuantity } from '../../../_utils/handleData/updateStockQuantity'
 
 export default async (
   _root: undefined,
@@ -21,7 +21,7 @@ export default async (
   const { payment, ...remainingArgs } = args
 
   const order: any = await context.database.orders.insertOne({
-    ...mutationArgs(remainingArgs, MutateAction.CREATE),
+    ...mutateArgs(remainingArgs, MutateAction.CREATE),
     status: OrderStatus.PENDING,
     userId: context.currentUserId
   })
@@ -36,7 +36,7 @@ export default async (
 
   await emptyCart(context)
 
-  await updateStockQuantity(args.items, StockQuantityAction.SUBTRACT, context)
+  await updateStockQuantity(StockQuantityAction.SUBTRACT, args.items, context)
 
-  return order
+  return order.insertedId
 }

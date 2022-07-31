@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
-import { auditArgs } from '../../../_utils/handleArgs/returnAuditArgs'
+import { auditArgs } from '../../../_utils/handleArgs/auditArgs'
 import { deleteImage } from '../../../_utils/handleImages/delete'
 
 export const deletePayment = async (

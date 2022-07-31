@@ -4,8 +4,8 @@ import { User, CreateUserArgs } from '../../../../types/user'
 import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
-import { mutationArgs } from '../../../_utils/handleArgs/returnMutationArgs'
-import { auditArgs } from '../../../_utils/handleArgs/returnAuditArgs'
+import { mutateArgs } from '../../../_utils/handleArgs/mutateArgs'
+import { auditArgs } from '../../../_utils/handleArgs/auditArgs'
 import { checkIfUserExists } from '../../../_utils/handleValidation/checkIfUserExists'
 import { generateJWT } from '../../../_utils/auth/jwt'
 
@@ -21,7 +21,7 @@ export default async (
   const hashedPassword = await bcrypt.hash(args.password, 12)
 
   const user: any = await context.database.users.insertOne({
-    ...mutationArgs(args, MutateAction.CREATE),
+    ...mutateArgs(args, MutateAction.CREATE),
     active: false,
     password: hashedPassword
   })
@@ -36,5 +36,5 @@ export default async (
 
   const token = await generateJWT(user.insertedId)
 
-  return { ...user, token }
+  return { ...user.insertedId, token }
 }

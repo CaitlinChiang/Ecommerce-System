@@ -1,7 +1,7 @@
 import { Context } from '../../../../types/setup/context'
 import { GetCityArgs } from '../../../../types/City'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
-import { queryArgs } from '../../../_utils/handleArgs/returnQueryArgs'
+import { queryArgs } from '../../../_utils/handleArgs/queryArgs'
 
 export default async (
   _root: undefined,

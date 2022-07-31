@@ -2,7 +2,7 @@ import { Context } from '../../../../types/setup/context'
 import { Cart, AddCartItemArgs } from '../../../../types/cart'
 import { MutateAction } from '../../../_enums/mutateAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
-import { mutationArgs } from '../../../_utils/handleArgs/returnMutationArgs'
+import { mutateArgs } from '../../../_utils/handleArgs/mutateArgs'
 
 export default async (
   _root: undefined,
@@ -13,8 +13,8 @@ export default async (
 
   const cart: any = await context.database.carts.findOneAndUpdate(
     { _userId: context.currentUserId },
-    { $push: { items: mutationArgs(args.item, MutateAction.CREATE) } }
+    { $push: { items: mutateArgs(args.item, MutateAction.CREATE) } }
   )
 
-  return cart
+  return cart.value
 }

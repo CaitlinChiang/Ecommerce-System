@@ -2,7 +2,7 @@ import { ObjectId } from 'mongodb'
 import { OrderStatus } from '../../_enums/orderStatus'
 import { correctArgs } from './correctArgs'
 import { formatDateRange } from '../handleFormat/formatDateRange'
-import { formatStockQuantityArgs } from './formatStockQuantityArgs'
+import { stockQuantityArgs } from './stockQuantityArgs'
 
 export const queryArgs = (args: any): any => {
   const {
@@ -52,7 +52,7 @@ export const queryArgs = (args: any): any => {
   }
 
   if (stockQuantity) {
-    formatStockQuantityArgs(modifiedArgs, stockQuantity)
+    stockQuantityArgs(modifiedArgs, stockQuantity)
   }
 
   return modifiedArgs

@@ -5,8 +5,8 @@ import { AdminPermission } from '../../../_enums/adminPermission'
 import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
-import { mutationArgs } from '../../../_utils/handleArgs/returnMutationArgs'
-import { auditArgs } from '../../../_utils/handleArgs/returnAuditArgs'
+import { mutateArgs } from '../../../_utils/handleArgs/mutateArgs'
+import { auditArgs } from '../../../_utils/handleArgs/auditArgs'
 
 export default async (
   _root: undefined,
@@ -21,7 +21,7 @@ export default async (
 
   const faq: any = await context.database.faqs.findOneAndUpdate(
     { _id: new ObjectId(args._id) },
-    { $set: mutationArgs(args, MutateAction.UPDATE) }
+    { $set: mutateArgs(args, MutateAction.UPDATE) }
   )
 
   await context.database.auditLogs.insertOne({
@@ -30,5 +30,5 @@ export default async (
     ...auditArgs(context)
   })
 
-  return faq
+  return faq.value
 }

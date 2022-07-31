@@ -3,7 +3,7 @@ import { AnalyticsOrdersCount, GetAnalyticsArgs } from '../../../../types/analyt
 import { Order } from '../../../../types/order'
 import { AdminPermission } from '../../../_enums/adminPermission'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
-import { queryArgs } from '../../../_utils/handleArgs/returnQueryArgs'
+import { queryArgs } from '../../../_utils/handleArgs/queryArgs'
 import { formatDate } from '../../../_utils/handleFormat/formatDate'
 
 export default async (
@@ -21,19 +21,19 @@ export default async (
     .find(queryArgs(args))
     .toArray()
 
-  const ordersModifiedDate = orders.map((order: Order): string => {
+  const orderModifiedDates: string[] = orders.map((order: Order): string => {
     return formatDate(order.createdAt).slice(0, -5)
   })
 
   const analyticsOrdersCount: AnalyticsOrdersCount[] = []
 
-  ordersModifiedDate.forEach((orderDate: string): void => {
-    const exists = analyticsOrdersCount.find((res) => res.date === orderDate)
+  orderModifiedDates.forEach((date: string): void => {
+    const dateAppended = analyticsOrdersCount.find((res) => res.date === date)
 
-    if (exists) {
-      exists.orders += 1
+    if (dateAppended) {
+      dateAppended.orders += 1
     } else {
-      analyticsOrdersCount.push({ date: orderDate, orders: 1 })
+      analyticsOrdersCount.push({ date, orders: 1 })
     }
   })
 

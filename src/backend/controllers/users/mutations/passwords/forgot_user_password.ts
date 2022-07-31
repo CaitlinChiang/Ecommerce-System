@@ -2,7 +2,7 @@ import { Context } from '../../../../../types/setup/context'
 import { ForgotPasswordArgs } from '../../../../../types/user'
 import { MutateAction } from '../../../../_enums/mutateAction'
 import { authenticateUser } from '../../../../_utils/auth/authenticateUser'
-import { mutationArgs } from '../../../../_utils/handleArgs/returnMutationArgs'
+import { mutateArgs } from '../../../../_utils/handleArgs/mutateArgs'
 import { checkIfUserExists } from '../../../../_utils/handleValidation/checkIfUserExists'
 import { validateUserType } from '../../../../_utils/handleValidation/validateUserType'
 
@@ -21,7 +21,7 @@ export default async (
 
   await context.database.users.findOneAndUpdate(
     { email: args.email },
-    { $set: mutationArgs({ verificationCode }, MutateAction.UPDATE) }
+    { $set: mutateArgs({ verificationCode }, MutateAction.UPDATE) }
   )
 
   // ADD FORGOT PASSWORD EMAIL CONTAINING VERIFICATION CODE

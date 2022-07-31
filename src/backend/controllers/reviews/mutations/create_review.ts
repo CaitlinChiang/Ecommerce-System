@@ -3,8 +3,8 @@ import { Review, CreateReviewArgs } from '../../../../types/review'
 import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
-import { mutationArgs } from '../../../_utils/handleArgs/returnMutationArgs'
-import { auditArgs } from '../../../_utils/handleArgs/returnAuditArgs'
+import { mutateArgs } from '../../../_utils/handleArgs/mutateArgs'
+import { auditArgs } from '../../../_utils/handleArgs/auditArgs'
 
 export default async (
   _root: undefined,
@@ -14,7 +14,7 @@ export default async (
   await authenticateUser({ admin: false, context })
 
   const review: any = await context.database.reviews.insertOne(
-    mutationArgs(args, MutateAction.CREATE)
+    mutateArgs(args, MutateAction.CREATE)
   )
 
   await context.database.auditLogs.insertOne({
@@ -23,5 +23,5 @@ export default async (
     ...auditArgs(context)
   })
 
-  return review
+  return review.insertedId
 }

@@ -7,7 +7,7 @@ import {
 import { AdminPermission } from '../../../_enums/adminPermission'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
-import { auditArgs } from '../../../_utils/handleArgs/returnAuditArgs'
+import { auditArgs } from '../../../_utils/handleArgs/auditArgs'
 import { deleteImage } from '../../../_utils/handleImages/delete'
 
 export default async (
@@ -34,5 +34,5 @@ export default async (
     ...auditArgs(context)
   })
 
-  return productVariant
+  return productVariant.value
 }

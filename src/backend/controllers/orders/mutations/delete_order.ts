@@ -5,7 +5,7 @@ import { AdminPermission } from '../../../_enums/adminPermission'
 import { StockQuantityAction } from '../../../_enums/stockQuantity'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
-import { auditArgs } from '../../../_utils/handleArgs/returnAuditArgs'
+import { auditArgs } from '../../../_utils/handleArgs/auditArgs'
 import { updateStockQuantity } from '../../../_utils/handleData/updateStockQuantity'
 import { deletePayment } from '../../payments/mutations/delete_payment'
 
@@ -20,13 +20,7 @@ export default async (
     context
   })
 
-  const order: Order = await context.database.orders.findOne({
-    _id: new ObjectId(args._id)
-  })
-
-  await updateStockQuantity(order.items, StockQuantityAction.ADD, context)
-
-  await context.database.orders.findOneAndDelete({
+  const order: any = await context.database.orders.findOneAndDelete({
     _id: new ObjectId(args._id)
   })
 
@@ -38,5 +32,7 @@ export default async (
 
   await deletePayment(args._id, context)
 
-  return order
+  await updateStockQuantity(StockQuantityAction.ADD, order?.value?.items, context)
+
+  return order.value
 }

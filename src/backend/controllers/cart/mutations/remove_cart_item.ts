@@ -24,5 +24,5 @@ export default async (
     { $pull: { items } }
   )
 
-  return cart
+  return cart.value
 }
