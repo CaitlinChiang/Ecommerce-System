@@ -31,38 +31,35 @@ const SelectField = ({
   updateMutation?: any
   width?: number
 }): ReactElement => {
-  let value = options.find((option: any) => option[targetProp] === args[targetProp])
+  const val = args[targetProp]
+
+  let searchVal = options.find((option: any) => option[targetProp] === val)
 
   if (multiple) {
-    value = options.filter((option) =>
-      args[targetProp]?.includes(option[targetProp])
-    )
+    searchVal = options.filter((option) => val?.includes(option[targetProp]))
   }
 
   if (nestedProp) {
-    value = options.find(
-      (option: any) => option[nestedProp] === args[targetProp][nestedProp]
-    )
+    searchVal = options.find((option: any) => option[nestedProp] === val[nestedProp])
   }
 
   const handleChange = (_e: any, newValue: any | null): void => {
-    let val = newValue?.[targetProp]
+    let newVal = newValue?.[targetProp]
 
     if (multiple) {
-      val = newValue.map((option: any) => option?.[targetProp])
+      newVal = newValue.map((option: any) => option?.[targetProp])
     }
-
-    if (!nestedProp) setArgs({ ...args, [targetProp]: val })
 
     if (nestedProp) {
-      val = newValue?.[nestedProp]
-      setArgs({
-        ...args,
-        [targetProp]: { ...args[targetProp], [nestedProp]: val }
-      })
+      newVal = newValue?.[nestedProp]
+      setArgs({ ...args, [targetProp]: { ...val, [nestedProp]: newVal } })
+    } else {
+      setArgs({ ...args, [targetProp]: newVal })
     }
 
-    if (updateMutation) updateMutation({ variables: { ...args, [targetProp]: val } })
+    if (updateMutation) {
+      updateMutation({ variables: { ...args, [targetProp]: newVal } })
+    }
   }
 
   return (
@@ -82,9 +79,7 @@ const SelectField = ({
         />
       )}
       sx={{ ...styles.autocomplete, width: width || 300 }}
-      value={
-        value || (!nestedProp ? args[targetProp] : args[targetProp][nestedProp])
-      }
+      value={searchVal || (!nestedProp ? val : val[nestedProp])}
     />
   )
 }

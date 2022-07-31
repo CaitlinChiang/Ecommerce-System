@@ -1,5 +1,5 @@
 import { ReactElement, useEffect } from 'react'
-import { LinearProgress, TablePagination } from '@mui/material'
+import { CircularProgress, TablePagination } from '@mui/material'
 import { PaginateDataArgs } from '../../../types/actions/paginateData'
 import SearchField from './SearchField'
 import { searchData } from '../../_utils/handleData/searchData'
@@ -61,24 +61,17 @@ const CardsPaginationComponent = ({
           setPaginateDataArgs={setPaginateDataArgs}
         />
       )}
-      {loading && <LinearProgress />}
+      {loading && <CircularProgress />}
       <TablePagination
         component={'span'}
         count={count}
         onRowsPerPageChange={async (e): Promise<void> => {
-          const newRowsPerPage = Number(e.target.value)
-          setPaginateDataArgs({
-            ...paginateDataArgs,
-            page: 0,
-            rowsPerPage: newRowsPerPage
-          })
+          const newRows = Number(e.target.value)
+          setPaginateDataArgs({ ...paginateDataArgs, page: 0, rowsPerPage: newRows })
         }}
         onPageChange={async (_e, newPage: number): Promise<void> => {
           window.scrollTo(0, 0)
-          setPaginateDataArgs({
-            ...paginateDataArgs,
-            page: newPage
-          })
+          setPaginateDataArgs({ ...paginateDataArgs, page: newPage })
         }}
         page={page}
         rowsPerPage={rowsPerPage}

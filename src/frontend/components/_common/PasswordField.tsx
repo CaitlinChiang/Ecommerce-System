@@ -2,7 +2,7 @@ import { ReactElement, useState } from 'react'
 import { InputAdornment, IconButton, TextField } from '@mui/material'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
-import { formatProperCapitalization } from '../../_utils/handleFormat/formatProperCapitalization'
+import { formatText } from '../../_utils/handleFormat/formatText'
 
 const PasswordField = ({
   args,
@@ -19,21 +19,21 @@ const PasswordField = ({
 }): ReactElement => {
   const [showPassword, setShowPassword] = useState<boolean>(false)
 
+  const val = args?.[targetProp]
+
   return (
     <TextField
       error={error && args?.[targetProp]?.length < 8}
       helperText={
-        error &&
-        args?.[targetProp]?.length < 8 &&
-        'Password must be at least 8 characters long.'
+        error && val?.length < 8 && 'Password must be at least 8 characters long.'
       }
-      label={formatProperCapitalization(targetProp)}
+      label={formatText(targetProp)}
       onChange={(e): void => {
         setArgs({ ...args, [targetProp]: e.target.value })
       }}
       required={required}
       type={showPassword ? 'PasswordField' : 'password'}
-      value={args?.[targetProp]}
+      value={val}
       InputProps={{
         endAdornment: (
           <InputAdornment position='end'>

@@ -28,8 +28,10 @@ const DeleteButton = ({
     variables: { _id },
     onCompleted: () => {
       globalAny.setNotification(true, `${label} has been successfully deleted.`)
+
       refetchData(refetchArgs)
-      if (refetchArgs.count % refetchArgs.paginateDataArgs.rowsPerPage == 1) {
+
+      if (refetchArgs.count % refetchArgs.paginateDataArgs.rowsPerPage === 1) {
         setPaginateDataArgs({ ...refetchArgs.paginateDataArgs, page: 0 })
       }
     },

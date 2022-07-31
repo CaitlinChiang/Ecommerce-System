@@ -13,14 +13,12 @@ import {
 const ModalComponent = ({
   content,
   loading,
-  maxWidth,
   onClose,
   open,
   title
 }: {
   content: ReactElement
   loading?: boolean
-  maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | false
   onClose?: VoidFunction
   open: boolean
   title?: string
@@ -29,7 +27,7 @@ const ModalComponent = ({
     <>
       <Dialog
         fullScreen={useMediaQuery(theme.breakpoints.down('sm'))}
-        maxWidth={maxWidth || 'lg'}
+        maxWidth={'lg'}
         onClose={onClose}
         open={Boolean(open)}
       >

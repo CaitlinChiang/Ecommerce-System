@@ -5,13 +5,13 @@ const globalAny: any = global
 
 const NotificationComponent = (): ReactElement => {
   const [open, setOpen] = useState<boolean>(true)
-  const [message, setMessage] = useState<string>('')
   const [success, setSuccess] = useState<boolean>(false)
+  const [message, setMessage] = useState<string>('')
 
   globalAny.setNotification = (success: boolean, message: string): void => {
+    setMessage(message)
     setOpen(true)
     setSuccess(success)
-    setMessage(message)
   }
 
   const modifyMessage = (message: string): string => {

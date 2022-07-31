@@ -1,4 +1,4 @@
-export const formatProperCapitalization = (field: string): string => {
+export const formatText = (field: string): string => {
   const newString = field.replace(/([A-Z])/g, ' $1')
   const newStringWithCapitalization =
     newString.charAt(0).toUpperCase() + newString.slice(1)

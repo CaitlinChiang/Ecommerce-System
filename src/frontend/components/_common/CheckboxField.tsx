@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 import { Checkbox, FormControlLabel } from '@mui/material'
-import { formatProperCapitalization } from '../../_utils/handleFormat/formatProperCapitalization'
+import { formatText } from '../../_utils/handleFormat/formatText'
 
 const CheckboxField = ({
   args,
@@ -13,18 +13,18 @@ const CheckboxField = ({
   setArgs: React.Dispatch<React.SetStateAction<any>>
   targetProp: string
 }): ReactElement => {
+  const val = args?.[targetProp]
+
   return (
     <FormControlLabel
       control={
         <Checkbox
-          checked={args?.[targetProp]}
-          onChange={(): void => {
-            setArgs({ ...args, [targetProp]: !args?.[targetProp] })
-          }}
+          checked={val}
+          onChange={(): void => setArgs({ ...args, [targetProp]: !val })}
         />
       }
       disabled={disabled}
-      label={formatProperCapitalization(targetProp)}
+      label={formatText(targetProp)}
     />
   )
 }

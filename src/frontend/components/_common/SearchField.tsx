@@ -12,7 +12,6 @@ import SearchIcon from '@mui/icons-material/Search'
 import { PaginateDataArgs } from '../../../types/actions/paginateData'
 
 const SearchField = ({
-  onBlur,
   onKeyDown,
   onSearch,
   searchButtonDisabled,
@@ -21,7 +20,6 @@ const SearchField = ({
   searchText,
   setPaginateDataArgs
 }: {
-  onBlur?: VoidFunction
   onKeyDown?: (e: KeyboardEvent<HTMLDivElement>) => void
   onSearch?: () => void
   searchButtonDisabled?: boolean
@@ -35,20 +33,12 @@ const SearchField = ({
       <TextField
         fullWidth
         label={searchLabel}
-        onChange={(e): void => {
-          setPaginateDataArgs({ searchText: e.target.value })
-        }}
+        onChange={(e): void => setPaginateDataArgs({ searchText: e.target.value })}
         onKeyDown={onKeyDown}
         placeholder={searchPlaceholder}
         size={'small'}
         value={searchText}
         InputProps={{
-          onBlur: onBlur ? onBlur : null,
-          onKeyDown: (e): void => {
-            if (onBlur && e.keyCode === 13) {
-              onBlur()
-            }
-          },
           startAdornment: (
             <InputAdornment position={'start'}>
               <SearchIcon />

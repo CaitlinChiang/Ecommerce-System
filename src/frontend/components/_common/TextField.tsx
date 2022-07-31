@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import styles from '../../styles/_common/textField'
 import { TextField } from '@mui/material'
-import { formatProperCapitalization } from '../../_utils/handleFormat/formatProperCapitalization'
+import { formatText } from '../../_utils/handleFormat/formatText'
 import { returnError } from '../../_utils/handleArgs/returnError'
 import { returnHelperText } from '../../_utils/handleArgs/returnHelperText'
 
@@ -39,12 +39,10 @@ const Text = ({
       fullWidth={fullWidth}
       helperText={returnHelperText({ args, error, targetProp })}
       inputProps={{ maxLength: maxLength || 150 }}
-      label={formatProperCapitalization(targetProp)}
+      label={formatText(targetProp)}
       maxRows={maxRows}
       multiline={multiline}
-      onChange={(e): void => {
-        setArgs({ ...args, [targetProp]: e.target.value })
-      }}
+      onChange={(e): void => setArgs({ ...args, [targetProp]: e.target.value })}
       placeholder={placeholder}
       required={required}
       sx={{ ...styles.textField, width: width || 500 }}

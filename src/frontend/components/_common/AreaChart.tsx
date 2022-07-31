@@ -10,20 +10,18 @@ import {
   Tooltip,
   ResponsiveContainer
 } from 'recharts'
-import { formatProperCapitalization } from '../../_utils/handleFormat/formatProperCapitalization'
+import { formatText } from '../../_utils/handleFormat/formatText'
 
 const CustomTooltip = ({ active, payload, label, yAxisDataKey }: any) => {
   if (active && payload && payload.length) {
     const revenueSign = yAxisDataKey === 'revenue' ? 'P' : ''
-    const value =
+    const val =
       yAxisDataKey === 'revenue' ? payload[0].value.toFixed(2) : payload[0].value
-    const valueDisplay = `${formatProperCapitalization(
-      yAxisDataKey
-    )}: ${revenueSign}${value}`
+    const valueDisplay = `${formatText(yAxisDataKey)}: ${revenueSign}${val}`
 
     return (
       <>
-        <Typography>{`Date: ${formatProperCapitalization(label)}`}</Typography>
+        <Typography>{`Date: ${formatText(label)}`}</Typography>
         <Typography>{valueDisplay}</Typography>
       </>
     )

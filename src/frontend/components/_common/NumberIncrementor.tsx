@@ -16,15 +16,15 @@ const NumberIncrementor = ({
   targetProp: string
   updateMutation?: any
 }): ReactElement => {
-  const changeQuantity = (action: QuantityChange) => {
-    let val = args[targetProp]
+  let val = args[targetProp]
 
+  const changeQuantity = (action: QuantityChange) => {
     switch (action) {
       case QuantityChange.INCREMENT:
-        val = args[targetProp] + 1
+        val += 1
         break
       case QuantityChange.DECREMENT:
-        val = args[targetProp] - 1
+        val -= 1
     }
 
     if (setArgs) {
@@ -41,9 +41,9 @@ const NumberIncrementor = ({
       <IconButton onClick={(): void => changeQuantity(QuantityChange.INCREMENT)}>
         <AddBoxIcon />
       </IconButton>
-      <Typography>{args[targetProp]}</Typography>
+      <Typography>{val}</Typography>
       <IconButton
-        disabled={args[targetProp] === 0}
+        disabled={val === 1}
         onClick={(): void => changeQuantity(QuantityChange.DECREMENT)}
       >
         <IndeterminateCheckBoxIcon />

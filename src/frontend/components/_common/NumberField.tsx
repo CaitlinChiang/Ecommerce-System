@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import styles from '../../styles/_common/numberField'
 import { TextField } from '@mui/material'
-import { formatProperCapitalization } from '../../_utils/handleFormat/formatProperCapitalization'
+import { formatText } from '../../_utils/handleFormat/formatText'
 import { returnError } from '../../_utils/handleArgs/returnError'
 import { returnHelperText } from '../../_utils/handleArgs/returnHelperText'
 
@@ -26,27 +26,28 @@ const NumberField = ({
   targetProp: string
   width?: number
 }): ReactElement => {
+  const val = args[targetProp]
+
   return (
     <TextField
       disabled={disabled}
       error={returnError({ args, error, targetProp, nestedProp })}
       helperText={returnHelperText({ args, error, targetProp, nestedProp })}
-      label={label || formatProperCapitalization(nestedProp || targetProp)}
+      label={label || formatText(nestedProp || targetProp)}
       onChange={(e): void => {
-        if (!nestedProp) setArgs({ ...args, [targetProp]: e.target.value })
+        const inputVal = e.target.value
 
         if (nestedProp) {
-          setArgs({
-            ...args,
-            [targetProp]: { ...args[targetProp], [nestedProp]: e.target.value }
-          })
+          setArgs({ ...args, [targetProp]: { ...[val], [nestedProp]: inputVal } })
+        } else {
+          setArgs({ ...args, [targetProp]: inputVal })
         }
       }}
       placeholder={'0'}
       required={required}
       sx={{ ...styles.textField, width: width || 300 }}
       type={'number'}
-      value={!nestedProp ? args[targetProp] : args[targetProp]?.[nestedProp]}
+      value={!nestedProp ? val : val?.[nestedProp]}
       InputProps={{ inputProps: { min: 0 } }}
     />
   )

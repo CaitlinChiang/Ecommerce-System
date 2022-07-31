@@ -20,7 +20,7 @@ import ModalComponent from './ModalComponent'
 import SearchField from './SearchField'
 import { searchData } from '../../_utils/handleData/searchData'
 import { generateRowsPerPage } from '../../_utils/handleData/generateRowsPerPage'
-import { formatProperCapitalization } from '../../_utils/handleFormat/formatProperCapitalization'
+import { formatText } from '../../_utils/handleFormat/formatText'
 
 const TableComponent = ({
   args,
@@ -29,7 +29,6 @@ const TableComponent = ({
   filterContent,
   filterOpen,
   headers,
-  headersAlign,
   loading,
   paginateDataArgs,
   rows,
@@ -44,7 +43,6 @@ const TableComponent = ({
   filterContent?: ReactElement
   filterOpen?: boolean
   headers: { display?: string; label: string; sortable: boolean }[]
-  headersAlign?: 'inherit' | 'left' | 'center' | 'right' | 'justify'
   loading: boolean
   paginateDataArgs: PaginateDataArgs
   rows: any[]
@@ -141,13 +139,9 @@ const TableComponent = ({
                   index: number
                 ): ReactElement => {
                   return (
-                    <TableCell
-                      key={index}
-                      align={headersAlign || 'center'}
-                      padding={'checkbox'}
-                    >
+                    <TableCell key={index} align={'center'} padding={'checkbox'}>
                       {!header.sortable &&
-                        formatProperCapitalization(header?.display || header.label)}
+                        formatText(header?.display || header.label)}
                       {header.sortable && (
                         <TableSortLabel
                           active={sortBy === header.label}
@@ -163,9 +157,7 @@ const TableComponent = ({
                             })
                           }}
                         >
-                          {formatProperCapitalization(
-                            header?.display || header.label
-                          )}
+                          {formatText(header?.display || header.label)}
                         </TableSortLabel>
                       )}
                     </TableCell>

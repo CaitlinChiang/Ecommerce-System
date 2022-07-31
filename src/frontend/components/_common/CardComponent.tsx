@@ -22,50 +22,32 @@ const CardComponent = ({
 }): ReactElement => {
   const router = useRouter()
 
-  const CardDisplay = ({ content }: { content: ReactElement }): ReactElement => {
+  const handleOnClick = (): void => {
+    if (!productVariantId && !redirectLink) return null
+
     if (productVariantId) {
-      return (
-        <Card
-          sx={{ ...styles.card, width: width || 250 }}
-          onClick={(): void => globalAny.setProductVariantId(productVariantId)}
-        >
-          {content}
-        </Card>
-      )
+      globalAny.setProductVariantId(productVariantId)
     }
 
-    if (!redirectLink) {
-      return <Card sx={{ ...styles.card, width: width || 250 }}>{content}</Card>
+    if (redirectLink) {
+      router.push(redirectLink.path, redirectLink.url)
     }
-
-    return (
-      <Card
-        sx={{ ...styles.card, width: width || 250 }}
-        onClick={(): void => {
-          router.push(redirectLink.path, redirectLink.url)
-        }}
-      >
-        {content}
-      </Card>
-    )
   }
 
   return (
-    <CardDisplay
-      content={
-        <CardActionArea>
-          {imageSource?.length > 0 && (
-            <CardMedia
-              alt={imageAlt}
-              component={'img'}
-              height={'200'}
-              image={imageSource}
-            />
-          )}
-          <CardContent>{content}</CardContent>
-        </CardActionArea>
-      }
-    />
+    <Card sx={{ ...styles.card, width }} onClick={handleOnClick}>
+      <CardActionArea>
+        {imageSource && (
+          <CardMedia
+            alt={imageAlt}
+            component={'img'}
+            height={'200'}
+            image={imageSource}
+          />
+        )}
+        <CardContent>{content}</CardContent>
+      </CardActionArea>
+    </Card>
   )
 }
 

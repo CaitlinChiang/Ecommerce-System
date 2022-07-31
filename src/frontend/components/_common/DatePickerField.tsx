@@ -4,7 +4,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns'
 import LocalizationProvider from '@mui/lab/LocalizationProvider'
 import { DatePicker } from '@mui/lab'
 import { Container, TextField } from '@mui/material'
-import { formatProperCapitalization } from '../../_utils/handleFormat/formatProperCapitalization'
+import { formatText } from '../../_utils/handleFormat/formatText'
 import { returnError } from '../../_utils/handleArgs/returnError'
 import { returnHelperText } from '../../_utils/handleArgs/returnHelperText'
 
@@ -23,13 +23,12 @@ const DatePickerField = ({
   setArgs: React.Dispatch<React.SetStateAction<any>>
   targetProp: string
 }): ReactElement => {
-  let value = args?.[targetProp] === null ? null : new Date(args[targetProp])
+  const val = args[targetProp]
+
+  let modifiedVal = args?.[targetProp] === null ? null : new Date(val)
 
   if (nestedProp) {
-    value =
-      args[targetProp]?.[nestedProp] === null
-        ? null
-        : new Date(args[targetProp][nestedProp])
+    modifiedVal = val?.[nestedProp] === null ? null : new Date(val[nestedProp])
   }
 
   return (
@@ -38,15 +37,12 @@ const DatePickerField = ({
         <DatePicker
           disabled={disabled}
           inputFormat={'MM-dd-yyyy'}
-          label={formatProperCapitalization(nestedProp || targetProp)}
+          label={formatText(nestedProp || targetProp)}
           onChange={(newValue: Date | null) => {
             if (!nestedProp) setArgs({ ...args, [targetProp]: newValue })
 
             if (nestedProp) {
-              setArgs({
-                ...args,
-                [targetProp]: { ...args[targetProp], [nestedProp]: newValue }
-              })
+              setArgs({ ...args, [targetProp]: { ...val, [nestedProp]: newValue } })
             }
           }}
           renderInput={(params) => (
@@ -56,7 +52,7 @@ const DatePickerField = ({
               helperText={returnHelperText({ args, error, targetProp, nestedProp })}
             />
           )}
-          value={value}
+          value={modifiedVal}
         />
       </LocalizationProvider>
     </Container>

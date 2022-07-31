@@ -23,9 +23,9 @@ const Row = ({
   icons: { closed: ReactElement; opened: ReactElement }
   row: { actions?: ReactElement; title: string; content: ReactElement }
 }): ReactElement => {
-  const [open, setOpen] = useState<boolean>(false)
-
   if (!row) return
+
+  const [open, setOpen] = useState<boolean>(false)
 
   return (
     <>
