@@ -6,7 +6,7 @@ import { StockQuantityAction } from '../../../_enums/stockQuantity'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { auditArgs } from '../../../_utils/handleArgs/returnAuditArgs'
-import { modifyStockQuantity } from '../../../_utils/handleData/modifyStockQuantity'
+import { updateStockQuantity } from '../../../_utils/handleData/updateStockQuantity'
 import { deletePayment } from '../../payments/mutations/delete_payment'
 
 export default async (
@@ -24,7 +24,7 @@ export default async (
     _id: new ObjectId(args._id)
   })
 
-  await modifyStockQuantity(order.items, StockQuantityAction.ADD, context)
+  await updateStockQuantity(order.items, StockQuantityAction.ADD, context)
 
   await context.database.orders.findOneAndDelete({
     _id: new ObjectId(args._id)

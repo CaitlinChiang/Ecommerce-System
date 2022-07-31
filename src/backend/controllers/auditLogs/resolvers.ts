@@ -1,7 +1,7 @@
 import { Context } from '../../../types/setup/context'
 import { AuditLog } from '../../../types/auditLog'
 import { User } from '../../../types/user'
-import { formatDateTime } from '../../_utils/handleDates/formatDateTime'
+import { formatDateTime } from '../../_utils/handleFormat/formatDateTime'
 
 export default {
   AuditLog: {

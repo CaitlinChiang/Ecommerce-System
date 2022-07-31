@@ -2,27 +2,28 @@ import { Context } from '../../../types/setup/context'
 import { CartItem } from '../../../types/cart'
 import { StockQuantityAction } from '../../_enums/stockQuantity'
 
-export const modifyStockQuantity = async (
-  items: CartItem[],
+export const updateStockQuantity = async (
   action: StockQuantityAction,
+  items: CartItem[],
   context: Context
 ): Promise<void> => {
-  items?.forEach(async (cartItem: CartItem) => {
-    const stockQuantity =
-      action == StockQuantityAction.ADD ? cartItem.quantity : -cartItem.quantity
+  for (let i = 0, n = items.length; i < n; i++) {
+    const { productId, productVariantId, quantity } = items[i]
 
-    if (cartItem?.productId) {
+    const stockQuantity = action === StockQuantityAction.ADD ? quantity : -quantity
+
+    if (productId) {
       await context.database.products.findOneAndUpdate(
-        { _id: cartItem.productId },
+        { _id: productId },
         { $inc: { stockQuantity } }
       )
     }
 
-    if (cartItem?.productVariantId) {
+    if (productVariantId) {
       await context.database.productVariants.findOneAndUpdate(
-        { _id: cartItem.productVariantId },
+        { _id: productVariantId },
         { $inc: { stockQuantity } }
       )
     }
-  })
+  }
 }

@@ -1,5 +1,5 @@
 import { City } from '../../../types/city'
-import { formatDateTime } from '../../_utils/handleDates/formatDateTime'
+import { formatDateTime } from '../../_utils/handleFormat/formatDateTime'
 
 export default {
   City: {

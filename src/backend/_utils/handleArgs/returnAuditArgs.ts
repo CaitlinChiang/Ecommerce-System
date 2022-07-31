@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongodb'
 import { Context } from '../../../types/setup/context'
-import { currentDateTime } from '../handleDates/returnCurrentDateTime'
+import { currentDateTime } from '../handleFormat/returnCurrentDateTime'
 
 export const auditArgs = (
   context: Context

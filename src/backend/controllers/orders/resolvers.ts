@@ -5,7 +5,7 @@ import { DeliveryAddress } from '../../../types/common/deliveryAddress'
 import { Order } from '../../../types/order'
 import { Payment } from '../../../types/payment'
 import { User } from '../../../types/user'
-import { formatDateTime } from '../../_utils/handleDates/formatDateTime'
+import { formatDateTime } from '../../_utils/handleFormat/formatDateTime'
 import { returnCartItems } from '../../_utils/handleData/returnCartItems'
 
 export default {

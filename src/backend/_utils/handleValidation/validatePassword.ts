@@ -4,12 +4,12 @@ import { User } from '../../../types/user'
 
 export const validatePassword = async ({
   password,
-  user,
-  reset
+  reset,
+  user
 }: {
   password: string
-  user: User
   reset?: boolean
+  user: User
 }): Promise<void> => {
   const passwordsMatch = await bcrypt.compare(password, user.password)
 

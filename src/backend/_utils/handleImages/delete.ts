@@ -16,7 +16,7 @@ export const deleteImage = async ({
 }): Promise<void> => {
   if (!imageUrl || (!image && shouldExist)) return
 
-  destroyImageUrl(imageUrl)
+  await destroyImageUrl(imageUrl)
 }
 
 export const deleteProductVariantImages = async (
@@ -29,11 +29,10 @@ export const deleteProductVariantImages = async (
     .find({ _productId: new ObjectId(productId) })
     .toArray()
 
-  productVariants.forEach(async (productVariant: ProductVariant) => {
-    if (productVariant?.imageUrl) {
-      destroyImageUrl(productVariant.imageUrl)
-    }
-  })
+  for (let i = 0, n = productVariants.length; i < n; i++) {
+    const { imageUrl } = productVariants[i]
+    if (imageUrl) await destroyImageUrl(imageUrl)
+  }
 }
 
 const destroyImageUrl = async (url: string): Promise<void> => {

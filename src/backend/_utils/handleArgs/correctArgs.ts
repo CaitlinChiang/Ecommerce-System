@@ -10,24 +10,18 @@ export const correctArgs = ({
   Object.keys(args).forEach((key: string): void => {
     const val = args[key]
 
-    if (isValueStringOrNull(val)) {
-      modifyArgs(key, args, mutation)
-    }
+    if (isValueStringOrNull(val)) modifyArgs(key, args, mutation)
 
     if (isValueObject(val) && val !== null) {
-      Object.keys(val).forEach((nestedKey: string) => {
-        modifyArgs(nestedKey, val, mutation)
-      })
-      deleteObject(args, key)
+      modifyObjArgs(val, mutation)
+      deleteObj(args, key)
     }
 
     if (isValueArray(val) && val !== null) {
-      val.forEach((item: any, index: number) => {
-        if (typeof item === 'object') {
-          Object.keys(item).forEach((nestedKey: string) =>
-            modifyArgs(nestedKey, item, mutation)
-          )
-          deleteObject(args, key[index])
+      val.forEach((e: any, index: number) => {
+        if (typeof e === 'object') {
+          modifyObjArgs(e, mutation)
+          deleteObj(args, key[index])
         }
       })
     }
@@ -58,12 +52,16 @@ const modifyArgs = (key: string, obj: any, mutation: boolean): void => {
     obj[key] = new ObjectId(obj[key])
   }
 
-  if (key.includes('Date') && mutation && obj[key] !== null) {
+  if (key.includes('Date') && obj[key] !== null && mutation) {
     obj[key] = new Date(obj[key])
   }
 }
 
-const deleteObject = (mainObj: any, currentObj: any): void => {
+const modifyObjArgs = (e: any, mutation: boolean): void => {
+  Object.keys(e).forEach((k: string) => modifyArgs(k, e, mutation))
+}
+
+const deleteObj = (mainObj: any, currentObj: any): void => {
   if (Object.keys(currentObj)?.length === 0) {
     delete mainObj[currentObj]
   }

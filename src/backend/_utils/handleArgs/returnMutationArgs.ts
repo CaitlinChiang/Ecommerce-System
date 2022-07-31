@@ -1,5 +1,5 @@
 import { MutateAction } from '../../_enums/mutateAction'
-import { currentDateTime } from '../handleDates/returnCurrentDateTime'
+import { currentDateTime } from '../handleFormat/returnCurrentDateTime'
 import { correctArgs } from './correctArgs'
 
 export const mutationArgs = (args: any, action: MutateAction): any => {

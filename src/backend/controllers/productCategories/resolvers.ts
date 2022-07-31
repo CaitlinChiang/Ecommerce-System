@@ -1,5 +1,5 @@
 import { ProductCategory } from '../../../types/productCategory'
-import { formatDateTime } from '../../_utils/handleDates/formatDateTime'
+import { formatDateTime } from '../../_utils/handleFormat/formatDateTime'
 
 export default {
   ProductCategory: {

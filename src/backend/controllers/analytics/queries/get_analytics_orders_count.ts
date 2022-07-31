@@ -4,7 +4,7 @@ import { Order } from '../../../../types/order'
 import { AdminPermission } from '../../../_enums/adminPermission'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { queryArgs } from '../../../_utils/handleArgs/returnQueryArgs'
-import { formatDate } from '../../../_utils/handleDates/formatDate'
+import { formatDate } from '../../../_utils/handleFormat/formatDate'
 
 export default async (
   _root: undefined,

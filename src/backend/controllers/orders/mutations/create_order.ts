@@ -7,7 +7,7 @@ import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { mutationArgs } from '../../../_utils/handleArgs/returnMutationArgs'
 import { auditArgs } from '../../../_utils/handleArgs/returnAuditArgs'
-import { modifyStockQuantity } from '../../../_utils/handleData/modifyStockQuantity'
+import { updateStockQuantity } from '../../../_utils/handleData/updateStockQuantity'
 import { createPayment } from '../../payments/mutations/create_payment'
 import { emptyCart } from '../../cart/mutations/empty_cart'
 
@@ -36,7 +36,7 @@ export default async (
 
   await emptyCart(context)
 
-  await modifyStockQuantity(args.items, StockQuantityAction.SUBTRACT, context)
+  await updateStockQuantity(args.items, StockQuantityAction.SUBTRACT, context)
 
   return order
 }

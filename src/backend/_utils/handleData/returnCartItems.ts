@@ -2,6 +2,7 @@ import { Context } from '../../../types/setup/context'
 import { CartItem } from '../../../types/cart'
 import { Product } from '../../../types/product'
 import { ProductVariant } from '../../../types/productVariant'
+import { formatPrice } from '../handleFormat/formatPrice'
 
 export const returnCartItems = async (
   items: CartItem[],
@@ -9,24 +10,24 @@ export const returnCartItems = async (
 ): Promise<CartItem[]> => {
   const cartItems: CartItem[] = []
 
-  for (let i = 0; i < items.length; i++) {
-    const product: Product = await context.dataloaders.products.byId.load(
-      items[i].productId
-    )
+  for (let i = 0, n = items.length; i < n; i++) {
+    const { productId, productVariantId, quantity, totalPrice } = items[i]
+
+    const product: Product = await context.dataloaders.products.byId.load(productId)
 
     let productVariant: ProductVariant = null
 
-    if (items[i]?.productVariantId) {
+    if (productVariantId) {
       productVariant = await context.dataloaders.productVariants.byId.load(
-        items[i]?.productVariantId
+        productVariantId
       )
     }
 
     cartItems.push({
       product,
       productVariant,
-      quantity: items[i]?.quantity,
-      totalPrice: parseFloat(Number(items[i]?.totalPrice).toFixed(2))
+      quantity: quantity,
+      totalPrice: formatPrice(totalPrice)
     })
   }
 

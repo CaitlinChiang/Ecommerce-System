@@ -1,4 +1,4 @@
-import { addZeroIfNeeded } from './formatCurrentDate'
+import { formatDateZeroes } from './formatDateZeroes'
 
 export const currentDateTime = (): Date => {
   const date = new Date()
@@ -14,9 +14,9 @@ const formatCurrentDate = (localDate: string): string => {
   const currentDate = localDate.split(', ')[0]
   const splitDate = currentDate.split('/')
 
-  const month = addZeroIfNeeded(splitDate[0])
-  const day = addZeroIfNeeded(splitDate[1])
-  const year = addZeroIfNeeded(splitDate[2])
+  const month = formatDateZeroes(splitDate[0])
+  const day = formatDateZeroes(splitDate[1])
+  const year = formatDateZeroes(splitDate[2])
 
   return year + '-' + month + '-' + day
 }
@@ -27,8 +27,8 @@ const formatCurrentTime = (localDate: string): string => {
   const splitTime = currentTime.split(':')
 
   const hour = transformTo24HourTime(splitTime[0], currentTimeOfDay)
-  const minute = addZeroIfNeeded(splitTime[1])
-  const second = addZeroIfNeeded(splitTime[2])
+  const minute = formatDateZeroes(splitTime[1])
+  const second = formatDateZeroes(splitTime[2])
 
   const time = hour + ':' + minute + ':' + second
 
@@ -38,7 +38,7 @@ const formatCurrentTime = (localDate: string): string => {
 const transformTo24HourTime = (hour: string, currentTimeOfDay: string): string => {
   switch (currentTimeOfDay) {
     case 'AM':
-      return addZeroIfNeeded(hour)
+      return formatDateZeroes(hour)
     case 'PM':
       return String(12 + Number(hour))
   }

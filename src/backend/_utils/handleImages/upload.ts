@@ -10,22 +10,19 @@ export const uploadImage = async (args: UploadImageArgs): Promise<string> => {
 
   const fileName = assignFileName(args)
 
-  const imageUrl = await uploadToCloudinary(createReadStream, fileName)
-
-  return imageUrl
+  return await uploadToCloudinary(createReadStream, fileName)
 }
 
 const assignFileName = (args: UploadImageArgs) => {
-  switch (args.imageType) {
+  const { imageType, orderId, productId, productName, productVariantName } = args
+
+  switch (imageType) {
     case UploadImageType.PAYMENT:
-      return generatePaymentImageFileName(args.orderId)
+      return generatePaymentImageFileName(orderId)
     case UploadImageType.PRODUCT:
-      return generateProductImageFileName(args.productName)
+      return generateProductImageFileName(productName)
     case UploadImageType.PRODUCT_VARIANT:
-      return generateProductVariantImageFileName(
-        args.productId,
-        args.productVariantName
-      )
+      return generateProductVariantImageFileName(productId, productVariantName)
   }
 }
 

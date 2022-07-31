@@ -6,7 +6,5 @@ export const formatDate = (unformattedDate: Date): string => {
   const dateString = unformattedDate.toLocaleString('en-US', { timeZone: 'UTC' })
   const splitDate = dateString.split(', ')
 
-  const formattedDate = formatCurrentDate(splitDate[0])
-
-  return formattedDate
+  return formatCurrentDate(splitDate[0])
 }

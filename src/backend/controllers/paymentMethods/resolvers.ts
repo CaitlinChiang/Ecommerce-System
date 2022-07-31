@@ -1,5 +1,5 @@
 import { PaymentMethod } from '../../../types/paymentMethod'
-import { formatDateTime } from '../../_utils/handleDates/formatDateTime'
+import { formatDateTime } from '../../_utils/handleFormat/formatDateTime'
 
 export default {
   PaymentMethod: {

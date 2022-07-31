@@ -1,5 +1,5 @@
 import { User } from '../../../types/user'
-import { formatDateTime } from '../../_utils/handleDates/formatDateTime'
+import { formatDateTime } from '../../_utils/handleFormat/formatDateTime'
 
 export default {
   User: {

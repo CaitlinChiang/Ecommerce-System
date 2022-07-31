@@ -16,7 +16,7 @@ export default async (headers, database): Promise<User | null> => {
   const minutesRemaining = (decoded.exp - new Date().getTime() / 1000) / 60
 
   if (minutesRemaining <= 5) {
-    user['token'] = await generateJWT(new ObjectId(decoded._id))
+    user.token = await generateJWT(new ObjectId(decoded._id))
   }
 
   return user
