@@ -2,7 +2,7 @@ import { ReactElement, useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetOrders } from '../query'
 import deleteMutation from '../../Delete/mutation'
-import { Button, TableCell, TableRow, Typography } from '@mui/material'
+import { Box, Button, TableCell, TableRow, Typography } from '@mui/material'
 import { Order } from '../../../../../types/order'
 import { PaginateDataArgs } from '../../../../../types/actions/paginateData'
 import { RefetchDataArgs } from '../../../../../types/actions/refetchData'
@@ -20,6 +20,8 @@ import OrdersTableFilters from './tableFilters'
 import { authenticateUser } from '../../../../_utils/auth/authenticateUser'
 import { fetchMoreArgs } from '../../../../_utils/handleArgs/returnFetchMoreArgs'
 import { formatPrice } from '../../../../_utils/handleFormat/formatPrice'
+import { CartItem } from '../../../../../types/cart'
+import { DeliveryAddress } from '../../../../../types/common/deliveryAddress'
 
 const OrdersTable = (): ReactElement => {
   const disableUpdateOrder = !authenticateUser(AdminPermission.UPDATE_ORDER)
@@ -42,22 +44,11 @@ const OrdersTable = (): ReactElement => {
     sortBy: 'createdAt',
     sortDirection: SortDirection.DESC
   })
-  const [showAddress, setShowAddress] = useState<any>({
-    address: null,
-    open: false
-  })
-  const [showOrderItems, setShowOrderItems] = useState<any>({
-    items: [],
-    open: false
-  })
-  const [showPaymentProof, setShowPaymentProof] = useState<any>({
-    imageProofUrl: null,
-    open: false
-  })
-  const [showOrderLogsTable, setShowOrderLogsTable] = useState<any>({
-    orderId: null,
-    open: false
-  })
+  const [address, setAddress] = useState<DeliveryAddress>(null)
+  const [items, setItems] = useState<CartItem[]>([])
+  const [paymentProofUrl, setPaymentProofUrl] = useState<string>(null)
+  const [orderId, setOrderId] = useState<string>(null)
+  const [open, setOpen] = useState<string>('')
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
   const [refetchArgs, setRefetchArgs] = useState<RefetchDataArgs>({
     args: null,
@@ -103,20 +94,23 @@ const OrdersTable = (): ReactElement => {
 
   const orderRows = [
     orders?.map((order: Order): ReactElement => {
+      const { collectionMethod, deliveryAddress, items, payment, user } = order
+
       return (
         <TableRow>
-          <TableCell>{order?.user?.firstName}</TableCell>
-          <TableCell>{order?.user?.lastName}</TableCell>
+          <TableCell>{user?.firstName}</TableCell>
+          <TableCell>{user?.lastName}</TableCell>
           <TableCell>
-            {order?.user?.email} <br /> {order?.user?.phoneNumber}
+            {user?.email} <br /> {user?.phoneNumber}
           </TableCell>
           <TableCell>
-            {order?.collectionMethod}
-            {order?.deliveryAddress && (
+            {collectionMethod}
+            {deliveryAddress && (
               <Button
-                onClick={(): void =>
-                  setShowAddress({ address: order?.deliveryAddress, open: true })
-                }
+                onClick={(): void => {
+                  setAddress(deliveryAddress)
+                  setOpen('ADDRESS')
+                }}
               >
                 {'View Address'}
               </Button>
@@ -125,7 +119,8 @@ const OrdersTable = (): ReactElement => {
           <TableCell>
             <Button
               onClick={(): void => {
-                setShowOrderItems({ items: order?.items, open: true })
+                setItems(items)
+                setOpen('ORDER_ITEMS')
               }}
             >
               {'View Items'}
@@ -136,28 +131,29 @@ const OrdersTable = (): ReactElement => {
               _id={order._id}
               disabled={disableUpdateOrder}
               refetchArgs={refetchArgs}
-              status={order?.status}
+              status={order.status}
             />
           </TableCell>
           <TableCell>
-            {`Amount Due: P${formatPrice(order?.payment?.amountDue)}`}
+            {`Amount Due: P${formatPrice(payment?.amountDue)}`}
             <br />
-            {`Shipping Fee: P${formatPrice(order?.payment?.shippingFee)}`}
+            {`Shipping Fee: P${formatPrice(payment?.shippingFee)}`}
           </TableCell>
           <TableCell>
             <UpdatePaymentSelect
               _orderId={order._id}
               disabled={disableUpdatePayment}
               refetchArgs={refetchArgs}
-              status={order?.payment?.status}
+              status={payment?.status}
             />
           </TableCell>
           <TableCell>
-            {order?.payment?.paymentMethod?.name}
+            {payment?.paymentMethod?.name}
             <br />
             <Button
               onClick={(): void => {
-                setShowPaymentProof({ imageProofUrl: '', open: true })
+                setPaymentProofUrl(payment?.imageProofUrl)
+                setOpen('PAYMENT_PROOF')
               }}
             >
               {'View Proof'}
@@ -166,7 +162,8 @@ const OrdersTable = (): ReactElement => {
           <TableCell>
             <Button
               onClick={(): void => {
-                setShowOrderLogsTable({ orderId: order._id, open: true })
+                setOrderId(String(order._id))
+                setOpen('ORDER_LOGS')
               }}
             >
               {'View Order Logs'}
@@ -194,29 +191,29 @@ const OrdersTable = (): ReactElement => {
       <ModalComponent
         content={
           <Typography>
-            {showAddress?.address?.address} <br /> {showAddress?.address?.city?.name}
+            {address?.address} <br /> {address?.city?.name}
           </Typography>
         }
-        onClose={(): void => setShowAddress({ open: false })}
-        open={showAddress.open}
+        onClose={(): void => setOpen('')}
+        open={open === 'ADDRESS'}
         title={'Address'}
       />
       <ModalComponent
-        content={<OrderItemsTable items={showOrderItems?.items} />}
-        onClose={(): void => setShowOrderItems({ open: false })}
-        open={showOrderItems.open}
+        content={<OrderItemsTable items={items} />}
+        onClose={(): void => setOpen('')}
+        open={open === 'ORDER_ITEMS'}
         title={'Order Items'}
       />
       <ModalComponent
-        content={<></>}
-        onClose={(): void => setShowPaymentProof({ open: false })}
-        open={showPaymentProof.open}
+        content={<Box component='img' alt={'Payment Proof'} src={paymentProofUrl} />}
+        onClose={(): void => setOpen('')}
+        open={open === 'PAYMENT_PROOF'}
         title={'Payment Proof'}
       />
       <ModalComponent
-        content={<OrderLogsTable orderId={showOrderLogsTable.orderId} />}
-        onClose={(): void => setShowOrderLogsTable({ open: false })}
-        open={showOrderLogsTable.open}
+        content={<OrderLogsTable orderId={orderId} />}
+        onClose={(): void => setOpen('')}
+        open={open === 'ORDER_LOGS'}
         title={'Audit Logs for this Order'}
       />
       <TableComponent

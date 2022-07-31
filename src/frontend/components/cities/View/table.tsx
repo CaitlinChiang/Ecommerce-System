@@ -66,10 +66,12 @@ const CitiesTable = (): ReactElement => {
 
   const cityRows = [
     cities?.map((city: City): ReactElement => {
+      const { name, shippingFee } = city
+
       return (
         <TableRow>
-          <TableCell>{city?.name}</TableCell>
-          <TableCell>{`P${formatPrice(city?.shippingFee)}`}</TableCell>
+          <TableCell>{name}</TableCell>
+          <TableCell>{`P${formatPrice(shippingFee)}`}</TableCell>
           <TableCell>
             <IconButton
               disabled={disableUpdateCity}

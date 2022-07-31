@@ -1,13 +1,7 @@
 import { ReactElement } from 'react'
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow
-} from '@mui/material'
+import { TableCell, TableRow } from '@mui/material'
 import { CartItem } from '../../../../../types/cart'
+import SimpleTableComponent from '../../../_common/SimpleTableComponent'
 import { formatNumber } from '../../../../_utils/handleFormat/formatNumber'
 
 const OrderItemsTable = ({ items }: { items: CartItem[] }): ReactElement => {
@@ -29,24 +23,7 @@ const OrderItemsTable = ({ items }: { items: CartItem[] }): ReactElement => {
     })
   ]
 
-  return (
-    <TableContainer>
-      <Table size={'small'}>
-        <TableHead>
-          <TableRow>
-            {itemHeaders.map((header: string, index: number): ReactElement => {
-              return (
-                <TableCell key={index} align={'center'} padding={'checkbox'}>
-                  {header}
-                </TableCell>
-              )
-            })}
-          </TableRow>
-        </TableHead>
-        <TableBody>{itemRows}</TableBody>
-      </Table>
-    </TableContainer>
-  )
+  return <SimpleTableComponent headers={itemHeaders} rows={itemRows} />
 }
 
 export default OrderItemsTable

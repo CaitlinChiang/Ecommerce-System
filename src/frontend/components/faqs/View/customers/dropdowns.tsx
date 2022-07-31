@@ -29,9 +29,11 @@ const FAQsDropdowns = (): ReactElement => {
   const faqsCount: number = data?.get_faqs_count || 0
 
   const faqRows = faqs?.map((faq: FAQ): { title: string; content: ReactElement } => {
+    const { answer, question } = faq
+
     return {
-      title: faq.question,
-      content: <Typography>{faq.answer}</Typography>
+      title: question,
+      content: <Typography>{answer}</Typography>
     }
   })
 
@@ -41,18 +43,16 @@ const FAQsDropdowns = (): ReactElement => {
   }
 
   return (
-    <>
-      <DropdownsComponent
-        args={args}
-        count={faqsCount}
-        fetchMore={fetchMore}
-        icons={icons}
-        loading={loading}
-        paginateDataArgs={paginateDataArgs}
-        rows={faqRows}
-        setPaginateDataArgs={setPaginateDataArgs}
-      />
-    </>
+    <DropdownsComponent
+      args={args}
+      count={faqsCount}
+      fetchMore={fetchMore}
+      icons={icons}
+      loading={loading}
+      paginateDataArgs={paginateDataArgs}
+      rows={faqRows}
+      setPaginateDataArgs={setPaginateDataArgs}
+    />
   )
 }
 

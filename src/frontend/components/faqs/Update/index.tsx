@@ -2,7 +2,7 @@ import { ReactElement, useState, useEffect } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
 import { GetFAQ } from '../View/query'
 import mutation from './mutation'
-import { Button, Typography } from '@mui/material'
+import { Button, CircularProgress, Typography } from '@mui/material'
 import { FAQ } from '../../../../types/faq'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
@@ -27,7 +27,9 @@ const UpdateFAQ = ({
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
-  const { data } = useQuery(GetFAQ, { variables: { _id } })
+  const { data, loading } = useQuery(GetFAQ, { variables: { _id } })
+
+  if (loading) return <CircularProgress />
 
   const faq: FAQ = data?.get_faq || {}
 
@@ -53,9 +55,7 @@ const UpdateFAQ = ({
   return (
     <>
       <Typography>{`Created At: ${faq?.createdAt}`}</Typography>
-      {faq?.updatedAt && (
-        <Typography>{`Last Updated At: ${faq?.updatedAt}`}</Typography>
-      )}
+      <Typography>{`Last Updated At: ${faq?.updatedAt || '-'}`}</Typography>
       <Text
         args={args}
         error={validateFields}

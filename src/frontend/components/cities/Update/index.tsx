@@ -2,7 +2,7 @@ import { ReactElement, useState, useEffect } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
 import { GetCity } from '../View/query'
 import mutation from './mutation'
-import { Button, Typography } from '@mui/material'
+import { Button, CircularProgress, Typography } from '@mui/material'
 import { City } from '../../../../types/city'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
@@ -29,7 +29,9 @@ const UpdateCity = ({
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
-  const { data } = useQuery(GetCity, { variables: { _id } })
+  const { data, loading } = useQuery(GetCity, { variables: { _id } })
+
+  if (loading) return <CircularProgress />
 
   const city: City = data?.get_city || {}
 
@@ -42,10 +44,7 @@ const UpdateCity = ({
   }, [data])
 
   const [updateMutation, updateMutationState] = useMutation(mutation, {
-    variables: {
-      ...correctArgs(args),
-      shippingFee: formatFee(args?.shippingFee)
-    },
+    variables: { ...correctArgs(args), shippingFee: formatFee(args?.shippingFee) },
     onCompleted: () => {
       globalAny.setNotification(true, 'City & shipping fee successfully updated!')
       refetchData(refetchArgs)
@@ -58,9 +57,7 @@ const UpdateCity = ({
   return (
     <>
       <Typography>{`Created At: ${city?.createdAt}`}</Typography>
-      {city?.updatedAt && (
-        <Typography>{`Last Updated At: ${city?.updatedAt}`}</Typography>
-      )}
+      <Typography>{`Last Updated At: ${city?.updatedAt || '-'}`}</Typography>
       <Text
         args={args}
         error={validateFields}

@@ -24,45 +24,48 @@ const Cart = (): ReactElement => {
 
   const { data, loading, refetch } = useQuery(GetCart)
 
+  if (loading) return <CircularProgress />
+
   const cartData: Cart = data?.get_cart || {}
 
   useEffect(() => {
     setCart(cartData)
   }, [data])
 
-  if (loading) return <CircularProgress />
+  const itemRows = cart?.items?.map((cartItem: CartItem): ReactElement => {
+    const { product, productVariant, quantity, totalPrice } = cartItem
+
+    return (
+      <>
+        <Box
+          component='img'
+          sx={styles.image}
+          alt={`${productVariant?.name || product?.name} Product Photo`}
+          src={productVariant?.imageUrl || product?.imageUrl}
+        />
+        <Typography>{product?.name}</Typography>
+        <Typography>{productVariant?.name}</Typography>
+        <Typography>{`P${formatPrice(totalPrice)}`}</Typography>
+        <EditItemQuantity
+          productId={product?._id}
+          productVariantId={productVariant?._id}
+          quantity={quantity}
+          setCart={setCart}
+        />
+        <RemoveCartItem
+          productId={product?._id}
+          productVariantId={productVariant?._id}
+          refetch={refetch}
+        />
+        <Divider />
+      </>
+    )
+  })
 
   return (
     <>
       <Container>
-        {cart?.items?.map((cartItem: CartItem): ReactElement => {
-          const { product, productVariant, quantity, totalPrice } = cartItem
-          return (
-            <>
-              <Box
-                component='img'
-                sx={styles.image}
-                alt={`${productVariant?.name || product?.name} Product Photo`}
-                src={productVariant?.imageUrl || product?.imageUrl}
-              />
-              <Typography>{product?.name}</Typography>
-              <Typography>{productVariant?.name}</Typography>
-              <Typography>{`P${formatPrice(totalPrice)}`}</Typography>
-              <EditItemQuantity
-                productId={product?._id}
-                productVariantId={productVariant?._id}
-                quantity={quantity}
-                setCart={setCart}
-              />
-              <RemoveCartItem
-                productId={product?._id}
-                productVariantId={productVariant?._id}
-                refetch={refetch}
-              />
-              <Divider />
-            </>
-          )
-        })}
+        {itemRows}
         <Typography>{`Total  P${formatPrice(cart?.totalPrice)}`}</Typography>
       </Container>
       <Container sx={styles.bottomContainer}>

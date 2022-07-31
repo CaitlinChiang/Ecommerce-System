@@ -49,6 +49,7 @@ const OrdersTable = (): ReactElement => {
     orders?.map((order: Order): ReactElement[] => {
       return order?.items?.map((cartItem: CartItem): ReactElement => {
         const { product, productVariant, quantity, totalPrice } = cartItem
+
         return (
           <TableRow>
             <TableCell>{String(order._id)}</TableCell>
@@ -66,21 +67,19 @@ const OrdersTable = (): ReactElement => {
   ]
 
   return (
-    <>
-      <TableComponent
-        args={args}
-        count={ordersCount}
-        fetchMore={fetchMore}
-        filterContent={<OrdersTableFilters args={args} setArgs={setArgs} />}
-        filterOpen={filterOpen}
-        headers={orderHeaders}
-        loading={loading}
-        paginateDataArgs={paginateDataArgs}
-        rows={orderRows}
-        setFilterOpen={setFilterOpen}
-        setPaginateDataArgs={setPaginateDataArgs}
-      />
-    </>
+    <TableComponent
+      args={args}
+      count={ordersCount}
+      fetchMore={fetchMore}
+      filterContent={<OrdersTableFilters args={args} setArgs={setArgs} />}
+      filterOpen={filterOpen}
+      headers={orderHeaders}
+      loading={loading}
+      paginateDataArgs={paginateDataArgs}
+      rows={orderRows}
+      setFilterOpen={setFilterOpen}
+      setPaginateDataArgs={setPaginateDataArgs}
+    />
   )
 }
 

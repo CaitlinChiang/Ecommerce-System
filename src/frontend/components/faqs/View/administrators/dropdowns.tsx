@@ -61,6 +61,8 @@ const FAQsDropdowns = (): ReactElement => {
 
   const faqRows = faqs?.map(
     (faq: FAQ): { actions: ReactElement; title: string; content: ReactElement } => {
+      const { answer, question } = faq
+
       return {
         actions: (
           <>
@@ -83,8 +85,8 @@ const FAQsDropdowns = (): ReactElement => {
             />
           </>
         ),
-        title: faq.question,
-        content: <Typography>{faq.answer}</Typography>
+        title: question,
+        content: <Typography>{answer}</Typography>
       }
     }
   )

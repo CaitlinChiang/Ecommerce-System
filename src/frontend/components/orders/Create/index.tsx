@@ -33,13 +33,13 @@ const CreateOrder = (): ReactElement => {
   const [validateFields, setValidateFields] = useState<boolean>(false)
   const [orderSuccess, setOrderSuccess] = useState<boolean>(false)
 
-  const { data: CityData } = useQuery(GetCity, { variables: { _id: args?.cityId } })
-  const { data: PaymentMethodData } = useQuery(GetPaymentMethod, {
+  const { data: cityData } = useQuery(GetCity, { variables: { _id: args?.cityId } })
+  const { data: paymentMethodData } = useQuery(GetPaymentMethod, {
     variables: { _id: args?.paymentMethodId }
   })
 
-  const city: City = CityData?.get_city || {}
-  const paymentMethod: PaymentMethod = PaymentMethodData?.get_payment_method || {}
+  const city: City = cityData?.get_city || {}
+  const paymentMethod: PaymentMethod = paymentMethodData?.get_payment_method || {}
 
   const [createMutation, createMutationState] = useMutation(mutation, {
     variables: {

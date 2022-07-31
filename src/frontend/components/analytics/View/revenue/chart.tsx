@@ -1,7 +1,7 @@
 import { ReactElement, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetAnalyticsRevenueCount } from '../query'
-import { Box } from '@mui/material'
+import { Box, CircularProgress } from '@mui/material'
 import { AnalyticsRevenueCount } from '../../../../../types/analytics'
 import { DateRangeType } from '../../../../_enums/dateRangeType'
 import AreaChart from '../../../_common/AreaChart'
@@ -16,7 +16,9 @@ const RevenueChart = (): ReactElement => {
     }
   })
 
-  const { data } = useQuery(GetAnalyticsRevenueCount, { variables: args })
+  const { data, loading } = useQuery(GetAnalyticsRevenueCount, { variables: args })
+
+  if (loading) return <CircularProgress />
 
   const revenueData: AnalyticsRevenueCount[] =
     data?.get_analytics_revenue_count || []

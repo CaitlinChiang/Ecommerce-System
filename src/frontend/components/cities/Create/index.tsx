@@ -27,10 +27,7 @@ const CreateCity = ({
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const [createMutation, createMutationState] = useMutation(mutation, {
-    variables: {
-      ...args,
-      shippingFee: formatFee(args?.shippingFee)
-    },
+    variables: { ...args, shippingFee: formatFee(args?.shippingFee) },
     onCompleted: () => {
       globalAny.setNotification(true, 'City & shipping fee successfully created!')
       refetchData(refetchArgs)

@@ -3,9 +3,9 @@ import { useRouter } from 'next/router'
 import { useQuery, useMutation } from '@apollo/client'
 import { GetUser } from '../../users/View/query'
 import mutation from './mutation'
+import { Button } from '@mui/material'
 import { AddCartItemArgs } from '../../../../types/cart'
 import { User } from '../../../../types/user'
-import { Button } from '@mui/material'
 import ModalComponent from '../../_common/ModalComponent'
 
 const globalAny: any = global

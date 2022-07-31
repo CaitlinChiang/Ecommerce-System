@@ -2,6 +2,7 @@ import { ReactElement, useState, useEffect } from 'react'
 import styles from '../../styles/_common/dropdownsComponent'
 import {
   Box,
+  CircularProgress,
   Collapse,
   IconButton,
   Paper,
@@ -81,41 +82,44 @@ const DropdownsComponent = ({
   }, [paginateDataArgs])
 
   return (
-    <TableContainer component={Paper}>
-      {count && (
-        <TablePagination
-          component={'span'}
-          count={count}
-          onRowsPerPageChange={async (e): Promise<void> => {
-            const newRowsPerPage = Number(e.target.value)
-            setPaginateDataArgs({
-              ...paginateDataArgs,
-              page: 0,
-              rowsPerPage: newRowsPerPage
-            })
-          }}
-          onPageChange={async (_e, newPage: number): Promise<void> => {
-            window.scrollTo(0, 0)
-            setPaginateDataArgs({
-              ...paginateDataArgs,
-              page: newPage
-            })
-          }}
-          page={paginateDataArgs?.page}
-          rowsPerPage={paginateDataArgs?.rowsPerPage}
-          rowsPerPageOptions={generateRowsPerPage(count)}
-        />
-      )}
-      <Table aria-label='collapsible table'>
-        <TableBody>
-          {rows.map(
-            (row: { title: string; content: ReactElement }): ReactElement => {
-              return <Row icons={icons} row={row} />
-            }
-          )}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <>
+      {loading && <CircularProgress />}
+      <TableContainer component={Paper}>
+        {count && (
+          <TablePagination
+            component={'span'}
+            count={count}
+            onRowsPerPageChange={async (e): Promise<void> => {
+              const newRowsPerPage = Number(e.target.value)
+              setPaginateDataArgs({
+                ...paginateDataArgs,
+                page: 0,
+                rowsPerPage: newRowsPerPage
+              })
+            }}
+            onPageChange={async (_e, newPage: number): Promise<void> => {
+              window.scrollTo(0, 0)
+              setPaginateDataArgs({
+                ...paginateDataArgs,
+                page: newPage
+              })
+            }}
+            page={paginateDataArgs?.page}
+            rowsPerPage={paginateDataArgs?.rowsPerPage}
+            rowsPerPageOptions={generateRowsPerPage(count)}
+          />
+        )}
+        <Table aria-label='collapsible table'>
+          <TableBody>
+            {rows.map(
+              (row: { title: string; content: ReactElement }): ReactElement => {
+                return <Row icons={icons} row={row} />
+              }
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </>
   )
 }
 

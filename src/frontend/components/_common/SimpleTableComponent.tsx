@@ -15,7 +15,7 @@ const SimpleTableComponent = ({
   rows
 }: {
   headers: string[]
-  loading: boolean
+  loading?: boolean
   rows: any[]
 }): ReactElement => {
   return (
