@@ -18,13 +18,12 @@ const RevenueChart = (): ReactElement => {
 
   const { data, loading } = useQuery(GetAnalyticsRevenueCount, { variables: args })
 
-  if (loading) return <CircularProgress />
-
   const revenueData: AnalyticsRevenueCount[] =
     data?.get_analytics_revenue_count || []
 
   return (
     <>
+      {loading && <CircularProgress />}
       <Box>
         <DatePickerField
           args={args}

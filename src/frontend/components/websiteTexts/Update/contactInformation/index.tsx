@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client'
 import { useMutation } from '@apollo/client'
 import { GetWebsiteText } from '../../View/query'
 import mutation from '../mutation'
-import { Button, Typography } from '@mui/material'
+import { Button, CircularProgress, Typography } from '@mui/material'
 import { WebsiteText } from '../../../../../types/websiteText'
 import { AdminPermission } from '../../../../_enums/adminPermission'
 import { WebsiteTextType } from '../../../../_enums/websiteTextType'
@@ -29,7 +29,7 @@ const UpdateContactInformation = (): ReactElement => {
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
-  const { data, refetch } = useQuery(GetWebsiteText, {
+  const { data, loading, refetch } = useQuery(GetWebsiteText, {
     variables: { type: WebsiteTextType.CONTACT_INFORMATION }
   })
 
@@ -59,7 +59,8 @@ const UpdateContactInformation = (): ReactElement => {
 
   return (
     <>
-      <Typography>{`Last Updated At: ${websiteText?.updatedAt}`}</Typography>
+      {loading && <CircularProgress />}
+      <Typography>{`Last Updated At: ${websiteText?.updatedAt || '-'}`}</Typography>
       <Text
         args={args}
         disabled={disableUpdateWebsiteText}

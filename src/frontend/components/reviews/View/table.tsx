@@ -64,16 +64,18 @@ const ReviewsTable = (): ReactElement => {
 
   const reviewRows = [
     reviews?.map((review: Review): ReactElement => {
+      const { content, createdAt, featured, username } = review
+
       return (
         <TableRow>
-          <TableCell>{String(review?.createdAt)}</TableCell>
-          <TableCell>{review?.username}</TableCell>
-          <TableCell>{review?.content}</TableCell>
+          <TableCell>{String(createdAt)}</TableCell>
+          <TableCell>{username}</TableCell>
+          <TableCell>{content}</TableCell>
           <TableCell>
             <UpdateReviewCheckbox
               _id={review._id}
               disabled={disableUpdateReview}
-              featured={review.featured}
+              featured={featured}
               refetchArgs={refetchArgs}
             />
           </TableCell>

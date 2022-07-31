@@ -2,7 +2,7 @@ import { ReactElement, useState, useEffect } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
 import { GetPaymentMethod } from '../View/query'
 import mutation from './mutation'
-import { Button, Typography } from '@mui/material'
+import { Button, CircularProgress, Typography } from '@mui/material'
 import { PaymentMethod } from '../../../../types/paymentMethod'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
@@ -27,7 +27,7 @@ const UpdatePaymentMethod = ({
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
-  const { data } = useQuery(GetPaymentMethod, { variables: { _id } })
+  const { data, loading } = useQuery(GetPaymentMethod, { variables: { _id } })
 
   const paymentMethod: PaymentMethod = data?.get_payment_method || {}
 
@@ -52,10 +52,11 @@ const UpdatePaymentMethod = ({
 
   return (
     <>
+      {loading && <CircularProgress />}
       <Typography>{`Created At: ${paymentMethod?.createdAt}`}</Typography>
-      {paymentMethod?.updatedAt && (
-        <Typography>{`Last Updated At: ${paymentMethod?.updatedAt}`}</Typography>
-      )}
+      <Typography>{`Last Updated At: ${
+        paymentMethod?.updatedAt || '-'
+      }`}</Typography>
       <Text
         args={args}
         error={validateFields}

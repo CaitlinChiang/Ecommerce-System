@@ -69,10 +69,12 @@ const PaymentMethodsTable = (): ReactElement => {
 
   const paymentMethodRows = [
     paymentMethods?.map((paymentMethod: PaymentMethod): ReactElement => {
+      const { details, name } = paymentMethod
+
       return (
         <TableRow>
-          <TableCell>{paymentMethod?.name}</TableCell>
-          <TableCell>{paymentMethod?.details}</TableCell>
+          <TableCell>{name}</TableCell>
+          <TableCell>{details}</TableCell>
           <TableCell>
             <IconButton
               disabled={disableUpdatePaymentMethod}

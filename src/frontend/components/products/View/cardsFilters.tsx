@@ -14,9 +14,7 @@ const ProductCardsFilters = ({
   setArgs: React.Dispatch<React.SetStateAction<any>>
 }): ReactElement => {
   const { data } = useQuery(GetProductCategories, {
-    variables: {
-      paginateData: { sortBy: 'name', sortDirection: SortDirection.ASC }
-    }
+    variables: { paginateData: { sortBy: 'name', sortDirection: SortDirection.ASC } }
   })
 
   const productCategories: ProductCategory[] = data?.get_product_categories || []

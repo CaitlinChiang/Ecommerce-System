@@ -1,5 +1,4 @@
 import { ReactElement, useState } from 'react'
-import { useRouter } from 'next/router'
 import { useQuery, useMutation } from '@apollo/client'
 import { GetUser } from '../../users/View/query'
 import mutation from './mutation'
@@ -7,12 +6,11 @@ import { Button } from '@mui/material'
 import { AddCartItemArgs } from '../../../../types/cart'
 import { User } from '../../../../types/user'
 import ModalComponent from '../../_common/ModalComponent'
+import SignInButton from '../../_common/SignInButton'
 
 const globalAny: any = global
 
 const AddCartItem = ({ args }: { args: AddCartItemArgs }): ReactElement => {
-  const router = useRouter()
-
   const [modalOpen, setModalOpen] = useState<boolean>(false)
 
   const { data } = useQuery(GetUser)
@@ -31,15 +29,7 @@ const AddCartItem = ({ args }: { args: AddCartItemArgs }): ReactElement => {
   return (
     <>
       <ModalComponent
-        content={
-          <Button
-            onClick={(): void => {
-              router.push('/user/sign-in')
-            }}
-          >
-            {'Sign In'}
-          </Button>
-        }
+        content={<SignInButton />}
         onClose={(): void => setModalOpen(false)}
         open={modalOpen}
         title={'Please sign in to add items to cart.'}

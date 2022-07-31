@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client'
 import { GetProduct } from './query'
 import { GetProductVariant } from '../../productVariants/View/query'
 import styles from '../../../styles/products'
-import { Box, Typography } from '@mui/material'
+import { Box, CircularProgress, Typography } from '@mui/material'
 import { Product } from '../../../../types/product'
 import { ProductVariant } from '../../../../types/productVariant'
 import NumberIncrementor from '../../_common/NumberIncrementor'
@@ -25,23 +25,27 @@ const ProductPage = ({ _id }: { _id: string }): ReactElement => {
     setProductVariantId(productVariantId)
   }
 
-  const { data: ProductData } = useQuery(GetProduct, {
+  const { data: productData, loading: productLoading } = useQuery(GetProduct, {
     skip: !_id,
     variables: { _id }
   })
-  const { data: ProductVariantData } = useQuery(GetProductVariant, {
-    skip: !productVariantId,
-    variables: { _id: productVariantId }
-  })
+  const { data: productVariantData, loading: productVariantLoading } = useQuery(
+    GetProductVariant,
+    {
+      skip: !productVariantId,
+      variables: { _id: productVariantId }
+    }
+  )
 
-  const product: Product = ProductData?.get_product || {}
+  const product: Product = productData?.get_product || {}
   const productVariant: ProductVariant =
-    ProductVariantData?.get_product_variant || null
+    productVariantData?.get_product_variant || null
 
   const item: ProductVariant | Product = productVariant || product
 
   return (
     <>
+      {(productLoading || productVariantLoading) && <CircularProgress />}
       <Typography>{item?.name}</Typography>
       <Typography>{item?.description}</Typography>
       <Typography>{formatDiscountedPrice(item?.discount, item?.price)}</Typography>

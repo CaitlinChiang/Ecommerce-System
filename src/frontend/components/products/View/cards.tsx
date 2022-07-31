@@ -51,23 +51,23 @@ const ProductCards = ({ featured }: { featured: boolean }): ReactElement => {
 
   const productCards = [
     products?.map((product: Product): ReactElement => {
+      const { discount, imageUrl, name, price } = product
+
       return (
         <CardComponent
           content={
             <>
-              <Typography>{product?.name}</Typography>
-              <Typography>
-                {formatDiscountedPrice(product?.discount, product?.price)}
-              </Typography>
-              {product?.discount && (
-                <Typography>
-                  {`P${product?.price} -${formatToPercentage(product?.discount)}`}
-                </Typography>
+              <Typography>{name}</Typography>
+              <Typography>{formatDiscountedPrice(discount, price)}</Typography>
+              {discount && (
+                <Typography>{`P${formatPrice(price)} -${formatToPercentage(
+                  discount
+                )}`}</Typography>
               )}
             </>
           }
-          imageAlt={`${product?.name} Product Image`}
-          imageSource={product?.imageUrl}
+          imageAlt={`${name} Product Image`}
+          imageSource={imageUrl}
           redirectLink={{
             path: 'shop/[productId]',
             url: `shop/${product._id}`

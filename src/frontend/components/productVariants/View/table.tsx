@@ -101,15 +101,15 @@ const ProductVariantsTable = ({
 
   const productVariantRows = [
     productVariants?.map((productVariant: ProductVariant): ReactElement => {
+      const { discount, expirationDate, name, price, stockQuantity } = productVariant
+
       return (
         <TableRow>
-          <TableCell>{productVariant?.name}</TableCell>
-          <TableCell>{`P${formatPrice(productVariant?.price)}`}</TableCell>
-          <TableCell>
-            {formatToPercentage(productVariant?.discount) || '-'}
-          </TableCell>
-          <TableCell>{productVariant?.stockQuantity}</TableCell>
-          <TableCell>{String(productVariant?.expirationDate || '-')}</TableCell>
+          <TableCell>{name}</TableCell>
+          <TableCell>{`P${formatPrice(price)}`}</TableCell>
+          <TableCell>{formatToPercentage(discount) || '-'}</TableCell>
+          <TableCell>{stockQuantity}</TableCell>
+          <TableCell>{String(expirationDate || '-')}</TableCell>
           <TableCell>
             <IconButton
               disabled={disableUpdateProductVariant}
@@ -123,7 +123,7 @@ const ProductVariantsTable = ({
               <EditIcon />
             </IconButton>
             <DeleteButton
-              _id={productVariant?._id}
+              _id={productVariant._id}
               disabled={disableDeleteProductVariant}
               label={'Product Variant'}
               mutation={deleteMutation}

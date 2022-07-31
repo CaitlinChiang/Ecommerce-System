@@ -31,8 +31,6 @@ const UpdateCity = ({
 
   const { data, loading } = useQuery(GetCity, { variables: { _id } })
 
-  if (loading) return <CircularProgress />
-
   const city: City = data?.get_city || {}
 
   useEffect(() => {
@@ -56,6 +54,7 @@ const UpdateCity = ({
 
   return (
     <>
+      {loading && <CircularProgress />}
       <Typography>{`Created At: ${city?.createdAt}`}</Typography>
       <Typography>{`Last Updated At: ${city?.updatedAt || '-'}`}</Typography>
       <Text

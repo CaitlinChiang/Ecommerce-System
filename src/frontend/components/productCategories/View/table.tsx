@@ -73,6 +73,8 @@ const ProductCategoriesTable = (): ReactElement => {
 
   const productCategoryRows = [
     productCategories?.map((productCategory: ProductCategory): ReactElement => {
+      const { createdAt, name } = productCategory
+
       return (
         <TableRow>
           <TableCell>
@@ -83,8 +85,8 @@ const ProductCategoriesTable = (): ReactElement => {
               showPublic={productCategory.showPublic}
             />
           </TableCell>
-          <TableCell>{productCategory?.name}</TableCell>
-          <TableCell>{String(productCategory?.createdAt)}</TableCell>
+          <TableCell>{name}</TableCell>
+          <TableCell>{String(createdAt)}</TableCell>
           <TableCell>
             <IconButton
               disabled={disableUpdateProductCategory}

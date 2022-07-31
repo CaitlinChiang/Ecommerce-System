@@ -2,7 +2,7 @@ import { ReactElement, useState, useEffect } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
 import { GetProduct } from '../View/query'
 import mutation from './mutation'
-import { Button, Typography } from '@mui/material'
+import { Button, CircularProgress, Typography } from '@mui/material'
 import { Product } from '../../../../types/product'
 import Text from '../../_common/TextField'
 import DatePickerField from '../../_common/DatePickerField'
@@ -40,7 +40,10 @@ const UpdateProduct = ({
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
-  const { data, refetch } = useQuery(GetProduct, { skip: !_id, variables: { _id } })
+  const { data, loading, refetch } = useQuery(GetProduct, {
+    skip: !_id,
+    variables: { _id }
+  })
 
   const product: Product = data?.get_product || {}
 
@@ -76,10 +79,9 @@ const UpdateProduct = ({
 
   return (
     <>
+      {loading && <CircularProgress />}
       <Typography>{`Created At: ${product?.createdAt}`}</Typography>
-      {product?.updatedAt && (
-        <Typography>{`Last Updated At: ${product?.updatedAt}`}</Typography>
-      )}
+      <Typography>{`Last Updated At: ${product?.updatedAt || '-'}`}</Typography>
       <ProductCategoriesSelect
         args={args}
         disabled={disabled}

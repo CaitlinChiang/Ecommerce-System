@@ -94,14 +94,17 @@ const ProductsTable = (): ReactElement => {
 
   const productRows = [
     products?.map((product: Product): ReactElement => {
+      const { category, discount, expirationDate, name, price, stockQuantity } =
+        product
+
       return (
         <TableRow>
-          <TableCell>{product?.name}</TableCell>
-          <TableCell>{product?.category}</TableCell>
-          <TableCell>{`P${formatPrice(product?.price)}`}</TableCell>
-          <TableCell>{formatToPercentage(product?.discount) || '-'}</TableCell>
-          <TableCell>{product?.stockQuantity}</TableCell>
-          <TableCell>{String(product?.expirationDate || '-')}</TableCell>
+          <TableCell>{name}</TableCell>
+          <TableCell>{category}</TableCell>
+          <TableCell>{`P${formatPrice(price)}`}</TableCell>
+          <TableCell>{formatToPercentage(discount) || '-'}</TableCell>
+          <TableCell>{stockQuantity}</TableCell>
+          <TableCell>{String(expirationDate || '-')}</TableCell>
           <TableCell>
             <IconButton
               disabled={disableUpdateProduct}
@@ -112,7 +115,7 @@ const ProductsTable = (): ReactElement => {
               <EditIcon />
             </IconButton>
             <DeleteButton
-              _id={product?._id}
+              _id={product._id}
               disabled={disableDeleteProduct}
               label={'Product'}
               mutation={deleteMutation}

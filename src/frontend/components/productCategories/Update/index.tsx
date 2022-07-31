@@ -2,7 +2,7 @@ import { ReactElement, useState, useEffect } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
 import { GetProductCategory } from '../View/query'
 import mutation from './mutation'
-import { Button, Typography } from '@mui/material'
+import { Button, CircularProgress, Typography } from '@mui/material'
 import { ProductCategory } from '../../../../types/productCategory'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
@@ -28,7 +28,7 @@ const UpdateProductCategory = ({
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
-  const { data } = useQuery(GetProductCategory, { variables: { _id } })
+  const { data, loading } = useQuery(GetProductCategory, { variables: { _id } })
 
   const productCategory: ProductCategory = data?.get_product_category || {}
 
@@ -53,10 +53,11 @@ const UpdateProductCategory = ({
 
   return (
     <>
+      {loading && <CircularProgress />}
       <Typography>{`Created At: ${productCategory?.createdAt}`}</Typography>
-      {productCategory?.updatedAt && (
-        <Typography>{`Last Updated At: ${productCategory?.updatedAt}`}</Typography>
-      )}
+      <Typography>{`Last Updated At: ${
+        productCategory?.updatedAt || '-'
+      }`}</Typography>
       <Text
         args={args}
         error={validateFields}

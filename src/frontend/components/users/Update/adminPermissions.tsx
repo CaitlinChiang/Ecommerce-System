@@ -1,19 +1,11 @@
 import { ReactElement, useState, useEffect } from 'react'
 import { useMutation } from '@apollo/client'
 import mutation from './mutation'
-import {
-  Button,
-  Checkbox,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow
-} from '@mui/material'
+import { Button, Checkbox, TableCell, TableRow } from '@mui/material'
 import { ObjectId } from 'mongodb'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import { AdminPermission } from '../../../_enums/adminPermission'
+import SimpleTableComponent from '../../_common/SimpleTableComponent'
 import { refetchData } from '../../../_utils/handleData/refetchData'
 import {
   returnAdminPermissions,
@@ -105,24 +97,7 @@ const UpdateAdminPermissions = ({
 
   return (
     <>
-      <TableContainer>
-        <Table size={'small'}>
-          <TableHead>
-            <TableRow>
-              {permissionHeaders.map(
-                (header: string, index: number): ReactElement => {
-                  return (
-                    <TableCell key={index} align={'center'} padding={'checkbox'}>
-                      {header}
-                    </TableCell>
-                  )
-                }
-              )}
-            </TableRow>
-          </TableHead>
-          <TableBody>{permissionRows}</TableBody>
-        </Table>
-      </TableContainer>
+      <SimpleTableComponent headers={permissionHeaders} rows={permissionRows} />
       <Button
         disabled={updateMutationState.loading}
         onClick={(): void => {

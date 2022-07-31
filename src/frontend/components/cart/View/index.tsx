@@ -24,8 +24,6 @@ const Cart = (): ReactElement => {
 
   const { data, loading, refetch } = useQuery(GetCart)
 
-  if (loading) return <CircularProgress />
-
   const cartData: Cart = data?.get_cart || {}
 
   useEffect(() => {
@@ -64,6 +62,7 @@ const Cart = (): ReactElement => {
 
   return (
     <>
+      {loading && <CircularProgress />}
       <Container>
         {itemRows}
         <Typography>{`Total  P${formatPrice(cart?.totalPrice)}`}</Typography>

@@ -62,13 +62,15 @@ const CustomersTable = (): ReactElement => {
 
   const userRows = [
     users?.map((user: User): ReactElement => {
+      const { createdAt, email, firstName, lastName, phoneNumber } = user
+
       return (
         <TableRow>
-          <TableCell>{user?.firstName}</TableCell>
-          <TableCell>{user?.lastName}</TableCell>
-          <TableCell>{user?.email}</TableCell>
-          <TableCell>{user?.phoneNumber}</TableCell>
-          <TableCell>{String(user?.createdAt)}</TableCell>
+          <TableCell>{firstName}</TableCell>
+          <TableCell>{lastName}</TableCell>
+          <TableCell>{email}</TableCell>
+          <TableCell>{phoneNumber}</TableCell>
+          <TableCell>{String(createdAt)}</TableCell>
           <TableCell>
             <DeleteButton
               _id={user._id}

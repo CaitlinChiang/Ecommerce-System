@@ -43,11 +43,13 @@ const AuditLogsTable = (): ReactElement => {
 
   const auditLogRows = [
     auditLogs?.map((auditLog: AuditLog): ReactElement => {
+      const { action, createdAt, createdByEmail } = auditLog
+
       return (
         <TableRow>
-          <TableCell>{auditLog?.action}</TableCell>
-          <TableCell>{String(auditLog?.createdAt)}</TableCell>
-          <TableCell>{auditLog?.createdByEmail}</TableCell>
+          <TableCell>{action}</TableCell>
+          <TableCell>{String(createdAt)}</TableCell>
+          <TableCell>{createdByEmail}</TableCell>
         </TableRow>
       )
     })

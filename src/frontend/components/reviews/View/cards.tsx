@@ -56,13 +56,15 @@ const ReviewCards = ({ featured }: { featured: boolean }): ReactElement => {
 
   const reviewCards = [
     reviews?.map((review: Review): ReactElement => {
+      const { content, username } = review
+
       return (
         <CardComponent
           content={
             <>
-              <Typography>{`"${review?.content}"`}</Typography>
+              <Typography>{`"${content}"`}</Typography>
               <br />
-              <Typography>{`- ${review?.username}`}</Typography>
+              <Typography>{`- ${username}`}</Typography>
             </>
           }
         />

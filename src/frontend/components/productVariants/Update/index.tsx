@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { useQuery, useMutation } from '@apollo/client'
 import { GetProductVariant } from '../View/query'
 import mutation from './mutation'
-import { Button, Typography } from '@mui/material'
+import { Button, CircularProgress, Typography } from '@mui/material'
 import { ProductVariant } from '../../../../types/productVariant'
 import Text from '../../_common/TextField'
 import DatePickerField from '../../_common/DatePickerField'
@@ -34,7 +34,10 @@ const UpdateProductVariant = ({ _id }: { _id: string }): ReactElement => {
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
-  const { data } = useQuery(GetProductVariant, { skip: !_id, variables: { _id } })
+  const { data, loading } = useQuery(GetProductVariant, {
+    skip: !_id,
+    variables: { _id }
+  })
 
   const productVariant: ProductVariant = data?.get_product_variant || {}
 
@@ -69,10 +72,11 @@ const UpdateProductVariant = ({ _id }: { _id: string }): ReactElement => {
 
   return (
     <>
+      {loading && <CircularProgress />}
       <Typography>{`Created At: ${productVariant?.createdAt}`}</Typography>
-      {productVariant?.updatedAt && (
-        <Typography>{`Last Updated At: ${productVariant?.updatedAt}`}</Typography>
-      )}
+      <Typography>{`Last Updated At: ${
+        productVariant?.updatedAt || '-'
+      }`}</Typography>
       <Text args={args} setArgs={setArgs} targetProp={'description'} />
       <DatePickerField args={args} setArgs={setArgs} targetProp={'expirationDate'} />
       <Text

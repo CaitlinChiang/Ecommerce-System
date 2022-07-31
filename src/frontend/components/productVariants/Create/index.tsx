@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/client'
 import { useMutation } from '@apollo/client'
 import { GetProduct } from '../../products/View/query'
 import mutation from './mutation'
-import { Button } from '@mui/material'
+import { Button, CircularProgress } from '@mui/material'
 import { Product } from '../../../../types/product'
 import Text from '../../_common/TextField'
 import DatePickerField from '../../_common/DatePickerField'
@@ -37,7 +37,7 @@ const CreateProductVariant = ({
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
-  const { data } = useQuery(GetProduct, {
+  const { data, loading } = useQuery(GetProduct, {
     skip: !_productId,
     variables: { _id: _productId }
   })
@@ -70,6 +70,7 @@ const CreateProductVariant = ({
 
   return (
     <>
+      {loading && <CircularProgress />}
       <Text args={args} setArgs={setArgs} targetProp={'description'} />
       <DatePickerField args={args} setArgs={setArgs} targetProp={'expirationDate'} />
       <Text

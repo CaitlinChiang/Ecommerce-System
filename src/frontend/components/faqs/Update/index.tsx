@@ -29,8 +29,6 @@ const UpdateFAQ = ({
 
   const { data, loading } = useQuery(GetFAQ, { variables: { _id } })
 
-  if (loading) return <CircularProgress />
-
   const faq: FAQ = data?.get_faq || {}
 
   useEffect(() => {
@@ -54,6 +52,7 @@ const UpdateFAQ = ({
 
   return (
     <>
+      {loading && <CircularProgress />}
       <Typography>{`Created At: ${faq?.createdAt}`}</Typography>
       <Typography>{`Last Updated At: ${faq?.updatedAt || '-'}`}</Typography>
       <Text

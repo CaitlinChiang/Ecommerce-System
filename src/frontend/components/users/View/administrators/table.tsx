@@ -75,25 +75,27 @@ const AdministratorsTable = (): ReactElement => {
 
   const userRows = [
     users?.map((user: User): ReactElement => {
+      const { active, email, firstName, lastName, permissions, phoneNumber } = user
+
       return (
         <TableRow>
           <TableCell>
             <UpdateUserCheckbox
               _id={user._id}
-              active={user.active}
+              active={active}
               disabled={disableUpdateUser}
               refetchArgs={refetchArgs}
             />
           </TableCell>
-          <TableCell>{user?.firstName}</TableCell>
-          <TableCell>{user?.lastName}</TableCell>
-          <TableCell>{user?.email}</TableCell>
-          <TableCell>{user?.phoneNumber}</TableCell>
+          <TableCell>{firstName}</TableCell>
+          <TableCell>{lastName}</TableCell>
+          <TableCell>{email}</TableCell>
+          <TableCell>{phoneNumber}</TableCell>
           <TableCell>
             <Button
               disabled={disableUpdateUser}
               onClick={(): void => {
-                setUser({ _id: String(user._id), permissions: user?.permissions })
+                setUser({ _id: String(user._id), permissions })
                 setPermissionsModalOpen(true)
               }}
             >

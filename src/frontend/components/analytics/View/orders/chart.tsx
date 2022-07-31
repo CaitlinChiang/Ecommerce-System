@@ -18,12 +18,11 @@ const OrdersChart = (): ReactElement => {
 
   const { data, loading } = useQuery(GetAnalyticsOrdersCount, { variables: args })
 
-  if (loading) return <CircularProgress />
-
   const ordersData: AnalyticsOrdersCount[] = data?.get_analytics_orders_count || []
 
   return (
     <>
+      {loading && <CircularProgress />}
       <Box>
         <DatePickerField
           args={args}

@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetProductVariants } from './query'
-import { Typography } from '@mui/material'
+import { CircularProgress, Typography } from '@mui/material'
 import { ObjectId } from 'mongodb'
 import { ProductVariant } from '../../../../types/productVariant'
 import { SortDirection } from '../../../_enums/sortDirection'
@@ -14,7 +14,7 @@ const ProductVariantCards = ({
 }): ReactElement => {
   const args: any = { _productId, showPublic: true }
 
-  const { data } = useQuery(GetProductVariants, {
+  const { data, loading } = useQuery(GetProductVariants, {
     skip: !_productId,
     variables: {
       ...args,
@@ -24,20 +24,27 @@ const ProductVariantCards = ({
 
   const productVariants: ProductVariant[] = data?.get_product_variants || []
 
-  const ProductVariantCards = [
+  const productVariantCards = [
     productVariants?.map((productVariant: ProductVariant): ReactElement => {
+      const { name, imageUrl } = productVariant
+
       return (
         <CardComponent
-          content={<Typography>{productVariant?.name}</Typography>}
-          imageAlt={`${productVariant?.name} Product Variant Image`}
-          imageSource={productVariant?.imageUrl}
+          content={<Typography>{name}</Typography>}
+          imageAlt={`${name} Product Variant Image`}
+          imageSource={imageUrl}
           productVariantId={String(productVariant._id)}
         />
       )
     })
   ]
 
-  return <>{ProductVariantCards}</>
+  return (
+    <>
+      {loading && <CircularProgress />}
+      {productVariantCards}
+    </>
+  )
 }
 
 export default ProductVariantCards
