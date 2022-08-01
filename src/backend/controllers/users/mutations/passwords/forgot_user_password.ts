@@ -5,7 +5,7 @@ import { authenticateUser } from '../../../../_utils/auth/authenticateUser'
 import { mutateArgs } from '../../../../_utils/handleArgs/mutateArgs'
 import { checkIfUserExists } from '../../../../_utils/handleValidation/checkIfUserExists'
 import { validateUserType } from '../../../../_utils/handleValidation/validateUserType'
-import { sendResetPasswordEmail } from './sendResetPasswordEmail'
+import { sendVerificationCode } from '../../../../_utils/handleMail/sendVerificationCode'
 
 export default async (
   _root: undefined,
@@ -25,5 +25,5 @@ export default async (
     { $set: mutateArgs({ verificationCode }, MutateAction.UPDATE) }
   )
 
-  await sendResetPasswordEmail(verificationCode)
+  await sendVerificationCode(verificationCode)
 }
