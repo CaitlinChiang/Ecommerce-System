@@ -1,7 +1,7 @@
-import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import { Cart, EditItemQuantity } from '../../../../types/cart'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
+import { cartItemArgs } from '../../../_utils/handleArgs/cartItemArgs'
 
 export default async (
   _root: undefined,
@@ -13,14 +13,7 @@ export default async (
   await context.database.carts.findOneAndUpdate(
     {
       _userId: context.currentUserId,
-      items: {
-        $elemMatch: {
-          $or: [
-            { productId: new ObjectId(args?.productId) },
-            { productVariantId: new ObjectId(args?.productVariantId) }
-          ]
-        }
-      }
+      items: { $elemMatch: cartItemArgs(args) }
     },
     {
       $set: { 'items.$.quantity': args.quantity }
