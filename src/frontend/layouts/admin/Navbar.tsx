@@ -106,9 +106,9 @@ const Navbar = ({
       <List dense>
         <ListItem
           button
-          selected={router.pathname.includes(`${adminUrl}/user/account`)}
+          selected={router.pathname.includes(`${adminUrl}/user/profile`)}
           onClick={(): void => {
-            router.push(`${adminUrl}/user/account`)
+            router.push(`${adminUrl}/user/profile`)
           }}
           sx={styles.listItem}
         >
