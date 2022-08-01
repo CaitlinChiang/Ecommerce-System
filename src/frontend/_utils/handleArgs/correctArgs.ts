@@ -28,13 +28,13 @@ const modifyArgs = (args: any, key: string): any => {
 export const checkField = ({
   args,
   key,
-  requiredField
+  required
 }: {
   args: any
   key: string
-  requiredField?: string
+  required?: string
 }): any => {
-  const requiredArg: string = requiredField || '_id'
+  const requiredArg: string = required || '_id'
 
   if (key === 'email' || key === 'password' || key === 'phoneNumber') {
     validateArgs({ [key]: args?.[key] })
