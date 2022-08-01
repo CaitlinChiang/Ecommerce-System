@@ -10,7 +10,7 @@ export const returnCartItems = async (
 ): Promise<CartItem[]> => {
   const cartItems: CartItem[] = []
 
-  for (let i = 0, n = items.length; i < n; i++) {
+  for (let i = 0, n = items?.length; i < n; i++) {
     const { productId, productVariantId, quantity, totalPrice } = items[i]
 
     const product: Product = await context.dataloaders.products.byId.load(productId)
