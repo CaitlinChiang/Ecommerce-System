@@ -13,21 +13,23 @@ export const returnHelperText = ({
   nestedProp?: string
   targetProp: string
 }): string => {
-  if (error && !args?.[targetProp]) {
-    const fieldName = formatText(nestedProp)
+  if (!error) return ''
 
-    if (nestedProp) {
-      return `${fieldName} is a required field.`
-    }
-    return `${fieldName} is a required field.`
-  }
-
-  if (error && targetProp === 'email' && !isEmail(args?.email)) {
+  if (targetProp === 'email' && !isEmail(args?.email)) {
     return 'Please enter valid email.'
   }
 
-  if (error && targetProp === 'phoneNumber' && !isMobilePhone(args?.phoneNumber)) {
+  if (targetProp === 'password' && args?.password?.length < 8) {
+    return 'Password must be at least 8 characters long.'
+  }
+
+  if (targetProp === 'phoneNumber' && !isMobilePhone(args?.phoneNumber)) {
     return 'Please enter valid phone number.'
+  }
+
+  if (!args?.[targetProp]) {
+    const fieldName = formatText(nestedProp || targetProp)
+    return `${fieldName} is a required field.`
   }
 
   return ''
