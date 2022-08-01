@@ -3,6 +3,8 @@ import { InputAdornment, IconButton, TextField } from '@mui/material'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import { formatText } from '../../_utils/handleFormat/formatText'
+import { returnError } from '../../_utils/handleArgs/returnError'
+import { returnHelperText } from '../../_utils/handleArgs/returnHelperText'
 
 const PasswordField = ({
   args,
@@ -23,10 +25,8 @@ const PasswordField = ({
 
   return (
     <TextField
-      error={error && (!val || val?.length < 8)}
-      helperText={
-        error && val?.length < 8 && 'Password must be at least 8 characters long.'
-      }
+      error={returnError({ args, error, targetProp })}
+      helperText={returnHelperText({ args, error, targetProp })}
       label={formatText(targetProp)}
       onChange={(e): void => {
         setArgs({ ...args, [targetProp]: e.target.value })
