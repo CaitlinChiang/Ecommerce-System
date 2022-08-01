@@ -8,11 +8,9 @@ import mutation from './mutation'
 import { Button, Container, Typography } from '@mui/material'
 import { City } from '../../../../types/city'
 import { PaymentMethod } from '../../../../types/paymentMethod'
-import { CollectionMethod } from '../../../_enums/collectionMethod'
 import OrderSummary from './orderSummary'
 import CitiesSelect from '../../cities/View/select'
 import PaymentMethodsSelect from '../../paymentMethods/View/select'
-import SelectField from '../../_common/SelectField'
 import Text from '../../_common/TextField'
 import ImageUploader from '../../_common/ImageUploader'
 import OrderSuccess from './orderSuccess'
@@ -25,7 +23,6 @@ const CreateOrder = (): ReactElement => {
   const [args, setArgs] = useState<any>({
     address: null,
     cityId: null,
-    collectionMethod: null,
     imageProof: null,
     items: [],
     paymentMethodId: null
@@ -43,7 +40,6 @@ const CreateOrder = (): ReactElement => {
 
   const [createMutation, createMutationState] = useMutation(mutation, {
     variables: {
-      collectionMethod: args?.collectionMethod,
       deliveryAddress: { address: args?.address, cityId: args?.cityId },
       items: args?.items,
       payment: {
@@ -66,34 +62,19 @@ const CreateOrder = (): ReactElement => {
         <OrderSummary />
       </Container>
       <Container>
-        <SelectField
+        <Text
           args={args}
           error={validateFields}
-          label={'Collection Method'}
-          options={Object.keys(CollectionMethod).map((method) => {
-            return { label: method, collectionMethod: method }
-          })}
           required={true}
           setArgs={setArgs}
-          targetProp={'collectionMethod'}
+          targetProp={'address'}
         />
-        {args?.collectionMethod === CollectionMethod.DELIVERY && (
-          <>
-            <Text
-              args={args}
-              error={validateFields}
-              required={true}
-              setArgs={setArgs}
-              targetProp={'address'}
-            />
-            <CitiesSelect
-              args={args}
-              error={validateFields}
-              required={true}
-              setArgs={setArgs}
-            />
-          </>
-        )}
+        <CitiesSelect
+          args={args}
+          error={validateFields}
+          required={true}
+          setArgs={setArgs}
+        />
         <PaymentMethodsSelect
           args={args}
           error={validateFields}

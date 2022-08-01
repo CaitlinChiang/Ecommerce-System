@@ -2,7 +2,7 @@ import { ReactElement, useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetOrders } from '../query'
 import deleteMutation from '../../Delete/mutation'
-import { Box, Button, TableCell, TableRow, Typography } from '@mui/material'
+import { Box, Button, TableCell, TableRow } from '@mui/material'
 import { Order } from '../../../../../types/order'
 import { PaginateDataArgs } from '../../../../../types/actions/paginateData'
 import { RefetchDataArgs } from '../../../../../types/actions/refetchData'
@@ -21,7 +21,6 @@ import { authenticateUser } from '../../../../_utils/auth/authenticateUser'
 import { fetchMoreArgs } from '../../../../_utils/handleArgs/returnFetchMoreArgs'
 import { formatPrice } from '../../../../_utils/handleFormat/formatPrice'
 import { CartItem } from '../../../../../types/cart'
-import { DeliveryAddress } from '../../../../../types/common/deliveryAddress'
 
 const OrdersTable = (): ReactElement => {
   const disableUpdateOrder = !authenticateUser(AdminPermission.UPDATE_ORDER)
@@ -29,7 +28,6 @@ const OrdersTable = (): ReactElement => {
   const disableDeleteOrder = !authenticateUser(AdminPermission.DELETE_ORDER)
 
   const [args, setArgs] = useState<any>({
-    collectionMethod: null,
     dateRange: {
       startDate: new Date(Date.now() - 6096e5),
       endDate: new Date(),
@@ -44,7 +42,6 @@ const OrdersTable = (): ReactElement => {
     sortBy: 'createdAt',
     sortDirection: SortDirection.DESC
   })
-  const [address, setAddress] = useState<DeliveryAddress>(null)
   const [items, setItems] = useState<CartItem[]>([])
   const [paymentProofUrl, setPaymentProofUrl] = useState<string>(null)
   const [orderId, setOrderId] = useState<string>(null)
@@ -80,7 +77,7 @@ const OrdersTable = (): ReactElement => {
     { label: 'firstName', sortable: false },
     { label: 'lastName', sortable: false },
     { label: 'contact', sortable: false },
-    { label: 'collectionMethod', sortable: true },
+    { label: 'address', sortable: false },
     { label: 'orderItems', sortable: false },
     { label: 'status', sortable: true },
     { label: 'amountDue', sortable: false },
@@ -94,7 +91,7 @@ const OrdersTable = (): ReactElement => {
 
   const orderRows = [
     orders?.map((order: Order): ReactElement => {
-      const { collectionMethod, deliveryAddress, items, payment, user } = order
+      const { createdAt, deliveryAddress, items, payment, updatedAt, user } = order
 
       return (
         <TableRow>
@@ -104,17 +101,7 @@ const OrdersTable = (): ReactElement => {
             {user?.email} <br /> {user?.phoneNumber}
           </TableCell>
           <TableCell>
-            {collectionMethod}
-            {deliveryAddress && (
-              <Button
-                onClick={(): void => {
-                  setAddress(deliveryAddress)
-                  setOpen('ADDRESS')
-                }}
-              >
-                {'View Address'}
-              </Button>
-            )}
+            {deliveryAddress?.address} <br /> {deliveryAddress?.city?.name}
           </TableCell>
           <TableCell>
             <Button
@@ -169,8 +156,8 @@ const OrdersTable = (): ReactElement => {
               {'View Order Logs'}
             </Button>
           </TableCell>
-          <TableCell>{String(order?.createdAt)}</TableCell>
-          <TableCell>{String(order?.updatedAt)}</TableCell>
+          <TableCell>{String(createdAt)}</TableCell>
+          <TableCell>{String(updatedAt)}</TableCell>
           <TableCell>
             <DeleteButton
               _id={order._id}
@@ -188,16 +175,6 @@ const OrdersTable = (): ReactElement => {
 
   return (
     <>
-      <ModalComponent
-        content={
-          <Typography>
-            {address?.address} <br /> {address?.city?.name}
-          </Typography>
-        }
-        onClose={(): void => setOpen('')}
-        open={open === 'ADDRESS'}
-        title={'Address'}
-      />
       <ModalComponent
         content={<OrderItemsTable items={items} />}
         onClose={(): void => setOpen('')}

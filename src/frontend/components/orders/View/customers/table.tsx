@@ -14,7 +14,6 @@ import { formatPrice } from '../../../../_utils/handleFormat/formatPrice'
 
 const OrdersTable = (): ReactElement => {
   const [args, setArgs] = useState<any>({
-    collectionMethod: null,
     statuses: [OrderStatus.PENDING, OrderStatus.PACKING, OrderStatus.SHIPPING]
   })
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
@@ -41,25 +40,25 @@ const OrdersTable = (): ReactElement => {
     { label: 'quantity', sortable: false },
     { display: 'Price', label: 'totalPrice', sortable: false },
     { label: 'status', sortable: false },
-    { label: 'paymentMethod', sortable: false },
-    { label: 'collection', sortable: false }
+    { label: 'paymentMethod', sortable: false }
   ]
 
   const orderRows = [
     orders?.map((order: Order): ReactElement[] => {
+      const { createdAt, payment, status } = order
+
       return order?.items?.map((cartItem: CartItem): ReactElement => {
         const { product, productVariant, quantity, totalPrice } = cartItem
 
         return (
           <TableRow>
             <TableCell>{String(order._id)}</TableCell>
-            <TableCell>{String(order?.createdAt).substring(0, 10)}</TableCell>
+            <TableCell>{String(createdAt).substring(0, 10)}</TableCell>
             <TableCell>{productVariant?.name || product?.name}</TableCell>
             <TableCell>{quantity}</TableCell>
             <TableCell>{`P${formatPrice(totalPrice)}`}</TableCell>
-            <TableCell>{order?.status}</TableCell>
-            <TableCell>{order?.payment?.paymentMethod?.name}</TableCell>
-            <TableCell>{order?.collectionMethod}</TableCell>
+            <TableCell>{status}</TableCell>
+            <TableCell>{payment?.paymentMethod?.name}</TableCell>
           </TableRow>
         )
       })
