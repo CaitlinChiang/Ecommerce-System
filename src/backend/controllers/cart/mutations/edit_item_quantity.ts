@@ -15,9 +15,7 @@ export default async (
       _userId: context.currentUserId,
       items: { $elemMatch: cartItemArgs(args) }
     },
-    {
-      $set: { 'items.$.quantity': args.quantity }
-    }
+    { $set: { 'items.$.quantity': args.quantity } }
   )
 
   const cart: Cart = await context.database.carts.findOne({
