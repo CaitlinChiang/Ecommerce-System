@@ -5,6 +5,7 @@ import { authenticateUser } from '../../../../_utils/auth/authenticateUser'
 import { mutateArgs } from '../../../../_utils/handleArgs/mutateArgs'
 import { checkIfUserExists } from '../../../../_utils/handleValidation/checkIfUserExists'
 import { validateUserType } from '../../../../_utils/handleValidation/validateUserType'
+import { sendResetPasswordEmail } from './sendResetPasswordEmail'
 
 export default async (
   _root: undefined,
@@ -24,5 +25,5 @@ export default async (
     { $set: mutateArgs({ verificationCode }, MutateAction.UPDATE) }
   )
 
-  // ADD FORGOT PASSWORD EMAIL CONTAINING VERIFICATION CODE
+  await sendResetPasswordEmail(verificationCode)
 }
