@@ -15,7 +15,7 @@ export default async (
   await authenticateUser({ admin: false, context })
 
   const user: any = await context.database.users.findOneAndUpdate(
-    { _id: args?._id ? new ObjectId(args._id) : context.currentUserId },
+    { _id: new ObjectId(args._id) },
     { $set: mutateArgs(args, MutateAction.UPDATE) }
   )
 

@@ -34,6 +34,7 @@ const UpdateUser = ({ type }: { type: UserType }): ReactElement => {
 
   useEffect(() => {
     setArgs({
+      _id: user?._id,
       address: user?.deliveryAddress?.address,
       cityId: user?.deliveryAddress?.cityId,
       email: user?.email,
