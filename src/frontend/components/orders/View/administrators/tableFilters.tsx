@@ -1,6 +1,5 @@
 import { ReactElement } from 'react'
 import { Box } from '@mui/material'
-import { CollectionMethod } from '../../../../_enums/collectionMethod'
 import { DateRangeType } from '../../../../_enums/dateRangeType'
 import { OrderStatus } from '../../../../_enums/orderStatus'
 import SelectField from '../../../_common/SelectField'
@@ -15,15 +14,6 @@ const OrdersTableFilters = ({
 }): ReactElement => {
   return (
     <>
-      <SelectField
-        args={args}
-        label={'Collection Method'}
-        options={Object.keys(CollectionMethod).map((method) => {
-          return { label: method, collectionMethod: method }
-        })}
-        setArgs={setArgs}
-        targetProp={'collectionMethod'}
-      />
       <SelectField
         args={args}
         label={'Order Status'}
