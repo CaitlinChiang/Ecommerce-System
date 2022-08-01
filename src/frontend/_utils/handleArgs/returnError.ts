@@ -12,16 +12,23 @@ export const returnError = ({
   nestedProp?: string
   targetProp: string
 }): boolean => {
-  let emptyArgs = !args?.[targetProp]
+  if (!error) return false
+
+  const val = args?.[targetProp]
+
+  let emptyArgs = !val
 
   if (nestedProp) {
-    emptyArgs = !args?.[targetProp]?.[nestedProp]
+    emptyArgs = !val?.[nestedProp]
   }
 
-  if (error && emptyArgs) return true
+  if (emptyArgs) return true
 
-  if (error && targetProp === 'email' && !isEmail(args?.email)) return true
-  if (error && targetProp === 'phoneNumber' && !isMobilePhone(args?.phoneNumber)) {
+  if (targetProp === 'email' && !isEmail(args?.email)) return true
+
+  if (targetProp === 'password' && args?.password?.length < 8) return true
+
+  if (targetProp === 'phoneNumber' && !isMobilePhone(args?.phoneNumber)) {
     return true
   }
 
