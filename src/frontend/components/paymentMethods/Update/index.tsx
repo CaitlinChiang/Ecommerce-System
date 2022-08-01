@@ -18,7 +18,7 @@ const UpdatePaymentMethod = ({
 }: {
   _id: string
   refetchArgs: RefetchDataArgs
-  setUpdateModalOpen: React.Dispatch<React.SetStateAction<any>>
+  setUpdateModalOpen: React.Dispatch<React.SetStateAction<boolean>>
 }): ReactElement => {
   const [args, setArgs] = useState<any>({
     _id: null,

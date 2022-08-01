@@ -92,7 +92,7 @@ const UpdateUser = ({ type }: { type: UserType }): ReactElement => {
           router.push(`${generateAdminUrl(type)}/user/reset-password`)
         }}
       >
-        {'Save Changes'}
+        {'Reset Password'}
       </Button>
       {type === UserType.CUSTOMER && (
         <>
