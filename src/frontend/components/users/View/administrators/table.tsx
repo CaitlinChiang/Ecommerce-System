@@ -11,6 +11,7 @@ import { SortDirection } from '../../../../_enums/sortDirection'
 import { UserType } from '../../../../_enums/userType'
 import TableComponent from '../../../_common/TableComponent'
 import ModalComponent from '../../../_common/ModalComponent'
+import CreateUser from '../../Create'
 import UpdateAdminPermissions from '../../Update/adminPermissions'
 import UpdateUserCheckbox from '../../Update/checkbox'
 import DeleteButton from '../../../_common/DeleteButton'
@@ -33,6 +34,7 @@ const AdministratorsTable = (): ReactElement => {
     sortBy: 'createdAt',
     sortDirection: SortDirection.DESC
   })
+  const [createModalOpen, setCreateModalOpen] = useState<boolean>(false)
   const [user, setUser] = useState<any>({ _id: null, permissions: [] })
   const [permissionsModalOpen, setPermissionsModalOpen] = useState<boolean>(false)
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
@@ -122,6 +124,18 @@ const AdministratorsTable = (): ReactElement => {
     <>
       <ModalComponent
         content={
+          <CreateUser
+            refetchArgs={refetchArgs}
+            setCreateModalOpen={setCreateModalOpen}
+            type={UserType.ADMINISTRATOR}
+          />
+        }
+        onClose={(): void => setCreateModalOpen(false)}
+        open={createModalOpen}
+        title={'Create Admin Account'}
+      />
+      <ModalComponent
+        content={
           <UpdateAdminPermissions
             _id={user._id}
             permissions={user.permissions}
@@ -132,6 +146,9 @@ const AdministratorsTable = (): ReactElement => {
         open={permissionsModalOpen}
         title={'Admin Permissions'}
       />
+      <Button onClick={(): void => setCreateModalOpen(true)}>
+        {'Create Admin Account'}
+      </Button>
       <TableComponent
         args={args}
         count={usersCount}
