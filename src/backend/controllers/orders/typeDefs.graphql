@@ -1,6 +1,5 @@
 type Order {
   _id: ID
-  collectionMethod: String
   deliveryAddress: DeliveryAddress
   items: [CartItem]
   payment: Payment
@@ -14,14 +13,12 @@ type Order {
 
 extend type Query {
   get_orders(
-    collectionMethod: String
     dateRange: DateRangeInput
     paginateData: PaginateDataInput
     statuses: [String]
   ): [Order]
 
   get_orders_count(
-    collectionMethod: String
     dateRange: DateRangeInput
     paginateData: PaginateDataInput
     statuses: [String]
@@ -30,8 +27,7 @@ extend type Query {
 
 extend type Mutation {
   create_order(
-    collectionMethod: String
-    deliveryAddress: DeliveryAddressInput
+    deliveryAddress: DeliveryAddressInput!
     items: [CartItemInput]!
     payment: PaymentInput!
   ): Order
