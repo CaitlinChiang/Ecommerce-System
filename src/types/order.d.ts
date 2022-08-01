@@ -5,12 +5,10 @@ import { DateRange } from './common/dateRange'
 import { DeliveryAddress } from './common/deliveryAddress'
 import { Payment, CreatePaymentArgs } from './payment'
 import { User } from './user'
-import { CollectionMethod } from '../frontend/_enums/collectionMethod'
 import { OrderStatus } from '../backend/_enums/orderStatus'
 
 export interface Order {
   _id?: ObjectId
-  collectionMethod?: CollectionMethod
   deliveryAddress?: DeliveryAddress
   items?: CartItem[]
   payment?: Payment
@@ -24,7 +22,6 @@ export interface Order {
 
 export interface GetOrderArgs {
   _id?: ObjectId
-  collectionMethod?: CollectionMethod
   dateRange?: DateRange
   paginateData?: PaginateDataArgs
   statuses?: OrderStatus[]
@@ -32,8 +29,7 @@ export interface GetOrderArgs {
 }
 
 export interface CreateOrderArgs {
-  collectionMethod?: CollectionMethod
-  deliveryAddress?: DeliveryAddress
+  deliveryAddress: DeliveryAddress
   items: CartItem[]
   payment: CreatePaymentArgs
   status?: OrderStatus
