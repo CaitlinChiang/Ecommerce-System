@@ -4,14 +4,16 @@ import { User } from '../../../types/user'
 import { UserType } from '../../_enums/userType'
 
 export const updateUserType = async ({
-  existingUser,
+  email,
   type,
   context
 }: {
-  existingUser: User
+  email: string
   type: UserType
   context: Context
 }): Promise<boolean> => {
+  const existingUser: User = await context.database.users.findOne({ email })
+
   if (!existingUser) return false
 
   const createAdmin: boolean = type === UserType.ADMINISTRATOR

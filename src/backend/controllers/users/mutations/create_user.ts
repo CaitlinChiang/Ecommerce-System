@@ -6,7 +6,8 @@ import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { mutateArgs } from '../../../_utils/handleArgs/mutateArgs'
 import { auditArgs } from '../../../_utils/handleArgs/auditArgs'
-import { checkIfUserExists } from '../../../_utils/handleValidation/checkIfUserExists'
+import { validateUser } from '../../../_utils/handleValidation/validateUser'
+import { updateUserType } from '../../../_utils/handleData/updateUserType'
 import { generateJWT } from '../../../_utils/auth/jwt'
 
 export default async (
@@ -16,7 +17,15 @@ export default async (
 ): Promise<User> => {
   await authenticateUser({ admin: false, context })
 
-  await checkIfUserExists({ email: args.email, context })
+  const updateUser: boolean = await updateUserType({
+    email: args.email,
+    type: args.type,
+    context
+  })
+
+  if (updateUser) return {}
+
+  await validateUser({ email: args.email, context })
 
   const hashedPassword = await bcrypt.hash(args.password, 12)
 
