@@ -3,7 +3,7 @@ import { Context } from '../../../types/setup/context'
 import { User } from '../../../types/user'
 import { UserType } from '../../_enums/userType'
 
-export const checkIfUserExists = async ({
+export const validateUser = async ({
   email,
   shouldExist,
   type,

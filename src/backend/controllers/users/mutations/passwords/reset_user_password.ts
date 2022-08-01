@@ -7,7 +7,7 @@ import { AuditLogAction } from '../../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../../_utils/auth/authenticateUser'
 import { mutateArgs } from '../../../../_utils/handleArgs/mutateArgs'
 import { auditArgs } from '../../../../_utils/handleArgs/auditArgs'
-import { checkIfUserExists } from '../../../../_utils/handleValidation/checkIfUserExists'
+import { validateUser } from '../../../../_utils/handleValidation/validateUser'
 import { validatePassword } from '../../../../_utils/handleValidation/validatePassword'
 
 export default async (
@@ -17,7 +17,7 @@ export default async (
 ): Promise<User> => {
   await authenticateUser({ admin: false, context })
 
-  await checkIfUserExists({ email: args.email, shouldExist: true, context })
+  await validateUser({ email: args.email, shouldExist: true, context })
 
   const user: User = await context.database.users.findOne({ email: args.email })
 
