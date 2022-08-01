@@ -39,7 +39,7 @@ const UpdateAboutWriteup = (): ReactElement => {
   }, [data])
 
   const [updateMutation, updateMutationState] = useMutation(mutation, {
-    variables: correctArgs(args),
+    variables: correctArgs({ args }),
     onCompleted: () => {
       globalAny.setNotification(true, 'About page write-up successfully updated!')
       setValidateFields(false)

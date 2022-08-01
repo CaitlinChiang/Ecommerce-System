@@ -42,7 +42,7 @@ const UpdateCity = ({
   }, [data])
 
   const [updateMutation, updateMutationState] = useMutation(mutation, {
-    variables: { ...correctArgs(args), shippingFee: formatFee(args?.shippingFee) },
+    variables: { ...correctArgs({ args }), shippingFee: formatFee(args?.shippingFee) },
     onCompleted: () => {
       globalAny.setNotification(true, 'City & shipping fee successfully updated!')
       refetchData(refetchArgs)

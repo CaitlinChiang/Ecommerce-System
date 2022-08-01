@@ -46,7 +46,7 @@ const UpdateUser = ({ type }: { type: UserType }): ReactElement => {
 
   const [updateMutation, updateMutationState] = useMutation(mutation, {
     variables: {
-      ...correctArgs(args),
+      ...correctArgs({ args }),
       deliveryAddress: { address: args?.address, cityId: args?.cityId }
     },
     onCompleted: () => {

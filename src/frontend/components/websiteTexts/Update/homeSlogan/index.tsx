@@ -39,7 +39,7 @@ const UpdateHomeSlogan = (): ReactElement => {
   }, [data])
 
   const [updateMutation, updateMutationState] = useMutation(mutation, {
-    variables: correctArgs(args),
+    variables: correctArgs({ args }),
     onCompleted: () => {
       globalAny.setNotification(true, 'Home page slogan successfully updated!')
       setValidateFields(false)
