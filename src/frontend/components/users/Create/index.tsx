@@ -4,15 +4,24 @@ import { useRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
 import mutation from './mutation'
 import { Button } from '@mui/material'
+import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import { UserType } from '../../../_enums/userType'
 import Text from '../../_common/TextField'
 import PasswordField from '../../_common/PasswordField'
 import CitiesSelect from '../../cities/View/select'
-import { generateAdminUrl } from '../../../_utils/auth/generateAdminUrl'
+import { refetchData } from '../../../_utils/handleData/refetchData'
 
 const globalAny: any = global
 
-const CreateUser = ({ type }: { type: UserType }): ReactElement => {
+const CreateUser = ({
+  refetchArgs,
+  setCreateModalOpen,
+  type
+}: {
+  refetchArgs?: RefetchDataArgs
+  setCreateModalOpen?: React.Dispatch<React.SetStateAction<boolean>>
+  type: UserType
+}): ReactElement => {
   const router = useRouter()
 
   const [args, setArgs] = useState<any>({
@@ -30,12 +39,21 @@ const CreateUser = ({ type }: { type: UserType }): ReactElement => {
   const [createMutation, createMutationState] = useMutation(mutation, {
     variables: {
       ...args,
-      deliveryAddress: { address: args?.address, cityId: args?.cityId }
+      deliveryAddress: { address: args?.address, cityId: args?.cityId },
+      password: type === UserType.CUSTOMER ? args?.password : 'Company Name'
     },
     onCompleted: (data) => {
-      Cookies.set('accessToken', data.create_user.token)
       globalAny.setNotification(true, 'Account successfully created!')
-      router.push(`${generateAdminUrl(type)}/`)
+
+      switch (type) {
+        case UserType.ADMINISTRATOR:
+          setCreateModalOpen(false)
+          refetchData(refetchArgs)
+          break
+        case UserType.CUSTOMER:
+          Cookies.set('accessToken', data.create_user.token)
+          router.push('/')
+      }
     },
     onError: (error) => globalAny.setNotification(false, error.message)
   })
@@ -46,6 +64,13 @@ const CreateUser = ({ type }: { type: UserType }): ReactElement => {
         <>
           <Text args={args} setArgs={setArgs} targetProp={'address'} />
           <CitiesSelect args={args} setArgs={setArgs} />
+          <PasswordField
+            args={args}
+            error={validateFields}
+            required={true}
+            setArgs={setArgs}
+            targetProp={'password'}
+          />
         </>
       )}
       <Text
@@ -68,13 +93,6 @@ const CreateUser = ({ type }: { type: UserType }): ReactElement => {
         required={true}
         setArgs={setArgs}
         targetProp={'lastName'}
-      />
-      <PasswordField
-        args={args}
-        error={validateFields}
-        required={true}
-        setArgs={setArgs}
-        targetProp={'password'}
       />
       <Text
         args={args}
