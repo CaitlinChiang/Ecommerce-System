@@ -23,7 +23,7 @@ const PasswordField = ({
 
   return (
     <TextField
-      error={error && args?.[targetProp]?.length < 8}
+      error={error && (!val || val?.length < 8)}
       helperText={
         error && val?.length < 8 && 'Password must be at least 8 characters long.'
       }

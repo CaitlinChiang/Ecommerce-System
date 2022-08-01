@@ -2,7 +2,7 @@ import { gql } from '@apollo/client'
 
 export default gql`
   mutation (
-    $_id: ID
+    $_id: ID!
     $active: Boolean
     $deliveryAddress: DeliveryAddressInput
     $email: String
