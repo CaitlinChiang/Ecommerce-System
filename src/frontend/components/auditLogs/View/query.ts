@@ -2,14 +2,14 @@ import { gql } from '@apollo/client'
 
 export const GetAuditLogs = gql`
   query (
+    $dateRange: DateRangeInput
     $orderId: ID
     $paginateData: PaginateDataInput
-    $dateRange: DateRangeInput
   ) {
     get_audit_logs(
+      dateRange: $dateRange
       orderId: $orderId
       paginateData: $paginateData
-      dateRange: $dateRange
     ) {
       _id
       action
@@ -18,9 +18,9 @@ export const GetAuditLogs = gql`
     }
 
     get_audit_logs_count(
+      dateRange: $dateRange
       orderId: $orderId
       paginateData: $paginateData
-      dateRange: $dateRange
     )
   }
 `

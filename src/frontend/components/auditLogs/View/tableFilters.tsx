@@ -13,13 +13,17 @@ const AuditLogsTableFilters = ({
     <Box>
       <DatePickerField
         args={args}
+        fallbackValue={new Date(Date.now() - 6096e5)}
         nestedProp={'startDate'}
+        required={true}
         setArgs={setArgs}
         targetProp={'dateRange'}
       />
       <DatePickerField
         args={args}
+        fallbackValue={new Date()}
         nestedProp={'endDate'}
+        required={true}
         setArgs={setArgs}
         targetProp={'dateRange'}
       />

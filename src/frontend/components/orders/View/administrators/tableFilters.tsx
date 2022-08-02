@@ -44,7 +44,9 @@ const OrdersTableFilters = ({
             args.dateRange?.filterBy === null ||
             args.dateRange?.filterBy == undefined
           }
+          fallbackValue={new Date(Date.now() - 6096e5)}
           nestedProp={'startDate'}
+          required={true}
           setArgs={setArgs}
           targetProp={'dateRange'}
         />
@@ -54,7 +56,9 @@ const OrdersTableFilters = ({
             args.dateRange?.filterBy === null ||
             args.dateRange?.filterBy == undefined
           }
+          fallbackValue={new Date()}
           nestedProp={'endDate'}
+          required={true}
           setArgs={setArgs}
           targetProp={'dateRange'}
         />
