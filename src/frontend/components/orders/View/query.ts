@@ -2,11 +2,13 @@ import { gql } from '@apollo/client'
 
 export const GetOrders = gql`
   query (
+    $cityId: ID
     $dateRange: DateRangeInput
     $paginateData: PaginateDataInput
     $statuses: [String]
   ) {
     get_orders(
+      cityId: $cityId
       dateRange: $dateRange
       paginateData: $paginateData
       statuses: $statuses
@@ -48,6 +50,7 @@ export const GetOrders = gql`
     }
 
     get_orders_count(
+      cityId: $cityId
       dateRange: $dateRange
       paginateData: $paginateData
       statuses: $statuses

@@ -4,6 +4,7 @@ import { DateRangeType } from '../../../../_enums/dateRangeType'
 import { OrderStatus } from '../../../../_enums/orderStatus'
 import SelectField from '../../../_common/SelectField'
 import DatePickerField from '../../../_common/DatePickerField'
+import CitiesSelect from '../../../cities/View/select'
 
 const OrdersTableFilters = ({
   args,
@@ -14,6 +15,7 @@ const OrdersTableFilters = ({
 }): ReactElement => {
   return (
     <>
+      <CitiesSelect args={args} setArgs={setArgs} />
       <SelectField
         args={args}
         label={'Order Status'}

@@ -13,12 +13,14 @@ type Order {
 
 extend type Query {
   get_orders(
+    cityId: ID
     dateRange: DateRangeInput
     paginateData: PaginateDataInput
     statuses: [String]
   ): [Order]
 
   get_orders_count(
+    cityId: ID
     dateRange: DateRangeInput
     paginateData: PaginateDataInput
     statuses: [String]

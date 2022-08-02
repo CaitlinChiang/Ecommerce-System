@@ -28,6 +28,7 @@ const OrdersTable = (): ReactElement => {
   const disableDeleteOrder = !authenticateUser(AdminPermission.DELETE_ORDER)
 
   const [args, setArgs] = useState<any>({
+    cityId: null,
     dateRange: {
       startDate: new Date(Date.now() - 6096e5),
       endDate: new Date(),

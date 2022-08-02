@@ -22,6 +22,7 @@ export interface Order {
 
 export interface GetOrderArgs {
   _id?: ObjectId
+  cityId?: ObjectId
   dateRange?: DateRange
   paginateData?: PaginateDataArgs
   statuses?: OrderStatus[]
