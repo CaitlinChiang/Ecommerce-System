@@ -7,6 +7,7 @@ import { stockQuantityArgs } from './stockQuantityArgs'
 export const queryArgs = (args: any): any => {
   const {
     categoryIds,
+    cityId,
     dateRange,
     discount,
     paginateData,
@@ -32,6 +33,10 @@ export const queryArgs = (args: any): any => {
         (categoryId: string): ObjectId => new ObjectId(categoryId)
       )
     }
+  }
+
+  if (cityId) {
+    modifiedArgs['deliveryAddress.cityId'] = new ObjectId(cityId)
   }
 
   if (dateRange?.startDate && dateRange?.endDate) {
