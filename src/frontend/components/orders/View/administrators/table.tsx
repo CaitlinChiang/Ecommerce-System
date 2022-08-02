@@ -2,8 +2,9 @@ import { ReactElement, useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetOrders } from '../query'
 import deleteMutation from '../../Delete/mutation'
-import { Box, Button, TableCell, TableRow } from '@mui/material'
+import { Button, TableCell, TableRow } from '@mui/material'
 import { Order } from '../../../../../types/order'
+import { Payment } from '../../../../../types/payment'
 import { PaginateDataArgs } from '../../../../../types/actions/paginateData'
 import { RefetchDataArgs } from '../../../../../types/actions/refetchData'
 import { AdminPermission } from '../../../../_enums/adminPermission'
@@ -13,6 +14,7 @@ import TableComponent from '../../../_common/TableComponent'
 import ModalComponent from '../../../_common/ModalComponent'
 import UpdateOrderSelect from '../../Update/select'
 import UpdatePaymentSelect from '../../../payments/Update/select'
+import UpdatePaymentImageUpload from '../../../payments/Update/ImageUpload'
 import DeleteButton from '../../../_common/DeleteButton'
 import OrderItemsTable from './orderItemsTable'
 import OrderLogsTable from '../../../auditLogs/View/orderLogsTable'
@@ -44,8 +46,8 @@ const OrdersTable = (): ReactElement => {
     sortDirection: SortDirection.DESC
   })
   const [items, setItems] = useState<CartItem[]>([])
-  const [paymentProofUrl, setPaymentProofUrl] = useState<string>(null)
   const [orderId, setOrderId] = useState<string>(null)
+  const [payment, setPayment] = useState<Payment>(null)
   const [open, setOpen] = useState<string>('')
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
   const [refetchArgs, setRefetchArgs] = useState<RefetchDataArgs>({
@@ -140,7 +142,8 @@ const OrdersTable = (): ReactElement => {
             <br />
             <Button
               onClick={(): void => {
-                setPaymentProofUrl(payment?.imageProofUrl)
+                setOrderId(String(order._id))
+                setPayment(payment)
                 setOpen('PAYMENT_PROOF')
               }}
             >
@@ -183,7 +186,14 @@ const OrdersTable = (): ReactElement => {
         title={'Order Items'}
       />
       <ModalComponent
-        content={<Box component='img' alt={'Payment Proof'} src={paymentProofUrl} />}
+        content={
+          <UpdatePaymentImageUpload
+            _orderId={orderId}
+            payment={payment}
+            refetchArgs={refetchArgs}
+            setOpen={setOpen}
+          />
+        }
         onClose={(): void => setOpen('')}
         open={open === 'PAYMENT_PROOF'}
         title={'Payment Proof'}

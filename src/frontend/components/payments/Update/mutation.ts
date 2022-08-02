@@ -5,7 +5,7 @@ export default gql`
     $_orderId: ID!
     $imageProof: Upload
     $imageProofUrl: String
-    $status: String
+    $status: String!
   ) {
     update_payment(
       _orderId: $_orderId
