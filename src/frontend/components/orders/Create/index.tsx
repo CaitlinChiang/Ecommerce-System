@@ -1,11 +1,13 @@
 import { ReactElement, useState } from 'react'
 import { useQuery } from '@apollo/client'
+import { GetCart } from '../../cart/View/query'
 import { GetCity } from '../../cities/View/query'
 import { GetPaymentMethod } from '../../paymentMethods/View/query'
 import { useRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
 import mutation from './mutation'
 import { Button, Container, Typography } from '@mui/material'
+import { Cart } from '../../../../types/cart'
 import { City } from '../../../../types/city'
 import { PaymentMethod } from '../../../../types/paymentMethod'
 import OrderSummary from './orderSummary'
@@ -31,11 +33,17 @@ const CreateOrder = (): ReactElement => {
   const [validateFields, setValidateFields] = useState<boolean>(false)
   const [orderSuccess, setOrderSuccess] = useState<boolean>(false)
 
-  const { data: cityData } = useQuery(GetCity, { variables: { _id: args?.cityId } })
+  const { data: cartData } = useQuery(GetCart)
+  const { data: cityData } = useQuery(GetCity, {
+    skip: !args.cityId,
+    variables: { _id: args.cityId }
+  })
   const { data: paymentMethodData } = useQuery(GetPaymentMethod, {
-    variables: { _id: args?.paymentMethodId }
+    skip: !args.paymentMethodId,
+    variables: { _id: args.paymentMethodId }
   })
 
+  const cart: Cart = cartData?.get_cart || {}
   const city: City = cityData?.get_city || {}
   const paymentMethod: PaymentMethod = paymentMethodData?.get_payment_method || {}
 
@@ -44,7 +52,7 @@ const CreateOrder = (): ReactElement => {
       deliveryAddress: { address: args?.address, cityId: args?.cityId },
       items: args?.items,
       payment: {
-        amountDue: args?.payment,
+        amountDue: cart?.totalPrice,
         imageProof: args?.imageProof,
         paymentMethodId: args?.paymentMethodId,
         shippingFee: city?.shippingFee
@@ -60,7 +68,7 @@ const CreateOrder = (): ReactElement => {
   return (
     <>
       <Container>
-        <OrderSummary />
+        <OrderSummary cart={cart} city={city} />
       </Container>
       <Container>
         <Text
