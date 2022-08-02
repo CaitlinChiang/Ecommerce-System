@@ -15,19 +15,24 @@ export const returnHelperText = ({
 }): string => {
   if (!error) return ''
 
-  if (targetProp === 'email' && !isEmail(args?.email)) {
+  const { email, password, phoneNumber } = args
+
+  if (targetProp === 'email' && (!email || !isEmail(email))) {
     return 'Please enter valid email.'
   }
 
-  if (targetProp === 'password' && args?.password?.length < 8) {
+  if (targetProp === 'password' && password?.length < 8) {
     return 'Password must be at least 8 characters long.'
   }
 
-  if (targetProp === 'phoneNumber' && !isMobilePhone(args?.phoneNumber)) {
+  if (
+    targetProp === 'phoneNumber' &&
+    (!phoneNumber || !isMobilePhone(phoneNumber))
+  ) {
     return 'Please enter valid phone number.'
   }
 
-  if (!args?.[targetProp]) {
+  if (!args[targetProp]) {
     const fieldName = formatText(nestedProp || targetProp)
     return `${fieldName} is a required field.`
   }
