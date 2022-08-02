@@ -1,7 +1,7 @@
 import { ReactElement, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
-import { ResetUserPassword } from '../mutation'
+import { ResetUserPasswordProfile } from '../mutation'
 import { Button } from '@mui/material'
 import { UserType } from '../../../../_enums/userType'
 import Text from '../../../_common/TextField'
@@ -22,7 +22,7 @@ const ResetPassword = ({ type }: { type: UserType }): ReactElement => {
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const [resetPasswordMutation, resetPasswordMutationState] = useMutation(
-    ResetUserPassword,
+    ResetUserPasswordProfile,
     {
       variables: correctArgs(args),
       onCompleted: () => {

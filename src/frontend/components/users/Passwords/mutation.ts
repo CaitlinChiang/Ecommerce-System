@@ -6,18 +6,24 @@ export const ForgotUserPassword = gql`
   }
 `
 
-export const ResetUserPassword = gql`
-  mutation (
-    $email: String!
-    $newPassword: String!
-    $oldPassword: String
-    $verificationCode: String
-  ) {
-    reset_user_password(
+export const ResetUserPasswordEmail = gql`
+  mutation ($email: String!, $newPassword: String!, $verificationCode: String!) {
+    reset_user_password_email(
+      email: $email
+      newPassword: $newPassword
+      verificationCode: $verificationCode
+    ) {
+      _id
+    }
+  }
+`
+
+export const ResetUserPasswordProfile = gql`
+  mutation ($email: String!, $newPassword: String!, $oldPassword: String!) {
+    reset_user_password_profile(
       email: $email
       newPassword: $newPassword
       oldPassword: $oldPassword
-      verificationCode: $verificationCode
     ) {
       _id
     }

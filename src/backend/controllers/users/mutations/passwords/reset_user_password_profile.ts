@@ -1,5 +1,4 @@
 import bcrypt from 'bcrypt'
-import { UserInputError } from 'apollo-server-express'
 import { Context } from '../../../../../types/setup/context'
 import { User, ResetPasswordArgs } from '../../../../../types/user'
 import { MutateAction } from '../../../../_enums/mutateAction'
@@ -23,25 +22,12 @@ export default async (
 
   const password = await bcrypt.hash(args.newPassword, 12)
 
-  if (args?.oldPassword) {
-    await validatePassword({ password: args.oldPassword, reset: true, user })
+  await validatePassword({ password: args.oldPassword, reset: true, user })
 
-    await context.database.users.findOneAndUpdate(
-      { email: args.email },
-      { $set: mutateArgs({ password }, MutateAction.UPDATE) }
-    )
-  }
-
-  if (args?.verificationCode) {
-    if (args.verificationCode !== user?.verificationCode) {
-      throw new UserInputError('Verification code does not exist.')
-    }
-
-    await context.database.users.findOneAndUpdate(
-      { verificationCode: args.verificationCode },
-      { $set: mutateArgs({ password }, MutateAction.UPDATE) }
-    )
-  }
+  await context.database.users.findOneAndUpdate(
+    { email: args.email },
+    { $set: mutateArgs({ password }, MutateAction.UPDATE) }
+  )
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.UPDATE_USER,
