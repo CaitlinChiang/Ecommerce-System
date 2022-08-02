@@ -12,23 +12,29 @@ const DatePickerField = ({
   args,
   disabled,
   error,
+  fallbackValue,
   nestedProp,
+  required,
   setArgs,
   targetProp
 }: {
   args: any
   disabled?: boolean
   error?: boolean
+  fallbackValue?: Date
   nestedProp?: string
+  required?: boolean
   setArgs: React.Dispatch<React.SetStateAction<any>>
   targetProp: string
 }): ReactElement => {
   const val = args[targetProp]
+  const nestedVal = val?.[nestedProp]
+  const defaultVal = required ? fallbackValue : null
 
-  let modifiedVal = args?.[targetProp] === null ? null : new Date(val)
+  let modifiedVal = args?.[targetProp] === null ? defaultVal : new Date(val)
 
   if (nestedProp) {
-    modifiedVal = val?.[nestedProp] === null ? null : new Date(val[nestedProp])
+    modifiedVal = nestedVal === null ? defaultVal : new Date(nestedVal)
   }
 
   return (
@@ -39,10 +45,12 @@ const DatePickerField = ({
           inputFormat={'MM-dd-yyyy'}
           label={formatText(nestedProp || targetProp)}
           onChange={(newValue: Date | null) => {
-            if (!nestedProp) setArgs({ ...args, [targetProp]: newValue })
+            const newVal = newValue === null ? defaultVal : newValue
 
             if (nestedProp) {
-              setArgs({ ...args, [targetProp]: { ...val, [nestedProp]: newValue } })
+              setArgs({ ...args, [targetProp]: { ...val, [nestedProp]: newVal } })
+            } else {
+              setArgs({ ...args, [targetProp]: newVal })
             }
           }}
           renderInput={(params) => (
@@ -50,6 +58,7 @@ const DatePickerField = ({
               {...params}
               error={returnError({ args, error, targetProp, nestedProp })}
               helperText={returnHelperText({ args, error, targetProp, nestedProp })}
+              required={required}
             />
           )}
           value={modifiedVal}
