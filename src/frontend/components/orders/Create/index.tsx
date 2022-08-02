@@ -39,19 +39,17 @@ const CreateOrder = (): ReactElement => {
   const city: City = cityData?.get_city || {}
   const paymentMethod: PaymentMethod = paymentMethodData?.get_payment_method || {}
 
-  const mutateArgs: any = {
-    deliveryAddress: { address: args?.address, cityId: args?.cityId },
-    items: args?.items,
-    payment: {
-      amountDue: args?.payment,
-      imageProof: args?.imageProof,
-      paymentMethodId: args?.paymentMethodId,
-      shippingFee: city?.shippingFee
-    }
-  }
-
   const [createMutation, createMutationState] = useMutation(mutation, {
-    variables: correctArgs(mutateArgs),
+    variables: correctArgs({
+      deliveryAddress: { address: args?.address, cityId: args?.cityId },
+      items: args?.items,
+      payment: {
+        amountDue: args?.payment,
+        imageProof: args?.imageProof,
+        paymentMethodId: args?.paymentMethodId,
+        shippingFee: city?.shippingFee
+      }
+    }),
     onCompleted: () => {
       globalAny.setNotification(true, 'Order successfully placed!')
       setOrderSuccess(true)

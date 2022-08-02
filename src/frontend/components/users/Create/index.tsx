@@ -31,7 +31,7 @@ const CreateUser = ({
     email: null,
     firstName: null,
     lastName: null,
-    password: null,
+    password: type === UserType.CUSTOMER ? null : 'Company Name',
     phoneNumber: null,
     type
   })
@@ -39,9 +39,8 @@ const CreateUser = ({
 
   const [createMutation, createMutationState] = useMutation(mutation, {
     variables: {
-      deliveryAddress: { address: args?.address, cityId: args?.cityId },
-      password: type === UserType.CUSTOMER ? args?.password : 'Company Name',
-      ...correctArgs(args)
+      ...correctArgs(args),
+      deliveryAddress: { address: args?.address, cityId: args?.cityId }
     },
     onCompleted: (data) => {
       globalAny.setNotification(true, 'Account successfully created!')

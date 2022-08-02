@@ -7,6 +7,7 @@ import { Button } from '@mui/material'
 import { UserType } from '../../../_enums/userType'
 import Text from '../../_common/TextField'
 import PasswordField from '../../_common/PasswordField'
+import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
 import { generateAdminUrl } from '../../../_utils/auth/generateAdminUrl'
 
 const globalAny: any = global
@@ -22,7 +23,7 @@ const SignInUser = ({ type }: { type: UserType }): ReactElement => {
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const [signInMutation, signInMutationState] = useMutation(mutation, {
-    variables: args,
+    variables: correctArgs(args),
     onCompleted: (data) => {
       Cookies.set('accessToken', data.sign_in_user)
       globalAny.setNotification(true, 'You are signed-in!')

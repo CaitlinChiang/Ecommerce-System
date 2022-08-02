@@ -4,6 +4,7 @@ import mutation from './mutation'
 import { Button } from '@mui/material'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
+import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
 import { refetchData } from '../../../_utils/handleData/refetchData'
 import { clearFields } from '../../../_utils/handleFields/clearFields'
 
@@ -22,7 +23,7 @@ const CreateReview = ({
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const [createMutation, createMutationState] = useMutation(mutation, {
-    variables: { ...args, username: args?.username || 'Anonymous' },
+    variables: { ...correctArgs(args), username: args?.username || 'Anonymous' },
     onCompleted: () => {
       globalAny.setNotification(true, 'Review successfully submitted!')
       refetchData(refetchArgs)
