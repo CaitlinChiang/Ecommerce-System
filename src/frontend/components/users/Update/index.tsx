@@ -28,8 +28,6 @@ const UpdateUser = ({ type }: { type: UserType }): ReactElement => {
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
-  const requiredArgs: string[] = ['email', 'firstName', 'lastName', 'phoneNumber']
-
   const { data, loading, refetch } = useQuery(GetUser)
 
   const user: User = data?.get_user || {}
@@ -48,7 +46,7 @@ const UpdateUser = ({ type }: { type: UserType }): ReactElement => {
 
   const [updateMutation, updateMutationState] = useMutation(mutation, {
     variables: {
-      ...correctArgs({ args, requiredArgs }),
+      ...correctArgs(args),
       deliveryAddress: { address: args?.address, cityId: args?.cityId }
     },
     onCompleted: () => {

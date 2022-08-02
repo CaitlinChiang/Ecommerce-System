@@ -40,7 +40,7 @@ const UpdatePaymentMethod = ({
   }, [data])
 
   const [updateMutation, updateMutationState] = useMutation(mutation, {
-    variables: correctArgs({ args }),
+    variables: correctArgs(args),
     onCompleted: () => {
       globalAny.setNotification(true, 'Payment method successfully updated!')
       refetchData(refetchArgs)

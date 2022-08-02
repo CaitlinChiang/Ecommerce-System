@@ -41,7 +41,7 @@ const UpdateProductCategory = ({
   }, [data])
 
   const [updateMutation, updateMutationState] = useMutation(mutation, {
-    variables: correctArgs({ args }),
+    variables: correctArgs(args),
     onCompleted: () => {
       globalAny.setNotification(true, 'Product category successfully updated!')
       refetchData(refetchArgs)

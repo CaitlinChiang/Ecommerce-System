@@ -57,7 +57,7 @@ const UpdateProductVariant = ({ _id }: { _id: string }): ReactElement => {
 
   const [updateMutation, updateMutationState] = useMutation(mutation, {
     variables: {
-      ...correctArgs({ args }),
+      ...correctArgs(args),
       discount: formatFromPercentage(args?.discount),
       imageUrl: args?.imageUrl?.includes('products/') ? null : args?.imageUrl,
       price: formatFee(args?.price),

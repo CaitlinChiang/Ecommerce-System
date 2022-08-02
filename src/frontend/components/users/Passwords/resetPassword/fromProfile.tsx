@@ -6,7 +6,7 @@ import { Button } from '@mui/material'
 import { UserType } from '../../../../_enums/userType'
 import Text from '../../../_common/TextField'
 import PasswordField from '../../../_common/PasswordField'
-import { checkField } from '../../../../_utils/handleArgs/correctArgs'
+import { correctArgs } from '../../../../_utils/handleArgs/correctArgs'
 import { generateAdminUrl } from '../../../../_utils/auth/generateAdminUrl'
 
 const globalAny: any = global
@@ -24,7 +24,7 @@ const ResetPassword = ({ type }: { type: UserType }): ReactElement => {
   const [resetPasswordMutation, resetPasswordMutationState] = useMutation(
     ResetUserPassword,
     {
-      variables: checkField({ args, key: 'oldPassword', required: 'email' }),
+      variables: correctArgs(args),
       onCompleted: () => {
         globalAny.setNotification(true, 'Password successfully updated!')
         router.push(`${generateAdminUrl(type)}/user/profile`)

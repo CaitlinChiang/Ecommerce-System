@@ -9,7 +9,7 @@ import { UserType } from '../../../_enums/userType'
 import Text from '../../_common/TextField'
 import PasswordField from '../../_common/PasswordField'
 import CitiesSelect from '../../cities/View/select'
-import { validateArgs } from '../../../_utils/handleArgs/correctArgs'
+import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
 import { refetchData } from '../../../_utils/handleData/refetchData'
 
 const globalAny: any = global
@@ -41,7 +41,7 @@ const CreateUser = ({
     variables: {
       deliveryAddress: { address: args?.address, cityId: args?.cityId },
       password: type === UserType.CUSTOMER ? args?.password : 'Company Name',
-      ...validateArgs(args)
+      ...correctArgs(args)
     },
     onCompleted: (data) => {
       globalAny.setNotification(true, 'Account successfully created!')

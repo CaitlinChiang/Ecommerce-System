@@ -40,7 +40,7 @@ const UpdateFAQ = ({
   }, [data])
 
   const [updateMutation, updateMutationState] = useMutation(mutation, {
-    variables: correctArgs({ args }),
+    variables: correctArgs(args),
     onCompleted: () => {
       globalAny.setNotification(true, 'FAQ successfully updated!')
       refetchData(refetchArgs)

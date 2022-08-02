@@ -65,7 +65,7 @@ const UpdateProduct = ({
 
   const [updateMutation, updateMutationState] = useMutation(mutation, {
     variables: {
-      ...correctArgs({ args }),
+      ...correctArgs(args),
       discount: formatFromPercentage(args?.discount),
       price: formatFee(args?.price),
       stockQuantity: args?.stockQuantity ? Math.round(args.stockQuantity) : null

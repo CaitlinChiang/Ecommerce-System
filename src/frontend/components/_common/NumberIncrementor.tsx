@@ -32,7 +32,7 @@ const NumberIncrementor = ({
     }
 
     if (updateMutation) {
-      updateMutation({ variables: { ...correctArgs({ args }), [targetProp]: val } })
+      updateMutation({ variables: { ...correctArgs(args), [targetProp]: val } })
     }
   }
 
