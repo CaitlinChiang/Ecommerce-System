@@ -25,5 +25,5 @@ export default async (
     ...auditArgs(context)
   })
 
-  return user.insertedId
+  return user.value
 }

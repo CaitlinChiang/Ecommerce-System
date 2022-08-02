@@ -21,6 +21,6 @@ extend type Mutation {
     _orderId: ID!
     imageProof: Upload
     imageProofUrl: String
-    status: String
+    status: String!
   ): Payment
 }

@@ -57,7 +57,7 @@ export interface UpdateProductArgs {
   name: string
   price: number
   showPublic: boolean
-  stockQuantity?: number
+  stockQuantity: number
   updatedAt?: Date
 }
 

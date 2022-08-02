@@ -79,10 +79,9 @@ const ProductCategoriesTable = (): ReactElement => {
         <TableRow>
           <TableCell>
             <UpdateProductCategoryCheckbox
-              _id={productCategory._id}
               disabled={disableUpdateProductCategory}
+              productCategory={productCategory}
               refetchArgs={refetchArgs}
-              showPublic={productCategory.showPublic}
             />
           </TableCell>
           <TableCell>{name}</TableCell>

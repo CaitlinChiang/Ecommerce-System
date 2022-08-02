@@ -1,7 +1,7 @@
 import { ReactElement, useState, useEffect } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
 import { GetProductCategory } from '../View/query'
-import { UpdateMutation } from './mutation'
+import mutation from './mutation'
 import { Button, CircularProgress, Typography } from '@mui/material'
 import { ProductCategory } from '../../../../types/productCategory'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
@@ -40,7 +40,7 @@ const UpdateProductCategory = ({
     })
   }, [data])
 
-  const [updateMutation, updateMutationState] = useMutation(UpdateMutation, {
+  const [updateMutation, updateMutationState] = useMutation(mutation, {
     variables: correctArgs(args),
     onCompleted: () => {
       globalAny.setNotification(true, 'Product category successfully updated!')

@@ -5,11 +5,11 @@ export default gql`
     $_id: ID!
     $active: Boolean
     $deliveryAddress: DeliveryAddressInput
-    $email: String
-    $firstName: String
-    $lastName: String
+    $email: String!
+    $firstName: String!
+    $lastName: String!
     $permissions: [String]
-    $phoneNumber: String
+    $phoneNumber: String!
   ) {
     update_user(
       _id: $_id

@@ -29,12 +29,12 @@ input DeliveryAddressInput {
 extend type Query {
   get_user(_id: ID): User
 
-  get_users(active: Boolean, type: String, paginateData: PaginateDataInput): [User]
+  get_users(active: Boolean, paginateData: PaginateDataInput, type: String,): [User]
 
   get_users_count(
     active: Boolean
-    type: String
     paginateData: PaginateDataInput
+    type: String
   ): Int
 }
 
@@ -55,11 +55,11 @@ extend type Mutation {
     _id: ID!
     active: Boolean
     deliveryAddress: DeliveryAddressInput
-    email: String
-    firstName: String
-    lastName: String
+    email: String!
+    firstName: String!
+    lastName: String!
     permissions: [String]
-    phoneNumber: String
+    phoneNumber: String!
   ): User
 
   delete_user(_id: ID!): User

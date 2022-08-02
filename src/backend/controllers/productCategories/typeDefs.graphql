@@ -29,10 +29,5 @@ extend type Mutation {
     showPublic: Boolean!
   ): ProductCategory
 
-  update_product_category_checkbox(
-    _id: ID!
-    showPublic: Boolean!
-  ): ProductCategory
-
   delete_product_category(_id: ID!): ProductCategory
 }

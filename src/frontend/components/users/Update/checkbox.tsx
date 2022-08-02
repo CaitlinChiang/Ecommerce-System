@@ -2,25 +2,23 @@ import { ReactElement } from 'react'
 import { useMutation } from '@apollo/client'
 import mutation from './mutation'
 import { Checkbox } from '@mui/material'
-import { ObjectId } from 'mongodb'
+import { User } from '../../../../types/user'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import { refetchData } from '../../../_utils/handleData/refetchData'
 
 const globalAny: any = global
 
 const UpdateUserCheckbox = ({
-  _id,
-  active,
   disabled,
-  refetchArgs
+  refetchArgs,
+  user
 }: {
-  _id: ObjectId
-  active: boolean
   disabled: boolean
   refetchArgs: RefetchDataArgs
+  user: User
 }): ReactElement => {
   const [updateMutation, updateMutationState] = useMutation(mutation, {
-    variables: { _id, active: !active },
+    variables: { ...user, active: !user.active },
     onCompleted: () => {
       globalAny.setNotification(true, 'User successfully updated!')
       refetchData(refetchArgs)
@@ -30,7 +28,7 @@ const UpdateUserCheckbox = ({
 
   return (
     <Checkbox
-      checked={active}
+      checked={user.active}
       disabled={disabled || updateMutationState.loading}
       onChange={(): void => {
         updateMutation()

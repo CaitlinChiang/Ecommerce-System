@@ -2,7 +2,7 @@ import { ReactElement, useState, useEffect } from 'react'
 import { useMutation } from '@apollo/client'
 import mutation from './mutation'
 import { Button, Checkbox, TableCell, TableRow } from '@mui/material'
-import { ObjectId } from 'mongodb'
+import { User } from '../../../../types/user'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import { AdminPermission } from '../../../_enums/adminPermission'
 import SimpleTableComponent from '../../_common/SimpleTableComponent'
@@ -18,24 +18,22 @@ import {
 const globalAny: any = global
 
 const UpdateAdminPermissions = ({
-  _id,
-  permissions,
-  refetchArgs
+  refetchArgs,
+  user
 }: {
-  _id: ObjectId
-  permissions: AdminPermission[]
   refetchArgs: RefetchDataArgs
+  user: User
 }): ReactElement => {
   const [adminPermissions, setAdminPermissions] = useState<string[]>([])
 
   useEffect(() => {
-    if (permissions?.length > 0) {
-      setAdminPermissions(permissions)
+    if (user?.permissions?.length > 0) {
+      setAdminPermissions(user.permissions)
     }
-  }, [permissions])
+  }, [user])
 
   const [updateMutation, updateMutationState] = useMutation(mutation, {
-    variables: { _id, permissions: adminPermissions },
+    variables: { ...user, permissions: adminPermissions },
     onCompleted: () => {
       globalAny.setNotification(true, 'Admin permissions successfully updated!')
       refetchData(refetchArgs)

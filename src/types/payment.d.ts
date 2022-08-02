@@ -28,5 +28,5 @@ export interface UpdatePaymentArgs {
   _orderId: ObjectId
   imageProof?: Promise<FileUpload>
   imageProofUrl?: string
-  status?: PaymentStatus
+  status: PaymentStatus
 }

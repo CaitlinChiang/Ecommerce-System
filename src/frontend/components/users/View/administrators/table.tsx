@@ -35,7 +35,7 @@ const AdministratorsTable = (): ReactElement => {
     sortDirection: SortDirection.DESC
   })
   const [createModalOpen, setCreateModalOpen] = useState<boolean>(false)
-  const [user, setUser] = useState<any>({ _id: null, permissions: [] })
+  const [user, setUser] = useState<User>(null)
   const [permissionsModalOpen, setPermissionsModalOpen] = useState<boolean>(false)
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
   const [refetchArgs, setRefetchArgs] = useState<RefetchDataArgs>({
@@ -77,16 +77,15 @@ const AdministratorsTable = (): ReactElement => {
 
   const userRows = [
     users?.map((user: User): ReactElement => {
-      const { active, email, firstName, lastName, permissions, phoneNumber } = user
+      const { createdAt, email, firstName, lastName, phoneNumber } = user
 
       return (
         <TableRow>
           <TableCell>
             <UpdateUserCheckbox
-              _id={user._id}
-              active={active}
               disabled={disableUpdateUser}
               refetchArgs={refetchArgs}
+              user={user}
             />
           </TableCell>
           <TableCell>{firstName}</TableCell>
@@ -97,14 +96,14 @@ const AdministratorsTable = (): ReactElement => {
             <Button
               disabled={disableUpdateUser}
               onClick={(): void => {
-                setUser({ _id: String(user._id), permissions })
+                setUser(user)
                 setPermissionsModalOpen(true)
               }}
             >
               {'View Permissions'}
             </Button>
           </TableCell>
-          <TableCell>{String(user?.createdAt)}</TableCell>
+          <TableCell>{String(createdAt)}</TableCell>
           <TableCell>
             <DeleteButton
               _id={user._id}
@@ -135,13 +134,7 @@ const AdministratorsTable = (): ReactElement => {
         title={'Create Admin Account'}
       />
       <ModalComponent
-        content={
-          <UpdateAdminPermissions
-            _id={user._id}
-            permissions={user.permissions}
-            refetchArgs={refetchArgs}
-          />
-        }
+        content={<UpdateAdminPermissions refetchArgs={refetchArgs} user={user} />}
         onClose={(): void => setPermissionsModalOpen(false)}
         open={permissionsModalOpen}
         title={'Admin Permissions'}

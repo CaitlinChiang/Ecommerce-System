@@ -34,7 +34,7 @@ extend type Mutation {
     payment: PaymentInput!
   ): Order
 
-  update_order(_id: ID!, status: String): Order
+  update_order(_id: ID!, status: String!): Order
 
   delete_order(_id: ID!): Order
 }

@@ -50,12 +50,12 @@ export interface CreateUserArgs {
 export interface UpdateUserArgs {
   _id: ObjectId
   active?: boolean
-  deliveryAddress?: DeliveryAddress
-  email?: string
-  firstName?: string
-  lastName?: string
+  deliveryAddress: DeliveryAddress
+  email: string
+  firstName: string
+  lastName: string
   permissions?: AdminPermission[]
-  phoneNumber?: string
+  phoneNumber: string
   updatedAt?: Date
 }
 
