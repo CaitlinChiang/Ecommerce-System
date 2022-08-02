@@ -1,25 +1,17 @@
 import { ReactElement } from 'react'
-import { useQuery } from '@apollo/client'
-import { GetCart } from '../../cart/View/query'
-import { GetCity } from '../../cities/View/query'
 import { Divider, Typography } from '@mui/material'
 import { Cart, CartItem } from '../../../../types/cart'
 import { City } from '../../../../types/city'
 import { formatNumber } from '../../../_utils/handleFormat/formatNumber'
 import { formatPrice } from '../../../_utils/handleFormat/formatPrice'
 
-const OrderSummary = (): ReactElement => {
-  const { data: cartData } = useQuery(GetCart)
-  const { data: cityData } = useQuery(GetCity)
-
-  const cart: Cart = cartData?.get_cart || {}
-  const city: City = cityData?.get_city || {}
-
+const OrderSummary = ({ cart, city }: { cart: Cart; city: City }): ReactElement => {
   return (
     <>
       <Typography>{'Order Summary'}</Typography>
       {cart?.items?.map((cartItem: CartItem): ReactElement => {
         const { product, productVariant, quantity, totalPrice } = cartItem
+
         return (
           <>
             <Typography>{product?.name}</Typography>
