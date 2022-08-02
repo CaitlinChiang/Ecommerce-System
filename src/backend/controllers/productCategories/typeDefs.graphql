@@ -25,7 +25,12 @@ extend type Mutation {
 
   update_product_category(
     _id: ID!
-    name: String
+    name: String!
+    showPublic: Boolean!
+  ): ProductCategory
+
+  update_product_category_checkbox(
+    _id: ID!
     showPublic: Boolean!
   ): ProductCategory
 
