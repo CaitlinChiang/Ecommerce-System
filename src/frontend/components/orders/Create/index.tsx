@@ -14,6 +14,7 @@ import PaymentMethodsSelect from '../../paymentMethods/View/select'
 import Text from '../../_common/TextField'
 import ImageUploader from '../../_common/ImageUploader'
 import OrderSuccess from './orderSuccess'
+import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
 
 const globalAny: any = global
 
@@ -38,17 +39,19 @@ const CreateOrder = (): ReactElement => {
   const city: City = cityData?.get_city || {}
   const paymentMethod: PaymentMethod = paymentMethodData?.get_payment_method || {}
 
+  const mutateArgs: any = {
+    deliveryAddress: { address: args?.address, cityId: args?.cityId },
+    items: args?.items,
+    payment: {
+      amountDue: args?.payment,
+      imageProof: args?.imageProof,
+      paymentMethodId: args?.paymentMethodId,
+      shippingFee: city?.shippingFee
+    }
+  }
+
   const [createMutation, createMutationState] = useMutation(mutation, {
-    variables: {
-      deliveryAddress: { address: args?.address, cityId: args?.cityId },
-      items: args?.items,
-      payment: {
-        amountDue: args?.payment,
-        imageProof: args?.imageProof,
-        paymentMethodId: args?.paymentMethodId,
-        shippingFee: city?.shippingFee
-      }
-    },
+    variables: correctArgs(mutateArgs),
     onCompleted: () => {
       globalAny.setNotification(true, 'Order successfully placed!')
       setOrderSuccess(true)
