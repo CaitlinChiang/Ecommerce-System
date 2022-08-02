@@ -9,6 +9,7 @@ import CheckboxField from '../../_common/CheckboxField'
 import NumberField from '../../_common/NumberField'
 import ImageUploader from '../../_common/ImageUploader'
 import ProductCategoriesSelect from '../../productCategories/View/select'
+import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
 import { formatFee } from '../../../_utils/handleFormat/formatFee'
 import { formatFromPercentage } from '../../../_utils/handleFormat/formatFromPercentage'
 
@@ -33,7 +34,7 @@ const CreateProduct = (): ReactElement => {
 
   const [createMutation, createMutationState] = useMutation(mutation, {
     variables: {
-      ...args,
+      ...correctArgs(args),
       discount: formatFromPercentage(args?.discount),
       price: formatFee(args?.price),
       stockQuantity: args?.stockQuantity ? Math.round(args.stockQuantity) : null

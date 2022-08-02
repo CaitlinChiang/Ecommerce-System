@@ -7,6 +7,7 @@ import { AdminPermission } from '../../../_enums/adminPermission'
 import Text from '../../_common/TextField'
 import NumberField from '../../_common/NumberField'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
+import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
 import { formatFee } from '../../../_utils/handleFormat/formatFee'
 import { refetchData } from '../../../_utils/handleData/refetchData'
 import { clearFields } from '../../../_utils/handleFields/clearFields'
@@ -27,7 +28,7 @@ const CreateCity = ({
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const [createMutation, createMutationState] = useMutation(mutation, {
-    variables: { ...args, shippingFee: formatFee(args?.shippingFee) },
+    variables: { ...correctArgs(args), shippingFee: formatFee(args?.shippingFee) },
     onCompleted: () => {
       globalAny.setNotification(true, 'City & shipping fee successfully created!')
       refetchData(refetchArgs)

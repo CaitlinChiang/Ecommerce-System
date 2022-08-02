@@ -7,6 +7,7 @@ import { AdminPermission } from '../../../_enums/adminPermission'
 import Text from '../../_common/TextField'
 import CheckboxField from '../../_common/CheckboxField'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
+import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
 import { refetchData } from '../../../_utils/handleData/refetchData'
 import { clearFields } from '../../../_utils/handleFields/clearFields'
 
@@ -26,7 +27,7 @@ const CreateProductCategory = ({
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const [createMutation, createMutationState] = useMutation(mutation, {
-    variables: args,
+    variables: correctArgs(args),
     onCompleted: () => {
       globalAny.setNotification(true, 'Product category successfully created!')
       refetchData(refetchArgs)
