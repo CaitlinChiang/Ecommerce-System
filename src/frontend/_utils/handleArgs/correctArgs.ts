@@ -3,7 +3,13 @@ import isMobilePhone from 'validator/lib/isMobilePhone'
 
 export const correctArgs = (args: any): any => {
   Object.keys(args).forEach((key: string): void => {
-    if (typeof args[key] === 'string') modifyArgs(args, key)
+    const val = args[key]
+
+    if (typeof val === 'string') modifyArgs(args, key)
+
+    if (typeof val === 'object' && !Array.isArray(val)) {
+      Object.keys(val).forEach((k: string) => modifyArgs(val, k))
+    }
 
     if (['email', 'password', 'phoneNumber'].includes(key)) {
       validateArgs(args)
