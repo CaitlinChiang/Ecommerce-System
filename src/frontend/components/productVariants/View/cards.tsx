@@ -26,7 +26,16 @@ const ProductVariantCards = ({
 
   const productVariantCards = [
     productVariants?.map((productVariant: ProductVariant): ReactElement => {
-      const { name, imageUrl } = productVariant
+      const { imageUrl, name } = productVariant
+
+      if (imageUrl.includes('products/')) {
+        return (
+          <CardComponent
+            content={<Typography>{name}</Typography>}
+            productVariantId={String(productVariant._id)}
+          />
+        )
+      }
 
       return (
         <CardComponent
