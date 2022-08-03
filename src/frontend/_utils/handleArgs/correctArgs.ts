@@ -20,9 +20,13 @@ export const correctArgs = (args: any): any => {
 }
 
 const modifyArgs = (args: any, key: string): any => {
-  if (args[key]?.trim().length === 0) {
+  if (isNaN(args[key]) && !isImage && args[key]?.trim().length === 0) {
     args[key] = null
   }
+}
+
+const isImage = (val: any): boolean => {
+  return val && val['type'].split('/')[0] === 'image'
 }
 
 const validateArgs = (args: any): any => {
