@@ -30,7 +30,9 @@ const OrderSummary = ({ cart, city }: { cart: Cart; city: City }): ReactElement 
       <Typography>{`Shipping Fee P${formatPrice(city?.shippingFee)}`}</Typography>
       <Divider />
       <Typography>
-        {`Total Amount Due P${formatPrice(cart?.totalPrice + city?.shippingFee)})}`}
+        {`Total Amount Due: P${formatPrice(
+          cart?.totalPrice + (city?.shippingFee || 0)
+        )}`}
       </Typography>
     </>
   )

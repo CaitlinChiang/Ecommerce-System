@@ -3,7 +3,7 @@ import { gql } from '@apollo/client'
 export default gql`
   mutation (
     $deliveryAddress: DeliveryAddressInput!
-    $items: [CartItem]!
+    $items: [CartItemInput]!
     $payment: PaymentInput!
   ) {
     create_order(
