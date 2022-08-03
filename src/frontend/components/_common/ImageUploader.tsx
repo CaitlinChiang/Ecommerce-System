@@ -49,7 +49,9 @@ const ImageUploader = ({
       {required && error && !args?.[targetProp] && (
         <>
           <FormHelperText sx={styles.formHelperText}>
-            {'Photo is required.'}
+            {targetProp === 'image'
+              ? 'Product image is required.'
+              : 'Payment proof image is required.'}
           </FormHelperText>
         </>
       )}

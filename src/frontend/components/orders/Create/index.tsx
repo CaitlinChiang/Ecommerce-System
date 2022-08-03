@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
 import mutation from './mutation'
 import { Button, Container, Typography } from '@mui/material'
-import { Cart } from '../../../../types/cart'
+import { Cart, CartItem } from '../../../../types/cart'
 import { City } from '../../../../types/city'
 import { PaymentMethod } from '../../../../types/paymentMethod'
 import OrderSummary from './orderSummary'
@@ -15,7 +15,6 @@ import CitiesSelect from '../../cities/View/select'
 import PaymentMethodsSelect from '../../paymentMethods/View/select'
 import Text from '../../_common/TextField'
 import ImageUploader from '../../_common/ImageUploader'
-import OrderSuccess from './orderSuccess'
 import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
 
 const globalAny: any = global
@@ -31,7 +30,6 @@ const CreateOrder = (): ReactElement => {
     paymentMethodId: null
   })
   const [validateFields, setValidateFields] = useState<boolean>(false)
-  const [orderSuccess, setOrderSuccess] = useState<boolean>(false)
 
   const { data: cartData } = useQuery(GetCart)
   const { data: cityData } = useQuery(GetCity, {
@@ -47,10 +45,21 @@ const CreateOrder = (): ReactElement => {
   const city: City = cityData?.get_city || {}
   const paymentMethod: PaymentMethod = paymentMethodData?.get_payment_method || {}
 
+  const cartItems: any[] = cart?.items?.map((item: CartItem) => {
+    const { product, productVariant, quantity, totalPrice } = item
+
+    return {
+      productId: product?._id,
+      productVariantId: productVariant?._id,
+      quantity,
+      totalPrice
+    }
+  })
+
   const [createMutation, createMutationState] = useMutation(mutation, {
     variables: correctArgs({
       deliveryAddress: { address: args?.address, cityId: args?.cityId },
-      items: args?.items,
+      items: cartItems,
       payment: {
         amountDue: cart?.totalPrice,
         imageProof: args?.imageProof,
@@ -59,8 +68,8 @@ const CreateOrder = (): ReactElement => {
       }
     }),
     onCompleted: () => {
-      globalAny.setNotification(true, 'Order successfully placed!')
-      setOrderSuccess(true)
+      globalAny.updateCartQuantity()
+      router.push('/orders/success')
     },
     onError: (error) => globalAny.setNotification(false, error.message)
   })
@@ -90,7 +99,7 @@ const CreateOrder = (): ReactElement => {
           required={true}
           setArgs={setArgs}
         />
-        {paymentMethod && (
+        {Object.keys(paymentMethod).length > 0 && (
           <Typography>
             {`Note: Please transfer total amount due to ${paymentMethod?.details}`}
           </Typography>
@@ -121,7 +130,6 @@ const CreateOrder = (): ReactElement => {
           {'Confirm Payment'}
         </Button>
       </Container>
-      {orderSuccess && <OrderSuccess />}
     </>
   )
 }
