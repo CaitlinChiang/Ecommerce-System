@@ -29,7 +29,7 @@ input DeliveryAddressInput {
 extend type Query {
   get_user(_id: ID): User
 
-  get_users(active: Boolean, paginateData: PaginateDataInput, type: String,): [User]
+  get_users(active: Boolean, paginateData: PaginateDataInput, type: String): [User]
 
   get_users_count(
     active: Boolean
