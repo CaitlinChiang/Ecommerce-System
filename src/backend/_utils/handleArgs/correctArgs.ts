@@ -43,6 +43,10 @@ const isValueArray = (val: any): boolean => {
   return false
 }
 
+const modifyObjArgs = (e: any, mutation: boolean): void => {
+  Object.keys(e).forEach((k: string) => modifyArgs(k, e, mutation))
+}
+
 const modifyArgs = (key: string, obj: any, mutation: boolean): void => {
   if (obj[key] === null) {
     delete obj[key]
@@ -55,10 +59,6 @@ const modifyArgs = (key: string, obj: any, mutation: boolean): void => {
   if (key.includes('Date') && obj[key] !== null && mutation) {
     obj[key] = new Date(obj[key])
   }
-}
-
-const modifyObjArgs = (e: any, mutation: boolean): void => {
-  Object.keys(e).forEach((k: string) => modifyArgs(k, e, mutation))
 }
 
 const deleteObj = (mainObj: any, currentObj: any): void => {
