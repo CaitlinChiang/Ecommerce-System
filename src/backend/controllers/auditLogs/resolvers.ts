@@ -11,7 +11,7 @@ export default {
 
     createdByEmail: async (
       auditLog: AuditLog,
-      args: undefined,
+      _args: undefined,
       context: Context
     ): Promise<string> => {
       const user: User = await context.dataloaders.users.byId.load(

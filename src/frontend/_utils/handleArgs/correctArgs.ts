@@ -7,7 +7,7 @@ export const correctArgs = (args: any): any => {
 
     if (typeof val === 'string') modifyArgs(args, key)
 
-    if (typeof val === 'object' && !Array.isArray(val)) {
+    if (typeof val === 'object' && val && !Array.isArray(val)) {
       Object.keys(val).forEach((k: string) => modifyArgs(val, k))
     }
 

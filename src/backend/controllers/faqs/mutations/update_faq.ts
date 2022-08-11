@@ -6,7 +6,7 @@ import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { mutateArgs } from '../../../_utils/handleArgs/mutateArgs'
-import { auditArgs } from '../../../_utils/handleArgs/auditArgs'
+import { createAuditLog } from '../../../_utils/handleData/createAuditLog'
 
 export default async (
   _root: undefined,
@@ -19,16 +19,15 @@ export default async (
     context
   })
 
-  const faq: any = await context.database.faqs.findOneAndUpdate(
-    { _id: new ObjectId(args._id) },
-    { $set: mutateArgs(args, MutateAction.UPDATE) }
-  )
+  const faq: FAQ = await context.database.faqs
+    .findOneAndUpdate(
+      { _id: new ObjectId(args._id) },
+      { $set: mutateArgs(args, MutateAction.UPDATE) },
+      { returnDocument: 'after' }
+    )
+    .then((faq) => faq.value)
 
-  await context.database.auditLogs.insertOne({
-    action: AuditLogAction.UPDATE_FAQ,
-    faqId: new ObjectId(faq._id),
-    ...auditArgs(context)
-  })
+  await createAuditLog(AuditLogAction.UPDATE_FAQ, context)
 
-  return faq.value
+  return faq
 }

@@ -1,5 +1,4 @@
 export default {
   AnalyticsOrdersCount: {},
-
   AnalyticsRevenueCount: {}
 }

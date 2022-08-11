@@ -6,7 +6,7 @@ export default {
   Cart: {
     items: async (
       cart: Cart,
-      args: undefined,
+      _args: undefined,
       context: Context
     ): Promise<CartItem[]> => {
       return await returnCartItems(cart?.items, context)

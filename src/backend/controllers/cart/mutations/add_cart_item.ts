@@ -12,15 +12,15 @@ export default async (
 ): Promise<Cart> => {
   await authenticateUser({ admin: false, context })
 
-  const cart: Cart = await context.database.carts.findOne({
+  const currentCart: Cart = await context.database.carts.findOne({
     _userId: context.currentUserId
   })
 
   let itemAppended = false
   let itemQuantity = 0
 
-  for (let i = 0, n = cart?.items?.length; i < n; i++) {
-    const cartItem: CartItem = cart.items[i]
+  for (let i = 0, n = currentCart?.items?.length; i < n; i++) {
+    const cartItem: CartItem = currentCart.items[i]
     const cartItemObj = JSON.stringify(cartItemArgs(cartItem))
     const inputItemObj = JSON.stringify(cartItemArgs(args.item))
 
@@ -30,20 +30,28 @@ export default async (
     }
   }
 
+  let updatedCart: Cart = {}
+
   if (itemAppended) {
-    await context.database.carts.findOneAndUpdate(
-      {
-        _userId: context.currentUserId,
-        items: { $elemMatch: cartItemArgs(args.item) }
-      },
-      { $set: { 'items.$.quantity': itemQuantity } }
-    )
+    updatedCart = await context.database.carts
+      .findOneAndUpdate(
+        {
+          _userId: context.currentUserId,
+          items: { $elemMatch: cartItemArgs(args.item) }
+        },
+        { $set: { 'items.$.quantity': itemQuantity } },
+        { returnDocument: 'after' }
+      )
+      .then((cart) => cart.value)
   } else {
-    await context.database.carts.findOneAndUpdate(
-      { _userId: context.currentUserId },
-      { $push: { items: mutateArgs(args.item, MutateAction.CREATE) } }
-    )
+    updatedCart = await context.database.carts
+      .findOneAndUpdate(
+        { _userId: context.currentUserId },
+        { $push: { items: mutateArgs(args.item, MutateAction.CREATE) } },
+        { returnDocument: 'after' }
+      )
+      .then((cart) => cart.value)
   }
 
-  return cart
+  return updatedCart
 }

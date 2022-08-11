@@ -10,17 +10,16 @@ export default async (
 ): Promise<Cart> => {
   await authenticateUser({ admin: false, context })
 
-  await context.database.carts.findOneAndUpdate(
-    {
-      _userId: context.currentUserId,
-      items: { $elemMatch: cartItemArgs(args) }
-    },
-    { $set: { 'items.$.quantity': args.quantity } }
-  )
-
-  const cart: Cart = await context.database.carts.findOne({
-    _userId: context.currentUserId
-  })
+  const cart: Cart = await context.database.carts
+    .findOneAndUpdate(
+      {
+        _userId: context.currentUserId,
+        items: { $elemMatch: cartItemArgs(args) }
+      },
+      { $set: { 'items.$.quantity': args.quantity } },
+      { returnDocument: 'after' }
+    )
+    .then((cart) => cart.value)
 
   return cart
 }
