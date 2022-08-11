@@ -13,6 +13,6 @@ export interface AuditLog {
 
 export interface GetAuditLogArgs {
   dateRange?: DateRange
-  orderId?: ObjectId
+  orderId?: ObjectId | string
   paginateData?: PaginateDataArgs
 }

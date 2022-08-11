@@ -2,13 +2,16 @@ import { ReactElement, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetAnalyticsOrdersCount } from '../query'
 import { Box, CircularProgress } from '@mui/material'
-import { AnalyticsOrdersCount } from '../../../../../types/analytics'
+import {
+  AnalyticsOrdersCount,
+  GetAnalyticsArgs
+} from '../../../../../types/analytics'
 import { DateRangeType } from '../../../../_enums/dateRangeType'
 import AreaChart from '../../../_common/AreaChart'
 import DatePickerField from '../../../_common/DatePickerField'
 
 const OrdersChart = (): ReactElement => {
-  const [args, setArgs] = useState<any>({
+  const [args, setArgs] = useState<GetAnalyticsArgs>({
     dateRange: {
       startDate: new Date(Date.now() - 6096e5),
       endDate: new Date(),

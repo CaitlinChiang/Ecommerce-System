@@ -2,13 +2,13 @@ import { ReactElement } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetAuditLogs } from './query'
 import { TableCell, TableRow } from '@mui/material'
-import { AuditLog } from '../../../../types/auditLog'
+import { AuditLog, GetAuditLogArgs } from '../../../../types/auditLog'
 import { SortDirection } from '../../../_enums/sortDirection'
 import SimpleTableComponent from '../../_common/SimpleTableComponent'
 import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
 
 const OrderLogsTable = ({ orderId }: { orderId: string }): ReactElement => {
-  const args: any = { orderId }
+  const args: GetAuditLogArgs = { orderId }
 
   const { data, loading } = useQuery(GetAuditLogs, {
     variables: {

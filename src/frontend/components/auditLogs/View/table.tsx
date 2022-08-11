@@ -2,7 +2,7 @@ import { ReactElement, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetAuditLogs } from './query'
 import { TableCell, TableRow } from '@mui/material'
-import { AuditLog } from '../../../../types/auditLog'
+import { AuditLog, GetAuditLogArgs } from '../../../../types/auditLog'
 import { PaginateDataArgs } from '../../../../types/actions/paginateData'
 import { SortDirection } from '../../../_enums/sortDirection'
 import { DateRangeType } from '../../../_enums/dateRangeType'
@@ -11,7 +11,7 @@ import AuditLogsTableFilters from './tableFilters'
 import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
 
 const AuditLogsTable = (): ReactElement => {
-  const [args, setArgs] = useState<any>({
+  const [args, setArgs] = useState<GetAuditLogArgs>({
     dateRange: {
       startDate: new Date(Date.now() - 6096e5),
       endDate: new Date(),
@@ -25,6 +25,7 @@ const AuditLogsTable = (): ReactElement => {
     sortBy: 'createdAt',
     sortDirection: SortDirection.DESC
   })
+
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
 
   const { data, loading, fetchMore } = useQuery(GetAuditLogs, {
