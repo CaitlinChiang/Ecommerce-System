@@ -6,7 +6,7 @@ import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { mutateArgs } from '../../../_utils/handleArgs/mutateArgs'
-import { auditArgs } from '../../../_utils/handleArgs/auditArgs'
+import { createAuditLog } from '../../../_utils/handleData/createAuditLog'
 
 export default async (
   _root: undefined,
@@ -19,16 +19,15 @@ export default async (
     context
   })
 
-  const review: any = await context.database.reviews.findOneAndUpdate(
-    { _id: new ObjectId(args._id) },
-    { $set: mutateArgs(args, MutateAction.UPDATE) }
-  )
+  const review: Review = await context.database.reviews
+    .findOneAndUpdate(
+      { _id: new ObjectId(args._id) },
+      { $set: mutateArgs(args, MutateAction.UPDATE) },
+      { returnDocument: 'after' }
+    )
+    .then((review) => review.value)
 
-  await context.database.auditLogs.insertOne({
-    action: AuditLogAction.UPDATE_REVIEW,
-    reviewId: new ObjectId(review._id),
-    ...auditArgs(context)
-  })
+  await createAuditLog(AuditLogAction.UPDATE_REVIEW, context)
 
-  return review.value
+  return review
 }

@@ -5,7 +5,7 @@ import { AdminPermission } from '../../../_enums/adminPermission'
 import { StockQuantityAction } from '../../../_enums/stockQuantity'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
-import { auditArgs } from '../../../_utils/handleArgs/auditArgs'
+import { createAuditLog } from '../../../_utils/handleData/createAuditLog'
 import { updateStockQuantity } from '../../../_utils/handleData/updateStockQuantity'
 import { deletePayment } from '../../payments/mutations/delete_payment'
 
@@ -20,19 +20,15 @@ export default async (
     context
   })
 
-  const order: any = await context.database.orders.findOneAndDelete({
-    _id: new ObjectId(args._id)
-  })
+  const order: Order = await context.database.orders
+    .findOneAndDelete({ _id: new ObjectId(args._id) })
+    .then((order) => order.value)
 
-  await context.database.auditLogs.insertOne({
-    action: AuditLogAction.DELETE_ORDER,
-    orderId: new ObjectId(args._id),
-    ...auditArgs(context)
-  })
+  await createAuditLog(AuditLogAction.DELETE_ORDER, context)
 
   await deletePayment(args._id, context)
 
-  await updateStockQuantity(StockQuantityAction.ADD, order?.value?.items, context)
+  await updateStockQuantity(StockQuantityAction.ADD, order?.items, context)
 
-  return order.value
+  return order
 }

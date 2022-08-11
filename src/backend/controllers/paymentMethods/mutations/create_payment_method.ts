@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import {
   PaymentMethod,
@@ -8,7 +9,7 @@ import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { mutateArgs } from '../../../_utils/handleArgs/mutateArgs'
-import { auditArgs } from '../../../_utils/handleArgs/auditArgs'
+import { createAuditLog } from '../../../_utils/handleData/createAuditLog'
 
 export default async (
   _root: undefined,
@@ -21,15 +22,11 @@ export default async (
     context
   })
 
-  const paymentMethod: any = await context.database.paymentMethods.insertOne(
-    mutateArgs(args, MutateAction.CREATE)
-  )
+  const paymentMethodId: ObjectId = await context.database.paymentMethods
+    .insertOne(mutateArgs(args, MutateAction.CREATE))
+    .then((paymentMethod) => paymentMethod.insertedId)
 
-  await context.database.auditLogs.insertOne({
-    action: AuditLogAction.CREATE_PAYMENT_METHOD,
-    paymentMethodId: paymentMethod.insertedId,
-    ...auditArgs(context)
-  })
+  await createAuditLog(AuditLogAction.CREATE_PAYMENT_METHOD, context)
 
-  return paymentMethod.insertedId
+  return { _id: paymentMethodId, ...args }
 }

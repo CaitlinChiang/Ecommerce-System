@@ -1,11 +1,12 @@
 import bcrypt from 'bcrypt'
+import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import { User, CreateUserArgs } from '../../../../types/user'
 import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { mutateArgs } from '../../../_utils/handleArgs/mutateArgs'
-import { auditArgs } from '../../../_utils/handleArgs/auditArgs'
+import { createAuditLog } from '../../../_utils/handleData/createAuditLog'
 import { validateUser } from '../../../_utils/handleValidation/validateUser'
 import { updateUserType } from '../../../_utils/handleData/updateUserType'
 import { generateJWT } from '../../../_utils/auth/jwt'
@@ -29,21 +30,19 @@ export default async (
 
   const hashedPassword = await bcrypt.hash(args.password, 12)
 
-  const user: any = await context.database.users.insertOne({
-    ...mutateArgs(args, MutateAction.CREATE),
-    active: false,
-    password: hashedPassword
-  })
+  const userId: ObjectId = await context.database.users
+    .insertOne({
+      ...mutateArgs(args, MutateAction.CREATE),
+      active: false,
+      password: hashedPassword
+    })
+    .then((user) => user.insertedId)
 
-  await context.database.auditLogs.insertOne({
-    action: AuditLogAction.CREATE_USER,
-    userId: user.insertedId,
-    ...auditArgs(context)
-  })
+  await createAuditLog(AuditLogAction.CREATE_USER, context)
 
-  await context.database.carts.insertOne({ _userId: user.insertedId })
+  await context.database.carts.insertOne({ _userId: userId })
 
-  const token = await generateJWT(user.insertedId)
+  const token = await generateJWT(userId)
 
-  return { ...user.insertedId, token }
+  return { _id: userId, ...args, token }
 }

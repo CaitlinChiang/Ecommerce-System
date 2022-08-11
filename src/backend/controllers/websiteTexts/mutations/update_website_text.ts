@@ -5,7 +5,7 @@ import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { mutateArgs } from '../../../_utils/handleArgs/mutateArgs'
-import { auditArgs } from '../../../_utils/handleArgs/auditArgs'
+import { createAuditLog } from '../../../_utils/handleData/createAuditLog'
 
 export default async (
   _root: undefined,
@@ -18,16 +18,15 @@ export default async (
     context
   })
 
-  const websiteText: any = await context.database.websiteTexts.findOneAndUpdate(
-    { type: args.type },
-    { $set: mutateArgs(args, MutateAction.UPDATE) }
-  )
+  const websiteText: WebsiteText = await context.database.websiteTexts
+    .findOneAndUpdate(
+      { type: args.type },
+      { $set: mutateArgs(args, MutateAction.UPDATE) },
+      { returnDocument: 'after' }
+    )
+    .then((websiteText) => websiteText.value)
 
-  await context.database.auditLogs.insertOne({
-    action: AuditLogAction.UPDATE_WEBSITE_TEXT,
-    websiteTextType: args.type,
-    ...auditArgs(context)
-  })
+  await createAuditLog(AuditLogAction.UPDATE_WEBSITE_TEXT, context)
 
-  return websiteText.value
+  return websiteText
 }

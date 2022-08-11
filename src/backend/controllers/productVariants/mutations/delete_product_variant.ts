@@ -7,8 +7,8 @@ import {
 import { AdminPermission } from '../../../_enums/adminPermission'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
-import { auditArgs } from '../../../_utils/handleArgs/auditArgs'
 import { deleteImage } from '../../../_utils/handleImages/delete'
+import { createAuditLog } from '../../../_utils/handleData/createAuditLog'
 
 export default async (
   _root: undefined,
@@ -23,16 +23,11 @@ export default async (
 
   await deleteImage({ imageUrl: args?.imageUrl })
 
-  const productVariant: any =
-    await context.database.productVariants.findOneAndDelete({
-      _id: new ObjectId(args._id)
-    })
+  const productVariant: ProductVariant = await context.database.productVariants
+    .findOneAndDelete({ _id: new ObjectId(args._id) })
+    .then((productVariant) => productVariant.value)
 
-  await context.database.auditLogs.insertOne({
-    action: AuditLogAction.DELETE_PRODUCT_VARIANT,
-    productVariantId: new ObjectId(args._id),
-    ...auditArgs(context)
-  })
+  await createAuditLog(AuditLogAction.DELETE_PRODUCT_VARIANT, context)
 
-  return productVariant.value
+  return productVariant
 }

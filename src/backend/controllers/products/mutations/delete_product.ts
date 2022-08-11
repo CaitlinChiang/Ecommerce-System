@@ -4,11 +4,11 @@ import { Product, DeleteProductArgs } from '../../../../types/product'
 import { AdminPermission } from '../../../_enums/adminPermission'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
-import { auditArgs } from '../../../_utils/handleArgs/auditArgs'
 import {
   deleteImage,
   deleteProductVariantImages
 } from '../../../_utils/handleImages/delete'
+import { createAuditLog } from '../../../_utils/handleData/createAuditLog'
 
 export default async (
   _root: undefined,
@@ -23,15 +23,11 @@ export default async (
 
   await deleteImage({ imageUrl: args?.imageUrl })
 
-  const product: any = await context.database.products.findOneAndDelete({
-    _id: new ObjectId(args._id)
-  })
+  const product: Product = await context.database.products
+    .findOneAndDelete({ _id: new ObjectId(args._id) })
+    .then((product) => product.value)
 
-  await context.database.auditLogs.insertOne({
-    action: AuditLogAction.DELETE_PRODUCT,
-    productId: new ObjectId(args._id),
-    ...auditArgs(context)
-  })
+  await createAuditLog(AuditLogAction.DELETE_PRODUCT, context)
 
   await deleteProductVariantImages(args._id, context)
 
@@ -39,5 +35,5 @@ export default async (
     _productId: new ObjectId(args._id)
   })
 
-  return product.value
+  return product
 }

@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import { Order, CreateOrderArgs } from '../../../../types/order'
 import { OrderStatus } from '../../../_enums/orderStatus'
@@ -20,23 +21,25 @@ export default async (
 
   const { payment, ...remainingArgs } = args
 
-  const order: any = await context.database.orders.insertOne({
-    ...mutateArgs(remainingArgs, MutateAction.CREATE),
-    status: OrderStatus.PENDING,
-    userId: context.currentUserId
-  })
+  const orderId: ObjectId = await context.database.orders
+    .insertOne({
+      ...mutateArgs(remainingArgs, MutateAction.CREATE),
+      status: OrderStatus.PENDING,
+      userId: context.currentUserId
+    })
+    .then((order) => order.insertedId)
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.CREATE_ORDER,
-    orderId: order.insertedId,
+    orderId: orderId,
     ...auditArgs(context)
   })
 
-  await createPayment(order.insertedId, payment, context)
+  await createPayment(orderId, payment, context)
 
   await emptyCart(context)
 
   await updateStockQuantity(StockQuantityAction.SUBTRACT, args.items, context)
 
-  return order.insertedId
+  return { _id: orderId, ...args }
 }

@@ -4,7 +4,7 @@ import { Review, DeleteReviewArgs } from '../../../../types/review'
 import { AdminPermission } from '../../../_enums/adminPermission'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
-import { auditArgs } from '../../../_utils/handleArgs/auditArgs'
+import { createAuditLog } from '../../../_utils/handleData/createAuditLog'
 
 export default async (
   _root: undefined,
@@ -17,15 +17,11 @@ export default async (
     context
   })
 
-  const review: any = await context.database.reviews.findOneAndDelete({
-    _id: new ObjectId(args._id)
-  })
+  const review: Review = await context.database.reviews
+    .findOneAndDelete({ _id: new ObjectId(args._id) })
+    .then((review) => review.value)
 
-  await context.database.auditLogs.insertOne({
-    action: AuditLogAction.DELETE_REVIEW,
-    reviewId: new ObjectId(args._id),
-    ...auditArgs(context)
-  })
+  await createAuditLog(AuditLogAction.DELETE_REVIEW, context)
 
-  return review.value
+  return review
 }

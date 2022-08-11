@@ -36,15 +36,18 @@ export default async (
     orderId: String(args._orderId)
   })
 
-  const payment: any = await context.database.payments.findOneAndUpdate(
-    { _orderId: new ObjectId(args._orderId) },
-    {
-      $set: {
-        ...mutateArgs(modifiedArgs, MutateAction.UPDATE),
-        imageProofUrl: modifiedImageUrl
-      }
-    }
-  )
+  const payment: Payment = await context.database.payments
+    .findOneAndUpdate(
+      { _orderId: new ObjectId(args._orderId) },
+      {
+        $set: {
+          ...mutateArgs(modifiedArgs, MutateAction.UPDATE),
+          imageProofUrl: modifiedImageUrl
+        }
+      },
+      { returnDocument: 'after' }
+    )
+    .then((payment) => payment.value)
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.UPDATE_ORDER_PAYMENT,
@@ -52,5 +55,5 @@ export default async (
     ...auditArgs(context)
   })
 
-  return payment.value
+  return payment
 }

@@ -6,7 +6,7 @@ export default {
   Payment: {
     paymentMethod: async (
       payment: Payment,
-      args: undefined,
+      _args: undefined,
       context: Context
     ): Promise<PaymentMethod> => {
       const paymentMethod: PaymentMethod =

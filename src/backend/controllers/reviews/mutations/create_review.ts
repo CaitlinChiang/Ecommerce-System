@@ -1,10 +1,11 @@
+import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import { Review, CreateReviewArgs } from '../../../../types/review'
 import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { mutateArgs } from '../../../_utils/handleArgs/mutateArgs'
-import { auditArgs } from '../../../_utils/handleArgs/auditArgs'
+import { createAuditLog } from '../../../_utils/handleData/createAuditLog'
 
 export default async (
   _root: undefined,
@@ -13,15 +14,11 @@ export default async (
 ): Promise<Review> => {
   await authenticateUser({ admin: false, context })
 
-  const review: any = await context.database.reviews.insertOne(
-    mutateArgs(args, MutateAction.CREATE)
-  )
+  const reviewId: ObjectId = await context.database.reviews
+    .insertOne(mutateArgs(args, MutateAction.CREATE))
+    .then((review) => review.insertedId)
 
-  await context.database.auditLogs.insertOne({
-    action: AuditLogAction.CREATE_REVIEW,
-    reviewId: review.insertedId,
-    ...auditArgs(context)
-  })
+  await createAuditLog(AuditLogAction.CREATE_REVIEW, context)
 
-  return review.insertedId
+  return { _id: reviewId, ...args }
 }

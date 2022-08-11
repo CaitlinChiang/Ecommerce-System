@@ -18,9 +18,7 @@ export default async (
   })
 
   const city: City = await context.database.cities
-    .findOneAndDelete({
-      _id: new ObjectId(args._id)
-    })
+    .findOneAndDelete({ _id: new ObjectId(args._id) })
     .then((city) => city.value)
 
   await createAuditLog(AuditLogAction.DELETE_CITY, context)

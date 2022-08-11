@@ -9,7 +9,7 @@ export default {
   Product: {
     category: async (
       product: Product,
-      args: undefined,
+      _args: undefined,
       context: Context
     ): Promise<string> => {
       const category: ProductCategory =
@@ -27,7 +27,7 @@ export default {
 
     stockQuantity: async (
       product: Product,
-      args: undefined,
+      _args: undefined,
       context: Context
     ): Promise<number> => {
       if (product?.stockQuantity) return product.stockQuantity

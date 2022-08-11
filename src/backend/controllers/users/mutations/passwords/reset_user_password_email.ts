@@ -6,7 +6,7 @@ import { MutateAction } from '../../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../../_utils/auth/authenticateUser'
 import { mutateArgs } from '../../../../_utils/handleArgs/mutateArgs'
-import { auditArgs } from '../../../../_utils/handleArgs/auditArgs'
+import { createAuditLog } from '../../../../_utils/handleData/createAuditLog'
 import { validateUser } from '../../../../_utils/handleValidation/validateUser'
 
 export default async (
@@ -18,24 +18,25 @@ export default async (
 
   await validateUser({ email: args.email, shouldExist: true, context })
 
-  const user: User = await context.database.users.findOne({ email: args.email })
+  const currentUser: User = await context.database.users.findOne({
+    email: args.email
+  })
 
   const password = await bcrypt.hash(args.newPassword, 12)
 
-  if (args.verificationCode !== user?.verificationCode) {
+  if (args.verificationCode !== currentUser?.verificationCode) {
     throw new UserInputError('Verification code does not exist.')
   }
 
-  await context.database.users.findOneAndUpdate(
-    { verificationCode: args.verificationCode },
-    { $set: mutateArgs({ password }, MutateAction.UPDATE) }
-  )
+  const updatedUser: User = await context.database.users
+    .findOneAndUpdate(
+      { verificationCode: args.verificationCode },
+      { $set: mutateArgs({ password }, MutateAction.UPDATE) },
+      { returnDocument: 'after' }
+    )
+    .then((user) => user.value)
 
-  await context.database.auditLogs.insertOne({
-    action: AuditLogAction.UPDATE_USER,
-    userId: user._id,
-    ...auditArgs(context)
-  })
+  await createAuditLog(AuditLogAction.UPDATE_USER, context)
 
-  return user
+  return updatedUser
 }

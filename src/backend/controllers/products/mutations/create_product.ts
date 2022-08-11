@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import { Product, CreateProductArgs } from '../../../../types/product'
 import { AdminPermission } from '../../../_enums/adminPermission'
@@ -6,8 +7,8 @@ import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { mutateArgs } from '../../../_utils/handleArgs/mutateArgs'
-import { auditArgs } from '../../../_utils/handleArgs/auditArgs'
 import { uploadImage } from '../../../_utils/handleImages/upload'
+import { createAuditLog } from '../../../_utils/handleData/createAuditLog'
 
 export default async (
   _root: undefined,
@@ -28,16 +29,14 @@ export default async (
     productName: args.name
   })
 
-  const product: any = await context.database.products.insertOne({
-    ...mutateArgs(modifiedArgs, MutateAction.CREATE),
-    imageUrl
-  })
+  const productId: ObjectId = await context.database.products
+    .insertOne({
+      ...mutateArgs(modifiedArgs, MutateAction.CREATE),
+      imageUrl
+    })
+    .then((product) => product.insertedId)
 
-  await context.database.auditLogs.insertOne({
-    action: AuditLogAction.CREATE_PRODUCT,
-    productId: product.insertedId,
-    ...auditArgs(context)
-  })
+  await createAuditLog(AuditLogAction.CREATE_PRODUCT, context)
 
-  return product.insertedId
+  return { _id: productId, ...args }
 }

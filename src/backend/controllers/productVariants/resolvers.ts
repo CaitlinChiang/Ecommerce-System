@@ -16,7 +16,7 @@ export default {
 
     imageUrl: async (
       productVariant: ProductVariant,
-      args: undefined,
+      _args: undefined,
       context: Context
     ): Promise<string> => {
       if (productVariant?.imageUrl) return productVariant.imageUrl

@@ -16,7 +16,7 @@ export default {
 
     deliveryAddress: async (
       order: Order,
-      args: undefined,
+      _args: undefined,
       context: Context
     ): Promise<DeliveryAddress> => {
       if (!order?.deliveryAddress) return
@@ -29,7 +29,7 @@ export default {
 
     items: async (
       order: Order,
-      args: undefined,
+      _args: undefined,
       context: Context
     ): Promise<CartItem[]> => {
       return await returnCartItems(order?.items, context)
@@ -37,7 +37,7 @@ export default {
 
     payment: async (
       order: Order,
-      args: undefined,
+      _args: undefined,
       context: Context
     ): Promise<Payment> => {
       const payment: Payment = await context.dataloaders.payments.byOrderId.load(

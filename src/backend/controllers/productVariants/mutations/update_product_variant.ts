@@ -10,9 +10,9 @@ import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { mutateArgs } from '../../../_utils/handleArgs/mutateArgs'
-import { auditArgs } from '../../../_utils/handleArgs/auditArgs'
 import { uploadImage } from '../../../_utils/handleImages/upload'
 import { deleteImage } from '../../../_utils/handleImages/delete'
+import { createAuditLog } from '../../../_utils/handleData/createAuditLog'
 
 export default async (
   _root: undefined,
@@ -36,22 +36,20 @@ export default async (
     productVariantName: args.name
   })
 
-  const productVariant: any =
-    await context.database.productVariants.findOneAndUpdate(
+  const productVariant: ProductVariant = await context.database.productVariants
+    .findOneAndUpdate(
       { _id: new ObjectId(args._id) },
       {
         $set: {
           ...mutateArgs(modifiedArgs, MutateAction.UPDATE),
           imageUrl: modifiedImageUrl
         }
-      }
+      },
+      { returnDocument: 'after' }
     )
+    .then((productVariant) => productVariant.value)
 
-  await context.database.auditLogs.insertOne({
-    action: AuditLogAction.UPDATE_PRODUCT_VARIANT,
-    productVariantId: new ObjectId(productVariant._id),
-    ...auditArgs(context)
-  })
+  await createAuditLog(AuditLogAction.UPDATE_PRODUCT_VARIANT, context)
 
-  return productVariant.value
+  return productVariant
 }

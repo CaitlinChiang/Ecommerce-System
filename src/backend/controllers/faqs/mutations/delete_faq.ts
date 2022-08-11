@@ -18,9 +18,7 @@ export default async (
   })
 
   const faq: FAQ = await context.database.faqs
-    .findOneAndDelete({
-      _id: new ObjectId(args._id)
-    })
+    .findOneAndDelete({ _id: new ObjectId(args._id) })
     .then((faq) => faq.value)
 
   await createAuditLog(AuditLogAction.DELETE_FAQ, context)

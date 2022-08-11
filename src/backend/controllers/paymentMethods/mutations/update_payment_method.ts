@@ -9,7 +9,7 @@ import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { mutateArgs } from '../../../_utils/handleArgs/mutateArgs'
-import { auditArgs } from '../../../_utils/handleArgs/auditArgs'
+import { createAuditLog } from '../../../_utils/handleData/createAuditLog'
 
 export default async (
   _root: undefined,
@@ -22,16 +22,15 @@ export default async (
     context
   })
 
-  const paymentMethod: any = await context.database.paymentMethods.findOneAndUpdate(
-    { _id: new ObjectId(args._id) },
-    { $set: mutateArgs(args, MutateAction.UPDATE) }
-  )
+  const paymentMethod: PaymentMethod = await context.database.paymentMethods
+    .findOneAndUpdate(
+      { _id: new ObjectId(args._id) },
+      { $set: mutateArgs(args, MutateAction.UPDATE) },
+      { returnDocument: 'after' }
+    )
+    .then((paymentMethod) => paymentMethod.value)
 
-  await context.database.auditLogs.insertOne({
-    action: AuditLogAction.UPDATE_PAYMENT_METHOD,
-    paymentMethodId: new ObjectId(paymentMethod._id),
-    ...auditArgs(context)
-  })
+  await createAuditLog(AuditLogAction.UPDATE_PAYMENT_METHOD, context)
 
-  return paymentMethod.value
+  return paymentMethod
 }

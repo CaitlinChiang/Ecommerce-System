@@ -5,7 +5,7 @@ import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { mutateArgs } from '../../../_utils/handleArgs/mutateArgs'
-import { auditArgs } from '../../../_utils/handleArgs/auditArgs'
+import { createAuditLog } from '../../../_utils/handleData/createAuditLog'
 
 export default async (
   _root: undefined,
@@ -14,16 +14,15 @@ export default async (
 ): Promise<User> => {
   await authenticateUser({ admin: false, context })
 
-  const user: any = await context.database.users.findOneAndUpdate(
-    { _id: new ObjectId(args._id) },
-    { $set: mutateArgs(args, MutateAction.UPDATE) }
-  )
+  const user: User = await context.database.users
+    .findOneAndUpdate(
+      { _id: new ObjectId(args._id) },
+      { $set: mutateArgs(args, MutateAction.UPDATE) },
+      { returnDocument: 'after' }
+    )
+    .then((user) => user.value)
 
-  await context.database.auditLogs.insertOne({
-    action: AuditLogAction.UPDATE_USER,
-    userId: new ObjectId(user._id),
-    ...auditArgs(context)
-  })
+  await createAuditLog(AuditLogAction.UPDATE_USER, context)
 
-  return user.value
+  return user
 }

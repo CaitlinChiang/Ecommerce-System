@@ -2,7 +2,6 @@ type AuditLog {
   _id: ID
   action: String
   orderId: ID
-  websiteTextType: String
   createdAt: String
   createdBy: ID
   createdByEmail: String
