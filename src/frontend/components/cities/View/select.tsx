@@ -11,12 +11,14 @@ const CitiesSelect = ({
   args,
   error,
   required,
-  setArgs
+  setArgs,
+  targetProp
 }: {
   args: any
   error?: boolean
   required?: boolean
   setArgs: React.Dispatch<React.SetStateAction<any>>
+  targetProp?: string
 }): ReactElement => {
   const { data, loading } = useQuery(GetCities, {
     variables: { paginateData: { sortBy: 'name', sortDirection: SortDirection.ASC } }
@@ -37,10 +39,11 @@ const CitiesSelect = ({
         args={args}
         error={error}
         label={'City'}
+        nestedProp={targetProp ? 'cityId' : null}
         options={cityOptions}
         required={required}
         setArgs={setArgs}
-        targetProp={'cityId'}
+        targetProp={targetProp || 'cityId'}
       />
     </>
   )
