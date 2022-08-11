@@ -14,7 +14,7 @@ export const deleteImage = async ({
   imageUrl: string
   shouldExist?: boolean
 }): Promise<void> => {
-  if (!imageUrl || (!image && shouldExist)) return
+  if (!image && shouldExist) return
 
   await destroyImageUrl(imageUrl)
 }
@@ -30,11 +30,12 @@ export const deleteProductVariantImages = async (
     .toArray()
 
   for (let i = 0, n = productVariants.length; i < n; i++) {
-    const { imageUrl } = productVariants[i]
-    if (imageUrl) await destroyImageUrl(imageUrl)
+    await destroyImageUrl(productVariants[i].imageUrl)
   }
 }
 
 const destroyImageUrl = async (url: string): Promise<void> => {
+  if (!url) return
+
   await cloudinary.uploader.destroy(url)
 }

@@ -26,7 +26,7 @@ export const returnCartItems = async (
     cartItems.push({
       product,
       productVariant,
-      quantity: quantity,
+      quantity,
       totalPrice: formatPrice(totalPrice)
     })
   }
