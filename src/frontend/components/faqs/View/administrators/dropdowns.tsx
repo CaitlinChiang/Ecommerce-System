@@ -37,14 +37,6 @@ const FAQsDropdowns = (): ReactElement => {
     openModal: false
   })
 
-  const [refetchArgs, setRefetchArgs] = useState<RefetchDataArgs>({
-    args: null,
-    count: null,
-    loading: false,
-    paginateDataArgs: null,
-    refetch: null
-  })
-
   const { data, loading, fetchMore, refetch } = useQuery(GetFAQs, {
     variables: { ...args, paginateData: paginateDataArgs },
     ...fetchMoreArgs
@@ -52,15 +44,13 @@ const FAQsDropdowns = (): ReactElement => {
   const faqs: FAQ[] = data?.get_faqs || []
   const faqsCount: number = data?.get_faqs_count || 0
 
-  useEffect(() => {
-    setRefetchArgs({
-      args,
-      count: faqsCount,
-      loading,
-      paginateDataArgs,
-      refetch
-    })
-  }, [data, paginateDataArgs])
+  const refetchArgs: RefetchDataArgs = {
+    args,
+    count: faqsCount,
+    loading,
+    paginateDataArgs,
+    refetch
+  }
 
   const faqRows = faqs?.map(
     (faq: FAQ): { actions: ReactElement; title: string; content: ReactElement } => {
