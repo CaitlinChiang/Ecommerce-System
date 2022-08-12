@@ -1,4 +1,4 @@
-import { ReactElement, useState, useEffect } from 'react'
+import { ReactElement, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetCities } from './query'
 import deleteMutation from '../Delete/mutation'
@@ -36,14 +36,6 @@ const CitiesTable = (): ReactElement => {
     openModal: false
   })
 
-  const [refetchArgs, setRefetchArgs] = useState<RefetchDataArgs>({
-    args: null,
-    count: null,
-    loading: false,
-    paginateDataArgs: null,
-    refetch: null
-  })
-
   const { data, loading, fetchMore, refetch } = useQuery(GetCities, {
     variables: { ...args, paginateData: paginateDataArgs },
     ...fetchMoreArgs
@@ -51,15 +43,13 @@ const CitiesTable = (): ReactElement => {
   const cities: City[] = data?.get_cities || []
   const citiesCount: number = data?.get_cities_count || 0
 
-  useEffect(() => {
-    setRefetchArgs({
-      args,
-      count: citiesCount,
-      loading,
-      paginateDataArgs,
-      refetch
-    })
-  }, [paginateDataArgs])
+  const refetchArgs: RefetchDataArgs = {
+    args,
+    count: citiesCount,
+    loading,
+    paginateDataArgs,
+    refetch
+  }
 
   const cityHeaders = [
     { label: 'name', sortable: true },
