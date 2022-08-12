@@ -40,7 +40,9 @@ const SelectField = ({
   }
 
   if (nestedProp) {
-    searchVal = options.find((option: any) => option[nestedProp] === val[nestedProp])
+    searchVal = options.find(
+      (option: any) => option[nestedProp] === val?.[nestedProp]
+    )
   }
 
   const handleChange = (_e: any, newValue: any | null): void => {
@@ -79,7 +81,7 @@ const SelectField = ({
         />
       )}
       sx={{ ...styles.autocomplete, width: width || 300 }}
-      value={searchVal || (nestedProp ? val[nestedProp] : val)}
+      value={searchVal || (nestedProp ? val?.[nestedProp] : val)}
     />
   )
 }

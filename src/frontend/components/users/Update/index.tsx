@@ -19,10 +19,7 @@ const UpdateUser = ({ type }: { type: UserType }): ReactElement => {
 
   const [args, setArgs] = useState<UpdateUserArgs>({
     _id: null,
-    deliveryAddress: {
-      address: null,
-      cityId: null
-    },
+    deliveryAddress: { address: null, cityId: null },
     email: null,
     firstName: null,
     lastName: null,
@@ -37,7 +34,10 @@ const UpdateUser = ({ type }: { type: UserType }): ReactElement => {
   useEffect(() => {
     setArgs({
       _id: user?._id,
-      deliveryAddress: user?.deliveryAddress,
+      deliveryAddress: {
+        address: user?.deliveryAddress?.address,
+        cityId: user?.deliveryAddress?.cityId
+      },
       email: user?.email,
       firstName: user?.firstName,
       lastName: user?.lastName,
