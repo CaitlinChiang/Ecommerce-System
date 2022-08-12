@@ -14,7 +14,6 @@ const AddCartItem = ({ args }: { args: AddCartItemArgs }): ReactElement => {
   const [modalOpen, setModalOpen] = useState<boolean>(false)
 
   const { data } = useQuery(GetUser)
-
   const user: User = data?.get_user || {}
 
   const [updateMutation, updateMutationState] = useMutation(mutation, {
@@ -37,11 +36,7 @@ const AddCartItem = ({ args }: { args: AddCartItemArgs }): ReactElement => {
       <Button
         disabled={updateMutationState.loading}
         onClick={(): void => {
-          if (Object.keys(user).length === 0) {
-            setModalOpen(true)
-          } else {
-            updateMutation()
-          }
+          Object.keys(user).length === 0 ? setModalOpen(true) : updateMutation()
         }}
       >
         {'Add to Cart'}

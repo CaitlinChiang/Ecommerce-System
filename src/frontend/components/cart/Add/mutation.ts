@@ -2,8 +2,6 @@ import { gql } from '@apollo/client'
 
 export default gql`
   mutation ($item: CartItemInput!) {
-    add_cart_item(item: $item) {
-      _id
-    }
+    add_cart_item(item: $item)
   }
 `

@@ -19,8 +19,8 @@ const RemoveCartItem = ({
   const [updateMutation, updateMutationState] = useMutation(mutation, {
     variables: { productId, productVariantId },
     onCompleted: () => {
-      refetch()
       globalAny.setNotification(true, 'Item removed from cart!')
+      refetch()
     },
     onError: (error) => globalAny.setNotification(false, error.message)
   })

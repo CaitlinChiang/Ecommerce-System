@@ -26,7 +26,7 @@ extend type Query {
 }
 
 extend type Mutation {
-  add_cart_item(item: CartItemInput!): Cart
+  add_cart_item(item: CartItemInput!): Void
 
   edit_item_quantity(productId: ID, productVariantId: ID, quantity: Int!): Cart
 

@@ -7,17 +7,13 @@ import NumberIncrementor from '../../_common/NumberIncrementor'
 const EditItemQuantity = ({
   productId,
   productVariantId,
-  quantity,
-  setCart
+  quantity
 }: {
   productId?: ObjectId
   productVariantId?: ObjectId
   quantity: number
-  setCart: any
 }): ReactElement => {
-  const [updateMutation] = useMutation(mutation, {
-    onCompleted: (data) => setCart(data.edit_item_quantity)
-  })
+  const [updateMutation] = useMutation(mutation)
 
   return (
     <NumberIncrementor

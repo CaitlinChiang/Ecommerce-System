@@ -1,4 +1,4 @@
-import { ReactElement, useState, useEffect } from 'react'
+import { ReactElement } from 'react'
 import { useRouter } from 'next/router'
 import { useQuery } from '@apollo/client'
 import { GetCart } from './query'
@@ -20,15 +20,8 @@ import { formatPrice } from '../../../_utils/handleFormat/formatPrice'
 const Cart = (): ReactElement => {
   const router = useRouter()
 
-  const [cart, setCart] = useState<Cart>(null)
-
   const { data, loading, refetch } = useQuery(GetCart)
-
-  const cartData: Cart = data?.get_cart || {}
-
-  useEffect(() => {
-    setCart(cartData)
-  }, [data])
+  const cart: Cart = data?.get_cart || {}
 
   const itemRows = cart?.items?.map((cartItem: CartItem): ReactElement => {
     const { product, productVariant, quantity, totalPrice } = cartItem
@@ -48,7 +41,6 @@ const Cart = (): ReactElement => {
           productId={product?._id}
           productVariantId={productVariant?._id}
           quantity={quantity}
-          setCart={setCart}
         />
         <RemoveCartItem
           productId={product?._id}
