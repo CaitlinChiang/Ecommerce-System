@@ -20,8 +20,7 @@ const OrdersChart = (): ReactElement => {
   })
 
   const { data, loading } = useQuery(GetAnalyticsOrdersCount, { variables: args })
-
-  const ordersData: AnalyticsOrdersCount[] = data?.get_analytics_orders_count || []
+  const ordersCount: AnalyticsOrdersCount[] = data?.get_analytics_orders_count || []
 
   return (
     <>
@@ -40,7 +39,7 @@ const OrdersChart = (): ReactElement => {
           targetProp={'dateRange'}
         />
       </Box>
-      <AreaChart data={ordersData} xAxisDataKey={'date'} yAxisDataKey={'orders'} />
+      <AreaChart data={ordersCount} xAxisDataKey={'date'} yAxisDataKey={'orders'} />
     </>
   )
 }

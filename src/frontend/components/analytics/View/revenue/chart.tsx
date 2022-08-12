@@ -20,8 +20,7 @@ const RevenueChart = (): ReactElement => {
   })
 
   const { data, loading } = useQuery(GetAnalyticsRevenueCount, { variables: args })
-
-  const revenueData: AnalyticsRevenueCount[] =
+  const revenueCount: AnalyticsRevenueCount[] =
     data?.get_analytics_revenue_count || []
 
   return (
@@ -41,7 +40,11 @@ const RevenueChart = (): ReactElement => {
           targetProp={'dateRange'}
         />
       </Box>
-      <AreaChart data={revenueData} xAxisDataKey={'date'} yAxisDataKey={'revenue'} />
+      <AreaChart
+        data={revenueCount}
+        xAxisDataKey={'date'}
+        yAxisDataKey={'revenue'}
+      />
     </>
   )
 }
