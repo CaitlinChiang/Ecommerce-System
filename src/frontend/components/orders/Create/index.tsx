@@ -9,6 +9,7 @@ import mutation from './mutation'
 import { Button, Container, Typography } from '@mui/material'
 import { Cart, CartItem } from '../../../../types/cart'
 import { City } from '../../../../types/city'
+import { CreateOrderArgs } from '../../../../types/order'
 import { PaymentMethod } from '../../../../types/paymentMethod'
 import OrderSummary from './orderSummary'
 import CitiesSelect from '../../cities/View/select'
@@ -22,30 +23,35 @@ const globalAny: any = global
 const CreateOrder = (): ReactElement => {
   const router = useRouter()
 
-  const [args, setArgs] = useState<any>({
-    address: null,
-    cityId: null,
-    imageProof: null,
-    items: [],
-    paymentMethodId: null
+  const [args, setArgs] = useState<CreateOrderArgs>({
+    deliveryAddress: { address: null, cityId: null },
+    payment: {
+      amountDue: null,
+      imageProof: null,
+      paymentMethodId: null,
+      shippingFee: null
+    },
+    items: []
   })
+
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const { data: cartData } = useQuery(GetCart)
-  const { data: cityData } = useQuery(GetCity, {
-    skip: !args.cityId,
-    variables: { _id: args.cityId }
-  })
-  const { data: paymentMethodData } = useQuery(GetPaymentMethod, {
-    skip: !args.paymentMethodId,
-    variables: { _id: args.paymentMethodId }
-  })
-
   const cart: Cart = cartData?.get_cart || {}
+
+  const { data: cityData } = useQuery(GetCity, {
+    skip: !args.deliveryAddress.cityId,
+    variables: { _id: args.deliveryAddress.cityId }
+  })
   const city: City = cityData?.get_city || {}
+
+  const { data: paymentMethodData } = useQuery(GetPaymentMethod, {
+    skip: !args.payment.paymentMethodId,
+    variables: { _id: args.payment.paymentMethodId }
+  })
   const paymentMethod: PaymentMethod = paymentMethodData?.get_payment_method || {}
 
-  const cartItems: any[] = cart?.items?.map((item: CartItem) => {
+  const cartItems: CartItem[] = cart?.items?.map((item: CartItem) => {
     const { product, productVariant, quantity, totalPrice } = item
 
     return {
@@ -58,12 +64,11 @@ const CreateOrder = (): ReactElement => {
 
   const [createMutation, createMutationState] = useMutation(mutation, {
     variables: correctArgs({
-      deliveryAddress: { address: args?.address, cityId: args?.cityId },
+      ...args,
       items: cartItems,
       payment: {
+        ...args.payment,
         amountDue: cart?.totalPrice,
-        imageProof: args?.imageProof,
-        paymentMethodId: args?.paymentMethodId,
         shippingFee: city?.shippingFee
       }
     }),
@@ -83,21 +88,24 @@ const CreateOrder = (): ReactElement => {
         <Text
           args={args}
           error={validateFields}
+          nestedProp={'address'}
           required={true}
           setArgs={setArgs}
-          targetProp={'address'}
+          targetProp={'deliveryAddress'}
         />
         <CitiesSelect
           args={args}
           error={validateFields}
           required={true}
           setArgs={setArgs}
+          targetProp={'deliveryAddress'}
         />
         <PaymentMethodsSelect
           args={args}
           error={validateFields}
           required={true}
           setArgs={setArgs}
+          targetProp={'payment'}
         />
         {Object.keys(paymentMethod).length > 0 && (
           <Typography>
