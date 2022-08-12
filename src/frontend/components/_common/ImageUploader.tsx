@@ -49,23 +49,25 @@ const ImageUploader = ({
 
   if (disabled) return
 
+  const emptyProp = nestedProp
+    ? !args[targetProp]?.[nestedProp]
+    : !args?.[targetProp]
+
   return (
     <>
       <Button>
         <input type='file' accept='image/*' onChange={uploadImage} />
         {'Upload Photo'}
       </Button>
-      {required &&
-        error &&
-        (nestedProp ? !args[targetProp]?.[nestedProp] : !args?.[targetProp]) && (
-          <>
-            <FormHelperText sx={styles.formHelperText}>
-              {targetProp === 'image'
-                ? 'Product image is required.'
-                : 'Payment proof image is required.'}
-            </FormHelperText>
-          </>
-        )}
+      {required && error && emptyProp && (
+        <>
+          <FormHelperText sx={styles.formHelperText}>
+            {targetProp === 'image'
+              ? 'Product image is required.'
+              : 'Payment proof image is required.'}
+          </FormHelperText>
+        </>
+      )}
       {imageUrl && (
         <Box component='img' alt={alt} src={imageUrl} sx={styles.image} />
       )}
