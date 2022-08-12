@@ -1,6 +1,8 @@
 import isEmail from 'validator/lib/isEmail'
 import isMobilePhone from 'validator/lib/isMobilePhone'
 import { formatFee } from '../handleFormat/formatFee'
+import { formatFromPercentage } from '../handleFormat/formatFromPercentage'
+import { formatStockQuantity } from '../handleFormat/formatStockQuantity'
 
 export const correctArgs = (args: any): any => {
   Object.keys(args).forEach((key: string): void => {
@@ -25,8 +27,16 @@ const modifyArgs = (args: any, key: string): any => {
     args[key] = null
   }
 
-  if (key === 'shippingFee') {
+  if (key === 'shippingFee' || key === 'price') {
     args[key] = formatFee(args[key])
+  }
+
+  if (key === 'discount') {
+    args[key] = formatFromPercentage(args[key])
+  }
+
+  if (key === 'stockQuantity') {
+    args[key] = formatStockQuantity(args[key])
   }
 }
 
