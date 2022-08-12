@@ -2,7 +2,7 @@ import { ReactElement, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetProducts } from './query'
 import { Typography } from '@mui/material'
-import { Product } from '../../../../types/product'
+import { Product, GetProductArgs } from '../../../../types/product'
 import { PaginateDataArgs } from '../../../../types/actions/paginateData'
 import { SortDirection } from '../../../_enums/sortDirection'
 import { StockQuantityOperator } from '../../../_enums/stockQuantityOperator'
@@ -15,7 +15,7 @@ import { formatPrice } from '../../../_utils/handleFormat/formatPrice'
 import { formatToPercentage } from '../../../_utils/handleFormat/formatToPercentage'
 
 const ProductCards = ({ featured }: { featured: boolean }): ReactElement => {
-  const [args, setArgs] = useState<any>({
+  const [args, setArgs] = useState<GetProductArgs>({
     categoryIds: [],
     featured: featured ? true : null,
     showPublic: true,
@@ -45,7 +45,6 @@ const ProductCards = ({ featured }: { featured: boolean }): ReactElement => {
     },
     ...fetchMoreArgs
   })
-
   const products: Product[] = data?.get_products || []
   const productsCount: number = data?.get_products_count || 0
 

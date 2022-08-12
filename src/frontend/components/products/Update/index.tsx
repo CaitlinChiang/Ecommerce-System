@@ -3,7 +3,7 @@ import { useQuery, useMutation } from '@apollo/client'
 import { GetProduct } from '../View/query'
 import mutation from './mutation'
 import { Button, CircularProgress, Typography } from '@mui/material'
-import { Product } from '../../../../types/product'
+import { Product, UpdateProductArgs } from '../../../../types/product'
 import Text from '../../_common/TextField'
 import DatePickerField from '../../_common/DatePickerField'
 import CheckboxField from '../../_common/CheckboxField'
@@ -11,8 +11,6 @@ import NumberField from '../../_common/NumberField'
 import ImageUploader from '../../_common/ImageUploader'
 import ProductCategoriesSelect from '../../productCategories/View/select'
 import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
-import { formatFee } from '../../../_utils/handleFormat/formatFee'
-import { formatFromPercentage } from '../../../_utils/handleFormat/formatFromPercentage'
 import { formatToPercentage } from '../../../_utils/handleFormat/formatToPercentage'
 
 const globalAny: any = global
@@ -24,7 +22,7 @@ const UpdateProduct = ({
   _id: string
   disabled: boolean
 }): ReactElement => {
-  const [args, setArgs] = useState<any>({
+  const [args, setArgs] = useState<UpdateProductArgs>({
     _id: null,
     categoryId: null,
     description: null,
@@ -38,13 +36,13 @@ const UpdateProduct = ({
     showPublic: false,
     stockQuantity: null
   })
+
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const { data, loading, refetch } = useQuery(GetProduct, {
     skip: !_id,
     variables: { _id }
   })
-
   const product: Product = data?.get_product || {}
 
   useEffect(() => {
@@ -64,12 +62,7 @@ const UpdateProduct = ({
   }, [data])
 
   const [updateMutation, updateMutationState] = useMutation(mutation, {
-    variables: {
-      ...correctArgs(args),
-      discount: formatFromPercentage(args?.discount),
-      price: formatFee(args?.price),
-      stockQuantity: args?.stockQuantity ? Math.round(args.stockQuantity) : null
-    },
+    variables: correctArgs(args),
     onCompleted: () => {
       globalAny.setNotification(true, 'Product successfully updated!')
       refetch()

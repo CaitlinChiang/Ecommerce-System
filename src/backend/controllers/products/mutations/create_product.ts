@@ -1,6 +1,5 @@
-import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
-import { Product, CreateProductArgs } from '../../../../types/product'
+import { CreateProductArgs } from '../../../../types/product'
 import { AdminPermission } from '../../../_enums/adminPermission'
 import { UploadImageType } from '../../../_enums/uploadImageType'
 import { MutateAction } from '../../../_enums/mutateAction'
@@ -14,7 +13,7 @@ export default async (
   _root: undefined,
   args: CreateProductArgs,
   context: Context
-): Promise<Product> => {
+): Promise<void> => {
   await authenticateUser({
     admin: true,
     permission: AdminPermission.CREATE_PRODUCT,
@@ -29,14 +28,10 @@ export default async (
     productName: args.name
   })
 
-  const productId: ObjectId = await context.database.products
-    .insertOne({
-      ...mutateArgs(modifiedArgs, MutateAction.CREATE),
-      imageUrl
-    })
-    .then((product) => product.insertedId)
+  await context.database.products.insertOne({
+    ...mutateArgs(modifiedArgs, MutateAction.CREATE),
+    imageUrl
+  })
 
   await createAuditLog(AuditLogAction.CREATE_PRODUCT, context)
-
-  return { _id: productId, ...args }
 }

@@ -6,6 +6,7 @@ import styles from '../../../styles/products'
 import { Box, CircularProgress, Typography } from '@mui/material'
 import { Product } from '../../../../types/product'
 import { ProductVariant } from '../../../../types/productVariant'
+import { CartItem } from '../../../../types/cart'
 import NumberIncrementor from '../../_common/NumberIncrementor'
 import ProductVariantCards from '../../productVariants/View/cards'
 import AddCartItem from '../../cart/Add'
@@ -18,7 +19,7 @@ import { calculateTotalPrice } from '../../../_utils/handleData/calculateTotalPr
 const globalAny: any = global
 
 const ProductPage = ({ _id }: { _id: string }): ReactElement => {
-  const [args, setArgs] = useState<any>({ quantity: 1 })
+  const [args, setArgs] = useState<CartItem>({ quantity: 1 })
   const [productVariantId, setProductVariantId] = useState<string>(null)
 
   globalAny.setProductVariantId = (productVariantId: string): void => {
@@ -29,6 +30,8 @@ const ProductPage = ({ _id }: { _id: string }): ReactElement => {
     skip: !_id,
     variables: { _id }
   })
+  const product: Product = productData?.get_product || {}
+
   const { data: productVariantData, loading: productVariantLoading } = useQuery(
     GetProductVariant,
     {
@@ -36,8 +39,6 @@ const ProductPage = ({ _id }: { _id: string }): ReactElement => {
       variables: { _id: productVariantId }
     }
   )
-
-  const product: Product = productData?.get_product || {}
   const productVariant: ProductVariant =
     productVariantData?.get_product_variant || null
 

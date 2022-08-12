@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
-import { Product, DeleteProductArgs } from '../../../../types/product'
+import { DeleteProductArgs } from '../../../../types/product'
 import { AdminPermission } from '../../../_enums/adminPermission'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
@@ -14,7 +14,7 @@ export default async (
   _root: undefined,
   args: DeleteProductArgs,
   context: Context
-): Promise<Product> => {
+): Promise<void> => {
   await authenticateUser({
     admin: true,
     permission: AdminPermission.DELETE_PRODUCT,
@@ -23,9 +23,7 @@ export default async (
 
   await deleteImage({ imageUrl: args?.imageUrl })
 
-  const product: Product = await context.database.products
-    .findOneAndDelete({ _id: new ObjectId(args._id) })
-    .then((product) => product.value)
+  await context.database.products.findOneAndDelete({ _id: new ObjectId(args._id) })
 
   await createAuditLog(AuditLogAction.DELETE_PRODUCT, context)
 
@@ -34,6 +32,4 @@ export default async (
   await context.database.productVariants.deleteMany({
     _productId: new ObjectId(args._id)
   })
-
-  return product
 }

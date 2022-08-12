@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
 import mutation from './mutation'
 import { Button } from '@mui/material'
+import { CreateProductArgs } from '../../../../types/product'
 import Text from '../../_common/TextField'
 import DatePickerField from '../../_common/DatePickerField'
 import CheckboxField from '../../_common/CheckboxField'
@@ -10,15 +11,13 @@ import NumberField from '../../_common/NumberField'
 import ImageUploader from '../../_common/ImageUploader'
 import ProductCategoriesSelect from '../../productCategories/View/select'
 import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
-import { formatFee } from '../../../_utils/handleFormat/formatFee'
-import { formatFromPercentage } from '../../../_utils/handleFormat/formatFromPercentage'
 
 const globalAny: any = global
 
 const CreateProduct = (): ReactElement => {
   const router = useRouter()
 
-  const [args, setArgs] = useState<any>({
+  const [args, setArgs] = useState<CreateProductArgs>({
     categoryId: null,
     description: null,
     discount: null,
@@ -30,15 +29,11 @@ const CreateProduct = (): ReactElement => {
     showPublic: false,
     stockQuantity: null
   })
+
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const [createMutation, createMutationState] = useMutation(mutation, {
-    variables: {
-      ...correctArgs(args),
-      discount: formatFromPercentage(args?.discount),
-      price: formatFee(args?.price),
-      stockQuantity: args?.stockQuantity ? Math.round(args.stockQuantity) : null
-    },
+    variables: correctArgs(args),
     onCompleted: () => {
       globalAny.setNotification(true, 'Product successfully created!')
       router.back()

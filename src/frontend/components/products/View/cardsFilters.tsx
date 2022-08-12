@@ -16,7 +16,6 @@ const ProductCardsFilters = ({
   const { data } = useQuery(GetProductCategories, {
     variables: { paginateData: { sortBy: 'name', sortDirection: SortDirection.ASC } }
   })
-
   const productCategories: ProductCategory[] = data?.get_product_categories || []
 
   return (

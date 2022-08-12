@@ -46,10 +46,10 @@ export interface CreateProductArgs {
 }
 
 export interface UpdateProductArgs {
-  _id: ObjectId
+  _id: ObjectId | string
   categoryId: ObjectId
   description?: string
-  discount?: number
+  discount?: number | string
   expirationDate?: Date
   featured: boolean
   image?: Promise<FileUpload>

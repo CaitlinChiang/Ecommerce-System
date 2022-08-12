@@ -5,7 +5,7 @@ import { GetProducts } from './query'
 import deleteMutation from '../Delete/mutation'
 import { IconButton, TableCell, TableRow } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
-import { Product } from '../../../../types/product'
+import { Product, GetProductArgs } from '../../../../types/product'
 import { PaginateDataArgs } from '../../../../types/actions/paginateData'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import { AdminPermission } from '../../../_enums/adminPermission'
@@ -24,7 +24,7 @@ const ProductsTable = (): ReactElement => {
 
   const router = useRouter()
 
-  const [args, setArgs] = useState<any>({
+  const [args, setArgs] = useState<GetProductArgs>({
     categoryIds: [],
     dateRange: {
       startDate: null,
@@ -47,14 +47,8 @@ const ProductsTable = (): ReactElement => {
     sortBy: 'name',
     sortDirection: SortDirection.ASC
   })
+
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
-  const [refetchArgs, setRefetchArgs] = useState<RefetchDataArgs>({
-    args: null,
-    count: null,
-    loading: false,
-    paginateDataArgs: null,
-    refetch: null
-  })
 
   const { data, loading, fetchMore, refetch } = useQuery(GetProducts, {
     variables: {
@@ -68,19 +62,16 @@ const ProductsTable = (): ReactElement => {
     },
     ...fetchMoreArgs
   })
-
   const products: Product[] = data?.get_products || []
   const productsCount: number = data?.get_products_count || 0
 
-  useEffect(() => {
-    setRefetchArgs({
-      args,
-      count: productsCount,
-      loading,
-      paginateDataArgs,
-      refetch
-    })
-  }, [args, data, paginateDataArgs])
+  const refetchArgs: RefetchDataArgs = {
+    args,
+    count: productsCount,
+    loading,
+    paginateDataArgs,
+    refetch
+  }
 
   const productHeaders = [
     { label: 'name', sortable: true },
