@@ -1,10 +1,13 @@
-import { ReactElement, useState, useEffect } from 'react'
+import { ReactElement, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetProductCategories } from './query'
 import deleteMutation from '../Delete/mutation'
 import { IconButton, TableCell, TableRow } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
-import { ProductCategory } from '../../../../types/productCategory'
+import {
+  ProductCategory,
+  GetProductCategoryArgs
+} from '../../../../types/productCategory'
 import { PaginateDataArgs } from '../../../../types/actions/paginateData'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import { AdminPermission } from '../../../_enums/adminPermission'
@@ -27,7 +30,7 @@ const ProductCategoriesTable = (): ReactElement => {
     AdminPermission.DELETE_PRODUCT_CATEGORY
   )
 
-  const [args, setArgs] = useState<any>({ showPublic: null })
+  const [args, setArgs] = useState<GetProductCategoryArgs>({ showPublic: null })
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
     page: 0,
     rowsPerPage: 10,
@@ -35,34 +38,28 @@ const ProductCategoriesTable = (): ReactElement => {
     sortBy: 'name',
     sortDirection: SortDirection.ASC
   })
-  const [productCategoryId, setProductCategoryId] = useState<string>('')
-  const [updateModalOpen, setUpdateModalOpen] = useState<boolean>(false)
-  const [filterOpen, setFilterOpen] = useState<boolean>(false)
-  const [refetchArgs, setRefetchArgs] = useState<RefetchDataArgs>({
-    args: null,
-    count: null,
-    loading: false,
-    paginateDataArgs: null,
-    refetch: null
+
+  const [update, setUpdate] = useState<{ categoryId: string; openModal: boolean }>({
+    categoryId: null,
+    openModal: false
   })
+
+  const [filterOpen, setFilterOpen] = useState<boolean>(false)
 
   const { data, loading, fetchMore, refetch } = useQuery(GetProductCategories, {
     variables: { ...args, paginateData: paginateDataArgs },
     ...fetchMoreArgs
   })
-
   const productCategories: ProductCategory[] = data?.get_product_categories || []
   const productCategoriesCount: number = data?.get_product_categories_count || 0
 
-  useEffect(() => {
-    setRefetchArgs({
-      args,
-      count: productCategoriesCount,
-      loading,
-      paginateDataArgs,
-      refetch
-    })
-  }, [args, data, paginateDataArgs])
+  const refetchArgs: RefetchDataArgs = {
+    args,
+    count: productCategoriesCount,
+    loading,
+    paginateDataArgs,
+    refetch
+  }
 
   const productCategoryHeaders = [
     { label: 'showPublic', sortable: true },
@@ -90,8 +87,10 @@ const ProductCategoriesTable = (): ReactElement => {
             <IconButton
               disabled={disableUpdateProductCategory}
               onClick={(): void => {
-                setProductCategoryId(String(productCategory._id))
-                setUpdateModalOpen(true)
+                setUpdate({
+                  categoryId: String(productCategory._id),
+                  openModal: false
+                })
               }}
             >
               <EditIcon />
@@ -115,14 +114,10 @@ const ProductCategoriesTable = (): ReactElement => {
       <CreateProductCategory refetchArgs={refetchArgs} />
       <ModalComponent
         content={
-          <UpdateProductCategory
-            _id={productCategoryId}
-            refetchArgs={refetchArgs}
-            setUpdateModalOpen={setUpdateModalOpen}
-          />
+          <UpdateProductCategory _id={update.categoryId} refetchArgs={refetchArgs} />
         }
-        onClose={(): void => setUpdateModalOpen(false)}
-        open={updateModalOpen}
+        onClose={(): void => setUpdate({ ...update, openModal: false })}
+        open={update.openModal}
         title={'Update Product Category'}
       />
       <TableComponent

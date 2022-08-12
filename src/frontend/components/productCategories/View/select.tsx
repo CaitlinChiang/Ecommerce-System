@@ -26,7 +26,6 @@ const ProductCategoriesSelect = ({
   const { data, loading } = useQuery(GetProductCategories, {
     variables: { paginateData: { sortBy: 'name', sortDirection: SortDirection.ASC } }
   })
-
   const productCategories: ProductCategory[] = data?.get_product_categories || []
 
   const productCategoryOptions = productCategories?.map(

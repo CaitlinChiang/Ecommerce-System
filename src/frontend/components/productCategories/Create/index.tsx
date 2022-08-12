@@ -2,6 +2,7 @@ import { ReactElement, useState } from 'react'
 import { useMutation } from '@apollo/client'
 import mutation from './mutation'
 import { Button } from '@mui/material'
+import { CreateProductCategoryArgs } from '../../../../types/productCategory'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import { AdminPermission } from '../../../_enums/adminPermission'
 import Text from '../../_common/TextField'
@@ -20,10 +21,11 @@ const CreateProductCategory = ({
 }): ReactElement => {
   if (!authenticateUser(AdminPermission.CREATE_PRODUCT_CATEGORY)) return
 
-  const [args, setArgs] = useState<any>({
+  const [args, setArgs] = useState<CreateProductCategoryArgs>({
     name: null,
     showPublic: false
   })
+
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const [createMutation, createMutationState] = useMutation(mutation, {

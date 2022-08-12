@@ -3,7 +3,10 @@ import { useQuery, useMutation } from '@apollo/client'
 import { GetProductCategory } from '../View/query'
 import mutation from './mutation'
 import { Button, CircularProgress, Typography } from '@mui/material'
-import { ProductCategory } from '../../../../types/productCategory'
+import {
+  ProductCategory,
+  UpdateProductCategoryArgs
+} from '../../../../types/productCategory'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
 import CheckboxField from '../../_common/CheckboxField'
@@ -14,22 +17,20 @@ const globalAny: any = global
 
 const UpdateProductCategory = ({
   _id,
-  refetchArgs,
-  setUpdateModalOpen
+  refetchArgs
 }: {
   _id: string
   refetchArgs: RefetchDataArgs
-  setUpdateModalOpen: React.Dispatch<React.SetStateAction<boolean>>
 }): ReactElement => {
-  const [args, setArgs] = useState<any>({
+  const [args, setArgs] = useState<UpdateProductCategoryArgs>({
     _id: null,
     name: null,
     showPublic: null
   })
+
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const { data, loading } = useQuery(GetProductCategory, { variables: { _id } })
-
   const productCategory: ProductCategory = data?.get_product_category || {}
 
   useEffect(() => {
@@ -46,7 +47,6 @@ const UpdateProductCategory = ({
       globalAny.setNotification(true, 'Product category successfully updated!')
       refetchData(refetchArgs)
       setValidateFields(false)
-      setUpdateModalOpen(false)
     },
     onError: (error) => globalAny.setNotification(false, error.message)
   })

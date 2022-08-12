@@ -21,7 +21,7 @@ extend type Query {
 }
 
 extend type Mutation {
-  create_product_category(name: String!, showPublic: Boolean!): ProductCategory
+  create_product_category(name: String!, showPublic: Boolean!): Void
 
   update_product_category(
     _id: ID!
@@ -29,5 +29,5 @@ extend type Mutation {
     showPublic: Boolean!
   ): ProductCategory
 
-  delete_product_category(_id: ID!): ProductCategory
+  delete_product_category(_id: ID!): Void
 }

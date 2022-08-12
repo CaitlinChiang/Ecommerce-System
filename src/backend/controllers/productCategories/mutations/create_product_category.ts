@@ -1,9 +1,5 @@
-import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
-import {
-  ProductCategory,
-  CreateProductCategoryArgs
-} from '../../../../types/productCategory'
+import { CreateProductCategoryArgs } from '../../../../types/productCategory'
 import { AdminPermission } from '../../../_enums/adminPermission'
 import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
@@ -15,18 +11,16 @@ export default async (
   _root: undefined,
   args: CreateProductCategoryArgs,
   context: Context
-): Promise<ProductCategory> => {
+): Promise<void> => {
   await authenticateUser({
     admin: true,
     permission: AdminPermission.CREATE_PRODUCT_CATEGORY,
     context
   })
 
-  const productCategoryId: ObjectId = await context.database.productCategories
-    .insertOne(mutateArgs(args, MutateAction.CREATE))
-    .then((productCategory) => productCategory.insertedId)
+  await context.database.productCategories.insertOne(
+    mutateArgs(args, MutateAction.CREATE)
+  )
 
   await createAuditLog(AuditLogAction.CREATE_PRODUCT_CATEGORY, context)
-
-  return { _id: productCategoryId, ...args }
 }
