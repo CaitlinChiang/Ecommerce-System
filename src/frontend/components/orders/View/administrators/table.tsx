@@ -1,9 +1,10 @@
-import { ReactElement, useState, useEffect } from 'react'
+import { ReactElement, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetOrders } from '../query'
 import deleteMutation from '../../Delete/mutation'
 import { Button, TableCell, TableRow } from '@mui/material'
-import { Order } from '../../../../../types/order'
+import { CartItem } from '../../../../../types/cart'
+import { Order, GetOrderArgs } from '../../../../../types/order'
 import { Payment } from '../../../../../types/payment'
 import { PaginateDataArgs } from '../../../../../types/actions/paginateData'
 import { RefetchDataArgs } from '../../../../../types/actions/refetchData'
@@ -22,14 +23,13 @@ import OrdersTableFilters from './tableFilters'
 import { authenticateUser } from '../../../../_utils/auth/authenticateUser'
 import { fetchMoreArgs } from '../../../../_utils/handleArgs/returnFetchMoreArgs'
 import { formatPrice } from '../../../../_utils/handleFormat/formatPrice'
-import { CartItem } from '../../../../../types/cart'
 
 const OrdersTable = (): ReactElement => {
   const disableUpdateOrder = !authenticateUser(AdminPermission.UPDATE_ORDER)
   const disableUpdatePayment = !authenticateUser(AdminPermission.UPDATE_PAYMENT)
   const disableDeleteOrder = !authenticateUser(AdminPermission.DELETE_ORDER)
 
-  const [args, setArgs] = useState<any>({
+  const [args, setArgs] = useState<GetOrderArgs>({
     cityId: null,
     dateRange: {
       startDate: new Date(Date.now() - 6096e5),
@@ -45,36 +45,36 @@ const OrdersTable = (): ReactElement => {
     sortBy: 'createdAt',
     sortDirection: SortDirection.DESC
   })
-  const [items, setItems] = useState<CartItem[]>([])
-  const [orderId, setOrderId] = useState<string>(null)
-  const [payment, setPayment] = useState<Payment>(null)
-  const [open, setOpen] = useState<string>('')
+
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
-  const [refetchArgs, setRefetchArgs] = useState<RefetchDataArgs>({
-    args: null,
-    count: null,
-    loading: false,
-    paginateDataArgs: null,
-    refetch: null
+
+  const [items, setItems] = useState<{ items: CartItem[]; openModal: boolean }>({
+    items: [],
+    openModal: false
+  })
+  const [logs, setLogs] = useState<{ orderId: string; openModal: boolean }>({
+    orderId: null,
+    openModal: false
+  })
+  const [payment, setPayment] = useState<{ payment: Payment; openModal: boolean }>({
+    payment: null,
+    openModal: false
   })
 
   const { data, loading, fetchMore, refetch } = useQuery(GetOrders, {
     variables: { ...args, paginateData: paginateDataArgs },
     ...fetchMoreArgs
   })
-
   const orders: Order[] = data?.get_orders || []
   const ordersCount: number = data?.get_orders_count || 0
 
-  useEffect(() => {
-    setRefetchArgs({
-      args,
-      count: ordersCount,
-      loading,
-      paginateDataArgs,
-      refetch
-    })
-  }, [args, data, paginateDataArgs])
+  const refetchArgs: RefetchDataArgs = {
+    args,
+    count: ordersCount,
+    loading,
+    paginateDataArgs,
+    refetch
+  }
 
   const orderHeaders = [
     { label: 'firstName', sortable: false },
@@ -108,10 +108,7 @@ const OrdersTable = (): ReactElement => {
           </TableCell>
           <TableCell>
             <Button
-              onClick={(): void => {
-                setItems(items)
-                setOpen('ORDER_ITEMS')
-              }}
+              onClick={(): void => setItems({ items: items, openModal: true })}
             >
               {'View Items'}
             </Button>
@@ -142,9 +139,8 @@ const OrdersTable = (): ReactElement => {
             <br />
             <Button
               onClick={(): void => {
-                setOrderId(String(order._id))
-                setPayment(payment)
-                setOpen('PAYMENT_PROOF')
+                setLogs({ orderId: String(order._id), openModal: false })
+                setPayment({ payment, openModal: true })
               }}
             >
               {'View Proof'}
@@ -153,8 +149,7 @@ const OrdersTable = (): ReactElement => {
           <TableCell>
             <Button
               onClick={(): void => {
-                setOrderId(String(order._id))
-                setOpen('ORDER_LOGS')
+                setLogs({ orderId: String(order._id), openModal: true })
               }}
             >
               {'View Order Logs'}
@@ -180,28 +175,27 @@ const OrdersTable = (): ReactElement => {
   return (
     <>
       <ModalComponent
-        content={<OrderItemsTable items={items} />}
-        onClose={(): void => setOpen('')}
-        open={open === 'ORDER_ITEMS'}
+        content={<OrderItemsTable items={items.items} />}
+        onClose={(): void => setItems({ ...items, openModal: false })}
+        open={items.openModal}
         title={'Order Items'}
       />
       <ModalComponent
         content={
           <UpdatePaymentImageUpload
-            _orderId={orderId}
-            payment={payment}
+            _orderId={logs.orderId}
+            payment={payment.payment}
             refetchArgs={refetchArgs}
-            setOpen={setOpen}
           />
         }
-        onClose={(): void => setOpen('')}
-        open={open === 'PAYMENT_PROOF'}
+        onClose={(): void => setPayment({ ...payment, openModal: false })}
+        open={payment.openModal}
         title={'Payment Proof'}
       />
       <ModalComponent
-        content={<OrderLogsTable orderId={orderId} />}
-        onClose={(): void => setOpen('')}
-        open={open === 'ORDER_LOGS'}
+        content={<OrderLogsTable orderId={logs.orderId} />}
+        onClose={(): void => setLogs({ ...logs, openModal: false })}
+        open={logs.openModal}
         title={'Audit Logs for this Order'}
       />
       <TableComponent

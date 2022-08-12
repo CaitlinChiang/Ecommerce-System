@@ -17,7 +17,7 @@ export default async (
 
   returnOrdersUserId(modifiedArgs, context)
 
-  const ordersCount: any = await context.database.orders.countDocuments(modifiedArgs)
+  const count: any = await context.database.orders.countDocuments(modifiedArgs)
 
-  return ordersCount
+  return count
 }

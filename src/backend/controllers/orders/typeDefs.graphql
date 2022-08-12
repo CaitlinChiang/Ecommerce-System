@@ -32,9 +32,9 @@ extend type Mutation {
     deliveryAddress: DeliveryAddressInput!
     items: [CartItemInput]!
     payment: PaymentInput!
-  ): Order
+  ): Void
 
   update_order(_id: ID!, status: String!): Order
 
-  delete_order(_id: ID!): Order
+  delete_order(_id: ID!): Void
 }

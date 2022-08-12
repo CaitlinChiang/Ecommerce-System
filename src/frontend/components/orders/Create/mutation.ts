@@ -6,12 +6,6 @@ export default gql`
     $items: [CartItemInput]!
     $payment: PaymentInput!
   ) {
-    create_order(
-      deliveryAddress: $deliveryAddress
-      items: $items
-      payment: $payment
-    ) {
-      _id
-    }
+    create_order(deliveryAddress: $deliveryAddress, items: $items, payment: $payment)
   }
 `

@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
-import { Order, CreateOrderArgs } from '../../../../types/order'
+import { CreateOrderArgs } from '../../../../types/order'
 import { OrderStatus } from '../../../_enums/orderStatus'
 import { StockQuantityAction } from '../../../_enums/stockQuantity'
 import { MutateAction } from '../../../_enums/mutateAction'
@@ -16,7 +16,7 @@ export default async (
   _root: undefined,
   args: CreateOrderArgs,
   context: Context
-): Promise<Order> => {
+): Promise<void> => {
   await authenticateUser({ admin: false, context })
 
   const { payment, ...remainingArgs } = args
@@ -40,6 +40,4 @@ export default async (
   await emptyCart(context)
 
   await updateStockQuantity(StockQuantityAction.SUBTRACT, args.items, context)
-
-  return { _id: orderId, ...args }
 }

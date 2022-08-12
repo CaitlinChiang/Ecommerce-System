@@ -13,7 +13,7 @@ export default async (
   _root: undefined,
   args: DeleteOrderArgs,
   context: Context
-): Promise<Order> => {
+): Promise<void> => {
   await authenticateUser({
     admin: true,
     permission: AdminPermission.DELETE_ORDER,
@@ -29,6 +29,4 @@ export default async (
   await deletePayment(args._id, context)
 
   await updateStockQuantity(StockQuantityAction.ADD, order?.items, context)
-
-  return order
 }

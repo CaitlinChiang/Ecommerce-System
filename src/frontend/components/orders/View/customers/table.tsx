@@ -2,7 +2,7 @@ import { ReactElement, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetOrders } from '../query'
 import { TableCell, TableRow } from '@mui/material'
-import { Order } from '../../../../../types/order'
+import { Order, GetOrderArgs } from '../../../../../types/order'
 import { CartItem } from '../../../../../types/cart'
 import { PaginateDataArgs } from '../../../../../types/actions/paginateData'
 import { SortDirection } from '../../../../_enums/sortDirection'
@@ -13,7 +13,7 @@ import { fetchMoreArgs } from '../../../../_utils/handleArgs/returnFetchMoreArgs
 import { formatPrice } from '../../../../_utils/handleFormat/formatPrice'
 
 const OrdersTable = (): ReactElement => {
-  const [args, setArgs] = useState<any>({
+  const [args, setArgs] = useState<GetOrderArgs>({
     statuses: [OrderStatus.PENDING, OrderStatus.PACKING, OrderStatus.SHIPPING]
   })
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
@@ -23,13 +23,13 @@ const OrdersTable = (): ReactElement => {
     sortBy: 'createdAt',
     sortDirection: SortDirection.DESC
   })
+
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
 
   const { data, loading, fetchMore } = useQuery(GetOrders, {
     variables: { ...args, paginateData: paginateDataArgs },
     ...fetchMoreArgs
   })
-
   const orders: Order[] = data?.get_orders || []
   const ordersCount: number = data?.get_orders_count || 0
 
