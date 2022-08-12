@@ -10,9 +10,7 @@ export default async (
 ): Promise<number> => {
   await authenticateUser({ admin: false, context })
 
-  const citiesCount: any = await context.database.cities.countDocuments(
-    queryArgs(args)
-  )
+  const count: any = await context.database.cities.countDocuments(queryArgs(args))
 
-  return citiesCount
+  return count
 }

@@ -15,9 +15,7 @@ export default async (
     context
   })
 
-  const auditLogsCount: any = await context.database.auditLogs.countDocuments(
-    queryArgs(args)
-  )
+  const count: any = await context.database.auditLogs.countDocuments(queryArgs(args))
 
-  return auditLogsCount
+  return count
 }
