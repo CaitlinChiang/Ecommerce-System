@@ -14,9 +14,9 @@ extend type Query {
 }
 
 extend type Mutation {
-  create_review(content: String!, featured: Boolean!, username: String!): Review
+  create_review(content: String!, featured: Boolean!, username: String!): Void
 
   update_review(_id: ID!, featured: Boolean!): Review
 
-  delete_review(_id: ID!): Review
+  delete_review(_id: ID!): Void
 }

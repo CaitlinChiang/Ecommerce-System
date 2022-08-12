@@ -1,8 +1,8 @@
-import { ReactElement, useState, useEffect } from 'react'
+import { ReactElement, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetReviews } from './query'
 import { Typography } from '@mui/material'
-import { Review } from '../../../../types/review'
+import { Review, GetReviewArgs } from '../../../../types/review'
 import { PaginateDataArgs } from '../../../../types/actions/paginateData'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import { SortDirection } from '../../../_enums/sortDirection'
@@ -12,20 +12,13 @@ import CreateReview from '../Create'
 import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
 
 const ReviewCards = ({ featured }: { featured: boolean }): ReactElement => {
-  const args: any = { featured: featured ? true : null }
+  const args: GetReviewArgs = { featured: featured ? true : null }
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
     page: 0,
     rowsPerPage: 10,
     searchText: '',
     sortBy: 'createdAt',
     sortDirection: SortDirection.DESC
-  })
-  const [refetchArgs, setRefetchArgs] = useState<RefetchDataArgs>({
-    args: null,
-    count: null,
-    loading: false,
-    paginateDataArgs: null,
-    refetch: null
   })
 
   const { data, loading, fetchMore, refetch } = useQuery(GetReviews, {
@@ -40,19 +33,16 @@ const ReviewCards = ({ featured }: { featured: boolean }): ReactElement => {
     },
     ...fetchMoreArgs
   })
-
   const reviews: Review[] = data?.get_reviews || []
   const reviewsCount: number = data?.get_reviews_count || 0
 
-  useEffect(() => {
-    setRefetchArgs({
-      args,
-      count: reviewsCount,
-      loading,
-      paginateDataArgs,
-      refetch
-    })
-  }, [args, data, paginateDataArgs])
+  const refetchArgs: RefetchDataArgs = {
+    args,
+    count: reviewsCount,
+    loading,
+    paginateDataArgs,
+    refetch
+  }
 
   const reviewCards = [
     reviews?.map((review: Review): ReactElement => {

@@ -2,6 +2,7 @@ import { ReactElement, useState } from 'react'
 import { useMutation } from '@apollo/client'
 import mutation from './mutation'
 import { Button } from '@mui/material'
+import { CreateReviewArgs } from '../../../../types/review'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
 import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
@@ -15,11 +16,12 @@ const CreateReview = ({
 }: {
   refetchArgs: RefetchDataArgs
 }): ReactElement => {
-  const [args, setArgs] = useState<any>({
+  const [args, setArgs] = useState<CreateReviewArgs>({
     content: null,
     featured: false,
     username: null
   })
+
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const [createMutation, createMutationState] = useMutation(mutation, {
