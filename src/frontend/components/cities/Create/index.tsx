@@ -2,13 +2,13 @@ import { ReactElement, useState } from 'react'
 import { useMutation } from '@apollo/client'
 import mutation from './mutation'
 import { Button } from '@mui/material'
+import { CreateCityArgs } from '../../../../types/city'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import { AdminPermission } from '../../../_enums/adminPermission'
 import Text from '../../_common/TextField'
 import NumberField from '../../_common/NumberField'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
-import { formatFee } from '../../../_utils/handleFormat/formatFee'
 import { refetchData } from '../../../_utils/handleData/refetchData'
 import { clearFields } from '../../../_utils/handleFields/clearFields'
 
@@ -21,14 +21,15 @@ const CreateCity = ({
 }): ReactElement => {
   if (!authenticateUser(AdminPermission.CREATE_CITY)) return
 
-  const [args, setArgs] = useState<any>({
+  const [args, setArgs] = useState<CreateCityArgs>({
     name: null,
     shippingFee: null
   })
+
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const [createMutation, createMutationState] = useMutation(mutation, {
-    variables: { ...correctArgs(args), shippingFee: formatFee(args?.shippingFee) },
+    variables: correctArgs(args),
     onCompleted: () => {
       globalAny.setNotification(true, 'City & shipping fee successfully created!')
       refetchData(refetchArgs)
