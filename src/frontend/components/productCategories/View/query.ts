@@ -18,7 +18,6 @@ export const GetProductCategories = gql`
       _id
       name
       showPublic
-      createdAt
     }
 
     get_product_categories_count(

@@ -64,13 +64,12 @@ const ProductCategoriesTable = (): ReactElement => {
   const productCategoryHeaders = [
     { label: 'showPublic', sortable: true },
     { label: 'name', sortable: true },
-    { label: 'createdAt', sortable: true },
     { label: 'actions', sortable: false }
   ]
 
   const productCategoryRows = [
     productCategories?.map((productCategory: ProductCategory): ReactElement => {
-      const { createdAt, name } = productCategory
+      const { name } = productCategory
 
       return (
         <TableRow>
@@ -82,7 +81,6 @@ const ProductCategoriesTable = (): ReactElement => {
             />
           </TableCell>
           <TableCell>{name}</TableCell>
-          <TableCell>{String(createdAt)}</TableCell>
           <TableCell>
             <IconButton
               disabled={disableUpdateProductCategory}

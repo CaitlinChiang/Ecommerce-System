@@ -12,6 +12,8 @@ import {
   Typography
 } from '@mui/material'
 import { Cart, CartItem } from '../../../../types/cart'
+import { Product } from '../../../../types/product'
+import { ProductVariant } from '../../../../types/productVariant'
 import EditItemQuantity from '../EditQuantity'
 import RemoveCartItem from '../Remove'
 import { formatNumber } from '../../../_utils/handleFormat/formatNumber'
@@ -25,14 +27,15 @@ const Cart = (): ReactElement => {
 
   const itemRows = cart?.items?.map((cartItem: CartItem): ReactElement => {
     const { product, productVariant, quantity, totalPrice } = cartItem
+    const item: ProductVariant | Product = productVariant || product
 
     return (
       <>
         <Box
           component='img'
           sx={styles.image}
-          alt={`${productVariant?.name || product?.name} Product Photo`}
-          src={productVariant?.imageUrl || product?.imageUrl}
+          alt={`${item?.name} Product Photo`}
+          src={item?.imageUrl}
         />
         <Typography>{product?.name}</Typography>
         <Typography>{productVariant?.name}</Typography>
@@ -40,6 +43,7 @@ const Cart = (): ReactElement => {
         <EditItemQuantity
           productId={product?._id}
           productVariantId={productVariant?._id}
+          stockQuantity={item?.stockQuantity}
           quantity={quantity}
         />
         <RemoveCartItem

@@ -7,17 +7,20 @@ import NumberIncrementor from '../../_common/NumberIncrementor'
 const EditItemQuantity = ({
   productId,
   productVariantId,
-  quantity
+  quantity,
+  stockQuantity
 }: {
   productId?: ObjectId
   productVariantId?: ObjectId
   quantity: number
+  stockQuantity: number
 }): ReactElement => {
   const [updateMutation] = useMutation(mutation)
 
   return (
     <NumberIncrementor
       args={{ productId, productVariantId, quantity }}
+      stockQuantity={stockQuantity}
       targetProp={'quantity'}
       updateMutation={updateMutation}
     />

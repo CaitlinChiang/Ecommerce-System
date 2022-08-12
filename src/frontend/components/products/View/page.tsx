@@ -66,7 +66,12 @@ const ProductPage = ({ _id }: { _id: string }): ReactElement => {
         sx={styles.image}
       />
       <ProductVariantCards _productId={product._id} />
-      <NumberIncrementor args={args} setArgs={setArgs} targetProp={'quantity'} />
+      <NumberIncrementor
+        args={args}
+        setArgs={setArgs}
+        stockQuantity={item?.stockQuantity}
+        targetProp={'quantity'}
+      />
       <AddCartItem
         args={{
           item: {

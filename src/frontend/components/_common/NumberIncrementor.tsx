@@ -8,11 +8,13 @@ import { correctArgs } from '../../_utils/handleArgs/correctArgs'
 const NumberIncrementor = ({
   args,
   setArgs,
+  stockQuantity,
   targetProp,
   updateMutation
 }: {
   args: any
   setArgs?: React.Dispatch<React.SetStateAction<any>>
+  stockQuantity?: number
   targetProp: string
   updateMutation?: any
 }): ReactElement => {
@@ -38,7 +40,10 @@ const NumberIncrementor = ({
 
   return (
     <>
-      <IconButton onClick={(): void => changeQuantity(QuantityChange.INCREMENT)}>
+      <IconButton
+        disabled={val === stockQuantity}
+        onClick={(): void => changeQuantity(QuantityChange.INCREMENT)}
+      >
         <AddBoxIcon />
       </IconButton>
       <Typography>{val}</Typography>

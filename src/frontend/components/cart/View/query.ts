@@ -9,11 +9,13 @@ export const GetCart = gql`
           _id
           imageUrl
           name
+          stockQuantity
         }
         productVariant {
           _id
           imageUrl
           name
+          stockQuantity
         }
         quantity
         totalPrice
