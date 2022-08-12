@@ -4,7 +4,7 @@ import { useQuery, useMutation } from '@apollo/client'
 import { GetUser } from '../View/query'
 import mutation from './mutation'
 import { Button, CircularProgress } from '@mui/material'
-import { User } from '../../../../types/user'
+import { User, UpdateUserArgs } from '../../../../types/user'
 import { UserType } from '../../../_enums/userType'
 import Text from '../../_common/TextField'
 import SignInButton from '../../_common/SignInButton'
@@ -17,26 +17,27 @@ const globalAny: any = global
 const UpdateUser = ({ type }: { type: UserType }): ReactElement => {
   const router = useRouter()
 
-  const [args, setArgs] = useState<any>({
+  const [args, setArgs] = useState<UpdateUserArgs>({
     _id: null,
-    address: null,
-    cityId: null,
+    deliveryAddress: {
+      address: null,
+      cityId: null
+    },
     email: null,
     firstName: null,
     lastName: null,
     phoneNumber: null
   })
+
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const { data, loading, refetch } = useQuery(GetUser)
-
   const user: User = data?.get_user || {}
 
   useEffect(() => {
     setArgs({
       _id: user?._id,
-      address: user?.deliveryAddress?.address,
-      cityId: user?.deliveryAddress?.cityId,
+      deliveryAddress: user?.deliveryAddress,
       email: user?.email,
       firstName: user?.firstName,
       lastName: user?.lastName,
@@ -45,10 +46,7 @@ const UpdateUser = ({ type }: { type: UserType }): ReactElement => {
   }, [data])
 
   const [updateMutation, updateMutationState] = useMutation(mutation, {
-    variables: {
-      ...correctArgs(args),
-      deliveryAddress: { address: args?.address, cityId: args?.cityId }
-    },
+    variables: correctArgs(args),
     onCompleted: () => {
       globalAny.setNotification(true, 'Profile successfully updated!')
       refetch()
@@ -97,8 +95,18 @@ const UpdateUser = ({ type }: { type: UserType }): ReactElement => {
       </Button>
       {type === UserType.CUSTOMER && (
         <>
-          <Text args={args} setArgs={setArgs} targetProp={'address'} />
-          <CitiesSelect args={args} error={validateFields} setArgs={setArgs} />
+          <Text
+            args={args}
+            nestedProp={'address'}
+            setArgs={setArgs}
+            targetProp={'deliveryAddress'}
+          />
+          <CitiesSelect
+            args={args}
+            error={validateFields}
+            setArgs={setArgs}
+            targetProp={'deliveryAddress'}
+          />
         </>
       )}
       <Button

@@ -14,6 +14,14 @@ export const ResetUserPasswordEmail = gql`
       verificationCode: $verificationCode
     ) {
       _id
+      deliveryAddress {
+        address
+        cityId
+      }
+      email
+      firstName
+      lastName
+      phoneNumber
     }
   }
 `
@@ -26,6 +34,14 @@ export const ResetUserPasswordProfile = gql`
       oldPassword: $oldPassword
     ) {
       _id
+      deliveryAddress {
+        address
+        cityId
+      }
+      email
+      firstName
+      lastName
+      phoneNumber
     }
   }
 `

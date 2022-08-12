@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
 import mutation from './mutation'
 import { Button } from '@mui/material'
+import { CreateUserArgs } from '../../../../types/user'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import { UserType } from '../../../_enums/userType'
 import Text from '../../_common/TextField'
@@ -16,18 +17,17 @@ const globalAny: any = global
 
 const CreateUser = ({
   refetchArgs,
-  setCreateModalOpen,
+  setCreateModal,
   type
 }: {
   refetchArgs?: RefetchDataArgs
-  setCreateModalOpen?: React.Dispatch<React.SetStateAction<boolean>>
+  setCreateModal?: React.Dispatch<React.SetStateAction<boolean>>
   type: UserType
 }): ReactElement => {
   const router = useRouter()
 
-  const [args, setArgs] = useState<any>({
-    address: null,
-    cityId: null,
+  const [args, setArgs] = useState<CreateUserArgs>({
+    deliveryAddress: { address: null, cityId: null },
     email: null,
     firstName: null,
     lastName: null,
@@ -35,23 +35,21 @@ const CreateUser = ({
     phoneNumber: null,
     type
   })
+
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const [createMutation, createMutationState] = useMutation(mutation, {
-    variables: {
-      ...correctArgs(args),
-      deliveryAddress: { address: args?.address, cityId: args?.cityId }
-    },
+    variables: correctArgs(args),
     onCompleted: (data) => {
       globalAny.setNotification(true, 'Account successfully created!')
 
       switch (type) {
         case UserType.ADMINISTRATOR:
-          setCreateModalOpen(false)
           refetchData(refetchArgs)
+          setCreateModal(false)
           break
         case UserType.CUSTOMER:
-          Cookies.set('accessToken', data.create_user.token)
+          Cookies.set('accessToken', data.create_user)
           router.push('/')
       }
     },
@@ -62,8 +60,17 @@ const CreateUser = ({
     <>
       {type === UserType.CUSTOMER && (
         <>
-          <Text args={args} setArgs={setArgs} targetProp={'address'} />
-          <CitiesSelect args={args} setArgs={setArgs} />
+          <Text
+            args={args}
+            nestedProp={'address'}
+            setArgs={setArgs}
+            targetProp={'deliveryAddress'}
+          />
+          <CitiesSelect
+            args={args}
+            setArgs={setArgs}
+            targetProp={'deliveryAddress'}
+          />
           <PasswordField
             args={args}
             error={validateFields}

@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt'
 import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
-import { User, CreateUserArgs } from '../../../../types/user'
+import { CreateUserArgs } from '../../../../types/user'
 import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
@@ -15,7 +15,7 @@ export default async (
   _root: undefined,
   args: CreateUserArgs,
   context: Context
-): Promise<User> => {
+): Promise<string> => {
   await authenticateUser({ admin: false, context })
 
   const updateUser: boolean = await updateUserType({
@@ -24,7 +24,7 @@ export default async (
     context
   })
 
-  if (updateUser) return {}
+  if (updateUser) return
 
   await validateUser({ email: args.email, context })
 
@@ -44,5 +44,5 @@ export default async (
 
   const token = await generateJWT(userId)
 
-  return { _id: userId, ...args, token }
+  return token
 }

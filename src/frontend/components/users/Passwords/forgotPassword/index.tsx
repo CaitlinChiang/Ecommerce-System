@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
 import { ForgotUserPassword } from '../mutation'
 import { Button } from '@mui/material'
+import { ForgotPasswordArgs } from '../../../../../types/user'
 import { UserType } from '../../../../_enums/userType'
 import Text from '../../../_common/TextField'
 import { generateAdminUrl } from '../../../../_utils/auth/generateAdminUrl'
@@ -12,7 +13,8 @@ const globalAny: any = global
 const ForgotPassword = ({ type }: { type: UserType }): ReactElement => {
   const router = useRouter()
 
-  const [args, setArgs] = useState<any>({ email: null })
+  const [args, setArgs] = useState<ForgotPasswordArgs>({ email: null, type })
+
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const [forgotPasswordMutation, forgotPasswordMutationState] = useMutation(

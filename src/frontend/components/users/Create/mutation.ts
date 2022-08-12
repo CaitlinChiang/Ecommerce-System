@@ -18,9 +18,6 @@ export default gql`
       password: $password
       phoneNumber: $phoneNumber
       type: $type
-    ) {
-      _id
-      token
-    }
+    )
   }
 `

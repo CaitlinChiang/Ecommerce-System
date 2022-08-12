@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
 import mutation from './mutation'
 import { Button } from '@mui/material'
+import { SignInUserArgs } from '../../../../types/user'
 import { UserType } from '../../../_enums/userType'
 import Text from '../../_common/TextField'
 import PasswordField from '../../_common/PasswordField'
@@ -15,18 +16,19 @@ const globalAny: any = global
 const SignInUser = ({ type }: { type: UserType }): ReactElement => {
   const router = useRouter()
 
-  const [args, setArgs] = useState<any>({
+  const [args, setArgs] = useState<SignInUserArgs>({
     email: null,
     password: null,
     type
   })
+
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const [signInMutation, signInMutationState] = useMutation(mutation, {
     variables: correctArgs(args),
     onCompleted: (data) => {
-      Cookies.set('accessToken', data.sign_in_user)
       globalAny.setNotification(true, 'You are signed-in!')
+      Cookies.set('accessToken', data.sign_in_user)
       router.push(`${generateAdminUrl(type)}/`)
     },
     onError: (error) => globalAny.setNotification(false, error.message)

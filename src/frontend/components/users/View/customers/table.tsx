@@ -1,9 +1,9 @@
-import { ReactElement, useState, useEffect } from 'react'
+import { ReactElement, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetUsers } from '../query'
 import deleteMutation from '../../Delete/mutation'
 import { TableCell, TableRow } from '@mui/material'
-import { User } from '../../../../../types/user'
+import { User, GetUserArgs } from '../../../../../types/user'
 import { PaginateDataArgs } from '../../../../../types/actions/paginateData'
 import { RefetchDataArgs } from '../../../../../types/actions/refetchData'
 import { AdminPermission } from '../../../../_enums/adminPermission'
@@ -17,7 +17,7 @@ import { fetchMoreArgs } from '../../../../_utils/handleArgs/returnFetchMoreArgs
 const CustomersTable = (): ReactElement => {
   const disableDeleteUser = !authenticateUser(AdminPermission.DELETE_USER)
 
-  const args: any = { type: UserType.CUSTOMER }
+  const args: GetUserArgs = { type: UserType.CUSTOMER }
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
     page: 0,
     rowsPerPage: 10,
@@ -25,31 +25,21 @@ const CustomersTable = (): ReactElement => {
     sortBy: 'createdAt',
     sortDirection: SortDirection.DESC
   })
-  const [refetchArgs, setRefetchArgs] = useState<RefetchDataArgs>({
-    args: null,
-    count: null,
-    loading: false,
-    paginateDataArgs: null,
-    refetch: null
-  })
 
   const { data, loading, fetchMore, refetch } = useQuery(GetUsers, {
     variables: { ...args, paginateData: paginateDataArgs },
     ...fetchMoreArgs
   })
-
   const users: User[] = data?.get_users || []
   const usersCount: number = data?.get_users_count || 0
 
-  useEffect(() => {
-    setRefetchArgs({
-      args,
-      count: usersCount,
-      loading,
-      paginateDataArgs,
-      refetch
-    })
-  }, [data, paginateDataArgs])
+  const refetchArgs: RefetchDataArgs = {
+    args,
+    count: usersCount,
+    loading,
+    paginateDataArgs,
+    refetch
+  }
 
   const userHeaders = [
     { label: 'firstName', sortable: true },

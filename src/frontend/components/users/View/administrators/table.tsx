@@ -1,9 +1,9 @@
-import { ReactElement, useState, useEffect } from 'react'
+import { ReactElement, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetUsers } from '../query'
 import deleteMutation from '../../Delete/mutation'
 import { Button, TableCell, TableRow } from '@mui/material'
-import { User } from '../../../../../types/user'
+import { User, GetUserArgs } from '../../../../../types/user'
 import { PaginateDataArgs } from '../../../../../types/actions/paginateData'
 import { RefetchDataArgs } from '../../../../../types/actions/refetchData'
 import { AdminPermission } from '../../../../_enums/adminPermission'
@@ -23,7 +23,7 @@ const AdministratorsTable = (): ReactElement => {
   const disableUpdateUser = !authenticateUser(AdminPermission.UPDATE_USER)
   const disableDeleteUser = !authenticateUser(AdminPermission.DELETE_USER)
 
-  const [args, setArgs] = useState<any>({
+  const [args, setArgs] = useState<GetUserArgs>({
     active: null,
     type: UserType.ADMINISTRATOR
   })
@@ -34,35 +34,31 @@ const AdministratorsTable = (): ReactElement => {
     sortBy: 'createdAt',
     sortDirection: SortDirection.DESC
   })
-  const [createModalOpen, setCreateModalOpen] = useState<boolean>(false)
-  const [user, setUser] = useState<User>(null)
-  const [permissionsModalOpen, setPermissionsModalOpen] = useState<boolean>(false)
+
+  const [createModal, setCreateModal] = useState<boolean>(false)
+  const [permissions, setPermissions] = useState<{ user: User; openModal: boolean }>(
+    {
+      user: null,
+      openModal: false
+    }
+  )
+
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
-  const [refetchArgs, setRefetchArgs] = useState<RefetchDataArgs>({
-    args: null,
-    count: null,
-    loading: false,
-    paginateDataArgs: null,
-    refetch: null
-  })
 
   const { data, loading, fetchMore, refetch } = useQuery(GetUsers, {
     variables: { ...args, paginateData: paginateDataArgs },
     ...fetchMoreArgs
   })
-
   const users: User[] = data?.get_users || []
   const usersCount: number = data?.get_users_count || 0
 
-  useEffect(() => {
-    setRefetchArgs({
-      args,
-      count: usersCount,
-      loading,
-      paginateDataArgs,
-      refetch
-    })
-  }, [args, data, paginateDataArgs])
+  const refetchArgs: RefetchDataArgs = {
+    args,
+    count: usersCount,
+    loading,
+    paginateDataArgs,
+    refetch
+  }
 
   const userHeaders = [
     { label: 'active', sortable: true },
@@ -96,8 +92,7 @@ const AdministratorsTable = (): ReactElement => {
             <Button
               disabled={disableUpdateUser}
               onClick={(): void => {
-                setUser(user)
-                setPermissionsModalOpen(true)
+                setPermissions({ ...permissions, openModal: true })
               }}
             >
               {'View Permissions'}
@@ -125,21 +120,26 @@ const AdministratorsTable = (): ReactElement => {
         content={
           <CreateUser
             refetchArgs={refetchArgs}
-            setCreateModalOpen={setCreateModalOpen}
+            setCreateModal={setCreateModal}
             type={UserType.ADMINISTRATOR}
           />
         }
-        onClose={(): void => setCreateModalOpen(false)}
-        open={createModalOpen}
+        onClose={(): void => setCreateModal(false)}
+        open={createModal}
         title={'Create Admin Account'}
       />
       <ModalComponent
-        content={<UpdateAdminPermissions refetchArgs={refetchArgs} user={user} />}
-        onClose={(): void => setPermissionsModalOpen(false)}
-        open={permissionsModalOpen}
+        content={
+          <UpdateAdminPermissions
+            refetchArgs={refetchArgs}
+            user={permissions.user}
+          />
+        }
+        onClose={(): void => setPermissions({ ...permissions, openModal: false })}
+        open={permissions.openModal}
         title={'Admin Permissions'}
       />
-      <Button onClick={(): void => setCreateModalOpen(true)}>
+      <Button onClick={(): void => setCreateModal(true)}>
         {'Create Admin Account'}
       </Button>
       <TableComponent

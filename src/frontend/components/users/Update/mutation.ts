@@ -22,6 +22,15 @@ export default gql`
       phoneNumber: $phoneNumber
     ) {
       _id
+      deliveryAddress {
+        address
+        cityId
+      }
+      email
+      firstName
+      lastName
+      permissions
+      phoneNumber
     }
   }
 `

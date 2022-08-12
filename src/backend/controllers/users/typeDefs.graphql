@@ -49,7 +49,7 @@ extend type Mutation {
     password: String!
     phoneNumber: String!
     type: String!
-  ): User
+  ): String
 
   update_user(
     _id: ID!

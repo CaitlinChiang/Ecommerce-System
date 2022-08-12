@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
 import { ResetUserPasswordEmail } from '../mutation'
 import { Button } from '@mui/material'
+import { ResetPasswordArgs } from '../../../../../types/user'
 import { UserType } from '../../../../_enums/userType'
 import Text from '../../../_common/TextField'
 import PasswordField from '../../../_common/PasswordField'
@@ -14,11 +15,12 @@ const globalAny: any = global
 const ResetPassword = ({ type }: { type: UserType }): ReactElement => {
   const router = useRouter()
 
-  const [args, setArgs] = useState<any>({
+  const [args, setArgs] = useState<ResetPasswordArgs>({
     email: null,
     newPassword: null,
     verificationCode: null
   })
+
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const [resetPasswordMutation, resetPasswordMutationState] = useMutation(
