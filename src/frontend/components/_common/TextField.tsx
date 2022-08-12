@@ -13,6 +13,7 @@ const Text = ({
   maxLength,
   maxRows,
   multiline,
+  nestedProp,
   placeholder,
   required,
   setArgs,
@@ -26,27 +27,39 @@ const Text = ({
   maxLength?: number
   maxRows?: number
   multiline?: boolean
+  nestedProp?: string
   placeholder?: string
   required?: boolean
   setArgs: React.Dispatch<React.SetStateAction<any>>
   targetProp: string
   width?: number
 }): ReactElement => {
+  const val = args?.[targetProp]
+
   return (
     <TextField
       disabled={disabled}
-      error={returnError({ args, error, targetProp })}
+      error={returnError({ args, error, targetProp, nestedProp })}
       fullWidth={fullWidth}
-      helperText={returnHelperText({ args, error, targetProp })}
+      helperText={returnHelperText({ args, error, targetProp, nestedProp })}
       inputProps={{ maxLength: maxLength || 150 }}
       label={formatText(targetProp)}
       maxRows={maxRows}
       multiline={multiline}
-      onChange={(e): void => setArgs({ ...args, [targetProp]: e.target.value })}
+      onChange={(e): void => {
+        if (nestedProp) {
+          setArgs({
+            ...args,
+            [targetProp]: { ...val, [nestedProp]: e.target.value }
+          })
+        } else {
+          setArgs({ ...args, [targetProp]: e.target.value })
+        }
+      }}
       placeholder={placeholder}
       required={required}
       sx={{ ...styles.textField, width: width || 500 }}
-      value={args?.[targetProp]}
+      value={nestedProp ? val?.[nestedProp] : val}
     />
   )
 }

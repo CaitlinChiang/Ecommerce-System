@@ -7,6 +7,7 @@ const ImageUploader = ({
   args,
   disabled,
   error,
+  nestedProp,
   required,
   setArgs,
   targetProp
@@ -15,6 +16,7 @@ const ImageUploader = ({
   args: any
   disabled?: boolean
   error?: boolean
+  nestedProp?: string
   required?: boolean
   setArgs: React.Dispatch<React.SetStateAction<any>>
   targetProp: string
@@ -22,17 +24,24 @@ const ImageUploader = ({
   const [imageUrl, setImageUrl] = useState<string>('')
 
   useEffect(() => {
-    const existingUrl = targetProp + 'Url'
+    const urlProp = nestedProp ? nestedProp + 'Url' : targetProp + 'Url'
+    const val = nestedProp ? args[targetProp]?.[urlProp] : args?.[urlProp]
 
-    if (args?.[existingUrl]) {
-      setImageUrl(args[existingUrl])
-    }
+    if (val) setImageUrl(val)
   }, [args])
 
   const uploadImage = (event: any) => {
     const image = event.target.files[0]
     if (!image) return
-    setArgs({ ...args, [targetProp]: image })
+
+    if (nestedProp) {
+      setArgs({
+        ...args,
+        [targetProp]: { ...args[targetProp], [nestedProp]: image }
+      })
+    } else {
+      setArgs({ ...args, [targetProp]: image })
+    }
 
     const imageUrl = URL.createObjectURL(image)
     setImageUrl(imageUrl)
@@ -46,15 +55,17 @@ const ImageUploader = ({
         <input type='file' accept='image/*' onChange={uploadImage} />
         {'Upload Photo'}
       </Button>
-      {required && error && !args?.[targetProp] && (
-        <>
-          <FormHelperText sx={styles.formHelperText}>
-            {targetProp === 'image'
-              ? 'Product image is required.'
-              : 'Payment proof image is required.'}
-          </FormHelperText>
-        </>
-      )}
+      {required &&
+        error &&
+        (nestedProp ? !args[targetProp]?.[nestedProp] : !args?.[targetProp]) && (
+          <>
+            <FormHelperText sx={styles.formHelperText}>
+              {targetProp === 'image'
+                ? 'Product image is required.'
+                : 'Payment proof image is required.'}
+            </FormHelperText>
+          </>
+        )}
       {imageUrl && (
         <Box component='img' alt={alt} src={imageUrl} sx={styles.image} />
       )}

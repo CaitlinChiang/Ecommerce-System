@@ -79,7 +79,7 @@ const SelectField = ({
         />
       )}
       sx={{ ...styles.autocomplete, width: width || 300 }}
-      value={searchVal || (!nestedProp ? val : val[nestedProp])}
+      value={searchVal || (nestedProp ? val[nestedProp] : val)}
     />
   )
 }

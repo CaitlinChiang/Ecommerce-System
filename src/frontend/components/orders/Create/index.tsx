@@ -116,9 +116,10 @@ const CreateOrder = (): ReactElement => {
           alt={'Proof of Payment Transfer'}
           args={args}
           error={validateFields}
+          nestedProp={'imageProof'}
           required={true}
           setArgs={setArgs}
-          targetProp={'imageProof'}
+          targetProp={'payment'}
         />
         <Button
           disabled={createMutationState.loading}
