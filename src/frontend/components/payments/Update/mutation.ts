@@ -14,6 +14,14 @@ export default gql`
       status: $status
     ) {
       _id
+      _orderId
+      amountDue
+      imageProofUrl
+      paymentMethod
+      paymentMethodId
+      shippingFee
+      status
+      createdAt
     }
   }
 `

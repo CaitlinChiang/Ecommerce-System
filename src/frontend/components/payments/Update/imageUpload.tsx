@@ -12,13 +12,11 @@ const globalAny: any = global
 const UpdatePaymentImageUpload = ({
   _orderId,
   payment,
-  refetchArgs,
-  setOpen
+  refetchArgs
 }: {
   _orderId: string
   payment: Payment
   refetchArgs: RefetchDataArgs
-  setOpen: React.Dispatch<React.SetStateAction<string>>
 }): ReactElement => {
   const [args, setArgs] = useState<any>({
     imageProof: null,
@@ -30,7 +28,6 @@ const UpdatePaymentImageUpload = ({
     onCompleted: () => {
       globalAny.setNotification(true, 'Payment proof successfully updated!')
       refetchData(refetchArgs)
-      setOpen('')
     },
     onError: (error) => globalAny.setNotification(false, error.message)
   })

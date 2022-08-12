@@ -3,6 +3,7 @@ import { useMutation } from '@apollo/client'
 import mutation from './mutation'
 import SelectField from '../../_common/SelectField'
 import { ObjectId } from 'mongodb'
+import { UpdatePaymentArgs } from '../../../../types/payment'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import { PaymentStatus } from '../../../_enums/paymentStatus'
 import { refetchData } from '../../../_utils/handleData/refetchData'
@@ -20,7 +21,7 @@ const UpdatePaymentSelect = ({
   refetchArgs: RefetchDataArgs
   status: PaymentStatus
 }): ReactElement => {
-  const [args, setArgs] = useState<any>({ _orderId, status })
+  const [args, setArgs] = useState<UpdatePaymentArgs>({ _orderId, status })
 
   const [updateMutation, updateMutationState] = useMutation(mutation, {
     onCompleted: () => {
