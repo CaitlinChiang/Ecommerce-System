@@ -1,9 +1,5 @@
-import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
-import {
-  PaymentMethod,
-  CreatePaymentMethodArgs
-} from '../../../../types/paymentMethod'
+import { CreatePaymentMethodArgs } from '../../../../types/paymentMethod'
 import { AdminPermission } from '../../../_enums/adminPermission'
 import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
@@ -15,18 +11,16 @@ export default async (
   _root: undefined,
   args: CreatePaymentMethodArgs,
   context: Context
-): Promise<PaymentMethod> => {
+): Promise<void> => {
   await authenticateUser({
     admin: true,
     permission: AdminPermission.CREATE_PAYMENT_METHOD,
     context
   })
 
-  const paymentMethodId: ObjectId = await context.database.paymentMethods
-    .insertOne(mutateArgs(args, MutateAction.CREATE))
-    .then((paymentMethod) => paymentMethod.insertedId)
+  await context.database.paymentMethods.insertOne(
+    mutateArgs(args, MutateAction.CREATE)
+  )
 
   await createAuditLog(AuditLogAction.CREATE_PAYMENT_METHOD, context)
-
-  return { _id: paymentMethodId, ...args }
 }

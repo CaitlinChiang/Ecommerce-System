@@ -3,7 +3,10 @@ import { useQuery, useMutation } from '@apollo/client'
 import { GetPaymentMethod } from '../View/query'
 import mutation from './mutation'
 import { Button, CircularProgress, Typography } from '@mui/material'
-import { PaymentMethod } from '../../../../types/paymentMethod'
+import {
+  PaymentMethod,
+  UpdatePaymentMethodArgs
+} from '../../../../types/paymentMethod'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
 import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
@@ -13,22 +16,20 @@ const globalAny: any = global
 
 const UpdatePaymentMethod = ({
   _id,
-  refetchArgs,
-  setUpdateModalOpen
+  refetchArgs
 }: {
   _id: string
   refetchArgs: RefetchDataArgs
-  setUpdateModalOpen: React.Dispatch<React.SetStateAction<boolean>>
 }): ReactElement => {
-  const [args, setArgs] = useState<any>({
+  const [args, setArgs] = useState<UpdatePaymentMethodArgs>({
     _id: null,
     name: null,
     details: null
   })
+
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const { data, loading } = useQuery(GetPaymentMethod, { variables: { _id } })
-
   const paymentMethod: PaymentMethod = data?.get_payment_method || {}
 
   useEffect(() => {
@@ -45,7 +46,6 @@ const UpdatePaymentMethod = ({
       globalAny.setNotification(true, 'Payment method successfully updated!')
       refetchData(refetchArgs)
       setValidateFields(false)
-      setUpdateModalOpen(false)
     },
     onError: (error) => globalAny.setNotification(false, error.message)
   })

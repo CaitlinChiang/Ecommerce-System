@@ -11,17 +11,18 @@ const PaymentMethodsSelect = ({
   args,
   error,
   required,
-  setArgs
+  setArgs,
+  targetProp
 }: {
   args: any
   error?: boolean
   required?: boolean
   setArgs: React.Dispatch<React.SetStateAction<any>>
+  targetProp?: string
 }): ReactElement => {
   const { data, loading } = useQuery(GetPaymentMethods, {
     variables: { paginateData: { sortBy: 'name', sortDirection: SortDirection.ASC } }
   })
-
   const paymentMethods: PaymentMethod[] = data?.get_payment_methods || []
 
   const paymentMethodOptions = paymentMethods?.map(
@@ -37,10 +38,11 @@ const PaymentMethodsSelect = ({
         args={args}
         error={error}
         label={'Payment Method'}
+        nestedProp={targetProp ? 'paymentMethodId' : null}
         options={paymentMethodOptions}
         required={required}
         setArgs={setArgs}
-        targetProp={'paymentMethodId'}
+        targetProp={targetProp || 'paymentMethodId'}
       />
     </>
   )

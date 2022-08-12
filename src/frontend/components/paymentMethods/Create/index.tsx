@@ -2,6 +2,7 @@ import { ReactElement, useState } from 'react'
 import { useMutation } from '@apollo/client'
 import mutation from './mutation'
 import { Button } from '@mui/material'
+import { CreatePaymentMethodArgs } from '../../../../types/paymentMethod'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import { AdminPermission } from '../../../_enums/adminPermission'
 import Text from '../../_common/TextField'
@@ -19,10 +20,11 @@ const CreatePaymentMethod = ({
 }): ReactElement => {
   if (!authenticateUser(AdminPermission.CREATE_PAYMENT_METHOD)) return
 
-  const [args, setArgs] = useState<any>({
+  const [args, setArgs] = useState<CreatePaymentMethodArgs>({
     name: null,
     details: null
   })
+
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const [createMutation, createMutationState] = useMutation(mutation, {

@@ -1,10 +1,10 @@
-import { ReactElement, useState, useEffect } from 'react'
+import { ReactElement, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetPaymentMethods } from './query'
 import deleteMutation from '../Delete/mutation'
 import { IconButton, TableCell, TableRow } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
-import { PaymentMethod } from '../../../../types/paymentMethod'
+import { PaymentMethod, GetPaymentMethodArgs } from '../../../../types/paymentMethod'
 import { PaginateDataArgs } from '../../../../types/actions/paginateData'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import { AdminPermission } from '../../../_enums/adminPermission'
@@ -25,7 +25,7 @@ const PaymentMethodsTable = (): ReactElement => {
     AdminPermission.DELETE_PAYMENT_METHOD
   )
 
-  const args: any = {}
+  const args: GetPaymentMethodArgs = {}
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
     page: 0,
     rowsPerPage: 10,
@@ -33,33 +33,26 @@ const PaymentMethodsTable = (): ReactElement => {
     sortBy: 'name',
     sortDirection: SortDirection.ASC
   })
-  const [paymentMethodId, setPaymentMethodId] = useState<string>('')
-  const [updateModalOpen, setUpdateModalOpen] = useState<boolean>(false)
-  const [refetchArgs, setRefetchArgs] = useState<RefetchDataArgs>({
-    args: null,
-    count: null,
-    loading: false,
-    paginateDataArgs: null,
-    refetch: null
+
+  const [update, setUpdate] = useState<{ methodId: string; openModal: boolean }>({
+    methodId: null,
+    openModal: false
   })
 
   const { data, loading, fetchMore, refetch } = useQuery(GetPaymentMethods, {
     variables: { ...args, paginateData: paginateDataArgs },
     ...fetchMoreArgs
   })
-
   const paymentMethods: PaymentMethod[] = data?.get_payment_methods || []
   const paymentMethodsCount: number = data?.get_payment_methods_count || 0
 
-  useEffect(() => {
-    setRefetchArgs({
-      args,
-      count: paymentMethodsCount,
-      loading,
-      paginateDataArgs,
-      refetch
-    })
-  }, [args, data, paginateDataArgs])
+  const refetchArgs: RefetchDataArgs = {
+    args,
+    count: paymentMethodsCount,
+    loading,
+    paginateDataArgs,
+    refetch
+  }
 
   const paymentMethodHeaders = [
     { label: 'name', sortable: true },
@@ -79,8 +72,7 @@ const PaymentMethodsTable = (): ReactElement => {
             <IconButton
               disabled={disableUpdatePaymentMethod}
               onClick={(): void => {
-                setPaymentMethodId(String(paymentMethod._id))
-                setUpdateModalOpen(true)
+                setUpdate({ methodId: String(paymentMethod._id), openModal: true })
               }}
             >
               <EditIcon />
@@ -104,14 +96,10 @@ const PaymentMethodsTable = (): ReactElement => {
       <CreatePaymentMethod refetchArgs={refetchArgs} />
       <ModalComponent
         content={
-          <UpdatePaymentMethod
-            _id={paymentMethodId}
-            refetchArgs={refetchArgs}
-            setUpdateModalOpen={setUpdateModalOpen}
-          />
+          <UpdatePaymentMethod _id={update.methodId} refetchArgs={refetchArgs} />
         }
-        onClose={(): void => setUpdateModalOpen(false)}
-        open={updateModalOpen}
+        onClose={(): void => setUpdate({ ...update, openModal: false })}
+        open={update.openModal}
         title={'Update Payment Method'}
       />
       <TableComponent

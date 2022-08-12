@@ -21,7 +21,7 @@ export interface CreatePaymentMethodArgs {
 }
 
 export interface UpdatePaymentMethodArgs {
-  _id: ObjectId
+  _id: ObjectId | string
   name: string
   details: string
   updatedAt?: Date
