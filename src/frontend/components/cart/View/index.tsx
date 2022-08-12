@@ -64,7 +64,7 @@ const Cart = (): ReactElement => {
         <Typography>{`Quantity: ${formatNumber(cart?.quantity)}`}</Typography>
         <Typography>{`Amount Due P${formatPrice(cart?.totalPrice)}`}</Typography>
         <Button
-          color={'primary'}
+          disabled={!cart?.items || cart?.items?.length === 0}
           onClick={(): void => {
             router.push('/payment')
           }}
@@ -73,7 +73,6 @@ const Cart = (): ReactElement => {
           {'Proceed to Checkout'}
         </Button>
         <Button
-          color={'primary'}
           onClick={(): void => {
             router.push('/shop')
           }}

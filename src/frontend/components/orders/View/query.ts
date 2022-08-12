@@ -32,6 +32,7 @@ export const GetOrders = gql`
       }
       payment {
         amountDue
+        imageProofUrl
         paymentMethod {
           name
         }
