@@ -32,7 +32,6 @@ const AuditLogsTable = (): ReactElement => {
     variables: { ...args, paginateData: paginateDataArgs },
     ...fetchMoreArgs
   })
-
   const auditLogs: AuditLog[] = data?.get_audit_logs || []
   const auditLogsCount: number = data?.get_audit_logs_count || 0
 

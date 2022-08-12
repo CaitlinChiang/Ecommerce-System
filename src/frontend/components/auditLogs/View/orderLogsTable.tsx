@@ -17,7 +17,6 @@ const OrderLogsTable = ({ orderId }: { orderId: string }): ReactElement => {
     },
     ...fetchMoreArgs
   })
-
   const auditLogs: AuditLog[] = data?.get_audit_logs || []
 
   const auditLogHeaders = ['Action', 'Created At', 'Created By']
