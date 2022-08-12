@@ -1,5 +1,6 @@
 import isEmail from 'validator/lib/isEmail'
 import isMobilePhone from 'validator/lib/isMobilePhone'
+import { formatFee } from '../handleFormat/formatFee'
 
 export const correctArgs = (args: any): any => {
   Object.keys(args).forEach((key: string): void => {
@@ -22,6 +23,10 @@ export const correctArgs = (args: any): any => {
 const modifyArgs = (args: any, key: string): any => {
   if (isNaN(args[key]) && !isImage && args[key]?.trim().length === 0) {
     args[key] = null
+  }
+
+  if (key === 'shippingFee') {
+    args[key] = formatFee(args[key])
   }
 }
 
