@@ -26,6 +26,16 @@ export default gql`
       stockQuantity: $stockQuantity
     ) {
       _id
+      description
+      discount
+      expirationDate
+      imageUrl
+      name
+      price
+      showPublic
+      stockQuantity
+      createdAt
+      updatedAt
     }
   }
 `

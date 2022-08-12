@@ -28,9 +28,9 @@ export interface GetProductVariantArgs {
 }
 
 export interface CreateProductVariantArgs {
-  _productId: ObjectId
+  _productId: ObjectId | string
   description?: string
-  discount?: number
+  discount?: number | string
   expirationDate?: Date
   image?: Promise<FileUpload>
   name: string
@@ -41,10 +41,10 @@ export interface CreateProductVariantArgs {
 }
 
 export interface UpdateProductVariantArgs {
-  _id: ObjectId
-  _productId: ObjectId
+  _id: ObjectId | string
+  _productId?: ObjectId
   description?: string
-  discount?: number
+  discount?: number | string
   expirationDate?: Date
   image?: Promise<FileUpload>
   imageUrl?: string

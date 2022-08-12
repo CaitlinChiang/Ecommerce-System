@@ -22,8 +22,6 @@ export default gql`
       price: $price
       showPublic: $showPublic
       stockQuantity: $stockQuantity
-    ) {
-      _id
-    }
+    )
   }
 `

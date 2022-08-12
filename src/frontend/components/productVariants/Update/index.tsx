@@ -4,15 +4,16 @@ import { useQuery, useMutation } from '@apollo/client'
 import { GetProductVariant } from '../View/query'
 import mutation from './mutation'
 import { Button, CircularProgress, Typography } from '@mui/material'
-import { ProductVariant } from '../../../../types/productVariant'
+import {
+  ProductVariant,
+  UpdateProductVariantArgs
+} from '../../../../types/productVariant'
 import Text from '../../_common/TextField'
 import DatePickerField from '../../_common/DatePickerField'
 import CheckboxField from '../../_common/CheckboxField'
 import NumberField from '../../_common/NumberField'
 import ImageUploader from '../../_common/ImageUploader'
 import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
-import { formatFee } from '../../../_utils/handleFormat/formatFee'
-import { formatFromPercentage } from '../../../_utils/handleFormat/formatFromPercentage'
 import { formatToPercentage } from '../../../_utils/handleFormat/formatToPercentage'
 
 const globalAny: any = global
@@ -20,7 +21,7 @@ const globalAny: any = global
 const UpdateProductVariant = ({ _id }: { _id: string }): ReactElement => {
   const router = useRouter()
 
-  const [args, setArgs] = useState<any>({
+  const [args, setArgs] = useState<UpdateProductVariantArgs>({
     _id: null,
     description: null,
     discount: null,
@@ -32,13 +33,13 @@ const UpdateProductVariant = ({ _id }: { _id: string }): ReactElement => {
     showPublic: false,
     stockQuantity: null
   })
+
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const { data, loading } = useQuery(GetProductVariant, {
     skip: !_id,
     variables: { _id }
   })
-
   const productVariant: ProductVariant = data?.get_product_variant || {}
 
   useEffect(() => {
@@ -58,10 +59,7 @@ const UpdateProductVariant = ({ _id }: { _id: string }): ReactElement => {
   const [updateMutation, updateMutationState] = useMutation(mutation, {
     variables: {
       ...correctArgs(args),
-      discount: formatFromPercentage(args?.discount),
-      imageUrl: args?.imageUrl?.includes('products/') ? null : args?.imageUrl,
-      price: formatFee(args?.price),
-      stockQuantity: args?.stockQuantity ? Math.round(args.stockQuantity) : null
+      imageUrl: args?.imageUrl?.includes('products/') ? null : args?.imageUrl
     },
     onCompleted: () => {
       globalAny.setNotification(true, 'Product variant successfully updated!')

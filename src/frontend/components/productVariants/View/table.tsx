@@ -1,11 +1,14 @@
-import { ReactElement, useState, useEffect } from 'react'
+import { ReactElement, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useQuery } from '@apollo/client'
 import { GetProductVariants } from './query'
 import deleteMutation from '../Delete/mutation'
 import { IconButton, TableCell, TableRow } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
-import { ProductVariant } from '../../../../types/productVariant'
+import {
+  ProductVariant,
+  GetProductVariantArgs
+} from '../../../../types/productVariant'
 import { PaginateDataArgs } from '../../../../types/actions/paginateData'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import { AdminPermission } from '../../../_enums/adminPermission'
@@ -32,7 +35,7 @@ const ProductVariantsTable = ({
 
   const router = useRouter()
 
-  const [args, setArgs] = useState<any>({
+  const [args, setArgs] = useState<GetProductVariantArgs>({
     dateRange: {
       startDate: null,
       endDate: null,
@@ -53,14 +56,8 @@ const ProductVariantsTable = ({
     sortBy: 'name',
     sortDirection: SortDirection.ASC
   })
+
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
-  const [refetchArgs, setRefetchArgs] = useState<RefetchDataArgs>({
-    args: null,
-    count: null,
-    loading: false,
-    paginateDataArgs: null,
-    refetch: null
-  })
 
   const { data, loading, fetchMore, refetch } = useQuery(GetProductVariants, {
     skip: !_productId,
@@ -76,19 +73,16 @@ const ProductVariantsTable = ({
     },
     ...fetchMoreArgs
   })
-
   const productVariants: ProductVariant[] = data?.get_product_variants || []
   const productVariantsCount: number = data?.get_product_variants_count || 0
 
-  useEffect(() => {
-    setRefetchArgs({
-      args,
-      count: productVariantsCount,
-      loading,
-      paginateDataArgs,
-      refetch
-    })
-  }, [args, data, paginateDataArgs])
+  const refetchArgs: RefetchDataArgs = {
+    args,
+    count: productVariantsCount,
+    loading,
+    paginateDataArgs,
+    refetch
+  }
 
   const productHeaders = [
     { label: 'name', sortable: true },

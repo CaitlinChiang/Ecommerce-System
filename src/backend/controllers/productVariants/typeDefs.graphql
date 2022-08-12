@@ -46,7 +46,7 @@ extend type Mutation {
     price: Float!
     showPublic: Boolean!
     stockQuantity: Int!
-  ): ProductVariant
+  ): Void
 
   update_product_variant(
     _id: ID!
@@ -61,5 +61,5 @@ extend type Mutation {
     stockQuantity: Int!
   ): ProductVariant
 
-  delete_product_variant(_id: ID!, imageUrl: String): ProductVariant
+  delete_product_variant(_id: ID!, imageUrl: String): Void
 }

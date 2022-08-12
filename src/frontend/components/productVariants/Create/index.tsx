@@ -6,14 +6,13 @@ import { GetProduct } from '../../products/View/query'
 import mutation from './mutation'
 import { Button, CircularProgress } from '@mui/material'
 import { Product } from '../../../../types/product'
+import { CreateProductVariantArgs } from '../../../../types/productVariant'
 import Text from '../../_common/TextField'
 import DatePickerField from '../../_common/DatePickerField'
 import CheckboxField from '../../_common/CheckboxField'
 import NumberField from '../../_common/NumberField'
 import ImageUploader from '../../_common/ImageUploader'
 import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
-import { formatFee } from '../../../_utils/handleFormat/formatFee'
-import { formatFromPercentage } from '../../../_utils/handleFormat/formatFromPercentage'
 import { formatToPercentage } from '../../../_utils/handleFormat/formatToPercentage'
 
 const globalAny: any = global
@@ -25,7 +24,7 @@ const CreateProductVariant = ({
 }): ReactElement => {
   const router = useRouter()
 
-  const [args, setArgs] = useState<any>({
+  const [args, setArgs] = useState<Partial<CreateProductVariantArgs>>({
     _productId,
     description: null,
     discount: null,
@@ -36,13 +35,13 @@ const CreateProductVariant = ({
     showPublic: false,
     stockQuantity: null
   })
+
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const { data, loading } = useQuery(GetProduct, {
     skip: !_productId,
     variables: { _id: _productId }
   })
-
   const product: Product = data?.get_product || {}
 
   useEffect(() => {
@@ -56,12 +55,7 @@ const CreateProductVariant = ({
   }, [data])
 
   const [createMutation, createMutationState] = useMutation(mutation, {
-    variables: {
-      ...correctArgs(args),
-      discount: formatFromPercentage(args?.discount),
-      price: formatFee(args?.price),
-      stockQuantity: args?.stockQuantity ? Math.round(args.stockQuantity) : null
-    },
+    variables: correctArgs(args),
     onCompleted: () => {
       globalAny.setNotification(true, 'Product variant successfully created!')
       router.back()
