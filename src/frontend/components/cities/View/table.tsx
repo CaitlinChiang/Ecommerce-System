@@ -4,7 +4,7 @@ import { GetCities } from './query'
 import deleteMutation from '../Delete/mutation'
 import { IconButton, TableCell, TableRow } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
-import { City } from '../../../../types/city'
+import { City, GetCityArgs } from '../../../../types/city'
 import { PaginateDataArgs } from '../../../../types/actions/paginateData'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import { AdminPermission } from '../../../_enums/adminPermission'
@@ -22,7 +22,7 @@ const CitiesTable = (): ReactElement => {
   const disableUpdateCity = !authenticateUser(AdminPermission.UPDATE_CITY)
   const disableDeleteCity = !authenticateUser(AdminPermission.DELETE_CITY)
 
-  const args: any = {}
+  const args: GetCityArgs = {}
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
     page: 0,
     rowsPerPage: 10,
@@ -30,8 +30,12 @@ const CitiesTable = (): ReactElement => {
     sortBy: 'name',
     sortDirection: SortDirection.ASC
   })
-  const [cityId, setCityId] = useState<string>('')
-  const [updateModalOpen, setUpdateModalOpen] = useState<boolean>(false)
+
+  const [update, setUpdate] = useState<{ cityId: string; openModal: boolean }>({
+    cityId: null,
+    openModal: false
+  })
+
   const [refetchArgs, setRefetchArgs] = useState<RefetchDataArgs>({
     args: null,
     count: null,
@@ -44,8 +48,7 @@ const CitiesTable = (): ReactElement => {
     variables: { ...args, paginateData: paginateDataArgs },
     ...fetchMoreArgs
   })
-
-  const cities = data?.get_cities || []
+  const cities: City[] = data?.get_cities || []
   const citiesCount: number = data?.get_cities_count || 0
 
   useEffect(() => {
@@ -56,7 +59,7 @@ const CitiesTable = (): ReactElement => {
       paginateDataArgs,
       refetch
     })
-  }, [args, data, paginateDataArgs])
+  }, [paginateDataArgs])
 
   const cityHeaders = [
     { label: 'name', sortable: true },
@@ -76,8 +79,7 @@ const CitiesTable = (): ReactElement => {
             <IconButton
               disabled={disableUpdateCity}
               onClick={(): void => {
-                setCityId(String(city._id))
-                setUpdateModalOpen(true)
+                setUpdate({ cityId: String(city._id), openModal: true })
               }}
             >
               <EditIcon />
@@ -100,15 +102,9 @@ const CitiesTable = (): ReactElement => {
     <>
       <CreateCity refetchArgs={refetchArgs} />
       <ModalComponent
-        content={
-          <UpdateCity
-            _id={cityId}
-            refetchArgs={refetchArgs}
-            setUpdateModalOpen={setUpdateModalOpen}
-          />
-        }
-        onClose={(): void => setUpdateModalOpen(false)}
-        open={updateModalOpen}
+        content={<UpdateCity _id={update.cityId} refetchArgs={refetchArgs} />}
+        onClose={(): void => setUpdate({ ...update, openModal: false })}
+        open={update.openModal}
         title={'Update City & Shipping Fee'}
       />
       <TableComponent

@@ -1,6 +1,5 @@
-import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
-import { City, CreateCityArgs } from '../../../../types/city'
+import { CreateCityArgs } from '../../../../types/city'
 import { AdminPermission } from '../../../_enums/adminPermission'
 import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
@@ -12,18 +11,14 @@ export default async (
   _root: undefined,
   args: CreateCityArgs,
   context: Context
-): Promise<City> => {
+): Promise<void> => {
   await authenticateUser({
     admin: true,
     permission: AdminPermission.CREATE_CITY,
     context
   })
 
-  const cityId: ObjectId = await context.database.cities
-    .insertOne(mutateArgs(args, MutateAction.CREATE))
-    .then((city) => city.insertedId)
+  await context.database.cities.insertOne(mutateArgs(args, MutateAction.CREATE))
 
   await createAuditLog(AuditLogAction.CREATE_CITY, context)
-
-  return { _id: cityId, ...args }
 }

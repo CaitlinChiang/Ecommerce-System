@@ -3,34 +3,31 @@ import { useQuery, useMutation } from '@apollo/client'
 import { GetCity } from '../View/query'
 import mutation from './mutation'
 import { Button, CircularProgress, Typography } from '@mui/material'
-import { City } from '../../../../types/city'
+import { City, UpdateCityArgs } from '../../../../types/city'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
 import NumberField from '../../_common/NumberField'
 import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
-import { formatFee } from '../../../_utils/handleFormat/formatFee'
-import { refetchData } from '../../../_utils/handleData/refetchData'
+import { refetchData } from 'frontend/_utils/handleData/refetchData'
 
 const globalAny: any = global
 
 const UpdateCity = ({
   _id,
-  refetchArgs,
-  setUpdateModalOpen
+  refetchArgs
 }: {
   _id: string
   refetchArgs: RefetchDataArgs
-  setUpdateModalOpen: React.Dispatch<React.SetStateAction<boolean>>
 }): ReactElement => {
-  const [args, setArgs] = useState<any>({
+  const [args, setArgs] = useState<UpdateCityArgs>({
     _id: null,
     name: null,
     shippingFee: null
   })
+
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const { data, loading } = useQuery(GetCity, { variables: { _id } })
-
   const city: City = data?.get_city || {}
 
   useEffect(() => {
@@ -42,12 +39,11 @@ const UpdateCity = ({
   }, [data])
 
   const [updateMutation, updateMutationState] = useMutation(mutation, {
-    variables: { ...correctArgs(args), shippingFee: formatFee(args?.shippingFee) },
+    variables: correctArgs(args),
     onCompleted: () => {
       globalAny.setNotification(true, 'City & shipping fee successfully updated!')
       refetchData(refetchArgs)
       setValidateFields(false)
-      setUpdateModalOpen(false)
     },
     onError: (error) => globalAny.setNotification(false, error.message)
   })

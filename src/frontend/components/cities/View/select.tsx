@@ -23,7 +23,6 @@ const CitiesSelect = ({
   const { data, loading } = useQuery(GetCities, {
     variables: { paginateData: { sortBy: 'name', sortDirection: SortDirection.ASC } }
   })
-
   const cities: City[] = data?.get_cities || []
 
   const cityOptions = cities?.map(

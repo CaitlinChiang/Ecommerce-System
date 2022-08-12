@@ -20,9 +20,9 @@ export interface CreateCityArgs {
 }
 
 export interface UpdateCityArgs {
-  _id: ObjectId
+  _id: ObjectId | string
   name: string
-  shippingFee: number
+  shippingFee: number | string
   updatedAt?: Date
 }
 

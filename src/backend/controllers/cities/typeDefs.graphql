@@ -15,9 +15,9 @@ extend type Query {
 }
 
 extend type Mutation {
-  create_city(name: String!, shippingFee: Float!): City
+  create_city(name: String!, shippingFee: Float!): Void
 
   update_city(_id: ID!, name: String!, shippingFee: Float!): City
 
-  delete_city(_id: ID!): City
+  delete_city(_id: ID!): Void
 }
