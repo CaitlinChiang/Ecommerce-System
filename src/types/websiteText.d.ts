@@ -13,7 +13,7 @@ export interface GetWebsiteTextArgs {
 }
 
 export interface UpdateWebsiteTextArgs {
-  _id: ObjectId
+  _id?: ObjectId
   content: string
   type: WebsiteTextType
   updatedAt?: Date

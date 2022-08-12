@@ -27,12 +27,12 @@ const UpdateContactInformation = (): ReactElement => {
     instagram: null,
     phoneNumber: null
   })
+
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
-  const { data, loading, refetch } = useQuery(GetWebsiteText, {
+  const { data, loading } = useQuery(GetWebsiteText, {
     variables: { type: WebsiteTextType.CONTACT_INFORMATION }
   })
-
   const websiteText: WebsiteText = data?.get_website_text || {}
 
   useEffect(() => {
@@ -52,7 +52,6 @@ const UpdateContactInformation = (): ReactElement => {
     onCompleted: () => {
       globalAny.setNotification(true, 'Contact information successfully updated!')
       setValidateFields(false)
-      refetch()
     },
     onError: (error) => globalAny.setNotification(false, error.message)
   })

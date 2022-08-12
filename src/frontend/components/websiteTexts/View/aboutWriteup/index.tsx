@@ -10,7 +10,6 @@ const AboutWriteup = (): ReactElement => {
   const { data } = useQuery(GetWebsiteText, {
     variables: { type: WebsiteTextType.ABOUT_WRITEUP }
   })
-
   const websiteText: WebsiteText = data?.get_website_text || {}
 
   return (

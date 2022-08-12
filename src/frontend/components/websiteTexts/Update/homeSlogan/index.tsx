@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/client'
 import { GetWebsiteText } from '../../View/query'
 import mutation from '../mutation'
 import { Button, CircularProgress, Typography } from '@mui/material'
-import { WebsiteText } from '../../../../../types/websiteText'
+import { WebsiteText, UpdateWebsiteTextArgs } from '../../../../../types/websiteText'
 import { AdminPermission } from '../../../../_enums/adminPermission'
 import { WebsiteTextType } from '../../../../_enums/websiteTextType'
 import Text from '../../../_common/TextField'
@@ -18,17 +18,17 @@ const UpdateHomeSlogan = (): ReactElement => {
     AdminPermission.UPDATE_WEBSITE_TEXT
   )
 
-  const [args, setArgs] = useState<any>({
+  const [args, setArgs] = useState<UpdateWebsiteTextArgs>({
     _id: null,
     content: null,
     type: null
   })
+
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
-  const { data, loading, refetch } = useQuery(GetWebsiteText, {
+  const { data, loading } = useQuery(GetWebsiteText, {
     variables: { type: WebsiteTextType.HOME_SLOGAN }
   })
-
   const websiteText: WebsiteText = data?.get_website_text || {}
 
   useEffect(() => {
@@ -43,7 +43,6 @@ const UpdateHomeSlogan = (): ReactElement => {
     onCompleted: () => {
       globalAny.setNotification(true, 'Home page slogan successfully updated!')
       setValidateFields(false)
-      refetch()
     },
     onError: (error) => globalAny.setNotification(false, error.message)
   })

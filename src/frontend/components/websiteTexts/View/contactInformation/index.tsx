@@ -18,7 +18,6 @@ const ContactInformation = (): ReactElement => {
   const { data } = useQuery(GetWebsiteText, {
     variables: { type: WebsiteTextType.CONTACT_INFORMATION }
   })
-
   const websiteText: WebsiteText = data?.get_website_text || {}
 
   useEffect(() => {

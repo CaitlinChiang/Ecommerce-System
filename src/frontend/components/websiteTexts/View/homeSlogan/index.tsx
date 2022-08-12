@@ -13,7 +13,6 @@ const HomeSlogan = (): ReactElement => {
   const { data } = useQuery(GetWebsiteText, {
     variables: { type: WebsiteTextType.HOME_SLOGAN }
   })
-
   const websiteText: WebsiteText = data?.get_website_text || {}
 
   return (
