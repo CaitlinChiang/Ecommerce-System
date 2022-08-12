@@ -54,10 +54,13 @@ const UpdateUser = ({ type }: { type: UserType }): ReactElement => {
     onError: (error) => globalAny.setNotification(false, error.message)
   })
 
+  if (Object.keys(user).length === 0) {
+    return <SignInButton />
+  }
+
   return (
     <>
       {loading && <CircularProgress />}
-      {Object.keys(user).length === 0 && <SignInButton />}
       <Text
         args={args}
         error={validateFields}
