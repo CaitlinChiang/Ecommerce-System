@@ -1,6 +1,5 @@
-import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
-import { FAQ, CreateFAQArgs } from '../../../../types/faq'
+import { CreateFAQArgs } from '../../../../types/faq'
 import { AdminPermission } from '../../../_enums/adminPermission'
 import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
@@ -12,18 +11,14 @@ export default async (
   _root: undefined,
   args: CreateFAQArgs,
   context: Context
-): Promise<FAQ> => {
+): Promise<void> => {
   await authenticateUser({
     admin: true,
     permission: AdminPermission.CREATE_FAQ,
     context
   })
 
-  const faqId: ObjectId = await context.database.faqs
-    .insertOne(mutateArgs(args, MutateAction.CREATE))
-    .then((faq) => faq.insertedId)
+  await context.database.faqs.insertOne(mutateArgs(args, MutateAction.CREATE))
 
   await createAuditLog(AuditLogAction.CREATE_FAQ, context)
-
-  return { _id: faqId, ...args }
 }

@@ -3,7 +3,7 @@ import { useQuery, useMutation } from '@apollo/client'
 import { GetFAQ } from '../View/query'
 import mutation from './mutation'
 import { Button, CircularProgress, Typography } from '@mui/material'
-import { FAQ } from '../../../../types/faq'
+import { FAQ, UpdateFAQArgs } from '../../../../types/faq'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
 import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
@@ -13,22 +13,20 @@ const globalAny: any = global
 
 const UpdateFAQ = ({
   _id,
-  refetchArgs,
-  setUpdateModalOpen
+  refetchArgs
 }: {
   _id: string
   refetchArgs: RefetchDataArgs
-  setUpdateModalOpen: React.Dispatch<React.SetStateAction<boolean>>
 }): ReactElement => {
-  const [args, setArgs] = useState<any>({
+  const [args, setArgs] = useState<UpdateFAQArgs>({
     _id: null,
     answer: null,
     question: null
   })
+
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const { data, loading } = useQuery(GetFAQ, { variables: { _id } })
-
   const faq: FAQ = data?.get_faq || {}
 
   useEffect(() => {
@@ -45,7 +43,6 @@ const UpdateFAQ = ({
       globalAny.setNotification(true, 'FAQ successfully updated!')
       refetchData(refetchArgs)
       setValidateFields(false)
-      setUpdateModalOpen(false)
     },
     onError: (error) => globalAny.setNotification(false, error.message)
   })

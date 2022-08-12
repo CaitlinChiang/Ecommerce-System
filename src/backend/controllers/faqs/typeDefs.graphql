@@ -15,9 +15,9 @@ extend type Query {
 }
 
 extend type Mutation {
-  create_faq(answer: String!, question: String!): FAQ
+  create_faq(answer: String!, question: String!): Void
 
   update_faq(_id: ID!, answer: String!, question: String!): FAQ
 
-  delete_faq(_id: ID!): FAQ
+  delete_faq(_id: ID!): Void
 }

@@ -4,14 +4,14 @@ import { GetFAQs } from '../query'
 import { Typography } from '@mui/material'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
-import { FAQ } from '../../../../../types/faq'
+import { FAQ, GetFAQArgs } from '../../../../../types/faq'
 import { PaginateDataArgs } from '../../../../../types/actions/paginateData'
 import { SortDirection } from '../../../../_enums/sortDirection'
 import DropdownsComponent from '../../../_common/DropdownsComponent'
 import { fetchMoreArgs } from '../../../../_utils/handleArgs/returnFetchMoreArgs'
 
 const FAQsDropdowns = (): ReactElement => {
-  const args: any = {}
+  const args: GetFAQArgs = {}
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
     page: 0,
     rowsPerPage: 10,
@@ -24,7 +24,6 @@ const FAQsDropdowns = (): ReactElement => {
     variables: { ...args, paginateData: paginateDataArgs },
     ...fetchMoreArgs
   })
-
   const faqs: FAQ[] = data?.get_faqs || []
   const faqsCount: number = data?.get_faqs_count || 0
 

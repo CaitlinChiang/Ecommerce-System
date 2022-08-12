@@ -6,7 +6,7 @@ import { IconButton, Typography } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
-import { FAQ } from '../../../../../types/faq'
+import { FAQ, GetFAQArgs } from '../../../../../types/faq'
 import { PaginateDataArgs } from '../../../../../types/actions/paginateData'
 import { RefetchDataArgs } from '../../../../../types/actions/refetchData'
 import { AdminPermission } from '../../../../_enums/adminPermission'
@@ -23,7 +23,7 @@ const FAQsDropdowns = (): ReactElement => {
   const disableUpdateFAQ = !authenticateUser(AdminPermission.UPDATE_FAQ)
   const disableDeleteFAQ = !authenticateUser(AdminPermission.DELETE_FAQ)
 
-  const args: any = {}
+  const args: GetFAQArgs = {}
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
     page: 0,
     rowsPerPage: 10,
@@ -31,8 +31,12 @@ const FAQsDropdowns = (): ReactElement => {
     sortBy: 'createdAt',
     sortDirection: SortDirection.ASC
   })
-  const [faqId, setFaqId] = useState<string>('')
-  const [updateModalOpen, setUpdateModalOpen] = useState<boolean>(false)
+
+  const [update, setUpdate] = useState<{ faqId: string; openModal: boolean }>({
+    faqId: null,
+    openModal: false
+  })
+
   const [refetchArgs, setRefetchArgs] = useState<RefetchDataArgs>({
     args: null,
     count: null,
@@ -45,7 +49,6 @@ const FAQsDropdowns = (): ReactElement => {
     variables: { ...args, paginateData: paginateDataArgs },
     ...fetchMoreArgs
   })
-
   const faqs: FAQ[] = data?.get_faqs || []
   const faqsCount: number = data?.get_faqs_count || 0
 
@@ -69,8 +72,7 @@ const FAQsDropdowns = (): ReactElement => {
             <IconButton
               disabled={disableUpdateFAQ}
               onClick={(): void => {
-                setFaqId(String(faq._id))
-                setUpdateModalOpen(true)
+                setUpdate({ faqId: String(faq._id), openModal: true })
               }}
             >
               <EditIcon />
@@ -100,15 +102,9 @@ const FAQsDropdowns = (): ReactElement => {
     <>
       <CreateFAQ refetchArgs={refetchArgs} />
       <ModalComponent
-        content={
-          <UpdateFAQ
-            _id={faqId}
-            refetchArgs={refetchArgs}
-            setUpdateModalOpen={setUpdateModalOpen}
-          />
-        }
-        onClose={(): void => setUpdateModalOpen(false)}
-        open={updateModalOpen}
+        content={<UpdateFAQ _id={update.faqId} refetchArgs={refetchArgs} />}
+        onClose={(): void => setUpdate({ ...update, openModal: false })}
+        open={update.openModal}
         title={'Update FAQ'}
       />
       <DropdownsComponent

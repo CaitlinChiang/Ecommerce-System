@@ -21,7 +21,7 @@ export interface CreateFAQArgs {
 }
 
 export interface UpdateFAQArgs {
-  _id: ObjectId
+  _id: ObjectId | string
   answer: string
   question: string
   updatedAt?: Date

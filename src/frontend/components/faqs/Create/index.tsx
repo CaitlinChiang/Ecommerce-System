@@ -2,6 +2,7 @@ import { ReactElement, useState } from 'react'
 import { useMutation } from '@apollo/client'
 import mutation from './mutation'
 import { Button } from '@mui/material'
+import { CreateFAQArgs } from '../../../../types/faq'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import { AdminPermission } from '../../../_enums/adminPermission'
 import Text from '../../_common/TextField'
@@ -19,10 +20,11 @@ const CreateFAQ = ({
 }): ReactElement => {
   if (!authenticateUser(AdminPermission.CREATE_FAQ)) return
 
-  const [args, setArgs] = useState<any>({
+  const [args, setArgs] = useState<CreateFAQArgs>({
     answer: null,
     question: null
   })
+
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const [createMutation, createMutationState] = useMutation(mutation, {
