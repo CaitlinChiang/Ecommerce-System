@@ -2,9 +2,11 @@ import { ReactElement } from 'react'
 import theme from '../../themes'
 import styles from '../../styles/_common/modalComponent'
 import {
+  Button,
   CircularProgress,
   Collapse,
   Dialog,
+  DialogActions,
   DialogContent,
   DialogTitle,
   useMediaQuery
@@ -38,6 +40,11 @@ const ModalComponent = ({
             <CircularProgress />
           </Collapse>
         </DialogContent>
+        <DialogActions disableSpacing>
+          <Button color={'secondary'} onClick={onClose}>
+            {'Cancel'}
+          </Button>
+        </DialogActions>
       </Dialog>
     </>
   )
