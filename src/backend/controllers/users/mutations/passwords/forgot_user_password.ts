@@ -4,7 +4,7 @@ import { MutateAction } from '../../../../_enums/mutateAction'
 import { authenticateUser } from '../../../../_utils/auth/authenticateUser'
 import { mutateArgs } from '../../../../_utils/handleArgs/mutateArgs'
 import { validateUser } from '../../../../_utils/handleValidation/validateUser'
-import { sendVerificationCode } from '../../../../_utils/handleMail/sendVerificationCode'
+import { sendVerificationCode } from '../../../../_utils/handleMail/send/verificationCode'
 
 export default async (
   _root: undefined,
