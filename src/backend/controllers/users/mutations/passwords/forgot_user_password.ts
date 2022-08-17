@@ -27,5 +27,5 @@ export default async (
     { $set: mutateArgs({ verificationCode }, MutateAction.UPDATE) }
   )
 
-  await sendVerificationCode(verificationCode)
+  await sendVerificationCode(args.email, verificationCode)
 }
