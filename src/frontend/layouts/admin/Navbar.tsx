@@ -114,11 +114,11 @@ const Navbar = ({
         >
           <ListItemAvatar>
             <Avatar sx={styles.avatar} variant={'square'}>
-              {`${user?.firstName?.[0]}`}
+              {`${user?.firstName?.[0] || 'N'}`}
             </Avatar>
           </ListItemAvatar>
           <ListItemText
-            primary={`${user?.firstName} ${user?.lastName}`}
+            primary={`${user?.firstName || 'No'} ${user?.lastName || 'User'}`}
             secondary={user?.email}
           />
         </ListItem>
