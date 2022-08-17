@@ -12,7 +12,7 @@ export const sendVerificationCode = async (
       ToAddresses: [email]
     },
     Template: 'VERIFICATION_CODE_TEMPLATE',
-    TemplateData: '{ "verificationCode": verificationCode }',
+    TemplateData: '{ "verificationCode": "' + verificationCode + '" }',
     Source: 'estoree.services@gmail.com',
     ReplyToAddresses: []
   }
