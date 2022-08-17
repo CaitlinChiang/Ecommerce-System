@@ -1,4 +1,4 @@
-const AWS = require('../setup/aws-ses')
+const AWS = require('../../setup/aws-ses')
 
 // CHANGE IMPORT DEPENDING ON WHICH TEMPLATE IS BEING UPDATED
 import { verificationCodeTemplate } from './htmlTemplates/verificationCode'

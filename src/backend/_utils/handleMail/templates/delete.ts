@@ -1,4 +1,4 @@
-const AWS = require('../setup/aws-ses')
+const AWS = require('../../setup/aws-ses')
 
 export const deleteTemplate = async (): Promise<void> => {
   const deleteTemplate = new AWS.SES({ apiVersion: '2010-12-01' })

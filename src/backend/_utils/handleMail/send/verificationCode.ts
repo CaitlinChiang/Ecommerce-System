@@ -1,4 +1,4 @@
-const AWS = require('../setup/mailer')
+const AWS = require('../../setup/aws-ses')
 
 export const sendVerificationCode = async (
   email: string,
