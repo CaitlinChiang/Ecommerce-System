@@ -31,7 +31,7 @@ export default async (
 
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.CREATE_ORDER,
-    orderId: orderId,
+    orderId,
     ...auditArgs(context)
   })
 

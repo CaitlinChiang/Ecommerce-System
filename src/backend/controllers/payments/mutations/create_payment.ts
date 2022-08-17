@@ -8,6 +8,7 @@ import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { mutateArgs } from '../../../_utils/handleArgs/mutateArgs'
 import { auditArgs } from '../../../_utils/handleArgs/auditArgs'
 import { uploadImage } from '../../../_utils/handleImages/upload'
+import { sendPaymentReceipt } from '../../../_utils/handleMail/send/paymentReceipt'
 
 export const createPayment = async (
   orderId: ObjectId,
@@ -34,4 +35,6 @@ export const createPayment = async (
     orderId,
     ...auditArgs(context)
   })
+
+  await sendPaymentReceipt(orderId, context)
 }
