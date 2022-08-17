@@ -36,5 +36,5 @@ export const createPayment = async (
     ...auditArgs(context)
   })
 
-  await sendPaymentReceipt(orderId, context)
+  await sendPaymentReceipt(orderId, modifiedArgs, context)
 }
