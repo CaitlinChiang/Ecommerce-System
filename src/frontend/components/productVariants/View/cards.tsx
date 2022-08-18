@@ -30,7 +30,7 @@ const ProductVariantCards = ({
     productVariants?.map((productVariant: ProductVariant): ReactElement => {
       const { imageUrl, name } = productVariant
 
-      if (imageUrl.includes('products/')) {
+      if (imageUrl?.includes('products/')) {
         return (
           <CardComponent
             content={<Typography>{name}</Typography>}
