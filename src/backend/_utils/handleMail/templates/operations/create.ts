@@ -1,7 +1,7 @@
 const AWS = require('../../setup/aws-ses')
 
 // CHANGE IMPORT DEPENDING ON WHICH TEMPLATE IS BEING CREATED
-import { paymentReceiptTemplate } from './htmlTemplates/paymentReceipt'
+import { paymentReceiptTemplate } from '../paymentReceipt'
 
 export const createTemplate = async (): Promise<void> => {
   const createTemplate = new AWS.SES({ apiVersion: '2010-12-01' })
