@@ -31,7 +31,7 @@ const UpdateFAQ = ({
 
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
-  const { data, loading } = useQuery(GetFAQ, { variables: { _id } })
+  const { data, loading } = useQuery(GetFAQ, { skip: !_id, variables: { _id } })
   const faq: FAQ = data?.get_faq || {}
 
   useEffect(() => {

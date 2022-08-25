@@ -12,7 +12,6 @@ import { AdminPermission } from '../../../../_enums/adminPermission'
 import { SortDirection } from '../../../../_enums/sortDirection'
 import { DateRangeType } from '../../../../_enums/dateRangeType'
 import TableComponent from '../../../_common/TableComponent'
-import ModalComponent from '../../../_common/ModalComponent'
 import UpdateOrderSelect from '../../Update/select'
 import UpdatePaymentSelect from '../../../payments/Update/select'
 import UpdatePaymentImageUpload from '../../../payments/Update/imageUpload'
@@ -94,7 +93,8 @@ const OrdersTable = (): ReactElement => {
 
   const orderRows = [
     orders?.map((order: Order): ReactElement => {
-      const { createdAt, deliveryAddress, items, payment, updatedAt, user } = order
+      const { _id, createdAt, deliveryAddress, items, payment, updatedAt, user } =
+        order
 
       return (
         <TableRow>
@@ -107,15 +107,13 @@ const OrdersTable = (): ReactElement => {
             {deliveryAddress?.address} <br /> {deliveryAddress?.city?.name}
           </TableCell>
           <TableCell>
-            <Button
-              onClick={(): void => setItems({ items: items, openModal: true })}
-            >
+            <Button onClick={(): void => setItems({ items, openModal: true })}>
               {'View Items'}
             </Button>
           </TableCell>
           <TableCell>
             <UpdateOrderSelect
-              _id={order._id}
+              _id={_id}
               disabled={disableUpdateOrder}
               refetchArgs={refetchArgs}
               status={order.status}
@@ -128,7 +126,7 @@ const OrdersTable = (): ReactElement => {
           </TableCell>
           <TableCell>
             <UpdatePaymentSelect
-              _orderId={order._id}
+              _orderId={_id}
               disabled={disableUpdatePayment}
               refetchArgs={refetchArgs}
               status={payment?.status}
@@ -139,7 +137,7 @@ const OrdersTable = (): ReactElement => {
             <br />
             <Button
               onClick={(): void => {
-                setLogs({ orderId: String(order._id), openModal: false })
+                setLogs({ orderId: String(_id), openModal: false })
                 setPayment({ payment, openModal: true })
               }}
             >
@@ -149,7 +147,7 @@ const OrdersTable = (): ReactElement => {
           <TableCell>
             <Button
               onClick={(): void => {
-                setLogs({ orderId: String(order._id), openModal: true })
+                setLogs({ orderId: String(_id), openModal: true })
               }}
             >
               {'View Order Logs'}
@@ -159,7 +157,7 @@ const OrdersTable = (): ReactElement => {
           <TableCell>{String(updatedAt)}</TableCell>
           <TableCell>
             <DeleteButton
-              _id={order._id}
+              _id={_id}
               disabled={disableDeleteOrder}
               label={'Order'}
               mutation={deleteMutation}
@@ -174,29 +172,22 @@ const OrdersTable = (): ReactElement => {
 
   return (
     <>
-      <ModalComponent
-        content={<OrderItemsTable items={items.items} />}
+      <OrderItemsTable
+        items={items.items}
         onClose={(): void => setItems({ ...items, openModal: false })}
         open={items.openModal}
-        title={'Order Items'}
       />
-      <ModalComponent
-        content={
-          <UpdatePaymentImageUpload
-            _orderId={logs.orderId}
-            payment={payment.payment}
-            refetchArgs={refetchArgs}
-          />
-        }
+      <UpdatePaymentImageUpload
+        _orderId={logs.orderId}
         onClose={(): void => setPayment({ ...payment, openModal: false })}
         open={payment.openModal}
-        title={'Payment Proof'}
+        payment={payment.payment}
+        refetchArgs={refetchArgs}
       />
-      <ModalComponent
-        content={<OrderLogsTable orderId={logs.orderId} />}
+      <OrderLogsTable
+        _orderId={logs.orderId}
         onClose={(): void => setLogs({ ...logs, openModal: false })}
         open={logs.openModal}
-        title={'Audit Logs for this Order'}
       />
       <TableComponent
         args={args}

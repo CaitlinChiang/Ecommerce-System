@@ -4,11 +4,20 @@ import { GetAuditLogs } from './query'
 import { TableCell, TableRow } from '@mui/material'
 import { AuditLog, GetAuditLogArgs } from '../../../../types/auditLog'
 import { SortDirection } from '../../../_enums/sortDirection'
+import ModalComponent from '../../_common/ModalComponent'
 import SimpleTableComponent from '../../_common/SimpleTableComponent'
 import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
 
-const OrderLogsTable = ({ orderId }: { orderId: string }): ReactElement => {
-  const args: GetAuditLogArgs = { orderId }
+const OrderLogsTable = ({
+  _orderId,
+  onClose,
+  open
+}: {
+  _orderId: string
+  onClose: VoidFunction
+  open: boolean
+}): ReactElement => {
+  const args: GetAuditLogArgs = { orderId: _orderId }
 
   const { data, loading } = useQuery(GetAuditLogs, {
     variables: {
@@ -36,10 +45,17 @@ const OrderLogsTable = ({ orderId }: { orderId: string }): ReactElement => {
   ]
 
   return (
-    <SimpleTableComponent
-      headers={auditLogHeaders}
-      loading={loading}
-      rows={auditLogRows}
+    <ModalComponent
+      content={
+        <SimpleTableComponent
+          headers={auditLogHeaders}
+          loading={loading}
+          rows={auditLogRows}
+        />
+      }
+      onClose={onClose}
+      open={open}
+      title={'Audit Logs for this Order'}
     />
   )
 }
