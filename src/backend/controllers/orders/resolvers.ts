@@ -35,6 +35,16 @@ export default {
       return await returnCartItems(order?.items, context)
     },
 
+    itemsQuantity: async (order: Order): Promise<number> => {
+      const itemsQuantity: number = order?.items?.reduce(
+        (totalQuantity: number, currentProduct: CartItem): number => {
+          return totalQuantity + currentProduct.quantity
+        },
+        0
+      )
+      return itemsQuantity
+    },
+
     payment: async (
       order: Order,
       _args: undefined,
