@@ -52,7 +52,7 @@ const OrdersTable = (): ReactElement => {
 
   const orderRows = [
     orders?.map((order: Order): ReactElement => {
-      const { _id, createdAt, items, payment, status } = order
+      const { _id, createdAt, items, itemsQuantity, payment, status } = order
 
       return (
         <TableRow>
@@ -63,7 +63,7 @@ const OrdersTable = (): ReactElement => {
               {'View Items'}
             </Button>
           </TableCell>
-          <TableCell>{items?.length}</TableCell>
+          <TableCell>{itemsQuantity}</TableCell>
           <TableCell>{`P${formatPrice(payment?.amountDue)}`}</TableCell>
           <TableCell>{`P${formatPrice(payment?.shippingFee)}`}</TableCell>
           <TableCell>{status}</TableCell>
