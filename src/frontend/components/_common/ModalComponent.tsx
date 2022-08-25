@@ -17,12 +17,16 @@ const ModalComponent = ({
   loading,
   onClose,
   open,
+  primaryButtonTitle,
+  primaryButtonOnClick,
   title
 }: {
   content: ReactElement
   loading?: boolean
   onClose?: VoidFunction
   open: boolean
+  primaryButtonTitle?: string
+  primaryButtonOnClick?: VoidFunction
   title?: string
 }): ReactElement => {
   return (
@@ -41,6 +45,15 @@ const ModalComponent = ({
           </Collapse>
         </DialogContent>
         <DialogActions disableSpacing>
+          {primaryButtonTitle && (
+            <Button
+              disabled={loading}
+              color={'primary'}
+              onClick={primaryButtonOnClick}
+            >
+              {primaryButtonTitle || 'Save Changes'}
+            </Button>
+          )}
           <Button color={'secondary'} onClick={onClose}>
             {'Cancel'}
           </Button>
