@@ -55,7 +55,7 @@ const ReviewsTable = (): ReactElement => {
 
   const reviewRows = [
     reviews?.map((review: Review): ReactElement => {
-      const { content, createdAt, featured, username } = review
+      const { _id, content, createdAt, featured, username } = review
 
       return (
         <TableRow>
@@ -64,7 +64,7 @@ const ReviewsTable = (): ReactElement => {
           <TableCell>{content}</TableCell>
           <TableCell>
             <UpdateReviewCheckbox
-              _id={review._id}
+              _id={_id}
               disabled={disableUpdateReview}
               featured={featured}
               refetchArgs={refetchArgs}
@@ -72,7 +72,7 @@ const ReviewsTable = (): ReactElement => {
           </TableCell>
           <TableCell>
             <DeleteButton
-              _id={review._id}
+              _id={_id}
               disabled={disableDeleteReview}
               label={'Review'}
               mutation={deleteMutation}

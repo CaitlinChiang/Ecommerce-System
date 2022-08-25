@@ -85,7 +85,7 @@ const ProductsTable = (): ReactElement => {
 
   const productRows = [
     products?.map((product: Product): ReactElement => {
-      const { category, discount, expirationDate, name, price, stockQuantity } =
+      const { _id, category, discount, expirationDate, name, price, stockQuantity } =
         product
 
       return (
@@ -100,13 +100,13 @@ const ProductsTable = (): ReactElement => {
             <IconButton
               disabled={disableUpdateProduct}
               onClick={(): void => {
-                router.push('products/[productId]', `products/${product._id}`)
+                router.push('products/[productId]', `products/${_id}`)
               }}
             >
               <EditIcon />
             </IconButton>
             <DeleteButton
-              _id={product._id}
+              _id={_id}
               disabled={disableDeleteProduct}
               label={'Product'}
               mutation={deleteMutation}

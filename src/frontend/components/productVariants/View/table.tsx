@@ -95,7 +95,8 @@ const ProductVariantsTable = ({
 
   const productVariantRows = [
     productVariants?.map((productVariant: ProductVariant): ReactElement => {
-      const { discount, expirationDate, name, price, stockQuantity } = productVariant
+      const { _id, discount, expirationDate, name, price, stockQuantity } =
+        productVariant
 
       return (
         <TableRow>
@@ -110,14 +111,14 @@ const ProductVariantsTable = ({
               onClick={(): void => {
                 router.push(
                   '[productId]/variants/[productVariantId]',
-                  `${_productId}/variants/${productVariant._id}`
+                  `${_productId}/variants/${_id}`
                 )
               }}
             >
               <EditIcon />
             </IconButton>
             <DeleteButton
-              _id={productVariant._id}
+              _id={_id}
               disabled={disableDeleteProductVariant}
               label={'Product Variant'}
               mutation={deleteMutation}

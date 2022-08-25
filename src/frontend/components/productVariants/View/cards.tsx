@@ -28,13 +28,13 @@ const ProductVariantCards = ({
 
   const productVariantCards = [
     productVariants?.map((productVariant: ProductVariant): ReactElement => {
-      const { imageUrl, name } = productVariant
+      const { _id, imageUrl, name } = productVariant
 
       if (imageUrl?.includes('products/')) {
         return (
           <CardComponent
             content={<Typography>{name}</Typography>}
-            productVariantId={String(productVariant._id)}
+            productVariantId={String(_id)}
           />
         )
       }
@@ -44,7 +44,7 @@ const ProductVariantCards = ({
           content={<Typography>{name}</Typography>}
           imageAlt={`${name} Product Variant Image`}
           imageSource={imageUrl}
-          productVariantId={String(productVariant._id)}
+          productVariantId={String(_id)}
         />
       )
     })

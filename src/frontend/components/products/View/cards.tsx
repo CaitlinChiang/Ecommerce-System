@@ -50,7 +50,7 @@ const ProductCards = ({ featured }: { featured: boolean }): ReactElement => {
 
   const productCards = [
     products?.map((product: Product): ReactElement => {
-      const { discount, imageUrl, name, price } = product
+      const { _id, discount, imageUrl, name, price } = product
 
       return (
         <CardComponent
@@ -69,7 +69,7 @@ const ProductCards = ({ featured }: { featured: boolean }): ReactElement => {
           imageSource={imageUrl}
           redirectLink={{
             path: 'shop/[productId]',
-            url: `shop/${product._id}`
+            url: `shop/${_id}`
           }}
         />
       )

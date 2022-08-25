@@ -114,6 +114,9 @@ const AdministratorsTable = (): ReactElement => {
 
   return (
     <>
+      <Button onClick={(): void => setCreateModal(true)}>
+        {'Create Admin Account'}
+      </Button>
       <ModalComponent
         content={
           <CreateUser
@@ -126,20 +129,12 @@ const AdministratorsTable = (): ReactElement => {
         open={createModal}
         title={'Create Admin Account'}
       />
-      <ModalComponent
-        content={
-          <UpdateAdminPermissions
-            refetchArgs={refetchArgs}
-            user={permissions.user}
-          />
-        }
+      <UpdateAdminPermissions
         onClose={(): void => setPermissions({ ...permissions, openModal: false })}
         open={permissions.openModal}
-        title={'Admin Permissions'}
+        refetchArgs={refetchArgs}
+        user={permissions.user}
       />
-      <Button onClick={(): void => setCreateModal(true)}>
-        {'Create Admin Account'}
-      </Button>
       <TableComponent
         args={args}
         count={usersCount}

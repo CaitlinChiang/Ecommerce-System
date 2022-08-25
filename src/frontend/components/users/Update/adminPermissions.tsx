@@ -1,10 +1,11 @@
 import { ReactElement, useState, useEffect } from 'react'
 import { useMutation } from '@apollo/client'
 import mutation from './mutation'
-import { Button, Checkbox, TableCell, TableRow } from '@mui/material'
+import { Checkbox, TableCell, TableRow } from '@mui/material'
 import { User } from '../../../../types/user'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import { AdminPermission } from '../../../_enums/adminPermission'
+import ModalComponent from '../../_common/ModalComponent'
 import SimpleTableComponent from '../../_common/SimpleTableComponent'
 import { refetchData } from '../../../_utils/handleData/refetchData'
 import {
@@ -18,9 +19,13 @@ import {
 const globalAny: any = global
 
 const UpdateAdminPermissions = ({
+  onClose,
+  open,
   refetchArgs,
   user
 }: {
+  onClose: VoidFunction
+  open: boolean
   refetchArgs: RefetchDataArgs
   user: User
 }): ReactElement => {
@@ -32,7 +37,7 @@ const UpdateAdminPermissions = ({
     }
   }, [user])
 
-  const [updateMutation, updateMutationState] = useMutation(mutation, {
+  const [updateMutation] = useMutation(mutation, {
     variables: { ...user, permissions: adminPermissions },
     onCompleted: () => {
       globalAny.setNotification(true, 'Admin permissions successfully updated!')
@@ -94,17 +99,17 @@ const UpdateAdminPermissions = ({
   ]
 
   return (
-    <>
-      <SimpleTableComponent headers={permissionHeaders} rows={permissionRows} />
-      <Button
-        disabled={updateMutationState.loading}
-        onClick={(): void => {
-          updateMutation()
-        }}
-      >
-        {'Save Changes'}
-      </Button>
-    </>
+    <ModalComponent
+      content={
+        <SimpleTableComponent headers={permissionHeaders} rows={permissionRows} />
+      }
+      onClose={onClose}
+      open={open}
+      primaryButtonOnClick={(): void => {
+        updateMutation()
+      }}
+      title={'Admin Permissions'}
+    />
   )
 }
 
