@@ -7,6 +7,7 @@ import { Button } from '@mui/material'
 import { CreateUserArgs } from '../../../../types/user'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import { UserType } from '../../../_enums/userType'
+import ModalComponent from '../../_common/ModalComponent'
 import Text from '../../_common/TextField'
 import PasswordField from '../../_common/PasswordField'
 import CitiesSelect from '../../cities/View/select'
@@ -16,12 +17,14 @@ import { refetchData } from '../../../_utils/handleData/refetchData'
 const globalAny: any = global
 
 const CreateUser = ({
+  onClose,
+  open,
   refetchArgs,
-  setCreateModal,
   type
 }: {
+  onClose?: VoidFunction
+  open?: boolean
   refetchArgs?: RefetchDataArgs
-  setCreateModal?: React.Dispatch<React.SetStateAction<boolean>>
   type: UserType
 }): ReactElement => {
   const router = useRouter()
@@ -46,7 +49,7 @@ const CreateUser = ({
       switch (type) {
         case UserType.ADMINISTRATOR:
           refetchData(refetchArgs)
-          setCreateModal(false)
+          onClose()
           break
         case UserType.CUSTOMER:
           Cookies.set('accessToken', data.create_user)
@@ -56,30 +59,8 @@ const CreateUser = ({
     onError: (error) => globalAny.setNotification(false, error.message)
   })
 
-  return (
+  const adminComponents: ReactElement = (
     <>
-      {type === UserType.CUSTOMER && (
-        <>
-          <Text
-            args={args}
-            nestedProp={'address'}
-            setArgs={setArgs}
-            targetProp={'deliveryAddress'}
-          />
-          <CitiesSelect
-            args={args}
-            setArgs={setArgs}
-            targetProp={'deliveryAddress'}
-          />
-          <PasswordField
-            args={args}
-            error={validateFields}
-            required={true}
-            setArgs={setArgs}
-            targetProp={'password'}
-          />
-        </>
-      )}
       <Text
         args={args}
         error={validateFields}
@@ -108,6 +89,49 @@ const CreateUser = ({
         setArgs={setArgs}
         targetProp={'phoneNumber'}
       />
+    </>
+  )
+
+  if (type === UserType.ADMINISTRATOR) {
+    return (
+      <ModalComponent
+        content={adminComponents}
+        onClose={onClose}
+        open={open}
+        primaryButtonOnClick={(): void => {
+          setValidateFields(true)
+          createMutation()
+        }}
+        title={'Create Admin Account'}
+      />
+    )
+  }
+
+  return (
+    <>
+      {type === UserType.CUSTOMER && (
+        <>
+          <Text
+            args={args}
+            nestedProp={'address'}
+            setArgs={setArgs}
+            targetProp={'deliveryAddress'}
+          />
+          <CitiesSelect
+            args={args}
+            setArgs={setArgs}
+            targetProp={'deliveryAddress'}
+          />
+          <PasswordField
+            args={args}
+            error={validateFields}
+            required={true}
+            setArgs={setArgs}
+            targetProp={'password'}
+          />
+        </>
+      )}
+      {adminComponents}
       <Button
         disabled={createMutationState.loading}
         onClick={(): void => {

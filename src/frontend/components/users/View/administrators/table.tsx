@@ -10,7 +10,6 @@ import { AdminPermission } from '../../../../_enums/adminPermission'
 import { SortDirection } from '../../../../_enums/sortDirection'
 import { UserType } from '../../../../_enums/userType'
 import TableComponent from '../../../_common/TableComponent'
-import ModalComponent from '../../../_common/ModalComponent'
 import CreateUser from '../../Create'
 import UpdateAdminPermissions from '../../Update/adminPermissions'
 import UpdateUserCheckbox from '../../Update/checkbox'
@@ -73,7 +72,7 @@ const AdministratorsTable = (): ReactElement => {
 
   const userRows = [
     users?.map((user: User): ReactElement => {
-      const { createdAt, email, firstName, lastName, phoneNumber } = user
+      const { _id, createdAt, email, firstName, lastName, phoneNumber } = user
 
       return (
         <TableRow>
@@ -99,7 +98,7 @@ const AdministratorsTable = (): ReactElement => {
           <TableCell>{String(createdAt)}</TableCell>
           <TableCell>
             <DeleteButton
-              _id={user._id}
+              _id={_id}
               disabled={disableDeleteUser}
               label={'User'}
               mutation={deleteMutation}
@@ -117,17 +116,11 @@ const AdministratorsTable = (): ReactElement => {
       <Button onClick={(): void => setCreateModal(true)}>
         {'Create Admin Account'}
       </Button>
-      <ModalComponent
-        content={
-          <CreateUser
-            refetchArgs={refetchArgs}
-            setCreateModal={setCreateModal}
-            type={UserType.ADMINISTRATOR}
-          />
-        }
+      <CreateUser
         onClose={(): void => setCreateModal(false)}
         open={createModal}
-        title={'Create Admin Account'}
+        refetchArgs={refetchArgs}
+        type={UserType.ADMINISTRATOR}
       />
       <UpdateAdminPermissions
         onClose={(): void => setPermissions({ ...permissions, openModal: false })}
