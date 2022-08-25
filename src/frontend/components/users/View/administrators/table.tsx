@@ -91,9 +91,7 @@ const AdministratorsTable = (): ReactElement => {
           <TableCell>
             <Button
               disabled={disableUpdateUser}
-              onClick={(): void => {
-                setPermissions({ ...permissions, openModal: true })
-              }}
+              onClick={(): void => setPermissions({ user, openModal: true })}
             >
               {'View Permissions'}
             </Button>
