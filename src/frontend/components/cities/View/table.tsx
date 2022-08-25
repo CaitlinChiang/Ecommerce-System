@@ -10,7 +10,6 @@ import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import { AdminPermission } from '../../../_enums/adminPermission'
 import { SortDirection } from '../../../_enums/sortDirection'
 import TableComponent from '../../_common/TableComponent'
-import ModalComponent from '../../_common/ModalComponent'
 import CreateCity from '../Create'
 import UpdateCity from '../Update'
 import DeleteButton from '../../_common/DeleteButton'
@@ -59,7 +58,7 @@ const CitiesTable = (): ReactElement => {
 
   const cityRows = [
     cities?.map((city: City): ReactElement => {
-      const { name, shippingFee } = city
+      const { _id, name, shippingFee } = city
 
       return (
         <TableRow>
@@ -69,13 +68,13 @@ const CitiesTable = (): ReactElement => {
             <IconButton
               disabled={disableUpdateCity}
               onClick={(): void => {
-                setUpdate({ cityId: String(city._id), openModal: true })
+                setUpdate({ cityId: String(_id), openModal: true })
               }}
             >
               <EditIcon />
             </IconButton>
             <DeleteButton
-              _id={city._id}
+              _id={_id}
               disabled={disableDeleteCity}
               label={'City & shipping fee'}
               mutation={deleteMutation}
@@ -91,11 +90,11 @@ const CitiesTable = (): ReactElement => {
   return (
     <>
       <CreateCity refetchArgs={refetchArgs} />
-      <ModalComponent
-        content={<UpdateCity _id={update.cityId} refetchArgs={refetchArgs} />}
+      <UpdateCity
+        _id={update.cityId}
         onClose={(): void => setUpdate({ ...update, openModal: false })}
         open={update.openModal}
-        title={'Update City & Shipping Fee'}
+        refetchArgs={refetchArgs}
       />
       <TableComponent
         args={args}

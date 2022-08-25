@@ -45,7 +45,7 @@ const ModalComponent = ({
           </Collapse>
         </DialogContent>
         <DialogActions disableSpacing>
-          {primaryButtonTitle && (
+          {primaryButtonOnClick && (
             <Button
               disabled={loading}
               color={'primary'}
