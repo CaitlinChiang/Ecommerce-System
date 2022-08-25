@@ -1,16 +1,18 @@
-import { ReactElement, useState } from 'react'
+import { ReactElement, useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetCart } from '../../cart/View/query'
 import { GetCity } from '../../cities/View/query'
 import { GetPaymentMethod } from '../../paymentMethods/View/query'
+import { GetUser } from '../../users/View/query'
 import { useRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
 import mutation from './mutation'
-import { Button, Container, Typography } from '@mui/material'
+import { Button, CircularProgress, Container, Typography } from '@mui/material'
 import { Cart, CartItem } from '../../../../types/cart'
 import { City } from '../../../../types/city'
 import { CreateOrderArgs } from '../../../../types/order'
 import { PaymentMethod } from '../../../../types/paymentMethod'
+import { User } from '../../../../types/user'
 import OrderSummary from './orderSummary'
 import CitiesSelect from '../../cities/View/select'
 import PaymentMethodsSelect from '../../paymentMethods/View/select'
@@ -36,6 +38,9 @@ const CreateOrder = (): ReactElement => {
 
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
+  const { data: userData } = useQuery(GetUser)
+  const user: User = userData?.get_user || {}
+
   const { data: cartData } = useQuery(GetCart)
   const cart: Cart = cartData?.get_cart || {}
 
@@ -50,6 +55,18 @@ const CreateOrder = (): ReactElement => {
     variables: { _id: args.payment.paymentMethodId }
   })
   const paymentMethod: PaymentMethod = paymentMethodData?.get_payment_method || {}
+
+  useEffect(() => {
+    if (user?.deliveryAddress) {
+      setArgs({
+        ...args,
+        deliveryAddress: {
+          address: user?.deliveryAddress?.address,
+          cityId: user?.deliveryAddress?.cityId
+        }
+      })
+    }
+  }, [user])
 
   const cartItems: CartItem[] = cart?.items?.map((item: CartItem) => {
     const { product, productVariant, quantity, totalPrice } = item
@@ -81,6 +98,7 @@ const CreateOrder = (): ReactElement => {
 
   return (
     <>
+      {createMutationState.loading && <CircularProgress />}
       <Container>
         <OrderSummary cart={cart} city={city} />
       </Container>
