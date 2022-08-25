@@ -11,6 +11,7 @@ export interface Order {
   _id?: ObjectId
   deliveryAddress?: DeliveryAddress
   items?: CartItem[]
+  itemsQuantity?: number
   payment?: Payment
   paymentId?: ObjectId
   status?: OrderStatus

@@ -30,6 +30,7 @@ export const GetOrders = gql`
         quantity
         totalPrice
       }
+      itemsQuantity
       payment {
         amountDue
         imageProofUrl

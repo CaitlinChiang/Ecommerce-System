@@ -2,6 +2,7 @@ type Order {
   _id: ID
   deliveryAddress: DeliveryAddress
   items: [CartItem]
+  itemsQuantity: Int
   payment: Payment
   paymentId: ID
   status: String
