@@ -24,11 +24,11 @@ const UpdatePaymentImageUpload = ({
 }): ReactElement => {
   const [args, setArgs] = useState<any>({
     imageProof: null,
-    imageProofUrl: payment.imageProofUrl
+    imageProofUrl: payment?.imageProofUrl
   })
 
   const [updateMutation] = useMutation(mutation, {
-    variables: { _orderId, status: payment.status, ...args },
+    variables: { _orderId, status: payment?.status, ...args },
     onCompleted: () => {
       globalAny.setNotification(true, 'Payment proof successfully updated!')
       refetchData(refetchArgs)

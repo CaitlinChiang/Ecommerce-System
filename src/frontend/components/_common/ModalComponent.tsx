@@ -51,11 +51,11 @@ const ModalComponent = ({
               color={'primary'}
               onClick={primaryButtonOnClick}
             >
-              {primaryButtonTitle || 'Save Changes'}
+              {primaryButtonTitle || 'Save'}
             </Button>
           )}
           <Button color={'secondary'} onClick={onClose}>
-            {'Cancel'}
+            {'Close'}
           </Button>
         </DialogActions>
       </Dialog>
