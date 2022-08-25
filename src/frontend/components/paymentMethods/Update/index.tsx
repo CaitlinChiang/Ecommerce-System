@@ -2,12 +2,13 @@ import { ReactElement, useState, useEffect } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
 import { GetPaymentMethod } from '../View/query'
 import mutation from './mutation'
-import { Button, CircularProgress, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 import {
   PaymentMethod,
   UpdatePaymentMethodArgs
 } from '../../../../types/paymentMethod'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
+import ModalComponent from '../../_common/ModalComponent'
 import Text from '../../_common/TextField'
 import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
 import { refetchData } from '../../../_utils/handleData/refetchData'
@@ -16,9 +17,13 @@ const globalAny: any = global
 
 const UpdatePaymentMethod = ({
   _id,
+  onClose,
+  open,
   refetchArgs
 }: {
   _id: string
+  onClose: VoidFunction
+  open: boolean
   refetchArgs: RefetchDataArgs
 }): ReactElement => {
   const [args, setArgs] = useState<UpdatePaymentMethodArgs>({
@@ -29,7 +34,10 @@ const UpdatePaymentMethod = ({
 
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
-  const { data, loading } = useQuery(GetPaymentMethod, { variables: { _id } })
+  const { data, loading } = useQuery(GetPaymentMethod, {
+    skip: !_id,
+    variables: { _id }
+  })
   const paymentMethod: PaymentMethod = data?.get_payment_method || {}
 
   useEffect(() => {
@@ -40,7 +48,7 @@ const UpdatePaymentMethod = ({
     })
   }, [data])
 
-  const [updateMutation, updateMutationState] = useMutation(mutation, {
+  const [updateMutation] = useMutation(mutation, {
     variables: correctArgs(args),
     onCompleted: () => {
       globalAny.setNotification(true, 'Payment method successfully updated!')
@@ -51,36 +59,38 @@ const UpdatePaymentMethod = ({
   })
 
   return (
-    <>
-      {loading && <CircularProgress />}
-      <Typography>{`Created At: ${paymentMethod?.createdAt}`}</Typography>
-      <Typography>{`Last Updated At: ${
-        paymentMethod?.updatedAt || '-'
-      }`}</Typography>
-      <Text
-        args={args}
-        error={validateFields}
-        required={true}
-        setArgs={setArgs}
-        targetProp={'name'}
-      />
-      <Text
-        args={args}
-        error={validateFields}
-        required={true}
-        setArgs={setArgs}
-        targetProp={'details'}
-      />
-      <Button
-        disabled={updateMutationState.loading}
-        onClick={(): void => {
-          setValidateFields(true)
-          updateMutation()
-        }}
-      >
-        {'Save Changes'}
-      </Button>
-    </>
+    <ModalComponent
+      content={
+        <>
+          <Typography>{`Created At: ${paymentMethod?.createdAt}`}</Typography>
+          <Typography>{`Last Updated At: ${
+            paymentMethod?.updatedAt || '-'
+          }`}</Typography>
+          <Text
+            args={args}
+            error={validateFields}
+            required={true}
+            setArgs={setArgs}
+            targetProp={'name'}
+          />
+          <Text
+            args={args}
+            error={validateFields}
+            required={true}
+            setArgs={setArgs}
+            targetProp={'details'}
+          />
+        </>
+      }
+      loading={loading}
+      onClose={onClose}
+      open={open}
+      primaryButtonOnClick={(): void => {
+        setValidateFields(true)
+        updateMutation()
+      }}
+      title={'Update Payment Method'}
+    />
   )
 }
 

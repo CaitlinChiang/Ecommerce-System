@@ -10,7 +10,6 @@ import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import { AdminPermission } from '../../../_enums/adminPermission'
 import { SortDirection } from '../../../_enums/sortDirection'
 import TableComponent from '../../_common/TableComponent'
-import ModalComponent from '../../_common/ModalComponent'
 import CreatePaymentMethod from '../Create'
 import UpdatePaymentMethod from '../Update'
 import DeleteButton from '../../_common/DeleteButton'
@@ -62,7 +61,7 @@ const PaymentMethodsTable = (): ReactElement => {
 
   const paymentMethodRows = [
     paymentMethods?.map((paymentMethod: PaymentMethod): ReactElement => {
-      const { details, name } = paymentMethod
+      const { _id, details, name } = paymentMethod
 
       return (
         <TableRow>
@@ -72,13 +71,13 @@ const PaymentMethodsTable = (): ReactElement => {
             <IconButton
               disabled={disableUpdatePaymentMethod}
               onClick={(): void => {
-                setUpdate({ methodId: String(paymentMethod._id), openModal: true })
+                setUpdate({ methodId: String(_id), openModal: true })
               }}
             >
               <EditIcon />
             </IconButton>
             <DeleteButton
-              _id={paymentMethod._id}
+              _id={_id}
               disabled={disableDeletePaymentMethod}
               label={'Payment Method'}
               mutation={deleteMutation}
@@ -94,13 +93,11 @@ const PaymentMethodsTable = (): ReactElement => {
   return (
     <>
       <CreatePaymentMethod refetchArgs={refetchArgs} />
-      <ModalComponent
-        content={
-          <UpdatePaymentMethod _id={update.methodId} refetchArgs={refetchArgs} />
-        }
+      <UpdatePaymentMethod
+        _id={update.methodId}
         onClose={(): void => setUpdate({ ...update, openModal: false })}
         open={update.openModal}
-        title={'Update Payment Method'}
+        refetchArgs={refetchArgs}
       />
       <TableComponent
         args={args}
