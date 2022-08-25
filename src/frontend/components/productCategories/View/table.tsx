@@ -13,7 +13,6 @@ import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import { AdminPermission } from '../../../_enums/adminPermission'
 import { SortDirection } from '../../../_enums/sortDirection'
 import TableComponent from '../../_common/TableComponent'
-import ModalComponent from '../../_common/ModalComponent'
 import CreateProductCategory from '../Create'
 import UpdateProductCategory from '../Update'
 import UpdateProductCategoryCheckbox from '../Update/checkbox'
@@ -69,7 +68,7 @@ const ProductCategoriesTable = (): ReactElement => {
 
   const productCategoryRows = [
     productCategories?.map((productCategory: ProductCategory): ReactElement => {
-      const { name } = productCategory
+      const { _id, name } = productCategory
 
       return (
         <TableRow>
@@ -86,7 +85,7 @@ const ProductCategoriesTable = (): ReactElement => {
               disabled={disableUpdateProductCategory}
               onClick={(): void => {
                 setUpdate({
-                  categoryId: String(productCategory._id),
+                  categoryId: String(_id),
                   openModal: false
                 })
               }}
@@ -94,7 +93,7 @@ const ProductCategoriesTable = (): ReactElement => {
               <EditIcon />
             </IconButton>
             <DeleteButton
-              _id={productCategory._id}
+              _id={_id}
               disabled={disableDeleteProductCategory}
               label={'Product Category'}
               mutation={deleteMutation}
@@ -110,13 +109,11 @@ const ProductCategoriesTable = (): ReactElement => {
   return (
     <>
       <CreateProductCategory refetchArgs={refetchArgs} />
-      <ModalComponent
-        content={
-          <UpdateProductCategory _id={update.categoryId} refetchArgs={refetchArgs} />
-        }
+      <UpdateProductCategory
+        _id={update.categoryId}
         onClose={(): void => setUpdate({ ...update, openModal: false })}
         open={update.openModal}
-        title={'Update Product Category'}
+        refetchArgs={refetchArgs}
       />
       <TableComponent
         args={args}
