@@ -15,9 +15,10 @@ const styles = {
     justifyContent: 'space-between',
     margin: 'auto',
     marginTop: theme.spacing(4),
-    minHeight: process.browser
-      ? window.innerHeight * 0.75 - Number(theme.mixins.toolbar.minHeight)
-      : '75vh'
+    minHeight:
+      typeof window !== 'undefined'
+        ? window.innerHeight * 0.75 - Number(theme.mixins.toolbar.minHeight)
+        : '75vh'
   },
   wide: {}
 }

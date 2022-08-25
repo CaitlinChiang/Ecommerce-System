@@ -1,6 +1,6 @@
 export const fetchMoreArgs: any = {
   ssr: true,
-  skip: !process.browser,
+  skip: typeof window === 'undefined',
   partialRefetch: true,
   returnPartialData: true,
   fetchPolicy: 'cache-and-network',
