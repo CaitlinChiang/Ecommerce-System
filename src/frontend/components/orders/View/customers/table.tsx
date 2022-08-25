@@ -1,13 +1,14 @@
 import { ReactElement, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetOrders } from '../query'
-import { TableCell, TableRow } from '@mui/material'
+import { Button, TableCell, TableRow } from '@mui/material'
 import { Order, GetOrderArgs } from '../../../../../types/order'
 import { CartItem } from '../../../../../types/cart'
 import { PaginateDataArgs } from '../../../../../types/actions/paginateData'
 import { SortDirection } from '../../../../_enums/sortDirection'
 import { OrderStatus } from '../../../../_enums/orderStatus'
 import TableComponent from '../../../_common/TableComponent'
+import OrderItemsTable from '../orderItemsTable'
 import OrdersTableFilters from './tableFilters'
 import { fetchMoreArgs } from '../../../../_utils/handleArgs/returnFetchMoreArgs'
 import { formatPrice } from '../../../../_utils/handleFormat/formatPrice'
@@ -26,6 +27,11 @@ const OrdersTable = (): ReactElement => {
 
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
 
+  const [items, setItems] = useState<{ items: CartItem[]; openModal: boolean }>({
+    items: [],
+    openModal: false
+  })
+
   const { data, loading, fetchMore } = useQuery(GetOrders, {
     variables: { ...args, paginateData: paginateDataArgs },
     ...fetchMoreArgs
@@ -34,51 +40,60 @@ const OrdersTable = (): ReactElement => {
   const ordersCount: number = data?.get_orders_count || 0
 
   const orderHeaders = [
-    { label: 'orderId', sortable: true },
-    { display: 'Date of Order', label: 'createdAt', sortable: false },
-    { display: 'Product', label: 'name', sortable: false },
-    { label: 'quantity', sortable: false },
-    { display: 'Price', label: 'totalPrice', sortable: false },
+    { label: 'orderNumber', sortable: false },
+    { label: 'dateOfOrder', sortable: false },
+    { label: 'orderItems', sortable: false },
+    { label: 'totalItems', sortable: false },
+    { label: 'amountDue', sortable: false },
+    { label: 'shippingFee', sortable: false },
     { label: 'status', sortable: false },
     { label: 'paymentMethod', sortable: false }
   ]
 
   const orderRows = [
-    orders?.map((order: Order): ReactElement[] => {
-      const { createdAt, payment, status } = order
+    orders?.map((order: Order): ReactElement => {
+      const { _id, createdAt, items, payment, status } = order
 
-      return order?.items?.map((cartItem: CartItem): ReactElement => {
-        const { product, productVariant, quantity, totalPrice } = cartItem
-
-        return (
-          <TableRow>
-            <TableCell>{String(order._id)}</TableCell>
-            <TableCell>{String(createdAt).substring(0, 10)}</TableCell>
-            <TableCell>{productVariant?.name || product?.name}</TableCell>
-            <TableCell>{quantity}</TableCell>
-            <TableCell>{`P${formatPrice(totalPrice)}`}</TableCell>
-            <TableCell>{status}</TableCell>
-            <TableCell>{payment?.paymentMethod?.name}</TableCell>
-          </TableRow>
-        )
-      })
+      return (
+        <TableRow>
+          <TableCell>{String(_id)}</TableCell>
+          <TableCell>{String(createdAt)}</TableCell>
+          <TableCell>
+            <Button onClick={(): void => setItems({ items, openModal: true })}>
+              {'View Items'}
+            </Button>
+          </TableCell>
+          <TableCell>{items?.length}</TableCell>
+          <TableCell>{`P${formatPrice(payment?.amountDue)}`}</TableCell>
+          <TableCell>{`P${formatPrice(payment?.shippingFee)}`}</TableCell>
+          <TableCell>{status}</TableCell>
+          <TableCell>{payment?.paymentMethod?.name}</TableCell>
+        </TableRow>
+      )
     })
   ]
 
   return (
-    <TableComponent
-      args={args}
-      count={ordersCount}
-      fetchMore={fetchMore}
-      filterContent={<OrdersTableFilters args={args} setArgs={setArgs} />}
-      filterOpen={filterOpen}
-      headers={orderHeaders}
-      loading={loading}
-      paginateDataArgs={paginateDataArgs}
-      rows={orderRows}
-      setFilterOpen={setFilterOpen}
-      setPaginateDataArgs={setPaginateDataArgs}
-    />
+    <>
+      <OrderItemsTable
+        items={items.items}
+        onClose={(): void => setItems({ ...items, openModal: false })}
+        open={items.openModal}
+      />
+      <TableComponent
+        args={args}
+        count={ordersCount}
+        fetchMore={fetchMore}
+        filterContent={<OrdersTableFilters args={args} setArgs={setArgs} />}
+        filterOpen={filterOpen}
+        headers={orderHeaders}
+        loading={loading}
+        paginateDataArgs={paginateDataArgs}
+        rows={orderRows}
+        setFilterOpen={setFilterOpen}
+        setPaginateDataArgs={setPaginateDataArgs}
+      />
+    </>
   )
 }
 
