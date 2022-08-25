@@ -42,7 +42,7 @@ const TableComponent = ({
   fetchMore?: any
   filterContent?: ReactElement
   filterOpen?: boolean
-  headers: { display?: string; label: string; sortable: boolean }[]
+  headers: { label: string; sortable: boolean }[]
   loading: boolean
   paginateDataArgs: PaginateDataArgs
   rows: any[]
@@ -135,13 +135,12 @@ const TableComponent = ({
             <TableRow>
               {headers.map(
                 (
-                  header: { display?: string; label: string; sortable: boolean },
+                  header: { label: string; sortable: boolean },
                   index: number
                 ): ReactElement => {
                   return (
                     <TableCell key={index} align={'center'} padding={'checkbox'}>
-                      {!header.sortable &&
-                        formatText(header?.display || header.label)}
+                      {!header.sortable && formatText(header.label)}
                       {header.sortable && (
                         <TableSortLabel
                           active={sortBy === header.label}
@@ -157,7 +156,7 @@ const TableComponent = ({
                             })
                           }}
                         >
-                          {formatText(header?.display || header.label)}
+                          {formatText(header.label)}
                         </TableSortLabel>
                       )}
                     </TableCell>
