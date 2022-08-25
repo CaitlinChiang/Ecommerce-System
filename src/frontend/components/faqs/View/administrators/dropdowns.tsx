@@ -1,4 +1,4 @@
-import { ReactElement, useState, useEffect } from 'react'
+import { ReactElement, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetFAQs } from '../query'
 import deleteMutation from '../../Delete/mutation'
@@ -12,7 +12,6 @@ import { RefetchDataArgs } from '../../../../../types/actions/refetchData'
 import { AdminPermission } from '../../../../_enums/adminPermission'
 import { SortDirection } from '../../../../_enums/sortDirection'
 import DropdownsComponent from '../../../_common/DropdownsComponent'
-import ModalComponent from '../../../_common/ModalComponent'
 import CreateFAQ from '../../Create'
 import UpdateFAQ from '../../Update'
 import DeleteButton from '../../../_common/DeleteButton'
@@ -54,7 +53,7 @@ const FAQsDropdowns = (): ReactElement => {
 
   const faqRows = faqs?.map(
     (faq: FAQ): { actions: ReactElement; title: string; content: ReactElement } => {
-      const { answer, question } = faq
+      const { _id, answer, question } = faq
 
       return {
         actions: (
@@ -62,13 +61,13 @@ const FAQsDropdowns = (): ReactElement => {
             <IconButton
               disabled={disableUpdateFAQ}
               onClick={(): void => {
-                setUpdate({ faqId: String(faq._id), openModal: true })
+                setUpdate({ faqId: String(_id), openModal: true })
               }}
             >
               <EditIcon />
             </IconButton>
             <DeleteButton
-              _id={faq._id}
+              _id={_id}
               disabled={disableDeleteFAQ}
               label={'FAQ'}
               mutation={deleteMutation}
@@ -91,11 +90,11 @@ const FAQsDropdowns = (): ReactElement => {
   return (
     <>
       <CreateFAQ refetchArgs={refetchArgs} />
-      <ModalComponent
-        content={<UpdateFAQ _id={update.faqId} refetchArgs={refetchArgs} />}
+      <UpdateFAQ
+        _id={update.faqId}
         onClose={(): void => setUpdate({ ...update, openModal: false })}
         open={update.openModal}
-        title={'Update FAQ'}
+        refetchArgs={refetchArgs}
       />
       <DropdownsComponent
         args={args}

@@ -2,9 +2,10 @@ import { ReactElement, useState, useEffect } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
 import { GetFAQ } from '../View/query'
 import mutation from './mutation'
-import { Button, CircularProgress, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 import { FAQ, UpdateFAQArgs } from '../../../../types/faq'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
+import ModalComponent from '../../_common/ModalComponent'
 import Text from '../../_common/TextField'
 import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
 import { refetchData } from '../../../_utils/handleData/refetchData'
@@ -13,9 +14,13 @@ const globalAny: any = global
 
 const UpdateFAQ = ({
   _id,
+  onClose,
+  open,
   refetchArgs
 }: {
   _id: string
+  onClose: VoidFunction
+  open: boolean
   refetchArgs: RefetchDataArgs
 }): ReactElement => {
   const [args, setArgs] = useState<UpdateFAQArgs>({
@@ -37,7 +42,7 @@ const UpdateFAQ = ({
     })
   }, [data])
 
-  const [updateMutation, updateMutationState] = useMutation(mutation, {
+  const [updateMutation] = useMutation(mutation, {
     variables: correctArgs(args),
     onCompleted: () => {
       globalAny.setNotification(true, 'FAQ successfully updated!')
@@ -48,34 +53,36 @@ const UpdateFAQ = ({
   })
 
   return (
-    <>
-      {loading && <CircularProgress />}
-      <Typography>{`Created At: ${faq?.createdAt}`}</Typography>
-      <Typography>{`Last Updated At: ${faq?.updatedAt || '-'}`}</Typography>
-      <Text
-        args={args}
-        error={validateFields}
-        required={true}
-        setArgs={setArgs}
-        targetProp={'question'}
-      />
-      <Text
-        args={args}
-        error={validateFields}
-        required={true}
-        setArgs={setArgs}
-        targetProp={'answer'}
-      />
-      <Button
-        disabled={updateMutationState.loading}
-        onClick={(): void => {
-          setValidateFields(true)
-          updateMutation()
-        }}
-      >
-        {'Save Changes'}
-      </Button>
-    </>
+    <ModalComponent
+      content={
+        <>
+          <Typography>{`Created At: ${faq?.createdAt}`}</Typography>
+          <Typography>{`Last Updated At: ${faq?.updatedAt || '-'}`}</Typography>
+          <Text
+            args={args}
+            error={validateFields}
+            required={true}
+            setArgs={setArgs}
+            targetProp={'question'}
+          />
+          <Text
+            args={args}
+            error={validateFields}
+            required={true}
+            setArgs={setArgs}
+            targetProp={'answer'}
+          />
+        </>
+      }
+      loading={loading}
+      onClose={onClose}
+      open={open}
+      primaryButtonOnClick={(): void => {
+        setValidateFields(true)
+        updateMutation()
+      }}
+      title={'Update FAQ'}
+    />
   )
 }
 
