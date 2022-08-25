@@ -1,9 +1,9 @@
 import { ReactElement } from 'react'
 import { TableCell, TableRow } from '@mui/material'
-import { CartItem } from '../../../../../types/cart'
-import ModalComponent from '../../../_common/ModalComponent'
-import SimpleTableComponent from '../../../_common/SimpleTableComponent'
-import { formatNumber } from '../../../../_utils/handleFormat/formatNumber'
+import { CartItem } from '../../../../types/cart'
+import ModalComponent from '../../_common/ModalComponent'
+import SimpleTableComponent from '../../_common/SimpleTableComponent'
+import { formatNumber } from '../../../_utils/handleFormat/formatNumber'
 
 const OrderItemsTable = ({
   items,
