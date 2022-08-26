@@ -22,8 +22,8 @@ type DeliveryAddress {
   cityId: ID
 }
 input DeliveryAddressInput {
-  address: String!
-  cityId: ID!
+  address: String
+  cityId: ID
 }
 
 extend type Query {
