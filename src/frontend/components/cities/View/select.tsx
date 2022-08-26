@@ -1,7 +1,6 @@
 import { ReactElement } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetCities } from './query'
-import { LinearProgress } from '@mui/material'
 import { ObjectId } from 'mongodb'
 import { City } from '../../../../types/city'
 import { SortDirection } from '../../../_enums/sortDirection'
@@ -31,20 +30,19 @@ const CitiesSelect = ({
     }
   )
 
+  if (loading) return
+
   return (
-    <>
-      {loading && <LinearProgress />}
-      <SelectField
-        args={args}
-        error={error}
-        label={'City'}
-        nestedProp={targetProp ? 'cityId' : null}
-        options={cityOptions}
-        required={required}
-        setArgs={setArgs}
-        targetProp={targetProp || 'cityId'}
-      />
-    </>
+    <SelectField
+      args={args}
+      error={error}
+      label={'City'}
+      nestedProp={targetProp ? 'cityId' : null}
+      options={cityOptions}
+      required={required}
+      setArgs={setArgs}
+      targetProp={targetProp || 'cityId'}
+    />
   )
 }
 

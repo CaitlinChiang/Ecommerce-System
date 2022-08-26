@@ -1,7 +1,6 @@
 import { ReactElement } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetProductCategories } from './query'
-import { CircularProgress } from '@mui/material'
 import { ProductCategory } from '../../../../types/productCategory'
 import { SortDirection } from '../../../_enums/sortDirection'
 import SelectField from '../../_common/SelectField'
@@ -34,21 +33,20 @@ const ProductCategoriesSelect = ({
     }
   )
 
+  if (loading) return
+
   return (
-    <>
-      {loading && <CircularProgress />}
-      <SelectField
-        args={args}
-        disabled={disabled}
-        error={error}
-        label={'Categories'}
-        multiple={multiple}
-        options={productCategoryOptions}
-        required={required}
-        setArgs={setArgs}
-        targetProp={targetProp}
-      />
-    </>
+    <SelectField
+      args={args}
+      disabled={disabled}
+      error={error}
+      label={'Categories'}
+      multiple={multiple}
+      options={productCategoryOptions}
+      required={required}
+      setArgs={setArgs}
+      targetProp={targetProp}
+    />
   )
 }
 

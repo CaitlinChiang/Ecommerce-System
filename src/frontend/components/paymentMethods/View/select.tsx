@@ -1,7 +1,6 @@
 import { ReactElement } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetPaymentMethods } from './query'
-import { LinearProgress } from '@mui/material'
 import { ObjectId } from 'mongodb'
 import { PaymentMethod } from '../../../../types/paymentMethod'
 import { SortDirection } from '../../../_enums/sortDirection'
@@ -31,20 +30,19 @@ const PaymentMethodsSelect = ({
     }
   )
 
+  if (loading) return
+
   return (
-    <>
-      {loading && <LinearProgress />}
-      <SelectField
-        args={args}
-        error={error}
-        label={'Payment Method'}
-        nestedProp={targetProp ? 'paymentMethodId' : null}
-        options={paymentMethodOptions}
-        required={required}
-        setArgs={setArgs}
-        targetProp={targetProp || 'paymentMethodId'}
-      />
-    </>
+    <SelectField
+      args={args}
+      error={error}
+      label={'Payment Method'}
+      nestedProp={targetProp ? 'paymentMethodId' : null}
+      options={paymentMethodOptions}
+      required={required}
+      setArgs={setArgs}
+      targetProp={targetProp || 'paymentMethodId'}
+    />
   )
 }
 
