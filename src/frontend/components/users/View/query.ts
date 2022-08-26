@@ -12,6 +12,7 @@ export const GetUser = gql`
       firstName
       lastName
       phoneNumber
+      type
     }
   }
 `
