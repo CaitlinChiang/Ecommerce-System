@@ -3,16 +3,23 @@ import { GetUser } from '../../layouts/query'
 import { User } from '../../../types/user'
 import { AdminPermission } from '../../_enums/adminPermission'
 
-export const authenticateUser = (permission: AdminPermission): boolean => {
-  const { data, loading } = useQuery(GetUser)
+export const authenticateUser = (
+  permission: AdminPermission,
+  user: User
+): boolean => {
+  let currentUser: User = user
 
-  if (loading) return
+  if (!user) {
+    const { data, loading } = useQuery(GetUser, { skip: user !== null })
 
-  const user: User = data?.get_user || {}
+    if (loading) return
+
+    currentUser = data?.get_user
+  }
 
   const adminPermission = Object(AdminPermission)[permission]
 
-  if (!user?.permissions?.includes(adminPermission)) return false
+  if (!currentUser?.permissions?.includes(adminPermission)) return false
 
   return true
 }
