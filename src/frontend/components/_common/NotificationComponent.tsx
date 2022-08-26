@@ -15,7 +15,10 @@ const NotificationComponent = (): ReactElement => {
   }
 
   const modifyMessage = (message: string): string => {
-    if (message === 'Response not successful: Received status code 400') {
+    const failedResponse = 'Response not successful: Received status code 400'
+    const unreadProperty = 'Cannot read properties of null'
+
+    if (message === failedResponse || message.includes(unreadProperty)) {
       return 'Please fill in all required fields.'
     } else {
       return message
