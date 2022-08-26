@@ -1,17 +1,14 @@
 import { ReactElement } from 'react'
 import { AdminPermission } from '../../../_enums/adminPermission'
 import layout from '../../../layouts/admin'
+import AuthorizedPath from '../../../components/users/Authorization'
 import FAQsDropdowns from '../../../components/faqs/View/administrators/dropdowns'
-import NoPermissions from '../../../components/_common/NoPermissions'
-import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 
 const Page = (): ReactElement => {
-  if (!authenticateUser(AdminPermission.VIEW_FAQ)) return <NoPermissions />
-
   return (
-    <>
+    <AuthorizedPath permission={AdminPermission.VIEW_FAQ}>
       <FAQsDropdowns />
-    </>
+    </AuthorizedPath>
   )
 }
 
