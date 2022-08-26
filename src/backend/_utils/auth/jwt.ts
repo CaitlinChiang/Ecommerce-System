@@ -23,7 +23,6 @@ export const verifyJWT = (
       exp: number
     }
   } catch (err) {
-    console.log(err)
     return
   }
 }
