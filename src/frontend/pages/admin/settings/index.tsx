@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { AdminPermission } from '../../../_enums/adminPermission'
 import layout from '../../../layouts/admin'
-import AuthorizedPath from '../../../components/users/Authorization'
+import AuthorizedAccess from '../../../components/users/Authorization'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import DropdownsComponent from '../../../components/_common/DropdownsComponent'
@@ -59,9 +59,9 @@ const Page = (): ReactElement => {
   })
 
   return (
-    <AuthorizedPath>
+    <AuthorizedAccess>
       <DropdownsComponent icons={icons} rows={authenticatedRows} />
-    </AuthorizedPath>
+    </AuthorizedAccess>
   )
 }
 

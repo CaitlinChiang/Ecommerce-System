@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { Button } from '@mui/material'
 import { AdminPermission } from '../../../../_enums/adminPermission'
 import layout from '../../../../layouts/admin'
-import AuthorizedPath from '../../../../components/users/Authorization'
+import AuthorizedAccess from '../../../../components/users/Authorization'
 import UpdateProduct from '../../../../components/products/Update'
 import ProductVariantsTable from '../../../../components/productVariants/View/table'
 import { authenticateUser } from '../../../../_utils/auth/authenticateUser'
@@ -13,7 +13,7 @@ const Page = (): ReactElement => {
   const productId = router?.query?.productId as string
 
   return (
-    <AuthorizedPath permission={AdminPermission.VIEW_PRODUCT}>
+    <AuthorizedAccess permission={AdminPermission.VIEW_PRODUCT}>
       <UpdateProduct
         _id={productId}
         disabled={!authenticateUser(AdminPermission.UPDATE_PRODUCT)}
@@ -33,7 +33,7 @@ const Page = (): ReactElement => {
       {authenticateUser(AdminPermission.VIEW_PRODUCT_VARIANT) && (
         <ProductVariantsTable _productId={productId} />
       )}
-    </AuthorizedPath>
+    </AuthorizedAccess>
   )
 }
 

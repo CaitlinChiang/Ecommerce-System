@@ -9,7 +9,7 @@ import NoPermissions from '../../_common/NoPermissions'
 import WelcomeBack from '../../_common/WelcomeBack'
 import { checkAdminPermission } from '../../../_utils/auth/authenticateUser'
 
-const AuthorizedPath = ({
+const AuthorizedAccess = ({
   children,
   permission
 }: {
@@ -38,4 +38,4 @@ const AuthorizedPath = ({
   return <>{children}</>
 }
 
-export default AuthorizedPath
+export default AuthorizedAccess

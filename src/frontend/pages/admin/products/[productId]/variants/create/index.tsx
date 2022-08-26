@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 import { useRouter } from 'next/router'
 import { AdminPermission } from '../../../../../../_enums/adminPermission'
 import layout from '../../../../../../layouts/admin'
-import AuthorizedPath from '../../../../../../components/users/Authorization'
+import AuthorizedAccess from '../../../../../../components/users/Authorization'
 import CreateProductVariant from '../../../../../../components/productVariants/Create'
 
 const Page = (): ReactElement => {
@@ -10,9 +10,9 @@ const Page = (): ReactElement => {
   const productId = router?.query?.productId as string
 
   return (
-    <AuthorizedPath permission={AdminPermission.CREATE_PRODUCT_VARIANT}>
+    <AuthorizedAccess permission={AdminPermission.CREATE_PRODUCT_VARIANT}>
       <CreateProductVariant _productId={productId} />
-    </AuthorizedPath>
+    </AuthorizedAccess>
   )
 }
 
