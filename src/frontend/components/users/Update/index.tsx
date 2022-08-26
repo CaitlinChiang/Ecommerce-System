@@ -106,7 +106,6 @@ const UpdateUser = ({ type }: { type: UserType }): ReactElement => {
           />
           <CitiesSelect
             args={args}
-            error={validateFields}
             setArgs={setArgs}
             targetProp={'deliveryAddress'}
           />
