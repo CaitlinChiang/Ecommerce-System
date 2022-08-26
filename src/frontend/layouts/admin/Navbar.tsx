@@ -27,7 +27,7 @@ import { User } from '../../../types/user'
 import { AdminPermission } from '../../_enums/adminPermission'
 import { UserType } from '../../_enums/userType'
 import { generateAdminUrl } from '../../_utils/auth/generateAdminUrl'
-import { authenticateUser } from 'frontend/_utils/auth/authenticateUser'
+import { authenticateUser } from '../../_utils/auth/authenticateUser'
 
 const adminUrl = generateAdminUrl(UserType.ADMINISTRATOR)
 
@@ -125,7 +125,7 @@ const Navbar = ({
         <Divider />
         <Container sx={styles.container} />
         {navbarItems.map((item, index): ReactElement => {
-          if (item?.permission && !authenticateUser(item?.permission)) return
+          if (item?.permission && !authenticateUser(item?.permission, null)) return
 
           return (
             <ListItem
