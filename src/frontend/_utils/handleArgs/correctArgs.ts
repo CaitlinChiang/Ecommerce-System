@@ -14,7 +14,7 @@ export const correctArgs = (args: any): any => {
       Object.keys(val).forEach((k: string) => modifyArgs(val, k))
     }
 
-    if (['email', 'password', 'phoneNumber'].includes(key)) {
+    if (['deliveryAddress', 'email', 'password', 'phoneNumber'].includes(key)) {
       validateArgs(args)
     }
   })
@@ -45,7 +45,16 @@ const isImage = (val: any): boolean => {
 }
 
 const validateArgs = (args: any): any => {
-  const { email, password, phoneNumber } = args
+  const { deliveryAddress, email, password, phoneNumber } = args
+
+  if (deliveryAddress) {
+    const { address, cityId } = deliveryAddress
+
+    const noAddress = address === null || address?.length === 0
+    const noCityId = cityId === null
+
+    if (noAddress || noCityId) args.deliveryAddress = null
+  }
 
   if (email && !isEmail(email)) {
     args.email = null
