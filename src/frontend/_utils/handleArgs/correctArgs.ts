@@ -27,12 +27,12 @@ const modifyArgs = (args: any, key: string): any => {
     args[key] = null
   }
 
-  if (key === 'shippingFee' || key === 'price') {
-    args[key] = formatFee(args[key])
-  }
-
   if (key === 'discount') {
     args[key] = formatFromPercentage(args[key])
+  }
+
+  if (key === 'shippingFee' || key === 'price') {
+    args[key] = formatFee(args[key])
   }
 
   if (key === 'stockQuantity') {
@@ -47,11 +47,12 @@ const isImage = (val: any): boolean => {
 const validateArgs = (args: any): any => {
   const { deliveryAddress, email, password, phoneNumber } = args
 
-  if (deliveryAddress) {
+  // DELIVERY ADDRESS CHECK ONLY IF THE INPUT IS NOT FROM USER PROFILE
+  if (deliveryAddress && !args.email) {
     const { address, cityId } = deliveryAddress
 
     const noAddress = address === null || address?.length === 0
-    const noCityId = cityId === null
+    const noCityId = cityId === null || cityId === undefined
 
     if (noAddress || noCityId) args.deliveryAddress = null
   }
