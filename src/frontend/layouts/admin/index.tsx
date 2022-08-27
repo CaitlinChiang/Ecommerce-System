@@ -23,6 +23,8 @@ export default (
 
     const user: User = data?.get_user || null
 
+    if (!user) return <Page />
+
     return (
       <>
         <Navbar
