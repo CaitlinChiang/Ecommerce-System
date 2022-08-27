@@ -19,7 +19,7 @@ const AuthorizedAccess = ({
   const { data, loading } = useQuery(GetUser)
   const user: User = data?.get_user || {}
 
-  if (loading) return
+  if (loading) return null
 
   const accesstoken = Cookies.get('accessToken')
 
@@ -28,6 +28,7 @@ const AuthorizedAccess = ({
 
   if (noAccessToken || customer) {
     window.location.replace('/admin/user/sign-in')
+    return null
   }
 
   if (permission && !checkAdminPermission(permission, user)) {
