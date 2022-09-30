@@ -1,21 +1,16 @@
 import { UserInputError } from 'apollo-server-express'
-import { AdminPermission } from '../../_enums/adminPermission'
 import { Context } from '../../../types/setup/context'
+import { AdminPermission } from '../../_enums/adminPermission'
 
-export const authenticateUser = async ({
-  admin,
-  permission,
-  context
-}: {
-  admin: boolean
+export const authenticateUser = async (
+  context: Context,
+  admin: boolean,
   permission?: AdminPermission
-  context: Context
-}): Promise<void> => {
-  const inactiveAdmin = admin && !context.currentUserActive
-  const restrictedAdmin =
-    admin && permission && !context.currentUserPermissions.includes(permission)
+): Promise<void> => {
+  const inactive = !context.userActive
+  const restricted = !context.userPermissions.includes(permission || null)
 
-  if (inactiveAdmin || restrictedAdmin) {
+  if (admin && (inactive || restricted)) {
     throw new UserInputError('Action not permitted.')
   }
 }

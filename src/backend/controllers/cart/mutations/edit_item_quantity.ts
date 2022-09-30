@@ -13,7 +13,7 @@ export default async (
   const cart: Cart = await context.database.carts
     .findOneAndUpdate(
       {
-        _userId: context.currentUserId,
+        _userId: context.userId,
         items: { $elemMatch: cartItemArgs(args) }
       },
       { $set: { 'items.$.quantity': args.quantity } },

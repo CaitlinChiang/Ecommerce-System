@@ -13,7 +13,7 @@ export default async (
   await authenticateUser({ admin: false, context })
 
   const cart: Cart = await context.database.carts.findOne({
-    _userId: context.currentUserId
+    _userId: context.userId
   })
 
   let itemAppended = false
@@ -33,14 +33,14 @@ export default async (
   if (itemAppended) {
     await context.database.carts.findOneAndUpdate(
       {
-        _userId: context.currentUserId,
+        _userId: context.userId,
         items: { $elemMatch: cartItemArgs(args.item) }
       },
       { $set: { 'items.$.quantity': itemQuantity } }
     )
   } else {
     await context.database.carts.findOneAndUpdate(
-      { _userId: context.currentUserId },
+      { _userId: context.userId },
       { $push: { items: mutateArgs(args.item, MutateAction.CREATE) } }
     )
   }

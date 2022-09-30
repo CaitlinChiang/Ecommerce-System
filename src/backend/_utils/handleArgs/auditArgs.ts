@@ -7,6 +7,6 @@ export const auditArgs = (
 ): { createdAt: Date; createdBy: ObjectId } => {
   return {
     createdAt: currentDateTime(),
-    createdBy: context.currentUserId
+    createdBy: context.userId
   }
 }

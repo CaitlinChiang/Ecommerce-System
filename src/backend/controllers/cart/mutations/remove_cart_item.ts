@@ -12,7 +12,7 @@ export default async (
 
   const cart: Cart = await context.database.carts
     .findOneAndUpdate(
-      { _userId: context.currentUserId },
+      { _userId: context.userId },
       { $pull: { items: cartItemArgs(args) } },
       { returnDocument: 'after' }
     )

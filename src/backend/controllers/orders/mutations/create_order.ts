@@ -25,7 +25,7 @@ export default async (
     .insertOne({
       ...mutateArgs(remainingArgs, MutateAction.CREATE),
       status: OrderStatus.PENDING,
-      userId: context.currentUserId
+      userId: context.userId
     })
     .then((order) => order.insertedId)
 

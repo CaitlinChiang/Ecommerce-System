@@ -28,6 +28,12 @@ export interface SignInUserArgs {
   type: UserType
 }
 
+export interface JWTArgs {
+  _id: string
+  iat: number
+  exp: number
+}
+
 export interface GetUserArgs {
   _id?: ObjectId
   active?: boolean

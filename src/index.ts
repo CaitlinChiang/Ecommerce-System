@@ -38,26 +38,28 @@ nextJSApp.prepare().then(async () => {
   const db: mongoDB.Db = client.db(process.env.DB_NAME)
   const database: Database = dbSetup(db)
 
+  const context = async (context: ExpressContext): Promise<Context> => {
+    const headers = context.req.headers
+    const ip =
+      headers['CF-Connecting-IP'] || headers['X-Forwarded-For'] || context.req.ip
+
+    const user = await returnCurrentUser(headers, database)
+
+    return {
+      userId: user?._id,
+      userActive: user?.active,
+      userPermissions: user?.permissions,
+      userType: user?.type,
+      database,
+      dataloaders: buildDataloaders(database),
+      ip
+    }
+  }
+
   const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: async (context: ExpressContext): Promise<Context> => {
-      const headers = context.req.headers
-      const ip =
-        headers['CF-Connecting-IP'] || headers['X-Forwarded-For'] || context.req.ip
-
-      const user = await returnCurrentUser(headers, database)
-
-      return {
-        currentUserId: user?._id,
-        currentUserActive: user?.active,
-        currentUserPermissions: user?.permissions,
-        currentUserType: user?.type,
-        database,
-        dataloaders: buildDataloaders(database),
-        ip
-      }
-    },
+    context,
     formatError: (error: GraphQLError): GraphQLFormattedError => {
       if (
         !(
@@ -71,6 +73,8 @@ nextJSApp.prepare().then(async () => {
       return error
     }
   })
+
+  global.context = context
 
   app.use(graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }))
 

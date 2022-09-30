@@ -9,6 +9,6 @@ export const createAuditLog = async (
   await context.database.auditLogs.insertOne({
     action,
     createdAt: currentDateTime(),
-    createdBy: context.currentUserId
+    createdBy: context.userId
   })
 }

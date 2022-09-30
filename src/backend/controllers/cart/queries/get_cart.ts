@@ -10,7 +10,7 @@ export default async (
   await authenticateUser({ admin: false, context })
 
   const cart: Cart = await context.database.carts.findOne({
-    _userId: context.currentUserId
+    _userId: context.userId
   })
 
   return cart
