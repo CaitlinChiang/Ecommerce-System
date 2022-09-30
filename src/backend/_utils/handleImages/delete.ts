@@ -15,13 +15,12 @@ export const deleteImage = async ({
   shouldExist?: boolean
 }): Promise<void> => {
   if (!image && shouldExist) return
-
   await destroyImageUrl(imageUrl)
 }
 
 export const deleteProductVariantImages = async (
-  productId: ObjectId,
-  context: Context
+  context: Context,
+  productId: ObjectId
 ): Promise<void> => {
   if (!productId) return
 
@@ -36,6 +35,5 @@ export const deleteProductVariantImages = async (
 
 const destroyImageUrl = async (url: string): Promise<void> => {
   if (!url) return
-
   await cloudinary.uploader.destroy(url)
 }

@@ -7,7 +7,6 @@ export const uploadImage = async (args: UploadImageArgs): Promise<string> => {
   if (!args.image) return
 
   const { createReadStream } = await args.image
-
   const fileName = assignFileName(args)
 
   return await uploadToCloudinary(createReadStream, fileName)
@@ -65,7 +64,6 @@ const uploadToCloudinary = async (createReadStream, fileName): Promise<string> =
           else resolve(res.secure_url)
         }
       )
-
       createReadStream().pipe(stream)
     })
   } catch (err) {
