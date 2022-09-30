@@ -9,5 +9,5 @@
 ## Tech Stack
 
 - MERNG: MongoDB, Express.JS, React.JS + Typescript, Node.JS, and GraphQL
-- Styled: Material-UI
+- Styled: Material-UI & CSS
 - Deployed: Heroku & Netlify
