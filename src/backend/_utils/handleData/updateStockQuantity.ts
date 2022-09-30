@@ -3,9 +3,9 @@ import { CartItem } from '../../../types/cart'
 import { StockQuantityAction } from '../../_enums/stockQuantity'
 
 export const updateStockQuantity = async (
+  context: Context,
   action: StockQuantityAction,
-  items: CartItem[],
-  context: Context
+  items: CartItem[]
 ): Promise<void> => {
   for (let i = 0, n = items.length; i < n; i++) {
     const { productId, productVariantId, quantity } = items[i]
@@ -18,7 +18,6 @@ export const updateStockQuantity = async (
         { $inc: { stockQuantity } }
       )
     }
-
     if (productVariantId) {
       await context.database.productVariants.findOneAndUpdate(
         { _id: productVariantId },

@@ -5,8 +5,8 @@ import { ProductVariant } from '../../../types/productVariant'
 import { formatPrice } from '../handleFormat/formatPrice'
 
 export const returnCartItems = async (
-  items: CartItem[],
-  context: Context
+  context: Context,
+  items: CartItem[]
 ): Promise<CartItem[]> => {
   const cartItems: CartItem[] = []
 
@@ -14,7 +14,6 @@ export const returnCartItems = async (
     const { productId, productVariantId, quantity, totalPrice } = items[i]
 
     const product: Product = await context.dataloaders.products.byId.load(productId)
-
     let productVariant: ProductVariant = null
 
     if (productVariantId) {

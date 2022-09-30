@@ -3,8 +3,8 @@ import { AuditLogAction } from '../../_enums/auditLogAction'
 import { currentDateTime } from '../handleFormat/returnCurrentDateTime'
 
 export const createAuditLog = async (
-  action: AuditLogAction,
-  context: Context
+  context: Context,
+  action: AuditLogAction
 ): Promise<void> => {
   await context.database.auditLogs.insertOne({
     action,

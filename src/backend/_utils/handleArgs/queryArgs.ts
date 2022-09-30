@@ -26,8 +26,9 @@ export const queryArgs = (args: any): any => {
   queryArgs.deletedAt = { $exists: false }
 
   if (categoryIds?.length > 0) {
-    const categoryIdArr = categoryIds.map((id: string): ObjectId => new ObjectId(id))
-    queryArgs.categoryId = { $in: categoryIdArr }
+    queryArgs.categoryId = {
+      $in: categoryIds.map((id: string): ObjectId => new ObjectId(id))
+    }
   }
 
   if (cityId) {
@@ -46,8 +47,9 @@ export const queryArgs = (args: any): any => {
   }
 
   if (statuses?.length > 0) {
-    const statusArr = statuses.map((status: OrderStatus): OrderStatus => status)
-    queryArgs.status = { $in: statusArr }
+    queryArgs.status = {
+      $in: statuses.map((status: OrderStatus): OrderStatus => status)
+    }
   }
 
   if (stockQuantity) {
