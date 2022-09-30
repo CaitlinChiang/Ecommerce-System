@@ -3,7 +3,7 @@ import { GetOrderArgs } from '../../../../types/order'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { queryArgs } from '../../../_utils/handleArgs/queryArgs'
 import { searchUser } from '../../../_utils/handleData/searchUser'
-import { returnOrdersUserId } from '../../../_utils/handleArgs/returnOrdersUserId'
+import { returnUserOrders } from '../../../_utils/handleData/returnUserOrders'
 
 export default async (
   _root: undefined,
@@ -15,7 +15,7 @@ export default async (
   const modifiedArgs: GetOrderArgs | any = queryArgs(args)
   await searchUser(modifiedArgs, args.paginateData?.searchText, context)
 
-  returnOrdersUserId(modifiedArgs, context)
+  returnUserOrders(modifiedArgs, context)
 
   const count: any = await context.database.orders.countDocuments(modifiedArgs)
 

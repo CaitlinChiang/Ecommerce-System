@@ -3,23 +3,23 @@ import { currentDateTime } from '../handleFormat/returnCurrentDateTime'
 import { correctArgs } from './correctArgs'
 
 export const mutateArgs = (args: any, action: MutateAction): any => {
-  let modifiedArgs: any = {}
+  let mutateArgs: any = {}
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { _id, ...updateArgs } = args
 
   switch (action) {
     case MutateAction.CREATE:
-      modifiedArgs = { ...args, createdAt: currentDateTime() }
+      mutateArgs = { ...args, createdAt: currentDateTime() }
       break
     case MutateAction.UPDATE:
-      modifiedArgs = { ...updateArgs, updatedAt: currentDateTime() }
+      mutateArgs = { ...updateArgs, updatedAt: currentDateTime() }
       break
     case MutateAction.DELETE:
-      modifiedArgs = { deletedAt: currentDateTime() }
+      mutateArgs = { deletedAt: currentDateTime() }
   }
 
-  correctArgs({ args: modifiedArgs, mutation: true })
+  correctArgs(mutateArgs, true)
 
-  return modifiedArgs
+  return mutateArgs
 }

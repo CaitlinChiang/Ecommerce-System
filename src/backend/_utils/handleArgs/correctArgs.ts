@@ -1,68 +1,68 @@
 import { ObjectId } from 'mongodb'
 
-export const correctArgs = ({
-  args,
-  mutation
-}: {
-  args: any
-  mutation?: boolean
-}): void => {
+export const correctArgs = (args: any, mutation?: boolean): void => {
   Object.keys(args).forEach((key: string): void => {
     const val = args[key]
 
-    if (isValueStringOrNull(val)) modifyArgs(key, args, mutation)
+    if (isValStringOrNull(val)) modifyArgs(key, args, mutation)
 
-    if (isValueObject(val) && val !== null) {
+    if (isValObject(val) && val !== null) {
       modifyObjArgs(val, mutation)
-      deleteObj(args, key)
+      deleteEmptyObj(args, key)
     }
 
-    if (isValueArray(val) && val !== null) {
-      val.forEach((e: any, index: number) => {
-        if (typeof e === 'object') {
-          modifyObjArgs(e, mutation)
-          deleteObj(args, key[index])
-        }
-      })
+    if (isValArray(val) && val !== null) {
+      modifyArrArgs(key, args, val, mutation)
     }
   })
 }
 
-const isValueStringOrNull = (val: any): boolean => {
+const isValStringOrNull = (val: any): boolean => {
   if (typeof val === 'string' || val === null) return true
   return false
 }
-
-const isValueObject = (val: any): boolean => {
+const isValObject = (val: any): boolean => {
   if (typeof val === 'object' && !Array.isArray(val)) return true
   return false
 }
-
-const isValueArray = (val: any): boolean => {
+const isValArray = (val: any): boolean => {
   if (typeof val === 'object' && Array.isArray(val) && val?.length > 0) return true
   return false
 }
 
-const modifyObjArgs = (e: any, mutation: boolean): void => {
-  Object.keys(e).forEach((k: string) => modifyArgs(k, e, mutation))
+const modifyObjArgs = (obj: any, mutation: boolean): void => {
+  Object.keys(obj).forEach((key: string) => modifyArgs(key, obj, mutation))
+}
+const modifyArrArgs = (
+  key: string,
+  args: any,
+  arr: any,
+  mutation: boolean
+): void => {
+  arr.forEach((obj: any, index: number) => {
+    if (typeof obj !== 'object') return
+
+    modifyObjArgs(obj, mutation)
+    deleteEmptyObj(args, key[index])
+  })
 }
 
-const modifyArgs = (key: string, obj: any, mutation: boolean): void => {
-  if (obj[key] === null) {
-    delete obj[key]
+const modifyArgs = (key: string, args: any, mutation: boolean): void => {
+  const val = args[key]
+
+  if (val === null) delete args[key]
+
+  if (key.includes('Id') && val !== null) {
+    args[key] = new ObjectId(args[key])
   }
 
-  if (key.includes('Id') && obj[key] !== null) {
-    obj[key] = new ObjectId(obj[key])
-  }
-
-  if (key.includes('Date') && obj[key] !== null && mutation) {
-    obj[key] = new Date(obj[key])
+  if (key.includes('Date') && val !== null && mutation) {
+    args[key] = new Date(args[key])
   }
 }
 
-const deleteObj = (mainObj: any, currentObj: any): void => {
-  if (Object.keys(currentObj)?.length === 0) {
-    delete mainObj[currentObj]
+const deleteEmptyObj = (parentObj: any, childObj: any): void => {
+  if (Object.keys(childObj)?.length === 0) {
+    delete parentObj[childObj]
   }
 }

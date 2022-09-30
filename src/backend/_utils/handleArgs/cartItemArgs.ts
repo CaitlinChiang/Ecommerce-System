@@ -1,20 +1,15 @@
 import { ObjectId } from 'mongodb'
-
-interface CartItemArgs {
-  productId?: ObjectId
-  productVariantId?: ObjectId
-}
+import { CartItemArgs } from '../../../types/cart'
 
 export const cartItemArgs = (args: any): CartItemArgs => {
-  const item: CartItemArgs = {}
+  const cartItem: CartItemArgs = {}
 
   if (args?.productId) {
-    item.productId = new ObjectId(args.productId)
+    cartItem.productId = new ObjectId(args.productId)
   }
-
   if (args?.productVariantId) {
-    item.productVariantId = new ObjectId(args.productVariantId)
+    cartItem.productVariantId = new ObjectId(args.productVariantId)
   }
 
-  return item
+  return cartItem
 }

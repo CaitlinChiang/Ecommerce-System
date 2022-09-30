@@ -13,52 +13,46 @@ export const queryArgs = (args: any): any => {
     paginateData,
     statuses,
     stockQuantity,
-    ...queryArgs
+    ...commonArgs
   } = args
 
   if (paginateData?.searchText) {
     const modifiedSearchText = paginateData?.searchText.split('@')[0]
-
     return { $text: { $search: modifiedSearchText } }
   }
 
-  const modifiedArgs: any = { ...queryArgs }
-  correctArgs({ args: modifiedArgs })
+  const queryArgs: any = correctArgs({ ...commonArgs })
 
-  modifiedArgs.deletedAt = { $exists: false }
+  queryArgs.deletedAt = { $exists: false }
 
   if (categoryIds?.length > 0) {
-    modifiedArgs.categoryId = {
-      $in: categoryIds.map(
-        (categoryId: string): ObjectId => new ObjectId(categoryId)
-      )
-    }
+    const categoryIdArr = categoryIds.map((id: string): ObjectId => new ObjectId(id))
+    queryArgs.categoryId = { $in: categoryIdArr }
   }
 
   if (cityId) {
-    modifiedArgs['deliveryAddress.cityId'] = new ObjectId(cityId)
+    queryArgs['deliveryAddress.cityId'] = new ObjectId(cityId)
   }
 
   if (dateRange?.startDate && dateRange?.endDate) {
-    modifiedArgs[dateRange.filterBy] = {
+    queryArgs[dateRange.filterBy] = {
       $gte: formatDateRange(dateRange?.startDate, true),
       $lte: formatDateRange(dateRange?.endDate, false)
     }
   }
 
   if (discount) {
-    modifiedArgs.discount = { $exists: true }
+    queryArgs.discount = { $exists: true }
   }
 
   if (statuses?.length > 0) {
-    modifiedArgs.status = {
-      $in: statuses.map((status: OrderStatus): OrderStatus => status)
-    }
+    const statusArr = statuses.map((status: OrderStatus): OrderStatus => status)
+    queryArgs.status = { $in: statusArr }
   }
 
   if (stockQuantity) {
-    stockQuantityArgs(modifiedArgs, stockQuantity)
+    stockQuantityArgs(queryArgs, stockQuantity)
   }
 
-  return modifiedArgs
+  return queryArgs
 }

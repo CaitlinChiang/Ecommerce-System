@@ -3,7 +3,7 @@ import { Order, GetOrderArgs } from '../../../../types/order'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { queryArgs } from '../../../_utils/handleArgs/queryArgs'
 import { searchUser } from '../../../_utils/handleData/searchUser'
-import { returnOrdersUserId } from '../../../_utils/handleArgs/returnOrdersUserId'
+import { returnUserOrders } from '../../../_utils/handleData/returnUserOrders'
 import { sort, skip, limit } from '../../../_utils/handleArgs/paginateArgs'
 
 export default async (
@@ -16,7 +16,7 @@ export default async (
   const modifiedArgs: GetOrderArgs | any = queryArgs(args)
   await searchUser(modifiedArgs, args.paginateData?.searchText, context)
 
-  returnOrdersUserId(modifiedArgs, context)
+  returnUserOrders(modifiedArgs, context)
 
   const orders: Order[] = await context.database.orders
     .find(queryArgs(modifiedArgs))
