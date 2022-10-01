@@ -14,10 +14,12 @@ export default {
       _args: undefined,
       context: Context
     ): Promise<string> => {
+      if (!auditLog?.createdBy) return ''
+
       const user: User = await context.dataloaders.users.byId.load(
         auditLog.createdBy
       )
-      return user.email
+      return user?.email
     }
   }
 }
