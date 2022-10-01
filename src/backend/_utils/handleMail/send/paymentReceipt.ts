@@ -12,14 +12,14 @@ import { returnCartItems } from '../../handleData/returnCartItems'
 const AWS = require('../../setup/aws-ses')
 
 export const sendPaymentReceipt = async (
+  context: Context,
   orderId: ObjectId,
-  payment: Payment,
-  context: Context
+  payment: Payment
 ): Promise<void> => {
   if (!orderId) return
 
   const order: Order = await context.database.orders.findOne({ _id: orderId })
-  const orderItems: CartItem[] = await returnCartItems(order.items, context)
+  const orderItems: CartItem[] = await returnCartItems(context, order.items)
   const user: User = await context.database.users.findOne({ _id: order.userId })
   const city: City = await context.database.cities.findOne({
     _id: order.deliveryAddress.cityId

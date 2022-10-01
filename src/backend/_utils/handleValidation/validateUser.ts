@@ -4,15 +4,15 @@ import { User } from '../../../types/user'
 import { UserType } from '../../_enums/userType'
 
 export const validateUser = async ({
+  context,
   email,
   shouldExist,
-  type,
-  context
+  type
 }: {
+  context: Context
   email: string
   shouldExist?: boolean
   type?: UserType
-  context: Context
 }): Promise<void> => {
   const existingUser: User = await context.database.users.findOne({ email })
 
