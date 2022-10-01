@@ -17,7 +17,7 @@ export default async (
   args: CreateOrderArgs,
   context: Context
 ): Promise<void> => {
-  await authenticateUser({ admin: false, context })
+  await authenticateUser(context, false)
 
   const { payment, ...remainingArgs } = args
 
@@ -32,12 +32,12 @@ export default async (
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.CREATE_ORDER,
     orderId,
-    ...auditArgs(context)
+    ...auditArgs(context.userId)
   })
 
-  await createPayment(orderId, payment, context)
+  await createPayment(context, orderId, payment)
 
   await emptyCart(context)
 
-  await updateStockQuantity(StockQuantityAction.SUBTRACT, args.items, context)
+  await updateStockQuantity(context, StockQuantityAction.SUBTRACT, args.items)
 }

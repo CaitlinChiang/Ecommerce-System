@@ -8,6 +8,7 @@ import {
   deleteImage,
   deleteProductVariantImages
 } from '../../../_utils/handleImages/delete'
+import { deleteData } from '../../../_utils/handleData/deleteData'
 import { createAuditLog } from '../../../_utils/handleData/createAuditLog'
 
 export default async (
@@ -15,19 +16,15 @@ export default async (
   args: DeleteProductArgs,
   context: Context
 ): Promise<void> => {
-  await authenticateUser({
-    admin: true,
-    permission: AdminPermission.DELETE_PRODUCT,
-    context
-  })
+  await authenticateUser(context, true, AdminPermission.DELETE_PRODUCT)
 
   await deleteImage({ imageUrl: args?.imageUrl })
 
-  await context.database.products.findOneAndDelete({ _id: new ObjectId(args._id) })
+  await deleteData(context, args, 'products')
 
-  await createAuditLog(AuditLogAction.DELETE_PRODUCT, context)
+  await createAuditLog(context, AuditLogAction.DELETE_PRODUCT)
 
-  await deleteProductVariantImages(args._id, context)
+  await deleteProductVariantImages(context, args._id)
 
   await context.database.productVariants.deleteMany({
     _productId: new ObjectId(args._id)

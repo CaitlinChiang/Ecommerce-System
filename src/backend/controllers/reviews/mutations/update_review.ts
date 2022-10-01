@@ -1,11 +1,9 @@
-import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import { Review, UpdateReviewArgs } from '../../../../types/review'
 import { AdminPermission } from '../../../_enums/adminPermission'
-import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
-import { mutateArgs } from '../../../_utils/handleArgs/mutateArgs'
+import { returnUpdatedData } from '../../../_utils/handleData/returnUpdatedData'
 import { createAuditLog } from '../../../_utils/handleData/createAuditLog'
 
 export default async (
@@ -13,21 +11,11 @@ export default async (
   args: UpdateReviewArgs,
   context: Context
 ): Promise<Review> => {
-  await authenticateUser({
-    admin: true,
-    permission: AdminPermission.UPDATE_REVIEW,
-    context
-  })
+  await authenticateUser(context, true, AdminPermission.UPDATE_REVIEW)
 
-  const review: Review = await context.database.reviews
-    .findOneAndUpdate(
-      { _id: new ObjectId(args._id) },
-      { $set: mutateArgs(args, MutateAction.UPDATE) },
-      { returnDocument: 'after' }
-    )
-    .then((review) => review.value)
+  const review: Review = await returnUpdatedData(context, args, 'reviews')
 
-  await createAuditLog(AuditLogAction.UPDATE_REVIEW, context)
+  await createAuditLog(context, AuditLogAction.UPDATE_REVIEW)
 
   return review
 }

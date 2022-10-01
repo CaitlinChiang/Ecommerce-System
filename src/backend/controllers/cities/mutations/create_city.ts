@@ -1,10 +1,9 @@
 import { Context } from '../../../../types/setup/context'
 import { CreateCityArgs } from '../../../../types/city'
 import { AdminPermission } from '../../../_enums/adminPermission'
-import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
-import { mutateArgs } from '../../../_utils/handleArgs/mutateArgs'
+import { createData } from '../../../_utils/handleData/createData'
 import { createAuditLog } from '../../../_utils/handleData/createAuditLog'
 
 export default async (
@@ -12,13 +11,9 @@ export default async (
   args: CreateCityArgs,
   context: Context
 ): Promise<void> => {
-  await authenticateUser({
-    admin: true,
-    permission: AdminPermission.CREATE_CITY,
-    context
-  })
+  await authenticateUser(context, true, AdminPermission.CREATE_CITY)
 
-  await context.database.cities.insertOne(mutateArgs(args, MutateAction.CREATE))
+  await createData(context, args, 'cities')
 
-  await createAuditLog(AuditLogAction.CREATE_CITY, context)
+  await createAuditLog(context, AuditLogAction.CREATE_CITY)
 }

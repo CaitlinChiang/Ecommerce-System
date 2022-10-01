@@ -1,18 +1,19 @@
-import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import { PaymentMethod, GetPaymentMethodArgs } from '../../../../types/paymentMethod'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
+import { returnData } from '../../../_utils/handleData/returnData'
 
 export default async (
   _root: undefined,
   args: GetPaymentMethodArgs,
   context: Context
 ): Promise<PaymentMethod> => {
-  await authenticateUser({ admin: true, context })
+  await authenticateUser(context, true)
 
-  const paymentMethod: PaymentMethod = await context.database.paymentMethods.findOne(
-    { _id: new ObjectId(args._id) }
+  const paymentMethod: PaymentMethod = await returnData(
+    context,
+    args,
+    'paymentMethods'
   )
-
   return paymentMethod
 }

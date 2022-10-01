@@ -14,19 +14,15 @@ export default async (
   args: DeleteOrderArgs,
   context: Context
 ): Promise<void> => {
-  await authenticateUser({
-    admin: true,
-    permission: AdminPermission.DELETE_ORDER,
-    context
-  })
+  await authenticateUser(context, true, AdminPermission.DELETE_ORDER)
 
   const order: Order = await context.database.orders
     .findOneAndDelete({ _id: new ObjectId(args._id) })
     .then((order) => order.value)
 
-  await createAuditLog(AuditLogAction.DELETE_ORDER, context)
+  await createAuditLog(context, AuditLogAction.DELETE_ORDER)
 
-  await deletePayment(args._id, context)
+  await deletePayment(context, args._id)
 
-  await updateStockQuantity(StockQuantityAction.ADD, order?.items, context)
+  await updateStockQuantity(context, StockQuantityAction.ADD, order?.items)
 }

@@ -4,20 +4,20 @@ import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { queryArgs } from '../../../_utils/handleArgs/queryArgs'
 import { searchUser } from '../../../_utils/handleData/searchUser'
 import { returnUserOrders } from '../../../_utils/handleData/returnUserOrders'
+import { returnDataCount } from '../../../_utils/handleData/returnDataCount'
 
 export default async (
   _root: undefined,
   args: GetOrderArgs,
   context: Context
 ): Promise<number> => {
-  await authenticateUser({ admin: false, context })
+  await authenticateUser(context, false)
 
   const modifiedArgs: GetOrderArgs | any = queryArgs(args)
-  await searchUser(modifiedArgs, args.paginateData?.searchText, context)
+  await searchUser(context, modifiedArgs, args.paginateData?.searchText)
 
-  returnUserOrders(modifiedArgs, context)
+  returnUserOrders(context, modifiedArgs)
 
-  const count: any = await context.database.orders.countDocuments(modifiedArgs)
-
+  const count: number = await returnDataCount(context, modifiedArgs, 'orders')
   return count
 }

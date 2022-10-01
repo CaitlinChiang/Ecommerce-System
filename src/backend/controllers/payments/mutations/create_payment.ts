@@ -11,9 +11,9 @@ import { uploadImage } from '../../../_utils/handleImages/upload'
 import { sendPaymentReceipt } from '../../../_utils/handleMail/send/paymentReceipt'
 
 export const createPayment = async (
+  context: Context,
   orderId: ObjectId,
-  paymentArgs: CreatePaymentArgs,
-  context: Context
+  paymentArgs: CreatePaymentArgs
 ): Promise<void> => {
   const { imageProof, ...modifiedArgs } = paymentArgs
 
@@ -33,8 +33,8 @@ export const createPayment = async (
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.CREATE_ORDER_PAYMENT,
     orderId,
-    ...auditArgs(context)
+    ...auditArgs(context.userId)
   })
 
-  await sendPaymentReceipt(orderId, modifiedArgs, context)
+  await sendPaymentReceipt(context, orderId, modifiedArgs)
 }

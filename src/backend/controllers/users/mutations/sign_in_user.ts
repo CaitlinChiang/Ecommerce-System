@@ -10,13 +10,13 @@ export default async (
   args: SignInUserArgs,
   context: Context
 ): Promise<string> => {
-  await authenticateUser({ admin: false, context })
+  await authenticateUser(context, false)
 
   await validateUser({
+    context,
     email: args.email,
     shouldExist: true,
-    type: args.type,
-    context
+    type: args.type
   })
 
   const user: User = await context.database.users.findOne({ email: args.email })
@@ -24,6 +24,5 @@ export default async (
   await validatePassword({ password: args.password, user })
 
   const token = await generateJWT(user._id)
-
   return token
 }

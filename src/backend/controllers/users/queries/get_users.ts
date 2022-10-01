@@ -2,26 +2,15 @@ import { Context } from '../../../../types/setup/context'
 import { User, GetUserArgs } from '../../../../types/user'
 import { AdminPermission } from '../../../_enums/adminPermission'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
-import { queryArgs } from '../../../_utils/handleArgs/queryArgs'
-import { sort, skip, limit } from '../../../_utils/handleArgs/paginateArgs'
+import { returnDataArray } from '../../../_utils/handleData/returnDataArray'
 
 export default async (
   _root: undefined,
   args: GetUserArgs,
   context: Context
 ): Promise<User[]> => {
-  await authenticateUser({
-    admin: true,
-    permission: AdminPermission.VIEW_USER,
-    context
-  })
+  await authenticateUser(context, true, AdminPermission.VIEW_USER)
 
-  const users: User[] = await context.database.users
-    .find(queryArgs(args))
-    .sort(sort(args?.paginateData))
-    .skip(skip(args?.paginateData))
-    .limit(limit(args?.paginateData))
-    .toArray()
-
+  const users: User[] = await returnDataArray(context, args, 'users')
   return users
 }

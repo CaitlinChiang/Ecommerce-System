@@ -19,11 +19,7 @@ export default async (
   args: UpdateProductVariantArgs,
   context: Context
 ): Promise<ProductVariant> => {
-  await authenticateUser({
-    admin: true,
-    permission: AdminPermission.UPDATE_PRODUCT_VARIANT,
-    context
-  })
+  await authenticateUser(context, true, AdminPermission.UPDATE_PRODUCT_VARIANT)
 
   const { image, ...modifiedArgs } = args
 
@@ -49,7 +45,7 @@ export default async (
     )
     .then((productVariant) => productVariant.value)
 
-  await createAuditLog(AuditLogAction.UPDATE_PRODUCT_VARIANT, context)
+  await createAuditLog(context, AuditLogAction.UPDATE_PRODUCT_VARIANT)
 
   return productVariant
 }

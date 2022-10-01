@@ -11,17 +11,13 @@ export default async (
   args: GetAnalyticsArgs,
   context: Context
 ): Promise<AnalyticsRevenueCount[]> => {
-  await authenticateUser({
-    admin: true,
-    permission: AdminPermission.VIEW_ANALYTICS,
-    context
-  })
+  await authenticateUser(context, true, AdminPermission.VIEW_ANALYTICS)
 
   const payments: Payment[] = await context.database.payments
     .find(queryArgs(args))
     .toArray()
 
-  const paymentModifiedDates = payments.map(
+  const paymentFormattedDates = payments.map(
     (payment: Payment): { date: string; revenue: number } => {
       return {
         date: formatDate(payment.createdAt).slice(0, -5),
@@ -32,7 +28,7 @@ export default async (
 
   const analyticsRevenueCount: AnalyticsRevenueCount[] = []
 
-  paymentModifiedDates.forEach(
+  paymentFormattedDates.forEach(
     (payment: { date: string; revenue: number }): void => {
       const { date, revenue } = payment
 

@@ -1,9 +1,9 @@
-import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import { DeletePaymentMethodArgs } from '../../../../types/paymentMethod'
 import { AdminPermission } from '../../../_enums/adminPermission'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
+import { deleteData } from '../../../_utils/handleData/deleteData'
 import { createAuditLog } from '../../../_utils/handleData/createAuditLog'
 
 export default async (
@@ -11,15 +11,9 @@ export default async (
   args: DeletePaymentMethodArgs,
   context: Context
 ): Promise<void> => {
-  await authenticateUser({
-    admin: true,
-    permission: AdminPermission.DELETE_PAYMENT_METHOD,
-    context
-  })
+  await authenticateUser(context, true, AdminPermission.DELETE_PAYMENT_METHOD)
 
-  await context.database.paymentMethods.findOneAndDelete({
-    _id: new ObjectId(args._id)
-  })
+  await deleteData(context, args, 'paymentMethods')
 
-  await createAuditLog(AuditLogAction.DELETE_PAYMENT_METHOD, context)
+  await createAuditLog(context, AuditLogAction.DELETE_PAYMENT_METHOD)
 }

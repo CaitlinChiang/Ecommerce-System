@@ -12,11 +12,7 @@ export default async (
   args: UpdateWebsiteTextArgs,
   context: Context
 ): Promise<WebsiteText> => {
-  await authenticateUser({
-    admin: true,
-    permission: AdminPermission.UPDATE_WEBSITE_TEXT,
-    context
-  })
+  await authenticateUser(context, true, AdminPermission.UPDATE_WEBSITE_TEXT)
 
   const websiteText: WebsiteText = await context.database.websiteTexts
     .findOneAndUpdate(
@@ -26,7 +22,7 @@ export default async (
     )
     .then((websiteText) => websiteText.value)
 
-  await createAuditLog(AuditLogAction.UPDATE_WEBSITE_TEXT, context)
+  await createAuditLog(context, AuditLogAction.UPDATE_WEBSITE_TEXT)
 
   return websiteText
 }

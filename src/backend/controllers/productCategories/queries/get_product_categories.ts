@@ -4,23 +4,19 @@ import {
   GetProductCategoryArgs
 } from '../../../../types/productCategory'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
-import { queryArgs } from '../../../_utils/handleArgs/queryArgs'
-import { sort, skip, limit } from '../../../_utils/handleArgs/paginateArgs'
+import { returnDataArray } from '../../../_utils/handleData/returnDataArray'
 
 export default async (
   _root: undefined,
   args: GetProductCategoryArgs,
   context: Context
 ): Promise<ProductCategory[]> => {
-  await authenticateUser({ admin: false, context })
+  await authenticateUser(context, false)
 
-  const productCategories: ProductCategory[] =
-    await context.database.productCategories
-      .find(queryArgs(args))
-      .sort(sort(args?.paginateData))
-      .skip(skip(args?.paginateData))
-      .limit(limit(args?.paginateData))
-      .toArray()
-
+  const productCategories: ProductCategory[] = await returnDataArray(
+    context,
+    args,
+    'productCategories'
+  )
   return productCategories
 }

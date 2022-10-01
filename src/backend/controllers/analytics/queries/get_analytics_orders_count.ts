@@ -11,23 +11,19 @@ export default async (
   args: GetAnalyticsArgs,
   context: Context
 ): Promise<AnalyticsOrdersCount[]> => {
-  await authenticateUser({
-    admin: true,
-    permission: AdminPermission.VIEW_ANALYTICS,
-    context
-  })
+  await authenticateUser(context, true, AdminPermission.VIEW_ANALYTICS)
 
   const orders: Order[] = await context.database.orders
     .find(queryArgs(args))
     .toArray()
 
-  const orderModifiedDates: string[] = orders.map((order: Order): string => {
+  const orderFormattedDates: string[] = orders.map((order: Order): string => {
     return formatDate(order.createdAt).slice(0, -5)
   })
 
   const analyticsOrdersCount: AnalyticsOrdersCount[] = []
 
-  orderModifiedDates.forEach((date: string): void => {
+  orderFormattedDates.forEach((date: string): void => {
     const dateAppended = analyticsOrdersCount.find((res) => res.date === date)
 
     if (dateAppended) {

@@ -8,11 +8,10 @@ export default async (
   args: GetUserArgs,
   context: Context
 ): Promise<User> => {
-  await authenticateUser({ admin: false, context })
+  await authenticateUser(context, false)
 
   const user: User = await context.database.users.findOne({
     _id: args?._id ? new ObjectId(args._id) : context.userId
   })
-
   return user
 }

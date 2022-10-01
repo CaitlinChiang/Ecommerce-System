@@ -11,13 +11,13 @@ export default async (
   args: ForgotPasswordArgs,
   context: Context
 ): Promise<void> => {
-  await authenticateUser({ admin: false, context })
+  await authenticateUser(context, false)
 
   await validateUser({
+    context,
     email: args.email,
     shouldExist: true,
-    type: args.type,
-    context
+    type: args.type
   })
 
   const verificationCode = Math.floor(100000 + Math.random() * 900000).toString()

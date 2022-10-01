@@ -1,22 +1,22 @@
-import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import {
   ProductCategory,
   GetProductCategoryArgs
 } from '../../../../types/productCategory'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
+import { returnData } from '../../../_utils/handleData/returnData'
 
 export default async (
   _root: undefined,
   args: GetProductCategoryArgs,
   context: Context
 ): Promise<ProductCategory> => {
-  await authenticateUser({ admin: true, context })
+  await authenticateUser(context, true)
 
-  const productCategory: ProductCategory =
-    await context.database.productCategories.findOne({
-      _id: new ObjectId(args._id)
-    })
-
+  const productCategory: ProductCategory = await returnData(
+    context,
+    args,
+    'productCategories'
+  )
   return productCategory
 }

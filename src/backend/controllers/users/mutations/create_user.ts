@@ -16,17 +16,12 @@ export default async (
   args: CreateUserArgs,
   context: Context
 ): Promise<string> => {
-  await authenticateUser({ admin: false, context })
+  await authenticateUser(context, false)
 
-  const updateUser: boolean = await updateUserType({
-    email: args.email,
-    type: args.type,
-    context
-  })
-
+  const updateUser: boolean = await updateUserType(context, args.email, args.type)
   if (updateUser) return
 
-  await validateUser({ email: args.email, context })
+  await validateUser({ context, email: args.email })
 
   const hashedPassword = await bcrypt.hash(args.password, 12)
 
@@ -38,11 +33,10 @@ export default async (
     })
     .then((user) => user.insertedId)
 
-  await createAuditLog(AuditLogAction.CREATE_USER, context)
+  await createAuditLog(context, AuditLogAction.CREATE_USER)
 
   await context.database.carts.insertOne({ _userId: userId })
 
   const token = await generateJWT(userId)
-
   return token
 }

@@ -4,26 +4,20 @@ import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { queryArgs } from '../../../_utils/handleArgs/queryArgs'
 import { searchUser } from '../../../_utils/handleData/searchUser'
 import { returnUserOrders } from '../../../_utils/handleData/returnUserOrders'
-import { sort, skip, limit } from '../../../_utils/handleArgs/paginateArgs'
+import { returnDataArray } from '../../../_utils/handleData/returnDataArray'
 
 export default async (
   _root: undefined,
   args: GetOrderArgs,
   context: Context
 ): Promise<Order[]> => {
-  await authenticateUser({ admin: false, context })
+  await authenticateUser(context, false)
 
   const modifiedArgs: GetOrderArgs | any = queryArgs(args)
-  await searchUser(modifiedArgs, args.paginateData?.searchText, context)
+  await searchUser(context, modifiedArgs, args.paginateData?.searchText)
 
-  returnUserOrders(modifiedArgs, context)
+  returnUserOrders(context, modifiedArgs)
 
-  const orders: Order[] = await context.database.orders
-    .find(queryArgs(modifiedArgs))
-    .sort(sort(args?.paginateData))
-    .skip(skip(args?.paginateData))
-    .limit(limit(args?.paginateData))
-    .toArray()
-
+  const orders: Order[] = await returnDataArray(context, modifiedArgs, 'orders')
   return orders
 }

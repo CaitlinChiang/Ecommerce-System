@@ -13,18 +13,14 @@ export default async (
   args: DeleteUserArgs,
   context: Context
 ): Promise<void> => {
-  await authenticateUser({
-    admin: true,
-    permission: AdminPermission.DELETE_USER,
-    context
-  })
+  await authenticateUser(context, true, AdminPermission.DELETE_USER)
 
   await context.database.users.findOneAndUpdate(
     { _id: new ObjectId(args._id) },
     { $set: mutateArgs(args, MutateAction.DELETE) }
   )
 
-  await createAuditLog(AuditLogAction.DELETE_USER, context)
+  await createAuditLog(context, AuditLogAction.DELETE_USER)
 
   await context.database.carts.findOneAndDelete({ _userId: new ObjectId(args._id) })
 }

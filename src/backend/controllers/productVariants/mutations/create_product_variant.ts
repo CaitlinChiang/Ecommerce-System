@@ -14,11 +14,7 @@ export default async (
   args: CreateProductVariantArgs,
   context: Context
 ): Promise<void> => {
-  await authenticateUser({
-    admin: true,
-    permission: AdminPermission.CREATE_PRODUCT_VARIANT,
-    context
-  })
+  await authenticateUser(context, true, AdminPermission.CREATE_PRODUCT_VARIANT)
 
   const { image, ...modifiedArgs } = args
 
@@ -34,5 +30,5 @@ export default async (
     imageUrl
   })
 
-  await createAuditLog(AuditLogAction.CREATE_PRODUCT_VARIANT, context)
+  await createAuditLog(context, AuditLogAction.CREATE_PRODUCT_VARIANT)
 }

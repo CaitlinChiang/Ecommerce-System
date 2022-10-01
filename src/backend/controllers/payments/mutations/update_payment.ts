@@ -16,11 +16,7 @@ export default async (
   args: UpdatePaymentArgs,
   context: Context
 ): Promise<Payment> => {
-  await authenticateUser({
-    admin: true,
-    permission: AdminPermission.UPDATE_PAYMENT,
-    context
-  })
+  await authenticateUser(context, true, AdminPermission.UPDATE_PAYMENT)
 
   const { imageProof, ...modifiedArgs } = args
 
@@ -52,7 +48,7 @@ export default async (
   await context.database.auditLogs.insertOne({
     action: AuditLogAction.UPDATE_ORDER_PAYMENT,
     orderId: new ObjectId(args._orderId),
-    ...auditArgs(context)
+    ...auditArgs(context.userId)
   })
 
   return payment

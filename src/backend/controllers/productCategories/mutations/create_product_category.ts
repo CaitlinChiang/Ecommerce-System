@@ -1,10 +1,9 @@
 import { Context } from '../../../../types/setup/context'
 import { CreateProductCategoryArgs } from '../../../../types/productCategory'
 import { AdminPermission } from '../../../_enums/adminPermission'
-import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
-import { mutateArgs } from '../../../_utils/handleArgs/mutateArgs'
+import { createData } from '../../../_utils/handleData/createData'
 import { createAuditLog } from '../../../_utils/handleData/createAuditLog'
 
 export default async (
@@ -12,15 +11,9 @@ export default async (
   args: CreateProductCategoryArgs,
   context: Context
 ): Promise<void> => {
-  await authenticateUser({
-    admin: true,
-    permission: AdminPermission.CREATE_PRODUCT_CATEGORY,
-    context
-  })
+  await authenticateUser(context, true, AdminPermission.CREATE_PRODUCT_CATEGORY)
 
-  await context.database.productCategories.insertOne(
-    mutateArgs(args, MutateAction.CREATE)
-  )
+  await createData(context, args, 'productCategories')
 
-  await createAuditLog(AuditLogAction.CREATE_PRODUCT_CATEGORY, context)
+  await createAuditLog(context, AuditLogAction.CREATE_PRODUCT_CATEGORY)
 }

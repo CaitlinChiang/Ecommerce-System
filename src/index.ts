@@ -46,13 +46,13 @@ nextJSApp.prepare().then(async () => {
     const user = await returnCurrentUser(headers, database)
 
     return {
+      database,
+      dataloaders: buildDataloaders(database),
+      ip,
       userId: user?._id,
       userActive: user?.active,
       userPermissions: user?.permissions,
-      userType: user?.type,
-      database,
-      dataloaders: buildDataloaders(database),
-      ip
+      userType: user?.type
     }
   }
 

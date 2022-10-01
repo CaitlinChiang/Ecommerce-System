@@ -1,10 +1,9 @@
 import { Context } from '../../../../types/setup/context'
 import { CreateFAQArgs } from '../../../../types/faq'
 import { AdminPermission } from '../../../_enums/adminPermission'
-import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
-import { mutateArgs } from '../../../_utils/handleArgs/mutateArgs'
+import { createData } from '../../../_utils/handleData/createData'
 import { createAuditLog } from '../../../_utils/handleData/createAuditLog'
 
 export default async (
@@ -12,13 +11,9 @@ export default async (
   args: CreateFAQArgs,
   context: Context
 ): Promise<void> => {
-  await authenticateUser({
-    admin: true,
-    permission: AdminPermission.CREATE_FAQ,
-    context
-  })
+  await authenticateUser(context, true, AdminPermission.CREATE_FAQ)
 
-  await context.database.faqs.insertOne(mutateArgs(args, MutateAction.CREATE))
+  await createData(context, args, 'faqs')
 
-  await createAuditLog(AuditLogAction.CREATE_FAQ, context)
+  await createAuditLog(context, AuditLogAction.CREATE_FAQ)
 }

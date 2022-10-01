@@ -30,7 +30,7 @@ export default {
       _args: undefined,
       context: Context
     ): Promise<CartItem[]> => {
-      return await returnCartItems(order?.items, context)
+      return await returnCartItems(context, order?.items)
     },
 
     itemsQuantity: async (order: Order): Promise<number> => {

@@ -10,7 +10,7 @@ export default async (
   args: AddCartItemArgs,
   context: Context
 ): Promise<void> => {
-  await authenticateUser({ admin: false, context })
+  await authenticateUser(context, false)
 
   const cart: Cart = await context.database.carts.findOne({
     _userId: context.userId

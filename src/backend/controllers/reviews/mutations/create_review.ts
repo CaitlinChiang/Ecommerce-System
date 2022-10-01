@@ -1,9 +1,8 @@
 import { Context } from '../../../../types/setup/context'
 import { CreateReviewArgs } from '../../../../types/review'
-import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
-import { mutateArgs } from '../../../_utils/handleArgs/mutateArgs'
+import { createData } from '../../../_utils/handleData/createData'
 import { createAuditLog } from '../../../_utils/handleData/createAuditLog'
 
 export default async (
@@ -11,9 +10,9 @@ export default async (
   args: CreateReviewArgs,
   context: Context
 ): Promise<void> => {
-  await authenticateUser({ admin: false, context })
+  await authenticateUser(context, false)
 
-  await context.database.reviews.insertOne(mutateArgs(args, MutateAction.CREATE))
+  await createData(context, args, 'reviews')
 
-  await createAuditLog(AuditLogAction.CREATE_REVIEW, context)
+  await createAuditLog(context, AuditLogAction.CREATE_REVIEW)
 }

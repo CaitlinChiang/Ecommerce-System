@@ -14,9 +14,9 @@ export default async (
   args: ResetPasswordArgs,
   context: Context
 ): Promise<User> => {
-  await authenticateUser({ admin: false, context })
+  await authenticateUser(context, false)
 
-  await validateUser({ email: args.email, shouldExist: true, context })
+  await validateUser({ context, email: args.email, shouldExist: true })
 
   const currentUser: User = await context.database.users.findOne({
     email: args.email
@@ -38,7 +38,7 @@ export default async (
     )
     .then((user) => user.value)
 
-  await createAuditLog(AuditLogAction.UPDATE_USER, context)
+  await createAuditLog(context, AuditLogAction.UPDATE_USER)
 
   return updatedUser
 }
