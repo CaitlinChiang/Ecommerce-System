@@ -9,7 +9,6 @@ import {
   TableBody,
   TableCell,
   TableHead,
-  TablePagination,
   TableRow,
   TableSortLabel,
   Toolbar,
@@ -17,17 +16,12 @@ import {
   Typography
 } from '@mui/material'
 import FilterListIcon from '@mui/icons-material/FilterList'
-import FirstPageIcon from '@mui/icons-material/FirstPage'
-import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft'
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight'
-import LastPageIcon from '@mui/icons-material/LastPage'
-
 import { PaginateDataArgs } from '../../../types/actions/paginateData'
 import { SortDirection } from '../../_enums/sortDirection'
 import ModalComponent from './ModalComponent'
 import SearchField from './SearchField'
+import PaginationComponent from './PaginationComponent'
 import { searchData } from '../../_utils/handleData/searchData'
-import { generateRowsPerPage } from '../../_utils/handleData/generateRowsPerPage'
 import { formatText } from '../../_utils/handleFormat/formatText'
 
 const TableComponent = ({
@@ -59,7 +53,7 @@ const TableComponent = ({
   setFilterOpen?: React.Dispatch<React.SetStateAction<boolean>>
   setPaginateDataArgs: React.Dispatch<React.SetStateAction<PaginateDataArgs>>
 }): ReactElement => {
-  const { page, rowsPerPage, searchText, sortBy, sortDirection } = paginateDataArgs
+  const { searchText, sortBy, sortDirection } = paginateDataArgs
 
   useEffect(() => {
     setPaginateDataArgs({ ...paginateDataArgs, page: 0 })
@@ -76,67 +70,6 @@ const TableComponent = ({
     )
     return (): void => clearTimeout(timeoutId)
   }, [searchText])
-
-  const TablePaginationActions = (props: any): ReactElement => {
-    const { count, onPageChange, page, rowsPerPage } = props
-
-    return (
-      <Box sx={{ flexShrink: 0, ml: 2.5 }}>
-        <IconButton disabled={page === 0} onClick={(e: any) => onPageChange(e, 0)}>
-          <FirstPageIcon />
-        </IconButton>
-        <IconButton
-          disabled={page === 0}
-          onClick={(e: any) => onPageChange(e, page - 1)}
-        >
-          <KeyboardArrowLeft />
-        </IconButton>
-        <IconButton
-          disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-          onClick={(e: any) => onPageChange(e, page + 1)}
-        >
-          <KeyboardArrowRight />
-        </IconButton>
-        <IconButton
-          disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-          onClick={(e: any) =>
-            onPageChange(e, Math.max(0, Math.ceil(count / rowsPerPage) - 1))
-          }
-        >
-          <LastPageIcon />
-        </IconButton>
-      </Box>
-    )
-  }
-
-  const TablePaginationComponent = (): ReactElement => {
-    return (
-      <TablePagination
-        component={'span'}
-        count={count}
-        onRowsPerPageChange={async (e): Promise<void> => {
-          const newRowsPerPage = Number(e.target.value)
-          setPaginateDataArgs({
-            ...paginateDataArgs,
-            page: 0,
-            rowsPerPage: newRowsPerPage
-          })
-        }}
-        onPageChange={async (_e, newPage: number): Promise<void> => {
-          window.scrollTo(0, 0)
-          setPaginateDataArgs({
-            ...paginateDataArgs,
-            page: newPage
-          })
-        }}
-        page={page}
-        rowsPerPage={rowsPerPage || count}
-        rowsPerPageOptions={generateRowsPerPage(count)}
-        ActionsComponent={TablePaginationActions}
-        SelectProps={{ native: true }}
-      />
-    )
-  }
 
   const ToolbarComponent = (): ReactElement => {
     return (
@@ -179,7 +112,11 @@ const TableComponent = ({
         {loading && <LinearProgress />}
         <Box sx={{ overflow: { xs: 'auto', sm: 'unset' } }}>
           {filterContent && <ToolbarComponent />}
-          <TablePaginationComponent />
+          <PaginationComponent
+            count={count}
+            paginateDataArgs={paginateDataArgs}
+            setPaginateDataArgs={setPaginateDataArgs}
+          />
           <Table sx={{ whiteSpace: 'nowrap' }}>
             <TableHead>
               <TableRow>
@@ -223,7 +160,11 @@ const TableComponent = ({
             </TableHead>
             <TableBody>{rows}</TableBody>
           </Table>
-          <TablePaginationComponent />
+          <PaginationComponent
+            count={count}
+            paginateDataArgs={paginateDataArgs}
+            setPaginateDataArgs={setPaginateDataArgs}
+          />
         </Box>
       </CardContent>
     </Card>
