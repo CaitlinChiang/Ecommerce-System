@@ -23,11 +23,8 @@ export const returnError = ({
   }
 
   if (emptyArgs) return true
-
   if (targetProp === 'email' && !isEmail(args?.email)) return true
-
   if (targetProp === 'password' && args?.password?.length < 8) return true
-
   if (targetProp === 'phoneNumber' && !isMobilePhone(args?.phoneNumber)) {
     return true
   }

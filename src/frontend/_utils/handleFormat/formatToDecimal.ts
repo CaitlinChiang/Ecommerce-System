@@ -1,4 +1,4 @@
-export const formatFromPercentage = (discount: number | string): number | null => {
+export const formatToDecimal = (discount: number | string): number | null => {
   if (!discount) return null
 
   const discountString = String(discount)

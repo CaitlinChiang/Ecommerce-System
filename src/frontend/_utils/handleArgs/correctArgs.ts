@@ -1,17 +1,17 @@
 import isEmail from 'validator/lib/isEmail'
 import isMobilePhone from 'validator/lib/isMobilePhone'
 import { formatFee } from '../handleFormat/formatFee'
-import { formatFromPercentage } from '../handleFormat/formatFromPercentage'
+import { formatToDecimal } from '../handleFormat/formatToDecimal'
 import { formatStockQuantity } from '../handleFormat/formatStockQuantity'
 
 export const correctArgs = (args: any): any => {
   Object.keys(args).forEach((key: string): void => {
     const val = args[key]
 
-    if (typeof val === 'string') modifyArgs(args, key)
+    if (typeof val === 'string') modifyArgs(key, args)
 
     if (typeof val === 'object' && val && !Array.isArray(val)) {
-      Object.keys(val).forEach((k: string) => modifyArgs(val, k))
+      Object.keys(val).forEach((key: string) => modifyArgs(key, val))
     }
 
     if (['deliveryAddress', 'email', 'password', 'phoneNumber'].includes(key)) {
@@ -22,13 +22,15 @@ export const correctArgs = (args: any): any => {
   return args
 }
 
-const modifyArgs = (args: any, key: string): any => {
-  if (isNaN(args[key]) && !isImage && args[key]?.trim().length === 0) {
+const modifyArgs = (key: string, args: any): any => {
+  const val = args[key]
+
+  if (isNaN(val) && !isImage && val?.trim().length === 0) {
     args[key] = null
   }
 
   if (key === 'discount') {
-    args[key] = formatFromPercentage(args[key])
+    args[key] = formatToDecimal(args[key])
   }
 
   if (key === 'shippingFee' || key === 'price') {
@@ -47,7 +49,7 @@ const isImage = (val: any): boolean => {
 const validateArgs = (args: any): any => {
   const { deliveryAddress, email, password, phoneNumber } = args
 
-  // DELIVERY ADDRESS CHECK ONLY IF THE INPUT IS NOT FROM USER PROFILE
+  // CHECK DELIVERY ADDRESS ONLY IF THE INPUT IS NOT FROM USER PROFILE
   if (deliveryAddress && !args.email) {
     const { address, cityId } = deliveryAddress
 
