@@ -1,34 +1,9 @@
 import { ReactElement } from 'react'
-import styles from '../../styles/_common/areaChart'
-import { Container, Typography } from '@mui/material'
-import {
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer
-} from 'recharts'
+import dynamic from 'next/dynamic'
+import { Card, CardContent } from '@mui/material'
 import { formatText } from '../../_utils/handleFormat/formatText'
 
-const CustomTooltip = ({ active, payload, label, yAxisDataKey }: any) => {
-  if (active && payload && payload.length) {
-    const revenueSign = yAxisDataKey === 'revenue' ? 'P' : ''
-    const val =
-      yAxisDataKey === 'revenue' ? payload[0].value.toFixed(2) : payload[0].value
-    const valueDisplay = `${formatText(yAxisDataKey)}: ${revenueSign}${val}`
-
-    return (
-      <>
-        <Typography>{`Date: ${formatText(label)}`}</Typography>
-        <Typography>{valueDisplay}</Typography>
-      </>
-    )
-  }
-
-  return null
-}
+const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 const AreaChartTemplate = ({
   data,
@@ -39,23 +14,37 @@ const AreaChartTemplate = ({
   xAxisDataKey: string
   yAxisDataKey: string
 }): ReactElement => {
+  const options: any = {
+    chart: {
+      id: 'area-chart',
+      fontFamily: "'DM Sans', sans-serif",
+      foreColor: '#adb0bb',
+      zoom: { enabled: true },
+      toolbar: { show: false }
+    },
+    dataLabels: { enabled: false },
+    stroke: { width: '3', curve: 'smooth' },
+    colors: ['#0b70fb', '#6ac3fd'],
+    xaxis: { categories: data.map((e: any) => e[xAxisDataKey]) },
+    yaxis: { opposite: false, labels: { show: true } },
+    legend: { show: true, position: 'bottom', width: '50px' },
+    grid: { show: false },
+    tooltip: { theme: 'dark', illSeriesColor: false }
+  }
+
+  const series = [
+    {
+      name: formatText(yAxisDataKey),
+      data: data.map((e: any) => e[yAxisDataKey])
+    }
+  ]
+
   return (
-    <Container sx={styles.container}>
-      <ResponsiveContainer>
-        <AreaChart data={data} margin={styles.chartMargin}>
-          <CartesianGrid strokeDasharray='3 3' />
-          <XAxis dataKey={xAxisDataKey} />
-          <YAxis />
-          <Tooltip content={<CustomTooltip yAxisDataKey={yAxisDataKey} />} />
-          <Area
-            type='monotone'
-            dataKey={yAxisDataKey}
-            stroke='#8884d8'
-            fill='#8884d8'
-          />
-        </AreaChart>
-      </ResponsiveContainer>
-    </Container>
+    <Card>
+      <CardContent>
+        <Chart options={options} series={series} type='area' height='300px' />
+      </CardContent>
+    </Card>
   )
 }
 
