@@ -1,19 +1,27 @@
 import React, { ReactElement, useEffect } from 'react'
 import {
-  Container,
+  Box,
+  Card,
+  CardContent,
   IconButton,
   LinearProgress,
   Table,
   TableBody,
   TableCell,
-  TableContainer,
   TableHead,
   TablePagination,
   TableRow,
   TableSortLabel,
-  Tooltip
+  Toolbar,
+  Tooltip,
+  Typography
 } from '@mui/material'
 import FilterListIcon from '@mui/icons-material/FilterList'
+import FirstPageIcon from '@mui/icons-material/FirstPage'
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft'
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight'
+import LastPageIcon from '@mui/icons-material/LastPage'
+
 import { PaginateDataArgs } from '../../../types/actions/paginateData'
 import { SortDirection } from '../../_enums/sortDirection'
 import ModalComponent from './ModalComponent'
@@ -69,106 +77,156 @@ const TableComponent = ({
     return (): void => clearTimeout(timeoutId)
   }, [searchText])
 
-  return (
-    <>
-      <ModalComponent
-        content={filterContent}
-        onClose={(): void => setFilterOpen(false)}
-        open={filterOpen}
-        title={'Filters'}
+  const TablePaginationActions = (props: any): ReactElement => {
+    const { count, onPageChange, page, rowsPerPage } = props
+
+    return (
+      <Box sx={{ flexShrink: 0, ml: 2.5 }}>
+        <IconButton disabled={page === 0} onClick={(e: any) => onPageChange(e, 0)}>
+          <FirstPageIcon />
+        </IconButton>
+        <IconButton
+          disabled={page === 0}
+          onClick={(e: any) => onPageChange(e, page - 1)}
+        >
+          <KeyboardArrowLeft />
+        </IconButton>
+        <IconButton
+          disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+          onClick={(e: any) => onPageChange(e, page + 1)}
+        >
+          <KeyboardArrowRight />
+        </IconButton>
+        <IconButton
+          disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+          onClick={(e: any) =>
+            onPageChange(e, Math.max(0, Math.ceil(count / rowsPerPage) - 1))
+          }
+        >
+          <LastPageIcon />
+        </IconButton>
+      </Box>
+    )
+  }
+
+  const TablePaginationComponent = (): ReactElement => {
+    return (
+      <TablePagination
+        component={'span'}
+        count={count}
+        onRowsPerPageChange={async (e): Promise<void> => {
+          const newRowsPerPage = Number(e.target.value)
+          setPaginateDataArgs({
+            ...paginateDataArgs,
+            page: 0,
+            rowsPerPage: newRowsPerPage
+          })
+        }}
+        onPageChange={async (_e, newPage: number): Promise<void> => {
+          window.scrollTo(0, 0)
+          setPaginateDataArgs({
+            ...paginateDataArgs,
+            page: newPage
+          })
+        }}
+        page={page}
+        rowsPerPage={rowsPerPage || count}
+        rowsPerPageOptions={generateRowsPerPage(count)}
+        ActionsComponent={TablePaginationActions}
+        SelectProps={{ native: true }}
       />
-      {searchLabel && (
-        <SearchField
-          onKeyDown={(e): void => {
-            if (e.key === 'Enter') {
-              searchData(args, fetchMore, loading, paginateDataArgs)
-            }
-          }}
-          onSearch={(): void => {
-            searchData(args, fetchMore, loading, paginateDataArgs)
-          }}
-          searchButtonDisabled={loading}
-          searchLabel={searchLabel}
-          searchPlaceholder={searchPlaceholder}
-          searchText={searchText}
-          setPaginateDataArgs={setPaginateDataArgs}
+    )
+  }
+
+  const ToolbarComponent = (): ReactElement => {
+    return (
+      <Toolbar sx={{ justifyContent: 'right', left: 30 }}>
+        <Tooltip title={'Filter'}>
+          <IconButton onClick={(): void => setFilterOpen(true)}>
+            <FilterListIcon color='primary' />
+          </IconButton>
+        </Tooltip>
+      </Toolbar>
+    )
+  }
+
+  return (
+    <Card>
+      <CardContent>
+        <ModalComponent
+          content={filterContent}
+          onClose={(): void => setFilterOpen(false)}
+          open={filterOpen}
+          title={'Filters'}
         />
-      )}
-      {loading && <LinearProgress />}
-      <TableContainer>
-        <Container>
-          {filterContent && (
-            <Tooltip title={'Filter'}>
-              <IconButton
-                color={'primary'}
-                onClick={(): void => setFilterOpen(true)}
-              >
-                <FilterListIcon />
-              </IconButton>
-            </Tooltip>
-          )}
-          <TablePagination
-            component={'span'}
-            count={count}
-            onRowsPerPageChange={async (e): Promise<void> => {
-              const newRowsPerPage = Number(e.target.value)
-              setPaginateDataArgs({
-                ...paginateDataArgs,
-                page: 0,
-                rowsPerPage: newRowsPerPage
-              })
+        {searchLabel && (
+          <SearchField
+            onKeyDown={(e): void => {
+              if (e.key === 'Enter') {
+                searchData(args, fetchMore, loading, paginateDataArgs)
+              }
             }}
-            onPageChange={async (_e, newPage: number): Promise<void> => {
-              window.scrollTo(0, 0)
-              setPaginateDataArgs({
-                ...paginateDataArgs,
-                page: newPage
-              })
+            onSearch={(): void => {
+              searchData(args, fetchMore, loading, paginateDataArgs)
             }}
-            page={page}
-            rowsPerPage={rowsPerPage || count}
-            rowsPerPageOptions={generateRowsPerPage(count)}
+            searchButtonDisabled={loading}
+            searchLabel={searchLabel}
+            searchPlaceholder={searchPlaceholder}
+            searchText={searchText}
+            setPaginateDataArgs={setPaginateDataArgs}
           />
-        </Container>
-        <Table size={'small'}>
-          <TableHead>
-            <TableRow>
-              {headers.map(
-                (
-                  header: { label: string; sortable: boolean },
-                  index: number
-                ): ReactElement => {
-                  return (
-                    <TableCell key={index} align={'center'} padding={'checkbox'}>
-                      {!header.sortable && formatText(header.label)}
-                      {header.sortable && (
-                        <TableSortLabel
-                          active={sortBy === header.label}
-                          direction={sortDirection || SortDirection.DESC}
-                          onClick={(): void => {
-                            setPaginateDataArgs({
-                              ...paginateDataArgs,
-                              sortBy: header.label,
-                              sortDirection:
-                                sortDirection === SortDirection.ASC
-                                  ? SortDirection.DESC
-                                  : SortDirection.ASC
-                            })
-                          }}
-                        >
-                          {formatText(header.label)}
-                        </TableSortLabel>
-                      )}
-                    </TableCell>
-                  )
-                }
-              )}
-            </TableRow>
-          </TableHead>
-          <TableBody>{rows}</TableBody>
-        </Table>
-      </TableContainer>
-    </>
+        )}
+        {loading && <LinearProgress />}
+        <Box sx={{ overflow: { xs: 'auto', sm: 'unset' } }}>
+          {filterContent && <ToolbarComponent />}
+          <TablePaginationComponent />
+          <Table sx={{ whiteSpace: 'nowrap' }}>
+            <TableHead>
+              <TableRow>
+                {headers.map(
+                  (
+                    header: { label: string; sortable: boolean },
+                    index: number
+                  ): ReactElement => {
+                    return (
+                      <TableCell key={index}>
+                        {!header.sortable && (
+                          <Typography variant={'h5'}>
+                            {formatText(header.label)}
+                          </Typography>
+                        )}
+                        {header.sortable && (
+                          <TableSortLabel
+                            active={sortBy === header.label}
+                            direction={sortDirection || SortDirection.DESC}
+                            onClick={(): void => {
+                              setPaginateDataArgs({
+                                ...paginateDataArgs,
+                                sortBy: header.label,
+                                sortDirection:
+                                  sortDirection === SortDirection.ASC
+                                    ? SortDirection.DESC
+                                    : SortDirection.ASC
+                              })
+                            }}
+                          >
+                            <Typography variant={'h5'}>
+                              {formatText(header.label)}
+                            </Typography>
+                          </TableSortLabel>
+                        )}
+                      </TableCell>
+                    )
+                  }
+                )}
+              </TableRow>
+            </TableHead>
+            <TableBody>{rows}</TableBody>
+          </Table>
+          <TablePaginationComponent />
+        </Box>
+      </CardContent>
+    </Card>
   )
 }
 
