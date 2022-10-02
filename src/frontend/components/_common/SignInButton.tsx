@@ -7,9 +7,13 @@ const SignInButton = (): ReactElement => {
 
   return (
     <Button
+      color={'secondary'}
       onClick={(): void => {
         router.push('/user/sign-in')
       }}
+      size={'large'}
+      sx={{ pt: '10px', pb: '10px' }}
+      variant={'contained'}
     >
       {'Sign In'}
     </Button>

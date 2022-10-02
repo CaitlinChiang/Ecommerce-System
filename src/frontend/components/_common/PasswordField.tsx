@@ -34,6 +34,7 @@ const PasswordField = ({
           setArgs({ ...args, [targetProp]: e.target.value })
         }}
         required={required}
+        size={'small'}
         type={showPassword ? 'PasswordField' : 'password'}
         value={val}
         InputProps={{
