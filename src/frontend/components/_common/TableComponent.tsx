@@ -3,6 +3,7 @@ import {
   Box,
   Card,
   CardContent,
+  Grid,
   IconButton,
   LinearProgress,
   Table,
@@ -73,7 +74,7 @@ const TableComponent = ({
 
   const ToolbarComponent = (): ReactElement => {
     return (
-      <Toolbar sx={{ justifyContent: 'right', left: 30 }}>
+      <Toolbar>
         <Tooltip title={'Filter'}>
           <IconButton onClick={(): void => setFilterOpen(true)}>
             <FilterListIcon color='primary' />
@@ -92,26 +93,28 @@ const TableComponent = ({
           open={filterOpen}
           title={'Filters'}
         />
-        {searchLabel && (
-          <SearchField
-            onKeyDown={(e): void => {
-              if (e.key === 'Enter') {
-                searchData(args, fetchMore, loading, paginateDataArgs)
-              }
-            }}
-            onSearch={(): void => {
-              searchData(args, fetchMore, loading, paginateDataArgs)
-            }}
-            searchButtonDisabled={loading}
-            searchLabel={searchLabel}
-            searchPlaceholder={searchPlaceholder}
-            searchText={searchText}
-            setPaginateDataArgs={setPaginateDataArgs}
-          />
-        )}
         {loading && <LinearProgress />}
         <Box sx={{ overflow: { xs: 'auto', sm: 'unset' } }}>
-          {filterContent && <ToolbarComponent />}
+          <Grid container sx={{ justifyContent: 'right' }}>
+            <Grid item xs={3}>
+              {!searchLabel && (
+                <SearchField
+                  onKeyDown={(e): void => {
+                    if (e.key === 'Enter') {
+                      searchData(args, fetchMore, loading, paginateDataArgs)
+                    }
+                  }}
+                  searchLabel={searchLabel}
+                  searchPlaceholder={searchPlaceholder}
+                  searchText={searchText}
+                  setPaginateDataArgs={setPaginateDataArgs}
+                />
+              )}
+            </Grid>
+            <Grid item xs={1}>
+              {filterContent && <ToolbarComponent />}
+            </Grid>
+          </Grid>
           <PaginationComponent
             count={count}
             paginateDataArgs={paginateDataArgs}
