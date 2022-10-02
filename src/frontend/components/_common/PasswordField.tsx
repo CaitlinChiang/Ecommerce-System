@@ -1,8 +1,9 @@
 import { ReactElement, useState } from 'react'
-import { InputAdornment, IconButton, TextField } from '@mui/material'
+import { InputAdornment, IconButton } from '@mui/material'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
-import { formatText } from '../../_utils/handleFormat/formatText'
+import CustomFormLabel from './CustomFormLabel'
+import { StyledTextField } from './StyledTextField'
 import { returnError } from '../../_utils/handleArgs/returnError'
 import { returnHelperText } from '../../_utils/handleArgs/returnHelperText'
 
@@ -24,33 +25,35 @@ const PasswordField = ({
   const val = args?.[targetProp]
 
   return (
-    <TextField
-      error={returnError({ args, error, targetProp })}
-      helperText={returnHelperText({ args, error, targetProp })}
-      label={formatText(targetProp)}
-      onChange={(e): void => {
-        setArgs({ ...args, [targetProp]: e.target.value })
-      }}
-      required={required}
-      type={showPassword ? 'PasswordField' : 'password'}
-      value={val}
-      InputProps={{
-        endAdornment: (
-          <InputAdornment position='end'>
-            <IconButton
-              aria-label='toggle password visibility'
-              onClick={(): void => setShowPassword(!showPassword)}
-              onMouseDown={(e: React.MouseEvent<HTMLButtonElement>): void => {
-                e.preventDefault()
-              }}
-              edge='end'
-            >
-              {showPassword ? <VisibilityOff /> : <Visibility />}
-            </IconButton>
-          </InputAdornment>
-        )
-      }}
-    />
+    <>
+      <CustomFormLabel required={required} text={targetProp} />
+      <StyledTextField
+        error={returnError({ args, error, targetProp })}
+        helperText={returnHelperText({ args, error, targetProp })}
+        onChange={(e): void => {
+          setArgs({ ...args, [targetProp]: e.target.value })
+        }}
+        required={required}
+        type={showPassword ? 'PasswordField' : 'password'}
+        value={val}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position='end'>
+              <IconButton
+                aria-label='toggle password visibility'
+                onClick={(): void => setShowPassword(!showPassword)}
+                onMouseDown={(e: React.MouseEvent<HTMLButtonElement>): void => {
+                  e.preventDefault()
+                }}
+                edge='end'
+              >
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          )
+        }}
+      />
+    </>
   )
 }
 
