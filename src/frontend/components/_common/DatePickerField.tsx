@@ -3,7 +3,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns'
 import LocalizationProvider from '@mui/lab/LocalizationProvider'
 import { DatePicker } from '@mui/lab'
 import { TextField } from '@mui/material'
-import { formatText } from '../../_utils/handleFormat/formatText'
+import CustomFormLabel from './CustomFormLabel'
 import { returnError } from '../../_utils/handleArgs/returnError'
 import { returnHelperText } from '../../_utils/handleArgs/returnHelperText'
 
@@ -37,31 +37,35 @@ const DatePickerField = ({
   }
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <DatePicker
-        disabled={disabled}
-        inputFormat={'MM-dd-yyyy'}
-        label={formatText(nestedProp || targetProp)}
-        onChange={(newValue: Date | null) => {
-          const newVal = newValue === null ? defaultVal : newValue
+    <>
+      <CustomFormLabel required={required} text={nestedProp || targetProp} />
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <DatePicker
+          disabled={disabled}
+          inputFormat={'MM-dd-yyyy'}
+          onChange={(newValue: Date | null) => {
+            const newVal = newValue === null ? defaultVal : newValue
 
-          if (nestedProp) {
-            setArgs({ ...args, [targetProp]: { ...val, [nestedProp]: newVal } })
-          } else {
-            setArgs({ ...args, [targetProp]: newVal })
-          }
-        }}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            error={returnError({ args, error, targetProp, nestedProp })}
-            helperText={returnHelperText({ args, error, targetProp, nestedProp })}
-            required={required}
-          />
-        )}
-        value={modifiedVal}
-      />
-    </LocalizationProvider>
+            if (nestedProp) {
+              setArgs({ ...args, [targetProp]: { ...val, [nestedProp]: newVal } })
+            } else {
+              setArgs({ ...args, [targetProp]: newVal })
+            }
+          }}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              error={returnError({ args, error, targetProp, nestedProp })}
+              helperText={returnHelperText({ args, error, targetProp, nestedProp })}
+              required={required}
+              size={'small'}
+              variant={'outlined'}
+            />
+          )}
+          value={modifiedVal}
+        />
+      </LocalizationProvider>
+    </>
   )
 }
 
