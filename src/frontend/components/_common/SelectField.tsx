@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
-import styles from '../../styles/_common/selectField'
 import { TextField, Autocomplete } from '@mui/material'
+import CustomFormLabel from './CustomFormLabel'
 import { returnError } from '../../_utils/handleArgs/returnError'
 import { returnHelperText } from '../../_utils/handleArgs/returnHelperText'
 
@@ -15,8 +15,7 @@ const SelectField = ({
   required,
   setArgs,
   targetProp,
-  updateMutation,
-  width
+  updateMutation
 }: {
   args: any
   disabled?: boolean
@@ -29,7 +28,6 @@ const SelectField = ({
   setArgs: React.Dispatch<React.SetStateAction<any>>
   targetProp: string
   updateMutation?: any
-  width?: number
 }): ReactElement => {
   const val = args[targetProp]
 
@@ -65,24 +63,27 @@ const SelectField = ({
   }
 
   return (
-    <Autocomplete
-      disabled={disabled}
-      getOptionLabel={(option: any): string => option.label}
-      multiple={multiple}
-      onChange={handleChange}
-      options={options}
-      renderInput={(params): ReactElement => (
-        <TextField
-          {...params}
-          error={returnError({ args, error, targetProp, nestedProp })}
-          helperText={returnHelperText({ args, error, targetProp, nestedProp })}
-          label={label}
-          required={required}
-        />
-      )}
-      sx={{ ...styles.autocomplete, width: width || 300 }}
-      value={searchVal || (nestedProp ? val?.[nestedProp] : val)}
-    />
+    <>
+      <CustomFormLabel required={required} text={label} />
+      <Autocomplete
+        disabled={disabled}
+        getOptionLabel={(option: any): string => option.label}
+        multiple={multiple}
+        onChange={handleChange}
+        options={options}
+        renderInput={(params): ReactElement => (
+          <TextField
+            {...params}
+            error={returnError({ args, error, targetProp, nestedProp })}
+            helperText={returnHelperText({ args, error, targetProp, nestedProp })}
+            required={required}
+            size={'small'}
+            variant={'outlined'}
+          />
+        )}
+        value={searchVal || (nestedProp ? val?.[nestedProp] : val)}
+      />
+    </>
   )
 }
 
