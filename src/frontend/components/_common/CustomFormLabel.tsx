@@ -20,7 +20,7 @@ const CustomFormLabel = ({
 
   return (
     <>
-      <StyledFormLabel sx={{ mt: 0 }}>
+      <StyledFormLabel sx={{ marginTop: 2.5 }}>
         {formatText(text)}
         {required && ' *'}
       </StyledFormLabel>
