@@ -221,9 +221,11 @@ const navbarItems = [
 ]
 
 const Navbar = ({
+  mobileOpen,
   open,
   onClose
 }: {
+  mobileOpen?: boolean
   open: boolean
   onClose: ReactEventHandler
 }): ReactElement => {
@@ -395,7 +397,7 @@ const Navbar = ({
   return (
     <Drawer
       anchor='left'
-      open={open}
+      open={mobileOpen}
       onClose={onClose}
       variant={'temporary'}
       PaperProps={{
