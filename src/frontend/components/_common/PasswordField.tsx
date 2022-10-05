@@ -29,6 +29,7 @@ const PasswordField = ({
       <CustomFormLabel required={required} text={targetProp} />
       <StyledTextField
         error={returnError({ args, error, targetProp })}
+        fullWidth
         helperText={returnHelperText({ args, error, targetProp })}
         onChange={(e): void => {
           setArgs({ ...args, [targetProp]: e.target.value })

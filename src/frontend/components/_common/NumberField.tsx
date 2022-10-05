@@ -8,7 +8,6 @@ const NumberField = ({
   args,
   disabled,
   error,
-  fullWidth,
   label,
   nestedProp,
   required,
@@ -18,7 +17,6 @@ const NumberField = ({
   args: any
   disabled?: boolean
   error?: boolean
-  fullWidth?: boolean
   label?: string
   nestedProp?: string
   required?: boolean
@@ -36,7 +34,7 @@ const NumberField = ({
       <StyledTextField
         disabled={disabled}
         error={returnError({ args, error, targetProp, nestedProp })}
-        fullWidth={fullWidth}
+        fullWidth
         helperText={returnHelperText({ args, error, targetProp, nestedProp })}
         onChange={(e): void => {
           const inputVal = e.target.value

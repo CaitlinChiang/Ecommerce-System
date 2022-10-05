@@ -8,7 +8,6 @@ const Text = ({
   args,
   disabled,
   error,
-  fullWidth,
   maxLength,
   maxRows,
   multiline,
@@ -21,7 +20,6 @@ const Text = ({
   args: any
   disabled?: boolean
   error?: boolean
-  fullWidth?: boolean
   maxLength?: number
   maxRows?: number
   multiline?: boolean
@@ -39,7 +37,7 @@ const Text = ({
       <StyledTextField
         disabled={disabled}
         error={returnError({ args, error, targetProp, nestedProp })}
-        fullWidth={fullWidth}
+        fullWidth
         helperText={returnHelperText({ args, error, targetProp, nestedProp })}
         inputProps={{ maxLength: maxLength || 150 }}
         maxRows={maxRows}
