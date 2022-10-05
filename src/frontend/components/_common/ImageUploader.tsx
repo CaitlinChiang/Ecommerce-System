@@ -1,6 +1,5 @@
 import { ReactElement, useState, useEffect } from 'react'
-import styles from '../../styles/_common/imageUploader'
-import { Box, Button, FormHelperText } from '@mui/material'
+import { Box, Button, Typography } from '@mui/material'
 
 const ImageUploader = ({
   alt,
@@ -54,24 +53,35 @@ const ImageUploader = ({
     : !args?.[targetProp]
 
   return (
-    <>
-      <Button>
-        <input type='file' accept='image/*' onChange={uploadImage} />
-        {'Upload Photo'}
-      </Button>
+    <Box sx={{ marginTop: 2.5 }}>
+      <input
+        accept='image/*'
+        id='select-image'
+        onChange={uploadImage}
+        style={{ display: 'none' }}
+        type='file'
+      />
+      <label htmlFor='select-image'>
+        <Button color={'secondary'} component={'span'} variant={'contained'}>
+          {`Upload Image ${required && '*'}`}
+        </Button>
+      </label>
       {required && error && emptyProp && (
         <>
-          <FormHelperText sx={styles.formHelperText}>
+          <Typography variant={'subtitle2'} color={'error'}>
             {targetProp === 'image'
-              ? 'Product image is required.'
-              : 'Payment proof image is required.'}
-          </FormHelperText>
+              ? 'Product image is a required field.'
+              : 'Payment proof image is a required field.'}
+          </Typography>
         </>
       )}
-      {imageUrl && (
-        <Box component='img' alt={alt} src={imageUrl} sx={styles.image} />
-      )}
-    </>
+      <Typography sx={{ marginTop: 2 }} variant={'h5'}>
+        {'Image Preview:'}
+      </Typography>
+      <Box sx={{ border: 1, color: '#DDDDDD', height: 220, marginTop: 1 }}>
+        {imageUrl && <img src={imageUrl} alt={alt} height={'200px'} />}
+      </Box>
+    </Box>
   )
 }
 
