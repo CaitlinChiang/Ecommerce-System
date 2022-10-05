@@ -1,6 +1,4 @@
 import { ReactElement } from 'react'
-import theme from '../../themes'
-import styles from '../../styles/_common/modalComponent'
 import {
   Button,
   CircularProgress,
@@ -9,7 +7,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  useMediaQuery
+  Typography
 } from '@mui/material'
 
 const ModalComponent = ({
@@ -32,31 +30,41 @@ const ModalComponent = ({
   return (
     <>
       <Dialog
-        fullScreen={useMediaQuery(theme.breakpoints.down('sm'))}
+        fullWidth
         maxWidth={'lg'}
         onClose={onClose}
         open={Boolean(open)}
+        PaperProps={{ style: { borderRadius: 20 } }}
       >
-        <DialogTitle>{title}</DialogTitle>
+        <DialogTitle>
+          <Typography variant={'h3'}>{title}</Typography>
+        </DialogTitle>
         <DialogContent>
           <Collapse in={Boolean(!loading && content)}>{content}</Collapse>
-          <Collapse in={loading} sx={styles.dialogCollapse}>
+          <Collapse in={loading}>
             <CircularProgress />
           </Collapse>
         </DialogContent>
         <DialogActions disableSpacing>
+          <Button
+            color={'secondary'}
+            onClick={onClose}
+            sx={{ marginRight: 2 }}
+            variant={'outlined'}
+          >
+            {'Close'}
+          </Button>
           {primaryButtonOnClick && (
             <Button
               disabled={loading}
               color={'primary'}
               onClick={primaryButtonOnClick}
+              sx={{ marginRight: 2 }}
+              variant={'contained'}
             >
               {primaryButtonTitle || 'Save'}
             </Button>
           )}
-          <Button color={'secondary'} onClick={onClose}>
-            {'Close'}
-          </Button>
         </DialogActions>
       </Dialog>
     </>
