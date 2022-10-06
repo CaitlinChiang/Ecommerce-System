@@ -1,40 +1,14 @@
 import { NextPage } from 'next'
 import { ReactElement, FunctionComponent, useState } from 'react'
-import {
-  Box,
-  Container,
-  experimentalStyled,
-  Typography,
-  useMediaQuery
-} from '@mui/material'
+import { Box, Container, Typography, useMediaQuery } from '@mui/material'
 import { useQuery } from '@apollo/client'
 import { theme } from '../../themes'
 import { GetUser } from '../query'
 import { User } from '../../../types/user'
+import { MainWrapper, PageWrapper } from '../common'
 import Navbar from './Navbar'
 import Header from './Header'
 import Footer from './Footer'
-
-const MainWrapper = experimentalStyled('div')(() => ({
-  display: 'flex',
-  minHeight: '100vh',
-  overflow: 'hidden',
-  width: '100%'
-}))
-
-const PageWrapper = experimentalStyled('div')(({ theme }) => ({
-  display: 'flex',
-  flex: '1 1 auto',
-  overflow: 'hidden',
-
-  backgroundColor: theme.palette.background.default,
-  [theme.breakpoints.up('lg')]: {
-    paddingTop: '64px'
-  },
-  [theme.breakpoints.down('lg')]: {
-    paddingTop: '64px'
-  }
-}))
 
 export default (Page: FunctionComponent, { title }: { title?: string }) =>
   (): FunctionComponent | NextPage | ReactElement => {
