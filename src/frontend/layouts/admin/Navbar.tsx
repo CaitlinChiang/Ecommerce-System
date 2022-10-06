@@ -28,6 +28,7 @@ import PaymentIcon from '@mui/icons-material/Payment'
 import LocalShippingIcon from '@mui/icons-material/LocalShipping'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
+import { theme } from '../../themes'
 import { AdminPermission } from '../../_enums/adminPermission'
 import { UserType } from '../../_enums/userType'
 import { generateAdminUrl } from '../../_utils/auth/generateAdminUrl'
@@ -235,7 +236,7 @@ const Navbar = ({
 
   const [itemOpen, setItemOpen] = useState<any>(true)
 
-  const lgUp = useMediaQuery((theme: any) => theme.breakpoints.up('lg'))
+  const lgUp = useMediaQuery(theme.breakpoints.up('lg'))
 
   const handleClick = (index: any) => {
     if (itemOpen === index) {
@@ -328,7 +329,7 @@ const Navbar = ({
                                   })
                                 }}
                               >
-                                {item.icon}
+                                {child.icon}
                               </ListItemIcon>
                               <ListItemText>{child.label}</ListItemText>
                             </ListItem>

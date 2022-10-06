@@ -1,31 +1,46 @@
 import { ReactElement } from 'react'
-import { useRouter } from 'next/router'
-import styles from '../../styles/_layouts/admin/header'
-import { Toolbar, IconButton, Typography } from '@mui/material'
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import { AppBar, IconButton, Toolbar } from '@mui/material'
+import MenuIcon from '@mui/icons-material/Menu'
 
 const Header = ({
-  pageTitle,
-  backRoute
+  customClass,
+  position,
+  toggleMobileNavbar,
+  toggleNavbar,
+  sx
 }: {
-  pageTitle?: string
-  backRoute?: boolean
+  customClass?: any
+  position?: 'fixed' | 'absolute' | 'relative' | 'static' | 'sticky'
+  toggleMobileNavbar?: VoidFunction
+  toggleNavbar?: VoidFunction
+  sx?: any
 }): ReactElement => {
-  const router = useRouter()
-
   return (
-    <Toolbar sx={styles.toolbar}>
-      {backRoute && (
-        <IconButton
-          edge={'start'}
-          color={'inherit'}
-          onClick={(): void => router.back()}
-        >
-          <ArrowBackIcon fontSize={'large'} />
-        </IconButton>
-      )}
-      <Typography sx={styles.typography}>{pageTitle}</Typography>
-    </Toolbar>
+    <>
+      <AppBar sx={sx} position={position} elevation={0} className={customClass}>
+        <Toolbar>
+          <IconButton
+            edge='start'
+            color='inherit'
+            aria-label='menu'
+            onClick={toggleNavbar}
+            size='large'
+            sx={{ display: { lg: 'flex', xs: 'none' } }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <IconButton
+            size='large'
+            color='inherit'
+            aria-label='menu'
+            onClick={toggleMobileNavbar}
+            sx={{ display: { lg: 'none', xs: 'flex' } }}
+          >
+            <MenuIcon />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+    </>
   )
 }
 
