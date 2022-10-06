@@ -1,6 +1,7 @@
 import { NextPage } from 'next'
-import { ReactElement, FunctionComponent, useState, useEffect } from 'react'
-import { Box, Container, Typography } from '@mui/material'
+import { ReactElement, FunctionComponent, useState } from 'react'
+import { Box, Container, Typography, useMediaQuery } from '@mui/material'
+import { theme } from '../../themes'
 import { MainWrapper, PageWrapper } from '../common'
 import Header from './Header'
 import Navbar from './Navbar'
@@ -9,20 +10,8 @@ import Footer from '../admin/Footer'
 export default (Page: FunctionComponent, { title }: { title?: string }) =>
   (): FunctionComponent | NextPage | ReactElement => {
     const [mobileOpen, setMobileOpen] = useState<boolean>(false)
-    const [width, setWidth] = useState<number>(0)
 
-    const handleWindowSizeChange = () => {
-      setWidth(window.innerWidth)
-    }
-
-    useEffect(() => {
-      window.addEventListener('resize', handleWindowSizeChange)
-      return () => {
-        window.removeEventListener('resize', handleWindowSizeChange)
-      }
-    }, [])
-
-    const isMobile = true
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'))
 
     return (
       <>
