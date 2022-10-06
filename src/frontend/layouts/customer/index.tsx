@@ -1,34 +1,28 @@
 import { NextPage } from 'next'
-import React, { ReactElement, FunctionComponent } from 'react'
-import styles from '../../styles/_layouts/customer/main'
+import { ReactElement, FunctionComponent } from 'react'
+import { Box, Container, Typography } from '@mui/material'
+import { MainWrapper, PageWrapper } from '../common'
 import Navbar from './Navbar'
-import Header from './Header'
-import classnames from 'classnames'
+import Footer from '../admin/Footer'
 
-export default (
-    Page: FunctionComponent,
-    {
-      title,
-      backRoute,
-      wide
-    }: { title?: string; backRoute?: boolean; wide?: boolean }
-  ) =>
+export default (Page: FunctionComponent, { title }: { title?: string }) =>
   (): FunctionComponent | NextPage | ReactElement => {
     return (
       <>
-        <Navbar />
-        {title && <Header pageTitle={title} backRoute={backRoute} />}
-        <div
-          className={
-            wide
-              ? classnames(styles.root, styles.wide)
-              : classnames(styles.root, styles.narrow)
-          }
-        >
-          <div style={styles.container}>
-            <Page />
-          </div>
-        </div>
+        <MainWrapper>
+          <Navbar sx={{ backgroundColor: 'primary' }} />
+          <PageWrapper>
+            <Container maxWidth={false} sx={{ marginTop: 5 }}>
+              <Box sx={{ minHeight: 'calc(100vh - 170px)' }}>
+                <Typography sx={{ marginBottom: 3 }} variant={'h1'}>
+                  {title}
+                </Typography>
+                <Page />
+              </Box>
+              <Footer />
+            </Container>
+          </PageWrapper>
+        </MainWrapper>
       </>
     )
   }
