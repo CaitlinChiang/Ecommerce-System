@@ -5,15 +5,15 @@ import MenuIcon from '@mui/icons-material/Menu'
 const Header = ({
   customClass,
   position,
+  sx,
   toggleMobileNavbar,
-  toggleNavbar,
-  sx
+  toggleNavbar
 }: {
   customClass?: any
   position?: 'fixed' | 'absolute' | 'relative' | 'static' | 'sticky'
+  sx?: any
   toggleMobileNavbar?: VoidFunction
   toggleNavbar?: VoidFunction
-  sx?: any
 }): ReactElement => {
   return (
     <>
