@@ -1,50 +1,84 @@
 import { NextPage } from 'next'
 import { ReactElement, FunctionComponent, useState } from 'react'
+import {
+  Box,
+  Container,
+  experimentalStyled,
+  Typography,
+  useMediaQuery
+} from '@mui/material'
 import { useQuery } from '@apollo/client'
+import { theme } from '../../themes'
 import { GetUser } from '../query'
-import classnames from 'classnames'
-import styles from '../../styles/_layouts/admin/main'
 import { User } from '../../../types/user'
 import Navbar from './Navbar'
 import Header from './Header'
 
-export default (
-    Page: FunctionComponent,
-    {
-      title,
-      backRoute,
-      wide
-    }: { title?: string; backRoute?: boolean; wide?: boolean }
-  ) =>
+const MainWrapper = experimentalStyled('div')(() => ({
+  display: 'flex',
+  minHeight: '100vh',
+  overflow: 'hidden',
+  width: '100%'
+}))
+
+const PageWrapper = experimentalStyled('div')(({ theme }) => ({
+  display: 'flex',
+  flex: '1 1 auto',
+  overflow: 'hidden',
+
+  backgroundColor: theme.palette.background.default,
+  [theme.breakpoints.up('lg')]: {
+    paddingTop: '64px'
+  },
+  [theme.breakpoints.down('lg')]: {
+    paddingTop: '64px'
+  }
+}))
+
+export default (Page: FunctionComponent, { title }: { title?: string }) =>
   (): FunctionComponent | NextPage | ReactElement => {
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState<boolean>(true)
+    const [mobileOpen, setMobileOpen] = useState<boolean>(false)
+
+    const lgUp = useMediaQuery(theme.breakpoints.up('lg'))
 
     const { data } = useQuery(GetUser)
-
     const user: User = data?.get_user || null
-
     if (!user) return <Page />
 
     return (
       <>
-        <Navbar
-          open={open}
-          onClose={(): void => setOpen(false)}
-          permanent={true}
-          user={user}
-        />
-        {title && <Header pageTitle={title} backRoute={backRoute} />}
-        <div
-          className={
-            wide
-              ? classnames(styles.root, styles.wide)
-              : classnames(styles.root, styles.narrow)
-          }
-        >
-          <div style={styles.container}>
-            <Page />
-          </div>
-        </div>
+        <MainWrapper>
+          <Header
+            sx={{
+              paddingLeft: open && lgUp ? '265px' : '',
+              backgroundColor: '#ffffff'
+            }}
+            toggleMobileNavbar={() => setMobileOpen(true)}
+            toggleNavbar={() => setOpen(!open)}
+          />
+          <Navbar
+            mobileOpen={mobileOpen}
+            open={open}
+            onClose={() => setMobileOpen(false)}
+          />
+          <PageWrapper>
+            <Container
+              maxWidth={false}
+              sx={{
+                paddingTop: '20px',
+                paddingLeft: open && lgUp ? '280px!important' : ''
+              }}
+            >
+              <Box sx={{ minHeight: 'calc(100vh - 170px)' }}>
+                <Typography sx={{ marginBottom: 2 }} variant={'h1'}>
+                  {title}
+                </Typography>
+                <Page />
+              </Box>
+            </Container>
+          </PageWrapper>
+        </MainWrapper>
       </>
     )
   }
