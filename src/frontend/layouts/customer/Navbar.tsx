@@ -70,14 +70,14 @@ const Navbar = ({
             {shoppingMenu.map((menuItem, index): ReactElement => {
               return (
                 <>
-                  <NextLink
-                    key={index}
-                    href={menuItem.route}
-                    onClick={(): any => {
-                      router.push(menuItem.route)
-                    }}
-                  >
-                    <ListItem button sx={{ color: 'white' }}>
+                  <NextLink key={index} href={menuItem.route}>
+                    <ListItem
+                      button
+                      onClick={(): any => {
+                        router.push(menuItem.route)
+                      }}
+                      sx={{ color: 'white' }}
+                    >
                       <ListItemText primary={menuItem.label.toUpperCase()} />
                     </ListItem>
                   </NextLink>
