@@ -13,6 +13,7 @@ import { GetUser } from '../query'
 import { User } from '../../../types/user'
 import Navbar from './Navbar'
 import Header from './Header'
+import Footer from './Footer'
 
 const MainWrapper = experimentalStyled('div')(() => ({
   display: 'flex',
@@ -76,6 +77,7 @@ export default (Page: FunctionComponent, { title }: { title?: string }) =>
                 </Typography>
                 <Page />
               </Box>
+              <Footer />
             </Container>
           </PageWrapper>
         </MainWrapper>
