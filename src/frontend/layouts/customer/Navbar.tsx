@@ -1,108 +1,123 @@
-import { ReactElement } from 'react'
+import { ReactElement, ReactEventHandler, useState } from 'react'
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
-import { useQuery } from '@apollo/client'
-import { GetCart } from '../query'
 import {
-  AppBar,
-  Badge,
   Box,
-  IconButton,
+  Drawer,
   List,
   ListItem,
+  ListItemIcon,
   ListItemText,
-  Toolbar,
   Typography
 } from '@mui/material'
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
-import ReceiptIcon from '@mui/icons-material/Receipt'
-import AccountCircleIcon from '@mui/icons-material/AccountCircle'
-import { Cart } from '../../../types/cart'
-import { formatNumber } from '../../_utils/handleFormat/formatNumber'
+import HelpIcon from '@mui/icons-material/Help'
+import EditIcon from '@mui/icons-material/Edit'
+import HomeIcon from '@mui/icons-material/Home'
+import SellIcon from '@mui/icons-material/Sell'
+import CallIcon from '@mui/icons-material/Call'
 
-const globalAny: any = global
-
-const Navbar = ({
-  customClass,
-  position,
-  sx
+const NavbarMobile = ({
+  open,
+  onClose
 }: {
-  customClass?: any
-  position?: 'fixed' | 'absolute' | 'relative' | 'static' | 'sticky'
-  sx?: any
+  open: boolean
+  onClose: ReactEventHandler
 }): ReactElement => {
   const router = useRouter()
+  const pathName = router.pathname
 
-  const { data, refetch } = useQuery(GetCart)
-  const cart: Cart = data?.get_cart || {}
+  const [itemOpen, setItemOpen] = useState<any>(true)
 
-  globalAny.updateCartQuantity = (): void => {
-    refetch()
+  const handleClick = (index: any) => {
+    if (itemOpen === index) {
+      setItemOpen((prevOpen: any) => !prevOpen)
+    } else {
+      setItemOpen(index)
+    }
   }
 
   const shoppingMenu = [
-    { label: 'Home', route: '/' },
-    { label: 'Shop', route: '/shop' },
-    { label: 'Reviews', route: '/reviews' },
-    { label: 'FAQs', route: '/faqs' },
-    { label: 'Contact', route: '/contact-us' }
-  ]
-
-  const trackingMenu = [
     {
-      icon: (
-        <Badge badgeContent={formatNumber(cart?.quantity)} color={'secondary'}>
-          <ShoppingCartIcon />
-        </Badge>
-      ),
-      route: '/cart'
+      icon: <HomeIcon />,
+      label: 'Home',
+      route: '/'
     },
-    { icon: <ReceiptIcon />, route: '/orders' },
-    { icon: <AccountCircleIcon />, route: '/user/profile' }
+    {
+      icon: <SellIcon />,
+      label: 'Shop',
+      route: '/shop'
+    },
+    {
+      icon: <EditIcon />,
+      label: 'Reviews',
+      route: '/reviews'
+    },
+    {
+      icon: <HelpIcon />,
+      label: 'FAQs',
+      route: '/faqs'
+    },
+    {
+      icon: <CallIcon />,
+      label: 'Contact',
+      route: '/contact-us'
+    }
   ]
 
-  return (
-    <>
-      <AppBar sx={sx} position={position} elevation={0} className={customClass}>
-        <Toolbar>
-          <Typography>{'Company Logo'}</Typography>
-          <List sx={{ display: 'flex', flexDirection: 'row', marginLeft: 5 }}>
-            {shoppingMenu.map((menuItem, index): ReactElement => {
-              return (
-                <>
-                  <NextLink key={index} href={menuItem.route}>
-                    <ListItem
-                      button
-                      onClick={(): any => {
-                        router.push(menuItem.route)
-                      }}
-                      sx={{ color: 'white' }}
-                    >
-                      <ListItemText primary={menuItem.label.toUpperCase()} />
-                    </ListItem>
-                  </NextLink>
-                </>
-              )
-            })}
-          </List>
-          <Box flexGrow={1} />
-          {trackingMenu.map((menuItem, index): ReactElement => {
+  const SidebarContent = (
+    <Box p={2} height='100%'>
+      {/* <LogoIcon /> */}
+      <Box mt={2}>
+        <List>
+          <Typography sx={{ marginBottom: 3 }}>{'Company Logo'}</Typography>
+          {shoppingMenu.map((item, index): ReactElement => {
             return (
-              <IconButton
-                key={index}
-                onClick={(): void => {
-                  router.push(menuItem.route)
-                }}
-                sx={{ color: '#ffffff', marginLeft: 2 }}
-              >
-                {menuItem.icon}
-              </IconButton>
+              <List component='li' disablePadding key={item.label}>
+                <NextLink href={item.route}>
+                  <ListItem
+                    onClick={() => handleClick(index)}
+                    button
+                    sx={{
+                      mb: 1,
+                      ...(pathName === item.route && {
+                        color: 'white',
+                        backgroundColor: (theme) =>
+                          `${theme.palette.primary.main}!important`
+                      })
+                    }}
+                  >
+                    <ListItemIcon
+                      sx={{ ...(pathName === item.route && { color: 'white' }) }}
+                    >
+                      {item.icon}
+                    </ListItemIcon>
+                    <ListItemText onClick={onClose}>{item.label}</ListItemText>
+                  </ListItem>
+                </NextLink>
+              </List>
             )
           })}
-        </Toolbar>
-      </AppBar>
-    </>
+        </List>
+      </Box>
+    </Box>
+  )
+
+  return (
+    <Drawer
+      anchor='left'
+      open={open}
+      onClose={onClose}
+      variant={'temporary'}
+      PaperProps={{
+        sx: {
+          width: '265px',
+          border: '0 !important'
+        }
+      }}
+    >
+      {SidebarContent}
+    </Drawer>
   )
 }
 
-export default Navbar
+export default NavbarMobile
