@@ -1,28 +1,19 @@
 import { NextPage } from 'next'
-import React, { ReactElement, FunctionComponent } from 'react'
-import styles from '../../styles/_layouts/customer/main'
-import Header from '../customer/Header'
-import classnames from 'classnames'
+import { ReactElement, FunctionComponent } from 'react'
+import { Box, Container, Typography } from '@mui/material'
+import Footer from '../admin/Footer'
 
-export default (
-    Page: FunctionComponent,
-    { title, wide }: { title?: string; wide?: boolean }
-  ) =>
+export default (Page: FunctionComponent, { title }: { title?: string }) =>
   (): FunctionComponent | NextPage | ReactElement => {
     return (
-      <>
-        <Header pageTitle={title} />
-        <div
-          className={
-            wide
-              ? classnames(styles.root, styles.wide)
-              : classnames(styles.root, styles.narrow)
-          }
-        >
-          <div style={styles.container}>
-            <Page />
-          </div>
-        </div>
-      </>
+      <Container maxWidth={false} sx={{ marginTop: 5 }}>
+        <Box sx={{ minHeight: 'calc(100vh - 170px)' }}>
+          <Typography sx={{ marginBottom: 3 }} variant={'h1'}>
+            {title}
+          </Typography>
+          <Page />
+        </Box>
+        <Footer />
+      </Container>
     )
   }
