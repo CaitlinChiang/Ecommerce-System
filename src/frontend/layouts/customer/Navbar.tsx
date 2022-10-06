@@ -1,13 +1,15 @@
-import { ReactElement, useState } from 'react'
+import { ReactElement } from 'react'
+import NextLink from 'next/link'
 import { useRouter } from 'next/router'
 import { useQuery } from '@apollo/client'
 import { GetCart } from '../query'
-import styles from '../../styles/_layouts/customer/navbar'
 import {
   AppBar,
   Badge,
+  Box,
+  IconButton,
   List,
-  ListItemButton,
+  ListItem,
   ListItemText,
   Toolbar,
   Typography
@@ -16,18 +18,22 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import ReceiptIcon from '@mui/icons-material/Receipt'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import { Cart } from '../../../types/cart'
-import ContactInformation from '../../components/websiteTexts/View/contactInformation'
 import { formatNumber } from '../../_utils/handleFormat/formatNumber'
 
 const globalAny: any = global
 
-const Navbar = (): ReactElement => {
+const Navbar = ({
+  customClass,
+  position,
+  sx
+}: {
+  customClass?: any
+  position?: 'fixed' | 'absolute' | 'relative' | 'static' | 'sticky'
+  sx?: any
+}): ReactElement => {
   const router = useRouter()
 
-  const [openContactInfo, setOpenContactInfo] = useState<boolean>(false)
-
   const { data, refetch } = useQuery(GetCart)
-
   const cart: Cart = data?.get_cart || {}
 
   globalAny.updateCartQuantity = (): void => {
@@ -39,7 +45,7 @@ const Navbar = (): ReactElement => {
     { label: 'Shop', route: '/shop' },
     { label: 'Reviews', route: '/reviews' },
     { label: 'FAQs', route: '/faqs' },
-    { label: 'Contact Us' }
+    { label: 'Contact', route: '/contact-us' }
   ]
 
   const trackingMenu = [
@@ -56,53 +62,46 @@ const Navbar = (): ReactElement => {
   ]
 
   return (
-    <AppBar position={'static'}>
-      <Toolbar>
-        <Typography sx={styles.typography}>{'Company Logo'}</Typography>
-        <List sx={styles.list}>
-          {shoppingMenu.map((menuItem, index): ReactElement => {
-            if (!menuItem.route) {
+    <>
+      <AppBar sx={sx} position={position} elevation={0} className={customClass}>
+        <Toolbar>
+          <Typography>{'Company Logo'}</Typography>
+          <List sx={{ display: 'flex', flexDirection: 'row', marginLeft: 5 }}>
+            {shoppingMenu.map((menuItem, index): ReactElement => {
               return (
-                <ListItemButton
-                  key={index}
-                  onClick={(): any => {
-                    setOpenContactInfo(!openContactInfo)
-                  }}
-                >
-                  <ListItemText primary={menuItem.label.toUpperCase()} />
-                </ListItemButton>
+                <>
+                  <NextLink
+                    key={index}
+                    href={menuItem.route}
+                    onClick={(): any => {
+                      router.push(menuItem.route)
+                    }}
+                  >
+                    <ListItem button sx={{ color: 'white' }}>
+                      <ListItemText primary={menuItem.label.toUpperCase()} />
+                    </ListItem>
+                  </NextLink>
+                </>
               )
-            }
-
-            return (
-              <ListItemButton
-                key={index}
-                onClick={(): any => {
-                  router.push(menuItem.route)
-                }}
-              >
-                <ListItemText primary={menuItem.label.toUpperCase()} />
-              </ListItemButton>
-            )
-          })}
-        </List>
-        <List sx={styles.list}>
+            })}
+          </List>
+          <Box flexGrow={1} />
           {trackingMenu.map((menuItem, index): ReactElement => {
             return (
-              <ListItemButton
+              <IconButton
                 key={index}
                 onClick={(): void => {
                   router.push(menuItem.route)
                 }}
+                sx={{ color: '#ffffff', marginLeft: 2 }}
               >
                 {menuItem.icon}
-              </ListItemButton>
+              </IconButton>
             )
           })}
-        </List>
-      </Toolbar>
-      {openContactInfo && <ContactInformation />}
-    </AppBar>
+        </Toolbar>
+      </AppBar>
+    </>
   )
 }
 
