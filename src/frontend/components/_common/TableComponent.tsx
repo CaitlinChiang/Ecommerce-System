@@ -96,8 +96,8 @@ const TableComponent = ({
         {loading && <LinearProgress />}
         <Box sx={{ overflow: { xs: 'auto', sm: 'unset' } }}>
           <Grid container sx={{ justifyContent: 'right' }}>
-            <Grid item xs={3}>
-              {!searchLabel && (
+            <Grid item xs={5}>
+              {searchLabel && (
                 <SearchField
                   onKeyDown={(e): void => {
                     if (e.key === 'Enter') {
