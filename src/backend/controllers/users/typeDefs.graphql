@@ -62,7 +62,7 @@ extend type Mutation {
     phoneNumber: String!
   ): User
 
-  delete_user(_id: ID!): User
+  delete_user(_id: ID!): Void
 
   forgot_user_password(email: String!, type: String!): Void
 
