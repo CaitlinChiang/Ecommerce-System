@@ -1,25 +1,16 @@
 import { ReactElement, useState } from 'react'
 import { useMutation } from '@apollo/client'
 import mutation from './mutation'
-import { Button } from '@mui/material'
+import { Card, CardContent } from '@mui/material'
 import { CreatePaymentMethodArgs } from '../../../../types/paymentMethod'
-import { RefetchDataArgs } from '../../../../types/actions/refetchData'
-import { AdminPermission } from '../../../_enums/adminPermission'
 import Text from '../../_common/TextField'
-import { authenticateUser } from '../../../_utils/auth/authenticateUser'
+import MutationButton from '../../_common/MutationButton'
 import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
-import { refetchData } from '../../../_utils/handleData/refetchData'
 import { clearFields } from '../../../_utils/handleFields/clearFields'
 
 const globalAny: any = global
 
-const CreatePaymentMethod = ({
-  refetchArgs
-}: {
-  refetchArgs: RefetchDataArgs
-}): ReactElement => {
-  if (!authenticateUser(AdminPermission.CREATE_PAYMENT_METHOD)) return
-
+const CreatePaymentMethod = (): ReactElement => {
   const [args, setArgs] = useState<CreatePaymentMethodArgs>({
     name: null,
     details: null
@@ -31,7 +22,6 @@ const CreatePaymentMethod = ({
     variables: correctArgs(args),
     onCompleted: () => {
       globalAny.setNotification(true, 'Payment method successfully created!')
-      refetchData(refetchArgs)
       setValidateFields(false)
       setArgs(clearFields(args))
     },
@@ -39,33 +29,33 @@ const CreatePaymentMethod = ({
   })
 
   return (
-    <>
-      <Text
-        args={args}
-        error={validateFields}
-        placeholder={'Payment Method (ex. BDO Bank Transfer)'}
-        required={true}
-        setArgs={setArgs}
-        targetProp={'name'}
-      />
-      <Text
-        args={args}
-        error={validateFields}
-        placeholder={'Bank Details (ex. BDO Account - 5210 6988 8182 2136)'}
-        required={true}
-        setArgs={setArgs}
-        targetProp={'details'}
-      />
-      <Button
-        disabled={createMutationState.loading}
-        onClick={(): void => {
-          setValidateFields(true)
-          createMutation()
-        }}
-      >
-        {'Create'}
-      </Button>
-    </>
+    <Card>
+      <CardContent>
+        <Text
+          args={args}
+          error={validateFields}
+          placeholder={'Payment Method (ex. BDO Bank Transfer)'}
+          required={true}
+          setArgs={setArgs}
+          targetProp={'name'}
+        />
+        <Text
+          args={args}
+          error={validateFields}
+          placeholder={'Bank Details (ex. BDO Account - 5210 6988 8182 2136)'}
+          required={true}
+          setArgs={setArgs}
+          targetProp={'details'}
+        />
+        <MutationButton
+          disabled={createMutationState.loading}
+          onClick={(): void => {
+            setValidateFields(true)
+            createMutation()
+          }}
+        />
+      </CardContent>
+    </Card>
   )
 }
 
