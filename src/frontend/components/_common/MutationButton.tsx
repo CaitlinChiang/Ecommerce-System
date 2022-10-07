@@ -1,6 +1,5 @@
 import { ReactElement } from 'react'
 import { Box, Button } from '@mui/material'
-import { buttonToRight } from '../../themes/styles'
 
 const MutationButton = ({
   disabled,
@@ -12,7 +11,15 @@ const MutationButton = ({
   title?: string
 }): ReactElement => {
   return (
-    <Box sx={buttonToRight}>
+    <Box
+      sx={{
+        m: 1,
+        marginTop: 5,
+        display: 'flex',
+        justifyContent: 'flex-end',
+        alignItems: 'flex-end'
+      }}
+    >
       <Button disabled={disabled} onClick={onClick} variant={'contained'}>
         {title || 'Create'}
       </Button>
