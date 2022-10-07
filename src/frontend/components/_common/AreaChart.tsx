@@ -1,16 +1,20 @@
 import { ReactElement } from 'react'
 import dynamic from 'next/dynamic'
-import { Card, CardContent } from '@mui/material'
+import { Box, Card, CardContent, Typography } from '@mui/material'
 import { formatText } from '../../_utils/handleFormat/formatText'
 
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 const AreaChartTemplate = ({
   data,
+  filters,
+  title,
   xAxisDataKey,
   yAxisDataKey
 }: {
   data: any
+  filters: ReactElement
+  title: string
   xAxisDataKey: string
   yAxisDataKey: string
 }): ReactElement => {
@@ -41,6 +45,14 @@ const AreaChartTemplate = ({
 
   return (
     <Card>
+      <Box alignItems={'center'} display={'flex'} p={2}>
+        <Box flexGrow={1}>
+          <Typography sx={{ marginBottom: 2 }} variant={'h2'}>
+            {title}
+          </Typography>
+          {filters}
+        </Box>
+      </Box>
       <CardContent>
         <Chart options={options} series={series} type='area' height='300px' />
       </CardContent>
