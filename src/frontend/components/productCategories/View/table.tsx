@@ -13,7 +13,6 @@ import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import { AdminPermission } from '../../../_enums/adminPermission'
 import { SortDirection } from '../../../_enums/sortDirection'
 import TableComponent from '../../_common/TableComponent'
-import CreateProductCategory from '../Create'
 import UpdateProductCategory from '../Update'
 import UpdateProductCategoryCheckbox from '../Update/checkbox'
 import DeleteButton from '../../_common/DeleteButton'
@@ -86,7 +85,7 @@ const ProductCategoriesTable = (): ReactElement => {
               onClick={(): void => {
                 setUpdate({
                   categoryId: String(_id),
-                  openModal: false
+                  openModal: true
                 })
               }}
             >
@@ -108,7 +107,6 @@ const ProductCategoriesTable = (): ReactElement => {
 
   return (
     <>
-      <CreateProductCategory refetchArgs={refetchArgs} />
       <UpdateProductCategory
         _id={update.categoryId}
         onClose={(): void => setUpdate({ ...update, openModal: false })}
