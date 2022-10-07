@@ -200,7 +200,21 @@ const navbarItems = [
     icon: <HelpIcon />,
     label: 'FAQs',
     permission: AdminPermission.VIEW_FAQ,
-    route: `${adminUrl}/faqs`
+    collapse: true,
+    children: [
+      {
+        icon: <ViewListIcon />,
+        label: 'List',
+        permission: AdminPermission.VIEW_FAQ,
+        route: `${adminUrl}/faqs`
+      },
+      {
+        icon: <CreateIcon />,
+        label: 'Create',
+        permission: AdminPermission.CREATE_FAQ,
+        route: `${adminUrl}/faqs/create`
+      }
+    ]
   },
   {
     icon: <EditIcon />,
