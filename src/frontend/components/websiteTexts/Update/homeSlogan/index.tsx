@@ -5,20 +5,14 @@ import { GetWebsiteText } from '../../View/query'
 import mutation from '../mutation'
 import { Card, CardContent, CircularProgress, Typography } from '@mui/material'
 import { WebsiteText, UpdateWebsiteTextArgs } from '../../../../../types/websiteText'
-import { AdminPermission } from '../../../../_enums/adminPermission'
 import { WebsiteTextType } from '../../../../_enums/websiteTextType'
 import Text from '../../../_common/TextField'
 import MutationButton from '../../../_common/MutationButton'
-import { authenticateUser } from '../../../../_utils/auth/authenticateUser'
 import { correctArgs } from '../../../../_utils/handleArgs/correctArgs'
 
 const globalAny: any = global
 
 const UpdateHomeSlogan = (): ReactElement => {
-  const disableUpdateWebsiteText = !authenticateUser(
-    AdminPermission.UPDATE_WEBSITE_TEXT
-  )
-
   const [args, setArgs] = useState<UpdateWebsiteTextArgs>({
     _id: null,
     content: null,
@@ -60,7 +54,6 @@ const UpdateHomeSlogan = (): ReactElement => {
         }`}</Typography>
         <Text
           args={args}
-          disabled={disableUpdateWebsiteText}
           error={validateFields}
           maxLength={100}
           placeholder={'Type home page slogan here...'}

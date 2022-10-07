@@ -3,12 +3,11 @@ import { useQuery } from '@apollo/client'
 import { useMutation } from '@apollo/client'
 import { GetWebsiteText } from '../../View/query'
 import mutation from '../mutation'
-import { Button, CircularProgress, Typography } from '@mui/material'
+import { Card, CardContent, CircularProgress, Typography } from '@mui/material'
 import { WebsiteText } from '../../../../../types/websiteText'
-import { AdminPermission } from '../../../../_enums/adminPermission'
 import { WebsiteTextType } from '../../../../_enums/websiteTextType'
 import Text from '../../../_common/TextField'
-import { authenticateUser } from '../../../../_utils/auth/authenticateUser'
+import MutationButton from '../../../_common/MutationButton'
 import {
   displayContactInfo,
   formatContactInfo
@@ -17,10 +16,6 @@ import {
 const globalAny: any = global
 
 const UpdateContactInformation = (): ReactElement => {
-  const disableUpdateWebsiteText = !authenticateUser(
-    AdminPermission.UPDATE_WEBSITE_TEXT
-  )
-
   const [args, setArgs] = useState<any>({
     email: null,
     facebook: null,
@@ -57,47 +52,41 @@ const UpdateContactInformation = (): ReactElement => {
   })
 
   return (
-    <>
-      {loading && <CircularProgress />}
-      <Typography>{`Last Updated At: ${websiteText?.updatedAt || '-'}`}</Typography>
-      <Text
-        args={args}
-        disabled={disableUpdateWebsiteText}
-        setArgs={setArgs}
-        targetProp={'facebook'}
-      />
-      <Text
-        args={args}
-        disabled={disableUpdateWebsiteText}
-        setArgs={setArgs}
-        targetProp={'instagram'}
-      />
-      <Text
-        args={args}
-        disabled={disableUpdateWebsiteText}
-        error={validateFields}
-        required={true}
-        setArgs={setArgs}
-        targetProp={'email'}
-      />
-      <Text
-        args={args}
-        disabled={disableUpdateWebsiteText}
-        error={validateFields}
-        required={true}
-        setArgs={setArgs}
-        targetProp={'phoneNumber'}
-      />
-      <Button
-        disabled={disableUpdateWebsiteText || updateMutationState.loading}
-        onClick={(): void => {
-          setValidateFields(true)
-          updateMutation()
-        }}
-      >
-        {'Save Changes'}
-      </Button>
-    </>
+    <Card>
+      <CardContent>
+        {loading && <CircularProgress />}
+        <Typography sx={{ marginBottom: 1 }} variant={'h2'}>
+          {'Contact Information'}
+        </Typography>
+        <Typography sx={{ marginBottom: 3 }} variant={'h6'}>{`Last Updated At: ${
+          websiteText?.updatedAt || '-'
+        }`}</Typography>
+        <Text args={args} setArgs={setArgs} targetProp={'facebook'} />
+        <Text args={args} setArgs={setArgs} targetProp={'instagram'} />
+        <Text
+          args={args}
+          error={validateFields}
+          required={true}
+          setArgs={setArgs}
+          targetProp={'email'}
+        />
+        <Text
+          args={args}
+          error={validateFields}
+          required={true}
+          setArgs={setArgs}
+          targetProp={'phoneNumber'}
+        />
+        <MutationButton
+          disabled={updateMutationState.loading}
+          onClick={(): void => {
+            setValidateFields(true)
+            updateMutation()
+          }}
+          title={'Save Changes'}
+        />
+      </CardContent>
+    </Card>
   )
 }
 
