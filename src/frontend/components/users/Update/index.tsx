@@ -3,11 +3,12 @@ import { useRouter } from 'next/router'
 import { useQuery, useMutation } from '@apollo/client'
 import { GetUser } from '../View/query'
 import mutation from './mutation'
-import { Button, CircularProgress } from '@mui/material'
+import { Button, Card, CardContent, CircularProgress } from '@mui/material'
 import { User, UpdateUserArgs } from '../../../../types/user'
 import { UserType } from '../../../_enums/userType'
 import Text from '../../_common/TextField'
 import SignInButton from '../../_common/SignInButton'
+import MutationButton from '../../_common/MutationButton'
 import CitiesSelect from '../../cities/View/select'
 import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
 import { generateAdminUrl } from '../../../_utils/auth/generateAdminUrl'
@@ -59,68 +60,73 @@ const UpdateUser = ({ type }: { type: UserType }): ReactElement => {
   }
 
   return (
-    <>
-      {loading && <CircularProgress />}
-      <Text
-        args={args}
-        error={validateFields}
-        required={true}
-        setArgs={setArgs}
-        targetProp={'firstName'}
-      />
-      <Text
-        args={args}
-        error={validateFields}
-        required={true}
-        setArgs={setArgs}
-        targetProp={'lastName'}
-      />
-      <Text
-        args={args}
-        error={validateFields}
-        required={true}
-        setArgs={setArgs}
-        targetProp={'email'}
-      />
-      <Text
-        args={args}
-        error={validateFields}
-        required={true}
-        setArgs={setArgs}
-        targetProp={'phoneNumber'}
-      />
-      <Button
-        onClick={(): void => {
-          router.push(`${generateAdminUrl(type)}/user/reset-password`)
-        }}
-      >
-        {'Reset Password'}
-      </Button>
-      {type === UserType.CUSTOMER && (
-        <>
-          <Text
-            args={args}
-            nestedProp={'address'}
-            setArgs={setArgs}
-            targetProp={'deliveryAddress'}
-          />
-          <CitiesSelect
-            args={args}
-            setArgs={setArgs}
-            targetProp={'deliveryAddress'}
-          />
-        </>
-      )}
-      <Button
-        disabled={updateMutationState.loading}
-        onClick={(): void => {
-          setValidateFields(true)
-          updateMutation()
-        }}
-      >
-        {'Save Changes'}
-      </Button>
-    </>
+    <Card>
+      <CardContent>
+        {loading && <CircularProgress />}
+        <Text
+          args={args}
+          error={validateFields}
+          required={true}
+          setArgs={setArgs}
+          targetProp={'firstName'}
+        />
+        <Text
+          args={args}
+          error={validateFields}
+          required={true}
+          setArgs={setArgs}
+          targetProp={'lastName'}
+        />
+        <Text
+          args={args}
+          error={validateFields}
+          required={true}
+          setArgs={setArgs}
+          targetProp={'email'}
+        />
+        <Text
+          args={args}
+          error={validateFields}
+          required={true}
+          setArgs={setArgs}
+          targetProp={'phoneNumber'}
+        />
+        {type === UserType.CUSTOMER && (
+          <>
+            <Text
+              args={args}
+              nestedProp={'address'}
+              setArgs={setArgs}
+              targetProp={'deliveryAddress'}
+            />
+            <CitiesSelect
+              args={args}
+              setArgs={setArgs}
+              targetProp={'deliveryAddress'}
+            />
+          </>
+        )}
+        <Button
+          color={'secondary'}
+          fullWidth
+          onClick={(): void => {
+            router.push(`${generateAdminUrl(type)}/user/reset-password`)
+          }}
+          sx={{ marginTop: 2.5 }}
+          variant={'contained'}
+        >
+          {'Reset Password'}
+        </Button>
+        <MutationButton
+          disabled={updateMutationState.loading}
+          onClick={(): void => {
+            setValidateFields(true)
+            updateMutation()
+          }}
+          title={'Save'}
+        />
+      </CardContent>
+    </Card>
   )
 }
 

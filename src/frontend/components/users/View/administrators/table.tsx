@@ -10,7 +10,6 @@ import { AdminPermission } from '../../../../_enums/adminPermission'
 import { SortDirection } from '../../../../_enums/sortDirection'
 import { UserType } from '../../../../_enums/userType'
 import TableComponent from '../../../_common/TableComponent'
-import CreateUser from '../../Create'
 import UpdateAdminPermissions from '../../Update/adminPermissions'
 import UpdateUserCheckbox from '../../Update/checkbox'
 import DeleteButton from '../../../_common/DeleteButton'
@@ -34,7 +33,6 @@ const AdministratorsTable = (): ReactElement => {
     sortDirection: SortDirection.DESC
   })
 
-  const [createModal, setCreateModal] = useState<boolean>(false)
   const [permissions, setPermissions] = useState<{ user: User; openModal: boolean }>(
     {
       user: null,
@@ -113,15 +111,6 @@ const AdministratorsTable = (): ReactElement => {
 
   return (
     <>
-      <Button onClick={(): void => setCreateModal(true)}>
-        {'Create Admin Account'}
-      </Button>
-      <CreateUser
-        onClose={(): void => setCreateModal(false)}
-        open={createModal}
-        refetchArgs={refetchArgs}
-        type={UserType.ADMINISTRATOR}
-      />
       <UpdateAdminPermissions
         onClose={(): void => setPermissions({ ...permissions, openModal: false })}
         open={permissions.openModal}
