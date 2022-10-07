@@ -25,6 +25,7 @@ const CheckboxField = ({
       }
       disabled={disabled}
       label={formatText(targetProp)}
+      sx={{ marginTop: 2.5 }}
     />
   )
 }
