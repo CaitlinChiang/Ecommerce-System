@@ -42,7 +42,7 @@ export default (Page: FunctionComponent, { title }: { title?: string }) =>
               maxWidth={false}
               sx={{
                 paddingTop: '20px',
-                paddingLeft: open && lgUp ? '280px!important' : ''
+                paddingLeft: open && lgUp ? '300px!important' : '40px!important'
               }}
             >
               <Box sx={{ minHeight: 'calc(100vh - 170px)' }}>
