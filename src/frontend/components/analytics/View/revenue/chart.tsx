@@ -1,7 +1,7 @@
 import { ReactElement, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetAnalyticsRevenueCount } from '../query'
-import { Box, CircularProgress } from '@mui/material'
+import { CircularProgress, Grid } from '@mui/material'
 import {
   AnalyticsRevenueCount,
   GetAnalyticsArgs
@@ -26,22 +26,31 @@ const RevenueChart = (): ReactElement => {
   return (
     <>
       {loading && <CircularProgress />}
-      <Box>
-        <DatePickerField
-          args={args}
-          nestedProp={'startDate'}
-          setArgs={setArgs}
-          targetProp={'dateRange'}
-        />
-        <DatePickerField
-          args={args}
-          nestedProp={'endDate'}
-          setArgs={setArgs}
-          targetProp={'dateRange'}
-        />
-      </Box>
       <AreaChart
         data={revenueCount}
+        filters={
+          <>
+            <Grid container spacing={1}>
+              <Grid item xs={3.5}>
+                <DatePickerField
+                  args={args}
+                  nestedProp={'startDate'}
+                  setArgs={setArgs}
+                  targetProp={'dateRange'}
+                />
+              </Grid>
+              <Grid item xs={3.5}>
+                <DatePickerField
+                  args={args}
+                  nestedProp={'endDate'}
+                  setArgs={setArgs}
+                  targetProp={'dateRange'}
+                />
+              </Grid>
+            </Grid>
+          </>
+        }
+        title={'Revenue'}
         xAxisDataKey={'date'}
         yAxisDataKey={'revenue'}
       />
