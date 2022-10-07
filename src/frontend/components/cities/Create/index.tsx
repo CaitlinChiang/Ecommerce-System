@@ -1,26 +1,17 @@
 import { ReactElement, useState } from 'react'
 import { useMutation } from '@apollo/client'
 import mutation from './mutation'
-import { Button } from '@mui/material'
+import { Card, CardContent } from '@mui/material'
 import { CreateCityArgs } from '../../../../types/city'
-import { RefetchDataArgs } from '../../../../types/actions/refetchData'
-import { AdminPermission } from '../../../_enums/adminPermission'
 import Text from '../../_common/TextField'
 import NumberField from '../../_common/NumberField'
-import { authenticateUser } from '../../../_utils/auth/authenticateUser'
+import MutationButton from '../../_common/MutationButton'
 import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
-import { refetchData } from '../../../_utils/handleData/refetchData'
 import { clearFields } from '../../../_utils/handleFields/clearFields'
 
 const globalAny: any = global
 
-const CreateCity = ({
-  refetchArgs
-}: {
-  refetchArgs: RefetchDataArgs
-}): ReactElement => {
-  if (!authenticateUser(AdminPermission.CREATE_CITY)) return
-
+const CreateCity = (): ReactElement => {
   const [args, setArgs] = useState<CreateCityArgs>({
     name: null,
     shippingFee: null
@@ -32,7 +23,6 @@ const CreateCity = ({
     variables: correctArgs(args),
     onCompleted: () => {
       globalAny.setNotification(true, 'City & shipping fee successfully created!')
-      refetchData(refetchArgs)
       setValidateFields(false)
       setArgs(clearFields(args))
     },
@@ -40,32 +30,32 @@ const CreateCity = ({
   })
 
   return (
-    <>
-      <Text
-        args={args}
-        error={validateFields}
-        placeholder={'City (ex. Makati)'}
-        required={true}
-        setArgs={setArgs}
-        targetProp={'name'}
-      />
-      <NumberField
-        args={args}
-        error={validateFields}
-        required={true}
-        setArgs={setArgs}
-        targetProp={'shippingFee'}
-      />
-      <Button
-        disabled={createMutationState.loading}
-        onClick={(): void => {
-          setValidateFields(true)
-          createMutation()
-        }}
-      >
-        {'Create'}
-      </Button>
-    </>
+    <Card>
+      <CardContent>
+        <Text
+          args={args}
+          error={validateFields}
+          placeholder={'City (ex. Makati)'}
+          required={true}
+          setArgs={setArgs}
+          targetProp={'name'}
+        />
+        <NumberField
+          args={args}
+          error={validateFields}
+          required={true}
+          setArgs={setArgs}
+          targetProp={'shippingFee'}
+        />
+        <MutationButton
+          disabled={createMutationState.loading}
+          onClick={(): void => {
+            setValidateFields(true)
+            createMutation()
+          }}
+        />
+      </CardContent>
+    </Card>
   )
 }
 

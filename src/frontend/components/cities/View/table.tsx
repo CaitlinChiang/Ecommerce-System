@@ -10,7 +10,6 @@ import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import { AdminPermission } from '../../../_enums/adminPermission'
 import { SortDirection } from '../../../_enums/sortDirection'
 import TableComponent from '../../_common/TableComponent'
-import CreateCity from '../Create'
 import UpdateCity from '../Update'
 import DeleteButton from '../../_common/DeleteButton'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
@@ -89,7 +88,6 @@ const CitiesTable = (): ReactElement => {
 
   return (
     <>
-      <CreateCity refetchArgs={refetchArgs} />
       <UpdateCity
         _id={update.cityId}
         onClose={(): void => setUpdate({ ...update, openModal: false })}
