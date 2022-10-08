@@ -30,7 +30,7 @@ export default (Page: FunctionComponent, { title }: { title?: string }) =>
           <PageWrapper>
             <Container maxWidth={false} sx={{ marginTop: 5 }}>
               <Box sx={{ minHeight: 'calc(100vh - 170px)' }}>
-                <Typography sx={{ marginBottom: 3 }} variant={'h1'}>
+                <Typography sx={{ paddingLeft: 2, marginBottom: 3 }} variant={'h1'}>
                   {title}
                 </Typography>
                 <Page />
