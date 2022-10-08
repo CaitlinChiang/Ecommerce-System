@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import { Box } from '@mui/material'
+import { Box, Grid } from '@mui/material'
 import { DateRangeType } from '../../../../_enums/dateRangeType'
 import { OrderStatus } from '../../../../_enums/orderStatus'
 import SelectField from '../../../_common/SelectField'
@@ -38,30 +38,36 @@ const OrdersTableFilters = ({
           setArgs={setArgs}
           targetProp={'dateRange'}
         />
-        <DatePickerField
-          args={args}
-          disabled={
-            args.dateRange?.filterBy === null ||
-            args.dateRange?.filterBy == undefined
-          }
-          fallbackValue={new Date(Date.now() - 6096e5)}
-          nestedProp={'startDate'}
-          required={true}
-          setArgs={setArgs}
-          targetProp={'dateRange'}
-        />
-        <DatePickerField
-          args={args}
-          disabled={
-            args.dateRange?.filterBy === null ||
-            args.dateRange?.filterBy == undefined
-          }
-          fallbackValue={new Date()}
-          nestedProp={'endDate'}
-          required={true}
-          setArgs={setArgs}
-          targetProp={'dateRange'}
-        />
+        <Grid container spacing={1}>
+          <Grid item xs={3.5}>
+            <DatePickerField
+              args={args}
+              disabled={
+                args.dateRange?.filterBy === null ||
+                args.dateRange?.filterBy == undefined
+              }
+              fallbackValue={new Date(Date.now() - 6096e5)}
+              nestedProp={'startDate'}
+              required={true}
+              setArgs={setArgs}
+              targetProp={'dateRange'}
+            />
+          </Grid>
+          <Grid item xs={3.5}>
+            <DatePickerField
+              args={args}
+              disabled={
+                args.dateRange?.filterBy === null ||
+                args.dateRange?.filterBy == undefined
+              }
+              fallbackValue={new Date()}
+              nestedProp={'endDate'}
+              required={true}
+              setArgs={setArgs}
+              targetProp={'dateRange'}
+            />
+          </Grid>
+        </Grid>
       </Box>
     </>
   )
