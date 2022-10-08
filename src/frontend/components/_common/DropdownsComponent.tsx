@@ -11,7 +11,8 @@ import {
   TableBody,
   TableCell,
   TableContainer,
-  TableRow
+  TableRow,
+  Typography
 } from '@mui/material'
 import { PaginateDataArgs } from '../../../types/actions/paginateData'
 import PaginationComponent from './PaginationComponent'
@@ -29,9 +30,9 @@ const Row = ({
 
   return (
     <>
-      <TableRow>
+      <TableRow sx={{ backgroundColor: open ? '#e7e7e7' : '#ffffff' }}>
         <TableCell scope='row' sx={{ borderBottom: 0 }}>
-          {row.title}
+          <Typography variant={'h5'}>{row.title}</Typography>
         </TableCell>
         {row?.actions && (
           <TableCell align={'right'} sx={{ borderBottom: 0 }}>
@@ -47,7 +48,7 @@ const Row = ({
       <TableRow>
         <TableCell sx={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout='auto' unmountOnExit>
-            <Box marginTop={3} marginBottom={3}>
+            <Box marginTop={3} marginBottom={3} marginLeft={5}>
               {row.content}
             </Box>
           </Collapse>
