@@ -12,6 +12,7 @@ import ImageUploader from '../../_common/ImageUploader'
 import MutationButton from '../../_common/MutationButton'
 import ProductCategoriesSelect from '../../productCategories/View/select'
 import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
+import { formatToDecimal } from '../../../_utils/handleFormat/formatToDecimal'
 
 const globalAny: any = global
 
@@ -34,7 +35,7 @@ const CreateProduct = (): ReactElement => {
   const [validateFields, setValidateFields] = useState<boolean>(false)
 
   const [createMutation, createMutationState] = useMutation(mutation, {
-    variables: correctArgs(args),
+    variables: { ...correctArgs(args), discount: formatToDecimal(args?.discount) },
     onCompleted: () => {
       globalAny.setNotification(true, 'Product successfully created!')
       router.back()
@@ -45,7 +46,6 @@ const CreateProduct = (): ReactElement => {
   return (
     <Card>
       <CardContent>
-        <CheckboxField args={args} setArgs={setArgs} targetProp={'showPublic'} />
         <Text
           args={args}
           error={validateFields}
@@ -91,6 +91,7 @@ const CreateProduct = (): ReactElement => {
           setArgs={setArgs}
           targetProp={'discount'}
         />
+        <CheckboxField args={args} setArgs={setArgs} targetProp={'showPublic'} />
         <CheckboxField args={args} setArgs={setArgs} targetProp={'featured'} />
         <ImageUploader
           alt={'Product Photo'}

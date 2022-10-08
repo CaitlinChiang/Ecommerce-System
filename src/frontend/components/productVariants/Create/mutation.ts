@@ -14,7 +14,7 @@ export default gql`
   ) {
     create_product_variant(
       _productId: $_productId
-      description: $description!
+      description: $description
       discount: $discount
       expirationDate: $expirationDate
       image: $image

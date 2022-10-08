@@ -16,7 +16,4 @@ const Page = (): ReactElement => {
   )
 }
 
-export default layout(Page, {
-  title: 'Update Product Variant',
-  backRoute: true
-})
+export default layout(Page, { title: 'Update Product Variant' })
