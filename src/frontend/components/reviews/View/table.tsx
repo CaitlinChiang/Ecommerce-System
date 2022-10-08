@@ -46,10 +46,10 @@ const ReviewsTable = (): ReactElement => {
   }
 
   const reviewHeaders = [
+    { label: 'featured', sortable: true },
     { label: 'createdAt', sortable: true },
     { label: 'username', sortable: false },
     { label: 'content', sortable: false },
-    { label: 'featured', sortable: true },
     { label: 'actions', sortable: false }
   ]
 
@@ -59,9 +59,6 @@ const ReviewsTable = (): ReactElement => {
 
       return (
         <TableRow>
-          <TableCell>{String(createdAt)}</TableCell>
-          <TableCell>{username}</TableCell>
-          <TableCell>{content}</TableCell>
           <TableCell>
             <UpdateReviewCheckbox
               _id={_id}
@@ -70,6 +67,9 @@ const ReviewsTable = (): ReactElement => {
               refetchArgs={refetchArgs}
             />
           </TableCell>
+          <TableCell>{String(createdAt)}</TableCell>
+          <TableCell>{username}</TableCell>
+          <TableCell>{content}</TableCell>
           <TableCell>
             <DeleteButton
               _id={_id}
