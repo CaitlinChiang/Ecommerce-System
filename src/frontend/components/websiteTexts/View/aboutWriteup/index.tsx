@@ -1,7 +1,6 @@
 import { ReactElement } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetWebsiteText } from '../query'
-import styles from '../../../../styles/websiteTexts'
 import { Typography } from '@mui/material'
 import { WebsiteText } from '../../../../../types/websiteText'
 import { WebsiteTextType } from '../../../../_enums/websiteTextType'
@@ -15,7 +14,7 @@ const AboutWriteup = (): ReactElement => {
   return (
     <>
       <Typography>{'About Company Name'}</Typography>
-      <Typography sx={styles.aboutWriteup}>{websiteText.content}</Typography>
+      <Typography>{websiteText.content}</Typography>
     </>
   )
 }

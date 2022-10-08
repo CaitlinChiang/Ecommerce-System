@@ -1,8 +1,7 @@
 import React, { ReactElement, useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetWebsiteText } from '../query'
-import styles from '../../../../styles/websiteTexts'
-import { Link, Typography } from '@mui/material'
+import { Card, CardContent, Link, Typography } from '@mui/material'
 import { WebsiteText } from '../../../../../types/websiteText'
 import { WebsiteTextType } from '../../../../_enums/websiteTextType'
 import { displayContactInfo } from '../../../../_utils/handleFormat/formatContactInfo'
@@ -30,25 +29,27 @@ const ContactInformation = (): ReactElement => {
   }, [data])
 
   return (
-    <>
-      <Typography sx={styles.contactInfoHeader}>{'Contact Information'}</Typography>
-      {args?.facebook && (
-        <Typography sx={styles.contactInfoText}>
-          <Link color={'#ffffff'} href={args?.facebook}>
-            {'Facebook'}
-          </Link>
-        </Typography>
-      )}
-      {args?.instagram && (
-        <Typography sx={styles.contactInfoText}>
-          <Link color={'#ffffff'} href={args?.instagram}>
-            {'Instagram'}
-          </Link>
-        </Typography>
-      )}
-      <Typography sx={styles.contactInfoText}>{args.email}</Typography>
-      <Typography sx={styles.contactInfoText}>{args.phoneNumber}</Typography>
-    </>
+    <Card>
+      <CardContent>
+        <Typography>{'Contact Information'}</Typography>
+        {args?.facebook && (
+          <Typography>
+            <Link color={'#ffffff'} href={args?.facebook}>
+              {'Facebook'}
+            </Link>
+          </Typography>
+        )}
+        {args?.instagram && (
+          <Typography>
+            <Link color={'#ffffff'} href={args?.instagram}>
+              {'Instagram'}
+            </Link>
+          </Typography>
+        )}
+        <Typography>{args.email}</Typography>
+        <Typography>{args.phoneNumber}</Typography>
+      </CardContent>
+    </Card>
   )
 }
 
