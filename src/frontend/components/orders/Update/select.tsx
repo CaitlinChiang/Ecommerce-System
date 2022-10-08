@@ -36,7 +36,6 @@ const UpdateOrderSelect = ({
       args={args}
       disabled={disabled || updateMutationState.loading}
       error={!args.status}
-      label={'Order Status'}
       options={Object.keys(OrderStatus).map((status) => {
         return { label: status, status: status }
       })}

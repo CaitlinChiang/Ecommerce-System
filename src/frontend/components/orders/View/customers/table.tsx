@@ -42,10 +42,10 @@ const OrdersTable = (): ReactElement => {
   const orderHeaders = [
     { label: 'orderNumber', sortable: false },
     { label: 'dateOfOrder', sortable: false },
-    { label: 'orderItems', sortable: false },
-    { label: 'totalItems', sortable: false },
-    { label: 'amountDue', sortable: false },
-    { label: 'shippingFee', sortable: false },
+    { label: 'Items', sortable: false },
+    { label: 'Quantity', sortable: false },
+    { label: 'subtotal', sortable: false },
+    { label: 'shipping', sortable: false },
     { label: 'status', sortable: false },
     { label: 'paymentMethod', sortable: false }
   ]
@@ -57,10 +57,14 @@ const OrdersTable = (): ReactElement => {
       return (
         <TableRow>
           <TableCell>{String(_id)}</TableCell>
-          <TableCell>{String(createdAt)}</TableCell>
+          <TableCell>
+            {String(createdAt).split(', ')[0]}
+            <br />
+            {String(createdAt).split(', ')[1]}
+          </TableCell>
           <TableCell>
             <Button onClick={(): void => setItems({ items, openModal: true })}>
-              {'View Items'}
+              {'View'}
             </Button>
           </TableCell>
           <TableCell>{itemsQuantity}</TableCell>
