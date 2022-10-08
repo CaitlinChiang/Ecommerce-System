@@ -3,7 +3,7 @@ import { gql } from '@apollo/client'
 export default gql`
   mutation (
     $_productId: ID!
-    $description: String
+    $description: String!
     $discount: Float
     $expirationDate: String
     $image: Upload
@@ -14,7 +14,7 @@ export default gql`
   ) {
     create_product_variant(
       _productId: $_productId
-      description: $description
+      description: $description!
       discount: $discount
       expirationDate: $expirationDate
       image: $image

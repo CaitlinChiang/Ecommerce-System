@@ -66,7 +66,13 @@ const CreateProductVariant = ({
   return (
     <>
       {loading && <CircularProgress />}
-      <Text args={args} setArgs={setArgs} targetProp={'description'} />
+      <Text
+        args={args}
+        error={validateFields}
+        required={true}
+        setArgs={setArgs}
+        targetProp={'description'}
+      />
       <DatePickerField args={args} setArgs={setArgs} targetProp={'expirationDate'} />
       <Text
         args={args}

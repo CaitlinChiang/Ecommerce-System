@@ -49,7 +49,13 @@ const CreateProduct = (): ReactElement => {
         required={true}
         setArgs={setArgs}
       />
-      <Text args={args} setArgs={setArgs} targetProp={'description'} />
+      <Text
+        args={args}
+        error={validateFields}
+        required={true}
+        setArgs={setArgs}
+        targetProp={'description'}
+      />
       <DatePickerField args={args} setArgs={setArgs} targetProp={'expirationDate'} />
       <CheckboxField args={args} setArgs={setArgs} targetProp={'featured'} />
       <Text

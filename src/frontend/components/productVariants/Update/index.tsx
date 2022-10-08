@@ -75,7 +75,13 @@ const UpdateProductVariant = ({ _id }: { _id: string }): ReactElement => {
       <Typography>{`Last Updated At: ${
         productVariant?.updatedAt || '-'
       }`}</Typography>
-      <Text args={args} setArgs={setArgs} targetProp={'description'} />
+      <Text
+        args={args}
+        error={validateFields}
+        required={true}
+        setArgs={setArgs}
+        targetProp={'description'}
+      />
       <DatePickerField args={args} setArgs={setArgs} targetProp={'expirationDate'} />
       <Text
         args={args}

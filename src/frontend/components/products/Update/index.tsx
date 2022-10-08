@@ -85,6 +85,8 @@ const UpdateProduct = ({
       <Text
         args={args}
         disabled={disabled}
+        error={validateFields}
+        required={true}
         setArgs={setArgs}
         targetProp={'description'}
       />

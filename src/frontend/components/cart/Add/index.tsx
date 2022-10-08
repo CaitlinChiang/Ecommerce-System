@@ -36,6 +36,7 @@ const AddCartItem = ({ args }: { args: AddCartItemArgs }): ReactElement => {
       <Button
         color={'secondary'}
         disabled={updateMutationState.loading}
+        fullWidth
         onClick={(): void => {
           Object.keys(user).length === 0 ? setModalOpen(true) : updateMutation()
         }}
