@@ -10,10 +10,12 @@ import { generateRowsPerPage } from '../../_utils/handleData/generateRowsPerPage
 const PaginationComponent = ({
   count,
   paginateDataArgs,
+  rowsPerPageOptions,
   setPaginateDataArgs
 }: {
   count: number
   paginateDataArgs: PaginateDataArgs
+  rowsPerPageOptions?: number[]
   setPaginateDataArgs: React.Dispatch<React.SetStateAction<PaginateDataArgs>>
 }): ReactElement => {
   const { page, rowsPerPage } = paginateDataArgs
@@ -72,7 +74,7 @@ const PaginationComponent = ({
       }}
       page={page}
       rowsPerPage={rowsPerPage || count}
-      rowsPerPageOptions={generateRowsPerPage(count)}
+      rowsPerPageOptions={rowsPerPageOptions || generateRowsPerPage(count)}
       ActionsComponent={TablePaginationActions}
       SelectProps={{ native: true }}
     />

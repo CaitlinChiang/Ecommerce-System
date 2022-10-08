@@ -51,10 +51,6 @@ const CardsPaginationComponent = ({
               searchData(args, fetchMore, loading, paginateDataArgs)
             }
           }}
-          onSearch={(): void => {
-            searchData(args, fetchMore, loading, paginateDataArgs)
-          }}
-          searchButtonDisabled={loading}
           searchLabel={searchLabel}
           searchPlaceholder={searchPlaceholder}
           searchText={searchText}
@@ -65,6 +61,7 @@ const CardsPaginationComponent = ({
       <PaginationComponent
         count={count}
         paginateDataArgs={paginateDataArgs}
+        rowsPerPageOptions={[12, 18, 24, 30]}
         setPaginateDataArgs={setPaginateDataArgs}
       />
     </>
