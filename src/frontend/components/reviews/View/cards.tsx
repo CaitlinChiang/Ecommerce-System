@@ -1,12 +1,11 @@
 import { ReactElement, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetReviews } from './query'
-import { Typography } from '@mui/material'
+import { Card, CardContent, Grid, Typography } from '@mui/material'
 import { Review, GetReviewArgs } from '../../../../types/review'
 import { PaginateDataArgs } from '../../../../types/actions/paginateData'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import { SortDirection } from '../../../_enums/sortDirection'
-import CardComponent from '../../_common/CardComponent'
 import CardsPaginationComponent from '../../_common/CardsPaginationComponent'
 import CreateReview from '../Create'
 import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
@@ -49,36 +48,47 @@ const ReviewCards = ({ featured }: { featured: boolean }): ReactElement => {
       const { content, username } = review
 
       return (
-        <CardComponent
-          content={
-            <>
-              <Typography>{`"${content}"`}</Typography>
-              <br />
-              <Typography>{`- ${username}`}</Typography>
-            </>
-          }
-        />
+        <Grid item xs={6} md={6} lg={6}>
+          <Card>
+            <CardContent>
+              <Typography variant={'h5'}>{`"${content}"`}</Typography>
+              <Typography
+                color={'#707070'}
+                sx={{ marginTop: 3 }}
+                variant={'h5'}
+              >{`- ${username}`}</Typography>
+            </CardContent>
+          </Card>
+        </Grid>
       )
     })
   ]
 
   return (
     <>
-      {featured && <Typography>{'Customer Reviews'}</Typography>}
-      {!featured && (
-        <>
-          <CreateReview refetchArgs={refetchArgs} />
-          <CardsPaginationComponent
-            args={args}
-            count={reviewsCount}
-            fetchMore={fetchMore}
-            loading={loading}
-            paginateDataArgs={paginateDataArgs}
-            setPaginateDataArgs={setPaginateDataArgs}
-          />
-        </>
-      )}
-      {reviewCards}
+      {!featured && <CreateReview refetchArgs={refetchArgs} />}
+      <Card>
+        <CardContent>
+          {!featured && (
+            <>
+              <Typography variant={'h2'}>
+                {'Read feedback from our customers!'}
+              </Typography>
+              <CardsPaginationComponent
+                args={args}
+                count={reviewsCount}
+                fetchMore={fetchMore}
+                loading={loading}
+                paginateDataArgs={paginateDataArgs}
+                setPaginateDataArgs={setPaginateDataArgs}
+              />
+            </>
+          )}
+          <Grid container spacing={2}>
+            {reviewCards}
+          </Grid>
+        </CardContent>
+      </Card>
     </>
   )
 }
