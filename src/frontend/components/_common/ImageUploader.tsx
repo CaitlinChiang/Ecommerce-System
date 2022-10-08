@@ -70,7 +70,7 @@ const ImageUploader = ({
           fullWidth
           variant={'contained'}
         >
-          {label || `Upload Image ${required && '*'}`}
+          {label || `Upload Image ${required ? '*' : ''}`}
         </Button>
       </label>
       {required && error && emptyProp && (
