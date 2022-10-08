@@ -16,7 +16,7 @@ import { Product } from '../../../../types/product'
 import { ProductVariant } from '../../../../types/productVariant'
 import EditItemQuantity from '../EditQuantity'
 import RemoveCartItem from '../Remove'
-import GridItem from '../../_common/GridItem'
+import { CartGridItem } from '../../_common/GridItem'
 import { formatNumber } from '../../../_utils/handleFormat/formatNumber'
 import { formatPrice } from '../../../_utils/handleFormat/formatPrice'
 
@@ -43,7 +43,7 @@ const Cart = (): ReactElement => {
         }}
       >
         <Grid container spacing={'2'}>
-          <GridItem
+          <CartGridItem
             xs={2}
             content={
               <Box
@@ -54,7 +54,7 @@ const Cart = (): ReactElement => {
               />
             }
           />
-          <GridItem
+          <CartGridItem
             xs={3}
             content={
               <>
@@ -65,7 +65,7 @@ const Cart = (): ReactElement => {
               </>
             }
           />
-          <GridItem
+          <CartGridItem
             xs={2}
             content={
               <Typography variant={'h5'}>{`P${formatPrice(
@@ -73,7 +73,7 @@ const Cart = (): ReactElement => {
               )}`}</Typography>
             }
           />
-          <GridItem
+          <CartGridItem
             xs={2.5}
             content={
               <EditItemQuantity
@@ -84,13 +84,13 @@ const Cart = (): ReactElement => {
               />
             }
           />
-          <GridItem
+          <CartGridItem
             xs={2}
             content={
               <Typography variant={'h5'}>{`P${formatPrice(totalPrice)}`}</Typography>
             }
           />
-          <GridItem
+          <CartGridItem
             content={
               <RemoveCartItem
                 productId={product?._id}

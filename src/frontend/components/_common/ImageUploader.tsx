@@ -6,6 +6,7 @@ const ImageUploader = ({
   args,
   disabled,
   error,
+  label,
   nestedProp,
   required,
   setArgs,
@@ -15,6 +16,7 @@ const ImageUploader = ({
   args: any
   disabled?: boolean
   error?: boolean
+  label?: string
   nestedProp?: string
   required?: boolean
   setArgs: React.Dispatch<React.SetStateAction<any>>
@@ -68,7 +70,7 @@ const ImageUploader = ({
           fullWidth
           variant={'contained'}
         >
-          {`Upload Image ${required && '*'}`}
+          {label || `Upload Image ${required && '*'}`}
         </Button>
       </label>
       {required && error && emptyProp && (
