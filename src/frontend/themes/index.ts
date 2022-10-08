@@ -14,9 +14,9 @@ const baseTheme = {
       dark: '#1682d4'
     },
     secondary: {
-      main: '#1e4db7',
+      main: '#d48130',
       light: '#ddebff',
-      dark: '#173f98'
+      dark: '#c1854a'
     },
     success: {
       main: '#00c292',
@@ -29,7 +29,7 @@ const baseTheme = {
       light: '#fdf3f5'
     },
     info: {
-      main: '#0bb2fb',
+      main: '#1e4db7',
       light: '#a7e3f4'
     },
     error: {

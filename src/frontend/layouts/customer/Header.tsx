@@ -56,7 +56,7 @@ const Header = ({
   const trackingMenu = [
     {
       icon: (
-        <Badge badgeContent={formatNumber(cart?.quantity)} color={'secondary'}>
+        <Badge badgeContent={formatNumber(cart?.quantity)} color={'info'}>
           <ShoppingCartIcon />
         </Badge>
       ),

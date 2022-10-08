@@ -10,4 +10,4 @@ const Page = (): ReactElement => {
   )
 }
 
-export default layout(Page, { title: 'Cart' })
+export default layout(Page, { title: 'Shopping Cart' })
