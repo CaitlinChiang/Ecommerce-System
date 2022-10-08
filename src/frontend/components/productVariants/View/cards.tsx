@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetProductVariants } from './query'
-import { CircularProgress, Typography } from '@mui/material'
+import { CircularProgress, Grid, Typography } from '@mui/material'
 import { ObjectId } from 'mongodb'
 import {
   ProductVariant,
@@ -33,7 +33,7 @@ const ProductVariantCards = ({
       if (imageUrl?.includes('products/')) {
         return (
           <CardComponent
-            content={<Typography>{name}</Typography>}
+            content={<Typography variant={'h5'}>{name}</Typography>}
             productVariantId={String(_id)}
           />
         )
@@ -41,7 +41,7 @@ const ProductVariantCards = ({
 
       return (
         <CardComponent
-          content={<Typography>{name}</Typography>}
+          content={<Typography variant={'h5'}>{name}</Typography>}
           imageAlt={`${name} Product Variant Image`}
           imageSource={imageUrl}
           productVariantId={String(_id)}
@@ -53,7 +53,9 @@ const ProductVariantCards = ({
   return (
     <>
       {loading && <CircularProgress />}
-      {productVariantCards}
+      <Grid container spacing={0}>
+        {productVariantCards}
+      </Grid>
     </>
   )
 }
