@@ -62,7 +62,12 @@ const ImageUploader = ({
         type='file'
       />
       <label htmlFor='select-image'>
-        <Button color={'secondary'} component={'span'} variant={'contained'}>
+        <Button
+          color={'secondary'}
+          component={'span'}
+          fullWidth
+          variant={'contained'}
+        >
           {`Upload Image ${required && '*'}`}
         </Button>
       </label>
