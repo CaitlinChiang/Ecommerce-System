@@ -90,7 +90,7 @@ const AdministratorsTable = (): ReactElement => {
               disabled={disableUpdateUser}
               onClick={(): void => setPermissions({ user, openModal: true })}
             >
-              {'View Permissions'}
+              {'View & Edit'}
             </Button>
           </TableCell>
           <TableCell>{String(createdAt)}</TableCell>
