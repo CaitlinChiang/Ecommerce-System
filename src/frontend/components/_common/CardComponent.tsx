@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 import { useRouter } from 'next/router'
-import { Card, CardActionArea, CardContent } from '@mui/material'
+import { Card, CardActionArea, CardContent, Grid } from '@mui/material'
 
 const globalAny: any = global
 
@@ -32,12 +32,14 @@ const CardComponent = ({
   }
 
   return (
-    <Card onClick={handleOnClick} sx={{ p: 0, width: '100%' }}>
-      <CardActionArea>
-        {imageSource && <img src={imageSource} alt={imageAlt} width={'100%'} />}
-        <CardContent sx={{ p: 3 }}>{content}</CardContent>
-      </CardActionArea>
-    </Card>
+    <Grid item xs={6} md={4} lg={3} display={'flex'}>
+      <Card onClick={handleOnClick} sx={{ p: 0, width: '100%' }}>
+        <CardActionArea>
+          {imageSource && <img alt={imageAlt} src={imageSource} width={'100%'} />}
+          <CardContent sx={{ p: 3 }}>{content}</CardContent>
+        </CardActionArea>
+      </Card>
+    </Grid>
   )
 }
 
