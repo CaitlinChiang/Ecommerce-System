@@ -16,8 +16,8 @@ export default async (
   const modifiedArgs: GetOrderArgs | any = queryArgs(args)
   await searchUser(context, modifiedArgs, args.paginateData?.searchText)
 
-  returnUserOrders(context, modifiedArgs)
+  returnUserOrders(context, args)
 
-  const orders: Order[] = await returnDataArray(context, modifiedArgs, 'orders')
+  const orders: Order[] = await returnDataArray(context, args, 'orders')
   return orders
 }
