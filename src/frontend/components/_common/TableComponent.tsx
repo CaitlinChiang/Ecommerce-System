@@ -96,8 +96,8 @@ const TableComponent = ({
         {loading && <LinearProgress />}
         <Box sx={{ overflow: { xs: 'auto', sm: 'unset' } }}>
           <Grid container sx={{ justifyContent: 'right' }}>
-            <Grid item xs={5}>
-              {searchLabel && (
+            {searchLabel && (
+              <Grid item xs={5}>
                 <SearchField
                   onKeyDown={(e): void => {
                     if (e.key === 'Enter') {
@@ -109,11 +109,13 @@ const TableComponent = ({
                   searchText={searchText}
                   setPaginateDataArgs={setPaginateDataArgs}
                 />
-              )}
-            </Grid>
-            <Grid item xs={1}>
-              {filterContent && <ToolbarComponent />}
-            </Grid>
+              </Grid>
+            )}
+            {filterContent && (
+              <Grid item xs={1}>
+                <ToolbarComponent />
+              </Grid>
+            )}
           </Grid>
           <PaginationComponent
             count={count}
