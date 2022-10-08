@@ -33,12 +33,11 @@ const CardComponent = ({
 
   return (
     <Grid item xs={6} md={4} lg={3} display={'flex'}>
-      <Card
-        onClick={handleOnClick}
-        sx={{ p: 0, width: productVariantId ? '50%' : '100%' }}
-      >
+      <Card onClick={handleOnClick} sx={{ p: 0, width: '100%' }}>
         <CardActionArea>
-          {imageSource && <img alt={imageAlt} src={imageSource} width={'100%'} />}
+          {imageSource && !productVariantId && (
+            <img alt={imageAlt} src={imageSource} width={'100%'} />
+          )}
           <CardContent sx={{ p: 3 }}>{content}</CardContent>
         </CardActionArea>
       </Card>
