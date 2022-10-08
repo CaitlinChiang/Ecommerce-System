@@ -64,26 +64,30 @@ const ReviewCards = ({ featured }: { featured: boolean }): ReactElement => {
     })
   ]
 
+  if (featured) {
+    return (
+      <Grid container spacing={2}>
+        {reviewCards}
+      </Grid>
+    )
+  }
+
   return (
     <>
-      {!featured && <CreateReview refetchArgs={refetchArgs} />}
+      <CreateReview refetchArgs={refetchArgs} />
       <Card>
         <CardContent>
-          {!featured && (
-            <>
-              <Typography variant={'h2'}>
-                {'Read feedback from our customers!'}
-              </Typography>
-              <CardsPaginationComponent
-                args={args}
-                count={reviewsCount}
-                fetchMore={fetchMore}
-                loading={loading}
-                paginateDataArgs={paginateDataArgs}
-                setPaginateDataArgs={setPaginateDataArgs}
-              />
-            </>
-          )}
+          <Typography variant={'h2'}>
+            {'Read feedback from our customers!'}
+          </Typography>
+          <CardsPaginationComponent
+            args={args}
+            count={reviewsCount}
+            fetchMore={fetchMore}
+            loading={loading}
+            paginateDataArgs={paginateDataArgs}
+            setPaginateDataArgs={setPaginateDataArgs}
+          />
           <Grid container spacing={2}>
             {reviewCards}
           </Grid>
