@@ -20,7 +20,7 @@ const SelectField = ({
   args: any
   disabled?: boolean
   error?: boolean
-  label: string
+  label?: string
   multiple?: boolean
   nestedProp?: string
   options: any[]
@@ -64,7 +64,7 @@ const SelectField = ({
 
   return (
     <>
-      <CustomFormLabel required={required} text={label} />
+      {label && <CustomFormLabel required={required} text={label} />}
       <Autocomplete
         disabled={disabled}
         getOptionLabel={(option: any): string => option.label}
