@@ -1,13 +1,14 @@
 import { ReactElement, useState } from 'react'
 import { useMutation } from '@apollo/client'
 import mutation from './mutation'
-import { Button } from '@mui/material'
+import { Card, CardContent, Typography } from '@mui/material'
 import { CreateReviewArgs } from '../../../../types/review'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import Text from '../../_common/TextField'
 import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
 import { refetchData } from '../../../_utils/handleData/refetchData'
 import { clearFields } from '../../../_utils/handleFields/clearFields'
+import MutationButton from 'frontend/components/_common/MutationButton'
 
 const globalAny: any = global
 
@@ -36,32 +37,34 @@ const CreateReview = ({
   })
 
   return (
-    <>
-      <Text
-        args={args}
-        error={validateFields}
-        maxLength={150}
-        placeholder={'Feel free to write us a review!'}
-        required={true}
-        setArgs={setArgs}
-        targetProp={'content'}
-      />
-      <Text
-        args={args}
-        placeholder={'Name (optional)'}
-        setArgs={setArgs}
-        targetProp={'username'}
-      />
-      <Button
-        disabled={createMutationState.loading}
-        onClick={(): void => {
-          setValidateFields(true)
-          createMutation()
-        }}
-      >
-        {'Submit'}
-      </Button>
-    </>
+    <Card>
+      <CardContent>
+        <Typography variant={'h2'}>{'Write us feedback!'}</Typography>
+        <Text
+          args={args}
+          error={validateFields}
+          maxLength={150}
+          placeholder={'Feel free to write us a review!'}
+          required={true}
+          setArgs={setArgs}
+          targetProp={'content'}
+        />
+        <Text
+          args={args}
+          placeholder={'Name (optional)'}
+          setArgs={setArgs}
+          targetProp={'username'}
+        />
+        <MutationButton
+          disabled={createMutationState.loading}
+          onClick={(): void => {
+            setValidateFields(true)
+            createMutation()
+          }}
+          title={'Submit'}
+        />
+      </CardContent>
+    </Card>
   )
 }
 
