@@ -39,7 +39,7 @@ const Row = ({
           </TableCell>
         )}
         <TableCell align={'right'} sx={{ borderBottom: 0 }}>
-          <IconButton size='small' onClick={() => setOpen(!open)}>
+          <IconButton color={'primary'} onClick={() => setOpen(!open)} size='small'>
             {open ? icons.opened : icons.closed}
           </IconButton>
         </TableCell>
