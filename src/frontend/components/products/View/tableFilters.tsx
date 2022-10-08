@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import { Box, Typography } from '@mui/material'
+import { Grid } from '@mui/material'
 import { DateRangeType } from '../../../_enums/dateRangeType'
 import { StockQuantityOperator } from '../../../_enums/stockQuantityOperator'
 import SelectField from '../../_common/SelectField'
@@ -16,16 +16,7 @@ const ProductsTableFilters = ({
 }): ReactElement => {
   return (
     <>
-      <SelectField
-        args={args}
-        label={'Featured Status'}
-        options={[
-          { label: 'Featured Products', featured: true },
-          { label: 'Non-Featured Products', featured: false }
-        ]}
-        setArgs={setArgs}
-        targetProp={'featured'}
-      />
+      <ProductCategoriesSelect args={args} multiple={true} setArgs={setArgs} />
       <SelectField
         args={args}
         label={'Show Public Status'}
@@ -38,6 +29,16 @@ const ProductsTableFilters = ({
       />
       <SelectField
         args={args}
+        label={'Featured Status'}
+        options={[
+          { label: 'Featured Products', featured: true },
+          { label: 'Non-Featured Products', featured: false }
+        ]}
+        setArgs={setArgs}
+        targetProp={'featured'}
+      />
+      <SelectField
+        args={args}
         label={'Discount Status'}
         options={[
           { label: 'Products with Discount', discount: true },
@@ -46,81 +47,89 @@ const ProductsTableFilters = ({
         setArgs={setArgs}
         targetProp={'discount'}
       />
-      <ProductCategoriesSelect args={args} multiple={true} setArgs={setArgs} />
-      <Box>
-        <SelectField
-          args={args}
-          label={'Filter Date Range by'}
-          nestedProp={'filterBy'}
-          options={[
-            { label: 'Created At Date', filterBy: DateRangeType.CREATED },
-            { label: 'Expiration Date', filterBy: DateRangeType.EXPIRATION }
-          ]}
-          setArgs={setArgs}
-          targetProp={'dateRange'}
-        />
-        <DatePickerField
-          args={args}
-          disabled={
-            args.dateRange?.filterBy === null ||
-            args.dateRange?.filterBy == undefined
-          }
-          nestedProp={'startDate'}
-          setArgs={setArgs}
-          targetProp={'dateRange'}
-        />
-        <DatePickerField
-          args={args}
-          disabled={
-            args.dateRange?.filterBy === null ||
-            args.dateRange?.filterBy == undefined
-          }
-          nestedProp={'endDate'}
-          setArgs={setArgs}
-          targetProp={'dateRange'}
-        />
-      </Box>
-      <Box>
-        <SelectField
-          args={args}
-          label={'Filter Stock Quantity Operator'}
-          nestedProp={'operator'}
-          options={[
-            { label: 'ABOVE', operator: StockQuantityOperator.ABOVE },
-            { label: 'BELOW', operator: StockQuantityOperator.BELOW },
-            { label: 'BETWEEN', operator: StockQuantityOperator.BETWEEN },
-            { label: 'EQUAL TO', operator: StockQuantityOperator.EQUAL }
-          ]}
-          setArgs={setArgs}
-          targetProp={'stockQuantity'}
-        />
-        <NumberField
-          args={args}
-          disabled={
-            args.stockQuantity?.operator === null ||
-            args.stockQuantity?.operator == undefined
-          }
-          label={
-            args.stockQuantity?.operator === StockQuantityOperator.BETWEEN
-              ? 'Value 1'
-              : 'Value'
-          }
-          nestedProp={'value1'}
-          setArgs={setArgs}
-          targetProp={'stockQuantity'}
-        />
-        {args.stockQuantity?.operator === StockQuantityOperator.BETWEEN && (
-          <>
-            <Typography>{'and'}</Typography>
+      <Grid container spacing={1}>
+        <Grid item xs={3.5} md={3.5} lg={3.5}>
+          <SelectField
+            args={args}
+            label={'Filter Date Range by'}
+            nestedProp={'filterBy'}
+            options={[
+              { label: 'Created At Date', filterBy: DateRangeType.CREATED },
+              { label: 'Expiration Date', filterBy: DateRangeType.EXPIRATION }
+            ]}
+            setArgs={setArgs}
+            targetProp={'dateRange'}
+          />
+        </Grid>
+        <Grid item xs={3.5} md={2} lg={2}>
+          <DatePickerField
+            args={args}
+            disabled={
+              args.dateRange?.filterBy === null ||
+              args.dateRange?.filterBy == undefined
+            }
+            nestedProp={'startDate'}
+            setArgs={setArgs}
+            targetProp={'dateRange'}
+          />
+        </Grid>
+        <Grid item xs={3.5} md={2} lg={2}>
+          <DatePickerField
+            args={args}
+            disabled={
+              args.dateRange?.filterBy === null ||
+              args.dateRange?.filterBy == undefined
+            }
+            nestedProp={'endDate'}
+            setArgs={setArgs}
+            targetProp={'dateRange'}
+          />
+        </Grid>
+      </Grid>
+      <Grid container spacing={1}>
+        <Grid item xs={3.5} md={3.5} lg={3.5}>
+          <SelectField
+            args={args}
+            label={'Filter Stock Quantity'}
+            nestedProp={'operator'}
+            options={[
+              { label: 'ABOVE', operator: StockQuantityOperator.ABOVE },
+              { label: 'BELOW', operator: StockQuantityOperator.BELOW },
+              { label: 'BETWEEN', operator: StockQuantityOperator.BETWEEN },
+              { label: 'EQUAL TO', operator: StockQuantityOperator.EQUAL }
+            ]}
+            setArgs={setArgs}
+            targetProp={'stockQuantity'}
+          />
+        </Grid>
+        <Grid item xs={3.5} md={2} lg={2}>
+          <NumberField
+            args={args}
+            disabled={
+              args.stockQuantity?.operator === null ||
+              args.stockQuantity?.operator == undefined
+            }
+            label={
+              args.stockQuantity?.operator === StockQuantityOperator.BETWEEN
+                ? 'Value 1'
+                : 'Value'
+            }
+            nestedProp={'value1'}
+            setArgs={setArgs}
+            targetProp={'stockQuantity'}
+          />
+        </Grid>
+        <Grid item xs={3.5} md={2} lg={2}>
+          {args.stockQuantity?.operator === StockQuantityOperator.BETWEEN && (
             <NumberField
               args={args}
               nestedProp={'value2'}
               setArgs={setArgs}
               targetProp={'stockQuantity'}
             />
-          </>
-        )}
-      </Box>
+          )}
+        </Grid>
+      </Grid>
     </>
   )
 }
