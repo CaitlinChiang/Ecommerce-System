@@ -42,6 +42,7 @@ const UpdatePaymentImageUpload = ({
         <ImageUploader
           alt={'Payment Proof'}
           args={args}
+          label={'Upload Updated Image *'}
           setArgs={setArgs}
           targetProp={'imageProof'}
         />

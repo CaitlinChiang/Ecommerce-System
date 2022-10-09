@@ -2,7 +2,8 @@ import { ReactElement, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetOrders } from '../query'
 import deleteMutation from '../../Delete/mutation'
-import { Button, TableCell, TableRow } from '@mui/material'
+import { Button, IconButton, TableCell, TableRow } from '@mui/material'
+import TimelineIcon from '@mui/icons-material/Timeline'
 import { CartItem } from '../../../../../types/cart'
 import { Order, GetOrderArgs } from '../../../../../types/order'
 import { Payment } from '../../../../../types/payment'
@@ -76,30 +77,27 @@ const OrdersTable = (): ReactElement => {
   }
 
   const orderHeaders = [
-    { label: 'firstName', sortable: false },
-    { label: 'lastName', sortable: false },
+    { label: 'name', sortable: false },
     { label: 'contact', sortable: false },
     { label: 'address', sortable: false },
-    { label: 'orderItems', sortable: false },
+    { label: 'items', sortable: false },
     { label: 'status', sortable: true },
     { label: 'amountDue', sortable: false },
     { label: 'paymentStatus', sortable: false },
     { label: 'paymentProof', sortable: false },
-    { label: 'orderLogs', sortable: false },
     { label: 'createdAt', sortable: true },
-    { label: 'updatedAt', sortable: true },
     { label: 'actions', sortable: false }
   ]
 
   const orderRows = [
     orders?.map((order: Order): ReactElement => {
-      const { _id, createdAt, deliveryAddress, items, payment, updatedAt, user } =
-        order
+      const { _id, createdAt, deliveryAddress, items, payment, user } = order
 
       return (
         <TableRow>
-          <TableCell>{user?.firstName}</TableCell>
-          <TableCell>{user?.lastName}</TableCell>
+          <TableCell>
+            {user?.firstName} <br /> {user?.lastName}
+          </TableCell>
           <TableCell>
             {user?.email} <br /> {user?.phoneNumber}
           </TableCell>
@@ -108,7 +106,7 @@ const OrdersTable = (): ReactElement => {
           </TableCell>
           <TableCell>
             <Button onClick={(): void => setItems({ items, openModal: true })}>
-              {'View Items'}
+              {'View'}
             </Button>
           </TableCell>
           <TableCell>
@@ -120,9 +118,7 @@ const OrdersTable = (): ReactElement => {
             />
           </TableCell>
           <TableCell>
-            {`Amount Due: P${formatPrice(payment?.amountDue)}`}
-            <br />
-            {`Shipping Fee: P${formatPrice(payment?.shippingFee)}`}
+            {`P${formatPrice(payment?.amountDue + payment?.shippingFee)}`}
           </TableCell>
           <TableCell>
             <UpdatePaymentSelect
@@ -141,21 +137,22 @@ const OrdersTable = (): ReactElement => {
                 setPayment({ payment, openModal: true })
               }}
             >
-              {'View Proof'}
+              {'View'}
             </Button>
           </TableCell>
           <TableCell>
-            <Button
+            {String(createdAt).split(', ')[0]}
+            <br />
+            {String(createdAt).split(', ')[1]}
+          </TableCell>
+          <TableCell>
+            <IconButton
               onClick={(): void => {
                 setLogs({ orderId: String(_id), openModal: true })
               }}
             >
-              {'View Order Logs'}
-            </Button>
-          </TableCell>
-          <TableCell>{String(createdAt)}</TableCell>
-          <TableCell>{String(updatedAt)}</TableCell>
-          <TableCell>
+              <TimelineIcon />
+            </IconButton>
             <DeleteButton
               _id={_id}
               disabled={disableDeleteOrder}

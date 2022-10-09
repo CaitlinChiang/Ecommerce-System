@@ -34,10 +34,13 @@ const AddCartItem = ({ args }: { args: AddCartItemArgs }): ReactElement => {
         title={'Please sign in to add items to cart.'}
       />
       <Button
+        color={'secondary'}
         disabled={updateMutationState.loading}
+        fullWidth
         onClick={(): void => {
           Object.keys(user).length === 0 ? setModalOpen(true) : updateMutation()
         }}
+        variant={'contained'}
       >
         {'Add to Cart'}
       </Button>

@@ -4,7 +4,7 @@ export default gql`
   mutation (
     $_id: ID!
     $categoryId: ID!
-    $description: String
+    $description: String!
     $discount: Float
     $expirationDate: String
     $featured: Boolean!

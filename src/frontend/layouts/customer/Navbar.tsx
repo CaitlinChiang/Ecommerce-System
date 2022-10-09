@@ -1,109 +1,123 @@
-import { ReactElement, useState } from 'react'
+import { ReactElement, ReactEventHandler, useState } from 'react'
+import NextLink from 'next/link'
 import { useRouter } from 'next/router'
-import { useQuery } from '@apollo/client'
-import { GetCart } from '../query'
-import styles from '../../styles/_layouts/customer/navbar'
 import {
-  AppBar,
-  Badge,
+  Box,
+  Drawer,
   List,
-  ListItemButton,
+  ListItem,
+  ListItemIcon,
   ListItemText,
-  Toolbar,
   Typography
 } from '@mui/material'
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
-import ReceiptIcon from '@mui/icons-material/Receipt'
-import AccountCircleIcon from '@mui/icons-material/AccountCircle'
-import { Cart } from '../../../types/cart'
-import ContactInformation from '../../components/websiteTexts/View/contactInformation'
-import { formatNumber } from '../../_utils/handleFormat/formatNumber'
+import HelpIcon from '@mui/icons-material/Help'
+import EditIcon from '@mui/icons-material/Edit'
+import HomeIcon from '@mui/icons-material/Home'
+import SellIcon from '@mui/icons-material/Sell'
+import CallIcon from '@mui/icons-material/Call'
 
-const globalAny: any = global
-
-const Navbar = (): ReactElement => {
+const NavbarMobile = ({
+  open,
+  onClose
+}: {
+  open: boolean
+  onClose: ReactEventHandler
+}): ReactElement => {
   const router = useRouter()
+  const pathName = router.pathname
 
-  const [openContactInfo, setOpenContactInfo] = useState<boolean>(false)
+  const [itemOpen, setItemOpen] = useState<any>(true)
 
-  const { data, refetch } = useQuery(GetCart)
-
-  const cart: Cart = data?.get_cart || {}
-
-  globalAny.updateCartQuantity = (): void => {
-    refetch()
+  const handleClick = (index: any) => {
+    if (itemOpen === index) {
+      setItemOpen((prevOpen: any) => !prevOpen)
+    } else {
+      setItemOpen(index)
+    }
   }
 
   const shoppingMenu = [
-    { label: 'Home', route: '/' },
-    { label: 'Shop', route: '/shop' },
-    { label: 'Reviews', route: '/reviews' },
-    { label: 'FAQs', route: '/faqs' },
-    { label: 'Contact Us' }
+    {
+      icon: <HomeIcon />,
+      label: 'Home',
+      route: '/'
+    },
+    {
+      icon: <SellIcon />,
+      label: 'Shop',
+      route: '/shop'
+    },
+    {
+      icon: <EditIcon />,
+      label: 'Reviews',
+      route: '/reviews'
+    },
+    {
+      icon: <HelpIcon />,
+      label: 'FAQs',
+      route: '/faqs'
+    },
+    {
+      icon: <CallIcon />,
+      label: 'Contact',
+      route: '/contact-us'
+    }
   ]
 
-  const trackingMenu = [
-    {
-      icon: (
-        <Badge badgeContent={formatNumber(cart?.quantity)} color={'secondary'}>
-          <ShoppingCartIcon />
-        </Badge>
-      ),
-      route: '/cart'
-    },
-    { icon: <ReceiptIcon />, route: '/orders' },
-    { icon: <AccountCircleIcon />, route: '/user/profile' }
-  ]
+  const SidebarContent = (
+    <Box p={2} height='100%'>
+      {/* <LogoIcon /> */}
+      <Box mt={2}>
+        <List>
+          <Typography sx={{ marginBottom: 3 }}>{'Company Logo'}</Typography>
+          {shoppingMenu.map((item, index): ReactElement => {
+            return (
+              <List component='li' disablePadding key={item.label}>
+                <NextLink href={item.route}>
+                  <ListItem
+                    onClick={() => handleClick(index)}
+                    button
+                    sx={{
+                      mb: 1,
+                      ...(pathName === item.route && {
+                        color: 'white',
+                        backgroundColor: (theme) =>
+                          `${theme.palette.primary.main}!important`
+                      })
+                    }}
+                  >
+                    <ListItemIcon
+                      sx={{ ...(pathName === item.route && { color: 'white' }) }}
+                    >
+                      {item.icon}
+                    </ListItemIcon>
+                    <ListItemText onClick={onClose}>{item.label}</ListItemText>
+                  </ListItem>
+                </NextLink>
+              </List>
+            )
+          })}
+        </List>
+      </Box>
+    </Box>
+  )
 
   return (
-    <AppBar position={'static'}>
-      <Toolbar>
-        <Typography sx={styles.typography}>{'Company Logo'}</Typography>
-        <List sx={styles.list}>
-          {shoppingMenu.map((menuItem, index): ReactElement => {
-            if (!menuItem.route) {
-              return (
-                <ListItemButton
-                  key={index}
-                  onClick={(): any => {
-                    setOpenContactInfo(!openContactInfo)
-                  }}
-                >
-                  <ListItemText primary={menuItem.label.toUpperCase()} />
-                </ListItemButton>
-              )
-            }
-
-            return (
-              <ListItemButton
-                key={index}
-                onClick={(): any => {
-                  router.push(menuItem.route)
-                }}
-              >
-                <ListItemText primary={menuItem.label.toUpperCase()} />
-              </ListItemButton>
-            )
-          })}
-        </List>
-        <List sx={styles.list}>
-          {trackingMenu.map((menuItem, index): ReactElement => {
-            return (
-              <ListItemButton
-                key={index}
-                onClick={(): void => {
-                  router.push(menuItem.route)
-                }}
-              >
-                {menuItem.icon}
-              </ListItemButton>
-            )
-          })}
-        </List>
-      </Toolbar>
-      {openContactInfo && <ContactInformation />}
-    </AppBar>
+    <Drawer
+      anchor='left'
+      open={open}
+      onClose={onClose}
+      variant={'temporary'}
+      PaperProps={{
+        sx: {
+          width: '265px',
+          border: '0 !important'
+        }
+      }}
+    >
+      {SidebarContent}
+    </Drawer>
   )
 }
 
-export default Navbar
+export default NavbarMobile

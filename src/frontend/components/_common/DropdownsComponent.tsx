@@ -1,7 +1,8 @@
 import { ReactElement, useState, useEffect } from 'react'
-import styles from '../../styles/_common/dropdownsComponent'
 import {
   Box,
+  Card,
+  CardContent,
   CircularProgress,
   Collapse,
   IconButton,
@@ -10,12 +11,12 @@ import {
   TableBody,
   TableCell,
   TableContainer,
-  TablePagination,
-  TableRow
+  TableRow,
+  Typography
 } from '@mui/material'
 import { PaginateDataArgs } from '../../../types/actions/paginateData'
+import PaginationComponent from './PaginationComponent'
 import { searchData } from '../../_utils/handleData/searchData'
-import { generateRowsPerPage } from '../../_utils/handleData/generateRowsPerPage'
 
 const Row = ({
   icons,
@@ -25,30 +26,31 @@ const Row = ({
   row: { actions?: ReactElement; title: string; content: ReactElement }
 }): ReactElement => {
   if (!row) return
-
   const [open, setOpen] = useState<boolean>(false)
 
   return (
     <>
-      <TableRow sx={styles.tableRow}>
-        <TableCell component='th' scope='row'>
-          {row.title}
+      <TableRow sx={{ backgroundColor: open ? '#e7e7e7' : '#ffffff' }}>
+        <TableCell scope='row' sx={{ borderBottom: 0 }}>
+          <Typography variant={'h5'}>{row.title}</Typography>
         </TableCell>
-        {row?.actions && <TableCell align={'right'}>{row.actions}</TableCell>}
-        <TableCell align={'right'}>
-          <IconButton
-            aria-label='expand row'
-            onClick={(): void => setOpen(!open)}
-            size='small'
-          >
+        {row?.actions && (
+          <TableCell align={'right'} sx={{ borderBottom: 0 }}>
+            {row.actions}
+          </TableCell>
+        )}
+        <TableCell align={'right'} sx={{ borderBottom: 0 }}>
+          <IconButton color={'primary'} onClick={() => setOpen(!open)} size='small'>
             {open ? icons.opened : icons.closed}
           </IconButton>
         </TableCell>
       </TableRow>
       <TableRow>
-        <TableCell colSpan={6} style={styles.tableCell}>
+        <TableCell sx={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout='auto' unmountOnExit>
-            <Box sx={styles.box}>{row.content}</Box>
+            <Box marginTop={3} marginBottom={3} marginLeft={5}>
+              {row.content}
+            </Box>
           </Collapse>
         </TableCell>
       </TableRow>
@@ -82,44 +84,29 @@ const DropdownsComponent = ({
   }, [paginateDataArgs])
 
   return (
-    <>
-      {loading && <CircularProgress />}
-      <TableContainer component={Paper}>
-        {count && (
-          <TablePagination
-            component={'span'}
-            count={count}
-            onRowsPerPageChange={async (e): Promise<void> => {
-              const newRowsPerPage = Number(e.target.value)
-              setPaginateDataArgs({
-                ...paginateDataArgs,
-                page: 0,
-                rowsPerPage: newRowsPerPage
-              })
-            }}
-            onPageChange={async (_e, newPage: number): Promise<void> => {
-              window.scrollTo(0, 0)
-              setPaginateDataArgs({
-                ...paginateDataArgs,
-                page: newPage
-              })
-            }}
-            page={paginateDataArgs?.page}
-            rowsPerPage={paginateDataArgs?.rowsPerPage}
-            rowsPerPageOptions={generateRowsPerPage(count)}
-          />
-        )}
-        <Table aria-label='collapsible table'>
-          <TableBody>
-            {rows.map(
-              (row: { title: string; content: ReactElement }): ReactElement => {
-                return <Row icons={icons} row={row} />
-              }
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </>
+    <Card>
+      <CardContent>
+        {loading && <CircularProgress />}
+        <TableContainer component={Paper}>
+          {count && (
+            <PaginationComponent
+              count={count}
+              paginateDataArgs={paginateDataArgs}
+              setPaginateDataArgs={setPaginateDataArgs}
+            />
+          )}
+          <Table sx={{ whiteSpace: { xs: 'nowrap', sm: 'unset' } }}>
+            <TableBody>
+              {rows.map(
+                (row: { title: string; content: ReactElement }): ReactElement => {
+                  return <Row icons={icons} row={row} />
+                }
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </CardContent>
+    </Card>
   )
 }
 

@@ -1,7 +1,7 @@
 import { ReactElement, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetProducts } from './query'
-import { Typography } from '@mui/material'
+import { Card, CardContent, Grid, Typography } from '@mui/material'
 import { Product, GetProductArgs } from '../../../../types/product'
 import { PaginateDataArgs } from '../../../../types/actions/paginateData'
 import { SortDirection } from '../../../_enums/sortDirection'
@@ -56,12 +56,14 @@ const ProductCards = ({ featured }: { featured: boolean }): ReactElement => {
         <CardComponent
           content={
             <>
-              <Typography>{name}</Typography>
-              <Typography>{formatDiscountedPrice(discount, price)}</Typography>
+              <Typography variant={'h4'}>{name}</Typography>
+              <Typography variant={'h5'}>
+                {formatDiscountedPrice(discount, price)}
+              </Typography>
               {discount && (
-                <Typography>{`P${formatPrice(price)} -${formatToPercentage(
-                  discount
-                )}`}</Typography>
+                <Typography variant={'caption'}>{`P${formatPrice(
+                  price
+                )} -${formatToPercentage(discount)}`}</Typography>
               )}
             </>
           }
@@ -76,26 +78,42 @@ const ProductCards = ({ featured }: { featured: boolean }): ReactElement => {
     })
   ]
 
+  if (featured) {
+    return (
+      <Grid container spacing={1}>
+        {productCards}
+      </Grid>
+    )
+  }
+
   return (
-    <>
-      {featured && <Typography>{'Featured Products'}</Typography>}
-      {!featured && (
-        <>
-          <CardsPaginationComponent
-            args={args}
-            count={productsCount}
-            fetchMore={fetchMore}
-            loading={loading}
-            paginateDataArgs={paginateDataArgs}
-            searchLabel={'Search Product by Name'}
-            searchPlaceholder={'ex. Jeans for Women'}
-            setPaginateDataArgs={setPaginateDataArgs}
-          />
-          <ProductCardsFilters args={args} setArgs={setArgs} />
-        </>
-      )}
-      {productCards}
-    </>
+    <Grid container>
+      <Grid item xs={12} md={4} lg={2.5}>
+        <ProductCardsFilters args={args} setArgs={setArgs} />
+      </Grid>
+      <Grid item xs={12} md={8} lg={9.5}>
+        <Card>
+          <CardContent>
+            <Typography sx={{ marginBottom: 2 }} variant={'h2'}>
+              {'Products'}
+            </Typography>
+            <CardsPaginationComponent
+              args={args}
+              count={productsCount}
+              fetchMore={fetchMore}
+              loading={loading}
+              paginateDataArgs={paginateDataArgs}
+              searchLabel={'Search Product by Name'}
+              searchPlaceholder={'ex. Jeans for Women'}
+              setPaginateDataArgs={setPaginateDataArgs}
+            />
+            <Grid container spacing={1}>
+              {productCards}
+            </Grid>
+          </CardContent>
+        </Card>
+      </Grid>
+    </Grid>
   )
 }
 

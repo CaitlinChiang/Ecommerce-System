@@ -1,8 +1,14 @@
 import { ReactElement } from 'react'
 import { useQuery } from '@apollo/client'
 import { GetProductCategories } from '../../productCategories/View/query'
-import styles from '../../../styles/products'
-import { ListItemButton, ListItemText } from '@mui/material'
+import {
+  Card,
+  CardContent,
+  Divider,
+  ListItemButton,
+  ListItemText,
+  Typography
+} from '@mui/material'
 import { ProductCategory } from '../../../../types/productCategory'
 import { SortDirection } from '../../../_enums/sortDirection'
 
@@ -19,36 +25,34 @@ const ProductCardsFilters = ({
   const productCategories: ProductCategory[] = data?.get_product_categories || []
 
   return (
-    <>
-      <ListItemText primary={'Categories'} sx={styles.listItemTextHeader} />
-      <ListItemButton
-        onClick={(): void => setArgs({ ...args, categoryIds: [] })}
-        sx={styles.listItemButton}
-      >
-        <ListItemText
-          primary={'All Categories'}
-          primaryTypographyProps={styles.listItemText}
-        />
-      </ListItemButton>
-      {productCategories.map(
-        (productCategory: ProductCategory, index: number): ReactElement => {
-          return (
-            <ListItemButton
-              key={index}
-              onClick={(): void =>
-                setArgs({ ...args, categoryIds: [productCategory._id] })
-              }
-              sx={styles.listItemButton}
-            >
-              <ListItemText
-                primary={productCategory.name}
-                primaryTypographyProps={styles.listItemText}
-              />
-            </ListItemButton>
-          )
-        }
-      )}
-    </>
+    <Card>
+      <CardContent>
+        <Typography sx={{ marginBottom: 2 }} variant={'h2'}>
+          {'Categories'}
+        </Typography>
+        <ListItemButton onClick={(): void => setArgs({ ...args, categoryIds: [] })}>
+          <ListItemText primary={'All Categories'} />
+        </ListItemButton>
+        <Divider />
+        {productCategories.map(
+          (productCategory: ProductCategory, index: number): ReactElement => {
+            return (
+              <>
+                <ListItemButton
+                  key={index}
+                  onClick={(): void =>
+                    setArgs({ ...args, categoryIds: [productCategory._id] })
+                  }
+                >
+                  <ListItemText primary={productCategory.name} />
+                </ListItemButton>
+                <Divider />
+              </>
+            )
+          }
+        )}
+      </CardContent>
+    </Card>
   )
 }
 

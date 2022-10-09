@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/client'
 import mutation from './mutation'
 import { ObjectId } from 'mongodb'
 import { IconButton } from '@mui/material'
-import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
+import DeleteIcon from '@mui/icons-material/Delete'
 
 const globalAny: any = global
 
@@ -27,12 +27,13 @@ const RemoveCartItem = ({
 
   return (
     <IconButton
+      color={'error'}
       disabled={updateMutationState.loading}
       onClick={(): void => {
         updateMutation()
       }}
     >
-      <RemoveCircleIcon />
+      <DeleteIcon />
     </IconButton>
   )
 }

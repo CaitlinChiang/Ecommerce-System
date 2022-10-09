@@ -3,7 +3,7 @@ import { gql } from '@apollo/client'
 export default gql`
   mutation (
     $_id: ID!
-    $description: String
+    $description: String!
     $discount: Float
     $expirationDate: String
     $image: Upload

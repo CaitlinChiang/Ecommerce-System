@@ -1,9 +1,9 @@
 import { ReactElement, useEffect } from 'react'
-import { CircularProgress, TablePagination } from '@mui/material'
+import { CircularProgress } from '@mui/material'
 import { PaginateDataArgs } from '../../../types/actions/paginateData'
 import SearchField from './SearchField'
+import PaginationComponent from './PaginationComponent'
 import { searchData } from '../../_utils/handleData/searchData'
-import { generateRowsPerPage } from '../../_utils/handleData/generateRowsPerPage'
 
 const CardsPaginationComponent = ({
   args,
@@ -24,7 +24,7 @@ const CardsPaginationComponent = ({
   searchPlaceholder?: string
   setPaginateDataArgs: React.Dispatch<React.SetStateAction<PaginateDataArgs>>
 }): ReactElement => {
-  const { page, rowsPerPage, searchText, sortBy } = paginateDataArgs
+  const { searchText, sortBy } = paginateDataArgs
 
   useEffect(() => {
     setPaginateDataArgs({ ...paginateDataArgs, page: 0 })
@@ -51,10 +51,6 @@ const CardsPaginationComponent = ({
               searchData(args, fetchMore, loading, paginateDataArgs)
             }
           }}
-          onSearch={(): void => {
-            searchData(args, fetchMore, loading, paginateDataArgs)
-          }}
-          searchButtonDisabled={loading}
           searchLabel={searchLabel}
           searchPlaceholder={searchPlaceholder}
           searchText={searchText}
@@ -62,20 +58,11 @@ const CardsPaginationComponent = ({
         />
       )}
       {loading && <CircularProgress />}
-      <TablePagination
-        component={'span'}
+      <PaginationComponent
         count={count}
-        onRowsPerPageChange={async (e): Promise<void> => {
-          const newRows = Number(e.target.value)
-          setPaginateDataArgs({ ...paginateDataArgs, page: 0, rowsPerPage: newRows })
-        }}
-        onPageChange={async (_e, newPage: number): Promise<void> => {
-          window.scrollTo(0, 0)
-          setPaginateDataArgs({ ...paginateDataArgs, page: newPage })
-        }}
-        page={page}
-        rowsPerPage={rowsPerPage}
-        rowsPerPageOptions={generateRowsPerPage(count)}
+        paginateDataArgs={paginateDataArgs}
+        rowsPerPageOptions={[12, 18, 24, 30]}
+        setPaginateDataArgs={setPaginateDataArgs}
       />
     </>
   )

@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import { Box } from '@mui/material'
+import { Grid } from '@mui/material'
 import { DateRangeType } from '../../../../_enums/dateRangeType'
 import { OrderStatus } from '../../../../_enums/orderStatus'
 import SelectField from '../../../_common/SelectField'
@@ -15,7 +15,50 @@ const OrdersTableFilters = ({
 }): ReactElement => {
   return (
     <>
-      <CitiesSelect args={args} setArgs={setArgs} />
+      <Grid container spacing={1}>
+        <Grid item xs={3.5} md={3.5} lg={3.5}>
+          <SelectField
+            args={args}
+            label={'Filter Date Range by'}
+            nestedProp={'filterBy'}
+            options={[
+              { label: 'Created At Date', filterBy: DateRangeType.CREATED },
+              { label: 'Updated At Date', filterBy: DateRangeType.UPDATED }
+            ]}
+            required={true}
+            setArgs={setArgs}
+            targetProp={'dateRange'}
+          />
+        </Grid>
+        <Grid item xs={3.5} md={2} lg={2}>
+          <DatePickerField
+            args={args}
+            disabled={
+              args.dateRange?.filterBy === null ||
+              args.dateRange?.filterBy == undefined
+            }
+            fallbackValue={new Date(Date.now() - 6096e5)}
+            nestedProp={'startDate'}
+            required={true}
+            setArgs={setArgs}
+            targetProp={'dateRange'}
+          />
+        </Grid>
+        <Grid item xs={3.5} md={2} lg={2}>
+          <DatePickerField
+            args={args}
+            disabled={
+              args.dateRange?.filterBy === null ||
+              args.dateRange?.filterBy == undefined
+            }
+            fallbackValue={new Date()}
+            nestedProp={'endDate'}
+            required={true}
+            setArgs={setArgs}
+            targetProp={'dateRange'}
+          />
+        </Grid>
+      </Grid>
       <SelectField
         args={args}
         label={'Order Status'}
@@ -26,43 +69,7 @@ const OrdersTableFilters = ({
         setArgs={setArgs}
         targetProp={'statuses'}
       />
-      <Box>
-        <SelectField
-          args={args}
-          label={'Filter Date Range by'}
-          nestedProp={'filterBy'}
-          options={[
-            { label: 'Created At Date', filterBy: DateRangeType.CREATED },
-            { label: 'Updated At Date', filterBy: DateRangeType.UPDATED }
-          ]}
-          setArgs={setArgs}
-          targetProp={'dateRange'}
-        />
-        <DatePickerField
-          args={args}
-          disabled={
-            args.dateRange?.filterBy === null ||
-            args.dateRange?.filterBy == undefined
-          }
-          fallbackValue={new Date(Date.now() - 6096e5)}
-          nestedProp={'startDate'}
-          required={true}
-          setArgs={setArgs}
-          targetProp={'dateRange'}
-        />
-        <DatePickerField
-          args={args}
-          disabled={
-            args.dateRange?.filterBy === null ||
-            args.dateRange?.filterBy == undefined
-          }
-          fallbackValue={new Date()}
-          nestedProp={'endDate'}
-          required={true}
-          setArgs={setArgs}
-          targetProp={'dateRange'}
-        />
-      </Box>
+      <CitiesSelect args={args} setArgs={setArgs} />
     </>
   )
 }

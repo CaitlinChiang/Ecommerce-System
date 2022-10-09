@@ -1,7 +1,6 @@
 import { ReactElement } from 'react'
 import { useRouter } from 'next/router'
-import styles from '../../styles/_common/cardComponent'
-import { Card, CardActionArea, CardContent, CardMedia } from '@mui/material'
+import { Card, CardActionArea, CardContent, Grid } from '@mui/material'
 
 const globalAny: any = global
 
@@ -10,15 +9,13 @@ const CardComponent = ({
   imageAlt,
   imageSource,
   productVariantId,
-  redirectLink,
-  width
+  redirectLink
 }: {
   content: ReactElement
   imageAlt?: string
   imageSource?: string
   productVariantId?: string
   redirectLink?: { path: string; url: string }
-  width?: number
 }): ReactElement => {
   const router = useRouter()
 
@@ -35,19 +32,16 @@ const CardComponent = ({
   }
 
   return (
-    <Card sx={{ ...styles.card, width }} onClick={handleOnClick}>
-      <CardActionArea>
-        {imageSource && (
-          <CardMedia
-            alt={imageAlt}
-            component={'img'}
-            height={'200'}
-            image={imageSource}
-          />
-        )}
-        <CardContent>{content}</CardContent>
-      </CardActionArea>
-    </Card>
+    <Grid item xs={6} md={4} lg={3} display={'flex'}>
+      <Card onClick={handleOnClick} sx={{ p: 0, width: '100%' }}>
+        <CardActionArea>
+          {imageSource && !productVariantId && (
+            <img alt={imageAlt} src={imageSource} width={'100%'} />
+          )}
+          <CardContent sx={{ p: 3 }}>{content}</CardContent>
+        </CardActionArea>
+      </Card>
+    </Grid>
   )
 }
 

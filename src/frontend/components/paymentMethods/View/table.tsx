@@ -10,7 +10,6 @@ import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import { AdminPermission } from '../../../_enums/adminPermission'
 import { SortDirection } from '../../../_enums/sortDirection'
 import TableComponent from '../../_common/TableComponent'
-import CreatePaymentMethod from '../Create'
 import UpdatePaymentMethod from '../Update'
 import DeleteButton from '../../_common/DeleteButton'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
@@ -92,7 +91,6 @@ const PaymentMethodsTable = (): ReactElement => {
 
   return (
     <>
-      <CreatePaymentMethod refetchArgs={refetchArgs} />
       <UpdatePaymentMethod
         _id={update.methodId}
         onClose={(): void => setUpdate({ ...update, openModal: false })}

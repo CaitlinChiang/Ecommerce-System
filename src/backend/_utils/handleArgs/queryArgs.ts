@@ -21,7 +21,8 @@ export const queryArgs = (args: any): any => {
     return { $text: { $search: modifiedSearchText } }
   }
 
-  const queryArgs: any = correctArgs({ ...commonArgs })
+  const queryArgs: any = { ...commonArgs }
+  correctArgs(queryArgs)
 
   queryArgs.deletedAt = { $exists: false }
 

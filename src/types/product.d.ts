@@ -33,7 +33,7 @@ export interface GetProductArgs {
 
 export interface CreateProductArgs {
   categoryId: ObjectId
-  description?: string
+  description: string
   discount?: number
   expirationDate?: Date
   featured: boolean
@@ -48,7 +48,7 @@ export interface CreateProductArgs {
 export interface UpdateProductArgs {
   _id: ObjectId | string
   categoryId: ObjectId
-  description?: string
+  description: string
   discount?: number | string
   expirationDate?: Date
   featured: boolean

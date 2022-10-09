@@ -12,7 +12,4 @@ const Page = (): ReactElement => {
   )
 }
 
-export default layout(Page, {
-  title: 'Create Product',
-  backRoute: true
-})
+export default layout(Page, { title: 'Create Product' })

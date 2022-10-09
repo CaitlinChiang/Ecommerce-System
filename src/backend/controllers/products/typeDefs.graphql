@@ -42,7 +42,7 @@ extend type Query {
 extend type Mutation {
   create_product(
     categoryId: ID!
-    description: String
+    description: String!
     discount: Float
     expirationDate: String
     featured: Boolean!
@@ -56,7 +56,7 @@ extend type Mutation {
   update_product(
     _id: ID!
     categoryId: ID!
-    description: String
+    description: String!
     discount: Float
     expirationDate: String
     featured: Boolean!

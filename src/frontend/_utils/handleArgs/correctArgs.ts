@@ -1,7 +1,6 @@
 import isEmail from 'validator/lib/isEmail'
 import isMobilePhone from 'validator/lib/isMobilePhone'
 import { formatFee } from '../handleFormat/formatFee'
-import { formatToDecimal } from '../handleFormat/formatToDecimal'
 import { formatStockQuantity } from '../handleFormat/formatStockQuantity'
 
 export const correctArgs = (args: any): any => {
@@ -27,10 +26,6 @@ const modifyArgs = (key: string, args: any): any => {
 
   if (isNaN(val) && !isImage && val?.trim().length === 0) {
     args[key] = null
-  }
-
-  if (key === 'discount') {
-    args[key] = formatToDecimal(args[key])
   }
 
   if (key === 'shippingFee' || key === 'price') {

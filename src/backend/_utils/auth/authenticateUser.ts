@@ -8,7 +8,7 @@ export const authenticateUser = async (
   permission?: AdminPermission
 ): Promise<void> => {
   const inactive = !context.userActive
-  const restricted = !context.userPermissions.includes(permission || null)
+  const restricted = !context.userPermissions?.includes(permission || null)
 
   if (admin && (inactive || restricted)) {
     throw new UserInputError('Action not permitted.')

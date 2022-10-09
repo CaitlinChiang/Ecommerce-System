@@ -16,8 +16,8 @@ export default async (
   const modifiedArgs: GetOrderArgs | any = queryArgs(args)
   await searchUser(context, modifiedArgs, args.paginateData?.searchText)
 
-  returnUserOrders(context, modifiedArgs)
+  returnUserOrders(context, args)
 
-  const count: number = await returnDataCount(context, modifiedArgs, 'orders')
+  const count: number = await returnDataCount(context, args, 'orders')
   return count
 }

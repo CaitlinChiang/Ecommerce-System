@@ -12,7 +12,6 @@ import { RefetchDataArgs } from '../../../../../types/actions/refetchData'
 import { AdminPermission } from '../../../../_enums/adminPermission'
 import { SortDirection } from '../../../../_enums/sortDirection'
 import DropdownsComponent from '../../../_common/DropdownsComponent'
-import CreateFAQ from '../../Create'
 import UpdateFAQ from '../../Update'
 import DeleteButton from '../../../_common/DeleteButton'
 import { authenticateUser } from '../../../../_utils/auth/authenticateUser'
@@ -89,7 +88,6 @@ const FAQsDropdowns = (): ReactElement => {
 
   return (
     <>
-      <CreateFAQ refetchArgs={refetchArgs} />
       <UpdateFAQ
         _id={update.faqId}
         onClose={(): void => setUpdate({ ...update, openModal: false })}

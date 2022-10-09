@@ -1,12 +1,15 @@
 import React, { ReactElement } from 'react'
 import {
+  Box,
+  Card,
+  CardContent,
   CircularProgress,
   Table,
   TableBody,
   TableCell,
-  TableContainer,
   TableHead,
-  TableRow
+  TableRow,
+  Typography
 } from '@mui/material'
 
 const SimpleTableComponent = ({
@@ -19,25 +22,27 @@ const SimpleTableComponent = ({
   rows: any[]
 }): ReactElement => {
   return (
-    <>
-      {loading && <CircularProgress />}
-      <TableContainer>
-        <Table size={'small'}>
-          <TableHead>
-            <TableRow>
-              {headers.map((header: string, index: number): ReactElement => {
-                return (
-                  <TableCell key={index} align={'center'} padding={'checkbox'}>
-                    {header}
-                  </TableCell>
-                )
-              })}
-            </TableRow>
-          </TableHead>
-          <TableBody>{rows}</TableBody>
-        </Table>
-      </TableContainer>
-    </>
+    <Card>
+      <CardContent>
+        {loading && <CircularProgress />}
+        <Box sx={{ overflow: { xs: 'auto', sm: 'unset' } }}>
+          <Table sx={{ whiteSpace: 'nowrap' }}>
+            <TableHead>
+              <TableRow>
+                {headers.map((header: string, index: number): ReactElement => {
+                  return (
+                    <TableCell key={index}>
+                      <Typography variant={'h5'}>{header}</Typography>
+                    </TableCell>
+                  )
+                })}
+              </TableRow>
+            </TableHead>
+            <TableBody>{rows}</TableBody>
+          </Table>
+        </Box>
+      </CardContent>
+    </Card>
   )
 }
 

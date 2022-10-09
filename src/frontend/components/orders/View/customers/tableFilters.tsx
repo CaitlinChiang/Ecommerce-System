@@ -10,18 +10,16 @@ const OrdersTableFilters = ({
   setArgs: React.Dispatch<React.SetStateAction<any>>
 }): ReactElement => {
   return (
-    <>
-      <SelectField
-        args={args}
-        label={'Order Status'}
-        multiple={true}
-        options={Object.keys(OrderStatus).map((status) => {
-          return { label: status, statuses: status }
-        })}
-        setArgs={setArgs}
-        targetProp={'statuses'}
-      />
-    </>
+    <SelectField
+      args={args}
+      label={'Order Status'}
+      multiple={true}
+      options={Object.keys(OrderStatus).map((status) => {
+        return { label: status, statuses: status }
+      })}
+      setArgs={setArgs}
+      targetProp={'statuses'}
+    />
   )
 }
 

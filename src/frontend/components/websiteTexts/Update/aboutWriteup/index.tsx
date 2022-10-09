@@ -3,21 +3,16 @@ import { useQuery } from '@apollo/client'
 import { useMutation } from '@apollo/client'
 import { GetWebsiteText } from '../../View/query'
 import mutation from '../mutation'
-import { Button, CircularProgress, Typography } from '@mui/material'
+import { Card, CardContent, CircularProgress, Typography } from '@mui/material'
 import { WebsiteText, UpdateWebsiteTextArgs } from '../../../../../types/websiteText'
-import { AdminPermission } from '../../../../_enums/adminPermission'
 import { WebsiteTextType } from '../../../../_enums/websiteTextType'
 import Text from '../../../_common/TextField'
-import { authenticateUser } from '../../../../_utils/auth/authenticateUser'
+import MutationButton from '../../../_common/MutationButton'
 import { correctArgs } from '../../../../_utils/handleArgs/correctArgs'
 
 const globalAny: any = global
 
 const UpdateAboutWriteup = (): ReactElement => {
-  const disableUpdateWebsiteText = !authenticateUser(
-    AdminPermission.UPDATE_WEBSITE_TEXT
-  )
-
   const [args, setArgs] = useState<UpdateWebsiteTextArgs>({
     _id: null,
     content: null,
@@ -48,30 +43,35 @@ const UpdateAboutWriteup = (): ReactElement => {
   })
 
   return (
-    <>
-      {loading && <CircularProgress />}
-      <Typography>{`Last Updated At: ${websiteText?.updatedAt || '-'}`}</Typography>
-      <Text
-        args={args}
-        disabled={disableUpdateWebsiteText}
-        error={validateFields}
-        maxLength={700}
-        multiline={true}
-        placeholder={'Type about page write-up here...'}
-        required={true}
-        setArgs={setArgs}
-        targetProp={'content'}
-      />
-      <Button
-        disabled={disableUpdateWebsiteText || updateMutationState.loading}
-        onClick={(): void => {
-          setValidateFields(true)
-          updateMutation()
-        }}
-      >
-        {'Save Changes'}
-      </Button>
-    </>
+    <Card>
+      <CardContent>
+        {loading && <CircularProgress />}
+        <Typography sx={{ marginBottom: 1 }} variant={'h2'}>
+          {'About Writeup'}
+        </Typography>
+        <Typography sx={{ marginBottom: 3 }} variant={'h6'}>{`Last Updated At: ${
+          websiteText?.updatedAt || '-'
+        }`}</Typography>
+        <Text
+          args={args}
+          error={validateFields}
+          maxLength={700}
+          multiline={true}
+          placeholder={'Type about page write-up here...'}
+          required={true}
+          setArgs={setArgs}
+          targetProp={'content'}
+        />
+        <MutationButton
+          disabled={updateMutationState.loading}
+          onClick={(): void => {
+            setValidateFields(true)
+            updateMutation()
+          }}
+          title={'Save Changes'}
+        />
+      </CardContent>
+    </Card>
   )
 }
 

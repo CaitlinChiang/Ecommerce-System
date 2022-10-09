@@ -22,8 +22,10 @@
   "dependencies": {
     "@apollo/client": "^3.6.4",
     "@apollo/link-context": "^2.0.0-beta.3",
-    "@emotion/react": "^11.9.0",
-    "@emotion/styled": "^11.8.1",
+    "@emotion/cache": "^11.10.3",
+    "@emotion/react": "^11.10.4",
+    "@emotion/server": "^11.4.0",
+    "@emotion/styled": "^11.10.4",
     "@mui/icons-material": "^5.8.0",
     "@mui/lab": "^5.0.0-alpha.86",
     "@mui/material": "^5.8.0",
@@ -54,8 +56,8 @@
     "nodemon": "^2.0.16",
     "prettier": "^2.6.2",
     "react": "^18.1.0",
+    "react-apexcharts": "^1.4.0",
     "react-dom": "^18.1.0",
-    "recharts": "^2.1.12",
     "ts-node": "^10.7.0",
     "validator": "^13.7.0"
   },

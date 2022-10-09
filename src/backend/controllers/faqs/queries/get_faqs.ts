@@ -1,7 +1,7 @@
 import { Context } from '../../../../types/setup/context'
 import { FAQ, GetFAQArgs } from '../../../../types/faq'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
-import { returnDataCount } from '../../../_utils/handleData/returnDataCount'
+import { returnDataArray } from '../../../_utils/handleData/returnDataArray'
 
 export default async (
   _root: undefined,
@@ -10,6 +10,6 @@ export default async (
 ): Promise<FAQ[]> => {
   await authenticateUser(context, false)
 
-  const faqs: FAQ[] = await returnDataCount(context, args, 'faqs')
+  const faqs: FAQ[] = await returnDataArray(context, args, 'faqs')
   return faqs
 }

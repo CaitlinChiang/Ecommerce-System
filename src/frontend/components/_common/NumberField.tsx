@@ -1,7 +1,6 @@
 import { ReactElement } from 'react'
-import styles from '../../styles/_common/numberField'
-import { TextField } from '@mui/material'
-import { formatText } from '../../_utils/handleFormat/formatText'
+import { StyledTextField } from './StyledTextField'
+import CustomFormLabel from './CustomFormLabel'
 import { returnError } from '../../_utils/handleArgs/returnError'
 import { returnHelperText } from '../../_utils/handleArgs/returnHelperText'
 
@@ -13,8 +12,7 @@ const NumberField = ({
   nestedProp,
   required,
   setArgs,
-  targetProp,
-  width
+  targetProp
 }: {
   args: any
   disabled?: boolean
@@ -24,32 +22,38 @@ const NumberField = ({
   required?: boolean
   setArgs: React.Dispatch<React.SetStateAction<any>>
   targetProp: string
-  width?: number
 }): ReactElement => {
   const val = args[targetProp]
 
   return (
-    <TextField
-      disabled={disabled}
-      error={returnError({ args, error, targetProp, nestedProp })}
-      helperText={returnHelperText({ args, error, targetProp, nestedProp })}
-      label={label || formatText(nestedProp || targetProp)}
-      onChange={(e): void => {
-        const inputVal = e.target.value
+    <>
+      <CustomFormLabel
+        required={required}
+        text={label || nestedProp || targetProp}
+      />
+      <StyledTextField
+        disabled={disabled}
+        error={returnError({ args, error, targetProp, nestedProp })}
+        fullWidth
+        helperText={returnHelperText({ args, error, targetProp, nestedProp })}
+        onChange={(e): void => {
+          const inputVal = e.target.value
 
-        if (nestedProp) {
-          setArgs({ ...args, [targetProp]: { ...[val], [nestedProp]: inputVal } })
-        } else {
-          setArgs({ ...args, [targetProp]: inputVal })
-        }
-      }}
-      placeholder={'0'}
-      required={required}
-      sx={{ ...styles.textField, width: width || 300 }}
-      type={'number'}
-      value={!nestedProp ? val : val?.[nestedProp]}
-      InputProps={{ inputProps: { min: 0 } }}
-    />
+          if (nestedProp) {
+            setArgs({ ...args, [targetProp]: { ...[val], [nestedProp]: inputVal } })
+          } else {
+            setArgs({ ...args, [targetProp]: inputVal })
+          }
+        }}
+        placeholder={'0'}
+        required={required}
+        size={'small'}
+        type={'number'}
+        value={!nestedProp ? val : val?.[nestedProp]}
+        variant={'outlined'}
+        InputProps={{ inputProps: { min: 0 } }}
+      />
+    </>
   )
 }
 

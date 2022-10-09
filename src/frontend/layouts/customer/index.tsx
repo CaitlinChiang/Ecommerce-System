@@ -1,34 +1,44 @@
 import { NextPage } from 'next'
-import React, { ReactElement, FunctionComponent } from 'react'
-import styles from '../../styles/_layouts/customer/main'
-import Navbar from './Navbar'
+import { ReactElement, FunctionComponent, useState } from 'react'
+import { Box, Container, Typography, useMediaQuery } from '@mui/material'
+import { theme } from '../../themes'
+import { MainWrapper, PageWrapper } from '../common'
 import Header from './Header'
-import classnames from 'classnames'
+import Navbar from './Navbar'
+import Footer from '../admin/Footer'
 
-export default (
-    Page: FunctionComponent,
-    {
-      title,
-      backRoute,
-      wide
-    }: { title?: string; backRoute?: boolean; wide?: boolean }
-  ) =>
+export default (Page: FunctionComponent, { title }: { title?: string }) =>
   (): FunctionComponent | NextPage | ReactElement => {
+    const [mobileOpen, setMobileOpen] = useState<boolean>(false)
+
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'))
+
     return (
       <>
-        <Navbar />
-        {title && <Header pageTitle={title} backRoute={backRoute} />}
-        <div
-          className={
-            wide
-              ? classnames(styles.root, styles.wide)
-              : classnames(styles.root, styles.narrow)
-          }
-        >
-          <div style={styles.container}>
-            <Page />
-          </div>
-        </div>
+        <MainWrapper>
+          <Header
+            isMobile={isMobile}
+            sx={{
+              paddingLeft: mobileOpen ? '265px' : '',
+              backgroundColor: 'primary'
+            }}
+            toggleMobileNavbar={() => setMobileOpen(true)}
+          />
+          {isMobile && (
+            <Navbar open={mobileOpen} onClose={() => setMobileOpen(false)} />
+          )}
+          <PageWrapper>
+            <Container maxWidth={false} sx={{ marginTop: 5 }}>
+              <Box sx={{ minHeight: 'calc(100vh - 170px)' }}>
+                <Typography sx={{ paddingLeft: 2, marginBottom: 3 }} variant={'h1'}>
+                  {title}
+                </Typography>
+                <Page />
+              </Box>
+              <Footer />
+            </Container>
+          </PageWrapper>
+        </MainWrapper>
       </>
     )
   }

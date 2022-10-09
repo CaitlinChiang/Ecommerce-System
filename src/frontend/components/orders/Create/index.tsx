@@ -7,7 +7,7 @@ import { GetUser } from '../../users/View/query'
 import { useRouter } from 'next/router'
 import { useMutation } from '@apollo/client'
 import mutation from './mutation'
-import { Button, CircularProgress, Container, Typography } from '@mui/material'
+import { Card, CardContent, CircularProgress, Grid, Typography } from '@mui/material'
 import { Cart, CartItem } from '../../../../types/cart'
 import { City } from '../../../../types/city'
 import { CreateOrderArgs } from '../../../../types/order'
@@ -18,6 +18,7 @@ import CitiesSelect from '../../cities/View/select'
 import PaymentMethodsSelect from '../../paymentMethods/View/select'
 import Text from '../../_common/TextField'
 import ImageUploader from '../../_common/ImageUploader'
+import MutationButton from '../../_common/MutationButton'
 import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
 
 const globalAny: any = global
@@ -99,64 +100,69 @@ const CreateOrder = (): ReactElement => {
   return (
     <>
       {createMutationState.loading && <CircularProgress />}
-      <Container>
-        <OrderSummary cart={cart} city={city} />
-      </Container>
-      <Container>
-        <Text
-          args={args}
-          error={validateFields}
-          nestedProp={'address'}
-          required={true}
-          setArgs={setArgs}
-          targetProp={'deliveryAddress'}
-        />
-        <CitiesSelect
-          args={args}
-          error={validateFields}
-          required={true}
-          setArgs={setArgs}
-          targetProp={'deliveryAddress'}
-        />
-        <PaymentMethodsSelect
-          args={args}
-          error={validateFields}
-          required={true}
-          setArgs={setArgs}
-          targetProp={'payment'}
-        />
-        {Object.keys(paymentMethod).length > 0 && (
-          <Typography>
-            {`Note: Please transfer total amount due to ${paymentMethod?.details}`}
-          </Typography>
-        )}
-        <ImageUploader
-          alt={'Proof of Payment Transfer'}
-          args={args}
-          error={validateFields}
-          nestedProp={'imageProof'}
-          required={true}
-          setArgs={setArgs}
-          targetProp={'payment'}
-        />
-        <Button
-          disabled={createMutationState.loading}
-          onClick={(): void => {
-            router.push('/shop')
-          }}
-        >
-          {'Return to Shop'}
-        </Button>
-        <Button
-          disabled={createMutationState.loading}
-          onClick={(): void => {
-            setValidateFields(true)
-            createMutation()
-          }}
-        >
-          {'Confirm Payment'}
-        </Button>
-      </Container>
+      <Grid container>
+        <Grid item xs={12} md={4} lg={4}>
+          <Card>
+            <CardContent>
+              <OrderSummary cart={cart} city={city} />
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item xs={12} md={8} lg={8}>
+          <Card>
+            <CardContent>
+              <Typography sx={{ marginBottom: 5 }} variant={'h2'}>
+                {'Details'}
+              </Typography>
+              <Text
+                args={args}
+                error={validateFields}
+                nestedProp={'address'}
+                required={true}
+                setArgs={setArgs}
+                targetProp={'deliveryAddress'}
+              />
+              <CitiesSelect
+                args={args}
+                error={validateFields}
+                required={true}
+                setArgs={setArgs}
+                targetProp={'deliveryAddress'}
+              />
+              <PaymentMethodsSelect
+                args={args}
+                error={validateFields}
+                required={true}
+                setArgs={setArgs}
+                targetProp={'payment'}
+              />
+              {Object.keys(paymentMethod).length > 0 && (
+                <Typography>
+                  {`Note: Please transfer total amount due to ${paymentMethod?.details}`}
+                </Typography>
+              )}
+              <ImageUploader
+                alt={'Proof of Payment Transfer'}
+                args={args}
+                error={validateFields}
+                label={'Upload Proof of Payment *'}
+                nestedProp={'imageProof'}
+                required={true}
+                setArgs={setArgs}
+                targetProp={'payment'}
+              />
+              <MutationButton
+                disabled={createMutationState.loading}
+                onClick={(): void => {
+                  setValidateFields(true)
+                  createMutation()
+                }}
+                title={'Confirm Payment'}
+              />
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
     </>
   )
 }

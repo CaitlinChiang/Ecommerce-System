@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
-import { IconButton, Typography } from '@mui/material'
-import AddBoxIcon from '@mui/icons-material/AddBox'
-import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox'
+import { ButtonGroup, Button } from '@mui/material'
+import AddIcon from '@mui/icons-material/Add'
+import RemoveIcon from '@mui/icons-material/Remove'
 import { QuantityChange } from '../../_enums/quantityChange'
 import { correctArgs } from '../../_utils/handleArgs/correctArgs'
 
@@ -39,21 +39,23 @@ const NumberIncrementor = ({
   }
 
   return (
-    <>
-      <IconButton
-        disabled={val === stockQuantity}
-        onClick={(): void => changeQuantity(QuantityChange.INCREMENT)}
-      >
-        <AddBoxIcon />
-      </IconButton>
-      <Typography>{val}</Typography>
-      <IconButton
+    <ButtonGroup color={'success'} size={'small'}>
+      <Button
         disabled={val === 1}
         onClick={(): void => changeQuantity(QuantityChange.DECREMENT)}
+        sx={{ width: '35px', height: '35px', padding: '5px' }}
       >
-        <IndeterminateCheckBoxIcon />
-      </IconButton>
-    </>
+        <RemoveIcon />
+      </Button>
+      <Button sx={{ width: '35px', height: '35px', padding: '5px' }}>{val}</Button>
+      <Button
+        disabled={val === stockQuantity}
+        onClick={(): void => changeQuantity(QuantityChange.INCREMENT)}
+        sx={{ width: '35px', height: '35px', padding: '5px' }}
+      >
+        <AddIcon />
+      </Button>
+    </ButtonGroup>
   )
 }
 

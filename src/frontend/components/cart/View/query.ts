@@ -9,6 +9,7 @@ export const GetCart = gql`
           _id
           imageUrl
           name
+          price
           stockQuantity
         }
         productVariant {
