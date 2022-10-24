@@ -10,6 +10,7 @@ export const returnDataArray = async (
   const data: any[] = await context.database[dbName]
     .find(queryArgs(args))
     .sort(sort(args?.paginateData))
+    .collation({ locale: 'en', caseLevel: true })
     .skip(skip(args?.paginateData))
     .limit(limit(args?.paginateData))
     .toArray()
