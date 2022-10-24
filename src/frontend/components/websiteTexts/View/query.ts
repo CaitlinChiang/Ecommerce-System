@@ -6,6 +6,7 @@ export const GetWebsiteText = gql`
       _id
       content
       updatedAt
+      updatedByEmail
     }
   }
 `

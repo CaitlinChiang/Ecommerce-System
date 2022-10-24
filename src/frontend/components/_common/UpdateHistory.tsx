@@ -3,10 +3,12 @@ import { Typography } from '@mui/material'
 
 const UpdateHistory = ({
   obj,
-  product
+  product,
+  websiteText
 }: {
   obj: any
   product?: boolean
+  websiteText?: boolean
 }): ReactElement => {
   if (product) {
     return (
@@ -18,6 +20,14 @@ const UpdateHistory = ({
           obj?.updatedAt
         } ${obj?.updatedByEmail && 'by ' + obj?.updatedByEmail}`}</Typography>
       </>
+    )
+  }
+
+  if (websiteText) {
+    return (
+      <Typography sx={{ marginBottom: 3 }} variant={'h6'}>{`Last Updated At: ${
+        obj?.updatedAt
+      } ${obj?.updatedByEmail && 'by ' + obj?.updatedByEmail}`}</Typography>
     )
   }
 

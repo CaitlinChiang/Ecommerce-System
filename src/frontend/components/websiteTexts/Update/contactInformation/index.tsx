@@ -6,6 +6,7 @@ import mutation from '../mutation'
 import { Card, CardContent, CircularProgress, Typography } from '@mui/material'
 import { WebsiteText } from '../../../../../types/websiteText'
 import { WebsiteTextType } from '../../../../_enums/websiteTextType'
+import UpdateHistory from '../../../_common/UpdateHistory'
 import Text from '../../../_common/TextField'
 import MutationButton from '../../../_common/MutationButton'
 import {
@@ -58,9 +59,7 @@ const UpdateContactInformation = (): ReactElement => {
         <Typography sx={{ marginBottom: 1 }} variant={'h2'}>
           {'Contact Information'}
         </Typography>
-        <Typography sx={{ marginBottom: 3 }} variant={'h6'}>{`Last Updated At: ${
-          websiteText?.updatedAt || '-'
-        }`}</Typography>
+        <UpdateHistory obj={websiteText} websiteText={true} />
         <Text args={args} setArgs={setArgs} targetProp={'facebook'} />
         <Text args={args} setArgs={setArgs} targetProp={'instagram'} />
         <Text

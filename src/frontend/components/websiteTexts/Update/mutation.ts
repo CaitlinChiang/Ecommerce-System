@@ -6,6 +6,7 @@ export default gql`
       _id
       content
       updatedAt
+      updatedByEmail
     }
   }
 `

@@ -3,6 +3,8 @@ type WebsiteText {
   content: String
   type: String
   updatedAt: String
+  updatedBy: ID
+  updatedByEmail: String
 }
 
 extend type Query {
