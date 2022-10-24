@@ -13,7 +13,9 @@ export const GetProductVariant = gql`
       showPublic
       stockQuantity
       createdAt
+      createdByEmail
       updatedAt
+      updatedByEmail
     }
   }
 `

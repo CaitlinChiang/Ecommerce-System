@@ -1,17 +1,31 @@
 import { Context } from '../../../types/setup/context'
 import { Product } from '../../../types/product'
 import { ProductVariant } from '../../../types/productVariant'
+import { User } from '../../../types/user'
 import { formatDate } from '../../_utils/handleFormat/formatDate'
 import { formatDateTime } from '../../_utils/handleFormat/formatDateTime'
 
 export default {
   ProductVariant: {
     createdAt: async (productVariant: ProductVariant): Promise<string> => {
-      return formatDateTime(productVariant?.createdAt) || '-'
+      return formatDateTime(productVariant?.createdAt, true)
+    },
+
+    createdByEmail: async (
+      productVariant: ProductVariant,
+      _args: undefined,
+      context: Context
+    ): Promise<string> => {
+      if (!productVariant?.createdBy) return ''
+
+      const user: User = await context.dataloaders.users.byId.load(
+        productVariant.createdBy
+      )
+      return user?.email
     },
 
     expirationDate: async (product: ProductVariant): Promise<string> => {
-      return formatDate(product?.expirationDate)
+      return formatDate(product?.expirationDate, true)
     },
 
     imageUrl: async (
@@ -28,7 +42,20 @@ export default {
     },
 
     updatedAt: async (productVariant: ProductVariant): Promise<string> => {
-      return formatDateTime(productVariant?.updatedAt) || '-'
+      return formatDateTime(productVariant?.updatedAt, true)
+    },
+
+    updatedByEmail: async (
+      productVariant: ProductVariant,
+      _args: undefined,
+      context: Context
+    ): Promise<string> => {
+      if (!productVariant?.updatedBy) return ''
+
+      const user: User = await context.dataloaders.users.byId.load(
+        productVariant.updatedBy
+      )
+      return user?.email
     }
   }
 }

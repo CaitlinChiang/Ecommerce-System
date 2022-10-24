@@ -14,7 +14,11 @@ export interface ProductVariant {
   showPublic?: boolean
   stockQuantity?: number
   createdAt?: Date
+  createdBy?: ObjectId
+  createdByEmail?: string
   updatedAt?: Date
+  updatedBy?: ObjectId
+  updatedByEmail?: string
 }
 
 export interface GetProductVariantArgs {
@@ -38,6 +42,7 @@ export interface CreateProductVariantArgs {
   showPublic: boolean
   stockQuantity: number
   createdAt?: Date
+  createdBy?: ObjectId
 }
 
 export interface UpdateProductVariantArgs {
@@ -53,6 +58,7 @@ export interface UpdateProductVariantArgs {
   showPublic: boolean
   stockQuantity: number
   updatedAt?: Date
+  updatedBy?: ObjectId
 }
 
 export interface DeleteProductVariantArgs {

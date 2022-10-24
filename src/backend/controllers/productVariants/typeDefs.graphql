@@ -10,7 +10,11 @@ type ProductVariant {
   showPublic: Boolean
   stockQuantity: Int
   createdAt: String
+  createdBy: ID
+  createdByEmail: String
   updatedAt: String
+  updatedBy: ID
+  updatedByEmail: String
 }
 
 extend type Query {

@@ -3,11 +3,12 @@ import { useRouter } from 'next/router'
 import { useQuery, useMutation } from '@apollo/client'
 import { GetProductVariant } from '../View/query'
 import mutation from './mutation'
-import { Card, CardContent, CircularProgress, Typography } from '@mui/material'
+import { Card, CardContent, CircularProgress } from '@mui/material'
 import {
   ProductVariant,
   UpdateProductVariantArgs
 } from '../../../../types/productVariant'
+import UpdateHistory from '../../_common/UpdateHistory'
 import Text from '../../_common/TextField'
 import DatePickerField from '../../_common/DatePickerField'
 import CheckboxField from '../../_common/CheckboxField'
@@ -76,12 +77,7 @@ const UpdateProductVariant = ({ _id }: { _id: string }): ReactElement => {
       {loading && <CircularProgress />}
       <Card>
         <CardContent>
-          <Typography
-            variant={'h4'}
-          >{`Created At: ${productVariant?.createdAt}`}</Typography>
-          <Typography sx={{ marginBottom: 2 }} variant={'h4'}>{`Last Updated At: ${
-            productVariant?.updatedAt || '-'
-          }`}</Typography>
+          <UpdateHistory obj={productVariant} product={true} />
           <Text
             args={args}
             error={validateFields}
