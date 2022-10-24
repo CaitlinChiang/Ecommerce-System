@@ -8,9 +8,12 @@ import {
   Card,
   CardContent,
   CircularProgress,
+  Divider,
   Grid,
-  Typography
+  Typography,
+  useMediaQuery
 } from '@mui/material'
+import { theme } from '../../../themes'
 import { Cart, CartItem } from '../../../../types/cart'
 import { Product } from '../../../../types/product'
 import { ProductVariant } from '../../../../types/productVariant'
@@ -26,9 +29,51 @@ const Cart = (): ReactElement => {
   const { data, loading, refetch } = useQuery(GetCart)
   const cart: Cart = data?.get_cart || {}
 
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'))
+
   const itemRows = cart?.items?.map((cartItem: CartItem): ReactElement => {
     const { product, productVariant, quantity, totalPrice } = cartItem
     const item: ProductVariant | Product = productVariant || product
+
+    if (isMobile) {
+      return (
+        <>
+          <Box display='flex' alignItems='center' sx={{ pb: 3 }}>
+            <Box
+              alt={`${item?.name} Product Photo`}
+              component={'img'}
+              src={item?.imageUrl}
+              sx={{ height: '90px', width: '130px' }}
+            />
+            <Box sx={{ ml: 7 }}>
+              <Typography variant={'h5'}>{product?.name}</Typography>
+              <Typography color={'textSecondary'} variant={'h6'}>
+                {productVariant?.name}
+              </Typography>
+              <Typography sx={{ mt: 1.5 }} variant={'h5'}>{`Total: P${formatPrice(
+                totalPrice
+              )}`}</Typography>
+              <Box sx={{ mt: 1.5 }}>
+                <EditItemQuantity
+                  productId={product?._id}
+                  productVariantId={productVariant?._id}
+                  stockQuantity={item?.stockQuantity}
+                  quantity={quantity}
+                />
+              </Box>
+            </Box>
+            <Box sx={{ ml: 10 }}>
+              <RemoveCartItem
+                productId={product?._id}
+                productVariantId={productVariant?._id}
+                refetch={refetch}
+              />
+            </Box>
+          </Box>
+          <Divider sx={{ mb: 3 }} />
+        </>
+      )
+    }
 
     return (
       <Box
@@ -59,7 +104,7 @@ const Cart = (): ReactElement => {
             content={
               <>
                 <Typography variant={'h5'}>{product?.name}</Typography>
-                <Typography color={'#707070'} variant={'h6'}>
+                <Typography color={'textSecondary'} variant={'h6'}>
                   {productVariant?.name}
                 </Typography>
               </>
@@ -74,7 +119,7 @@ const Cart = (): ReactElement => {
             }
           />
           <CartGridItem
-            xs={2.5}
+            xs={2}
             content={
               <EditItemQuantity
                 productId={product?._id}
@@ -109,21 +154,23 @@ const Cart = (): ReactElement => {
       {loading && <CircularProgress />}
       <Card>
         <CardContent>
-          <Grid container spacing={'2'} sx={{ padding: 1 }}>
-            <Grid item xs={2} md={2} lg={2} />
-            <Grid item xs={3} md={3} lg={3}>
-              <Typography variant={'h4'}>{'Product'}</Typography>
+          {!isMobile && (
+            <Grid container spacing={'2'} sx={{ padding: 1 }}>
+              <Grid item xs={2} md={2} lg={2} />
+              <Grid item xs={3} md={3} lg={3}>
+                <Typography variant={'h4'}>{'Product'}</Typography>
+              </Grid>
+              <Grid item xs={2} md={2} lg={2}>
+                <Typography variant={'h4'}>{'Price'}</Typography>
+              </Grid>
+              <Grid item xs={2} md={2} lg={2}>
+                <Typography variant={'h4'}>{'Quantity'}</Typography>
+              </Grid>
+              <Grid item xs={1} md={1.5} lg={1}>
+                <Typography variant={'h4'}>{'Total'}</Typography>
+              </Grid>
             </Grid>
-            <Grid item xs={2} md={2} lg={2}>
-              <Typography variant={'h4'}>{'Price'}</Typography>
-            </Grid>
-            <Grid item xs={2} md={2.5} lg={2.5}>
-              <Typography variant={'h4'}>{'Quantity'}</Typography>
-            </Grid>
-            <Grid item xs={1} md={1.5} lg={1}>
-              <Typography variant={'h4'}>{'Total'}</Typography>
-            </Grid>
-          </Grid>
+          )}
           {itemRows}
         </CardContent>
       </Card>

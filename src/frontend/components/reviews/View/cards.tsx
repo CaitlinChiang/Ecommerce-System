@@ -51,7 +51,7 @@ const ReviewCards = ({ featured }: { featured: boolean }): ReactElement => {
             <CardContent>
               <Typography variant={'h5'}>{`"${content}"`}</Typography>
               <Typography
-                color={'#707070'}
+                color={'textSecondary'}
                 sx={{ marginTop: 3 }}
                 variant={'h5'}
               >{`- ${username}`}</Typography>

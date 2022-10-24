@@ -48,7 +48,11 @@ export const CheckoutProductGridItem = ({
           >
             {productName}
           </Typography>
-          <Typography color={'#707070'} sx={{ marginBottom: 1 }} variant={'h5'}>
+          <Typography
+            color={'textSecondary'}
+            sx={{ marginBottom: 1 }}
+            variant={'h5'}
+          >
             {productVariantName}
           </Typography>
         </Grid>
@@ -80,13 +84,13 @@ export const CheckoutSummaryGridItem = ({
   return (
     <Grid container>
       <Grid item xs={6} md={6} lg={6}>
-        <Typography color={'#707070'} variant={'h5'}>
+        <Typography color={'textSecondary'} variant={'h5'}>
           {contentLeft}
         </Typography>
       </Grid>
       <Grid item xs={6} md={6} lg={6}>
         <Grid container justifyContent={'flex-end'}>
-          <Typography color={'#707070'} variant={'h5'}>
+          <Typography color={'textSecondary'} variant={'h5'}>
             {contentRight}
           </Typography>
         </Grid>
