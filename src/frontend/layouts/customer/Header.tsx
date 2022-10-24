@@ -49,8 +49,7 @@ const Header = ({
     { label: 'Home', route: '/' },
     { label: 'Shop', route: '/shop' },
     { label: 'Reviews', route: '/reviews' },
-    { label: 'FAQs', route: '/faqs' },
-    { label: 'Contact', route: '/contact-us' }
+    { label: 'FAQs', route: '/faqs' }
   ]
 
   const trackingMenu = [

@@ -5,7 +5,7 @@ import { theme } from '../../themes'
 import { MainWrapper, PageWrapper } from '../common'
 import Header from './Header'
 import Navbar from './Navbar'
-import Footer from '../admin/Footer'
+import Footer from './Footer'
 
 export default (Page: FunctionComponent, { title }: { title?: string }) =>
   (): FunctionComponent | NextPage | ReactElement => {

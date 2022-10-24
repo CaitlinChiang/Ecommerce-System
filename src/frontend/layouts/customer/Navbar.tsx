@@ -14,7 +14,6 @@ import HelpIcon from '@mui/icons-material/Help'
 import EditIcon from '@mui/icons-material/Edit'
 import HomeIcon from '@mui/icons-material/Home'
 import SellIcon from '@mui/icons-material/Sell'
-import CallIcon from '@mui/icons-material/Call'
 
 const NavbarMobile = ({
   open,
@@ -56,11 +55,6 @@ const NavbarMobile = ({
       icon: <HelpIcon />,
       label: 'FAQs',
       route: '/faqs'
-    },
-    {
-      icon: <CallIcon />,
-      label: 'Contact',
-      route: '/contact-us'
     }
   ]
 
