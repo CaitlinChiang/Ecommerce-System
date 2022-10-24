@@ -11,7 +11,7 @@ export const returnUpdatedData = async (
   const data: any = await context.database[dbName]
     .findOneAndUpdate(
       { _id: new ObjectId(args._id) },
-      { $set: mutateArgs(args, MutateAction.UPDATE) },
+      { $set: mutateArgs(context, args, MutateAction.UPDATE) },
       { returnDocument: 'after' }
     )
     .then((data) => data.value)

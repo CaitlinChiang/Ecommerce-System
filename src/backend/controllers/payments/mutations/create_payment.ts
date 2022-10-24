@@ -24,7 +24,7 @@ export const createPayment = async (
   })
 
   await context.database.payments.insertOne({
-    ...mutateArgs(modifiedArgs, MutateAction.CREATE),
+    ...mutateArgs(context, modifiedArgs, MutateAction.CREATE),
     _orderId: orderId,
     imageProofUrl,
     status: PaymentStatus.COMPLETE

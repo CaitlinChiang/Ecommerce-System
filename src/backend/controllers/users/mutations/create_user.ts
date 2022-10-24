@@ -27,7 +27,7 @@ export default async (
 
   const userId: ObjectId = await context.database.users
     .insertOne({
-      ...mutateArgs(args, MutateAction.CREATE),
+      ...mutateArgs(context, args, MutateAction.CREATE),
       active: false,
       password: hashedPassword
     })

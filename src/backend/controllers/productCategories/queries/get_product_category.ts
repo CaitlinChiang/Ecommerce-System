@@ -11,7 +11,7 @@ export default async (
   args: GetProductCategoryArgs,
   context: Context
 ): Promise<ProductCategory> => {
-  await authenticateUser(context, true)
+  await authenticateUser(context, false)
 
   const productCategory: ProductCategory = await returnData(
     context,

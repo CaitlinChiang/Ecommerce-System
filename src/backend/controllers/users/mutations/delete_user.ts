@@ -17,7 +17,7 @@ export default async (
 
   await context.database.users.findOneAndUpdate(
     { _id: new ObjectId(args._id) },
-    { $set: mutateArgs(args, MutateAction.DELETE) }
+    { $set: mutateArgs(context, args, MutateAction.DELETE) }
   )
 
   await createAuditLog(context, AuditLogAction.DELETE_USER)

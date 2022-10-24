@@ -41,7 +41,7 @@ export default async (
   } else {
     await context.database.carts.findOneAndUpdate(
       { _userId: context.userId },
-      { $push: { items: mutateArgs(args.item, MutateAction.CREATE) } }
+      { $push: { items: mutateArgs(context, args.item, MutateAction.CREATE) } }
     )
   }
 }

@@ -26,7 +26,7 @@ export default async (
   })
 
   await context.database.productVariants.insertOne({
-    ...mutateArgs(modifiedArgs, MutateAction.CREATE),
+    ...mutateArgs(context, modifiedArgs, MutateAction.CREATE),
     imageUrl
   })
 

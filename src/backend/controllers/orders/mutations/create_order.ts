@@ -23,7 +23,7 @@ export default async (
 
   const orderId: ObjectId = await context.database.orders
     .insertOne({
-      ...mutateArgs(remainingArgs, MutateAction.CREATE),
+      ...mutateArgs(context, remainingArgs, MutateAction.CREATE),
       status: OrderStatus.PENDING,
       userId: context.userId
     })

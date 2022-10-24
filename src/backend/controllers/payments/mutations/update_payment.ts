@@ -37,7 +37,7 @@ export default async (
       { _orderId: new ObjectId(args._orderId) },
       {
         $set: {
-          ...mutateArgs(modifiedArgs, MutateAction.UPDATE),
+          ...mutateArgs(context, modifiedArgs, MutateAction.UPDATE),
           imageProofUrl: modifiedImageUrl
         }
       },

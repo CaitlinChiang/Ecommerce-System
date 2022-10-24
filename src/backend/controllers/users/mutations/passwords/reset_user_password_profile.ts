@@ -33,7 +33,7 @@ export default async (
   const updatedUser: User = await context.database.users
     .findOneAndUpdate(
       { email: args.email },
-      { $set: mutateArgs({ password }, MutateAction.UPDATE) },
+      { $set: mutateArgs(context, { password }, MutateAction.UPDATE) },
       { returnDocument: 'after' }
     )
     .then((user) => user.value)

@@ -7,5 +7,7 @@ export const createData = async (
   args: any,
   dbName: string
 ): Promise<void> => {
-  await context.database[dbName].insertOne(mutateArgs(args, MutateAction.CREATE))
+  await context.database[dbName].insertOne(
+    mutateArgs(context, args, MutateAction.CREATE)
+  )
 }

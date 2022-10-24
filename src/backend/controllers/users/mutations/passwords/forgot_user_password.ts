@@ -24,7 +24,7 @@ export default async (
 
   await context.database.users.findOneAndUpdate(
     { email: args.email },
-    { $set: mutateArgs({ verificationCode }, MutateAction.UPDATE) }
+    { $set: mutateArgs(context, { verificationCode }, MutateAction.UPDATE) }
   )
 
   await sendVerificationCode(args.email, verificationCode)

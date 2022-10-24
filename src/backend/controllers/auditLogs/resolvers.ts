@@ -6,7 +6,7 @@ import { formatDateTime } from '../../_utils/handleFormat/formatDateTime'
 export default {
   AuditLog: {
     createdAt: async (args: AuditLog): Promise<string> => {
-      return formatDateTime(args?.createdAt) || '-'
+      return formatDateTime(args?.createdAt, true)
     },
 
     createdByEmail: async (

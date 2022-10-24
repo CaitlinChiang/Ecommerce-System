@@ -17,7 +17,7 @@ export default async (
   const websiteText: WebsiteText = await context.database.websiteTexts
     .findOneAndUpdate(
       { type: args.type },
-      { $set: mutateArgs(args, MutateAction.UPDATE) },
+      { $set: mutateArgs(context, args, MutateAction.UPDATE) },
       { returnDocument: 'after' }
     )
     .then((websiteText) => websiteText.value)
