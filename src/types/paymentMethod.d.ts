@@ -6,7 +6,11 @@ export interface PaymentMethod {
   name?: string
   details?: string
   createdAt?: Date
+  createdBy?: ObjectId
+  createdByEmail?: string
   updatedAt?: Date
+  updatedBy?: ObjectId
+  updatedByEmail?: string
 }
 
 export interface GetPaymentMethodArgs {
@@ -18,6 +22,7 @@ export interface CreatePaymentMethodArgs {
   name: string
   details: string
   createdAt?: Date
+  createdBy?: ObjectId
 }
 
 export interface UpdatePaymentMethodArgs {
@@ -25,6 +30,7 @@ export interface UpdatePaymentMethodArgs {
   name: string
   details: string
   updatedAt?: Date
+  updatedBy?: ObjectId
 }
 
 export interface DeletePaymentMethodArgs {

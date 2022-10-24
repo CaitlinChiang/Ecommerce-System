@@ -7,7 +7,9 @@ export default gql`
       name
       shippingFee
       createdAt
+      createdByEmail
       updatedAt
+      updatedByEmail
     }
   }
 `

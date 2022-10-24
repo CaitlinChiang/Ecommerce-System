@@ -7,7 +7,9 @@ export default gql`
       name
       details
       createdAt
+      createdByEmail
       updatedAt
+      updatedByEmail
     }
   }
 `

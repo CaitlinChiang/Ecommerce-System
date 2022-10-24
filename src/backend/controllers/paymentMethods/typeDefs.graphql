@@ -3,7 +3,11 @@ type PaymentMethod {
   name: String
   details: String
   createdAt: String
+  createdBy: ID
+  createdByEmail: String
   updatedAt: String
+  updatedBy: ID
+  updatedByEmail: String
 }
 
 extend type Query {

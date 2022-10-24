@@ -6,6 +6,10 @@ export default gql`
       _id
       answer
       question
+      createdAt
+      createdByEmail
+      updatedAt
+      updatedByEmail
     }
   }
 `

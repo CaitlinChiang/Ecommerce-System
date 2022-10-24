@@ -2,13 +2,13 @@ import { ReactElement, useState, useEffect } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
 import { GetPaymentMethod } from '../View/query'
 import mutation from './mutation'
-import { Typography } from '@mui/material'
 import {
   PaymentMethod,
   UpdatePaymentMethodArgs
 } from '../../../../types/paymentMethod'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import ModalComponent from '../../_common/ModalComponent'
+import UpdateHistory from '../../_common/UpdateHistory'
 import Text from '../../_common/TextField'
 import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
 import { refetchData } from '../../../_utils/handleData/refetchData'
@@ -62,10 +62,7 @@ const UpdatePaymentMethod = ({
     <ModalComponent
       content={
         <>
-          <Typography>{`Created At: ${paymentMethod?.createdAt}`}</Typography>
-          <Typography>{`Last Updated At: ${
-            paymentMethod?.updatedAt || '-'
-          }`}</Typography>
+          <UpdateHistory obj={paymentMethod} />
           <Text
             args={args}
             error={validateFields}

@@ -18,7 +18,9 @@ export interface Order {
   user?: User
   userId?: ObjectId
   createdAt?: Date
+  createdBy?: ObjectId
   updatedAt?: Date
+  updatedBy?: ObjectId
 }
 
 export interface GetOrderArgs {
@@ -37,12 +39,14 @@ export interface CreateOrderArgs {
   status?: OrderStatus
   userId?: ObjectId
   createdAt?: Date
+  createdBy?: ObjectId
 }
 
 export interface UpdateOrderArgs {
   _id: ObjectId
   status: OrderStatus
   updatedAt?: Date
+  updatedBy?: ObjectId
 }
 
 export interface DeleteOrderArgs {

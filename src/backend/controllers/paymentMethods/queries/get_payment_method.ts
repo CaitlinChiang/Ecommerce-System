@@ -8,7 +8,7 @@ export default async (
   args: GetPaymentMethodArgs,
   context: Context
 ): Promise<PaymentMethod> => {
-  await authenticateUser(context, true)
+  await authenticateUser(context, false)
 
   const paymentMethod: PaymentMethod = await returnData(
     context,

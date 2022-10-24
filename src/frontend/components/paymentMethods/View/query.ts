@@ -7,7 +7,9 @@ export const GetPaymentMethod = gql`
       name
       details
       createdAt
+      createdByEmail
       updatedAt
+      updatedByEmail
     }
   }
 `
