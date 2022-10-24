@@ -24,7 +24,13 @@ const SearchField = ({
       onKeyDown={onKeyDown}
       placeholder={searchPlaceholder}
       size={'small'}
-      sx={{ marginTop: 2, paddingRight: 1 }}
+      sx={{
+        marginTop: 2,
+        paddingRight: 1,
+        '& .MuiOutlinedInput-root': {
+          '& > fieldset': { borderRadius: '50px' }
+        }
+      }}
       value={searchText}
       InputProps={{
         startAdornment: (
