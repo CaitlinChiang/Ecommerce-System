@@ -17,7 +17,9 @@ export default gql`
       _orderId
       amountDue
       imageProofUrl
-      paymentMethod
+      paymentMethod {
+        name
+      }
       paymentMethodId
       shippingFee
       status
