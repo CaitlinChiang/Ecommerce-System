@@ -1,62 +1,65 @@
-import { ReactElement, useEffect } from 'react'
-import { CircularProgress } from '@mui/material'
+import { ReactElement, useEffect, useState } from 'react'
+import { Button, CircularProgress, Grid } from '@mui/material'
 import { PaginateDataArgs } from '../../../types/actions/paginateData'
 import SearchField from './SearchField'
 import PaginationComponent from './PaginationComponent'
-import { searchData } from '../../_utils/handleData/searchData'
 
 const CardsPaginationComponent = ({
-  args,
   count,
-  fetchMore,
   loading,
   paginateDataArgs,
   searchLabel,
   searchPlaceholder,
   setPaginateDataArgs
 }: {
-  args?: any
   count: number
-  fetchMore?: any
   loading: boolean
   paginateDataArgs: PaginateDataArgs
   searchLabel?: string
   searchPlaceholder?: string
   setPaginateDataArgs: React.Dispatch<React.SetStateAction<PaginateDataArgs>>
 }): ReactElement => {
-  const { searchText, sortBy } = paginateDataArgs
+  const { sortBy } = paginateDataArgs
+
+  const [searchText, setSearchText] = useState<string>('')
 
   useEffect(() => {
     setPaginateDataArgs({ ...paginateDataArgs, page: 0 })
   }, [searchText, sortBy])
 
-  useEffect(() => {
-    searchData(args, fetchMore, loading, paginateDataArgs)
-  }, [paginateDataArgs])
-
-  useEffect(() => {
-    const timeoutId = setTimeout(
-      () => searchData(args, fetchMore, loading, paginateDataArgs),
-      500
-    )
-    return (): void => clearTimeout(timeoutId)
-  }, [searchText])
-
   return (
     <>
-      {searchLabel && (
-        <SearchField
-          onKeyDown={(e): void => {
-            if (e.key === 'Enter') {
-              searchData(args, fetchMore, loading, paginateDataArgs)
-            }
-          }}
-          searchLabel={searchLabel}
-          searchPlaceholder={searchPlaceholder}
-          searchText={searchText}
-          setPaginateDataArgs={setPaginateDataArgs}
-        />
-      )}
+      <Grid container sx={{ justifyContent: 'center' }}>
+        {searchLabel && (
+          <>
+            <Grid item xs={10}>
+              <SearchField
+                onKeyDown={(e): void => {
+                  if (e.key === 'Enter') {
+                    setPaginateDataArgs({ ...paginateDataArgs, searchText })
+                  }
+                }}
+                searchLabel={searchLabel}
+                searchPlaceholder={searchPlaceholder}
+                searchText={searchText}
+                setSearchText={setSearchText}
+              />
+            </Grid>
+            <Grid item xs={2}>
+              <Button
+                color={'primary'}
+                sx={{ borderRadius: 5, marginTop: 1.8 }}
+                onClick={(): void => {
+                  setPaginateDataArgs({ ...paginateDataArgs, searchText })
+                }}
+                variant={'contained'}
+              >
+                {'Search'}
+              </Button>
+            </Grid>
+          </>
+        )}
+      </Grid>
       {loading && <CircularProgress />}
       <PaginationComponent
         count={count}

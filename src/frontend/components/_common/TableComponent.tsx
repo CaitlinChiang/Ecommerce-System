@@ -1,6 +1,7 @@
-import React, { ReactElement, useEffect } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import {
   Box,
+  Button,
   Card,
   CardContent,
   Grid,
@@ -22,13 +23,10 @@ import { SortDirection } from '../../_enums/sortDirection'
 import ModalComponent from './ModalComponent'
 import SearchField from './SearchField'
 import PaginationComponent from './PaginationComponent'
-import { searchData } from '../../_utils/handleData/searchData'
 import { formatText } from '../../_utils/handleFormat/formatText'
 
 const TableComponent = ({
-  args,
   count,
-  fetchMore,
   filterContent,
   filterOpen,
   headers,
@@ -40,9 +38,7 @@ const TableComponent = ({
   setFilterOpen,
   setPaginateDataArgs
 }: {
-  args?: any
   count: number
-  fetchMore?: any
   filterContent?: ReactElement
   filterOpen?: boolean
   headers: { label: string; sortable: boolean }[]
@@ -54,23 +50,13 @@ const TableComponent = ({
   setFilterOpen?: React.Dispatch<React.SetStateAction<boolean>>
   setPaginateDataArgs: React.Dispatch<React.SetStateAction<PaginateDataArgs>>
 }): ReactElement => {
-  const { searchText, sortBy, sortDirection } = paginateDataArgs
+  const { sortBy, sortDirection } = paginateDataArgs
+
+  const [searchText, setSearchText] = useState<string>('')
 
   useEffect(() => {
     setPaginateDataArgs({ ...paginateDataArgs, page: 0 })
-  }, [searchText, sortBy])
-
-  useEffect(() => {
-    searchData(args, fetchMore, loading, paginateDataArgs)
-  }, [paginateDataArgs])
-
-  useEffect(() => {
-    const timeoutId = setTimeout(
-      () => searchData(args, fetchMore, loading, paginateDataArgs),
-      500
-    )
-    return (): void => clearTimeout(timeoutId)
-  }, [searchText])
+  }, [searchText, sortBy, sortDirection])
 
   const ToolbarComponent = (): ReactElement => {
     return (
@@ -93,23 +79,36 @@ const TableComponent = ({
           open={filterOpen}
           title={'Filters'}
         />
-        {loading && <LinearProgress />}
         <Box sx={{ overflow: { xs: 'auto', sm: 'unset' } }}>
           <Grid container sx={{ justifyContent: 'right' }}>
             {searchLabel && (
-              <Grid item xs={5}>
-                <SearchField
-                  onKeyDown={(e): void => {
-                    if (e.key === 'Enter') {
-                      searchData(args, fetchMore, loading, paginateDataArgs)
-                    }
-                  }}
-                  searchLabel={searchLabel}
-                  searchPlaceholder={searchPlaceholder}
-                  searchText={searchText}
-                  setPaginateDataArgs={setPaginateDataArgs}
-                />
-              </Grid>
+              <>
+                <Grid item xs={5}>
+                  <SearchField
+                    onKeyDown={(e): void => {
+                      if (e.key === 'Enter') {
+                        setPaginateDataArgs({ ...paginateDataArgs, searchText })
+                      }
+                    }}
+                    searchLabel={searchLabel}
+                    searchPlaceholder={searchPlaceholder}
+                    searchText={searchText}
+                    setSearchText={setSearchText}
+                  />
+                </Grid>
+                <Grid item xs={1.2}>
+                  <Button
+                    color={'primary'}
+                    sx={{ borderRadius: 5, marginTop: 1.8 }}
+                    onClick={(): void => {
+                      setPaginateDataArgs({ ...paginateDataArgs, searchText })
+                    }}
+                    variant={'contained'}
+                  >
+                    {'Search'}
+                  </Button>
+                </Grid>
+              </>
             )}
             {filterContent && (
               <Grid item xs={1}>
@@ -117,6 +116,7 @@ const TableComponent = ({
               </Grid>
             )}
           </Grid>
+          {loading && <LinearProgress />}
           <PaginationComponent
             count={count}
             paginateDataArgs={paginateDataArgs}

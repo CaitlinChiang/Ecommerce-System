@@ -1,4 +1,4 @@
-import { ReactElement, useState, useEffect } from 'react'
+import { ReactElement, useState } from 'react'
 import {
   Box,
   Card,
@@ -16,7 +16,6 @@ import {
 } from '@mui/material'
 import { PaginateDataArgs } from '../../../types/actions/paginateData'
 import PaginationComponent from './PaginationComponent'
-import { searchData } from '../../_utils/handleData/searchData'
 
 const Row = ({
   icons,
@@ -59,30 +58,20 @@ const Row = ({
 }
 
 const DropdownsComponent = ({
-  args,
   count,
-  fetchMore,
   icons,
   loading,
   paginateDataArgs,
   rows,
   setPaginateDataArgs
 }: {
-  args?: any
   count?: number
-  fetchMore?: any
   icons: { closed: ReactElement; opened: ReactElement }
   loading?: boolean
   paginateDataArgs?: PaginateDataArgs
   rows: { actions?: ReactElement; title: string; content: ReactElement }[]
   setPaginateDataArgs?: React.Dispatch<React.SetStateAction<PaginateDataArgs>>
 }): ReactElement => {
-  useEffect(() => {
-    if (paginateDataArgs) {
-      searchData(args, fetchMore, loading, paginateDataArgs)
-    }
-  }, [paginateDataArgs])
-
   return (
     <Card>
       <CardContent>
