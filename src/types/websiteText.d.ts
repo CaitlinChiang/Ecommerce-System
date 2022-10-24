@@ -6,6 +6,8 @@ export interface WebsiteText {
   content?: string
   type?: WebsiteTextType
   updatedAt?: Date
+  updatedBy?: ObjectId
+  updatedByEmail?: string
 }
 
 export interface GetWebsiteTextArgs {
@@ -17,4 +19,5 @@ export interface UpdateWebsiteTextArgs {
   content: string
   type: WebsiteTextType
   updatedAt?: Date
+  updatedBy?: ObjectId
 }

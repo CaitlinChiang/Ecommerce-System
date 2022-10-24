@@ -65,12 +65,26 @@ const AdministratorsTable = (): ReactElement => {
     { label: 'phoneNumber', sortable: false },
     { label: 'permissions', sortable: false },
     { label: 'createdAt', sortable: true },
-    { label: 'actions', sortable: false }
+    { label: 'actions', sortable: false },
+    { label: 'updatedAt', sortable: true },
+    { label: 'deletedAt', sortable: true }
   ]
 
   const userRows = [
     users?.map((user: User): ReactElement => {
-      const { _id, createdAt, email, firstName, lastName, phoneNumber } = user
+      const {
+        _id,
+        createdAt,
+        createdByEmail,
+        updatedAt,
+        updatedByEmail,
+        deletedAt,
+        deletedByEmail,
+        email,
+        firstName,
+        lastName,
+        phoneNumber
+      } = user
 
       return (
         <TableRow>
@@ -93,7 +107,11 @@ const AdministratorsTable = (): ReactElement => {
               {'View & Edit'}
             </Button>
           </TableCell>
-          <TableCell>{String(createdAt)}</TableCell>
+          <TableCell>
+            {String(createdAt)}
+            <br />
+            {`${createdByEmail && 'by ' + createdByEmail}`}
+          </TableCell>
           <TableCell>
             <DeleteButton
               _id={_id}
@@ -103,6 +121,16 @@ const AdministratorsTable = (): ReactElement => {
               refetchArgs={refetchArgs}
               setPaginateDataArgs={setPaginateDataArgs}
             />
+          </TableCell>
+          <TableCell>
+            {String(updatedAt)}
+            <br />
+            {`${updatedByEmail && 'by ' + updatedByEmail}`}
+          </TableCell>
+          <TableCell>
+            {String(deletedAt)}
+            <br />
+            {`${deletedByEmail && 'by ' + deletedByEmail}`}
           </TableCell>
         </TableRow>
       )

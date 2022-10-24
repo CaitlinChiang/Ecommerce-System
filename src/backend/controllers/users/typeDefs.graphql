@@ -12,8 +12,14 @@ type User {
   type: String
   verificationCode: String
   createdAt: String
+  createdBy: ID
+  createdByEmail: String
   updatedAt: String
+  updatedBy: ID
+  updatedByEmail: String
   deletedAt: String
+  deletedBy: ID
+  deletedByEmail: String
 }
 
 type DeliveryAddress {

@@ -31,6 +31,12 @@ export default gql`
       lastName
       permissions
       phoneNumber
+      createdAt
+      createdByEmail
+      updatedAt
+      updatedByEmail
+      deletedAt
+      deletedByEmail
     }
   }
 `

@@ -18,8 +18,14 @@ export interface User {
   type?: type
   verificationCode?: string
   createdAt?: Date
+  createdBy?: ObjectId
+  createdByEmail?: string
   updatedAt?: Date
+  updatedBy?: ObjectId
+  updatedByEmail?: string
   deletedAt?: Date
+  deletedBy?: ObjectId
+  deletedByEmail?: string
 }
 
 export interface SignInUserArgs {
@@ -63,11 +69,13 @@ export interface UpdateUserArgs {
   permissions?: AdminPermission[]
   phoneNumber: string
   updatedAt?: Date
+  updatedBy?: ObjectId
 }
 
 export interface DeleteUserArgs {
   _id: ObjectId
   deletedAt?: Date
+  deletedBy?: ObjectId
 }
 
 export interface ForgotPasswordArgs {

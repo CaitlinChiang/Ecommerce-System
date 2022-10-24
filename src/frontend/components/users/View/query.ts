@@ -29,6 +29,11 @@ export const GetUsers = gql`
       permissions
       phoneNumber
       createdAt
+      createdByEmail
+      updatedAt
+      updatedByEmail
+      deletedAt
+      deletedByEmail
     }
 
     get_users_count(active: $active, paginateData: $paginateData, type: $type)
