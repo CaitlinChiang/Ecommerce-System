@@ -6,7 +6,11 @@ export interface FAQ {
   answer?: string
   question?: string
   createdAt?: Date
+  createdBy?: ObjectId
+  createdByEmail?: string
   updatedAt?: Date
+  updatedBy?: ObjectId
+  updatedByEmail?: string
 }
 
 export interface GetFAQArgs {
@@ -18,6 +22,7 @@ export interface CreateFAQArgs {
   answer: string
   question: string
   createdAt?: Date
+  createdBy?: ObjectId
 }
 
 export interface UpdateFAQArgs {
@@ -25,6 +30,7 @@ export interface UpdateFAQArgs {
   answer: string
   question: string
   updatedAt?: Date
+  updatedBy?: ObjectId
 }
 
 export interface DeleteFAQArgs {
