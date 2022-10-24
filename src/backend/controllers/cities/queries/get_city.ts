@@ -8,7 +8,7 @@ export default async (
   args: GetCityArgs,
   context: Context
 ): Promise<City> => {
-  await authenticateUser(context, true)
+  await authenticateUser(context, false)
 
   const city: City = await returnData(context, args, 'cities')
   return city

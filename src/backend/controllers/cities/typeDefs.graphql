@@ -3,7 +3,11 @@ type City {
   name: String
   shippingFee: Float
   createdAt: String
+  createdBy: ID
+  createdByEmail: String
   updatedAt: String
+  updatedBy: ID
+  updatedByEmail: String
 }
 
 extend type Query {

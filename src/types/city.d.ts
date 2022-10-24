@@ -5,7 +5,11 @@ export interface City {
   name?: string
   shippingFee?: number
   createdAt?: Date
+  createdBy?: ObjectId
+  createdByEmail?: string
   updatedAt?: Date
+  updatedBy?: ObjectId
+  updatedByEmail?: string
 }
 
 export interface GetCityArgs {
@@ -17,6 +21,7 @@ export interface CreateCityArgs {
   name: string
   shippingFee: number
   createdAt?: Date
+  createdBy?: ObjectId
 }
 
 export interface UpdateCityArgs {
@@ -24,6 +29,7 @@ export interface UpdateCityArgs {
   name: string
   shippingFee: number | string
   updatedAt?: Date
+  updatedBy?: ObjectId
 }
 
 export interface DeleteCityArgs {
