@@ -7,7 +7,9 @@ export const GetCity = gql`
       name
       shippingFee
       createdAt
+      createdByEmail
       updatedAt
+      updatedByEmail
     }
   }
 `

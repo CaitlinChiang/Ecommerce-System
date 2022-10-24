@@ -2,14 +2,14 @@ import { ReactElement, useState, useEffect } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
 import { GetCity } from '../View/query'
 import mutation from './mutation'
-import { Typography } from '@mui/material'
 import { City, UpdateCityArgs } from '../../../../types/city'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import ModalComponent from '../../_common/ModalComponent'
+import UpdateHistory from '../../_common/UpdateHistory'
 import Text from '../../_common/TextField'
 import NumberField from '../../_common/NumberField'
 import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
-import { refetchData } from 'frontend/_utils/handleData/refetchData'
+import { refetchData } from '../../../_utils/handleData/refetchData'
 
 const globalAny: any = global
 
@@ -57,8 +57,7 @@ const UpdateCity = ({
     <ModalComponent
       content={
         <>
-          <Typography>{`Created At: ${city?.createdAt}`}</Typography>
-          <Typography>{`Last Updated At: ${city?.updatedAt || '-'}`}</Typography>
+          <UpdateHistory obj={city} />
           <Text
             args={args}
             error={validateFields}
