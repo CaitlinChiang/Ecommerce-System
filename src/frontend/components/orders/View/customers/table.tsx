@@ -10,7 +10,6 @@ import { OrderStatus } from '../../../../_enums/orderStatus'
 import TableComponent from '../../../_common/TableComponent'
 import OrderItemsTable from '../orderItemsTable'
 import OrdersTableFilters from './tableFilters'
-import { fetchMoreArgs } from '../../../../_utils/handleArgs/returnFetchMoreArgs'
 import { formatPrice } from '../../../../_utils/handleFormat/formatPrice'
 
 const OrdersTable = (): ReactElement => {
@@ -32,9 +31,8 @@ const OrdersTable = (): ReactElement => {
     openModal: false
   })
 
-  const { data, loading, fetchMore } = useQuery(GetOrders, {
-    variables: { ...args, paginateData: paginateDataArgs },
-    ...fetchMoreArgs
+  const { data, loading } = useQuery(GetOrders, {
+    variables: { ...args, paginateData: paginateDataArgs }
   })
   const orders: Order[] = data?.get_orders || []
   const ordersCount: number = data?.get_orders_count || 0
@@ -85,9 +83,7 @@ const OrdersTable = (): ReactElement => {
         open={items.openModal}
       />
       <TableComponent
-        args={args}
         count={ordersCount}
-        fetchMore={fetchMore}
         filterContent={<OrdersTableFilters args={args} setArgs={setArgs} />}
         filterOpen={filterOpen}
         headers={orderHeaders}

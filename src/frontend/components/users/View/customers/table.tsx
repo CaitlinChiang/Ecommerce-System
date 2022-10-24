@@ -12,7 +12,6 @@ import { UserType } from '../../../../_enums/userType'
 import TableComponent from '../../../_common/TableComponent'
 import DeleteButton from '../../../_common/DeleteButton'
 import { authenticateUser } from '../../../../_utils/auth/authenticateUser'
-import { fetchMoreArgs } from '../../../../_utils/handleArgs/returnFetchMoreArgs'
 
 const CustomersTable = (): ReactElement => {
   const disableDeleteUser = !authenticateUser(AdminPermission.DELETE_USER)
@@ -26,9 +25,8 @@ const CustomersTable = (): ReactElement => {
     sortDirection: SortDirection.DESC
   })
 
-  const { data, loading, fetchMore, refetch } = useQuery(GetUsers, {
-    variables: { ...args, paginateData: paginateDataArgs },
-    ...fetchMoreArgs
+  const { data, loading, refetch } = useQuery(GetUsers, {
+    variables: { ...args, paginateData: paginateDataArgs }
   })
   const users: User[] = data?.get_users || []
   const usersCount: number = data?.get_users_count || 0
@@ -78,9 +76,7 @@ const CustomersTable = (): ReactElement => {
 
   return (
     <TableComponent
-      args={args}
       count={usersCount}
-      fetchMore={fetchMore}
       headers={userHeaders}
       loading={loading}
       paginateDataArgs={paginateDataArgs}

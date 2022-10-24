@@ -13,7 +13,6 @@ import UpdateReviewCheckbox from '../Update/checkbox'
 import DeleteButton from '../../_common/DeleteButton'
 import ReviewsTableFilters from './tableFilters'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
-import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
 
 const ReviewsTable = (): ReactElement => {
   const disableUpdateReview = !authenticateUser(AdminPermission.UPDATE_REVIEW)
@@ -30,9 +29,8 @@ const ReviewsTable = (): ReactElement => {
 
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
 
-  const { data, loading, fetchMore, refetch } = useQuery(GetReviews, {
-    variables: { ...args, paginateData: paginateDataArgs },
-    ...fetchMoreArgs
+  const { data, loading, refetch } = useQuery(GetReviews, {
+    variables: { ...args, paginateData: paginateDataArgs }
   })
   const reviews: Review[] = data?.get_reviews || []
   const reviewsCount: number = data?.get_reviews_count || 0
@@ -101,9 +99,7 @@ const ReviewsTable = (): ReactElement => {
 
   return (
     <TableComponent
-      args={args}
       count={reviewsCount}
-      fetchMore={fetchMore}
       filterContent={<ReviewsTableFilters args={args} setArgs={setArgs} />}
       filterOpen={filterOpen}
       headers={reviewHeaders}

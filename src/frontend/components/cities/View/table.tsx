@@ -13,7 +13,6 @@ import TableComponent from '../../_common/TableComponent'
 import UpdateCity from '../Update'
 import DeleteButton from '../../_common/DeleteButton'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
-import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
 import { formatPrice } from '../../../_utils/handleFormat/formatPrice'
 
 const CitiesTable = (): ReactElement => {
@@ -34,9 +33,8 @@ const CitiesTable = (): ReactElement => {
     openModal: false
   })
 
-  const { data, loading, fetchMore, refetch } = useQuery(GetCities, {
-    variables: { ...args, paginateData: paginateDataArgs },
-    ...fetchMoreArgs
+  const { data, loading, refetch } = useQuery(GetCities, {
+    variables: { ...args, paginateData: paginateDataArgs }
   })
   const cities: City[] = data?.get_cities || []
   const citiesCount: number = data?.get_cities_count || 0
@@ -95,9 +93,7 @@ const CitiesTable = (): ReactElement => {
         refetchArgs={refetchArgs}
       />
       <TableComponent
-        args={args}
         count={citiesCount}
-        fetchMore={fetchMore}
         headers={cityHeaders}
         loading={loading}
         paginateDataArgs={paginateDataArgs}

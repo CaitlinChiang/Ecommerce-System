@@ -15,7 +15,6 @@ import UpdateUserCheckbox from '../../Update/checkbox'
 import DeleteButton from '../../../_common/DeleteButton'
 import AdministratorsTableFilters from './tableFilters'
 import { authenticateUser } from '../../../../_utils/auth/authenticateUser'
-import { fetchMoreArgs } from '../../../../_utils/handleArgs/returnFetchMoreArgs'
 
 const AdministratorsTable = (): ReactElement => {
   const disableUpdateUser = !authenticateUser(AdminPermission.UPDATE_USER)
@@ -42,9 +41,8 @@ const AdministratorsTable = (): ReactElement => {
 
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
 
-  const { data, loading, fetchMore, refetch } = useQuery(GetUsers, {
-    variables: { ...args, paginateData: paginateDataArgs },
-    ...fetchMoreArgs
+  const { data, loading, refetch } = useQuery(GetUsers, {
+    variables: { ...args, paginateData: paginateDataArgs }
   })
   const users: User[] = data?.get_users || []
   const usersCount: number = data?.get_users_count || 0
@@ -146,9 +144,7 @@ const AdministratorsTable = (): ReactElement => {
         user={permissions.user}
       />
       <TableComponent
-        args={args}
         count={usersCount}
-        fetchMore={fetchMore}
         filterContent={<AdministratorsTableFilters args={args} setArgs={setArgs} />}
         filterOpen={filterOpen}
         headers={userHeaders}

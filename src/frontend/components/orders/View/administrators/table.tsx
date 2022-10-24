@@ -21,7 +21,6 @@ import OrderItemsTable from '../orderItemsTable'
 import OrderLogsTable from '../../../auditLogs/View/orderLogsTable'
 import OrdersTableFilters from './tableFilters'
 import { authenticateUser } from '../../../../_utils/auth/authenticateUser'
-import { fetchMoreArgs } from '../../../../_utils/handleArgs/returnFetchMoreArgs'
 import { formatPrice } from '../../../../_utils/handleFormat/formatPrice'
 
 const OrdersTable = (): ReactElement => {
@@ -61,9 +60,8 @@ const OrdersTable = (): ReactElement => {
     openModal: false
   })
 
-  const { data, loading, fetchMore, refetch } = useQuery(GetOrders, {
-    variables: { ...args, paginateData: paginateDataArgs },
-    ...fetchMoreArgs
+  const { data, loading, refetch } = useQuery(GetOrders, {
+    variables: { ...args, paginateData: paginateDataArgs }
   })
   const orders: Order[] = data?.get_orders || []
   const ordersCount: number = data?.get_orders_count || 0
@@ -187,9 +185,7 @@ const OrdersTable = (): ReactElement => {
         open={logs.openModal}
       />
       <TableComponent
-        args={args}
         count={ordersCount}
-        fetchMore={fetchMore}
         filterContent={<OrdersTableFilters args={args} setArgs={setArgs} />}
         filterOpen={filterOpen}
         headers={orderHeaders}

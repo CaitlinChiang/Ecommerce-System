@@ -18,7 +18,6 @@ import UpdateProductCategoryCheckbox from '../Update/checkbox'
 import DeleteButton from '../../_common/DeleteButton'
 import ProductsTableFilters from './tableFilters'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
-import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
 
 const ProductCategoriesTable = (): ReactElement => {
   const disableUpdateProductCategory = !authenticateUser(
@@ -44,9 +43,8 @@ const ProductCategoriesTable = (): ReactElement => {
 
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
 
-  const { data, loading, fetchMore, refetch } = useQuery(GetProductCategories, {
-    variables: { ...args, paginateData: paginateDataArgs },
-    ...fetchMoreArgs
+  const { data, loading, refetch } = useQuery(GetProductCategories, {
+    variables: { ...args, paginateData: paginateDataArgs }
   })
   const productCategories: ProductCategory[] = data?.get_product_categories || []
   const productCategoriesCount: number = data?.get_product_categories_count || 0
@@ -114,9 +112,7 @@ const ProductCategoriesTable = (): ReactElement => {
         refetchArgs={refetchArgs}
       />
       <TableComponent
-        args={args}
         count={productCategoriesCount}
-        fetchMore={fetchMore}
         filterContent={<ProductsTableFilters args={args} setArgs={setArgs} />}
         filterOpen={filterOpen}
         headers={productCategoryHeaders}

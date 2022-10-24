@@ -8,7 +8,6 @@ import { FAQ, GetFAQArgs } from '../../../../../types/faq'
 import { PaginateDataArgs } from '../../../../../types/actions/paginateData'
 import { SortDirection } from '../../../../_enums/sortDirection'
 import DropdownsComponent from '../../../_common/DropdownsComponent'
-import { fetchMoreArgs } from '../../../../_utils/handleArgs/returnFetchMoreArgs'
 
 const FAQsDropdowns = (): ReactElement => {
   const args: GetFAQArgs = {}
@@ -20,9 +19,8 @@ const FAQsDropdowns = (): ReactElement => {
     sortDirection: SortDirection.ASC
   })
 
-  const { data, loading, fetchMore } = useQuery(GetFAQs, {
-    variables: { ...args, paginateData: paginateDataArgs },
-    ...fetchMoreArgs
+  const { data, loading } = useQuery(GetFAQs, {
+    variables: { ...args, paginateData: paginateDataArgs }
   })
   const faqs: FAQ[] = data?.get_faqs || []
   const faqsCount: number = data?.get_faqs_count || 0
@@ -43,9 +41,7 @@ const FAQsDropdowns = (): ReactElement => {
 
   return (
     <DropdownsComponent
-      args={args}
       count={faqsCount}
-      fetchMore={fetchMore}
       icons={icons}
       loading={loading}
       paginateDataArgs={paginateDataArgs}

@@ -13,7 +13,6 @@ import TableComponent from '../../_common/TableComponent'
 import UpdatePaymentMethod from '../Update'
 import DeleteButton from '../../_common/DeleteButton'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
-import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
 
 const PaymentMethodsTable = (): ReactElement => {
   const disableUpdatePaymentMethod = !authenticateUser(
@@ -37,9 +36,8 @@ const PaymentMethodsTable = (): ReactElement => {
     openModal: false
   })
 
-  const { data, loading, fetchMore, refetch } = useQuery(GetPaymentMethods, {
-    variables: { ...args, paginateData: paginateDataArgs },
-    ...fetchMoreArgs
+  const { data, loading, refetch } = useQuery(GetPaymentMethods, {
+    variables: { ...args, paginateData: paginateDataArgs }
   })
   const paymentMethods: PaymentMethod[] = data?.get_payment_methods || []
   const paymentMethodsCount: number = data?.get_payment_methods_count || 0
@@ -98,9 +96,7 @@ const PaymentMethodsTable = (): ReactElement => {
         refetchArgs={refetchArgs}
       />
       <TableComponent
-        args={args}
         count={paymentMethodsCount}
-        fetchMore={fetchMore}
         headers={paymentMethodHeaders}
         loading={loading}
         paginateDataArgs={paginateDataArgs}

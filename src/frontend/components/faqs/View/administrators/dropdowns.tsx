@@ -15,7 +15,6 @@ import DropdownsComponent from '../../../_common/DropdownsComponent'
 import UpdateFAQ from '../../Update'
 import DeleteButton from '../../../_common/DeleteButton'
 import { authenticateUser } from '../../../../_utils/auth/authenticateUser'
-import { fetchMoreArgs } from '../../../../_utils/handleArgs/returnFetchMoreArgs'
 
 const FAQsDropdowns = (): ReactElement => {
   const disableUpdateFAQ = !authenticateUser(AdminPermission.UPDATE_FAQ)
@@ -35,9 +34,8 @@ const FAQsDropdowns = (): ReactElement => {
     openModal: false
   })
 
-  const { data, loading, fetchMore, refetch } = useQuery(GetFAQs, {
-    variables: { ...args, paginateData: paginateDataArgs },
-    ...fetchMoreArgs
+  const { data, loading, refetch } = useQuery(GetFAQs, {
+    variables: { ...args, paginateData: paginateDataArgs }
   })
   const faqs: FAQ[] = data?.get_faqs || []
   const faqsCount: number = data?.get_faqs_count || 0
@@ -95,9 +93,7 @@ const FAQsDropdowns = (): ReactElement => {
         refetchArgs={refetchArgs}
       />
       <DropdownsComponent
-        args={args}
         count={faqsCount}
-        fetchMore={fetchMore}
         icons={icons}
         loading={loading}
         paginateDataArgs={paginateDataArgs}

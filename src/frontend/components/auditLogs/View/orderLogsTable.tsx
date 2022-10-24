@@ -6,7 +6,6 @@ import { AuditLog, GetAuditLogArgs } from '../../../../types/auditLog'
 import { SortDirection } from '../../../_enums/sortDirection'
 import ModalComponent from '../../_common/ModalComponent'
 import SimpleTableComponent from '../../_common/SimpleTableComponent'
-import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
 
 const OrderLogsTable = ({
   _orderId,
@@ -23,8 +22,7 @@ const OrderLogsTable = ({
     variables: {
       ...args,
       paginateData: { sortBy: 'createdAt', sortDirection: SortDirection.DESC }
-    },
-    ...fetchMoreArgs
+    }
   })
   const auditLogs: AuditLog[] = data?.get_audit_logs || []
 

@@ -14,7 +14,6 @@ import TableComponent from '../../_common/TableComponent'
 import DeleteButton from '../../_common/DeleteButton'
 import ProductsTableFilters from './tableFilters'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
-import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
 import { formatPrice } from '../../../_utils/handleFormat/formatPrice'
 import { formatToPercentage } from '../../../_utils/handleFormat/formatToPercentage'
 
@@ -50,7 +49,7 @@ const ProductsTable = (): ReactElement => {
 
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
 
-  const { data, loading, fetchMore, refetch } = useQuery(GetProducts, {
+  const { data, loading, refetch } = useQuery(GetProducts, {
     variables: {
       ...args,
       stockQuantity: {
@@ -59,8 +58,7 @@ const ProductsTable = (): ReactElement => {
         value2: Math.round(args.stockQuantity?.value2)
       },
       paginateData: paginateDataArgs
-    },
-    ...fetchMoreArgs
+    }
   })
   const products: Product[] = data?.get_products || []
   const productsCount: number = data?.get_products_count || 0
@@ -121,9 +119,7 @@ const ProductsTable = (): ReactElement => {
 
   return (
     <TableComponent
-      args={args}
       count={productsCount}
-      fetchMore={fetchMore}
       filterContent={<ProductsTableFilters args={args} setArgs={setArgs} />}
       filterOpen={filterOpen}
       headers={productHeaders}

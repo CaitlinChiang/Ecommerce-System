@@ -8,7 +8,6 @@ import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import { SortDirection } from '../../../_enums/sortDirection'
 import CardsPaginationComponent from '../../_common/CardsPaginationComponent'
 import CreateReview from '../Create'
-import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
 
 const ReviewCards = ({ featured }: { featured: boolean }): ReactElement => {
   const args: GetReviewArgs = { featured: featured ? true : null }
@@ -20,7 +19,7 @@ const ReviewCards = ({ featured }: { featured: boolean }): ReactElement => {
     sortDirection: SortDirection.DESC
   })
 
-  const { data, loading, fetchMore, refetch } = useQuery(GetReviews, {
+  const { data, loading, refetch } = useQuery(GetReviews, {
     variables: {
       ...args,
       paginateData: {
@@ -29,8 +28,7 @@ const ReviewCards = ({ featured }: { featured: boolean }): ReactElement => {
         rowsPerPage: featured ? null : paginateDataArgs?.rowsPerPage,
         searchText: featured ? null : paginateDataArgs?.searchText
       }
-    },
-    ...fetchMoreArgs
+    }
   })
   const reviews: Review[] = data?.get_reviews || []
   const reviewsCount: number = data?.get_reviews_count || 0
@@ -81,9 +79,7 @@ const ReviewCards = ({ featured }: { featured: boolean }): ReactElement => {
             {'Read feedback from our customers!'}
           </Typography>
           <CardsPaginationComponent
-            args={args}
             count={reviewsCount}
-            fetchMore={fetchMore}
             loading={loading}
             paginateDataArgs={paginateDataArgs}
             setPaginateDataArgs={setPaginateDataArgs}

@@ -8,7 +8,6 @@ import { SortDirection } from '../../../_enums/sortDirection'
 import { DateRangeType } from '../../../_enums/dateRangeType'
 import TableComponent from '../../_common/TableComponent'
 import AuditLogsTableFilters from './tableFilters'
-import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
 
 const AuditLogsTable = (): ReactElement => {
   const [args, setArgs] = useState<GetAuditLogArgs>({
@@ -28,9 +27,8 @@ const AuditLogsTable = (): ReactElement => {
 
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
 
-  const { data, loading, fetchMore } = useQuery(GetAuditLogs, {
-    variables: { ...args, paginateData: paginateDataArgs },
-    ...fetchMoreArgs
+  const { data, loading } = useQuery(GetAuditLogs, {
+    variables: { ...args, paginateData: paginateDataArgs }
   })
   const auditLogs: AuditLog[] = data?.get_audit_logs || []
   const auditLogsCount: number = data?.get_audit_logs_count || 0
@@ -57,9 +55,7 @@ const AuditLogsTable = (): ReactElement => {
 
   return (
     <TableComponent
-      args={args}
       count={auditLogsCount}
-      fetchMore={fetchMore}
       filterContent={<AuditLogsTableFilters args={args} setArgs={setArgs} />}
       filterOpen={filterOpen}
       headers={auditLogHeaders}

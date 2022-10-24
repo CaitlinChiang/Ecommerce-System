@@ -9,7 +9,6 @@ import { StockQuantityOperator } from '../../../_enums/stockQuantityOperator'
 import CardComponent from '../../_common/CardComponent'
 import ProductCardsFilters from './cardsFilters'
 import CardsPaginationComponent from '../../_common/CardsPaginationComponent'
-import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
 import { formatDiscountedPrice } from '../../../_utils/handleFormat/formatDiscountedPrice'
 import { formatPrice } from '../../../_utils/handleFormat/formatPrice'
 import { formatToPercentage } from '../../../_utils/handleFormat/formatToPercentage'
@@ -33,7 +32,7 @@ const ProductCards = ({ featured }: { featured: boolean }): ReactElement => {
     sortDirection: SortDirection.ASC
   })
 
-  const { data, loading, fetchMore } = useQuery(GetProducts, {
+  const { data, loading } = useQuery(GetProducts, {
     variables: {
       ...args,
       paginateData: {
@@ -42,8 +41,7 @@ const ProductCards = ({ featured }: { featured: boolean }): ReactElement => {
         rowsPerPage: featured ? null : paginateDataArgs?.rowsPerPage,
         searchText: featured ? null : paginateDataArgs?.searchText
       }
-    },
-    ...fetchMoreArgs
+    }
   })
   const products: Product[] = data?.get_products || []
   const productsCount: number = data?.get_products_count || 0
@@ -98,9 +96,7 @@ const ProductCards = ({ featured }: { featured: boolean }): ReactElement => {
               {'Products'}
             </Typography>
             <CardsPaginationComponent
-              args={args}
               count={productsCount}
-              fetchMore={fetchMore}
               loading={loading}
               paginateDataArgs={paginateDataArgs}
               searchLabel={'Search Product by Name'}

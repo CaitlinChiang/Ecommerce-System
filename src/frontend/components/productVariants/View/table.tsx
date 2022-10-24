@@ -17,7 +17,6 @@ import TableComponent from '../../_common/TableComponent'
 import DeleteButton from '../../_common/DeleteButton'
 import ProductVariantsTableFilters from './tableFilters'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
-import { fetchMoreArgs } from '../../../_utils/handleArgs/returnFetchMoreArgs'
 import { formatPrice } from '../../../_utils/handleFormat/formatPrice'
 import { formatToPercentage } from '../../../_utils/handleFormat/formatToPercentage'
 
@@ -59,7 +58,7 @@ const ProductVariantsTable = ({
 
   const [filterOpen, setFilterOpen] = useState<boolean>(false)
 
-  const { data, loading, fetchMore, refetch } = useQuery(GetProductVariants, {
+  const { data, loading, refetch } = useQuery(GetProductVariants, {
     skip: !_productId,
     variables: {
       _productId,
@@ -70,8 +69,7 @@ const ProductVariantsTable = ({
         value2: Math.round(args.stockQuantity?.value2)
       },
       paginateData: paginateDataArgs
-    },
-    ...fetchMoreArgs
+    }
   })
   const productVariants: ProductVariant[] = data?.get_product_variants || []
   const productVariantsCount: number = data?.get_product_variants_count || 0
@@ -133,9 +131,7 @@ const ProductVariantsTable = ({
 
   return (
     <TableComponent
-      args={args}
       count={productVariantsCount}
-      fetchMore={fetchMore}
       filterContent={<ProductVariantsTableFilters args={args} setArgs={setArgs} />}
       filterOpen={filterOpen}
       headers={productHeaders}
