@@ -7,7 +7,9 @@ export const GetFAQ = gql`
       answer
       question
       createdAt
+      createdByEmail
       updatedAt
+      updatedByEmail
     }
   }
 `

@@ -8,7 +8,7 @@ export default async (
   args: GetFAQArgs,
   context: Context
 ): Promise<FAQ> => {
-  await authenticateUser(context, true)
+  await authenticateUser(context, false)
 
   const faq: FAQ = await returnData(context, args, 'faqs')
   return faq

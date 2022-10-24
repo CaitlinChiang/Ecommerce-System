@@ -2,10 +2,10 @@ import { ReactElement, useState, useEffect } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
 import { GetFAQ } from '../View/query'
 import mutation from './mutation'
-import { Typography } from '@mui/material'
 import { FAQ, UpdateFAQArgs } from '../../../../types/faq'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import ModalComponent from '../../_common/ModalComponent'
+import UpdateHistory from '../../_common/UpdateHistory'
 import Text from '../../_common/TextField'
 import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
 import { refetchData } from '../../../_utils/handleData/refetchData'
@@ -56,8 +56,7 @@ const UpdateFAQ = ({
     <ModalComponent
       content={
         <>
-          <Typography>{`Created At: ${faq?.createdAt}`}</Typography>
-          <Typography>{`Last Updated At: ${faq?.updatedAt || '-'}`}</Typography>
+          <UpdateHistory obj={faq} />
           <Text
             args={args}
             error={validateFields}
