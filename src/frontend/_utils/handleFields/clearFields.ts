@@ -1,19 +1,21 @@
 export const clearFields = (args: any): any => {
+  const clearedArgs: any = {}
+
   Object.keys(args).forEach((key: string): void => {
     switch (key) {
       case 'showPublic':
-        args[key] = false
+        clearedArgs[key] = false
         break
       case 'featured':
-        args[key] = false
+        clearedArgs[key] = false
         break
       case 'shippingFee':
-        args[key] = 0
+        clearedArgs[key] = 0
         break
       default:
-        args[key] = ''
+        clearedArgs[key] = ''
     }
   })
 
-  return args
+  return clearedArgs
 }
