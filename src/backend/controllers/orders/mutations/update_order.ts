@@ -1,10 +1,11 @@
+import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import { Order, UpdateOrderArgs } from '../../../../types/order'
 import { AdminPermission } from '../../../_enums/adminPermission'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
 import { returnUpdatedData } from '../../../_utils/handleData/returnUpdatedData'
-import { createAuditLog } from '../../../_utils/handleData/createAuditLog'
+import { auditArgs } from '../../../_utils/handleArgs/auditArgs'
 
 export default async (
   _root: undefined,
@@ -15,7 +16,11 @@ export default async (
 
   const order: Order = await returnUpdatedData(context, args, 'orders')
 
-  await createAuditLog(context, AuditLogAction.UPDATE_ORDER)
+  await context.database.auditLogs.insertOne({
+    action: AuditLogAction.UPDATE_ORDER,
+    orderId: new ObjectId(args._id),
+    ...auditArgs(context.userId)
+  })
 
   return order
 }
