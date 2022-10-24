@@ -7,7 +7,9 @@ export const GetProductCategory = gql`
       name
       showPublic
       createdAt
+      createdByEmail
       updatedAt
+      updatedByEmail
     }
   }
 `

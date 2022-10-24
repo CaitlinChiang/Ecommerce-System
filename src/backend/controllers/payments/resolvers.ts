@@ -9,8 +9,10 @@ export default {
       _args: undefined,
       context: Context
     ): Promise<PaymentMethod> => {
+      if (!payment?.paymentMethodId) return {}
+
       const paymentMethod: PaymentMethod =
-        await context.dataloaders.paymentMethods.byId.load(payment?.paymentMethodId)
+        await context.dataloaders.paymentMethods.byId.load(payment.paymentMethodId)
       return paymentMethod
     }
   }

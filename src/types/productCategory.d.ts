@@ -6,7 +6,11 @@ export interface ProductCategory {
   name?: string
   showPublic?: boolean
   createdAt?: Date
+  createdBy?: ObjectId
+  createdByEmail?: string
   updatedAt?: Date
+  updatedBy?: ObjectId
+  updatedByEmail?: string
 }
 
 export interface GetProductCategoryArgs {
@@ -19,6 +23,7 @@ export interface CreateProductCategoryArgs {
   name: string
   showPublic: boolean
   createdAt?: Date
+  createdBy?: ObjectId
 }
 
 export interface UpdateProductCategoryArgs {
@@ -26,6 +31,7 @@ export interface UpdateProductCategoryArgs {
   name: string
   showPublic: boolean
   updatedAt?: Date
+  updatedBy?: ObjectId
 }
 
 export interface DeleteProductCategoryArgs {

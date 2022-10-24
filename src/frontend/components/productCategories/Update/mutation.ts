@@ -7,7 +7,9 @@ export default gql`
       name
       showPublic
       createdAt
+      createdByEmail
       updatedAt
+      updatedByEmail
     }
   }
 `

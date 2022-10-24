@@ -23,7 +23,6 @@ export default gql`
       paymentMethodId
       shippingFee
       status
-      createdAt
     }
   }
 `

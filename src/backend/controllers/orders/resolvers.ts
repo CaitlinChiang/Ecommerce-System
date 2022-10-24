@@ -19,12 +19,12 @@ export default {
       _args: undefined,
       context: Context
     ): Promise<DeliveryAddress> => {
-      if (!order?.deliveryAddress) return {}
+      if (!order?.deliveryAddress || !order?.deliveryAddress?.cityId) return {}
 
       const city: City = await context.dataloaders.cities.byId.load(
-        order?.deliveryAddress?.cityId
+        order.deliveryAddress.cityId
       )
-      return { address: order?.deliveryAddress?.address, city }
+      return { address: order.deliveryAddress.address, city }
     },
 
     items: async (
@@ -38,7 +38,7 @@ export default {
     itemsQuantity: async (order: Order): Promise<number> => {
       if (!order?.items || order?.items?.length === 0) return 0
 
-      const itemsQuantity: number = order?.items?.reduce(
+      const itemsQuantity: number = order.items.reduce(
         (totalQuantity: number, currentProduct: CartItem): number => {
           return totalQuantity + currentProduct.quantity
         },
@@ -52,7 +52,7 @@ export default {
       _args: undefined,
       context: Context
     ): Promise<Payment> => {
-      if (!order._id) return {}
+      if (!order?._id) return {}
 
       const payment: Payment = await context.dataloaders.payments.byOrderId.load(
         order._id

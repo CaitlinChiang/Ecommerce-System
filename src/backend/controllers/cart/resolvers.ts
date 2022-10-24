@@ -15,7 +15,7 @@ export default {
     quantity: async (cart: Cart): Promise<number> => {
       if (!cart?.items || cart?.items?.length === 0) return 0
 
-      const itemsQuantity: number = cart?.items?.reduce(
+      const itemsQuantity: number = cart.items.reduce(
         (totalQuantity: number, currentProduct: CartItem): number => {
           return totalQuantity + currentProduct.quantity
         },
@@ -27,7 +27,7 @@ export default {
     totalPrice: async (cart: Cart): Promise<number> => {
       if (!cart?.items || cart?.items?.length === 0) return 0
 
-      const itemsTotalPrice: number = cart?.items?.reduce(
+      const itemsTotalPrice: number = cart.items.reduce(
         (totalPrice: number, currentProduct: CartItem): number => {
           return totalPrice + currentProduct.totalPrice
         },

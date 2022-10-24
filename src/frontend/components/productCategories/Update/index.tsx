@@ -2,13 +2,13 @@ import { ReactElement, useState, useEffect } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
 import { GetProductCategory } from '../View/query'
 import mutation from './mutation'
-import { Typography } from '@mui/material'
 import {
   ProductCategory,
   UpdateProductCategoryArgs
 } from '../../../../types/productCategory'
 import { RefetchDataArgs } from '../../../../types/actions/refetchData'
 import ModalComponent from '../../_common/ModalComponent'
+import UpdateHistory from '../../_common/UpdateHistory'
 import Text from '../../_common/TextField'
 import CheckboxField from '../../_common/CheckboxField'
 import { correctArgs } from '../../../_utils/handleArgs/correctArgs'
@@ -63,10 +63,7 @@ const UpdateProductCategory = ({
     <ModalComponent
       content={
         <>
-          <Typography>{`Created At: ${productCategory?.createdAt}`}</Typography>
-          <Typography>{`Last Updated At: ${
-            productCategory?.updatedAt || '-'
-          }`}</Typography>
+          <UpdateHistory obj={productCategory} />
           <Text
             args={args}
             error={validateFields}
