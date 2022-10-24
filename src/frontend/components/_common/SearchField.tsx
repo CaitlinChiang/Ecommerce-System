@@ -24,7 +24,7 @@ const SearchField = ({
       onKeyDown={onKeyDown}
       placeholder={searchPlaceholder}
       size={'small'}
-      sx={{ marginTop: 1.8, paddingRight: 1 }}
+      sx={{ marginTop: 2, paddingRight: 1 }}
       value={searchText}
       InputProps={{
         startAdornment: (

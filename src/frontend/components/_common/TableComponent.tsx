@@ -99,7 +99,7 @@ const TableComponent = ({
                 <Grid item xs={1.2}>
                   <Button
                     color={'primary'}
-                    sx={{ borderRadius: 5, marginTop: 1.8 }}
+                    sx={{ borderRadius: 5, marginTop: 2 }}
                     onClick={(): void => {
                       setPaginateDataArgs({ ...paginateDataArgs, searchText })
                     }}
