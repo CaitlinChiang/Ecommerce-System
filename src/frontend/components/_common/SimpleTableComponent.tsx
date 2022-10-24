@@ -7,6 +7,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
   Typography
@@ -26,20 +27,22 @@ const SimpleTableComponent = ({
       <CardContent>
         {loading && <CircularProgress />}
         <Box sx={{ overflow: { xs: 'auto', sm: 'unset' } }}>
-          <Table sx={{ whiteSpace: 'nowrap' }}>
-            <TableHead>
-              <TableRow>
-                {headers.map((header: string, index: number): ReactElement => {
-                  return (
-                    <TableCell key={index}>
-                      <Typography variant={'h5'}>{header}</Typography>
-                    </TableCell>
-                  )
-                })}
-              </TableRow>
-            </TableHead>
-            <TableBody>{rows}</TableBody>
-          </Table>
+          <TableContainer>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  {headers.map((header: string, index: number): ReactElement => {
+                    return (
+                      <TableCell key={index}>
+                        <Typography variant={'h5'}>{header}</Typography>
+                      </TableCell>
+                    )
+                  })}
+                </TableRow>
+              </TableHead>
+              <TableBody>{rows}</TableBody>
+            </Table>
+          </TableContainer>
         </Box>
       </CardContent>
     </Card>

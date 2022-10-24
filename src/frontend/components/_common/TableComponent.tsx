@@ -10,6 +10,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
   TableSortLabel,
@@ -122,49 +123,51 @@ const TableComponent = ({
             paginateDataArgs={paginateDataArgs}
             setPaginateDataArgs={setPaginateDataArgs}
           />
-          <Table sx={{ whiteSpace: 'nowrap' }}>
-            <TableHead>
-              <TableRow>
-                {headers.map(
-                  (
-                    header: { label: string; sortable: boolean },
-                    index: number
-                  ): ReactElement => {
-                    return (
-                      <TableCell key={index}>
-                        {!header.sortable && (
-                          <Typography variant={'h5'}>
-                            {formatText(header.label)}
-                          </Typography>
-                        )}
-                        {header.sortable && (
-                          <TableSortLabel
-                            active={sortBy === header.label}
-                            direction={sortDirection || SortDirection.DESC}
-                            onClick={(): void => {
-                              setPaginateDataArgs({
-                                ...paginateDataArgs,
-                                sortBy: header.label,
-                                sortDirection:
-                                  sortDirection === SortDirection.ASC
-                                    ? SortDirection.DESC
-                                    : SortDirection.ASC
-                              })
-                            }}
-                          >
+          <TableContainer>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  {headers.map(
+                    (
+                      header: { label: string; sortable: boolean },
+                      index: number
+                    ): ReactElement => {
+                      return (
+                        <TableCell key={index}>
+                          {!header.sortable && (
                             <Typography variant={'h5'}>
                               {formatText(header.label)}
                             </Typography>
-                          </TableSortLabel>
-                        )}
-                      </TableCell>
-                    )
-                  }
-                )}
-              </TableRow>
-            </TableHead>
-            <TableBody>{rows}</TableBody>
-          </Table>
+                          )}
+                          {header.sortable && (
+                            <TableSortLabel
+                              active={sortBy === header.label}
+                              direction={sortDirection || SortDirection.DESC}
+                              onClick={(): void => {
+                                setPaginateDataArgs({
+                                  ...paginateDataArgs,
+                                  sortBy: header.label,
+                                  sortDirection:
+                                    sortDirection === SortDirection.ASC
+                                      ? SortDirection.DESC
+                                      : SortDirection.ASC
+                                })
+                              }}
+                            >
+                              <Typography variant={'h5'}>
+                                {formatText(header.label)}
+                              </Typography>
+                            </TableSortLabel>
+                          )}
+                        </TableCell>
+                      )
+                    }
+                  )}
+                </TableRow>
+              </TableHead>
+              <TableBody>{rows}</TableBody>
+            </Table>
+          </TableContainer>
           <PaginationComponent
             count={count}
             paginateDataArgs={paginateDataArgs}
