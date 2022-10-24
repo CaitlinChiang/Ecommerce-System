@@ -36,7 +36,6 @@ export default gql`
         phoneNumber
       }
       createdAt
-      updatedAt
     }
   }
 `

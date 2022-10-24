@@ -11,7 +11,7 @@ import { returnCartItems } from '../../_utils/handleData/returnCartItems'
 export default {
   Order: {
     createdAt: async (order: Order): Promise<string> => {
-      return formatDateTime(order?.createdAt) || '-'
+      return formatDateTime(order?.createdAt, true)
     },
 
     deliveryAddress: async (
@@ -19,6 +19,8 @@ export default {
       _args: undefined,
       context: Context
     ): Promise<DeliveryAddress> => {
+      if (!order?.deliveryAddress) return {}
+
       const city: City = await context.dataloaders.cities.byId.load(
         order?.deliveryAddress?.cityId
       )
@@ -34,6 +36,8 @@ export default {
     },
 
     itemsQuantity: async (order: Order): Promise<number> => {
+      if (!order?.items || order?.items?.length === 0) return 0
+
       const itemsQuantity: number = order?.items?.reduce(
         (totalQuantity: number, currentProduct: CartItem): number => {
           return totalQuantity + currentProduct.quantity
@@ -48,6 +52,8 @@ export default {
       _args: undefined,
       context: Context
     ): Promise<Payment> => {
+      if (!order._id) return {}
+
       const payment: Payment = await context.dataloaders.payments.byOrderId.load(
         order._id
       )
@@ -55,12 +61,10 @@ export default {
     },
 
     user: async (order: Order, args: undefined, context: Context): Promise<User> => {
+      if (!order?.userId) return {}
+
       const user: User = await context.dataloaders.users.byId.load(order.userId)
       return user
-    },
-
-    updatedAt: async (order: Order): Promise<string> => {
-      return formatDateTime(order?.updatedAt) || '-'
     }
   }
 }

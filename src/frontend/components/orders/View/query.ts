@@ -48,7 +48,6 @@ export const GetOrders = gql`
         phoneNumber
       }
       createdAt
-      updatedAt
     }
 
     get_orders_count(

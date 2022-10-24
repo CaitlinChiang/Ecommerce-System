@@ -9,7 +9,9 @@ type Order {
   user: User
   userId: ID
   createdAt: String
+  createdBy: ID
   updatedAt: String
+  updatedBy: ID
 }
 
 extend type Query {
