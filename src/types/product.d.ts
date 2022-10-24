@@ -17,7 +17,11 @@ export interface Product {
   showPublic?: boolean
   stockQuantity?: number
   createdAt?: Date
+  createdBy?: ObjectId
+  createdByEmail?: string
   updatedAt?: Date
+  updatedBy?: ObjectId
+  updatedByEmail?: string
 }
 
 export interface GetProductArgs {
@@ -43,6 +47,7 @@ export interface CreateProductArgs {
   showPublic: boolean
   stockQuantity: number
   createdAt?: Date
+  createdBy?: ObjectId
 }
 
 export interface UpdateProductArgs {
@@ -59,6 +64,7 @@ export interface UpdateProductArgs {
   showPublic: boolean
   stockQuantity: number
   updatedAt?: Date
+  updatedBy?: ObjectId
 }
 
 export interface DeleteProductArgs {

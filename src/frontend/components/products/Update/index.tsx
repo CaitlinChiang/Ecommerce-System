@@ -2,8 +2,9 @@ import { ReactElement, useState, useEffect } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
 import { GetProduct } from '../View/query'
 import mutation from './mutation'
-import { Card, CardContent, CircularProgress, Typography } from '@mui/material'
+import { Card, CardContent, CircularProgress } from '@mui/material'
 import { Product, UpdateProductArgs } from '../../../../types/product'
+import UpdateHistory from '../../_common/UpdateHistory'
 import Text from '../../_common/TextField'
 import DatePickerField from '../../_common/DatePickerField'
 import CheckboxField from '../../_common/CheckboxField'
@@ -77,12 +78,7 @@ const UpdateProduct = ({
       {loading && <CircularProgress />}
       <Card>
         <CardContent>
-          <Typography
-            variant={'h4'}
-          >{`Created At: ${product?.createdAt}`}</Typography>
-          <Typography sx={{ marginBottom: 2 }} variant={'h4'}>{`Last Updated At: ${
-            product?.updatedAt || '-'
-          }`}</Typography>
+          <UpdateHistory obj={product} product={true} />
           <Text
             args={args}
             disabled={disabled}

@@ -16,7 +16,9 @@ export const GetProduct = gql`
       showPublic
       stockQuantity
       createdAt
+      createdByEmail
       updatedAt
+      updatedByEmail
     }
   }
 `
