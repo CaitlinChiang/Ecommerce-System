@@ -8,6 +8,8 @@ export default gql`
       featured
       username
       createdAt
+      updatedAt
+      updatedByEmail
     }
   }
 `

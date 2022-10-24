@@ -4,7 +4,10 @@ type Review {
   featured: Boolean
   username: String
   createdAt: String
+  createdBy: ID
   updatedAt: String
+  updatedBy: ID
+  updatedByEmail: String
 }
 
 extend type Query {

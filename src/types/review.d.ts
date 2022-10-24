@@ -7,7 +7,10 @@ export interface Review {
   featured?: boolean
   username?: string
   createdAt?: Date
+  createdBy?: ObjectId
   updatedAt?: Date
+  updatedBy?: ObjectId
+  updatedByEmail?: string
 }
 
 export interface GetReviewArgs {
@@ -20,12 +23,14 @@ export interface CreateReviewArgs {
   featured: boolean
   username: string
   createdAt?: Date
+  createdBy?: ObjectId
 }
 
 export interface UpdateReviewArgs {
   _id: ObjectId
   featured: boolean
   updatedAt?: Date
+  updatedBy?: ObjectId
 }
 
 export interface DeleteReviewArgs {

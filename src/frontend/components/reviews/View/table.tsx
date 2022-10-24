@@ -48,6 +48,7 @@ const ReviewsTable = (): ReactElement => {
   const reviewHeaders = [
     { label: 'featured', sortable: true },
     { label: 'createdAt', sortable: true },
+    { label: 'updatedAt', sortable: true },
     { label: 'username', sortable: false },
     { label: 'content', sortable: false },
     { label: 'actions', sortable: false }
@@ -55,7 +56,15 @@ const ReviewsTable = (): ReactElement => {
 
   const reviewRows = [
     reviews?.map((review: Review): ReactElement => {
-      const { _id, content, createdAt, featured, username } = review
+      const {
+        _id,
+        content,
+        createdAt,
+        updatedAt,
+        updatedByEmail,
+        featured,
+        username
+      } = review
 
       return (
         <TableRow>
@@ -68,6 +77,11 @@ const ReviewsTable = (): ReactElement => {
             />
           </TableCell>
           <TableCell>{String(createdAt)}</TableCell>
+          <TableCell>
+            {String(updatedAt)}
+            <br />
+            {`${updatedByEmail && 'by ' + updatedByEmail}`}
+          </TableCell>
           <TableCell>{username}</TableCell>
           <TableCell>{content}</TableCell>
           <TableCell>

@@ -8,6 +8,8 @@ export const GetReviews = gql`
       featured
       username
       createdAt
+      updatedAt
+      updatedByEmail
     }
 
     get_reviews_count(featured: $featured, paginateData: $paginateData)
