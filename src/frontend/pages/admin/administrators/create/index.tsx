@@ -6,7 +6,7 @@ import CreateUser from '../../../../components/users/Create'
 
 const Page = (): ReactElement => {
   return (
-    <AuthorizedAccess permission={AdminPermission.VIEW_USER}>
+    <AuthorizedAccess permission={AdminPermission.CREATE_ADMINISTRATOR}>
       <CreateUser />
     </AuthorizedAccess>
   )

@@ -6,7 +6,7 @@ import CustomersTable from '../../../components/users/View/customers/table'
 
 const Page = (): ReactElement => {
   return (
-    <AuthorizedAccess permission={AdminPermission.VIEW_USER}>
+    <AuthorizedAccess permission={AdminPermission.VIEW_CUSTOMER}>
       <CustomersTable />
     </AuthorizedAccess>
   )

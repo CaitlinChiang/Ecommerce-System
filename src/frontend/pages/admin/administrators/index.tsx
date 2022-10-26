@@ -6,7 +6,7 @@ import AdministratorsTable from '../../../components/users/View/administrators/t
 
 const Page = (): ReactElement => {
   return (
-    <AuthorizedAccess permission={AdminPermission.VIEW_USER}>
+    <AuthorizedAccess permission={AdminPermission.VIEW_ADMINISTRATOR}>
       <AdministratorsTable />
     </AuthorizedAccess>
   )
