@@ -9,6 +9,7 @@ import { MainWrapper, PageWrapper } from '../common'
 import Navbar from './Navbar'
 import Header from './Header'
 import Footer from './Footer'
+import BreadCrumbs from '../../components/_common/BreadcrumbsComponent'
 
 export default (Page: FunctionComponent, { title }: { title?: string }) =>
   (): FunctionComponent | NextPage | ReactElement => {
@@ -46,7 +47,8 @@ export default (Page: FunctionComponent, { title }: { title?: string }) =>
               }}
             >
               <Box sx={{ minHeight: 'calc(100vh - 170px)' }}>
-                <Typography sx={{ marginBottom: 2 }} variant={'h1'}>
+                <BreadCrumbs />
+                <Typography sx={{ marginBottom: 2, marginTop: 1 }} variant={'h1'}>
                   {title}
                 </Typography>
                 <Page />

@@ -1,4 +1,0 @@
-export enum AppLocation {
-  ADMIN_FACING = 'ADMIN_FACING',
-  CONSUMER_FACING = 'CONSUMER_FACING'
-}

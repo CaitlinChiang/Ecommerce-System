@@ -6,6 +6,7 @@ import { MainWrapper, PageWrapper } from '../common'
 import Header from './Header'
 import Navbar from './Navbar'
 import Footer from './Footer'
+import BreadCrumbs from '../../components/_common/BreadcrumbsComponent'
 
 export default (Page: FunctionComponent, { title }: { title?: string }) =>
   (): FunctionComponent | NextPage | ReactElement => {
@@ -30,6 +31,9 @@ export default (Page: FunctionComponent, { title }: { title?: string }) =>
           <PageWrapper>
             <Container maxWidth={false} sx={{ marginTop: 5 }}>
               <Box sx={{ minHeight: 'calc(100vh - 170px)' }}>
+                <Box sx={{ paddingLeft: 2, marginBottom: 1 }}>
+                  <BreadCrumbs />
+                </Box>
                 <Typography sx={{ paddingLeft: 2, marginBottom: 3 }} variant={'h1'}>
                   {title}
                 </Typography>
