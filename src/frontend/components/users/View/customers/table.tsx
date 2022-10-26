@@ -14,7 +14,7 @@ import DeleteButton from '../../../_common/DeleteButton'
 import { authenticateUser } from '../../../../_utils/auth/authenticateUser'
 
 const CustomersTable = (): ReactElement => {
-  const disableDeleteUser = !authenticateUser(AdminPermission.DELETE_USER)
+  const disableDeleteUser = !authenticateUser(AdminPermission.DELETE_CUSTOMER)
 
   const args: GetUserArgs = { type: UserType.CUSTOMER }
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
@@ -62,6 +62,7 @@ const CustomersTable = (): ReactElement => {
           <TableCell>
             <DeleteButton
               _id={_id}
+              type={UserType.CUSTOMER}
               disabled={disableDeleteUser}
               label={'User'}
               mutation={deleteMutation}

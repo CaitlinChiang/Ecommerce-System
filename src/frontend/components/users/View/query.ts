@@ -32,8 +32,6 @@ export const GetUsers = gql`
       createdByEmail
       updatedAt
       updatedByEmail
-      deletedAt
-      deletedByEmail
     }
 
     get_users_count(active: $active, paginateData: $paginateData, type: $type)

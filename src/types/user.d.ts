@@ -74,6 +74,7 @@ export interface UpdateUserArgs {
 
 export interface DeleteUserArgs {
   _id: ObjectId
+  type: UserType
   deletedAt?: Date
   deletedBy?: ObjectId
 }

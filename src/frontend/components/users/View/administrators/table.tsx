@@ -17,8 +17,8 @@ import AdministratorsTableFilters from './tableFilters'
 import { authenticateUser } from '../../../../_utils/auth/authenticateUser'
 
 const AdministratorsTable = (): ReactElement => {
-  const disableUpdateUser = !authenticateUser(AdminPermission.UPDATE_USER)
-  const disableDeleteUser = !authenticateUser(AdminPermission.DELETE_USER)
+  const disableUpdateUser = !authenticateUser(AdminPermission.UPDATE_ADMINISTRATOR)
+  const disableDeleteUser = !authenticateUser(AdminPermission.DELETE_ADMINISTRATOR)
 
   const [args, setArgs] = useState<GetUserArgs>({
     active: null,
@@ -64,8 +64,7 @@ const AdministratorsTable = (): ReactElement => {
     { label: 'permissions', sortable: false },
     { label: 'createdAt', sortable: true },
     { label: 'actions', sortable: false },
-    { label: 'updatedAt', sortable: true },
-    { label: 'deletedAt', sortable: true }
+    { label: 'updatedAt', sortable: true }
   ]
 
   const userRows = [
@@ -76,8 +75,6 @@ const AdministratorsTable = (): ReactElement => {
         createdByEmail,
         updatedAt,
         updatedByEmail,
-        deletedAt,
-        deletedByEmail,
         email,
         firstName,
         lastName,
@@ -102,7 +99,7 @@ const AdministratorsTable = (): ReactElement => {
               disabled={disableUpdateUser}
               onClick={(): void => setPermissions({ user, openModal: true })}
             >
-              {'View & Edit'}
+              {'Edit'}
             </Button>
           </TableCell>
           <TableCell>
@@ -113,6 +110,7 @@ const AdministratorsTable = (): ReactElement => {
           <TableCell>
             <DeleteButton
               _id={_id}
+              type={UserType.ADMINISTRATOR}
               disabled={disableDeleteUser}
               label={'User'}
               mutation={deleteMutation}
@@ -124,11 +122,6 @@ const AdministratorsTable = (): ReactElement => {
             {String(updatedAt)}
             <br />
             {`${updatedByEmail && 'by ' + updatedByEmail}`}
-          </TableCell>
-          <TableCell>
-            {String(deletedAt)}
-            <br />
-            {`${deletedByEmail && 'by ' + deletedByEmail}`}
           </TableCell>
         </TableRow>
       )
