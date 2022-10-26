@@ -48,9 +48,10 @@ const navbarItems = [
     route: `${adminUrl}/user/profile`
   },
   {
+    icon: 'mdi mdi-dots-horizontal',
     navLabel: true,
     subheader: 'DASHBOARD',
-    icon: 'mdi mdi-dots-horizontal'
+    permissions: [AdminPermission.VIEW_ANALYTICS]
   },
   {
     icon: <BarChartIcon />,
@@ -59,26 +60,27 @@ const navbarItems = [
     route: adminUrl
   },
   {
+    icon: 'mdi mdi-dots-horizontal',
     navLabel: true,
     subheader: 'MANAGE ACCOUNTS',
-    icon: 'mdi mdi-dots-horizontal'
+    permissions: [AdminPermission.VIEW_ADMINISTRATOR, AdminPermission.VIEW_CUSTOMER]
   },
   {
     icon: <AccountBoxIcon />,
     label: 'Administrators',
-    permission: AdminPermission.VIEW_USER,
+    permission: AdminPermission.VIEW_ADMINISTRATOR,
     collapse: true,
     children: [
       {
         icon: <ViewListIcon />,
         label: 'List',
-        permission: AdminPermission.VIEW_USER,
+        permission: AdminPermission.VIEW_ADMINISTRATOR,
         route: `${adminUrl}/administrators`
       },
       {
         icon: <CreateIcon />,
         label: 'Create',
-        permission: AdminPermission.CREATE_USER,
+        permission: AdminPermission.CREATE_ADMINISTRATOR,
         route: `${adminUrl}/administrators/create`
       }
     ]
@@ -86,13 +88,17 @@ const navbarItems = [
   {
     icon: <GroupIcon />,
     label: 'Customers',
-    permission: AdminPermission.VIEW_USER,
+    permission: AdminPermission.VIEW_CUSTOMER,
     route: `${adminUrl}/customers`
   },
   {
+    icon: 'mdi mdi-dots-horizontal',
     navLabel: true,
     subheader: 'MANAGE SHOP',
-    icon: 'mdi mdi-dots-horizontal'
+    permissions: [
+      AdminPermission.VIEW_PRODUCT_CATEGORY,
+      AdminPermission.VIEW_PRODUCT
+    ]
   },
   {
     icon: <CategoryIcon />,
@@ -135,9 +141,14 @@ const navbarItems = [
     ]
   },
   {
+    icon: 'mdi mdi-dots-horizontal',
     navLabel: true,
     subheader: 'MANAGE ORDERS',
-    icon: 'mdi mdi-dots-horizontal'
+    permissions: [
+      AdminPermission.VIEW_ORDER,
+      AdminPermission.VIEW_PAYMENT_METHOD,
+      AdminPermission.VIEW_CITY
+    ]
   },
   {
     icon: <ReceiptIcon />,
@@ -186,14 +197,19 @@ const navbarItems = [
     ]
   },
   {
+    icon: 'mdi mdi-dots-horizontal',
     navLabel: true,
     subheader: 'MANAGE WEBSITE',
-    icon: 'mdi mdi-dots-horizontal'
+    permissions: [
+      AdminPermission.VIEW_WEBSITE_TEXT,
+      AdminPermission.VIEW_FAQ,
+      AdminPermission.VIEW_REVIEW
+    ]
   },
   {
     icon: <FormatAlignLeftIcon />,
     label: 'Website Texts',
-    permission: AdminPermission.VIEW_USER,
+    permission: AdminPermission.VIEW_WEBSITE_TEXT,
     route: `${adminUrl}/website-texts`
   },
   {
@@ -223,9 +239,10 @@ const navbarItems = [
     route: `${adminUrl}/reviews`
   },
   {
+    icon: 'mdi mdi-dots-horizontal',
     navLabel: true,
     subheader: 'LOGS',
-    icon: 'mdi mdi-dots-horizontal'
+    permissions: [AdminPermission.VIEW_AUDIT_LOGS]
   },
   {
     icon: <DnsIcon />,
@@ -266,6 +283,16 @@ const Navbar = ({
       <Box mt={2}>
         <List>
           {navbarItems.map((item, index): ReactElement => {
+            if (item?.permissions?.length > 0) {
+              let showNavLabel = false
+
+              item.permissions.map((permission: AdminPermission): void => {
+                if (authenticateUser(permission)) showNavLabel = true
+              })
+
+              if (!showNavLabel) return
+            }
+
             if (item?.permission && !authenticateUser(item?.permission)) return
 
             if (item.subheader) {
@@ -318,6 +345,9 @@ const Navbar = ({
                   >
                     <List component='li' disablePadding>
                       {item.children.map((child) => {
+                        const { permission } = child
+                        if (permission && !authenticateUser(permission)) return
+
                         return (
                           <NextLink
                             key={child.label}
