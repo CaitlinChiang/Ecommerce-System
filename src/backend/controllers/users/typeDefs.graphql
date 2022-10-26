@@ -68,7 +68,7 @@ extend type Mutation {
     phoneNumber: String!
   ): User
 
-  delete_user(_id: ID!): Void
+  delete_user(_id: ID!, type: String!): Void
 
   forgot_user_password(email: String!, type: String!): Void
 
