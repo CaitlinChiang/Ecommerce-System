@@ -2,6 +2,7 @@ import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import { DeleteUserArgs } from '../../../../types/user'
 import { AdminPermission } from '../../../_enums/adminPermission'
+import { UserType } from '../../../_enums/userType'
 import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
@@ -13,11 +14,20 @@ export default async (
   args: DeleteUserArgs,
   context: Context
 ): Promise<void> => {
-  await authenticateUser(context, true, AdminPermission.DELETE_USER)
+  if (args.type === UserType.ADMINISTRATOR) {
+    await authenticateUser(context, true, AdminPermission.DELETE_ADMINISTRATOR)
+  } else {
+    await authenticateUser(context, true, AdminPermission.DELETE_CUSTOMER)
+  }
 
   await context.database.users.findOneAndUpdate(
     { _id: new ObjectId(args._id) },
-    { $set: mutateArgs(context, args, MutateAction.DELETE) }
+    {
+      $set: {
+        ...mutateArgs(context, args, MutateAction.DELETE),
+        active: false
+      }
+    }
   )
 
   await createAuditLog(context, AuditLogAction.DELETE_USER)

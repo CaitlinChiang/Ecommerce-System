@@ -2,6 +2,8 @@ import bcrypt from 'bcrypt'
 import { ObjectId } from 'mongodb'
 import { Context } from '../../../../types/setup/context'
 import { CreateUserArgs } from '../../../../types/user'
+import { AdminPermission } from '../../../_enums/adminPermission'
+import { UserType } from '../../../_enums/userType'
 import { MutateAction } from '../../../_enums/mutateAction'
 import { AuditLogAction } from '../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
@@ -16,7 +18,11 @@ export default async (
   args: CreateUserArgs,
   context: Context
 ): Promise<string> => {
-  await authenticateUser(context, false)
+  if (args.type === UserType.ADMINISTRATOR) {
+    await authenticateUser(context, true, AdminPermission.CREATE_ADMINISTRATOR)
+  } else {
+    await authenticateUser(context, false)
+  }
 
   const updateUser: boolean = await updateUserType(context, args.email, args.type)
   if (updateUser) return
