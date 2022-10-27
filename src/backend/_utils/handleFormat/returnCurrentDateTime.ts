@@ -40,6 +40,7 @@ const transformTo24HourTime = (hour: string, currentTimeOfDay: string): string =
     case 'AM':
       return formatDateZeroes(hour)
     case 'PM':
+      if (Number(hour) === 12) return '12'
       return String(12 + Number(hour))
   }
 }
