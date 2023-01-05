@@ -1,63 +1,65 @@
 <mjml>
-  <mj-body>    
+  <mj-body>
     <mj-section padding-bottom="0">
-    	<mj-column>
-        <mj-image src="https://res.cloudinary.com/de97aemr0/image/upload/v1672929483/logo/nzg8wx3j8wlrycwbnwec.png"></mj-image>
+      <mj-column>
+        <mj-image
+          src="https://res.cloudinary.com/de97aemr0/image/upload/v1672929483/logo/nzg8wx3j8wlrycwbnwec.png"
+        ></mj-image>
       </mj-column>
     </mj-section>
-    
+
     <mj-section background-color="#fff" padding-top="10">
       <mj-column>
         <mj-text align="justify" font-size="18px" font-family="helvetica">
-        	Good Day {{user.firstName}} {{user.lastName}}, <br /><br />
-We have successfully received your order on {{createdAt}}. We’re getting your order ready for shipping. We hope to see you shopping with us again soon!
+          Good Day {{user.firstName}} {{user.lastName}}, <br /><br />
+          We have successfully received your order on {{createdAt}}. We’re getting
+          your order ready for shipping. We hope to see you shopping with us again
+          soon!
         </mj-text>
       </mj-column>
     </mj-section>
-    
+
     <mj-divider border-color="#E8E8E8"></mj-divider>
-    
+
     <mj-section>
       <mj-column>
-        <mj-text font-size="23px" font-family="helvetica">
-        	Details:
-        </mj-text>
+        <mj-text font-size="23px" font-family="helvetica"> Details: </mj-text>
         <mj-text font-size="18px" font-family="helvetica">
           Order ID: {{orderId}} <br /><br />
-        	Name: {{user.firstName}} {{user.lastName}} <br /><br />
+          Name: {{user.firstName}} {{user.lastName}} <br /><br />
           Address: {{address}}, {{city}} <br /><br />
           Phone: {{user.phoneNumber}} <br /><br />
           Email: {{user.email}} <br />
         </mj-text>
       </mj-column>
     </mj-section>
-    
+
     <mj-divider border-color="#E8E8E8"></mj-divider>
-      
+
     <mj-section>
       <mj-column>
-        <mj-text font-size="23px" font-family="helvetica">
-        	Items:
-        </mj-text>
-				<mj-table table-layout="auto">
-        	<tr
+        <mj-text font-size="23px" font-family="helvetica"> Items: </mj-text>
+        <mj-table table-layout="auto">
+          <tr
             style="
               border-bottom: 1px solid #ecedee;
               text-align: left;
               padding: 15px 10px;
               font-size: 20px;
-              font-family: helvetica
+              font-family: helvetica;
             "
           >
             <th></th>
           </tr>
           {{#each items}}
-          <tr style="
+          <tr
+            style="
               border-bottom: 1px solid #ecedee;
               text-align: left;
               padding: 15px 0;
-              font-family: helvetica
-            ">
+              font-family: helvetica;
+            "
+          >
             <td style="font-size: 17px; padding: 10px 15px 10px 0">
               {{name}} (x{{quantity}}) <br />
               P{{totalPrice}}
@@ -67,34 +69,31 @@ We have successfully received your order on {{createdAt}}. We’re getting your 
         </mj-table>
       </mj-column>
     </mj-section>
-    
+
     <mj-divider border-color="#E8E8E8"></mj-divider>
-    
+
     <mj-section>
       <mj-column>
-        <mj-text font-size="23px" font-family="helvetica">
-        	Summary:
-        </mj-text>
+        <mj-text font-size="23px" font-family="helvetica"> Summary: </mj-text>
         <mj-text font-size="18px" font-family="helvetica">
-        	Subtotal: P{{payment.amountDue}} <br /><br />
+          Subtotal: P{{payment.amountDue}} <br /><br />
           Shipping Fee: P{{payment.shippingFee}} <br /><br />
           Total: P{{payment.total}} <br />
         </mj-text>
       </mj-column>
     </mj-section>
-    
+
     <mj-divider border-color="#E8E8E8"></mj-divider>
-    
+
     <mj-section>
       <mj-column>
         <mj-text font-weight="bold" font-size="18px" font-family="helvetica">
-        	Have any questions?
+          Have any questions?
         </mj-text>
         <mj-text font-size="18px" font-family="helvetica">
-        	You may contact us at *COMPANY EMAIL & PHONE*
+          You may contact us at *COMPANY EMAIL & PHONE*
         </mj-text>
       </mj-column>
     </mj-section>
-    
   </mj-body>
 </mjml>
