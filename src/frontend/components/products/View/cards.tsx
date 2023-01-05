@@ -65,6 +65,7 @@ const ProductCards = ({ featured }: { featured: boolean }): ReactElement => {
               )}
             </>
           }
+          featured={featured}
           imageAlt={`${name} Product Image`}
           imageSource={imageUrl}
           redirectLink={{

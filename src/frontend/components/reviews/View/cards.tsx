@@ -13,7 +13,7 @@ const ReviewCards = ({ featured }: { featured: boolean }): ReactElement => {
   const args: GetReviewArgs = { featured: featured ? true : null }
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
     page: 0,
-    rowsPerPage: 10,
+    rowsPerPage: 12,
     searchText: '',
     sortBy: 'createdAt',
     sortDirection: SortDirection.DESC
@@ -46,7 +46,7 @@ const ReviewCards = ({ featured }: { featured: boolean }): ReactElement => {
       const { content, username } = review
 
       return (
-        <Grid item xs={6} md={6} lg={6}>
+        <Grid item xs={6} md={6} lg={featured ? 4 : 6}>
           <Card>
             <CardContent>
               <Typography variant={'h5'}>{`"${content}"`}</Typography>
