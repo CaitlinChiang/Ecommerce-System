@@ -1,35 +1,34 @@
 import { NextPage } from 'next'
 import { ReactElement } from 'react'
-import { Divider } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import HomeSlogan from '../components/websiteTexts/View/homeSlogan'
 import ProductCards from '../components/products/View/cards'
 import ReviewCards from '../components/reviews/View/cards'
 import AboutWriteup from '../components/websiteTexts/View/aboutWriteup'
-import layout from '../layouts/customer'
+import layout from '../layouts/customer/homepage'
 
 const Home: NextPage = (): ReactElement => {
-  const homePageComponents = [
-    <HomeSlogan />,
-    <ProductCards featured={true} />,
-    <ReviewCards featured={true} />,
-    <AboutWriteup />
-  ]
-
   return (
     <>
-      {homePageComponents.map(
-        (component: ReactElement, index: number): ReactElement => {
-          if (index === 3) return component
-          return (
-            <>
-              {component}
-              <Divider sx={{ marginTop: 5, marginBottom: 5 }} />
-            </>
-          )
-        }
-      )}
+      <HomeSlogan />
+
+      <Box style={{ paddingTop: '1%', paddingLeft: '4%' }}>
+        <Typography variant={'h1'} style={{ marginTop: 5 }}>
+          {'Featured Products'}
+        </Typography>
+        <ProductCards featured={true} />
+      </Box>
+
+      <Box style={{ paddingTop: '1%', paddingLeft: '4%' }}>
+        <Typography variant={'h1'} style={{ marginTop: 5 }}>
+          {'Reviews from Customers'}
+        </Typography>
+        <ReviewCards featured={true} />
+      </Box>
+
+      <AboutWriteup />
     </>
   )
 }
 
-export default layout(Home, {})
+export default layout(Home)
