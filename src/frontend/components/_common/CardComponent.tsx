@@ -32,7 +32,7 @@ const CardComponent = ({
   }
 
   return (
-    <Grid item xs={6} md={4} lg={3} display={'flex'}>
+    <Grid item xs={6} md={6} lg={3} display={'flex'}>
       <Card onClick={handleOnClick} sx={{ p: 0, width: '100%' }}>
         <CardActionArea>
           {imageSource && !productVariantId && (

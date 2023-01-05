@@ -26,7 +26,7 @@ const ProductCards = ({ featured }: { featured: boolean }): ReactElement => {
   })
   const [paginateDataArgs, setPaginateDataArgs] = useState<PaginateDataArgs>({
     page: 0,
-    rowsPerPage: 10,
+    rowsPerPage: 12,
     searchText: '',
     sortBy: 'name',
     sortDirection: SortDirection.ASC
@@ -87,7 +87,12 @@ const ProductCards = ({ featured }: { featured: boolean }): ReactElement => {
   return (
     <Grid container>
       <Grid item xs={12} md={4} lg={2.5}>
-        <ProductCardsFilters args={args} setArgs={setArgs} />
+        <ProductCardsFilters
+          args={args}
+          paginateDataArgs={paginateDataArgs}
+          setArgs={setArgs}
+          setPaginateDataArgs={setPaginateDataArgs}
+        />
       </Grid>
       <Grid item xs={12} md={8} lg={9.5}>
         <Card>

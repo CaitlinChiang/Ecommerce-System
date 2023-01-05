@@ -29,7 +29,7 @@ export default {
 
       const itemsTotalPrice: number = cart.items.reduce(
         (totalPrice: number, currentProduct: CartItem): number => {
-          return totalPrice + currentProduct.totalPrice
+          return totalPrice + currentProduct.totalPrice * currentProduct.quantity
         },
         0
       )

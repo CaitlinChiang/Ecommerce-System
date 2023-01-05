@@ -80,7 +80,7 @@ const CardsPaginationComponent = ({
       <PaginationComponent
         count={count}
         paginateDataArgs={paginateDataArgs}
-        rowsPerPageOptions={[12, 18, 24, 30]}
+        rowsPerPageOptions={[12, 16, 20, 24, 28, 32, 36, 40]}
         setPaginateDataArgs={setPaginateDataArgs}
       />
     </>
