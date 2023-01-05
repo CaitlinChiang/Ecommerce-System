@@ -5,11 +5,13 @@ import { ObjectId } from 'mongodb'
 import NumberIncrementor from '../../_common/NumberIncrementor'
 
 const EditItemQuantity = ({
+  price,
   productId,
   productVariantId,
   quantity,
   stockQuantity
 }: {
+  price: number
   productId?: ObjectId
   productVariantId?: ObjectId
   quantity: number
@@ -19,7 +21,7 @@ const EditItemQuantity = ({
 
   return (
     <NumberIncrementor
-      args={{ productId, productVariantId, quantity }}
+      args={{ price, productId, productVariantId, quantity }}
       stockQuantity={stockQuantity}
       targetProp={'quantity'}
       updateMutation={updateMutation}

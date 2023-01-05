@@ -29,6 +29,7 @@ export interface AddCartItemArgs {
 }
 
 export interface EditItemQuantity {
+  price: number
   productId?: ObjectId
   productVariantId?: ObjectId
   quantity: number

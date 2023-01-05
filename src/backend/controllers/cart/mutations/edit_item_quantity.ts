@@ -16,7 +16,12 @@ export default async (
         _userId: context.userId,
         items: { $elemMatch: cartItemArgs(args) }
       },
-      { $set: { 'items.$.quantity': args.quantity } },
+      {
+        $set: {
+          'items.$.quantity': args.quantity,
+          'items.$.totalPrice': args.price * args.quantity
+        }
+      },
       { returnDocument: 'after' }
     )
     .then((cart) => cart.value)

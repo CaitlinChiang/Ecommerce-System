@@ -55,6 +55,7 @@ const Cart = (): ReactElement => {
               )}`}</Typography>
               <Box sx={{ mt: 1.5 }}>
                 <EditItemQuantity
+                  price={item?.price}
                   productId={product?._id}
                   productVariantId={productVariant?._id}
                   stockQuantity={item?.stockQuantity}
@@ -122,6 +123,7 @@ const Cart = (): ReactElement => {
             xs={2}
             content={
               <EditItemQuantity
+                price={item?.price}
                 productId={product?._id}
                 productVariantId={productVariant?._id}
                 stockQuantity={item?.stockQuantity}
