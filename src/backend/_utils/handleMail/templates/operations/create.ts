@@ -1,4 +1,4 @@
-const AWS = require('../../setup/aws-ses')
+const AWS = require('../../../setup/aws-ses')
 
 // CHANGE IMPORT DEPENDING ON WHICH TEMPLATE IS BEING CREATED
 import { paymentReceiptTemplate } from '../paymentReceipt'
