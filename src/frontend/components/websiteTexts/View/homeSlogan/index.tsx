@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 import { useRouter } from 'next/router'
 import { useQuery } from '@apollo/client'
 import { GetWebsiteText } from '../query'
-import { Button, Typography } from '@mui/material'
+import { Button, Box, Typography } from '@mui/material'
 import { WebsiteText } from '../../../../../types/websiteText'
 import { WebsiteTextType } from '../../../../_enums/websiteTextType'
 
@@ -16,14 +16,44 @@ const HomeSlogan = (): ReactElement => {
 
   return (
     <>
-      <Typography>{websiteText.content}</Typography>
-      <Button
-        onClick={(): void => {
-          router.push('/shop')
+      <Box
+        style={{
+          backgroundImage: 'url(http://localhost:4000/images/homepage.jpeg)',
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center',
+          width: '100vw',
+          minHeight: '100vh'
         }}
       >
-        {'Visit Shop'}
-      </Button>
+        <Box style={{ paddingTop: '15%', paddingLeft: '5%' }}>
+          <Typography
+            style={{
+              fontSize: 50,
+              color: '#000000',
+              whiteSpace: 'pre-line'
+            }}
+            variant={'h1'}
+          >
+            {websiteText.content}
+          </Typography>
+          <Button
+            color={'primary'}
+            onClick={(): void => {
+              router.push('/shop')
+            }}
+            style={{
+              fontSize: 20,
+              marginTop: 25,
+              paddingLeft: 100,
+              paddingRight: 100
+            }}
+            variant={'contained'}
+          >
+            {'Visit Shop'}
+          </Button>
+        </Box>
+      </Box>
     </>
   )
 }
