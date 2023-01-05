@@ -11,7 +11,7 @@ export const returnCartItems = async (
   const cartItems: CartItem[] = []
 
   for (let i = 0, n = items?.length; i < n; i++) {
-    const { productId, productVariantId, quantity, totalPrice } = items[i]
+    const { productId, productVariantId, quantity } = items[i]
 
     const product: Product = await context.dataloaders.products.byId.load(productId)
     let productVariant: ProductVariant = null
@@ -22,11 +22,13 @@ export const returnCartItems = async (
       )
     }
 
+    const price = productVariant?.price || product?.price
+
     cartItems.push({
       product,
       productVariant,
       quantity,
-      totalPrice: formatPrice(totalPrice * quantity)
+      totalPrice: formatPrice(price * quantity)
     })
   }
 
