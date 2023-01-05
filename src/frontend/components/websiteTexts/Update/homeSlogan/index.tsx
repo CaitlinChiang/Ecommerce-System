@@ -55,6 +55,7 @@ const UpdateHomeSlogan = (): ReactElement => {
           args={args}
           error={validateFields}
           maxLength={100}
+          multiline={true}
           placeholder={'Type home page slogan here...'}
           required={true}
           setArgs={setArgs}
