@@ -7,7 +7,7 @@ import { AuditLogAction } from '../../../../_enums/auditLogAction'
 import { authenticateUser } from '../../../../_utils/auth/authenticateUser'
 import { mutateArgs } from '../../../../_utils/handleArgs/mutateArgs'
 import { createAuditLog } from '../../../../_utils/handleData/createAuditLog'
-import { validateUser } from '../../../../_utils/handleValidation/validateUser'
+import { validateUser } from '../../../../_utils/handleValidations/validateUser'
 
 export default async (
   _root: undefined,

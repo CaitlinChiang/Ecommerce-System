@@ -1,6 +1,6 @@
 import { Context } from '../../../types/setup/context'
 import { MutateAction } from '../../_enums/mutateAction'
-import { currentDateTime } from '../handleFormat/returnCurrentDateTime'
+import { currentDateTime } from '../handleFormats/returnCurrentDateTime'
 import { correctArgs } from './correctArgs'
 
 export const mutateArgs = (

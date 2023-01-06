@@ -2,8 +2,8 @@ import { Context } from '../../../types/setup/context'
 import { Product } from '../../../types/product'
 import { ProductVariant } from '../../../types/productVariant'
 import { User } from '../../../types/user'
-import { formatDate } from '../../_utils/handleFormat/formatDate'
-import { formatDateTime } from '../../_utils/handleFormat/formatDateTime'
+import { formatDate } from '../../_utils/handleFormats/formatDate'
+import { formatDateTime } from '../../_utils/handleFormats/formatDateTime'
 
 export default {
   ProductVariant: {

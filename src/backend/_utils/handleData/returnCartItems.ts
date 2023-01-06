@@ -2,7 +2,7 @@ import { Context } from '../../../types/setup/context'
 import { CartItem } from '../../../types/cart'
 import { Product } from '../../../types/product'
 import { ProductVariant } from '../../../types/productVariant'
-import { formatPrice } from '../handleFormat/formatPrice'
+import { formatPrice } from '../handleFormats/formatPrice'
 
 export const returnCartItems = async (
   context: Context,

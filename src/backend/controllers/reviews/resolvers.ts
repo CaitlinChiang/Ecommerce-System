@@ -1,7 +1,7 @@
 import { Context } from '../../../types/setup/context'
 import { Review } from '../../../types/review'
 import { User } from '../../../types/user'
-import { formatDateTime } from '../../_utils/handleFormat/formatDateTime'
+import { formatDateTime } from '../../_utils/handleFormats/formatDateTime'
 
 export default {
   Review: {

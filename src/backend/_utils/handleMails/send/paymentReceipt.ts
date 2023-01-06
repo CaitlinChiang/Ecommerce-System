@@ -5,8 +5,8 @@ import { City } from '../../../../types/city'
 import { Order } from '../../../../types/order'
 import { Payment } from '../../../../types/payment'
 import { User } from '../../../../types/user'
-import { formatDateTime } from '../../handleFormat/formatDateTime'
-import { formatPrice } from '../../handleFormat/formatPrice'
+import { formatDateTime } from '../../handleFormats/formatDateTime'
+import { formatPrice } from '../../handleFormats/formatPrice'
 import { returnCartItems } from '../../handleData/returnCartItems'
 
 const AWS = require('../../setup/aws-ses')

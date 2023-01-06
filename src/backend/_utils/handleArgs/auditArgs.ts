@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb'
-import { currentDateTime } from '../handleFormat/returnCurrentDateTime'
+import { currentDateTime } from '../handleFormats/returnCurrentDateTime'
 
 export const auditArgs = (
   userId: ObjectId

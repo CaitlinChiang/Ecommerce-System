@@ -1,8 +1,8 @@
 import { Context } from '../../../../types/setup/context'
 import { User, SignInUserArgs } from '../../../../types/user'
 import { authenticateUser } from '../../../_utils/auth/authenticateUser'
-import { validateUser } from '../../../_utils/handleValidation/validateUser'
-import { validatePassword } from '../../../_utils/handleValidation/validatePassword'
+import { validateUser } from '../../../_utils/handleValidations/validateUser'
+import { validatePassword } from '../../../_utils/handleValidations/validatePassword'
 import { generateJWT } from '../../../_utils/auth/jwt'
 
 export default async (

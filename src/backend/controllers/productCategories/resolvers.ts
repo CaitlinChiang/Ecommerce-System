@@ -1,7 +1,7 @@
 import { Context } from '../../../types/setup/context'
 import { ProductCategory } from '../../../types/productCategory'
 import { User } from '../../../types/user'
-import { formatDateTime } from '../../_utils/handleFormat/formatDateTime'
+import { formatDateTime } from '../../_utils/handleFormats/formatDateTime'
 
 export default {
   ProductCategory: {

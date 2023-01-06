@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb'
 import { OrderStatus } from '../../_enums/orderStatus'
 import { correctArgs } from './correctArgs'
-import { formatDateRange } from '../handleFormat/formatDateRange'
+import { formatDateRange } from '../handleFormats/formatDateRange'
 import { stockQuantityArgs } from './stockQuantityArgs'
 
 export const queryArgs = (args: any): any => {
