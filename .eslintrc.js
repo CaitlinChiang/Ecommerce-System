@@ -30,5 +30,11 @@ module.exports = {
     'object-curly-spacing': ['error', 'always'],
     quotes: 'off',
     semi: ['error', 'never']
-  }
+  },
+  "prettier/prettier": [
+    "error",
+    {
+      "endOfLine": "auto"
+    },
+  ]
 }
